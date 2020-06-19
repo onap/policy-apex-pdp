@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock;
 
 import com.google.common.eventbus.EventBus;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

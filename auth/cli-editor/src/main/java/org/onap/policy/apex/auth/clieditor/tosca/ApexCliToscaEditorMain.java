@@ -65,7 +65,7 @@ public class ApexCliToscaEditorMain {
 
         String policyModelFilePath = null;
         try {
-            final File tempModelFile = File.createTempFile("policyModel",".json");
+            final File tempModelFile = File.createTempFile("policyModel", ".json");
             policyModelFilePath = tempModelFile.getAbsolutePath();
         } catch (IOException e) {
             LOGGER.error("Cannot create the policy model temp file.", e);

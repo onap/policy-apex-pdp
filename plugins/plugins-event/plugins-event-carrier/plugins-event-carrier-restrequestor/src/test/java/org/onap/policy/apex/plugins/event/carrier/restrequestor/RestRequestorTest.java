@@ -26,17 +26,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.google.gson.Gson;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

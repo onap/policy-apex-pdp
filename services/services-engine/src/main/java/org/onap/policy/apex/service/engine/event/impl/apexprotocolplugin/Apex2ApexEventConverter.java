@@ -22,7 +22,6 @@ package org.onap.policy.apex.service.engine.event.impl.apexprotocolplugin;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventList;

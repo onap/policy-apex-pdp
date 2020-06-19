@@ -22,7 +22,6 @@
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
 import java.util.Properties;
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;

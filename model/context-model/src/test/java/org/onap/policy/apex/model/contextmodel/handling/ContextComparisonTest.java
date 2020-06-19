@@ -29,7 +29,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-import org.onap.policy.apex.model.contextmodel.handling.ContextComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
 
 /**

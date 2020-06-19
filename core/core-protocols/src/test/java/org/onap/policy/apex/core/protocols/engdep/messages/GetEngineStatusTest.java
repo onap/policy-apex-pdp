@@ -24,9 +24,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.UnknownHostException;
-
 import org.junit.Test;
-import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

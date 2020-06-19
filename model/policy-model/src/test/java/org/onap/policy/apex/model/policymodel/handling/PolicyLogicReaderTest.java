@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
-import org.onap.policy.apex.model.policymodel.handling.PolicyLogicReader;
 
 /**
  * Logic reader for policy tests.

@@ -24,7 +24,6 @@ package org.onap.policy.apex.service.engine.engdep;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;

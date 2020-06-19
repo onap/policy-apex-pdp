@@ -21,7 +21,6 @@
 package org.onap.policy.apex.auth.clicodegen;
 
 import java.util.Locale;
-
 import org.stringtemplate.v4.AttributeRenderer;
 import org.stringtemplate.v4.StringRenderer;
 

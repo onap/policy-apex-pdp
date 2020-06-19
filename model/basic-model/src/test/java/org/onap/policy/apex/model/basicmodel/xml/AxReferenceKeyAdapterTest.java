@@ -25,7 +25,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
 public class AxReferenceKeyAdapterTest {
 
@@ -38,6 +37,6 @@ public class AxReferenceKeyAdapterTest {
         
         String rkeyString = arka.marshal(rkey);
         assertEquals("LN", rkeyString);
-        assertEquals(rkey.getLocalName(),arka.unmarshal(rkeyString).getLocalName());
+        assertEquals(rkey.getLocalName(), arka.unmarshal(rkeyString).getLocalName());
     }
 }

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.context;
 
 import java.util.Set;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;

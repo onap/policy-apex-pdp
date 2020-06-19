@@ -22,7 +22,6 @@ package org.onap.policy.apex.model.basicmodel.handling;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
@@ -56,7 +55,7 @@ public class DummyAxModelWithReferences extends AxModel {
         List<AxKey> keys = super.getKeys();
         
         for (AxKey key: keys) {
-            AxArtifactKey akey = (AxArtifactKey)key;
+            AxArtifactKey akey = (AxArtifactKey) key;
             AxReferenceKey keyRef = new AxReferenceKey(akey, akey.getName());
             extrakeyList.add(keyRef);
         }

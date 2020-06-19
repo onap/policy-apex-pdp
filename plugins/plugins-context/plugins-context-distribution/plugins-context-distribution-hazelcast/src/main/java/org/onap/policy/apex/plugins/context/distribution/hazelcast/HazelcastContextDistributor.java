@@ -22,9 +22,7 @@ package org.onap.policy.apex.plugins.context.distribution.hazelcast;
 
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-
 import java.util.Map;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;

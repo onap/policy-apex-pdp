@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.client;
 
 import java.net.URI;
-
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.slf4j.ext.XLogger;

@@ -23,7 +23,6 @@ package org.onap.policy.apex.services.onappf.parameters.dummyclasses;
 
 import java.util.Map;
 import java.util.Properties;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;

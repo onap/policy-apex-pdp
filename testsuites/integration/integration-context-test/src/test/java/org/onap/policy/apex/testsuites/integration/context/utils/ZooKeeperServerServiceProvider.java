@@ -24,7 +24,6 @@ package org.onap.policy.apex.testsuites.integration.context.utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-
 import org.apache.zookeeper.server.NIOServerCnxnFactory;
 import org.apache.zookeeper.server.ZooKeeperServer;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

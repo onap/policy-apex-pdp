@@ -23,12 +23,10 @@ package org.onap.policy.apex.domains.onap.vcpe;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.time.Instant;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.BlockingQueue;
-
 import org.onap.policy.appclcm.AppcLcmBody;
 import org.onap.policy.appclcm.AppcLcmDmaapWrapper;
 import org.onap.policy.appclcm.AppcLcmInput;

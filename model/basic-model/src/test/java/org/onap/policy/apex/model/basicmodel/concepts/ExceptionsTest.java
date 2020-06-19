@@ -24,12 +24,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexConceptException;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+
 
 public class ExceptionsTest {
 

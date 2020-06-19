@@ -22,7 +22,6 @@ package org.onap.policy.apex.model.utilities.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;

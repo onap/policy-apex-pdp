@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -22,7 +22,6 @@
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import java.util.Properties;
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Message;
@@ -31,7 +30,6 @@ import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
-
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;

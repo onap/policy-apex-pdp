@@ -22,7 +22,6 @@
 package org.onap.policy.apex.client.full.rest;
 
 import java.io.PrintStream;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -141,8 +140,7 @@ public class ApexServicesRestMain {
             String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
             outStream.println(message);
             LOGGER.warn(message, e);
-        }
-        finally {
+        } finally {
             if (apexServices != null) {
                 apexServices.shutdown();
                 apexServices = null;

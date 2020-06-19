@@ -24,13 +24,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringWriter;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

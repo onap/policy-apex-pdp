@@ -22,7 +22,6 @@ package org.onap.policy.apex.testsuites.integration.executor.handling;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;

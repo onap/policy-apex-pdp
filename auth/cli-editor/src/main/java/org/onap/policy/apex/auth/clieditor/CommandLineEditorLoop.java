@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
@@ -208,9 +207,8 @@ public class CommandLineEditorLoop {
                     executionStatus.setRight(executionStatus.getRight() + 1);
                 }
             }
-        }
-        // Print any error messages from command parsing and finding
-        catch (final CommandLineException e) {
+        } catch (final CommandLineException e) {
+            // Print any error messages from command parsing and finding
             writer.println(e.getMessage());
             executionStatus.setRight(executionStatus.getRight() + 1);
             LOGGER.debug(COMMAND_LINE_ERROR, e);
@@ -254,9 +252,8 @@ public class CommandLineEditorLoop {
                 } else {
                     logicBlock.append(logicLine + "\n");
                 }
-            }
-            // Print any error messages from command parsing and finding
-            catch (final CommandLineException e) {
+            } catch (final CommandLineException e) {
+                // Print any error messages from command parsing and finding
                 writer.println(e.getMessage());
                 executionStatus.setRight(executionStatus.getRight() + 1);
                 LOGGER.debug(COMMAND_LINE_ERROR, e);

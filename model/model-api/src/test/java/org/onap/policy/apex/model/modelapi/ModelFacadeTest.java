@@ -26,7 +26,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Properties;
 import java.util.UUID;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.modelapi.impl.ModelFacade;
 

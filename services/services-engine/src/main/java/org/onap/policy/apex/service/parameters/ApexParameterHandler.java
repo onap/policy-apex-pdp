@@ -70,11 +70,11 @@ public class ApexParameterHandler {
             // Register the adapters for our carrier technologies and event protocols with GSON
             // @formatter:off
             final Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(EngineParameters           .class, 
+                            .registerTypeAdapter(EngineParameters.class, 
                                             new EngineServiceParametersJsonAdapter())
                             .registerTypeAdapter(CarrierTechnologyParameters.class, 
                                             new CarrierTechnologyParametersJsonAdapter())
-                            .registerTypeAdapter(EventProtocolParameters    .class, 
+                            .registerTypeAdapter(EventProtocolParameters.class, 
                                             new EventProtocolParametersJsonAdapter())
                             .create();
             // @formatter:on

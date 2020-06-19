@@ -22,9 +22,7 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
 import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
-
 import java.time.Duration;
-
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;

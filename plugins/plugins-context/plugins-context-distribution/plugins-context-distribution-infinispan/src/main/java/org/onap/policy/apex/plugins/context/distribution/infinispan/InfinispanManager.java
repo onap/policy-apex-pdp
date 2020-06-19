@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import java.io.IOException;
-
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.onap.policy.apex.context.ContextException;

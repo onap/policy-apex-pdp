@@ -23,7 +23,6 @@ package org.onap.policy.apex.core.protocols.engdep;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.onap.policy.apex.core.protocols.engdep.EngDepAction;
 
 /**
  * Test the Eng Dep Action class.

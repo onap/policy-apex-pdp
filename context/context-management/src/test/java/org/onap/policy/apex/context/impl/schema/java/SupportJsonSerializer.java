@@ -23,9 +23,7 @@ package org.onap.policy.apex.context.impl.schema.java;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
 import java.lang.reflect.Type;
-
 import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

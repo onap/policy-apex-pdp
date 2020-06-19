@@ -21,7 +21,6 @@
 package org.onap.policy.apex.model.basicmodel.dao.converters;
 
 import java.util.UUID;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
@@ -42,8 +41,7 @@ public class Uuid2String extends XmlAdapter<String, UUID> implements AttributeCo
         String returnString;
         if (uuid == null) {
             returnString = "";
-        }
-        else {
+        } else {
             returnString = uuid.toString();
         }
         return returnString;

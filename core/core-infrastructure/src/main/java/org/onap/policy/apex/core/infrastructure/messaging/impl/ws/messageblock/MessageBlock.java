@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock;
 
 import java.util.List;
-
 import org.java_websocket.WebSocket;
 
 /**

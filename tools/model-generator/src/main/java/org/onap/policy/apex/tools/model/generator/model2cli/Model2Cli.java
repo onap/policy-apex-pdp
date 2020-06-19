@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-
 import org.apache.commons.lang3.Validate;
 import org.onap.policy.apex.auth.clicodegen.CodeGenCliEditorBuilder;
 import org.onap.policy.apex.auth.clicodegen.CodeGeneratorCliEditor;

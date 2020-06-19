@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.engine.engine.impl;
 
 import java.util.HashMap;
-
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.ExecutorFactory;

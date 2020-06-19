@@ -30,18 +30,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Map;
 import java.util.TreeMap;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.policymodel.concepts.AxPolicies;
-import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
-import org.onap.policy.apex.model.policymodel.concepts.AxState;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTree;
 import org.onap.policy.apex.model.policymodel.handling.SupportApexPolicyModelCreator;
 
 /**
@@ -241,7 +235,7 @@ public class PoliciesTest {
         assertTrue(policy.equals(policy));
         assertTrue(policy.equals(clonedPolicy));
         assertFalse(policy.equals(null));
-        assertFalse(policy.equals((Object)"Hello"));
+        assertFalse(policy.equals((Object) "Hello"));
         assertFalse(policy.equals(
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
         assertFalse(policy.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
@@ -325,7 +319,7 @@ public class PoliciesTest {
         assertTrue(policies.equals(policies));
         assertTrue(policies.equals(clonedPolicies));
         assertFalse(policies.equals(null));
-        assertFalse(policies.equals((Object)"Hello"));
+        assertFalse(policies.equals((Object) "Hello"));
         assertFalse(policies.equals(new AxPolicies(new AxArtifactKey())));
 
         assertEquals(0, policies.compareTo(policies));

@@ -23,7 +23,6 @@ package org.onap.policy.apex.context.impl;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;

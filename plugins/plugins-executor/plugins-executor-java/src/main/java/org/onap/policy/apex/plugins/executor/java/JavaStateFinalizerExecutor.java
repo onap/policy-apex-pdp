@@ -24,7 +24,6 @@ package org.onap.policy.apex.plugins.executor.java;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Properties;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
 import org.onap.policy.apex.core.engine.executor.context.StateFinalizerExecutionContext;

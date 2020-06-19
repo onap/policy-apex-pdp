@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;

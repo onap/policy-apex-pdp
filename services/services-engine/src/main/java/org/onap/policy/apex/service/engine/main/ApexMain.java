@@ -105,7 +105,7 @@ public class ApexMain {
      */
     public ApexMain(Map<ToscaPolicyIdentifier, String[]> policyArgumentsMap) throws ApexException {
         apexParametersMap = new LinkedHashMap<>();
-        for ( Entry<ToscaPolicyIdentifier, String[]> policyArgsEntry: policyArgumentsMap.entrySet()) {
+        for (Entry<ToscaPolicyIdentifier, String[]> policyArgsEntry: policyArgumentsMap.entrySet()) {
             try {
                 apexParametersMap.put(policyArgsEntry.getKey(), populateApexParameters(policyArgsEntry.getValue()));
             } catch (ApexException e) {

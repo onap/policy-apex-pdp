@@ -171,8 +171,7 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
         // Wait until the event is in the cache of events sent to apex
         do {
             ThreadUtilities.sleep(REST_SERVER_CONSUMER_WAIT_SLEEP_TIME);
-        }
-        while (!synchronousEventCache.existsEventToApex(executionId));
+        } while (!synchronousEventCache.existsEventToApex(executionId));
 
         // Now wait for the reply or for the event to time put
         do {
@@ -188,8 +187,7 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
                 // Return the event as a response to the call
                 return Response.status(Response.Status.OK.getStatusCode()).entity(responseEvent.toString()).build();
             }
-        }
-        while (synchronousEventCache.existsEventToApex(executionId));
+        } while (synchronousEventCache.existsEventToApex(executionId));
 
         // The event timed out
         final String errorMessage = "processing of event on event consumer " + name + " timed out, event=" + event;

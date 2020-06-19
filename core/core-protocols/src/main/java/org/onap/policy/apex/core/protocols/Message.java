@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.protocols;
 
 import java.io.Serializable;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**

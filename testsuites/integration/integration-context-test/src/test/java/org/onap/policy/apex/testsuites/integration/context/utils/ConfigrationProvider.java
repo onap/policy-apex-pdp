@@ -23,7 +23,6 @@ package org.onap.policy.apex.testsuites.integration.context.utils;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;

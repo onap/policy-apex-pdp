@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -78,8 +77,7 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
                 break;
             }
             foundKey = nextkey;
-        }
-        while (true);
+        } while (true);
 
         return conceptMap.get(foundKey);
     }
@@ -138,8 +136,7 @@ public class AxConceptGetterImpl<C> implements AxConceptGetter<C> {
                 break;
             }
             returnSet.add(conceptMap.get(foundKey));
-        }
-        while (true);
+        } while (true);
 
         return returnSet;
     }

@@ -22,7 +22,6 @@
 package org.onap.policy.apex.testsuites.integration.uservice.engdep;
 
 import java.util.Date;
-
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.engdep.EngDepMessagingService;
 import org.onap.policy.apex.service.engine.event.ApexEvent;

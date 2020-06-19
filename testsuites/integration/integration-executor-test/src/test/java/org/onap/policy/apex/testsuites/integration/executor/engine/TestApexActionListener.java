@@ -22,7 +22,6 @@ package org.onap.policy.apex.testsuites.integration.executor.engine;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;

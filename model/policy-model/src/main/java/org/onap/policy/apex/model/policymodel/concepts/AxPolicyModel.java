@@ -140,7 +140,7 @@ public class AxPolicyModel extends AxModel {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumns({@JoinColumn(name = "albumsName", referencedColumnName = "name"),
             @JoinColumn(name = "albumsVersion", referencedColumnName = "version")})
-    @XmlElement(name = "albums", required = false )
+    @XmlElement(name = "albums", required = false)
     @XmlJavaTypeAdapter(EmptyAlbumsAdapter.class)
     private AxContextAlbums albums;
 

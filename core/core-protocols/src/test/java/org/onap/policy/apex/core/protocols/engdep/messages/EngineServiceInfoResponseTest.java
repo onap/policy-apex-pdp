@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
@@ -76,7 +75,7 @@ public class EngineServiceInfoResponseTest {
         
         assertTrue(response.equals(response));
         assertFalse(response.equals(null));
-        assertFalse(response.equals((Object)new StartEngine(new AxArtifactKey())));
+        assertFalse(response.equals((Object) new StartEngine(new AxArtifactKey())));
 
         response = new EngineServiceInfoResponse(null, false, null);
         EngineServiceInfoResponse otherResponse = new EngineServiceInfoResponse(null, false, null);

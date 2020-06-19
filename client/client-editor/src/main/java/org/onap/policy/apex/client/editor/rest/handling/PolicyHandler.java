@@ -21,7 +21,6 @@
 package org.onap.policy.apex.client.editor.rest.handling;
 
 import java.util.Map;
-
 import org.onap.policy.apex.client.editor.rest.handling.bean.BeanKeyRef;
 import org.onap.policy.apex.client.editor.rest.handling.bean.BeanLogic;
 import org.onap.policy.apex.client.editor.rest.handling.bean.BeanPolicy;

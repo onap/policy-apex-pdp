@@ -43,7 +43,7 @@ public class TestListenerUtils {
      *
      * @return PdpUpdate message
      */
-    public static PdpUpdate createPdpUpdateMsg(final PdpStatus pdpStatus, List<ToscaPolicy> toscaPolicies ) {
+    public static PdpUpdate createPdpUpdateMsg(final PdpStatus pdpStatus, List<ToscaPolicy> toscaPolicies) {
         final PdpUpdate pdpUpdateMsg = new PdpUpdate();
         pdpUpdateMsg.setDescription("dummy pdp status for test");
         pdpUpdateMsg.setPdpGroup("pdpGroup");

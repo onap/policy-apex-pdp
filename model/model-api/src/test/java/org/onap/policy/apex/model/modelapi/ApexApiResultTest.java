@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 

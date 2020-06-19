@@ -27,10 +27,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;

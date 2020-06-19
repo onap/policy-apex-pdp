@@ -25,7 +25,6 @@ import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Message;
@@ -33,7 +32,6 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
-
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;

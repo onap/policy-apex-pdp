@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.client;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.RawMessageHandler;
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.MessageBlockHandler;

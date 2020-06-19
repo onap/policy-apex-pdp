@@ -26,11 +26,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;

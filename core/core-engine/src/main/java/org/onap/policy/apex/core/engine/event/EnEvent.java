@@ -30,10 +30,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.apex.core.engine.monitoring.EventMonitor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import java.io.File;
-
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.common.parameters.GroupValidationResult;

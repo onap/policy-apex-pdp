@@ -22,7 +22,6 @@ package org.onap.policy.apex.context.impl.schema.java;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;
-
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -160,8 +159,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
             if (!JsonDeserializer.class.isAssignableFrom(adaptorClazz)) {
                 if (errorMessage == null) {
                     errorMessage = "class is not a JsonDeserializer";
-                }
-                else {
+                } else {
                     errorMessage = "class is not a JsonSerializer or JsonDeserializer";
                 }
             }

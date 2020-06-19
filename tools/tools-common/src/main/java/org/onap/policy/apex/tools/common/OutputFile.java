@@ -30,8 +30,6 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

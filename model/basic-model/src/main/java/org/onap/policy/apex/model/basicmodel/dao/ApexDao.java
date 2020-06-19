@@ -22,7 +22,6 @@ package org.onap.policy.apex.model.basicmodel.dao;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;

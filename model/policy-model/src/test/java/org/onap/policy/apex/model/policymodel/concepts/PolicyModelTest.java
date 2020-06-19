@@ -40,13 +40,6 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
-import org.onap.policy.apex.model.policymodel.concepts.AxPolicies;
-import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
-import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 import org.onap.policy.apex.model.policymodel.handling.SupportApexPolicyModelCreator;
 
 /**
@@ -90,7 +83,7 @@ public class PolicyModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals((Object)"Hello"));
+        assertFalse(model.equals((Object) "Hello"));
         assertFalse(model.equals(new AxPolicyModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),

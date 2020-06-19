@@ -17,6 +17,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.core.infrastructure.messaging;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 

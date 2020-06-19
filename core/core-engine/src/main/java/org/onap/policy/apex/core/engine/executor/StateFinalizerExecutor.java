@@ -25,9 +25,7 @@ import static org.onap.policy.common.utils.validation.Assertions.argumentOfClass
 
 import java.util.Map;
 import java.util.Properties;
-
 import lombok.NonNull;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;

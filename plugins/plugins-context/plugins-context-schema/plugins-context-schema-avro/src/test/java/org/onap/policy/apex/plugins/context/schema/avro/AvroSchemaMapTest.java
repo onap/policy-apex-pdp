@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.util.Utf8;
 import org.junit.After;

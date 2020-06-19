@@ -29,18 +29,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
-
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 import org.w3c.dom.Document;
 
 public class ApexModelWriterTest {
@@ -159,7 +156,7 @@ public class ApexModelWriterTest {
             AxModel model = new DummyApexBasicModelCreator().getModel();
 
             Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(marshallerMock)
-                .marshal((AxModel)Mockito.anyObject(), (Writer)Mockito.anyObject());
+                .marshal((AxModel) Mockito.anyObject(), (Writer) Mockito.anyObject());
 
             modelWriter.write(model, baos);
             fail("Test should throw an exception here");
@@ -192,7 +189,7 @@ public class ApexModelWriterTest {
             AxModel model = new DummyApexBasicModelCreator().getModel();
 
             Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(marshallerMock)
-                .marshal((AxModel)Mockito.anyObject(), (Document)Mockito.anyObject());
+                .marshal((AxModel) Mockito.anyObject(), (Document) Mockito.anyObject());
 
             modelWriter.write(model, baos);
             fail("Test should throw an exception here");

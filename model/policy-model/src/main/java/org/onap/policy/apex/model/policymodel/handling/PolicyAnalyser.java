@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.policymodel.handling;
 
 import java.util.Map.Entry;
 import java.util.Set;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;

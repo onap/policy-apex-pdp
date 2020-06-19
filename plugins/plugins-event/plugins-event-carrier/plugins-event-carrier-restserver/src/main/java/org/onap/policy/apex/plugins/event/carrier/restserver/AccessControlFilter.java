@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
 import java.io.IOException;
-
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;

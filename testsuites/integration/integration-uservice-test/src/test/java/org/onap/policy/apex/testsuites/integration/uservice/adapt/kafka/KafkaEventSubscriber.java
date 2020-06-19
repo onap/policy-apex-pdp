@@ -22,11 +22,9 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
 import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
-
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
-
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;

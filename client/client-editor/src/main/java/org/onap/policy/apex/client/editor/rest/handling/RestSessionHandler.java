@@ -23,7 +23,6 @@ package org.onap.policy.apex.client.editor.rest.handling;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.slf4j.ext.XLogger;

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.events;
 
 import java.util.Random;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

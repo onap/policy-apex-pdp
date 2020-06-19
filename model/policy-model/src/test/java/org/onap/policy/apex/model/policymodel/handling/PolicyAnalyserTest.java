@@ -25,8 +25,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
-import org.onap.policy.apex.model.policymodel.handling.PolicyAnalyser;
-import org.onap.policy.apex.model.policymodel.handling.PolicyAnalysisResult;
 
 public class PolicyAnalyserTest {
     @Test

@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-
 import org.apache.avro.generic.GenericData.Fixed;
 import org.junit.After;
 import org.junit.Before;

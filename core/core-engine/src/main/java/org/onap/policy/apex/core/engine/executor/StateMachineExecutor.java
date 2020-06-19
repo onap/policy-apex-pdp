@@ -24,7 +24,6 @@ package org.onap.policy.apex.core.engine.executor;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;

@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Properties;
-
 import javax.naming.Binding;
 import javax.naming.Context;
 import javax.naming.Name;
@@ -38,7 +37,6 @@ import javax.naming.NameClassPair;
 import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-
 import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 

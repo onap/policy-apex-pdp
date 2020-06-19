@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.LockManager;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;

@@ -32,8 +32,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 
 /**
  * Context album tests.
@@ -126,7 +124,7 @@ public class ContextAlbumsTest {
         assertTrue(album.equals(album));
         assertTrue(album.equals(clonedAlbum));
         assertFalse(album.equals(null));
-        assertFalse(album.equals((Object)"Hello"));
+        assertFalse(album.equals((Object) "Hello"));
         assertFalse(album.equals(new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey())));
         assertFalse(album.equals(new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey())));
         assertFalse(album.equals(new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey())));
@@ -193,7 +191,7 @@ public class ContextAlbumsTest {
         assertTrue(albums.equals(albums));
         assertTrue(albums.equals(clonedAlbums));
         assertFalse(albums.equals(null));
-        assertFalse(albums.equals((Object)"Hello"));
+        assertFalse(albums.equals((Object) "Hello"));
         assertFalse(albums.equals(new AxContextAlbums(new AxArtifactKey())));
 
         assertEquals(0, albums.compareTo(albums));

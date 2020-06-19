@@ -25,7 +25,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.Arrays;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -293,8 +292,7 @@ public class ApexCommandLineArguments {
 
         if (!ParameterValidationUtils.validateStringParameter(relativeFileRootValue)) {
             relativeFileRootValue = System.getProperty("user.dir");
-        }
-        else if (!(new File(relativeFileRootValue).isAbsolute())) {
+        } else if (!(new File(relativeFileRootValue).isAbsolute())) {
             relativeFileRootValue = System.getProperty("user.dir") + File.separator + relativeFileRootValue;
         }
 

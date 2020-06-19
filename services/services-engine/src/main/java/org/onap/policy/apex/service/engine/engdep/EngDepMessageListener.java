@@ -412,8 +412,7 @@ public class EngDepMessageListener implements MessageListener<Message>, Runnable
     private InetAddress getLocalAddress() {
         try {
             return MessagingUtils.getLocalHostLanAddress();
-        }
-        catch (UnknownHostException e) {
+        } catch (UnknownHostException e) {
             LOGGER.debug("failed to find the localhost address - continuing ...", e);
             return null;
         }

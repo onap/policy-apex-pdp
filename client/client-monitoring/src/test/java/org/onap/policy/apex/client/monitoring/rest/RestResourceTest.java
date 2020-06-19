@@ -25,7 +25,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import javax.ws.rs.core.Response;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

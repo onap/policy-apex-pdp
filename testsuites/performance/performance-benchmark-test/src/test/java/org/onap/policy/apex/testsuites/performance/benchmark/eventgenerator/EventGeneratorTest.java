@@ -26,13 +26,11 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGeneratorParameters;
+
 
 /**
  * This class tests the event generator.

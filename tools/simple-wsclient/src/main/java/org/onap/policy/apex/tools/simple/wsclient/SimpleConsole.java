@@ -27,7 +27,6 @@ import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.channels.NotYetConnectedException;
-
 import org.apache.commons.lang3.Validate;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.framing.CloseFrame;

@@ -27,12 +27,10 @@ import static org.junit.Assert.assertTrue;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

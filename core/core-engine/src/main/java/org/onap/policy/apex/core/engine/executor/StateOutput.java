@@ -23,7 +23,6 @@ package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;

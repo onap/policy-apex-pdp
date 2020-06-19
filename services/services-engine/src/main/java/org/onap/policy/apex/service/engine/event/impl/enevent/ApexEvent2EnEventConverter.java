@@ -22,7 +22,6 @@ package org.onap.policy.apex.service.engine.event.impl.enevent;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

@@ -24,11 +24,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelSaver;
 
 public class ApexModelSaverTest {
 

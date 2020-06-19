@@ -93,8 +93,7 @@ public class RestSession {
     public void finishSession(boolean commitFlag) {
         if (commitFlag) {
             commitChanges();
-        }
-        else {
+        } else {
             discardChanges();
         }
     }

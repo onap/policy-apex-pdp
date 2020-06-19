@@ -22,7 +22,6 @@
 package org.onap.policy.apex.testsuites.integration.context.locking;
 
 import com.google.gson.Gson;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -36,7 +35,6 @@ import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

@@ -31,7 +31,6 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.After;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

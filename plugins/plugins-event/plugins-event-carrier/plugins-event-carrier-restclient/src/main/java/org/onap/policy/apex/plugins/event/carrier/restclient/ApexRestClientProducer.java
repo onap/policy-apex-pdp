@@ -24,12 +24,10 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
-
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;

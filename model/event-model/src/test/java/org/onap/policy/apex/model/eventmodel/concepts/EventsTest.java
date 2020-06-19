@@ -29,16 +29,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
-import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
-import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 
 /**
  * Test events.
@@ -195,7 +191,7 @@ public class EventsTest {
         assertTrue(event.equals(event));
         assertTrue(event.equals(clonedEvent));
         assertFalse(event.equals(null));
-        assertFalse(event.equals((Object)"Hello"));
+        assertFalse(event.equals((Object) "Hello"));
         assertFalse(
                 event.equals(new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap)));
         assertFalse(event.equals(new AxEvent(eventKey, "namespace1", "source", "target", parameterMap)));
@@ -278,7 +274,7 @@ public class EventsTest {
         assertTrue(events.equals(events));
         assertTrue(events.equals(clonedEvents));
         assertFalse(events.equals(null));
-        assertFalse(events.equals((Object)"Hello"));
+        assertFalse(events.equals((Object) "Hello"));
         assertFalse(events.equals(new AxEvents(new AxArtifactKey())));
 
         assertEquals(0, events.compareTo(events));

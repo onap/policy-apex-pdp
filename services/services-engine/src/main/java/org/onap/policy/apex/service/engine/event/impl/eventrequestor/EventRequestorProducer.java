@@ -24,7 +24,6 @@ package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;

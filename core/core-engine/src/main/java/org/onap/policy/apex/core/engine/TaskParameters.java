@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.engine;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.annotations.NotBlank;

@@ -25,7 +25,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -35,9 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.BlockingQueue;
-
 import lombok.Setter;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;

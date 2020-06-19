@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.engdep;
 
 import java.net.InetSocketAddress;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingServiceFactory;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;

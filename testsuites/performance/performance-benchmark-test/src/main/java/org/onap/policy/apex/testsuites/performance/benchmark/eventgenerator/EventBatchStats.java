@@ -71,7 +71,7 @@ public class EventBatchStats {
 
         calcutateStats(eventBatchStatsList);
 
-        this.batchSize = (int)(eventsNotSent + eventsSent);
+        this.batchSize = (int) (eventsNotSent + eventsSent);
     }
 
     /**
@@ -157,8 +157,7 @@ public class EventBatchStats {
             eventsNotReceived++;
             return null;
 
-        }
-        else {
+        } else {
             eventsReceived++;
         }
 

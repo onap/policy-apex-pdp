@@ -28,11 +28,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.UUID;
-
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
-import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
+
 
 public class AxKeyInfoTest {
 
@@ -66,7 +63,7 @@ public class AxKeyInfoTest {
         assertTrue(testKeyInfo.equals(testKeyInfo));
         assertTrue(testKeyInfo.equals(clonedReferenceKey));
         assertFalse(testKeyInfo.equals(null));
-        assertFalse(testKeyInfo.equals((Object)new AxArtifactKey()));
+        assertFalse(testKeyInfo.equals((Object) new AxArtifactKey()));
         assertFalse(testKeyInfo.equals(new AxKeyInfo(new AxArtifactKey())));
         assertFalse(testKeyInfo.equals(new AxKeyInfo(key, UUID.randomUUID(), "Some Description")));
         assertFalse(testKeyInfo.equals(new AxKeyInfo(key, uuid, "Some Description")));

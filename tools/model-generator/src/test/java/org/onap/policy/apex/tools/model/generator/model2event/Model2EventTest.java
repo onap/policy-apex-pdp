@@ -27,7 +27,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 

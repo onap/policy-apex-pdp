@@ -23,7 +23,6 @@ package org.onap.policy.apex.testsuites.integration.context.utils;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 
 import java.util.List;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter;

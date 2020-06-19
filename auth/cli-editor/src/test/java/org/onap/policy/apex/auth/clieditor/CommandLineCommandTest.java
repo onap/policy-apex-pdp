@@ -17,12 +17,15 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.auth.clieditor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +46,9 @@ public class CommandLineCommandTest {
         assertTrue(commandLineCommand.isSystemCommand());
         assertEquals("testDescription", commandLineCommand.getDescription());
         assertEquals("TestName", commandLineCommand.getName());
-        assertEquals("CLICommand [name=TestName,keywordlist=[], argumentList=[], apiMethod=, systemCommand=true, description=testDescription]",commandLineCommand.toString());
+        assertEquals(
+            "CLICommand [name=TestName,keywordlist=[], argumentList=[], apiMethod=, systemCommand=true,"
+            + " description=testDescription]", commandLineCommand.toString());
     }
 
     @Test(expected = CommandLineException.class)
@@ -72,27 +77,26 @@ public class CommandLineCommandTest {
     @Test
     public void testValidApiMethodName() {
         commandLineCommand.setApiMethod("Java.Get");
-        assertEquals("Get",commandLineCommand.getApiMethodName());
+        assertEquals("Get", commandLineCommand.getApiMethodName());
     }
 
     @Test
     public void testGetHelp() {
         List<String> keywordList = commandLineCommand.getKeywordlist();
         List<CommandLineArgument> argumentList = commandLineCommand.getArgumentList();
-        assertEquals("{}: ",commandLineCommand.getHelp());
+        assertEquals("{}: ", commandLineCommand.getHelp());
         keywordList.add("TestKeyword");
         argumentList.add(new CommandLineArgument("TestArgument"));
         argumentList.add(null);
-        assertEquals("TestKeyword {}: \n" + 
-                "	TestArgument: (M) ",commandLineCommand.getHelp());
+        assertEquals("TestKeyword {}: \n" + "\tTestArgument: (M) ", commandLineCommand.getHelp());
     }
 
     @Test
     public void testCompareTo() {
-        assertEquals(0,commandLineCommand.compareTo(commandLineCommand));
+        assertEquals(0, commandLineCommand.compareTo(commandLineCommand));
         CommandLineCommand otherCommand = new CommandLineCommand();
         otherCommand.setSystemCommand(true);
-        assertEquals(6,commandLineCommand.compareTo(otherCommand));
+        assertEquals(6, commandLineCommand.compareTo(otherCommand));
         otherCommand.getArgumentList().add(new CommandLineArgument("testArgument"));
         assertEquals(-609496833, commandLineCommand.compareTo(otherCommand));
     }
@@ -123,10 +127,11 @@ public class CommandLineCommandTest {
 
     @Test
     public void testEquals() {
-        CommandLineCommand otherCommand = new CommandLineCommand();
         assertFalse(commandLineCommand.equals(new Object()));
         assertTrue(commandLineCommand.equals(commandLineCommand));
         assertFalse(commandLineCommand.equals(null));
+
+        CommandLineCommand otherCommand = new CommandLineCommand();
         assertTrue(commandLineCommand.equals(otherCommand));
         otherCommand.getKeywordlist().add("TestKeyword");
         assertFalse(commandLineCommand.equals(otherCommand));

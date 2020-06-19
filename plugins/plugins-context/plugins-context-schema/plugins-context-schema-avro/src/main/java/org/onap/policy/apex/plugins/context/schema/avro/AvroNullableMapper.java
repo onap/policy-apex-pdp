@@ -22,7 +22,6 @@ package org.onap.policy.apex.plugins.context.schema.avro;
 
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Type;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 

@@ -29,7 +29,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;

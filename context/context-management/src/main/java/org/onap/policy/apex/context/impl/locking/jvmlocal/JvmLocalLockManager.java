@@ -22,7 +22,6 @@ package org.onap.policy.apex.context.impl.locking.jvmlocal;
 
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.locking.AbstractLockManager;
 

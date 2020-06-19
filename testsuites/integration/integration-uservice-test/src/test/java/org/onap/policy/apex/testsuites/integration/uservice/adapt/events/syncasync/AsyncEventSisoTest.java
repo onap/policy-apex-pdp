@@ -21,7 +21,6 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
 import java.io.File;
-
 import org.junit.After;
 import org.junit.Test;
 

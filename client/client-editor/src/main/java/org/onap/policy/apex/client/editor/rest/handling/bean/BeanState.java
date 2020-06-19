@@ -22,7 +22,6 @@ package org.onap.policy.apex.client.editor.rest.handling.bean;
 
 import java.util.Arrays;
 import java.util.Map;
-
 import javax.xml.bind.annotation.XmlType;
 
 /**

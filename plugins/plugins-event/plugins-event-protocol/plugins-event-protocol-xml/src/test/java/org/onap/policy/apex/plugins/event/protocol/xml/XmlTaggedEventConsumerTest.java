@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.HeaderDelimitedTextBlockReader;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.TextBlock;

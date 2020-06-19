@@ -21,7 +21,6 @@
 package org.onap.policy.apex.model.modelapi;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
 
 /**

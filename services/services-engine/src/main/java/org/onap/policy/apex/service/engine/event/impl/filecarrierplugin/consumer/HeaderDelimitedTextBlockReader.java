@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextTokenDelimitedParameters;

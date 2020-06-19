@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -40,7 +39,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.KeyInfoMarshalFilter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -212,9 +210,8 @@ public class AxModel extends AxConcept {
                 result = validateArtifactKeyInModel((AxArtifactKey) axKey, artifactKeySet, result);
             } else if (axKey instanceof AxReferenceKey) {
                 result = validateReferenceKeyInModel((AxReferenceKey) axKey, referenceKeySet, result);
-            }
-            // It must be an AxKeyUse, nothing else is legal
-            else {
+            } else {
+                // It must be an AxKeyUse, nothing else is legal
                 usedKeySet.add((AxKeyUse) axKey);
             }
         }

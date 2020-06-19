@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;

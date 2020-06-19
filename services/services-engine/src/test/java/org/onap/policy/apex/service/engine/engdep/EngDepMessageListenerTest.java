@@ -73,8 +73,6 @@ public class EngDepMessageListenerTest {
     public void testMessageListener() throws ApexException {
         DummyEngineService dummyEngineService = new DummyEngineService();
         EngDepMessageListener listener = new EngDepMessageListener(dummyEngineService);
-        BlockingQueue<?> messageQueue
-            = (BlockingQueue<?>) Whitebox.getInternalState(listener, "messageQueue");
         listener.startProcessorThread();
 
         try {
@@ -87,6 +85,7 @@ public class EngDepMessageListenerTest {
         List<Message> messageList = new ArrayList<>();
         messageList.add(new StartEngine(new AxArtifactKey("Start:0.0.1")));
         listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
+        BlockingQueue<?> messageQueue = (BlockingQueue<?>) Whitebox.getInternalState(listener, "messageQueue");
         await().until(messageQueue::isEmpty);
         assertEquals("Start:0.0.1", dummyEngineService.getStartEngineKey().getId());
 

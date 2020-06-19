@@ -21,7 +21,6 @@
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
 import com.google.gson.GsonBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

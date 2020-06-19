@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.modelapi.impl;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
@@ -193,12 +192,12 @@ public class ModelFacade {
      */
     public ApexApiResult deleteModel() {
         // @formatter:off
-        apexModel.getPolicyModel().getSchemas()       .getSchemasMap() .clear();
-        apexModel.getPolicyModel().getEvents()        .getEventMap()   .clear();
-        apexModel.getPolicyModel().getAlbums()        .getAlbumsMap()  .clear();
-        apexModel.getPolicyModel().getTasks()         .getTaskMap()    .clear();
-        apexModel.getPolicyModel().getPolicies()      .getPolicyMap()  .clear();
-        apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap() .clear();
+        apexModel.getPolicyModel().getSchemas().getSchemasMap().clear();
+        apexModel.getPolicyModel().getEvents().getEventMap().clear();
+        apexModel.getPolicyModel().getAlbums().getAlbumsMap().clear();
+        apexModel.getPolicyModel().getTasks().getTaskMap().clear();
+        apexModel.getPolicyModel().getPolicies().getPolicyMap().clear();
+        apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().clear();
         // @formatter:on
 
         apexModel.setPolicyModel(new AxPolicyModel());

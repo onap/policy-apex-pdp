@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.core.protocols.engdep.messages.EngineServiceInfoResponse;
 import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineInfo;

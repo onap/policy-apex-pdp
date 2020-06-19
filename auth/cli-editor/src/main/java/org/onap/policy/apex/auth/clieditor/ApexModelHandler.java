@@ -25,7 +25,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.SortedMap;
-
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.modelapi.ApexModel;

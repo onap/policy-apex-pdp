@@ -26,19 +26,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-
 import java.io.StringReader;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.onap.policy.apex.client.editor.rest.handling.bean.BeanBase;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;

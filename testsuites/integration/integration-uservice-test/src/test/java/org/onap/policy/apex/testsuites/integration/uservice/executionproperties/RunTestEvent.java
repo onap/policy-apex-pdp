@@ -21,7 +21,6 @@
 package org.onap.policy.apex.testsuites.integration.uservice.executionproperties;
 
 import lombok.Data;
-
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
 

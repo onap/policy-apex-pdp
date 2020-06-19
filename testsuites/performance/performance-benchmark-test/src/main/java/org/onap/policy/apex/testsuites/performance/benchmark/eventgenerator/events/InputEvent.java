@@ -22,7 +22,6 @@ package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.eve
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.Random;
 
 /**

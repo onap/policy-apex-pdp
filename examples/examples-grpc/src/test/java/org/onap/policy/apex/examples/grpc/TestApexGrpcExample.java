@@ -26,11 +26,9 @@ import static org.junit.Assert.assertEquals;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-
 import org.junit.Test;
 import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;

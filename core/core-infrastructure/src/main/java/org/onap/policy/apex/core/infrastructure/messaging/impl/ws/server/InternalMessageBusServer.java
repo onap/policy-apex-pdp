@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.server;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-
 import org.java_websocket.WebSocket;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;

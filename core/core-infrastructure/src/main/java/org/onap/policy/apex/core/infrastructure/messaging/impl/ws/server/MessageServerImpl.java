@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.java_websocket.WebSocket;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;

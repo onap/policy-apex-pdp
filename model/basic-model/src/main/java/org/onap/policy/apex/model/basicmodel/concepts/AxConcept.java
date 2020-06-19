@@ -23,9 +23,7 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlType;
-
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging;
 
 import com.google.common.eventbus.Subscribe;
-
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock.MessageBlock;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

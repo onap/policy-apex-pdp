@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.client;
 
 import java.net.URI;
-
 import org.java_websocket.WebSocket;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
@@ -119,9 +118,8 @@ public class MessagingClient<M> extends InternalMessageBusClient<M> implements M
                 default:
                     break;
             }
-        }
+        } while (timeoutMsCounter > 0);
         // While the timeout value has not expired
-        while (timeoutMsCounter > 0);
 
         // We have timed out
         return false;

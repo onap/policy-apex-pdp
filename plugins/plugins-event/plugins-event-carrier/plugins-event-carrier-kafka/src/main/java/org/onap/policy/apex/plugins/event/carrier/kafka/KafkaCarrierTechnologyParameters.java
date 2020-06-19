@@ -25,10 +25,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
@@ -305,13 +303,11 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
         if (!returnKafkaProperties.containsKey(property)) {
             // Not found, so add it
             returnKafkaProperties.setProperty(property, value.toString());
-        }
-        else {
+        } else {
             // Found, only overwrite if the property does not have the default value
             if (value == null) {
                 returnKafkaProperties.setProperty(property, defaultValue.toString());
-            }
-            else if (!value.toString().contentEquals(defaultValue.toString())) {
+            } else if (!value.toString().contentEquals(defaultValue.toString())) {
                 returnKafkaProperties.setProperty(property, value.toString());
             }
         }

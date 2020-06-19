@@ -23,12 +23,10 @@ package org.onap.policy.apex.service.engine.event;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Map.Entry;
-
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.impl.EventConsumerFactory;
 import org.onap.policy.apex.service.engine.event.impl.EventProducerFactory;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
-
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;

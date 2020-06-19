@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;

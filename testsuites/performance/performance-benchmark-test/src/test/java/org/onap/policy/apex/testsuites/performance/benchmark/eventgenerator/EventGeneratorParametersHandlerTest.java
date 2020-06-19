@@ -28,9 +28,6 @@ import static org.junit.Assert.fail;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGeneratorParameterHandler;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGeneratorParameters;
 
 /**
  * Test event generator parameters.

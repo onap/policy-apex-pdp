@@ -23,7 +23,6 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**

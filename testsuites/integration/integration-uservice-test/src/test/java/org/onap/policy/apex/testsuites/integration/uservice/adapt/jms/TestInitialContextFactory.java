@@ -21,7 +21,6 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.jms;
 
 import java.util.Hashtable;
-
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;

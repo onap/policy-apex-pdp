@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.UUID;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;

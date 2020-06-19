@@ -17,14 +17,16 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.tools.common;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,15 +38,15 @@ public class OutputFileTest {
     File file = fp.toFile();
 
     @Before
-    public void setUp() {
-        if (file.exists()){
+    public void beforeSetUp() {
+        if (file.exists()) {
             file.delete();
         }
     }
 
     @Test
     public void testToWriter() {
-        OutputFile testFile = new OutputFile(testFileName,false);
+        OutputFile testFile = new OutputFile(testFileName, false);
         testFile.validate();
         file.setReadable(false);
         file.setWritable(false);
@@ -55,19 +57,19 @@ public class OutputFileTest {
 
     @Test
     public void testValidate() {
-        OutputFile testFile = new OutputFile(testFileName,true);
+        OutputFile testFile = new OutputFile(testFileName, true);
         assertNull(testFile.validate());
         file.setReadable(false);
         file.setWritable(false);
         assertNotNull(testFile.validate());
         OutputFile testFile2 = new OutputFile(testFileName);
         assertNotNull(testFile2.validate());
-        assertEquals("file already exists",testFile2.validate());
+        assertEquals("file already exists", testFile2.validate());
     }
 
     @Test
     public void testToOutputStream() {
-        OutputFile testFile = new OutputFile(testFileName,true);
+        OutputFile testFile = new OutputFile(testFileName, true);
         assertNotNull(testFile.toOutputStream());
         file.setReadable(false);
         file.setWritable(false);
@@ -76,7 +78,7 @@ public class OutputFileTest {
 
     @After
     public void testDown() {
-        if (file.exists()){
+        if (file.exists()) {
             file.delete();
         }
     }

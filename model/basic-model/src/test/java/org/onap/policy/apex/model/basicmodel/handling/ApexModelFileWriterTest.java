@@ -25,11 +25,9 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 
 public class ApexModelFileWriterTest {
 
@@ -82,16 +80,14 @@ public class ApexModelFileWriterTest {
         try {
             modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().contains("could not create directory "));
         }
 
         try {
             modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().contains("could not create directory "));
         }
 
@@ -108,16 +104,14 @@ public class ApexModelFileWriterTest {
         try {
             modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().contains("error processing file "));
         }
 
         try {
             modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
             fail("this test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().contains("error processing file "));
         }
 

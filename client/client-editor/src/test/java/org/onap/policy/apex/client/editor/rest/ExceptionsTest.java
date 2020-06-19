@@ -23,7 +23,6 @@ package org.onap.policy.apex.client.editor.rest;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-
 import org.junit.Test;
 
 /**

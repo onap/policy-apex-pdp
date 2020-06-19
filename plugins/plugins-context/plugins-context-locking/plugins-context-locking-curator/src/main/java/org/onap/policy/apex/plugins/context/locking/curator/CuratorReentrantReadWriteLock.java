@@ -22,7 +22,6 @@ package org.onap.policy.apex.plugins.context.locking.curator;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessReadWriteLock;
 

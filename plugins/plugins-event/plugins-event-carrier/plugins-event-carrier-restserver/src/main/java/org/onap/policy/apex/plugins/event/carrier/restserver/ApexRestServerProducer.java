@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.event.carrier.restserver;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;

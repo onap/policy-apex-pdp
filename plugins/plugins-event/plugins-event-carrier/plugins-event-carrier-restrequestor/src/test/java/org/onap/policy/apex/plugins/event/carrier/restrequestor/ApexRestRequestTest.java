@@ -24,7 +24,6 @@ package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Properties;
-
 import org.junit.Test;
 
 /**

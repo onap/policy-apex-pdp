@@ -22,7 +22,6 @@
 package org.onap.policy.apex.client.deployment.rest;
 
 import java.io.PrintStream;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -135,8 +134,7 @@ public class ApexDeploymentRestMain {
             String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
             outStream.println(message);
             LOGGER.warn(message, e);
-        }
-        finally {
+        } finally {
             if (apexDeploymentRest != null) {
                 apexDeploymentRest.shutdown();
                 apexDeploymentRest = null;

@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,7 +30,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 

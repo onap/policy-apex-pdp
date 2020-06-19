@@ -33,7 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 
 /**
  * Test task parameters.
@@ -100,7 +99,7 @@ public class TaskParameterTest {
         assertTrue(par.equals(par));
         assertTrue(par.equals(clonedPar));
         assertFalse(par.equals(null));
-        assertFalse(par.equals((Object)"Hello"));
+        assertFalse(par.equals((Object) "Hello"));
         assertFalse(par.equals(new AxTaskParameter(AxReferenceKey.getNullKey(), "DefaultValue")));
         assertFalse(par.equals(new AxTaskParameter(parKey, "OtherDefaultValue")));
         assertTrue(par.equals(new AxTaskParameter(parKey, "DefaultValue")));

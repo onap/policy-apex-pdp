@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.core.protocols;
 
-import org.onap.policy.apex.core.protocols.Action;
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 

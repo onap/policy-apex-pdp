@@ -22,7 +22,6 @@
 package org.onap.policy.apex.testsuites.integration.context.locking;
 
 import java.io.Closeable;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.parameters.ContextParameters;

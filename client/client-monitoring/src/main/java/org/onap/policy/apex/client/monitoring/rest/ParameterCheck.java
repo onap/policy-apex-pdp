@@ -21,7 +21,6 @@
 package org.onap.policy.apex.client.monitoring.rest;
 
 import java.util.Map;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -169,8 +168,7 @@ public final class ParameterCheck {
 
         try {
             return new AxArtifactKey(axArtifactKeyArray[1]);
-        }
-        catch (Exception apEx) {
+        } catch (Exception apEx) {
             LOGGER.trace("invalid artifact key ID {}", axArtifactKeyArray[1], apEx);
             return null;
         }

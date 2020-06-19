@@ -26,11 +26,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.LinkedTreeMap;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;

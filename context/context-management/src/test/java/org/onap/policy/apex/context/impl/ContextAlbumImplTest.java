@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

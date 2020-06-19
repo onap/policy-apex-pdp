@@ -28,7 +28,6 @@ package org.onap.policy.apex.tools.common;
 ////
 
 import java.util.Scanner;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;

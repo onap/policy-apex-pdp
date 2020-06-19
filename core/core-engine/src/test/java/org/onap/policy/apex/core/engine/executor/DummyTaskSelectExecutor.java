@@ -22,7 +22,6 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;

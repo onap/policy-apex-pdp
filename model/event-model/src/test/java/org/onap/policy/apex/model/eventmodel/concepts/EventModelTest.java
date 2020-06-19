@@ -31,8 +31,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
-import org.onap.policy.apex.model.eventmodel.concepts.AxEventModel;
-import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 
 /**
  * Test event models.
@@ -65,7 +63,7 @@ public class EventModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals((Object)"Hello"));
+        assertFalse(model.equals((Object) "Hello"));
         assertFalse(model.equals(new AxEventModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxEventModel(modelKey, new AxContextSchemas(), new AxKeyInformation(keyInfoKey),
                 new AxEvents(eventsKey))));

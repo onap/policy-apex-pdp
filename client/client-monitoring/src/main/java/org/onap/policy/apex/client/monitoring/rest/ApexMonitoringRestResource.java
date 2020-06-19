@@ -23,14 +23,12 @@ package org.onap.policy.apex.client.monitoring.rest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -38,7 +36,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.onap.policy.apex.core.deployment.ApexDeploymentException;
 import org.onap.policy.apex.core.deployment.EngineServiceFacade;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

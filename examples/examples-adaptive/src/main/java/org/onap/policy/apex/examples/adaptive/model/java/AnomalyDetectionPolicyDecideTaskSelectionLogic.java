@@ -26,13 +26,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.util.FastMath;
 import org.onap.policy.apex.core.engine.executor.context.TaskSelectionExecutionContext;
 import org.onap.policy.apex.examples.adaptive.concepts.AnomalyDetection;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.slf4j.Logger;
 
 /**
  * The Class AnomalyDetectionPolicyDecideTaskSelectionLogic.

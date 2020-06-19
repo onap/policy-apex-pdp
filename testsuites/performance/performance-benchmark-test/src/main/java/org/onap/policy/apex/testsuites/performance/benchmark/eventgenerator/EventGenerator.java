@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.InvalidPathException;
 import java.util.Arrays;
-
 import org.apache.commons.cli.ParseException;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;

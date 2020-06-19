@@ -31,8 +31,6 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 /**
  * Context schema tests.

@@ -23,7 +23,6 @@ package org.onap.policy.apex.service.engine.main;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEvent;

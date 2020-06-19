@@ -23,7 +23,6 @@ package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.InputEvent;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
 
@@ -74,8 +73,7 @@ public class EventBatch {
         for (InputEvent inputEvent : inputEventMap.values()) {
             if (first) {
                 first = false;
-            }
-            else {
+            } else {
                 jsonBuilder.append(",\n");
             }
             jsonBuilder.append(inputEvent.asJson());

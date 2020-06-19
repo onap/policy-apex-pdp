@@ -22,7 +22,6 @@ package org.onap.policy.apex.service.parameters.eventhandler;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
 import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;

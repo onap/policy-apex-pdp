@@ -25,7 +25,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGeneratorParameters;
 
 /**
  * Test event generator parameters.

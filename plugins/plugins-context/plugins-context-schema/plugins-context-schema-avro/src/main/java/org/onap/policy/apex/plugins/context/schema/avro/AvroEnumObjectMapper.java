@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.context.schema.avro;
 
 import java.util.List;
-
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData.EnumSymbol;
 

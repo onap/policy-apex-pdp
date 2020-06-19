@@ -22,7 +22,6 @@ package org.onap.policy.apex.model.policymodel.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;

@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
-
 import org.junit.Test;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 

@@ -30,9 +30,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 
 /**
  * Context model tests.
@@ -67,7 +64,7 @@ public class ContextModelTest {
 
         assertTrue(model.equals(model));
         assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals((Object)"Hello"));
+        assertFalse(model.equals((Object) "Hello"));
         assertFalse(model.equals(new AxContextModel(new AxArtifactKey())));
         assertFalse(model.equals(new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
                         new AxKeyInformation())));

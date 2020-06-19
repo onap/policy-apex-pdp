@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import org.junit.Test;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 

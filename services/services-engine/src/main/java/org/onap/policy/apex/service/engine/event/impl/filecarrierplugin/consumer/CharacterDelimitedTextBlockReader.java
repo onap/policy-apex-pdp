@@ -22,7 +22,6 @@ package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consume
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextCharDelimitedParameters;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

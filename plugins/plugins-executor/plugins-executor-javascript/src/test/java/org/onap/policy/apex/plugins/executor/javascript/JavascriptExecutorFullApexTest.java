@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

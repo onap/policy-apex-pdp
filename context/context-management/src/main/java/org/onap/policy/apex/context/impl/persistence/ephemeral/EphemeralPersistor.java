@@ -22,7 +22,6 @@ package org.onap.policy.apex.context.impl.persistence.ephemeral;
 
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Persistor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;

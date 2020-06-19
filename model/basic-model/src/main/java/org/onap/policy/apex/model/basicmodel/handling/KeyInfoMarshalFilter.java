@@ -89,7 +89,7 @@ public class KeyInfoMarshalFilter extends XmlAdapter<AxKeyInformation, AxKeyInfo
      */
     @Override
     public AxKeyInformation marshal(AxKeyInformation val) throws Exception {
-        if (val == null || val.getKeyInfoMap() == null || val.getKeyInfoMap().isEmpty() || filterList.isEmpty() ) {
+        if (val == null || val.getKeyInfoMap() == null || val.getKeyInfoMap().isEmpty() || filterList.isEmpty()) {
             return val;
         }
         //create a new keyinfo clone to avoid removing keyinfo entries from the original model

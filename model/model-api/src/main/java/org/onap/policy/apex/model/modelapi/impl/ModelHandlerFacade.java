@@ -33,7 +33,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -198,9 +197,8 @@ public class ModelHandlerFacade {
                     return new ApexApiResult(ApexApiResult.Result.FAILED, "no policy model with name " + modelName
                             + " and version " + modelVersion + FOUND_IN_DATABASE);
                 }
-            }
-            // Fishing expedition
-            else {
+            } else {
+                // Fishing expedition
                 return searchInDatabase(modelName, apexDao, apexModel);
             }
         } catch (ApexException | ApexRuntimeException e) {

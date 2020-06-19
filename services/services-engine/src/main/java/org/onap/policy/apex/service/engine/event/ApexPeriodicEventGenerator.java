@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

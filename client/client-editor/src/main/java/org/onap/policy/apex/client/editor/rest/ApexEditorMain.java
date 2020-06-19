@@ -22,7 +22,6 @@
 package org.onap.policy.apex.client.editor.rest;
 
 import java.io.PrintStream;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -140,8 +139,7 @@ public class ApexEditorMain {
             String message = REST_ENDPOINT_PREFIX + this.toString() + ") failed at with error: " + e.getMessage();
             outStream.println(message);
             LOGGER.warn(message, e);
-        }
-        finally {
+        } finally {
             if (apexEditor != null) {
                 apexEditor.shutdown();
                 apexEditor = null;

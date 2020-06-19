@@ -27,7 +27,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
@@ -198,8 +197,7 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
                 if (textBlock.getText() != null) {
                     eventReceiver.receiveEvent(getNextExecutionId(), new Properties(), textBlock.getText());
                 }
-            }
-            while (!textBlock.isEndOfText());
+            } while (!textBlock.isEndOfText());
         } catch (final Exception e) {
             LOGGER.warn("\"" + consumerName + "\" failed to read event from file: \""
                             + fileCarrierTechnologyParameters.getFileName() + "\"", e);

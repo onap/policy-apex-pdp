@@ -22,7 +22,6 @@
 package org.onap.policy.apex.testsuites.integration.context.utils;
 
 import java.util.TimeZone;
-
 import org.onap.policy.apex.context.test.concepts.TestPolicyContextItem;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 

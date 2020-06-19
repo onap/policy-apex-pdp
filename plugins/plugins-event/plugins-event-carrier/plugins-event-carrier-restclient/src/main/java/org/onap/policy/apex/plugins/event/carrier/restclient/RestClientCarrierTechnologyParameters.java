@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 
 // @formatter:off

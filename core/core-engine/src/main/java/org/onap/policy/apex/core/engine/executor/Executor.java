@@ -22,7 +22,6 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;

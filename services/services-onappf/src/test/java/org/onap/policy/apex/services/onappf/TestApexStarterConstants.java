@@ -21,7 +21,6 @@
 package org.onap.policy.apex.services.onappf;
 
 import org.junit.Test;
-import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.powermock.reflect.Whitebox;
 
 /**

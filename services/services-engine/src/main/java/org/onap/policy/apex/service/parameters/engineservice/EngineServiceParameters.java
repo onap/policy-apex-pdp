@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.parameters.engineservice;
 
 import java.io.File;
-
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -355,9 +354,8 @@ public class EngineServiceParameters implements ParameterGroup {
         // Check that the file exists
         if (!policyModelFile.exists()) {
             result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found");
-        }
-        // Check that the file is a regular file
-        else if (!policyModelFile.isFile()) {
+        } else if (!policyModelFile.isFile()) {
+            // Check that the file is a regular file
             result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "is not a plain file");
         } else {
             // OK, we found the file and it's OK, so reset the file name

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.model.utilities;
 
 import java.io.File;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

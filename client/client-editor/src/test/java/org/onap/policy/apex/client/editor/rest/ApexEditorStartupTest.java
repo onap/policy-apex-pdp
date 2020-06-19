@@ -29,7 +29,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Test;
 import org.onap.policy.apex.client.editor.rest.ApexEditorMain.EditorState;
 

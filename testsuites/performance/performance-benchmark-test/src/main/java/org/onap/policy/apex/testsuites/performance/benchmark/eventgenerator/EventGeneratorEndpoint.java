@@ -22,9 +22,7 @@
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
 import com.google.gson.Gson;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -32,7 +30,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-
 import org.glassfish.grizzly.http.server.Request;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;

@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.TreeMap;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;

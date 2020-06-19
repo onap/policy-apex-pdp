@@ -26,12 +26,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Properties;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
-
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;

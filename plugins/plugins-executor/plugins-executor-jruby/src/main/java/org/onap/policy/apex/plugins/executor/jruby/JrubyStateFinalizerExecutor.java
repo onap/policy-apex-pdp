@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.executor.jruby;
 
 import java.util.Map;
 import java.util.Properties;
-
 import org.jruby.embed.EmbedEvalUnit;
 import org.jruby.embed.LocalContextScope;
 import org.jruby.embed.LocalVariableBehavior;

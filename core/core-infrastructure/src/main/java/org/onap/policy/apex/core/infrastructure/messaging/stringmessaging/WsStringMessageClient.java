@@ -22,9 +22,7 @@
 package org.onap.policy.apex.core.infrastructure.messaging.stringmessaging;
 
 import com.google.common.eventbus.Subscribe;
-
 import java.net.URI;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;

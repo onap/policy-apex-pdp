@@ -40,8 +40,7 @@ public class DummySlowEnEventListener implements EnEventListener {
     public void onEnEvent(EnEvent enEvent) throws ApexException {
         try {
             Thread.sleep(waitTime);
-        }
-        catch (InterruptedException ie) {
+        } catch (InterruptedException ie) {
             //Do nothing
         }
     }

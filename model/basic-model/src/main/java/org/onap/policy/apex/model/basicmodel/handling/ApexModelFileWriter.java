@@ -22,7 +22,6 @@ package org.onap.policy.apex.model.basicmodel.handling;
 
 import java.io.File;
 import java.io.FileOutputStream;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.slf4j.ext.XLogger;

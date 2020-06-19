@@ -25,7 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -58,8 +57,7 @@ public class BaseEventTest {
             }
 
             ThreadUtilities.sleep(100);
-        }
-        while (TIME_OUT_IN_MS >= System.currentTimeMillis() - startWaitTime);
+        } while (TIME_OUT_IN_MS >= System.currentTimeMillis() - startWaitTime);
     }
 
     private int getEventCount(final String expectedFileName) throws IOException {

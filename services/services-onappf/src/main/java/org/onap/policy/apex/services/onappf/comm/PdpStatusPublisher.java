@@ -23,7 +23,6 @@ package org.onap.policy.apex.services.onappf.comm;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.client.TopicSinkClient;

@@ -33,8 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 
 /**
  * Test state task references.
@@ -136,7 +134,7 @@ public class StateTaskReferenceTest {
         assertTrue(stRef.equals(stRef));
         assertTrue(stRef.equals(clonedStRef));
         assertFalse(stRef.equals(null));
-        assertFalse(stRef.equals((Object)"Hello"));
+        assertFalse(stRef.equals((Object) "Hello"));
         assertFalse(stRef.equals(
                         new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
         assertFalse(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.messaging.impl.ws.messageblock;
 
 import java.nio.ByteBuffer;
-
 import org.java_websocket.WebSocket;
 
 /**

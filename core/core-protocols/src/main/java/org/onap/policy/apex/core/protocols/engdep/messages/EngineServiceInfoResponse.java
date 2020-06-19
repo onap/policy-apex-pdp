@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.protocols.engdep.messages;
 
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
@@ -104,8 +103,7 @@ public class EngineServiceInfoResponse extends Response {
     public void setEngineKeyArray(final Collection<AxArtifactKey> engineKeyCollection) {
         if (engineKeyCollection != null) {
             engineKeyArray = engineKeyCollection.toArray(new AxArtifactKey[engineKeyCollection.size()]);
-        }
-        else {
+        } else {
             engineKeyArray = null;
         }
     }

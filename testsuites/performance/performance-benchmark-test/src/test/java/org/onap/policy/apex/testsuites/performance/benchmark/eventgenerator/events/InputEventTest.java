@@ -55,7 +55,7 @@ public class InputEventTest {
         assertEquals("A Slogan", ie.getTestSlogan());
 
         ie.setTestTemperature(123.45);
-        assertEquals((Double)123.45, (Double)ie.getTestTemperature());
+        assertEquals((Double) 123.45, (Double) ie.getTestTemperature());
 
         ie.setTestTimestamp(1234567879);
         assertEquals(1234567879, ie.getTestTimestamp());

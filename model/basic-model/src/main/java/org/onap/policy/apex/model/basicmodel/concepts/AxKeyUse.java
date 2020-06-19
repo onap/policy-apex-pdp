@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.List;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 

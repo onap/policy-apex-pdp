@@ -28,7 +28,6 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import org.junit.Test;
 
 public class ApexSchemaGeneratorTest {

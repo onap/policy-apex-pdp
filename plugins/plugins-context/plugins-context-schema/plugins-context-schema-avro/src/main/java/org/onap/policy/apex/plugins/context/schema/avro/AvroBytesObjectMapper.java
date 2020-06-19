@@ -22,7 +22,6 @@
 package org.onap.policy.apex.plugins.context.schema.avro;
 
 import java.nio.ByteBuffer;
-
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Type;
 import org.onap.policy.apex.context.ContextRuntimeException;

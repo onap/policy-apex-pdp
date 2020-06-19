@@ -21,7 +21,6 @@
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import java.util.Map;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;

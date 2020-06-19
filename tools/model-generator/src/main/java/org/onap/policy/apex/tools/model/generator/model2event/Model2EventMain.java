@@ -23,7 +23,6 @@ package org.onap.policy.apex.tools.model.generator.model2event;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.onap.policy.apex.context.parameters.SchemaParameters;

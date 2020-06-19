@@ -33,10 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskLogic;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 
 /**
  * Test apex logic.
@@ -163,7 +159,7 @@ public class LogicTest {
         assertTrue(logic.equals(logic));
         assertTrue(logic.equals(clonedLogic));
         assertFalse(logic.equals(null));
-        assertFalse(logic.equals((Object)"Hello"));
+        assertFalse(logic.equals((Object) "Hello"));
         assertFalse(logic.equals(new AxLogic(AxReferenceKey.getNullKey(), "LogicFlavour", "Logic")));
         assertFalse(logic.equals(new AxLogic(logicKey, "AnotherLogicFlavour", "Logic")));
         assertFalse(logic.equals(new AxLogic(logicKey, "LogicFlavour", "AnotherLogic")));

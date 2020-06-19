@@ -30,7 +30,6 @@ import static org.junit.Assert.fail;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -429,7 +428,7 @@ public class StateTest {
         assertTrue(state.equals(state));
         assertTrue(state.equals(clonedState));
         assertFalse(state.equals(null));
-        assertFalse(state.equals((Object)"Hello"));
+        assertFalse(state.equals((Object) "Hello"));
         assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
                         .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));

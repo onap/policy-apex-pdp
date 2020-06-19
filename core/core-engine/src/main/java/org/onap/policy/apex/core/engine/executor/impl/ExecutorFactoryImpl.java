@@ -24,7 +24,6 @@ package org.onap.policy.apex.core.engine.executor.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import org.onap.policy.apex.core.engine.EngineParameterConstants;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;

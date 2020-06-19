@@ -23,7 +23,6 @@ package org.onap.policy.apex.examples.adaptive.model.java;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.context.TaskSelectionExecutionContext;
 import org.onap.policy.apex.examples.adaptive.concepts.AutoLearn;

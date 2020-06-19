@@ -22,7 +22,6 @@
 package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
-
 import lombok.Data;
 
 /**

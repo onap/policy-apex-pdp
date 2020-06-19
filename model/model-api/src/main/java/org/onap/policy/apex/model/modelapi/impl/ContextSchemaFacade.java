@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.modelapi.impl;
 
 import java.util.Properties;
 import java.util.Set;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;

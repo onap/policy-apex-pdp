@@ -23,7 +23,6 @@ package org.onap.policy.apex.tools.common;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StrBuilder;
 import org.slf4j.ext.XLoggerFactory;

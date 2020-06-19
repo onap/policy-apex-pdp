@@ -23,7 +23,6 @@ package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
-
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;

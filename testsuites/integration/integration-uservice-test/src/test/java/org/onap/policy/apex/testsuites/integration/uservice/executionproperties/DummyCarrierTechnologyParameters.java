@@ -22,7 +22,6 @@ package org.onap.policy.apex.testsuites.integration.uservice.executionproperties
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;

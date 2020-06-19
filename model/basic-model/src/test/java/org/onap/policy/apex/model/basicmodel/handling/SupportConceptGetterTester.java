@@ -28,14 +28,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 
 public class SupportConceptGetterTester {
 

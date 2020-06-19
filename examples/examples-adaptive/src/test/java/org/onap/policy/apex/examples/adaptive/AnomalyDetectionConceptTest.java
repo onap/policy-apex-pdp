@@ -20,18 +20,20 @@
 
 package org.onap.policy.apex.examples.adaptive;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import org.junit.Test;
 import org.onap.policy.apex.examples.adaptive.concepts.AnomalyDetection;
 
 public class AnomalyDetectionConceptTest {
 
     @Test
-    public void testToString(){
+    public void testToString() {
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         List<Double> newAnomalyScores = new LinkedList<>();
         newAnomalyScores.add((double) 55);
@@ -39,13 +41,14 @@ public class AnomalyDetectionConceptTest {
         anomalyDetection.setFrequency(55);
         assertEquals(newAnomalyScores, anomalyDetection.getAnomalyScores());
         assertTrue(anomalyDetection.checkSetAnomalyScores());
-        assertEquals(55,anomalyDetection.getFrequency());
-        assertEquals(true,anomalyDetection.getFirstRound());
-        assertEquals("AnomalyDetection [firstRound=true, frequency=55, anomalyScores=[55.0], frequencyForecasted=null]", anomalyDetection.toString());
+        assertEquals(55, anomalyDetection.getFrequency());
+        assertEquals(true, anomalyDetection.getFirstRound());
+        assertEquals("AnomalyDetection [firstRound=true, frequency=55, anomalyScores=[55.0], frequencyForecasted=null]",
+            anomalyDetection.toString());
     }
 
     @Test
-    public void testHashCode(){
+    public void testHashCode() {
         AnomalyDetection detection = new AnomalyDetection();
         AnomalyDetection compareDetection = new AnomalyDetection();
         assertEquals(detection.hashCode(), compareDetection.hashCode());
@@ -99,13 +102,13 @@ public class AnomalyDetectionConceptTest {
     }
 
     @Test
-    public void testCheckSets(){
+    public void testCheckSets() {
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         assertFalse(anomalyDetection.checkSetAnomalyScores());
         List<Double> anomalyScores = new LinkedList<>();
         anomalyDetection.setAnomalyScores(anomalyScores);
         assertFalse(anomalyDetection.checkSetAnomalyScores());
-        anomalyScores.add((double)2);
+        anomalyScores.add((double) 2);
         anomalyDetection.setAnomalyScores(anomalyScores);
         assertTrue(anomalyDetection.checkSetAnomalyScores());
         anomalyDetection.unsetAnomalyScores();
@@ -115,7 +118,7 @@ public class AnomalyDetectionConceptTest {
         List<Double> frequencyForecasted = new LinkedList<>();
         anomalyDetection.setFrequencyForecasted(frequencyForecasted);
         assertFalse(anomalyDetection.checkSetFrequencyForecasted());
-        frequencyForecasted.add((double)2);
+        frequencyForecasted.add((double) 2);
         anomalyDetection.setFrequencyForecasted(frequencyForecasted);
         assertTrue(anomalyDetection.checkSetFrequencyForecasted());
         anomalyDetection.unsetFrequencyForecasted();

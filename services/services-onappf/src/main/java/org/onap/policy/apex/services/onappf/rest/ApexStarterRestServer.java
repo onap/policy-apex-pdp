@@ -24,7 +24,6 @@ package org.onap.policy.apex.services.onappf.rest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import org.onap.policy.common.capabilities.Startable;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
 import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;

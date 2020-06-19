@@ -25,7 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.core.protocols.engdep.messages.EngineServiceInfoResponse;

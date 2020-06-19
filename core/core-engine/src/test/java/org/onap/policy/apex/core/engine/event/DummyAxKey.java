@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.engine.event;
 
 import java.util.List;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;

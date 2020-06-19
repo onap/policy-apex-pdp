@@ -25,7 +25,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-
 import org.apache.avro.generic.GenericData.EnumSymbol;
 import org.junit.After;
 import org.junit.Before;

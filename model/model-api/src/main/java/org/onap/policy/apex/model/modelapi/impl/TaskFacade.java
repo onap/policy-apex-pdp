@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.modelapi.impl;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;

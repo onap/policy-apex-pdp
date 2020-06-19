@@ -33,20 +33,16 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 
 public class ApexModelReaderTest {
     @Mock
@@ -81,8 +77,7 @@ public class ApexModelReaderTest {
         try {
             modelReader.read(baisInvalid);
             fail("test should throw an exceptino here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().startsWith("Apex concept validation failed"));
         }
         
@@ -107,8 +102,7 @@ public class ApexModelReaderTest {
         try {
             modelReader.read(baisDummy);
             fail("test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("format of input for Apex concept is neither JSON nor XML", e.getMessage());
         }
         
@@ -116,8 +110,7 @@ public class ApexModelReaderTest {
             ByteArrayInputStream nullBais = null;
             modelReader.read(nullBais);
             fail("test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("concept stream may not be null", e.getMessage());
         }
         
@@ -125,8 +118,7 @@ public class ApexModelReaderTest {
             FileInputStream fis = new FileInputStream(new File("somewhere/over/the/rainbow"));
             modelReader.read(fis);
             fail("test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().contains("rainbow"));
         }
         
@@ -136,11 +128,9 @@ public class ApexModelReaderTest {
             br.close();
             modelReader.read(br);
             fail("test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("Unable to read Apex concept ", e.getMessage());
-        }
-        finally {
+        } finally {
             tempFile.delete();
         }
         
@@ -150,11 +140,9 @@ public class ApexModelReaderTest {
         try {
             modelReader.setSchema(tempFile.getCanonicalPath());
             fail("test should throw an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("Unable to load schema", e.getMessage());
-        }
-        finally {
+        } finally {
             tempFile.delete();
         }
         
@@ -178,7 +166,7 @@ public class ApexModelReaderTest {
 
         try {
             Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(unmarshallerMock)
-                .unmarshal((StreamSource)Mockito.anyObject(), Mockito.anyObject());
+                .unmarshal((StreamSource) Mockito.anyObject(), Mockito.anyObject());
 
             modelReader.read("{Hello}");
             fail("Test should throw an exception here");

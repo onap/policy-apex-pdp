@@ -22,7 +22,6 @@
 package org.onap.policy.apex.testsuites.integration.executor.engine;
 
 import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

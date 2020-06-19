@@ -53,8 +53,7 @@ public class KeyInfoHandler implements RestCommandHandler {
 
         if (RestCommandType.KEY_INFO.equals(commandType) && RestCommand.LIST.equals(command)) {
             return listKeyInformation(session, name, version);
-        }
-        else {
+        } else {
             return getUnsupportedCommandResultMessage(session, commandType, command);
         }
     }

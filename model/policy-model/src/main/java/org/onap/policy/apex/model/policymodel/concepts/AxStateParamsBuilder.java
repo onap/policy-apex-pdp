@@ -22,7 +22,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.Map;
 import java.util.Set;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 

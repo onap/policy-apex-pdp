@@ -24,11 +24,9 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

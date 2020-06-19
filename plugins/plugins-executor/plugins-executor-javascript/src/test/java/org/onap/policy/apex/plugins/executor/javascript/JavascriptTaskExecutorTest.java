@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

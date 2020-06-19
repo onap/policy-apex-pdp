@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.context.locking.curator;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.state.ConnectionState;
@@ -84,7 +83,7 @@ public class CuratorLockManager extends AbstractLockManager {
             throw new ContextException(message);
         }
 
-        final CuratorLockManagerParameters curatorLockPars = (CuratorLockManagerParameters)lockParameters;
+        final CuratorLockManagerParameters curatorLockPars = (CuratorLockManagerParameters) lockParameters;
 
         // Check if the curator address has been set
         curatorZookeeperAddress = curatorLockPars.getZookeeperAddress();

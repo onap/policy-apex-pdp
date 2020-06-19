@@ -24,9 +24,7 @@ package org.onap.policy.apex.core.engine.executor;
 import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
 import java.util.Properties;
-
 import lombok.NonNull;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;

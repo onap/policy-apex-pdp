@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;

@@ -22,9 +22,7 @@
 package org.onap.policy.apex.testsuites.integration.common.testclasses;
 
 import java.io.Serializable;
-
 import lombok.Data;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**

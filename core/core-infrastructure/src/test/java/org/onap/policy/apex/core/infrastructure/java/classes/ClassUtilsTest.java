@@ -17,16 +17,17 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.apex.core.infrastructure.java.classes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -41,28 +42,29 @@ public class ClassUtilsTest {
 
     @Test
     public void testProcessFileName() {
-        assertEquals("testing.txt",ClassUtils.processFileName("testing.txt"));
+        assertEquals("testing.txt", ClassUtils.processFileName("testing.txt"));
         assertNull(ClassUtils.processFileName(null));
-        assertEquals("",ClassUtils.processFileName("/classes/"));
+        assertEquals("", ClassUtils.processFileName("/classes/"));
     }
 
     @Test
     public void testProcessDir() throws Exception {
         File mockFile = Mockito.mock(File.class);
-        File mockChildFile = Mockito.mock(File.class);
         Mockito.when(mockFile.isDirectory()).thenReturn(false);
-        assertEquals(new TreeSet<>(),ClassUtils.processDir(mockFile, "Here"));
-        assertEquals(new TreeSet<>(),ClassUtils.processDir(null, "Test"));
+        assertEquals(new TreeSet<>(), ClassUtils.processDir(mockFile, "Here"));
+        assertEquals(new TreeSet<>(), ClassUtils.processDir(null, "Test"));
         Mockito.when(mockFile.isDirectory()).thenReturn(true);
+
+        File mockChildFile = Mockito.mock(File.class);
         File[] files = {mockChildFile};
         Mockito.when(mockFile.listFiles()).thenReturn(files);
         Mockito.when(mockChildFile.getName()).thenReturn("test.class");
         Mockito.when(mockChildFile.getAbsolutePath()).thenReturn("/test/");
-        assertEquals(Set.of(".test."),ClassUtils.processDir(mockFile, "Here"));
+        assertEquals(Set.of(".test."), ClassUtils.processDir(mockFile, "Here"));
         Mockito.when(mockChildFile.getName()).thenReturn("test.class");
-        assertEquals(Set.of(".test."),ClassUtils.processDir(mockFile, "Here"));
+        assertEquals(Set.of(".test."), ClassUtils.processDir(mockFile, "Here"));
         Mockito.when(mockChildFile.getName()).thenReturn("$test.class");
-        assertEquals(new TreeSet<>(),ClassUtils.processDir(mockFile, "Here"));
+        assertEquals(new TreeSet<>(), ClassUtils.processDir(mockFile, "Here"));
     }
 
 }

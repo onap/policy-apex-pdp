@@ -23,7 +23,6 @@ package org.onap.policy.apex.tools.model.generator.model2event;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
-
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;

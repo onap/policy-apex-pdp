@@ -26,7 +26,6 @@ import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Properties;
-
 import org.mvel2.MVEL;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;

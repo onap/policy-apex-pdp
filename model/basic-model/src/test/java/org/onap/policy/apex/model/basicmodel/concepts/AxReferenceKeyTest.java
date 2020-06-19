@@ -29,12 +29,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
-
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
+
 
 public class AxReferenceKeyTest {
 
@@ -93,7 +89,7 @@ public class AxReferenceKeyTest {
 
         assertTrue(testReferenceKey.equals(testReferenceKey));
         assertTrue(testReferenceKey.equals(clonedReferenceKey));
-        assertFalse(testReferenceKey.equals((Object)"Hello"));
+        assertFalse(testReferenceKey.equals((Object) "Hello"));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("PKN", "0.0.2", "PLN", "LN")));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.2", "PLN", "LN")));
         assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN")));

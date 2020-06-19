@@ -22,11 +22,9 @@ package org.onap.policy.apex.examples.servlet;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.service.engine.main.ApexMain;

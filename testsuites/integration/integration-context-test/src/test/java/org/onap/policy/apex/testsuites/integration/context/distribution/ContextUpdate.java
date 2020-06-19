@@ -39,7 +39,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;

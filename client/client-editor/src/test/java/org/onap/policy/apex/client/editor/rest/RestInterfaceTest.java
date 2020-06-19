@@ -30,14 +30,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.xml.bind.JAXBException;
-
 import org.eclipse.persistence.jpa.jpql.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

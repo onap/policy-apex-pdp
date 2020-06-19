@@ -28,7 +28,6 @@ import static org.junit.Assert.fail;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
 import org.junit.Test;
 
 /**
@@ -47,10 +46,9 @@ public class AxConceptGetterImplTest {
         assertNull(getter.get(keyA));
         
         try {
-            getter.get((String)null);
+            getter.get((String) null);
             fail("test should throw an exception here");
-        }
-        catch (Exception getException) {
+        } catch (Exception getException) {
             assertEquals("conceptKeyName may not be null", getException.getMessage());
         }
 
@@ -72,15 +70,14 @@ public class AxConceptGetterImplTest {
         assertEquals(keyW002, getter.get("W"));
 
         try {
-            getter.get((String)null, "0.0.1");
+            getter.get((String) null, "0.0.1");
             fail("test should throw an exception here");
-        }
-        catch (Exception getException) {
+        } catch (Exception getException) {
             assertEquals("conceptKeyName may not be null", getException.getMessage());
         }
 
         assertEquals(keyW002, getter.get("W", "0.0.2"));
-        assertEquals(keyW002, getter.get("W", (String)null));
+        assertEquals(keyW002, getter.get("W", (String) null));
         
         assertEquals(new TreeSet<AxArtifactKey>(keyMap.values()), getter.getAll(null));
         assertEquals(new TreeSet<AxArtifactKey>(keyMap.values()), getter.getAll(null, null));

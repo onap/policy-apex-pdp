@@ -25,9 +25,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-
 import org.junit.Test;
-import org.onap.policy.apex.model.utilities.TreeMapUtils;
 
 /**
  * Test the tree map utilities.

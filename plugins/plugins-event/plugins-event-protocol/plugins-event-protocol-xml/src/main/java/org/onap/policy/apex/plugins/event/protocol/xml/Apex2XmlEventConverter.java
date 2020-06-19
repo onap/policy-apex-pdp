@@ -26,7 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -36,7 +35,6 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.ObjectFactory;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.XMLApexEvent;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.XMLApexEventData;

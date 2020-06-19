@@ -32,7 +32,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

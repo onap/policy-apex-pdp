@@ -32,7 +32,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -129,9 +128,8 @@ public abstract class ClassUtils {
                 // Directories may contain ".class" files
                 if (urlFile.isDirectory()) {
                     classNameSet.addAll(processDir(urlFile, url.getFile()));
-                }
-                // JARs are processed as well
-                else if (url.getFile().endsWith(".jar")) {
+                } else if (url.getFile().endsWith(".jar")) {
+                    // JARs are processed as well
                     classNameSet.addAll(processJar(urlFile));
                 }
                 // It's a resource or some other non-executable thing

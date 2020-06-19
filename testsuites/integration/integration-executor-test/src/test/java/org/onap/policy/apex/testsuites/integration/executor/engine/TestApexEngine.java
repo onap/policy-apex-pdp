@@ -31,7 +31,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;

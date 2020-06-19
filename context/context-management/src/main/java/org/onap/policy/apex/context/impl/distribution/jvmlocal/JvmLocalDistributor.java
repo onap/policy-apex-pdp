@@ -23,7 +23,6 @@ package org.onap.policy.apex.context.impl.distribution.jvmlocal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;

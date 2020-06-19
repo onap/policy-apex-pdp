@@ -23,7 +23,6 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 import java.util.TimeZone;
-
 import lombok.Data;
 
 /**

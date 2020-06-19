@@ -150,8 +150,7 @@ public class DeploymentClient implements Runnable {
     private InetAddress getLocalAddress() {
         try {
             return MessagingUtils.getLocalHostLanAddress();
-        }
-        catch (UnknownHostException e) {
+        } catch (UnknownHostException e) {
             LOGGER.debug("engine<-->deployment client failed to find the localhost address - continuing ...", e);
             return null;
         }

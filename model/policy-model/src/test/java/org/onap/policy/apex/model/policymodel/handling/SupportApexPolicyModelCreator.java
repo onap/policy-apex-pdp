@@ -21,7 +21,6 @@
 package org.onap.policy.apex.model.policymodel.handling;
 
 import java.util.UUID;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;

@@ -24,11 +24,9 @@ package org.onap.policy.apex.context.impl.schema.java;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -55,15 +53,15 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     private static final Map<String, Class<?>> BUILT_IN_MAP = new HashMap<>();
 
     static {
-        BUILT_IN_MAP.put("int",    Integer  .TYPE);
-        BUILT_IN_MAP.put("long",   Long     .TYPE);
-        BUILT_IN_MAP.put("double", Double   .TYPE);
-        BUILT_IN_MAP.put("float",  Float    .TYPE);
-        BUILT_IN_MAP.put("bool",   Boolean  .TYPE);
+        BUILT_IN_MAP.put("int",    Integer.TYPE);
+        BUILT_IN_MAP.put("long",   Long.TYPE);
+        BUILT_IN_MAP.put("double", Double.TYPE);
+        BUILT_IN_MAP.put("float",  Float.TYPE);
+        BUILT_IN_MAP.put("bool",   Boolean.TYPE);
         BUILT_IN_MAP.put("char",   Character.TYPE);
-        BUILT_IN_MAP.put("byte",   Byte     .TYPE);
-        BUILT_IN_MAP.put("void",   Void     .TYPE);
-        BUILT_IN_MAP.put("short",  Short    .TYPE);
+        BUILT_IN_MAP.put("byte",   Byte.TYPE);
+        BUILT_IN_MAP.put("void",   Void.TYPE);
+        BUILT_IN_MAP.put("short",  Short.TYPE);
     }
     // @formatter:on
 

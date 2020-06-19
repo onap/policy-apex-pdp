@@ -23,7 +23,6 @@ package org.onap.policy.apex.client.deployment.rest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;

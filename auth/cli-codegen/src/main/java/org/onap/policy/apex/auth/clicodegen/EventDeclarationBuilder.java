@@ -21,7 +21,6 @@
 package org.onap.policy.apex.auth.clicodegen;
 
 import java.util.List;
-
 import org.stringtemplate.v4.ST;
 
 public class EventDeclarationBuilder {

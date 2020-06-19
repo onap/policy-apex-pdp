@@ -25,7 +25,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.junit.Test;
 
 /**
@@ -36,7 +35,7 @@ public class EventGeneratorStatsTest {
     @Test
     public void testEventGeneratorStats() {
         Map<Integer, EventBatch> batchMap = new LinkedHashMap<>();
-        EventGeneratorStats egs = new EventGeneratorStats(batchMap );
+        EventGeneratorStats egs = new EventGeneratorStats(batchMap);
         assertNotNull(egs);
 
         assertEquals(-1, egs.getTotalStats().getBatchNumber());

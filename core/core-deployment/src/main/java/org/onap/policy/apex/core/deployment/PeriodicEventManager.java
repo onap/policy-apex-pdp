@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.deployment;
 
 import java.io.PrintStream;
 import java.util.Arrays;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.slf4j.ext.XLogger;

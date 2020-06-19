@@ -24,11 +24,9 @@ package org.onap.policy.apex.model.basicmodel.dao.impl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;

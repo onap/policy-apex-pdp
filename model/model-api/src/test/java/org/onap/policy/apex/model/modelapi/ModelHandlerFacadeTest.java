@@ -28,7 +28,6 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.impl.ModelHandlerFacade;

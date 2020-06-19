@@ -22,7 +22,6 @@
 package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;

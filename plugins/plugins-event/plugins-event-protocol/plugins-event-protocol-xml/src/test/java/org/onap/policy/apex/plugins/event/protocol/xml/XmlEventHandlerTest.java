@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.event.ApexEvent;

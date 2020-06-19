@@ -23,7 +23,6 @@ package org.onap.policy.apex.services.onappf.rest;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.client.Invocation;
-
 import org.junit.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 

@@ -29,7 +29,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -269,8 +268,7 @@ public class YamlEventProtocolTest {
             textBlock = reader.readTextBlock();
 
             eventList.addAll(converter.toApexEvent(eventName, textBlock.getText()));
-        }
-        while (!textBlock.isEndOfText());
+        } while (!textBlock.isEndOfText());
 
         fileInputStream.close();
 

@@ -22,7 +22,6 @@ package org.onap.policy.apex.core.infrastructure.messaging;
 
 import java.net.InetSocketAddress;
 import java.net.URI;
-
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.client.MessagingClient;
 import org.onap.policy.apex.core.infrastructure.messaging.impl.ws.server.MessageServerImpl;
 

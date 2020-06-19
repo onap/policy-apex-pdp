@@ -28,7 +28,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;

@@ -25,11 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

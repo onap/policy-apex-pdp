@@ -23,7 +23,6 @@ package org.onap.policy.apex.context;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-
 import org.junit.Test;
 
 public class ContextExceptionTest {

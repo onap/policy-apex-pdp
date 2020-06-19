@@ -24,11 +24,9 @@ package org.onap.policy.apex.plugins.context.schema.avro;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-
 import java.io.ByteArrayOutputStream;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;

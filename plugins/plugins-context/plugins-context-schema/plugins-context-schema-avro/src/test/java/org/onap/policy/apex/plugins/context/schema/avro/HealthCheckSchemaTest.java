@@ -24,7 +24,6 @@ package org.onap.policy.apex.plugins.context.schema.avro;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericData.Record;

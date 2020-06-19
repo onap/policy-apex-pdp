@@ -77,7 +77,6 @@ import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.VERSION;
 import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.WRITABLE;
 
 import java.util.List;
-
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 

@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.event;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 

@@ -28,9 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.junit.Test;
-import org.onap.policy.apex.auth.clicodegen.CodeGeneratorCliEditor;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 

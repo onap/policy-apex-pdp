@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
@@ -36,7 +35,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;

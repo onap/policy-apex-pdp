@@ -25,7 +25,6 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Provider;
 import javax.ws.rs.core.Response;
-
 import org.glassfish.grizzly.http.server.Request;
 import org.junit.Before;
 import org.junit.Test;

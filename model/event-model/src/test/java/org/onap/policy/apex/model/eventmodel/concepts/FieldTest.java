@@ -32,9 +32,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 
 /**
  * Test fields.
@@ -118,7 +115,7 @@ public class FieldTest {
         assertTrue(field.equals(field));
         assertTrue(field.equals(clonedField));
         assertFalse(field.equals(null));
-        assertFalse(field.equals((Object)"Hello"));
+        assertFalse(field.equals((Object) "Hello"));
         assertFalse(field.equals(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
         assertFalse(field.equals(new AxField(fieldKey, AxArtifactKey.getNullKey(), false)));
         assertFalse(field.equals(new AxField(fieldKey, schemaKey, false)));

@@ -22,7 +22,6 @@ package org.onap.policy.apex.client.editor.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

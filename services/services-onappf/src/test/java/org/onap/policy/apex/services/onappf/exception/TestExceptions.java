@@ -21,8 +21,6 @@
 package org.onap.policy.apex.services.onappf.exception;
 
 import org.junit.Test;
-import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
-import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.common.utils.test.ExceptionsTester;
 
 /**

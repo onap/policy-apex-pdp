@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.context.locking.curator;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
-
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

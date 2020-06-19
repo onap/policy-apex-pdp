@@ -22,7 +22,6 @@ package org.onap.policy.apex.plugins.context.locking.hazelcast;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
-
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 

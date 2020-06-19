@@ -25,7 +25,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;

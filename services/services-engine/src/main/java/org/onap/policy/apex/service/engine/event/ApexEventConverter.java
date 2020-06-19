@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.event;
 
 import java.util.List;
-
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**

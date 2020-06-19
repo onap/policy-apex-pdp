@@ -22,7 +22,6 @@ package org.onap.policy.apex.context.impl.distribution;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;

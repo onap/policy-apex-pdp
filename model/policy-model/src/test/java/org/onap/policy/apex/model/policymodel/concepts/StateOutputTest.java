@@ -33,7 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 
 /**
  * Test state outputs.
@@ -120,7 +119,7 @@ public class StateOutputTest {
         assertTrue(so.equals(so));
         assertTrue(so.equals(clonedPar));
         assertFalse(so.equals(null));
-        assertFalse(so.equals((Object)"Hello"));
+        assertFalse(so.equals((Object) "Hello"));
         assertFalse(so.equals(new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey)));
         assertFalse(so.equals(new AxStateOutput(soKey, new AxArtifactKey(), nsKey)));
         assertFalse(so.equals(new AxStateOutput(soKey, eKey, new AxReferenceKey())));

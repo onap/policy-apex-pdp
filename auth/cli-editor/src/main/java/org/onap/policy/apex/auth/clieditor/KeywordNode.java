@@ -27,7 +27,6 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**

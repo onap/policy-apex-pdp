@@ -24,7 +24,6 @@ package org.onap.policy.apex.plugins.context.schema.avro;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import org.apache.avro.Schema;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;

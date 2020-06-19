@@ -32,12 +32,10 @@ package org.onap.policy.apex.tools.common.docs;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.junit.Test;
-
 //tag::import[]
 import org.onap.policy.apex.tools.common.CliOptions;
 import org.onap.policy.apex.tools.common.CliParser;
 //end::import[]
-
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 

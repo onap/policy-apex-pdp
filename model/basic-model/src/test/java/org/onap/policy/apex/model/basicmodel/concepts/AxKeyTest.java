@@ -125,9 +125,9 @@ public class AxKeyTest {
         assertTrue(nullKey0.isNullKey());
         AxArtifactKey nullKey1 = new AxArtifactKey();
         assertTrue(nullKey1.isNullKey());
-        AxArtifactKey nullKey2 = new AxArtifactKey(AxKey.NULL_KEY_NAME,AxKey.NULL_KEY_VERSION);
+        AxArtifactKey nullKey2 = new AxArtifactKey(AxKey.NULL_KEY_NAME, AxKey.NULL_KEY_VERSION);
         assertTrue(nullKey2.isNullKey());
-        AxArtifactKey notnullKey = new AxArtifactKey("Blah",AxKey.NULL_KEY_VERSION);
+        AxArtifactKey notnullKey = new AxArtifactKey("Blah", AxKey.NULL_KEY_VERSION);
         assertFalse(notnullKey.isNullKey());
 
     }

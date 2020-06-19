@@ -22,7 +22,6 @@
 package org.onap.policy.apex.core.engine.engine.impl;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.ExecutorFactory;
 import org.onap.policy.apex.core.engine.executor.StateMachineExecutor;
@@ -53,8 +52,7 @@ public class DummySmExecutor extends StateMachineExecutor {
     public void prepare() throws StateMachineException {
         if (prepareWorks) {
             prepareWorks = false;
-        }
-        else {
+        } else {
             prepareWorks = true;
             throw new StateMachineException("dummy state machine executor exception");
         }
@@ -75,8 +73,7 @@ public class DummySmExecutor extends StateMachineExecutor {
     public void cleanUp() throws StateMachineException {
         if (cleanupWorks) {
             cleanupWorks = false;
-        }
-        else {
+        } else {
             cleanupWorks = true;
             throw new StateMachineException("dummy state machine executor exception");
         }

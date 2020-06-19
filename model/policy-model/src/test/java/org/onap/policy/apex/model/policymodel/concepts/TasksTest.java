@@ -29,7 +29,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -38,10 +37,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
-import org.onap.policy.apex.model.policymodel.concepts.AxTask;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskLogic;
-import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
-import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 
 /**
  * Test policy tasks.
@@ -229,7 +224,7 @@ public class TasksTest {
         assertTrue(task.equals(task));
         assertTrue(task.equals(clonedTask));
         assertFalse(task.equals(null));
-        assertFalse(task.equals((Object)"Hello"));
+        assertFalse(task.equals((Object) "Hello"));
         assertFalse(task.equals(new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl)));
         assertFalse(task.equals(new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl)));
         assertFalse(task.equals(new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl)));
@@ -312,7 +307,7 @@ public class TasksTest {
         assertTrue(tasks.equals(tasks));
         assertTrue(tasks.equals(clonedTasks));
         assertFalse(tasks.equals(null));
-        assertFalse(tasks.equals((Object)"Hello"));
+        assertFalse(tasks.equals((Object) "Hello"));
         assertFalse(tasks.equals(new AxTasks(new AxArtifactKey())));
 
         assertEquals(0, tasks.compareTo(tasks));

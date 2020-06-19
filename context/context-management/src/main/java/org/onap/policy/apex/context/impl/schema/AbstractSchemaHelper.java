@@ -22,7 +22,6 @@
 package org.onap.policy.apex.context.impl.schema;
 
 import java.lang.reflect.Constructor;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;

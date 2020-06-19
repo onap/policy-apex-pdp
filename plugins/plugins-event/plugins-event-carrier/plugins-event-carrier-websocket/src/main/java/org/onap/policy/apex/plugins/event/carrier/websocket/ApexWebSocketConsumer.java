@@ -22,7 +22,6 @@
 package org.onap.policy.apex.plugins.event.carrier.websocket;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;

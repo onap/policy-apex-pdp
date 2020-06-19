@@ -24,7 +24,6 @@ package org.onap.policy.apex.plugins.executor.jruby;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.jruby.embed.EmbedEvalUnit;
 import org.jruby.embed.LocalContextScope;
 import org.jruby.embed.LocalVariableBehavior;

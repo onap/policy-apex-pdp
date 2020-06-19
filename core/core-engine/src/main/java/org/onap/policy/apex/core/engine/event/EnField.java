@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.engine.event;
 
 import java.io.Serializable;
-
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;

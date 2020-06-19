@@ -22,10 +22,8 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.util.regex.Matcher;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;

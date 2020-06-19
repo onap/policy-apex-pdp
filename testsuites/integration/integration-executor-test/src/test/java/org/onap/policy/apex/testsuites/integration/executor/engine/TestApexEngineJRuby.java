@@ -24,7 +24,6 @@ package org.onap.policy.apex.testsuites.integration.executor.engine;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

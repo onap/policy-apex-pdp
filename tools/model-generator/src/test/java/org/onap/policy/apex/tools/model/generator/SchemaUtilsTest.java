@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.junit.BeforeClass;

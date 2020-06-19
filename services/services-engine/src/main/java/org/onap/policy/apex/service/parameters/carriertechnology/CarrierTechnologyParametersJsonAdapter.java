@@ -28,11 +28,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.onap.policy.apex.service.engine.event.impl.eventrequestor.EventRequestorCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.common.parameters.ParameterRuntimeException;

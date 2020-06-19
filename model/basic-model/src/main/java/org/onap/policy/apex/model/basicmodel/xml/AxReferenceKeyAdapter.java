@@ -21,12 +21,10 @@
 package org.onap.policy.apex.model.basicmodel.xml;
 
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
 /**

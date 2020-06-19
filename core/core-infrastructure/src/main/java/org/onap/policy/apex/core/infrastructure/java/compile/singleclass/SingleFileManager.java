@@ -21,7 +21,6 @@
 package org.onap.policy.apex.core.infrastructure.java.compile.singleclass;
 
 import java.io.IOException;
-
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaCompiler;

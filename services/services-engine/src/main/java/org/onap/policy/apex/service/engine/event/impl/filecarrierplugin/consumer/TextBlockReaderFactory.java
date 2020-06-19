@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer;
 
 import java.io.InputStream;
-
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextCharDelimitedParameters;

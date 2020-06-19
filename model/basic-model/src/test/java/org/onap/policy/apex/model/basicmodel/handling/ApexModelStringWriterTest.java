@@ -26,12 +26,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 
 public class ApexModelStringWriterTest {
 
@@ -61,32 +59,28 @@ public class ApexModelStringWriterTest {
         try {
             stringWriter.writeString(null, AxKeyInfo.class, true);
             fail("test should thrown an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("concept may not be null", e.getMessage());
         }
         
         try {
             stringWriter.writeString(null, AxKeyInfo.class, false);
             fail("test should thrown an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("concept may not be null", e.getMessage());
         }
         
         try {
             stringWriter.writeJsonString(null, AxKeyInfo.class);
             fail("test should thrown an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("error writing JSON string", e.getMessage());
         }
         
         try {
             stringWriter.writeXmlString(null, AxKeyInfo.class);
             fail("test should thrown an exception here");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assertEquals("error writing XML string", e.getMessage());
         }
         

@@ -28,11 +28,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey.Compatibility;
-import org.onap.policy.apex.model.basicmodel.concepts.AxKeyUse;
-import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
-import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 
 public class AxKeyUseTest {
 
@@ -68,7 +64,7 @@ public class AxKeyUseTest {
         
         assertTrue(keyUse.equals(keyUse));
         assertTrue(keyUse.equals(clonedKeyUse));
-        assertFalse(keyUse.equals((Object)"Hello"));
+        assertFalse(keyUse.equals((Object) "Hello"));
         assertTrue(keyUse.equals(new AxKeyUse(key)));
         
         assertEquals(0, keyUse.compareTo(keyUse));

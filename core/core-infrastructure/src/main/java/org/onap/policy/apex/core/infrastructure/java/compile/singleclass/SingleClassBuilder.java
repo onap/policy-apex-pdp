@@ -23,13 +23,11 @@ package org.onap.policy.apex.core.infrastructure.java.compile.singleclass;
 
 import java.util.Arrays;
 import java.util.List;
-
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
-
 import org.onap.policy.apex.core.infrastructure.java.JavaHandlingException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;

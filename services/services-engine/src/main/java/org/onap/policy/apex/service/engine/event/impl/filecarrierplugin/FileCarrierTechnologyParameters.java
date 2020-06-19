@@ -21,7 +21,6 @@
 package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin;
 
 import java.io.File;
-
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer.ApexFileEventProducer;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
@@ -235,9 +234,8 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
         // Check if the file exists, the file should be a regular file and should be readable
         if (theFile.exists()) {
             validateExistingFile(result, absoluteFileName, theFile);
-        }
-        // The path to the file should exist and should be writable
-        else {
+        } else {
+            // The path to the file should exist and should be writable
             validateNewFileParent(result, absoluteFileName, theFile);
         }
     }
@@ -253,8 +251,7 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
         // Check that the file is a regular file
         if (!theFile.isFile()) {
             result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "is not a plain file");
-        }
-        else {
+        } else {
             fileName = absoluteFileName;
 
             if (!theFile.canRead()) {
@@ -274,12 +271,10 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
         // Check that the parent of the file is a directory
         if (!theFile.getParentFile().exists()) {
             result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "parent of file does not exist");
-        }
-        // Check that the parent of the file is a directory
-        else if (!theFile.getParentFile().isDirectory()) {
+        } else if (!theFile.getParentFile().isDirectory()) {
+            // Check that the parent of the file is a directory
             result.setResult(FILE_NAME_TOKEN, ValidationStatus.INVALID, "parent of file is not directory");
-        }
-        else {
+        } else {
             fileName = absoluteFileName;
 
             if (!theFile.getParentFile().canRead()) {

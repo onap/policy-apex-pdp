@@ -23,7 +23,6 @@
 package org.onap.policy.apex.model.modelapi.impl;
 
 import java.util.Properties;
-
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;

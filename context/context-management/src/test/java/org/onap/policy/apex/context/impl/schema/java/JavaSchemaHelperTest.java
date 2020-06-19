@@ -27,10 +27,8 @@ import static org.junit.Assert.fail;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-
 import java.math.BigDecimal;
 import java.time.Instant;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

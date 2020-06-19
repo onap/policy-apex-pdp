@@ -25,7 +25,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.Properties;
-
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String;
