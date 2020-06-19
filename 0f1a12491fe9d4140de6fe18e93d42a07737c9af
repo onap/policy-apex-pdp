@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc298ffc_f7acd73d",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptStateFinalizerExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-06-19T11:11:36Z",
+      "side": 1,
+      "message": "Since we are changing this, should use \"{}\" to remove sonar complaints.",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 43
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ea8ec4_d85e7286",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-06-19T11:11:36Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 64
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014ef9d7_c8af3bec",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskSelectExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-06-19T11:11:36Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 67
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba9ce438_70ef4e79",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-06-19T11:11:36Z",
+      "side": 1,
+      "message": "There is no actual test in here, sonar will flag.",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
