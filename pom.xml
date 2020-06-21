@@ -45,9 +45,8 @@
         <version.commons-cli>1.4</version.commons-cli>
         <version.kafka>2.3.0</version.kafka>
         <version.hibernate>5.3.7.Final</version.hibernate>
-        <version.policy.common>1.6.5</version.policy.common>
-        <version.policy.models>2.2.6</version.policy.models>
-        <version.jackson>2.10.0.pr3</version.jackson>
+        <version.policy.common>1.7.0-SNAPSHOT</version.policy.common>
+        <version.policy.models>2.3.0-SNAPSHOT</version.policy.models>
         <version.jgroups>4.1.5.Final</version.jgroups>
         <version.commons-codec>20041127.091804</version.commons-codec>
         <version.caffeine>2.8.0</version.caffeine>
@@ -110,16 +109,6 @@
                 <groupId>org.onap.policy.common</groupId>
                 <artifactId>policy-endpoints</artifactId>
                 <version>${version.policy.common}</version>
-            </dependency>
-           <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${version.jackson}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${version.jackson}</version>
             </dependency>
             <dependency>
                 <groupId>org.jgroups</groupId>
