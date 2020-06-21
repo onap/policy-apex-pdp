@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c3393a5_8b97a81d",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-06-21T08:03:39Z",
+      "side": 1,
+      "message": "@Jim, the POM changes were in there, on the second page of changed files. There were a lot of changed files in this review.",
+      "revId": "9c0c0c8f61a08aec5c95ebb90647a0aae445e129",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
