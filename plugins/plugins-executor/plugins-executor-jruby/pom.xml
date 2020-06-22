@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.jruby</groupId>
             <artifactId>jruby-core</artifactId>
-            <version>9.2.9.0</version>
+            <version>9.2.11.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jruby.extras</groupId>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>com.github.jnr</groupId>
             <artifactId>jffi</artifactId>
-            <version>1.2.22</version>
+            <version>1.2.23</version>
         </dependency>
     </dependencies>
 
