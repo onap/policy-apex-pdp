@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f1c3cc4_fa4286bb",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-06-22T16:25:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure between your review or Liams - but you should probably update to the latest SNAPSHOTs also especially before we release our first set of artifacts.",
+      "range": {
+        "startLine": 48,
+        "startChar": 9,
+        "endLine": 49,
+        "endChar": 60
+      },
+      "revId": "5be43f6edf88558975258b0eba74f99bfe8937f8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
