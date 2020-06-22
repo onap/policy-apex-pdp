@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa890474_8b0c5441",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptStateFinalizerExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-22T02:11:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fc298ffc_f7acd73d",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 43
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1ea8ec4_d85e7286",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskExecutor.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3cbc7c36_594397c5",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-22T02:11:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1ea8ec4_d85e7286",
+      "range": {
+        "startLine": 85,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 64
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "014ef9d7_c8af3bec",
         "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskSelectExecutor.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f72a3b9e_20de922e",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/main/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptTaskSelectExecutor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-22T02:11:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "014ef9d7_c8af3bec",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 67
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -115,6 +187,30 @@
       "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73387743_36f860ff",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6351
+      },
+      "writtenOn": "2020-06-22T02:11:50Z",
+      "side": 1,
+      "message": "OK. Thanks Jim.",
+      "parentUuid": "5eee9473_4963b8ce",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "0f1a12491fe9d4140de6fe18e93d42a07737c9af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
