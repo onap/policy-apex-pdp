@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e680172f_02bc5356",
+        "filename": "plugins/plugins-executor/plugins-executor-javascript/src/test/java/org/onap/policy/apex/plugins/executor/javascript/JavascriptExecutorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-24T15:22:36Z",
+      "side": 1,
+      "message": "I think it\u0027s missing, but maybe that isn\u0027t necessary?\n\n  .doesNotThrownAnException()",
+      "revId": "db73a6835f176150be8c770f1342d7426a6169fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
