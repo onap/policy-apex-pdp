@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +32,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.log4j.chainsaw.Main;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.common.utils.resources.ResourceUtils;
@@ -137,7 +137,7 @@ public class ApexStarterCommandLineArguments {
         }
 
         if (commandLine.hasOption('h')) {
-            return help(Main.class.getName());
+            return help(ApexStarterMain.class.getName());
         }
 
         if (commandLine.hasOption('v')) {
