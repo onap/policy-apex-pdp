@@ -31,7 +31,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.log4j.chainsaw.Main;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.common.utils.resources.ResourceUtils;
@@ -137,7 +136,7 @@ public class ApexStarterCommandLineArguments {
         }
 
         if (commandLine.hasOption('h')) {
-            return help(Main.class.getName());
+            return help(ApexStarterMain.class.getName());
         }
 
         if (commandLine.hasOption('v')) {
