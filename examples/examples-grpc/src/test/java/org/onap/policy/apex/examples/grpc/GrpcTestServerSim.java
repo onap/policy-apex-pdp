@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,7 @@ import org.onap.policy.common.endpoints.http.server.HttpServletServer;
 import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
 import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.utils.network.NetworkUtil;
+import org.onap.policy.simulators.CdsSimulator;
 
 /**
  * The Class GrpcTestServerSim that manages test servers for REST and gRPC requests for the test.
@@ -32,7 +34,7 @@ import org.onap.policy.common.utils.network.NetworkUtil;
 public class GrpcTestServerSim {
     private static final String HOST = "localhost";
     private HttpServletServer restServer;
-    private GrpcTestDummyGrpcServer grpcServer;
+    private CdsSimulator grpcServer;
 
     /**
      * Instantiates a new REST simulator for DMaaP requests.
@@ -52,7 +54,7 @@ public class GrpcTestServerSim {
         }
 
         int grpcServerPort = 54322;
-        grpcServer = new GrpcTestDummyGrpcServer(HOST, grpcServerPort);
+        grpcServer = new CdsSimulator(HOST, grpcServerPort);
         grpcServer.start();
         if (!NetworkUtil.isTcpPortOpen(HOST, grpcServerPort, 50, 200L)) {
             throw new IllegalStateException("port " + grpcServerPort + " is still not in use");
