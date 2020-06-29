@@ -34,6 +34,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -158,6 +159,9 @@ public class WebClient {
 
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 transformerFactory.setAttribute("indent-number", indent);
+                transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
                 Transformer transformer = transformerFactory.newTransformer();
                 transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.name());
                 transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");

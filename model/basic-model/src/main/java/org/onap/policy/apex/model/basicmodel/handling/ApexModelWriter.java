@@ -202,6 +202,9 @@ public class ApexModelWriter<C extends AxConcept> {
             // Write the concept into a DOM document, then transform to add CDATA fields and pretty
             // print, then write out the result
             final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
             docBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             final Document document = docBuilderFactory.newDocumentBuilder().newDocument();
 
@@ -223,6 +226,9 @@ public class ApexModelWriter<C extends AxConcept> {
     private Transformer getTransformer() throws TransformerConfigurationException {
         // Transform the DOM to the output stream
         final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
         final Transformer domTransformer = transformerFactory.newTransformer();
 
         // Pretty print

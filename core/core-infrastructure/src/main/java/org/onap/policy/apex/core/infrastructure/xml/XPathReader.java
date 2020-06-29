@@ -76,7 +76,8 @@ public class XPathReader {
             LOGGER.info("Initializing XPath reader");
             DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
             df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-
+            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             // Check if this is operating on a file
             if (xmlFileName != null) {
                 xmlDocument = df.newDocumentBuilder().parse(xmlFileName);
