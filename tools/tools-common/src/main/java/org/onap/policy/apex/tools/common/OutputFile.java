@@ -122,7 +122,9 @@ public class OutputFile {
             }
         } else {
             try {
-                file.createNewFile();
+                if (file.createNewFile()) {
+                    LOGGER.trace("Created output file {}", file.getName());
+                }
             } catch (final IOException e) {
                 String message = "could not create output file: " + e.getMessage();
                 LOGGER.warn(message, e);

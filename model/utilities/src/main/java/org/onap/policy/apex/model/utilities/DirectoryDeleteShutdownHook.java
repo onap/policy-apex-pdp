@@ -21,6 +21,8 @@
 package org.onap.policy.apex.model.utilities;
 
 import java.io.File;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class DirectoryShutdownHook removes the contents of a directory and the directory itself at shutdown.
@@ -28,6 +30,9 @@ import java.io.File;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 final class DirectoryDeleteShutdownHook extends Thread {
+
+    private static final XLogger LOGGER = XLoggerFactory.getXLogger(DirectoryUtils.class);
+
     // The directory we are acting on
     private final File tempDir;
 
@@ -48,7 +53,9 @@ final class DirectoryDeleteShutdownHook extends Thread {
         if (tempDir.exists()) {
             // Empty and delete the directory
             DirectoryUtils.emptyDirectory(tempDir);
-            tempDir.delete();
+            if (!tempDir.delete()) {
+                LOGGER.warn("Failed to delete directory {}", tempDir);
+            }
         }
     }
 }

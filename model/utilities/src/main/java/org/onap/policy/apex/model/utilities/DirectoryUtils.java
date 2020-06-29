@@ -96,7 +96,9 @@ public abstract class DirectoryUtils {
                 }
 
                 // Delete the directory entry
-                directoryFile.delete();
+                if (!directoryFile.delete()) {
+                    LOGGER.warn("Failed to delete directory file {}", directoryFile);
+                }
             }
         }
 
