@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23aeac62_b5165a25",
+        "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/DirectoryDeleteShutdownHook.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-06-29T13:20:45Z",
+      "side": 1,
+      "message": "Add Nordix modification copyright notice.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "2c4aedcb36d31a969c1795c40b3fc31c0efcfdf5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b332c17_bc8a4b2e",
+        "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/DirectoryDeleteShutdownHook.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-06-29T13:20:45Z",
+      "side": 1,
+      "message": "Trailing Space",
+      "range": {
+        "startLine": 8,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "2c4aedcb36d31a969c1795c40b3fc31c0efcfdf5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ae2e04c_e03548de",
+        "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/DirectoryDeleteShutdownHook.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-06-29T13:20:45Z",
+      "side": 1,
+      "message": "Trailing space",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 3
+      },
+      "revId": "2c4aedcb36d31a969c1795c40b3fc31c0efcfdf5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8733a3dc_5e1a1764",
+        "filename": "model/utilities/src/main/java/org/onap/policy/apex/model/utilities/DirectoryUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-06-29T13:20:45Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "2c4aedcb36d31a969c1795c40b3fc31c0efcfdf5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
