@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8608e3e6_accfd1f8",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-30T22:07:19Z",
+      "side": 1,
+      "message": "not sure why this is wrapped in an extra layer of parentheses",
+      "range": {
+        "startLine": 182,
+        "startChar": 49,
+        "endLine": 182,
+        "endChar": 50
+      },
+      "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714de240_7610dcc3",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-30T22:07:19Z",
+      "side": 1,
+      "message": "could simplify this by using the other form of reduce(), thereby eliminating the need to extract, and then skip, the \"firstEntry\"",
+      "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d033c6a1_328d9b5b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-06-30T22:07:19Z",
+      "side": 1,
+      "message": "\"is having\" \u003d\u003e \"has\"",
+      "range": {
+        "startLine": 187,
+        "startChar": 59,
+        "endLine": 187,
+        "endChar": 68
+      },
+      "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
