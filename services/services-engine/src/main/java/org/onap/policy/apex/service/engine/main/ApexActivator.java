@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +24,16 @@ package org.onap.policy.apex.service.engine.main;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Stream;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
@@ -116,12 +120,13 @@ public class ApexActivator {
         LOGGER.debug("Apex engine started as a service");
     }
 
-    private void setUpModelMarhsallerAndUnmarshaller(ApexParameters apexParameters) throws IOException, ApexException {
+    private void setUpModelMarhsallerAndUnmarshaller(ApexParameters apexParameters) throws ApexException {
         policyModelsMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> inputParametersMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> outputParametersMap = new LinkedHashMap<>();
-
-        for (Entry<ToscaPolicyIdentifier, ApexParameters> apexParamsEntry : apexParametersMap.entrySet()) {
+        Set<Entry<ToscaPolicyIdentifier, ApexParameters>> apexParamsEntrySet =
+            new LinkedHashSet<>(apexParametersMap.entrySet());
+        apexParamsEntrySet.stream().forEach(apexParamsEntry -> {
             ApexParameters apexParams = apexParamsEntry.getValue();
             boolean duplicateInputParameterExist =
                 apexParams.getEventInputParameters().keySet().stream().anyMatch(inputParametersMap::containsKey);
@@ -131,7 +136,7 @@ public class ApexActivator {
                 LOGGER.error("I/O Parameters for {}:{} has duplicates. So this policy is not executed.",
                     apexParamsEntry.getKey().getName(), apexParamsEntry.getKey().getVersion());
                 apexParametersMap.remove(apexParamsEntry.getKey());
-                continue;
+                return;
             }
             inputParametersMap.putAll(apexParams.getEventInputParameters());
             outputParametersMap.putAll(apexParams.getEventOutputParameters());
@@ -139,14 +144,17 @@ public class ApexActivator {
             if (apexParams.getEngineServiceParameters().getPolicyModelFileName() != null) {
                 LOGGER.debug("deploying policy model in \"{}\" to the apex engines . . .",
                     apexParams.getEngineServiceParameters().getPolicyModelFileName());
-
-                final String policyModelString =
-                    TextFileUtils.getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
-                AxPolicyModel policyModel = EngineServiceImpl
-                    .createModel(apexParams.getEngineServiceParameters().getEngineKey(), policyModelString);
-                policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
+                try {
+                    final String policyModelString = TextFileUtils
+                        .getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
+                    AxPolicyModel policyModel = EngineServiceImpl
+                        .createModel(apexParams.getEngineServiceParameters().getEngineKey(), policyModelString);
+                    policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
+                } catch (ApexException | IOException e) {
+                    throw new ApexRuntimeException("Failed to create the apex model.", e);
+                }
             }
-        }
+        });
         AxPolicyModel finalPolicyModel = aggregatePolicyModels(policyModelsMap);
 
         // Set the policy model in the engine
@@ -164,24 +172,25 @@ public class ApexActivator {
     }
 
     private AxPolicyModel aggregatePolicyModels(Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap) {
-        Map.Entry<ToscaPolicyIdentifier, AxPolicyModel> firstEntry = policyModelsMap.entrySet().iterator().next();
+        Set<Entry<ToscaPolicyIdentifier, AxPolicyModel>> policyModelsEntries =
+            new LinkedHashSet<>(policyModelsMap.entrySet());
+        Map.Entry<ToscaPolicyIdentifier, AxPolicyModel> firstEntry = policyModelsEntries.iterator().next();
         ToscaPolicyIdentifier tempId = new ToscaPolicyIdentifier(firstEntry.getKey());
         AxPolicyModel tempModel = new AxPolicyModel(firstEntry.getValue());
-        Stream<Entry<ToscaPolicyIdentifier, AxPolicyModel>> policyModelStream =
-            policyModelsMap.entrySet().stream().skip(1);
+        Stream<Entry<ToscaPolicyIdentifier, AxPolicyModel>> policyModelStream = policyModelsEntries.stream().skip(1);
         Entry<ToscaPolicyIdentifier, AxPolicyModel> finalPolicyModelEntry =
-            policyModelStream.reduce(firstEntry, ((entry1, entry2) -> {
+            policyModelStream.reduce(firstEntry, (entry1, entry2) -> {
                 try {
                     entry1.setValue(
                         PolicyModelMerger.getMergedPolicyModel(entry1.getValue(), entry2.getValue(), true, true));
                 } catch (ApexModelException exc) {
-                    LOGGER.error("Policy model for {} : {} is having duplicates. So this policy is not executed.",
+                    LOGGER.error("Policy model for {} : {} has duplicates. So this policy is not executed.",
                         entry2.getKey().getName(), entry2.getKey().getVersion(), exc);
                     apexParametersMap.remove(entry2.getKey());
                     policyModelsMap.remove(entry2.getKey());
                 }
                 return entry1;
-            }));
+            });
         AxPolicyModel finalPolicyModel = new AxPolicyModel(finalPolicyModelEntry.getValue());
         policyModelsMap.put(tempId, tempModel); // put back the original first entry into the policyModelsMap
         return finalPolicyModel;
@@ -233,7 +242,7 @@ public class ApexActivator {
      * Set up unmarshaler/marshaler pairing for synchronized event handling. We only need to traverse the unmarshalers
      * because the unmarshalers and marshalers are paired one to one uniquely so if we find a synchronized unmarshaler
      * we'll also find its paired marshaler
-     * 
+     *
      * @param inputParametersMap the apex parameters
      */
     private void setUpMarshalerPairings(Map<String, EventHandlerParameters> inputParametersMap) {
