@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a8b7e1a_3807c0b3",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-01T11:22:59Z",
+      "side": 1,
+      "message": "I wonder will you get a SONAR flag here for indentation?",
+      "range": {
+        "startLine": 147,
+        "startChar": 1,
+        "endLine": 158,
+        "endChar": 2
+      },
+      "revId": "d511e715280157342728e979d898615c5b05fb80",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
