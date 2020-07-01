@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "56c05f30_bfabb525",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T13:45:13Z",
+      "side": 1,
+      "message": "In the previous patch, I was taking a copy of the firstEntry key and value in lines 178 179, and putting it back after reduction. So functionality wise it was working fine.",
+      "parentUuid": "7224948b_006959e3",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "298b8866_63763d4f",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 5
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "seriously?  what a pain",
       "parentUuid": "68df6811_37370166",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875a2c09_01b16a60",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T13:45:13Z",
+      "side": 1,
+      "message": "yes, true that.",
+      "parentUuid": "fff5df0c_00797644",
       "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
