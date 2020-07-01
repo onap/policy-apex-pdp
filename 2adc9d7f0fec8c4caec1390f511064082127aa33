@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "c2b0b7e5_bcc9e40c",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8608e3e6_accfd1f8",
+      "range": {
+        "startLine": 182,
+        "startChar": 49,
+        "endLine": 182,
+        "endChar": 50
+      },
+      "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "666f5ebc_c1e98b18",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "714de240_7610dcc3",
+      "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d033c6a1_328d9b5b",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 2
@@ -62,6 +104,30 @@
       "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87533c80_b795f07a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T11:42:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d033c6a1_328d9b5b",
+      "range": {
+        "startLine": 187,
+        "startChar": 59,
+        "endLine": 187,
+        "endChar": 68
+      },
+      "revId": "2adc9d7f0fec8c4caec1390f511064082127aa33",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
