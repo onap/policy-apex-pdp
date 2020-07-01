@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5e6ddd7_cb612afb",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T13:14:57Z",
+      "side": 1,
+      "message": "why not use line 176 from the previous patch?  seems simpler and does the job, right?",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "298b8866_63763d4f",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T13:14:57Z",
+      "side": 1,
+      "message": "is this check needed?  the original code assume that there was at least one item - was that an incorrect assumption?",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
