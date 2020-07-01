@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7224948b_006959e3",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T13:38:59Z",
+      "side": 1,
+      "message": "got it.  So then line 177 of the previous patch was probably incorrect, too, for the same reason",
+      "parentUuid": "54c19151_a2109369",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "298b8866_63763d4f",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 5
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Yes that is correct. Atleast one item will be there. Just added this so that there won\u0027t be sonar violation.\nSonar would complain -  Optional value should only be accessed after calling isPresent()",
       "parentUuid": "298b8866_63763d4f",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fff5df0c_00797644",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T13:38:59Z",
+      "side": 1,
+      "message": "seriously?  what a pain",
+      "parentUuid": "68df6811_37370166",
       "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
