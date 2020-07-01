@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "54c19151_a2109369",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T13:30:43Z",
+      "side": 1,
+      "message": "if new LinkedHashSet\u003c\u003e(policyModelsMap.entrySet()) is used, a new Set is created. But the entries inside them are just a reference, not an actual clone of the elements inside. So, the reduction operation changes the value of the first element in policyModelsMap as well even though policyModelsEntries is a new Set.\nHence, this will mean I have to  put back the original first entry into the policyModelsMap, thereby bringing the firstEntry back just for this.",
+      "parentUuid": "a5e6ddd7_cb612afb",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "298b8866_63763d4f",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-07-01T13:14:57Z",
       "side": 1,
       "message": "is this check needed?  the original code assume that there was at least one item - was that an incorrect assumption?",
+      "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68df6811_37370166",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-01T13:30:43Z",
+      "side": 1,
+      "message": "Yes that is correct. Atleast one item will be there. Just added this so that there won\u0027t be sonar violation.\nSonar would complain -  Optional value should only be accessed after calling isPresent()",
+      "parentUuid": "298b8866_63763d4f",
       "revId": "9519d1257b4fe4fbb68d3e9ab155de8ff0f13052",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
