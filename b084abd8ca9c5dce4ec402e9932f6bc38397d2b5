@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a45f3421_a9f1f27d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/main/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-03T21:24:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cfcc222_915787cc",
+      "revId": "b084abd8ca9c5dce4ec402e9932f6bc38397d2b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb44b809_c654573b",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/test/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducerTest.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-07-03T19:10:31Z",
       "side": 1,
       "message": "sure this sets it back to the original value?  Note: this should be done in a \"finally\" block to ensure it is reset, even if sendEvent() throws an exception.",
+      "revId": "b084abd8ca9c5dce4ec402e9932f6bc38397d2b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6797fcc_a670b8b0",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/test/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-03T21:24:54Z",
+      "side": 1,
+      "message": "Agreed. Missed that. But removing these, as Ram suggested just checking for exceptions is enough. Exceptions shouldn\u0027t be thrown even if CDS request failed for any reason.",
+      "parentUuid": "cb44b809_c654573b",
       "revId": "b084abd8ca9c5dce4ec402e9932f6bc38397d2b5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -64,6 +100,30 @@
       "writtenOn": "2020-07-03T18:46:02Z",
       "side": 1,
       "message": "Shouldn\u0027t we just assert that the code is not throwing any exception instead of verifying the logs?",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 114
+      },
+      "revId": "b084abd8ca9c5dce4ec402e9932f6bc38397d2b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "131d1e39_86ad9246",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/test/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-03T21:24:54Z",
+      "side": 1,
+      "message": "Yes, actually that is enough for this case.",
+      "parentUuid": "d927a864_a9db8728",
       "range": {
         "startLine": 84,
         "startChar": 8,
