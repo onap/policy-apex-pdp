@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d927a864_a9db8728",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/test/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-07-03T18:46:02Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we just assert that the code is not throwing any exception instead of verifying the logs?",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 114
+      },
+      "revId": "b084abd8ca9c5dce4ec402e9932f6bc38397d2b5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
