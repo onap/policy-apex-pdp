@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,13 @@
 
 package org.onap.policy.apex.plugins.event.carrier.grpc;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.spy;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.assertj.core.api.Assertions;
@@ -37,6 +42,7 @@ import org.onap.policy.cds.client.CdsProcessorGrpcClient;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApexGrpcProducerTest {
+    private static final String PRODUCER_NAME = "TestApexGrpcProducer";
     private static final String HOST = "localhost";
     @Mock
     private CdsProcessorGrpcClient grpcClient;
@@ -56,30 +62,33 @@ public class ApexGrpcProducerTest {
 
     @Test(expected = ApexEventException.class)
     public void testInit_fail() throws ApexEventException {
-        apexGrpcProducer.init("TestApexGrpcProducer", new EventHandlerParameters());
+        apexGrpcProducer.init(PRODUCER_NAME, new EventHandlerParameters());
     }
 
     @Test
     public void testInit_pass() {
         // should not throw an exception
-        Assertions.assertThatCode(() -> apexGrpcProducer.init("TestApexGrpcProducer", eventHandlerParameters))
+        Assertions.assertThatCode(() -> apexGrpcProducer.init(PRODUCER_NAME, eventHandlerParameters))
             .doesNotThrowAnyException();
     }
 
     @Test
     public void testStop() throws ApexEventException {
-        apexGrpcProducer.init("TestApexGrpcProducer", eventHandlerParameters);
+        apexGrpcProducer.init(PRODUCER_NAME, eventHandlerParameters);
         // should not throw an exception
         Assertions.assertThatCode(() -> apexGrpcProducer.stop()).doesNotThrowAnyException();
     }
 
     @Test
-    public void testSendEvent() throws ApexEventException {
-        apexGrpcProducer.init("TestApexGrpcProducer", eventHandlerParameters);
-        assertThatThrownBy(() -> {
-            apexGrpcProducer.sendEvent(123, null, "grpcEvent",
-                Files.readString(Paths.get("src/test/resources/executionServiceInputEvent.json")));
-        }).hasMessageContaining("UNAVAILABLE: io exception");
+    public void testSendEvent() throws ApexEventException, IOException {
+        apexGrpcProducer.init(PRODUCER_NAME, eventHandlerParameters);
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        apexGrpcProducer.sendEvent(123, null, "grpcEvent",
+            Files.readString(Paths.get("src/test/resources/executionServiceInputEvent.json")));
+        System.setOut(System.out);
+        assertTrue(
+            outContent.toString().contains("Sending event \"grpcEvent\" by " + PRODUCER_NAME + " to CDS failed"));
     }
 
     private void populateEventHandlerParameters(String host, int timeout) {
