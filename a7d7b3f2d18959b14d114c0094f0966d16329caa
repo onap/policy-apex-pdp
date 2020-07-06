@@ -99,6 +99,47 @@
       "revId": "a7d7b3f2d18959b14d114c0094f0966d16329caa",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c920de64_8bd75143",
+        "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/MonitoringRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-06T12:39:54Z",
+      "side": 1,
+      "message": "the last statement should be an assert() of some kind\n\nsame comment below",
+      "parentUuid": "6beaf7ee_011c398a",
+      "range": {
+        "startLine": 143,
+        "startChar": 24,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "a7d7b3f2d18959b14d114c0094f0966d16329caa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36a503b1_103cacf5",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/testsuites/integration/common/model/SampleDomainModelSaverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-06T12:39:54Z",
+      "side": 1,
+      "message": "last statement should be an assert - perhaps this should be moved to an @After method?",
+      "revId": "a7d7b3f2d18959b14d114c0094f0966d16329caa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
