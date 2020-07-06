@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.client.editor.rest.handling.bean;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -60,29 +61,9 @@ public class BeansTest {
         assertNull(beanFake.get("name"));
         assertNull(beanFake.get("field1"));
 
-        try {
-            beanFake.get("iDontExist");
-            fail("test should throw an exception here");
-        } catch (final IllegalArgumentException e) {
-            assertNotNull(e);
-        }
-        try {
-            beanFake.get("nome");
-            fail("test should throw an exception here");
-        } catch (final IllegalArgumentException e) {
-            assertNotNull(e);
-        }
-        try {
-            beanFake.get("field2");
-            fail("test should throw an exception here");
-        } catch (final IllegalArgumentException e) {
-            assertNotNull(e);
-        }
-        try {
-            beanFake.get("field3");
-            fail("test should throw an exception here");
-        } catch (final IllegalArgumentException e) {
-            assertNotNull(e);
-        }
+        assertThatThrownBy(() -> beanFake.get("iDontExist")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> beanFake.get("nome")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> beanFake.get("field2")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> beanFake.get("field3")).isInstanceOf(IllegalArgumentException.class);
     }
 }

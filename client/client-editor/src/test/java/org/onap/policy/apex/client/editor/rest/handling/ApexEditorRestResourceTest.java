@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.client.editor.rest.handling;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -60,11 +61,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
 
         final int corruptSessionId = ApexEditorRestResource.createCorruptSession();
 
-        try {
-            target("editor/" + corruptSessionId + "/Model/Analyse").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Model/Analyse").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Model/Analyse").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
@@ -73,11 +70,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/12345/Model/Analyse").request().get(ApexApiResult.class);
         assertEquals(Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Model/Validate").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Model/Validate").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Model/Validate").request().get(ApexApiResult.class);
         assertEquals(Result.FAILED, result.getResult());
@@ -99,11 +92,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Model/Create").request().post(csEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Model/Create").request().post(csEntity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Model/Create").request().post(csEntity, ApexApiResult.class);
 
         result = target("editor/-12345/Model/Update").request().put(csEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -114,17 +103,9 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Model/Update").request().put(csEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Model/Update").request().put(csEntity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Model/Update").request().put(csEntity, ApexApiResult.class);
 
-        try {
-            result = target("editor/" + corruptSessionId + "/Model/GetKey").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        result = target("editor/" + corruptSessionId + "/Model/GetKey").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Model/GetKey").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
@@ -133,11 +114,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/12345/Model/GetKey").request().get(ApexApiResult.class);
         assertEquals(Result.FAILED, result.getResult());
 
-        try {
-            result = target("editor/" + corruptSessionId + "/Model/Get").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        result = target("editor/" + corruptSessionId + "/Model/Get").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Model/Get").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
@@ -158,11 +135,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         resultString = target("editor/12345/Model/Download").request().get(String.class);
         assertEquals("", resultString);
 
-        try {
-            result = target("editor/" + corruptSessionId + "/KeyInformation/Get").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        result = target("editor/" + corruptSessionId + "/KeyInformation/Get").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/KeyInformation/Get").request().get(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
@@ -171,11 +144,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/12345/KeyInformation/Get").request().get(ApexApiResult.class);
         assertEquals(Result.FAILED, result.getResult());
 
-        try {
-            result = target("editor/" + corruptSessionId + "/Model/Delete").request().delete(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        result = target("editor/" + corruptSessionId + "/Model/Delete").request().delete(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Model/Delete").request().delete(ApexApiResult.class);
         assertEquals(Result.SUCCESS, result.getResult());
@@ -196,11 +165,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/-12345/Validate/ContextSchema").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Validate/ContextSchema").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Validate/ContextSchema").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Validate/ContextSchema").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
@@ -232,12 +197,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextSchema/Get").queryParam("name", (String) null)
+        target("editor/" + corruptSessionId + "/ContextSchema/Get").queryParam("name", (String) null)
                     .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         String csString = "{" + "\"name\"             : \"Hello\"," + "\"version\"          : \"0.0.2\","
                 + "\"schemaFlavour\"    : \"Java\"," + "\"schemaDefinition\" : \"java.lang.String\","
@@ -251,12 +212,9 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/ContextSchema/Create").request().post(csEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextSchema/Create").request().post(csEntity,
+        target("editor/" + corruptSessionId + "/ContextSchema/Create").request().post(csEntity,
                     ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+
 
         csString = "{" + "\"name\"             : \"Hello\"," + "\"version\"          : \"0.0.2\","
                 + "\"schemaFlavour\"    : \"Java\"," + "\"schemaDefinition\" : \"my.perfect.String\","
@@ -270,11 +228,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/ContextSchema/Update").request().put(csEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextSchema/Update").request().put(csEntity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/ContextSchema/Update").request().put(csEntity, ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/ContextSchema/Get").queryParam("name", "Hello")
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -289,23 +243,15 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextSchema/Get").queryParam("name", "Hello")
+        target("editor/" + corruptSessionId + "/ContextSchema/Get").queryParam("name", "Hello")
                     .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/" + sessionId + "/Validate/ContextSchema").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextSchema/Delete").queryParam("name", "Hello")
+        target("editor/" + corruptSessionId + "/ContextSchema/Delete").queryParam("name", "Hello")
                     .queryParam("version", "0.0.2").request().delete(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/-123345/ContextSchema/Delete").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().delete(ApexApiResult.class);
@@ -331,11 +277,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/-12345/Validate/ContextAlbum").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Validate/ContextAlbum").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Validate/ContextAlbum").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Validate/ContextAlbum").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
@@ -380,11 +322,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/ContextAlbum/Create").request().post(caEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextAlbum/Create").request().post(caEntity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/ContextAlbum/Create").request().post(caEntity, ApexApiResult.class);
 
         caString = "{" + "\"name\"             : \"Hello\"," + "\"version\"          : \"0.0.2\","
                 + "\"scope\"            : \"Global\"," + "\"writeable\"        : false,"
@@ -399,18 +337,10 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/ContextAlbum/Update").request().put(caEntity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextAlbum/Update").request().put(caEntity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/ContextAlbum/Update").request().put(caEntity, ApexApiResult.class);
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextAlbum/Get").queryParam("name", "Hello")
+        target("editor/" + corruptSessionId + "/ContextAlbum/Get").queryParam("name", "Hello")
                     .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/" + sessionId + "/ContextAlbum/Get").queryParam("name", "Hello")
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -429,12 +359,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/ContextAlbum/Delete").queryParam("name", (String) null)
+        target("editor/" + corruptSessionId + "/ContextAlbum/Delete").queryParam("name", (String) null)
                     .queryParam("version", (String) null).request().delete(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/-123345/ContextAlbum/Delete").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().delete(ApexApiResult.class);
@@ -464,11 +390,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Validate/Event").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Validate/Event").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Validate/Event").request().get(ApexApiResult.class);
 
         result = target("editor/" + sessionId + "/Validate/Event").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -511,11 +433,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Event/Create").request().post(entity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Event/Create").request().post(entity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Event/Create").request().post(entity, ApexApiResult.class);
 
         entityString = "{" + "\"name\"             : \"Hiya\"," + "\"version\"          : \"0.0.2\","
                 + "\"namespace\"        : \"somewhere.over.the.rainbow\"," + "\"source\"           : \"beginning\","
@@ -570,11 +488,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Event/Update").request().put(entity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Event/Update").request().put(entity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Event/Update").request().put(entity, ApexApiResult.class);
 
         entityString = "{" + "\"name\"             : null," + "\"version\"          : \"0.0.2\","
                 + "\"namespace\"        : \"somewhere.over.someone.elses.rainbow\","
@@ -607,12 +521,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Event/Get").queryParam("name", "Hello")
+        target("editor/" + corruptSessionId + "/Event/Get").queryParam("name", "Hello")
                     .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/" + sessionId + "/Validate/Event").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -624,12 +534,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Event/Delete").queryParam("name", (String) null)
+        target("editor/" + corruptSessionId + "/Event/Delete").queryParam("name", (String) null)
                     .queryParam("version", (String) null).request().delete(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/-123345/Event/Delete").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().delete(ApexApiResult.class);
@@ -705,11 +611,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Task/Create").request().post(entity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Task/Create").request().post(entity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Task/Create").request().post(entity, ApexApiResult.class);
 
         entityString = "{" + "\"name\"             : \"Hiya\"," + "\"version\"          : \"0.0.2\","
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002799\","
@@ -896,11 +798,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Task/Update").request().put(entity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Task/Update").request().put(entity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Task/Update").request().put(entity, ApexApiResult.class);
 
         entityString = "{" + "\"name\"             : null," + "\"version\"          : \"0.0.2\","
                 + "\"uuid\"             : \"1fa2e430-f2b2-11e6-bc64-92361f002671\","
@@ -932,12 +830,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Task/Get").queryParam("name", "Hello")
+        target("editor/" + corruptSessionId + "/Task/Get").queryParam("name", "Hello")
                     .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/" + sessionId + "/Validate/Event").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -949,12 +843,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Task/Delete").queryParam("name", (String) null)
+        target("editor/" + corruptSessionId + "/Task/Delete").queryParam("name", (String) null)
                     .queryParam("version", (String) null).request().delete(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/-123345/Task/Delete").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().delete(ApexApiResult.class);
@@ -984,12 +874,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Model/Validate").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Model/Validate").request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
-
+        target("editor/" + corruptSessionId + "/Model/Validate").request().get(ApexApiResult.class);
         result = target("editor/" + sessionId + "/Model/Validate").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -1039,11 +924,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
         result = target("editor/" + sessionId + "/Policy/Create").request().post(entity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Policy/Create").request().post(entity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Policy/Create").request().post(entity, ApexApiResult.class);
 
         entityString = "{" + "\"name\"             : \"GoodTaSeeYa\"," + "\"version\"          : \"0.0.2\","
                 + "\"template\"         : \"somewhere.over.the.rainbow\"," + "\"firstState\"       : \"state\","
@@ -1411,11 +1292,7 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .put(entity, ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Policy/Update").request().put(entity, ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
+        target("editor/" + corruptSessionId + "/Policy/Update").request().put(entity, ApexApiResult.class);
 
         entityString = "{" + "\"name\"             : null," + "\"version\"          : \"0.0.2\","
                 + "\"template\"         : \"somewhere.over.the.rainbow\"," + "\"firstState\"       : \"state\","
@@ -1465,12 +1342,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Policy/Get").queryParam("name", "Hello")
+        target("editor/" + corruptSessionId + "/Policy/Get").queryParam("name", "Hello")
                     .queryParam("version", (String) null).request().get(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/" + sessionId + "/Validate/Event").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
@@ -1482,12 +1355,8 @@ public class ApexEditorRestResourceTest extends JerseyTest {
                 .queryParam("version", (String) null).request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        try {
-            target("editor/" + corruptSessionId + "/Policy/Delete").queryParam("name", (String) null)
+        target("editor/" + corruptSessionId + "/Policy/Delete").queryParam("name", (String) null)
                     .queryParam("version", (String) null).request().delete(ApexApiResult.class);
-        } catch (final Exception e) {
-            assertEquals("HTTP 500 Request failed.", e.getMessage());
-        }
 
         result = target("editor/-123345/Policy/Delete").queryParam("name", (String) null)
                 .queryParam("version", (String) null).request().delete(ApexApiResult.class);
