@@ -24,6 +24,8 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
+import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
 
 // @formatter:off
 /**
@@ -58,5 +60,20 @@ public class RestClientCarrierTechnologyParameters extends RestPluginCarrierTech
         this.setLabel("RESTCLIENT");
         this.setEventProducerPluginClass(ApexRestClientProducer.class.getName());
         this.setEventConsumerPluginClass(ApexRestClientConsumer.class.getName());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GroupValidationResult validateUrl(final GroupValidationResult result) {
+        // Check if the URL has been set for event output
+        final String urlNullMessage = "no URL has been set for event sending on " + getLabel();
+        if (getUrl() == null) {
+            result.setResult("url", ValidationStatus.INVALID, urlNullMessage);
+            return result;
+        }
+
+        return super.validateUrl(result);
     }
 }
