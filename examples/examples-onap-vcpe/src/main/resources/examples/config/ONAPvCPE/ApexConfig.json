@@ -40,7 +40,9 @@
                     "url": "http://172.18.0.6:8081/pdp/api/getDecision",
                     "httpMethod": "POST",
                     "restRequestTimeout": 2000,
-                    "httpHeader": "Authorization:dGVzdHBkcDphbHBoYTEyMw== ClientAuth:cHl0aG9uOnRlc3Q="
+                    "httpHeaders": [
+                        ["Authorization:dGVzdHBkcDphbHBoYTEyMw== ClientAuth:cHl0aG9uOnRlc3Q="]
+                    ]
                 }
             },
             "eventProtocolParameters": {
