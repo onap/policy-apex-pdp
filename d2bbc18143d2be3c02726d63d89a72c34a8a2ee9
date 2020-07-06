@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53efb838_11144a33",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/ContextAlbumsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-06T14:24:23Z",
+      "side": 1,
+      "message": "Just delete trailing blanks, there are a few others as well.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "d2bbc18143d2be3c02726d63d89a72c34a8a2ee9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a6a7717_8ad94cf6",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/LogicBlockTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-06T14:24:23Z",
+      "side": 1,
+      "message": "Here too",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "d2bbc18143d2be3c02726d63d89a72c34a8a2ee9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "064df455_00f65fb7",
+        "filename": "tools/tools-common/testing.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-06T14:24:23Z",
+      "side": 1,
+      "message": "Is this file used in a new test or is it something included in the review by mistake?",
+      "revId": "d2bbc18143d2be3c02726d63d89a72c34a8a2ee9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
