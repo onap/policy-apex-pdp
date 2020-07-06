@@ -176,16 +176,15 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
      */
     // @formatter:on
     public GroupValidationResult validateUrl(final GroupValidationResult result) {
-        // Check if the URL has been set for event output
-        String urlErrorMessage = "no URL has been set for event sending on " + getLabel();
+        // The URL may be optional so existence must be checked in the plugin code
         if (getUrl() == null) {
-            result.setResult("url", ValidationStatus.INVALID, urlErrorMessage);
             return result;
         }
 
+        final String urlInvalidMessage = "invalid URL " + getUrl() + " has been set for event sending on " + getLabel();
         Matcher matcher = patternErrorKey.matcher(getUrl());
         if (matcher.find()) {
-            result.setResult("url", ValidationStatus.INVALID, urlErrorMessage);
+            result.setResult("url", ValidationStatus.INVALID, urlInvalidMessage);
         }
 
         return result;
