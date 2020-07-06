@@ -21,12 +21,9 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import java.util.regex.Matcher;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ValidationStatus;
 
 // @formatter:off
 /**
@@ -69,34 +66,5 @@ public class RestRequestorCarrierTechnologyParameters extends RestPluginCarrierT
         this.setLabel("RESTREQUESTOR");
         this.setEventProducerPluginClass(ApexRestRequestorProducer.class.getName());
         this.setEventConsumerPluginClass(ApexRestRequestorConsumer.class.getName());
-    }
-
-    // @formatter:off
-    /**
-     * Validate the URL.
-     *
-     * <p>Checks:
-     * http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
-     * http://www.blah.com/{par1/{some}thingelse (Nested tag) use {[^}]*{
-     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
-     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
-     * http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
-     * @param result the result of the validation
-     */
-    // @formatter:on
-    @Override
-    public GroupValidationResult validateUrl(final GroupValidationResult result) {
-        // URL is only set on Requestor consumers
-        if (getUrl() == null) {
-            return result;
-        }
-
-        Matcher matcher = patternErrorKey.matcher(getUrl());
-        if (matcher.find()) {
-            result.setResult("url", ValidationStatus.INVALID,
-                    "no proper URL has been set for event sending on REST requestor");
-        }
-
-        return result;
     }
 }

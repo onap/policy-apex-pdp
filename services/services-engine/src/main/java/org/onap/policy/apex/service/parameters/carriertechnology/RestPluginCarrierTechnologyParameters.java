@@ -64,12 +64,14 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     private static final Logger LOGGER = LoggerFactory.getLogger(RestPluginCarrierTechnologyParameters.class);
 
     /** The supported HTTP methods. */
+    // @formatter:off
     public enum HttpMethod {
         GET,
         PUT,
         POST,
         DELETE
     }
+    // @formatter:on
 
     /** The default HTTP code filter, allows 2xx HTTP codes through. */
     public static final String DEFAULT_HTTP_CODE_FILTER = "[2][0-9][0-9]";
@@ -80,8 +82,8 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
 
     // Regular expression patterns for finding and checking keys in URLs
     private static final Pattern patternProperKey = Pattern.compile("(?<=\\{)[^}]*(?=\\})");
-    protected static final Pattern patternErrorKey =
-            Pattern.compile("(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
+    protected static final Pattern patternErrorKey = Pattern
+        .compile("(\\{[^\\{}]*.?\\{)|(\\{[^\\{}]*$)|(\\}[^\\{}]*.?\\})|(^[^\\{}]*.?\\})|\\{\\s*\\}");
 
     // variable
     protected String url = null;
@@ -90,8 +92,8 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     protected String httpCodeFilter = DEFAULT_HTTP_CODE_FILTER;
 
     /**
-     * Constructor to create a REST carrier technology parameters instance and register the instance with the parameter
-     * service.
+     * Constructor to create a REST carrier technology parameters instance and
+     * register the instance with the parameter service.
      */
     public RestPluginCarrierTechnologyParameters() {
         super();
@@ -176,16 +178,16 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
      */
     // @formatter:on
     public GroupValidationResult validateUrl(final GroupValidationResult result) {
-        // Check if the URL has been set for event output
-        String urlErrorMessage = "no URL has been set for event sending on " + getLabel();
+        // The URL may be optional so existence must be checked in the plugin code
         if (getUrl() == null) {
-            result.setResult("url", ValidationStatus.INVALID, urlErrorMessage);
             return result;
         }
 
         Matcher matcher = patternErrorKey.matcher(getUrl());
         if (matcher.find()) {
-            result.setResult("url", ValidationStatus.INVALID, urlErrorMessage);
+            final String urlInvalidMessage = "invalid URL " + getUrl() + " has been set for event sending on "
+                + getLabel();
+            result.setResult("url", ValidationStatus.INVALID, urlInvalidMessage);
         }
 
         return result;
@@ -206,14 +208,13 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID, "HTTP header array entry is null");
             } else if (httpHeader.length != 2) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                        "HTTP header array entries must have one key and one value: "
-                                + Arrays.deepToString(httpHeader));
+                    "HTTP header array entries must have one key and one value: " + Arrays.deepToString(httpHeader));
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[0])) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                        "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
+                    "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[1])) {
                 result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                        "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
+                    "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
             }
         }
 
@@ -231,14 +232,13 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
 
         } else if (StringUtils.isBlank(httpCodeFilter)) {
             result.setResult(HTTP_CODE_FILTER, ValidationStatus.INVALID,
-                    "HTTP code filter must be specified as a three digit regular expression");
+                "HTTP code filter must be specified as a three digit regular expression");
         } else {
             try {
                 Pattern.compile(httpCodeFilter);
             } catch (PatternSyntaxException pse) {
-                String message =
-                        "Invalid HTTP code filter, the filter must be specified as a three digit regular expression: "
-                                + pse.getMessage();
+                String message = "Invalid HTTP code filter, the filter must be specified as a three digit "
+                    + "regular expression: " + pse.getMessage();
                 result.setResult(HTTP_CODE_FILTER, ValidationStatus.INVALID, message);
                 LOGGER.debug(message, pse);
             }
@@ -253,6 +253,6 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     @Override
     public String toString() {
         return getLabel() + "CarrierTechnologyParameters [url=" + url + ", httpMethod=" + httpMethod + ", httpHeaders="
-                + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
+            + Arrays.deepToString(httpHeaders) + ", httpCodeFilter=" + httpCodeFilter + "]";
     }
 }
