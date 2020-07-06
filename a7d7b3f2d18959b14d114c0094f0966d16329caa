@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e32bda32_d0625a0d",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-06T11:47:12Z",
+      "side": 1,
+      "message": "There has been code changed in this file. I\u0027m not so sure why they\u0027re not highlighted.",
+      "parentUuid": "9b065f65_47cec959",
+      "revId": "a7d7b3f2d18959b14d114c0094f0966d16329caa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9dfae28_a4309269",
         "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/MonitoringRestMainTest.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2020-07-06T11:00:40Z",
       "side": 1,
       "message": "Trailing blanks",
+      "range": {
+        "startLine": 143,
+        "startChar": 24,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "a7d7b3f2d18959b14d114c0094f0966d16329caa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6beaf7ee_011c398a",
+        "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/MonitoringRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-06T11:47:12Z",
+      "side": 1,
+      "message": "My bad. Will update now.",
+      "parentUuid": "b9dfae28_a4309269",
       "range": {
         "startLine": 143,
         "startChar": 24,
