@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.client.editor.rest;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -70,14 +71,9 @@ public class ApexEditorStartupTest {
     public void testBadArg0() throws IOException, InterruptedException {
         final String[] args = new String[] { "12321" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith(
-                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
-                    + " too many command line arguments specified : [12321]"));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED)"
+                + " parameter error, too many command line arguments specified : [12321]");
     }
 
     /**
@@ -90,14 +86,9 @@ public class ApexEditorStartupTest {
     public void testBadArg1() throws IOException, InterruptedException {
         final String[] args = new String[] { "12321 12322 12323" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith(
-                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
-                    + " too many command line arguments specified : [12321 12322 12323]"));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED)"
+                    + " parameter error, too many command line arguments specified : [12321 12322 12323]");
     }
 
     /**
@@ -110,14 +101,9 @@ public class ApexEditorStartupTest {
     public void testBadArg2() throws IOException, InterruptedException {
         final String[] args = new String[] { "-z" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith(
-                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
-                    + " invalid command line arguments specified : Unrecognized option: -z"));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED)"
+                    + " parameter error, invalid command line arguments specified : Unrecognized option: -z");
     }
 
     /**
@@ -130,14 +116,9 @@ public class ApexEditorStartupTest {
     public void testBadArg3() throws IOException, InterruptedException {
         final String[] args = new String[] { "--hello" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage().startsWith(
-                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
-                    + " invalid command line arguments specified : Unrecognized option: --hello"));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED)"
+                    + " parameter error, invalid command line arguments specified : Unrecognized option: --hello");
     }
 
 
@@ -151,16 +132,11 @@ public class ApexEditorStartupTest {
     public void testBadArg4() throws IOException, InterruptedException {
         final String[] args = new String[] { "-l", "+++++" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getLocalizedMessage()
-                    .startsWith("Apex Editor REST endpoint (ApexEditorMain: "
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: "
                             + "Config=[ApexEditorParameters: URI=http://+++++:18989/apexservices/, TTL=-1sec], "
                             + "State=STOPPED) parameters invalid, listen address is not valid. "
-                            + "Illegal character in hostname at index 7: http://+++++:18989/apexservices/"));
-        }
+                            + "Illegal character in hostname at index 7: http://+++++:18989/apexservices/");
     }
 
     /**
@@ -173,13 +149,8 @@ public class ApexEditorStartupTest {
     public void testHelp0() throws IOException, InterruptedException {
         final String[] args = new String[] { "--help" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("usage: org.onap.policy.apex.client.editor.rest.ApexEditorMain [options...]"));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("usage: org.onap.policy.apex.client.editor.rest.ApexEditorMain [options...]");
     }
 
     /**
@@ -192,13 +163,8 @@ public class ApexEditorStartupTest {
     public void testHelp1() throws IOException, InterruptedException {
         final String[] args = new String[] { "-h" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("usage: org.onap.policy.apex.client.editor.rest.ApexEditorMain [options...]"));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("usage: org.onap.policy.apex.client.editor.rest.ApexEditorMain [options...]");
     }
 
     /**
@@ -258,14 +224,9 @@ public class ApexEditorStartupTest {
     public void testPortArgSpace() throws IOException, InterruptedException {
         final String[] args = new String[] { "-p 12321" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith(
-                    "Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED) parameter error,"
-                    + " error parsing argument \"port\" :For input string: \" 12321\""));
-        }
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: Config=[null], State=STOPPED)"
+                    + " parameter error, error parsing argument \"port\" :For input string: \" 12321\"");
     }
 
     /**
@@ -278,15 +239,10 @@ public class ApexEditorStartupTest {
     public void testBadPortArgs0() throws IOException, InterruptedException {
         final String[] args = new String[] { "-p0" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("Apex Editor REST endpoint (ApexEditorMain: "
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: "
                             + "Config=[ApexEditorParameters: URI=http://localhost:0/apexservices/, TTL=-1sec], "
-                            + "State=STOPPED) parameters invalid, port must be between 1024 and 65535"));
-        }
+                            + "State=STOPPED) parameters invalid, port must be between 1024 and 65535");
     }
 
     /**
@@ -299,15 +255,10 @@ public class ApexEditorStartupTest {
     public void testBadPortArgs1023() throws IOException, InterruptedException {
         final String[] args = new String[] { "-p1023" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("Apex Editor REST endpoint (ApexEditorMain: "
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: "
                             + "Config=[ApexEditorParameters: URI=http://localhost:1023/apexservices/, TTL=-1sec], "
-                            + "State=STOPPED) parameters invalid, port must be between 1024 and 65535"));
-        }
+                            + "State=STOPPED) parameters invalid, port must be between 1024 and 65535");
     }
 
     /**
@@ -320,15 +271,10 @@ public class ApexEditorStartupTest {
     public void testBadPortArgs65536() throws IOException, InterruptedException {
         final String[] args = new String[] { "-p65536" };
 
-        try {
-            runEditor(args);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("Apex Editor REST endpoint (ApexEditorMain: "
+        assertThatThrownBy(() -> runEditor(args)).isInstanceOf(ApexEditorParameterException.class)
+            .hasMessageContaining("Apex Editor REST endpoint (ApexEditorMain: "
                             + "Config=[ApexEditorParameters: URI=http://localhost:65536/apexservices/, TTL=-1sec], "
-                            + "State=STOPPED) parameters invalid, port must be between 1024 and 65535"));
-        }
+                            + "State=STOPPED) parameters invalid, port must be between 1024 and 65535");
     }
 
     /**

@@ -21,9 +21,11 @@
 
 package org.onap.policy.apex.client.monitoring.rest;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,24 +40,14 @@ import org.junit.Test;
 public class MonitoringRestMainTest {
     @Test
     public void testMonitoringClientBad() {
-        try {
-            final String[] eventArgs = {"-z"};
-
-            ApexMonitoringRestMain.main(eventArgs);
-        } catch (Exception exc) {
-            fail("test should not throw an exception");
-        }
+        final String[] eventArgs = {"-z"};
+        assertThatCode(() -> ApexMonitoringRestMain.main(eventArgs)).doesNotThrowAnyException();
     }
 
     @Test
     public void testMonitoringClientOk() {
-        try {
-            final String[] eventArgs = {"-t", "1"};
-
-            ApexMonitoringRestMain.main(eventArgs);
-        } catch (Exception exc) {
-            fail("test should not throw an exception");
-        }
+        final String[] eventArgs = {"-t", "1"};
+        assertThatCode(() -> ApexMonitoringRestMain.main(eventArgs)).doesNotThrowAnyException();
     }
 
     @Test
@@ -72,142 +64,93 @@ public class MonitoringRestMainTest {
     public void testMonitoringClientBadOptions() {
         final String[] eventArgs = {"-zabbu"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals(
-                "Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
-                    + "parameter error, invalid command line arguments specified " + ": Unrecognized option: -zabbu",
-                ex.getMessage().substring(0, 170));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
+                + "parameter error, invalid command line arguments specified " + ": Unrecognized option: -zabbu");
     }
 
     @Test
     public void testMonitoringClientHelp() {
         final String[] eventArgs = {"-h"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("usage: org.onap.policy.apex.client.monitoring.rest.ApexMonitoringRestMain [options...]",
-                ex.getMessage().substring(0, 86));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("usage: org.onap.policy.apex.client.monitoring.rest."
+                    + "ApexMonitoringRestMain [options...]");
     }
 
     @Test
     public void testMonitoringClientPortBad() {
         final String[] eventArgs = {"-p", "hello"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals(
-                "Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
-                    + "parameter error, error parsing argument \"port\" :For input string: \"hello\"",
-                ex.getMessage().substring(0, 156));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
+                    + "parameter error, error parsing argument \"port\" :For input string: \"hello\"");
     }
 
     @Test
     public void testMonitoringClientPortNegative() {
         final String[] eventArgs = {"-p", "-1"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRestParameters: "
-                + "URI=http://localhost:-1/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
-                + "port must be greater than 1023 and less than 65536", ex.getMessage().substring(0, 227));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRest"
+                + "Parameters: URI=http://localhost:-1/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
+                + "port must be greater than 1023 and less than 65536");
     }
 
     @Test
     public void testMonitoringClientTtlTooSmall() {
         final String[] eventArgs = {"-t", "-2"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals(
-                "Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRestParameters: "
-                    + "URI=http://localhost:18989/apexservices/, TTL=-2sec], State=STOPPED) parameters invalid, "
-                    + "time to live must be greater than -1 (set to -1 to wait forever)",
-                ex.getMessage().substring(0, 244));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRest"
+                    + "Parameters: URI=http://localhost:18989/apexservices/, TTL=-2sec], State=STOPPED) parameters invalid, "
+                    + "time to live must be greater than -1 (set to -1 to wait forever)");
     }
 
     @Test
     public void testMonitoringClientTooManyPars() {
         final String[] eventArgs = {"-t", "10", "-p", "12344", "aaa", "bbb"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals(
-                "Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
-                    + "parameter error, too many command line arguments specified : [aaa, bbb]",
-                ex.getMessage().substring(0, 154));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
+                    + "parameter error, too many command line arguments specified : [aaa, bbb]");
     }
 
     @Test
     public void testMonitoringClientTtlNotNumber() {
         final String[] eventArgs = {"-t", "timetolive"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals(
-                "Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
-                    + "parameter error, error parsing argument \"time-to-live\" :" + "For input string: \"timetolive\"",
-                ex.getMessage().substring(0, 169));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[null], State=STOPPED) "
+                    + "parameter error, error parsing argument \"time-to-live\" :" + "For input string: \""
+                            + "timetolive\"");
     }
 
     @Test
     public void testMonitoringClientPortTooBig() {
         final String[] eventArgs = {"-p", "65536"};
 
-        try {
-            new ApexMonitoringRestMain(eventArgs, System.out);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoringRestParameters: "
-                + "URI=http://localhost:65536/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
-                + "port must be greater than 1023 and less than 65536", ex.getMessage().substring(0, 230));
-        }
+        assertThatThrownBy(() -> new ApexMonitoringRestMain(eventArgs, System.out))
+            .hasMessageContaining("Apex Services REST endpoint (ApexMonitoringRestMain: Config=[ApexMonitoring"
+                + "RestParameters: URI=http://localhost:65536/apexservices/, TTL=-1sec], State=STOPPED) parameters invalid, "
+                + "port must be greater than 1023 and less than 65536");
     }
 
     @Test
     public void testMonitoringClientDefaultPars() {
-        try {
-            ApexMonitoringRest monRest = new ApexMonitoringRest();
-            monRest.shutdown();
-
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        ApexMonitoringRest monRest = new ApexMonitoringRest();
+        assertNotNull(monRest);
+        assertThatCode(() -> monRest.shutdown()).isNull();
     }
 
     @Test
     public void testMonitoringOneSecStart() {
         final String[] eventArgs = {"-t", "1"};
 
-        try {
-            ApexMonitoringRestMain monRestMain = new ApexMonitoringRestMain(eventArgs, System.out);
-            monRestMain.init();
-            monRestMain.shutdown();
-
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        ApexMonitoringRestMain monRestMain = new ApexMonitoringRestMain(eventArgs, System.out);
+        assertNotNull(monRestMain);
+        monRestMain.init();
+        assertThatCode(() -> monRestMain.shutdown()).isNull();
     }
 
     @Test
@@ -222,15 +165,12 @@ public class MonitoringRestMainTest {
                 monRestMain.init();
             }
         };
-
-        try {
+        assertThatCode(() -> {
             monThread.start();
             await().atMost(6, TimeUnit.SECONDS)
                 .until(() -> monRestMain.getState().equals(ApexMonitoringRestMain.ServicesState.RUNNING));
             monRestMain.shutdown();
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     /**

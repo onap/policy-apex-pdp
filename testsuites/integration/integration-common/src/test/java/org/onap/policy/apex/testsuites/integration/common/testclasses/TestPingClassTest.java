@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.testsuites.integration.common.testclasses;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -32,7 +32,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
  */
 public class TestPingClassTest {
     @Test
-    public void testPingClass() {
+    public void testPingClass() throws ApexException {
         PingTestClass ptc = new PingTestClass();
 
         ptc.setName("Hello");
@@ -46,84 +46,43 @@ public class TestPingClassTest {
 
         ptc.setPongTime(-1);
         assertEquals(-1, ptc.getPongTime());
-
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, name does not start with \"Rose\"", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, name does not start with \"Rose\"");
 
         ptc.setName(null);
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, name length null or less than 4", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, name length null or less than 4");
 
         ptc.setName("Ros");
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, name length null or less than 4", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, name length null or less than 4");
 
         ptc.setName("Rose");
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, description length null or less than 44", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, description length null or less than 44");
 
         ptc.setDescription(null);
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, description length null or less than 44", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, description length null or less than 44");
 
         ptc.setDescription("A rose by any other name would smell as swee");
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, description length null or less than 44", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, description length null or less than 44");
 
         ptc.setDescription("A rose by any other name would smell as swell");
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, description is incorrect", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+           .hasMessageContaining("TestPing is not valid, description is incorrect");
 
         ptc.setDescription("A rose by any other name would smell as sweet");
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, pong time -1 is less than ping time 0", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+            .hasMessageContaining("TestPing is not valid, pong time -1 is less than ping time 0");
 
         ptc.setPongTime(-2);
-        try {
-            ptc.verify();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("TestPing is not valid, pong time -2 is less than ping time 0", ae.getMessage());
-        }
+        assertThatThrownBy(() -> ptc.verify()).isInstanceOf(ApexException.class)
+           .hasMessageContaining("TestPing is not valid, pong time -2 is less than ping time 0");
 
         ptc.setPongTime(1);
-        try {
-            ptc.verify();
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
+        ptc.verify();
 
         assertEquals(
                 "PingTestClass(id=0, name=Rose, "
