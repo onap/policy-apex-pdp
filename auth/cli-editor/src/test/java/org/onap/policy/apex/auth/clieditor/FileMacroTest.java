@@ -95,7 +95,7 @@ public class FileMacroTest {
         writtenModel.getKeyInformation().getKeyInfoMap().clear();
         compareModel.getKeyInformation().getKeyInfoMap().clear();
 
-        assertTrue(writtenModel.equals(compareModel));
+        assertEquals(writtenModel, compareModel);
 
         // The output event is in this file
         final File outputLogFile = new File(tempLogFile.getCanonicalPath());
