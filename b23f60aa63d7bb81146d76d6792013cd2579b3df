@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "167c023c_dcbdd6cb",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/carriertechnology/RestPluginCarrierTechnologyParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-06T12:56:54Z",
+      "side": 1,
+      "message": "maybe move this after line 186 to avoid the overhead when it isn\u0027t needed",
+      "revId": "b23f60aa63d7bb81146d76d6792013cd2579b3df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
