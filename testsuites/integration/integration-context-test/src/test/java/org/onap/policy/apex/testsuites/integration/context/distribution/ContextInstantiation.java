@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.testsuites.integration.context.distribution;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -242,15 +243,8 @@ public class ContextInstantiation {
         assertTrue(externalContextAlbum.values().containsAll(mapValues));
 
         // Check that clearing does not work
-        try {
-            externalContextAlbum.clear();
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("album \"ExternalContextAlbum:0.0.1\" clear() not allowed on read only albums",
-                    e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
+        assertThatThrownBy(() -> externalContextAlbum.clear()).isInstanceOf(ContextRuntimeException.class)
+            .hasMessageContaining("album \"ExternalContextAlbum:0.0.1\" clear() not allowed on read only albums");
         assertEquals(1, externalContextAlbum.size());
 
         assertContextAlbumContains(externalContext, externalContextAlbum);
@@ -258,32 +252,16 @@ public class ContextInstantiation {
         final Set<Entry<String, Object>> entrySet = externalContextAlbum.entrySet();
         assertEquals(1, entrySet.size());
 
-        try {
-            externalContextAlbum.get(null);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for get()",
-                    e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
+        assertThatThrownBy(() -> externalContextAlbum.get(null)).isInstanceOf(ContextRuntimeException.class)
+            .hasMessageContaining("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for get()");
         final Object aObject = externalContextAlbum.get(EXTERNAL_CONTEXT);
         assertEquals(aObject, externalContext);
 
         // put null keys should fail, throws a runtime exception
-        try {
-            externalContextAlbum.put(null, null);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for put()",
-                    e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
-        try {
-            externalContextAlbum.put("TestExternalContextItem00A", null);
-        } catch (final ContextRuntimeException e) {
-            assertEquals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> externalContextAlbum.put(null, null))
+            .hasMessageContaining("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for put()");
+        assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItem00A", null))
+            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()");
         assertEquals(tciAa, externalContextItem.getTestExternalContextItem00A());
 
         // Should return the hash set
@@ -305,29 +283,17 @@ public class ContextInstantiation {
         assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContext).equals(externalContextOther));
         externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
         assertEquals(INT_VAL_3, externalContextItem.getTestExternalContextItem002().getIntValue());
+        assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItem00A", null))
+            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()");
 
-        try {
-            externalContextAlbum.put("TestExternalContextItem00A", null);
-        } catch (final ContextRuntimeException e) {
-            assert (e.getMessage().equals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()"));
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
         assertTrue(externalContextAlbum.get(EXTERNAL_CONTEXT).equals(externalContext));
 
-        try {
-            externalContextAlbum.put("TestExternalContextItemFFF", null);
-        } catch (final ContextRuntimeException e) {
-            assert (e.getMessage().equals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()"));
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItemFFF", null))
+            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()");
         assertEquals(1, externalContextAlbum.size());
 
-        try {
-            externalContextAlbum.put("TestExternalContextItemFFF", null);
-        } catch (final ContextRuntimeException e) {
-            assertEquals(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItemFFF", null))
+            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()");
         assertEquals(1, externalContextAlbum.size());
 
         // Should ignore remove
@@ -341,23 +307,13 @@ public class ContextInstantiation {
 
     private void assertContextAlbumContains(final TestExternalContextItem externalContext,
             final ContextAlbum externalContextAlbum) {
-        try {
-            externalContextAlbum.containsKey(null);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("null values are illegal on method parameter \"key\"", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
+        assertThatThrownBy(() -> externalContextAlbum.containsKey(null))
+            .hasMessageContaining("null values are illegal on method parameter \"key\"");
         assertTrue(externalContextAlbum.containsKey(EXTERNAL_CONTEXT));
         assertTrue(!externalContextAlbum.containsKey(GLOBAL_CONTEXT_KEY));
 
-        try {
-            externalContextAlbum.containsValue(null);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("null values are illegal on method parameter \"value\"", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
+        assertThatThrownBy(() -> externalContextAlbum.containsValue(null))
+            .hasMessageContaining("null values are illegal on method parameter \"value\"");
         assertTrue(externalContextAlbum.containsValue(externalContext));
         assertFalse(externalContextAlbum.containsValue("Hello"));
     }
@@ -444,23 +400,12 @@ public class ContextInstantiation {
 
     private void assertPutMethods(final ContextAlbum policyContextAlbum, final TestContextStringItem contextStringItem,
             final Map<String, Object> valueMapA) {
-        try {
-            policyContextAlbum.put(TEST_POLICY_CONTEXT_ITEM000, contextStringItem);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals(getMessage(TEST_POLICY_CONTEXT_ITEM000, "TestContextItem006",
-                    TestContextStringItem.class.getName(), "stringValue=" + STRING_VAL), e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
-        try {
-            policyContextAlbum.putAll(valueMapA);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals(getMessage(TEST_POLICY_CONTEXT_ITEM001, "TestContextItem003",
-                    TestContextLongItem.class.getName(), "longValue=" + INT_VAL_3), e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> policyContextAlbum.put(TEST_POLICY_CONTEXT_ITEM000, contextStringItem))
+            .hasMessageContaining(getMessage(TEST_POLICY_CONTEXT_ITEM000, "TestContextItem006",
+                    TestContextStringItem.class.getName(), "stringValue=" + STRING_VAL));
+        assertThatThrownBy(() -> policyContextAlbum.putAll(valueMapA))
+            .hasMessageContaining(getMessage(TEST_POLICY_CONTEXT_ITEM001, "TestContextItem003",
+                    TestContextLongItem.class.getName(), "longValue=" + INT_VAL_3));
     }
 
     private AxContextModel getAxContextModel() {
