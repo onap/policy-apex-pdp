@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "13d0a7b9_eea6b5ff",
+        "filename": "client/client-full/src/test/java/org/onap/policy/apex/client/full/rest/ServicesRestMainTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-06T12:23:35Z",
+      "side": 1,
+      "message": "Actually, on second look - no code was changed here. Mistake on my behalf.",
+      "parentUuid": "e32bda32_d0625a0d",
+      "revId": "a7d7b3f2d18959b14d114c0094f0966d16329caa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9dfae28_a4309269",
         "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/MonitoringRestMainTest.java",
         "patchSetId": 1
