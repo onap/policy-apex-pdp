@@ -22,7 +22,6 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,7 +94,7 @@ public class FileMacroTest {
         writtenModel.getKeyInformation().getKeyInfoMap().clear();
         compareModel.getKeyInformation().getKeyInfoMap().clear();
 
-        assertTrue(writtenModel.equals(compareModel));
+        assertEquals(writtenModel, compareModel);
 
         // The output event is in this file
         final File outputLogFile = new File(tempLogFile.getCanonicalPath());
