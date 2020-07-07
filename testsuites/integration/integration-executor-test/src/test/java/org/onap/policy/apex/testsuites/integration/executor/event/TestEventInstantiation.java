@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.event;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -168,19 +169,10 @@ public class TestEventInstantiation {
         value = event.get("TestMatchCase");
         assertNull(value);
 
-        try {
-            event.put("TestMatchCase", "Hello");
-        } catch (final Exception e) {
-            assertEquals("Event0000:0.0.1:NULL:TestMatchCase: object \"Hello\" of class \"java.lang.String\" "
-                    + "not compatible with class \"java.lang.Byte\"", e.getMessage());
-        }
-
-        try {
-            event.put("TestMatchCase", 123.45);
-        } catch (final Exception e) {
-            assertEquals("Event0000:0.0.1:NULL:TestMatchCase: object \"123.45\" of class \"java.lang.Double\" "
-                    + "not compatible with class \"java.lang.Byte\"", e.getMessage());
-        }
+        assertThatThrownBy(() -> event.put("TestMatchCase", "Hello"))
+            .hasMessageContaining("Event0000:0.0.1:NULL:TestMatchCase: object \"Hello\" of class \"java.lang.String\" "
+                    + "not compatible with class \"java.lang.Byte\"");
+        event.put("TestMatchCase", 123.45);
 
         event.put("TestMatchCase", Byte.valueOf("16"));
 
