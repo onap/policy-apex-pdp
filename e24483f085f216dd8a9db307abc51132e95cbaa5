@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06e417e9_6aa155b5",
+        "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/RestResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-07T16:33:37Z",
+      "side": 1,
+      "message": "remove tabs. Also in other places.",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 8
+      },
+      "revId": "e24483f085f216dd8a9db307abc51132e95cbaa5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3f0c0d7_1585e491",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/EngineServiceInfoResponseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-07T16:33:37Z",
+      "side": 1,
+      "message": "remove tabs.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 8
+      },
+      "revId": "e24483f085f216dd8a9db307abc51132e95cbaa5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f724b8c5_d1182e02",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/ResponseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-07T16:33:37Z",
+      "side": 1,
+      "message": "tabs.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 8
+      },
+      "revId": "e24483f085f216dd8a9db307abc51132e95cbaa5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
