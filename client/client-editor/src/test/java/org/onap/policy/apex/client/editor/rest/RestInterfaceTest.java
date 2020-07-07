@@ -140,7 +140,7 @@ public class RestInterfaceTest {
     private static int createNewSession() {
         final ApexApiResult responseMsg = target.path("editor/-1/Session/Create").request().get(ApexApiResult.class);
         assertEquals(ApexApiResult.Result.SUCCESS, responseMsg.getResult());
-        assertTrue(responseMsg.getMessages().size() == 1);
+        assertEquals(1, responseMsg.getMessages().size());
         return Integer.parseInt(responseMsg.getMessages().get(0));
     }
 
