@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,15 @@
 
 package org.onap.policy.apex.testsuites.integration.context.distribution;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.onap.policy.apex.testsuites.integration.context.factory.TestContextAlbumFactory.createMultiAlbumsContextModel;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.APEX_DISTRIBUTOR;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.BYTE_VAL;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.DATE_CONTEXT_ALBUM;
-import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.EXCEPTION_MESSAGE;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.FLOAT_VAL;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.INT_VAL;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.LONG_VAL;
@@ -115,15 +114,10 @@ public class SequentialContextInstantiation {
 
             final TestContextDateTzItem tci9 = getTestContextDateTzItem(testDate);
 
-            try {
-                dateAlbum.put("tci9", tci9);
-            } catch (final Exception e) {
-                final String message = "class \"" + TestContextDateTzItem.class.getName()
-                                + "\" not compatible with class \"" + TestContextDateLocaleItem.class.getName()
-                                + "\"";
-                assertTrue(e.getMessage().contains(message));
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
+            assertThatThrownBy(() -> dateAlbum.put("tci9", tci9))
+                .hasMessageContaining("class \"" + TestContextDateTzItem.class.getName()
+                    + "\" not compatible with class \"" + TestContextDateLocaleItem.class.getName()
+                    + "\"");
 
             final TestContextDateLocaleItem tciA01 = new TestContextDateLocaleItem(tciA00);
             final TestContextDateLocaleItem tciA02 = new TestContextDateLocaleItem(tciA00);
@@ -145,14 +139,9 @@ public class SequentialContextInstantiation {
             // Get another reference to the album
             final ContextAlbum dateAlbum1 = getContextAlbum(DATE_CONTEXT_ALBUM, contextDistributor);
 
-            try {
-                dateAlbum1.putAll(valueMap1);
-                fail(EXCEPTION_MESSAGE);
-            } catch (final Exception e) {
-                assertTrue(e.getMessage().endsWith("not compatible with class \""
-                                + TestContextDateLocaleItem.class.getName() + "\""));
-                LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-            }
+            assertThatThrownBy(() -> dateAlbum1.putAll(valueMap1))
+                .hasMessageContaining("not compatible with class \""
+                    + TestContextDateLocaleItem.class.getName() + "\"");
             assertEquals(5, dateAlbum1.size());
 
             valueMap1.clear();
@@ -217,23 +206,14 @@ public class SequentialContextInstantiation {
     }
 
     private void assertContains(final ContextAlbum dateAlbum, final TestContextDateLocaleItem tciA01) {
-        try {
-            dateAlbum.containsKey(null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final Exception e) {
-            assertEquals("null values are illegal on method parameter \"key\"", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.containsKey(null))
+            .hasMessageContaining("null values are illegal on method parameter \"key\"");
 
         assertTrue(dateAlbum.containsKey(ITEM05));
         assertTrue(!dateAlbum.containsKey("Item07"));
 
-        try {
-            dateAlbum.containsValue(null);
-        } catch (final Exception e) {
-            assertEquals("null values are illegal on method parameter \"value\"", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.containsValue(null))
+            .hasMessageContaining("null values are illegal on method parameter \"value\"");
 
         assertTrue(dateAlbum.containsValue(tciA01));
         assertTrue(!dateAlbum.containsValue("Hello"));
@@ -241,32 +221,18 @@ public class SequentialContextInstantiation {
 
     private void assertAlbumGetAndPutMethods(final ContextAlbum dateAlbum, final TestContextDateLocaleItem tciA03,
                     final TestContextDateLocaleItem tciA00) {
-        try {
-            dateAlbum.get(null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final Exception e) {
-            assertEquals("album \"DateContextAlbum:0.0.1\" null keys are illegal on keys for get()", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.get(null))
+            .hasMessageContaining("album \"DateContextAlbum:0.0.1\" null keys are illegal on keys for get()");
 
         final Object aObject = dateAlbum.get(ITEM03);
         assertEquals(tciA03, aObject);
-        try {
-            dateAlbum.put(null, null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final Exception e) {
-            assertEquals("album \"DateContextAlbum:0.0.1\" null keys are illegal on keys for put()", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.put(null, null))
+            .hasMessageContaining("album \"DateContextAlbum:0.0.1\" null keys are illegal on keys for put()");
 
         // Put null ContextItem should work (return null)
-        try {
-            dateAlbum.put(ITEM_NULL, null);
-        } catch (final Exception e) {
-            assertEquals("album \"DateContextAlbum:0.0.1\" null values are illegal on key \"ItemNull\" for put()",
-                            e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.put(ITEM_NULL, null))
+            .hasMessageContaining("album \"DateContextAlbum:0.0.1\" null values are illegal on "
+                + "key \"ItemNull\" for put()");
 
         // Should return null
         assertNull(dateAlbum.get(ITEM_NULL));
@@ -279,37 +245,21 @@ public class SequentialContextInstantiation {
         retItem = (TestContextDateLocaleItem) dateAlbum.put(ITEM03, tciA03);
         assertEquals(tciA03Clone, retItem);
 
-        try {
-            dateAlbum.put(ITEM_NULL, null);
-            fail(EXCEPTION_MESSAGE);
-
-        } catch (final Exception e) {
-            assert ("album \"DateContextAlbum:0.0.1\" null values are illegal on key \"ItemNull\" for put()"
-                            .equals(e.getMessage()));
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.put(ITEM_NULL, null))
+            .hasMessageContaining("album \"DateContextAlbum:0.0.1\" null values are illegal on "
+                + "key \"ItemNull\" for put()");
 
         dateAlbum.put(TEST_AA, tciA00);
         assertEquals(tciA00, dateAlbum.get(TEST_AA));
 
         // Should print warning
-        try {
-            dateAlbum.put(TEST_AA, null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final Exception e) {
-            assertEquals("album \"DateContextAlbum:0.0.1\" null values are illegal on key \"TestAA\" for put()",
-                            e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.put(TEST_AA, null))
+            .hasMessageContaining("album \"DateContextAlbum:0.0.1\" null values are illegal on key \"TestAA\" "
+                + "for put()");
         assertEquals(8, dateAlbum.size());
-        try {
-            dateAlbum.put(TEST_AB, null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final Exception e) {
-            assertEquals("album \"DateContextAlbum:0.0.1\" null values are illegal on key \"TestAB\" for put()",
-                            e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+        assertThatThrownBy(() -> dateAlbum.put(TEST_AB, null))
+            .hasMessageContaining("album \"DateContextAlbum:0.0.1\" null values are illegal on key \"TestAB\" "
+                + "for put()");
         assertEquals(8, dateAlbum.size());
     }
 

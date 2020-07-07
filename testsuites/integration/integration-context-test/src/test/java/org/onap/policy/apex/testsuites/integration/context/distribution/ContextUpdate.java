@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,12 @@
 
 package org.onap.policy.apex.testsuites.integration.context.distribution;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.APEX_DISTRIBUTOR;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.DATE_CONTEXT_ALBUM;
-import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.EXCEPTION_MESSAGE;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.LONG_CONTEXT_ALBUM;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.MAP_CONTEXT_ALBUM;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.TIME_ZONE;
@@ -41,7 +39,6 @@ import java.util.Locale;
 import java.util.Map;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
-import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.Distributor;
 import org.onap.policy.apex.context.impl.distribution.DistributorFactory;
 import org.onap.policy.apex.context.test.concepts.TestContextDateItem;
@@ -89,43 +86,18 @@ public class ContextUpdate {
         longContextAlbum.put(NUMBER_ZERO, 0);
         longContextAlbum.put(NUMBER_ZERO, NUMBER_ZERO);
 
-        try {
-            longContextAlbum.put(NUMBER_ZERO, ZERO);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\":"
+        assertThatThrownBy(() -> longContextAlbum.put(NUMBER_ZERO, ZERO))
+            .hasMessage("Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\":"
                 + " LongContextAlbum:0.0.1: object \"zero\" of class \"java.lang.String\" not compatible with"
-                + " class \"java.lang.Long\"", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
-        try {
-            longContextAlbum.put(NUMBER_ZERO, "");
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals(
-                "Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": LongContextAlbum"
-                    + ":0.0.1: object \"\" of class \"java.lang.String\" not compatible with class \"java.lang.Long\"",
-                e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
-        try {
-            longContextAlbum.put(NUMBER_ZERO, null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("album \"LongContextAlbum:0.0.1\" null values are illegal on key \"0\" for put()",
-                e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
-
-        try {
-            longContextAlbum.put(null, null);
-            fail(EXCEPTION_MESSAGE);
-        } catch (final ContextRuntimeException e) {
-            assertEquals("album \"LongContextAlbum:0.0.1\" null keys are illegal on keys for put()", e.getMessage());
-            LOGGER.trace(NORMAL_TEST_EXCEPTION, e);
-        }
+                + " class \"java.lang.Long\"");
+        assertThatThrownBy(() -> longContextAlbum.put(NUMBER_ZERO, ""))
+            .hasMessage("Failed to set context value for key \"0\" in album \"LongContextAlbum:0.0.1\": "
+                + "LongContextAlbum:0.0.1: object \"\" of class \"java.lang.String\" not "
+                + "compatible with class \"java.lang.Long\"");
+        assertThatThrownBy(() -> longContextAlbum.put(NUMBER_ZERO, null))
+            .hasMessage("album \"LongContextAlbum:0.0.1\" null values are illegal on key \"0\" for put()");
+        assertThatThrownBy(() -> longContextAlbum.put(null, null))
+            .hasMessage("album \"LongContextAlbum:0.0.1\" null keys are illegal on keys for put()");
 
         assertNull(dateContextAlbum.put("date0", tciA));
         assertTrue(dateContextAlbum.put("date0", tciA).equals(tciA));
