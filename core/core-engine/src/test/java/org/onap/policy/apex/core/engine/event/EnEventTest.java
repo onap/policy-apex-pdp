@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@
 package org.onap.policy.apex.core.engine.event;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -195,14 +196,14 @@ public class EnEventTest {
         event.clear();
         assertNull(event.get("MyField"));
 
-        assertTrue(event.hashCode() != 0);
+        assertNotEquals(event.hashCode(), 0);
 
-        assertTrue(event.equals(event));
-        assertFalse(event.equals(null));
+        assertEquals(event, event);
+        assertNotEquals(event, null);
         Map<String, Object> hashMap = new HashMap<>();
-        assertFalse(event.equals(hashMap));
+        assertNotEquals(event, hashMap);
 
         EnEvent otherEvent = new EnEvent(eventKey);
-        assertTrue(event.equals(otherEvent));
+        assertEquals(event, otherEvent);
     }
 }

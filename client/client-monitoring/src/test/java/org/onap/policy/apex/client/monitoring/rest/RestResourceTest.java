@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,7 +22,7 @@
 package org.onap.policy.apex.client.monitoring.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import javax.ws.rs.core.Response;
@@ -228,30 +229,30 @@ public class RestResourceTest {
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList0 = restResource.new SlidingWindowList<>(
                         2);
 
-        assertFalse(slidingWindowList0.hashCode() == 0);
+        assertNotEquals(slidingWindowList0.hashCode(), 0);
         
         assertTrue(slidingWindowList0.add("Hello"));
         assertTrue(slidingWindowList0.add("Hi"));
         assertTrue(slidingWindowList0.add("Howdy"));
         
-        assertFalse(slidingWindowList0.equals(null));
-        assertTrue(slidingWindowList0.equals(slidingWindowList0));
+        assertNotEquals(slidingWindowList0, null);
+        assertEquals(slidingWindowList0, slidingWindowList0);
 
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList1 = restResource.new SlidingWindowList<>(
                         2);
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList2 = restResource.new SlidingWindowList<>(
                         2);
-        assertFalse(slidingWindowList0.equals(slidingWindowList1));
-        assertFalse(slidingWindowList0.equals(slidingWindowList2));
-        assertTrue(slidingWindowList1.equals(slidingWindowList2));
+        assertNotEquals(slidingWindowList0, slidingWindowList1);
+        assertNotEquals(slidingWindowList0, slidingWindowList2);
+        assertEquals(slidingWindowList1, slidingWindowList2);
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList3 = restResource.new SlidingWindowList<>(
                         3);
-        assertFalse(slidingWindowList1.equals(slidingWindowList3));
+        assertNotEquals(slidingWindowList1, slidingWindowList3);
         ApexMonitoringRestResource.SlidingWindowList<Integer> slidingWindowList4 = restResource.new SlidingWindowList<>(
                         3);
         assertTrue(slidingWindowList3.add("Hello"));
         assertTrue(slidingWindowList4.add(10));
-        assertFalse(slidingWindowList3.equals(slidingWindowList4));
+        assertNotEquals(slidingWindowList3, slidingWindowList4);
     }
 
     @Test

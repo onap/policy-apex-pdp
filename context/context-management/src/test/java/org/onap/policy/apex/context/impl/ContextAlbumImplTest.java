@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@
 package org.onap.policy.apex.context.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -337,20 +338,20 @@ public class ContextAlbumImplTest {
         distributor.init(axContextAlbum.getKey());
         ContextAlbumImpl album = new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
 
-        assertTrue(album.hashCode() != 0);
+        assertNotEquals(album.hashCode(), 0);
 
         assertEquals(0, album.compareTo(album));
         assertEquals(1, album.compareTo(null));
 
-        assertTrue(album.equals(album));
-        assertFalse(album.equals(new DummyContextAlbumImpl()));
+        assertEquals(album, album);
+        assertNotEquals(album, new DummyContextAlbumImpl());
 
         ContextAlbumImpl otherAlbum = new ContextAlbumImpl(axContextAlbum, distributor,
                         new LinkedHashMap<String, Object>());
-        assertTrue(album.equals(otherAlbum));
+        assertEquals(album, otherAlbum);
 
         otherAlbum.put("Key", 123);
-        assertFalse(album.equals(otherAlbum));
+        assertNotEquals(album, otherAlbum);
 
         try {
             otherAlbum.put("Key", "BadValue");
@@ -366,7 +367,7 @@ public class ContextAlbumImplTest {
 
         otherAxContextAlbum.setItemSchema(simpleStringSchema.getKey());
         otherAlbum = new ContextAlbumImpl(otherAxContextAlbum, distributor, new LinkedHashMap<String, Object>());
-        assertFalse(album.equals(otherAlbum));
+        assertNotEquals(album, otherAlbum);
 
         try {
             album.flush();
