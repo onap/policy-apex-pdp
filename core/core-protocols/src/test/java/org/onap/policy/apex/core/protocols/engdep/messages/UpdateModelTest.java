@@ -20,7 +20,9 @@
 
 package org.onap.policy.apex.core.protocols.engdep.messages;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -57,30 +59,30 @@ public class UpdateModelTest {
         assertTrue((message.toString()).contains("Placeholder for Apex model XML"));
         assertFalse(message.isIgnoreConflicts());
         assertFalse(message.isForceInstall());
-        
+
         message = new UpdateModel(null, null, false, false);
-        assertTrue(message.hashCode() != 0);
+        assertNotEquals(message.hashCode(), 0);
         message = new UpdateModel(null, null, true, false);
-        assertTrue(message.hashCode() != 0);
+        assertNotEquals(message.hashCode(), 0);
         message = new UpdateModel(null, null, true, true);
-        assertTrue(message.hashCode() != 0);
+        assertNotEquals(message.hashCode(), 0);
         message = new UpdateModel(null, null, false, true);
-        assertTrue(message.hashCode() != 0);
-        
-        assertTrue(message.equals(message));
-        assertFalse(message.equals(null));
-        assertFalse(message.equals(new StartEngine(new AxArtifactKey())));
-        
+        assertNotEquals(message.hashCode(), 0);
+
+        assertEquals(message, message);
+        assertNotEquals(message, null);
+        assertNotEquals(message, new StartEngine(new AxArtifactKey()));
+
         message = new UpdateModel(null, null, false, false);
         UpdateModel otherMessage = new UpdateModel(null, null, false, false);
-        assertTrue(message.equals(otherMessage));
+        assertEquals(message, otherMessage);
         message = new UpdateModel(null, null, true, false);
-        assertFalse(message.equals(otherMessage));
+        assertNotEquals(message, otherMessage);
         otherMessage = new UpdateModel(null, null, true, false);
-        assertTrue(message.equals(otherMessage));
+        assertEquals(message, otherMessage);
         message = new UpdateModel(null, null, false, true);
-        assertFalse(message.equals(otherMessage));
+        assertNotEquals(message, otherMessage);
         otherMessage = new UpdateModel(null, null, false, true);
-        assertTrue(message.equals(otherMessage));
+        assertEquals(message, otherMessage);
     }
 }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.core.protocols.engdep.messages;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.net.UnknownHostException;
@@ -63,32 +65,32 @@ public class ResponseTest {
         assertEquals(responseTo, message.getResponseTo());
 
         message = new Response(null, false, null);
-        assertTrue(message.hashCode() != 0);
+        assertNotEquals(message.hashCode(), 0);
         message = new Response(responseKey, false, null);
-        assertTrue(message.hashCode() != 0);
+        assertNotEquals(message.hashCode(), 0);
         message = new Response(responseKey, true, null);
-        assertTrue(message.hashCode() != 0);
+        assertNotEquals(message.hashCode(), 0);
         message = new Response(responseKey, true, new UpdateModel(null));
-        assertTrue(message.hashCode() != 0);
-        
-        assertTrue(message.equals(message));
-        assertFalse(message.equals(null));
-        assertFalse(message.equals(new StartEngine(new AxArtifactKey())));
+        assertNotEquals(message.hashCode(), 0);
+
+        assertEquals(message, message);
+        assertNotEquals(message, null);
+        assertNotEquals(message, new StartEngine(new AxArtifactKey()));
 
         message = new Response(null, false, responseTo);
         Response otherMessage = new Response(null, false, null);
-        assertFalse(message.equals(otherMessage));
+        assertNotEquals(message, otherMessage);
         otherMessage = new Response(null, false, responseTo);
-        assertTrue(message.equals(otherMessage));
+        assertEquals(message, otherMessage);
         message = new Response(null, false, null);
-        assertFalse(message.equals(otherMessage));
+        assertNotEquals(message, otherMessage);
         otherMessage = new Response(null, false, null);
-        assertTrue(message.equals(otherMessage));
-        
+        assertEquals(message, (otherMessage));
+
         message = new Response(null, false, null);
         otherMessage = new Response(null, true, null);
-        assertFalse(message.equals(otherMessage));
+        assertNotEquals(message, otherMessage);
         otherMessage = new Response(null, false, null);
-        assertTrue(message.equals(otherMessage));
+        assertEquals(message, otherMessage);
     }
 }
