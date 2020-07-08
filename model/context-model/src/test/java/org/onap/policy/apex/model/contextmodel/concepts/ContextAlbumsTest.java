@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -119,17 +118,17 @@ public class ContextAlbumsTest {
                         + "scope=NewAlbumScope,isWritable=true,itemSchema="
                         + "AxArtifactKey:(name=AlbumSchemaName,version=0.0.1))", clonedAlbum.toString());
 
-        assertFalse(album.hashCode() == 0);
+        assertNotEquals(album.hashCode(), 0);
 
-        assertTrue(album.equals(album));
-        assertTrue(album.equals(clonedAlbum));
-        assertFalse(album.equals(null));
-        assertFalse(album.equals((Object) "Hello"));
-        assertFalse(album.equals(new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey())));
-        assertFalse(album.equals(new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey())));
-        assertFalse(album.equals(new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey())));
-        assertFalse(album.equals(new AxContextAlbum(newKey, "NewAlbumScope", true, AxArtifactKey.getNullKey())));
-        assertTrue(album.equals(new AxContextAlbum(newKey, "NewAlbumScope", true, albumSchemaKey)));
+        assertEquals(album, album);
+        assertEquals(album, clonedAlbum);
+        assertNotEquals(album, null);
+        assertNotEquals(album, (Object) "Hello");
+        assertNotEquals(album, new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey()));
+        assertNotEquals(album, new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey()));
+        assertNotEquals(album, new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey()));
+        assertNotEquals(album, new AxContextAlbum(newKey, "NewAlbumScope", true, AxArtifactKey.getNullKey()));
+        assertEquals(album, new AxContextAlbum(newKey, "NewAlbumScope", true, albumSchemaKey));
 
         assertEquals(0, album.compareTo(album));
         assertEquals(0, album.compareTo(clonedAlbum));
@@ -186,13 +185,13 @@ public class ContextAlbumsTest {
         assertTrue(clonedAlbums.toString().startsWith(
                         "AxContextAlbums:(AxContextAlbums:(key=AxArtifactKey:(name=AlbumsKey,version=0.0.1)"));
 
-        assertFalse(albums.hashCode() == 0);
+        assertNotEquals(albums.hashCode(), 0);
 
-        assertTrue(albums.equals(albums));
-        assertTrue(albums.equals(clonedAlbums));
-        assertFalse(albums.equals(null));
-        assertFalse(albums.equals((Object) "Hello"));
-        assertFalse(albums.equals(new AxContextAlbums(new AxArtifactKey())));
+        assertEquals(albums, albums);
+        assertEquals(albums, clonedAlbums);
+        assertNotEquals(albums, null);
+        assertNotEquals(albums, (Object) "Hello");
+        assertNotEquals(albums, new AxContextAlbums(new AxArtifactKey()));
 
         assertEquals(0, albums.compareTo(albums));
         assertEquals(0, albums.compareTo(clonedAlbums));

@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -117,9 +118,9 @@ public class AxKeyTest {
         assertEquals(0, someKey0.compareTo(someKey0));
         assertEquals(353602977, someKey0.compareTo(new AxReferenceKey()));
 
-        assertFalse(someKey0.equals(null));
-        assertTrue(someKey0.equals(someKey0));
-        assertFalse(((AxKey) someKey0).equals(new AxReferenceKey()));
+        assertNotEquals(someKey0, null);
+        assertEquals(someKey0, someKey0);
+        assertNotEquals(((AxKey) someKey0), new AxReferenceKey());
 
         AxArtifactKey nullKey0 = AxArtifactKey.getNullKey();
         assertTrue(nullKey0.isNullKey());

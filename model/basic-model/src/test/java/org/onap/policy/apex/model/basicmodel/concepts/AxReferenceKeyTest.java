@@ -1,20 +1,20 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -85,16 +85,16 @@ public class AxReferenceKeyTest {
         assertEquals("AxReferenceKey:(parentKeyName=NPKN,parentKeyVersion=0.0.1,parentLocalName=NPKLN,localName=NLN)",
             clonedReferenceKey.toString());
 
-        assertFalse(testReferenceKey.hashCode() == 0);
+        assertNotEquals(testReferenceKey.hashCode(), 0);
 
-        assertTrue(testReferenceKey.equals(testReferenceKey));
-        assertTrue(testReferenceKey.equals(clonedReferenceKey));
-        assertFalse(testReferenceKey.equals((Object) "Hello"));
-        assertFalse(testReferenceKey.equals(new AxReferenceKey("PKN", "0.0.2", "PLN", "LN")));
-        assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.2", "PLN", "LN")));
-        assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN")));
-        assertFalse(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "NPLN", "LN")));
-        assertTrue(testReferenceKey.equals(new AxReferenceKey("NPKN", "0.0.1", "NPKLN", "NLN")));
+        assertEquals(testReferenceKey, testReferenceKey);
+        assertEquals(testReferenceKey, clonedReferenceKey);
+        assertNotEquals(testReferenceKey, (Object) "Hello");
+        assertNotEquals(testReferenceKey, new AxReferenceKey("PKN", "0.0.2", "PLN", "LN"));
+        assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.2", "PLN", "LN"));
+        assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN"));
+        assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.1", "NPLN", "LN"));
+        assertEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.1", "NPKLN", "NLN"));
 
         assertEquals(0, testReferenceKey.compareTo(testReferenceKey));
         assertEquals(0, testReferenceKey.compareTo(clonedReferenceKey));

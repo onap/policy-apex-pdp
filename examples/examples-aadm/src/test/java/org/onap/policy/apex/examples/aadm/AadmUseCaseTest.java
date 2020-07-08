@@ -157,7 +157,7 @@ public class AadmUseCaseTest {
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         // no DOS_IN_eNodeB set so return probe action
-        assertTrue(result.get("ACTTASK").equals("probe"));
+        assertEquals("probe", result.get("ACTTASK"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
@@ -195,7 +195,7 @@ public class AadmUseCaseTest {
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         // DOS_IN_eNodeB set to be more than throughput so return act action
-        assertTrue(result.get("ACTTASK").equals("act"));
+        assertEquals("act", result.get("ACTTASK"));
         // only one imsi was sent to process, so stop probe and tcp
         assertTrue(!(boolean) result.get("TCP_ON"));
         assertTrue(!(boolean) result.get("PROBE_ON"));
@@ -232,7 +232,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertTrue(result.get("ACTTASK").equals("probe"));
+        assertEquals("probe", result.get("ACTTASK"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
         assertEquals(99, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
@@ -267,7 +267,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertTrue(result.get("ACTTASK").equals("act"));
+        assertEquals("act", result.get("ACTTASK"));
         assertTrue(!(boolean) result.get("TCP_ON"));
         assertTrue(!(boolean) result.get("PROBE_ON"));
         assertEquals(98, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
@@ -304,7 +304,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertTrue(result.get("ACTTASK").equals("act"));
+        assertEquals("act", result.get("ACTTASK"));
         assertTrue(!(boolean) result.get("TCP_ON"));
         assertTrue(!(boolean) result.get("PROBE_ON"));
         assertEquals(100, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
@@ -337,7 +337,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertTrue(result.get("ACTTASK").equals("probe"));
+        assertEquals("probe", result.get("ACTTASK"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
         assertEquals(99, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
@@ -375,7 +375,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertTrue(result.get("ACTTASK").equals("probe"));
+        assertEquals("probe", result.get("ACTTASK"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
         assertEquals(102, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
@@ -408,7 +408,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertTrue(result.get("ACTTASK").equals("probe"));
+        assertEquals("probe", result.get("ACTTASK"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
         assertEquals(102, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
@@ -417,8 +417,8 @@ public class AadmUseCaseTest {
         apexEngine.handleEvent(result);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("SAPCBlacklistSubscriberEvent"));
-        assertTrue(result.get("PROFILE").equals("ServiceA"));
-        assertTrue(result.get("BLACKLIST_ON").equals(true));
+        assertEquals("ServiceA", result.get("PROFILE"));
+        assertEquals(true, result.get("BLACKLIST_ON"));
 
         event = apexEngine.createEvent(new AxArtifactKey("PeriodicEvent", "0.0.1"));
         event.put("PERIODIC_EVENT_COUNT", (long) 100);
@@ -431,8 +431,8 @@ public class AadmUseCaseTest {
         assertTrue(result.getName().startsWith("SAPCBlacklistSubscriberEvent"));
         assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
         assertEquals(0L, result.get("IMSI"));
-        assertTrue(result.get("PROFILE").equals("ServiceA"));
-        assertTrue(result.get("BLACKLIST_ON").equals(false));
+        assertEquals("ServiceA", result.get("PROFILE"));
+        assertEquals(false, result.get("BLACKLIST_ON"));
 
         apexEngine.stop();
     }

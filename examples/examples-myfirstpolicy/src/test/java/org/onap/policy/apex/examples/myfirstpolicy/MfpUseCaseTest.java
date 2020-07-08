@@ -308,12 +308,12 @@ public class MfpUseCaseTest {
                 gb.create().fromJson(ResourceUtils.getResourceAsString(inputFile), JsonObject.class);
         assertNotNull(jsonObject);
         assertTrue(jsonObject.has("name"));
-        assertTrue(ret.getName().equals(jsonObject.get("name").getAsString()));
-        assertTrue(ret.getAxEvent().getKey().getName().equals(jsonObject.get("name").getAsString()));
+        assertEquals(ret.getName(), jsonObject.get("name").getAsString());
+        assertEquals(ret.getAxEvent().getKey().getName(), jsonObject.get("name").getAsString());
         assertTrue(jsonObject.has("nameSpace"));
-        assertTrue(ret.getAxEvent().getNameSpace().equals(jsonObject.get("nameSpace").getAsString()));
+        assertEquals(ret.getAxEvent().getNameSpace(), jsonObject.get("nameSpace").getAsString());
         assertTrue(jsonObject.has("version"));
-        assertTrue(ret.getAxEvent().getKey().getVersion().equals(jsonObject.get("version").getAsString()));
+        assertEquals(ret.getAxEvent().getKey().getVersion(), jsonObject.get("version").getAsString());
         final List<String> reserved = Arrays.asList("name", "nameSpace", "version", "source", "target");
         for (final Map.Entry<String, ?> e : jsonObject.entrySet()) {
             if (reserved.contains(e.getKey())) {
@@ -375,12 +375,12 @@ public class MfpUseCaseTest {
                 gb.create().fromJson(ResourceUtils.getResourceAsString(inputFile), JsonObject.class);
         assertNotNull(jsonObject);
         assertTrue(jsonObject.has("name"));
-        assertTrue(ret.getName().equals(jsonObject.get("name").getAsString()));
-        assertTrue(ret.getAxEvent().getKey().getName().equals(jsonObject.get("name").getAsString()));
+        assertEquals(ret.getName(), jsonObject.get("name").getAsString());
+        assertEquals(ret.getAxEvent().getKey().getName(), jsonObject.get("name").getAsString());
         assertTrue(jsonObject.has("nameSpace"));
-        assertTrue(ret.getAxEvent().getNameSpace().equals(jsonObject.get("nameSpace").getAsString()));
+        assertEquals(ret.getAxEvent().getNameSpace(), jsonObject.get("nameSpace").getAsString());
         assertTrue(jsonObject.has("version"));
-        assertTrue(ret.getAxEvent().getKey().getVersion().equals(jsonObject.get("version").getAsString()));
+        assertEquals(ret.getAxEvent().getKey().getVersion(), jsonObject.get("version").getAsString());
         final List<String> reserved = Arrays.asList("name", "nameSpace", "version", "source", "target");
         for (final Map.Entry<String, ?> e : jsonObject.entrySet()) {
             if (reserved.contains(e.getKey())) {

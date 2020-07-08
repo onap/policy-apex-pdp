@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,7 +22,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -106,16 +106,16 @@ public class ContextSchemasTest {
                         + "schemaFlavour=NewSchemaFlavour,schemaDefinition=NewSchemaDefinition)",
                         clonedSchema.toString());
 
-        assertFalse(schema.hashCode() == 0);
+        assertNotEquals(schema.hashCode(), 0);
 
-        assertTrue(schema.equals(schema));
-        assertTrue(schema.equals(clonedSchema));
-        assertFalse(schema.equals(null));
-        assertFalse(schema.equals((Object) "Hello"));
-        assertFalse(schema.equals(new AxContextSchema(new AxArtifactKey(), "Flavour", "Def")));
-        assertFalse(schema.equals(new AxContextSchema(newKey, "Flavour", "Def")));
-        assertFalse(schema.equals(new AxContextSchema(newKey, "NewSchemaFlavour", "Def")));
-        assertTrue(schema.equals(new AxContextSchema(newKey, "NewSchemaFlavour", "NewSchemaDefinition")));
+        assertEquals(schema, schema);
+        assertEquals(schema, clonedSchema);
+        assertNotEquals(schema, null);
+        assertNotEquals(schema, (Object) "Hello");
+        assertNotEquals(schema, new AxContextSchema(new AxArtifactKey(), "Flavour", "Def"));
+        assertNotEquals(schema, new AxContextSchema(newKey, "Flavour", "Def"));
+        assertNotEquals(schema, new AxContextSchema(newKey, "NewSchemaFlavour", "Def"));
+        assertEquals(schema, new AxContextSchema(newKey, "NewSchemaFlavour", "NewSchemaDefinition"));
 
         assertEquals(0, schema.compareTo(schema));
         assertEquals(0, schema.compareTo(clonedSchema));
@@ -168,13 +168,13 @@ public class ContextSchemasTest {
         assertTrue(clonedSchemas.toString()
                         .startsWith("AxContextSchemas:(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),"));
 
-        assertFalse(schemas.hashCode() == 0);
+        assertNotEquals(schemas.hashCode(), 0);
 
-        assertTrue(schemas.equals(schemas));
-        assertTrue(schemas.equals(clonedSchemas));
-        assertFalse(schemas.equals(null));
-        assertFalse(schemas.equals((Object) "Hello"));
-        assertFalse(schemas.equals(new AxContextSchemas(new AxArtifactKey())));
+        assertEquals(schemas, schemas);
+        assertEquals(schemas, clonedSchemas);
+        assertNotEquals(schemas, null);
+        assertNotEquals(schemas, (Object) "Hello");
+        assertNotEquals(schemas, new AxContextSchemas(new AxArtifactKey()));
 
         assertEquals(0, schemas.compareTo(schemas));
         assertEquals(0, schemas.compareTo(clonedSchemas));
