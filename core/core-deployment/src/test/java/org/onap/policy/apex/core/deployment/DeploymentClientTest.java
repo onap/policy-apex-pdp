@@ -6,26 +6,26 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.core.deployment;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyObject;
 
 import java.lang.reflect.Field;
@@ -86,7 +86,7 @@ public class DeploymentClientTest {
 
         assertTrue(deploymentClient.isStarted());
         assertTrue(clientThread.isAlive());
-        
+
         AxArtifactKey engineKey = new AxArtifactKey("MyEngine", "0.0.1");
         GetEngineStatus getEngineStatus = new GetEngineStatus(engineKey);
         deploymentClient.sendMessage(new GetEngineStatus(engineKey));
@@ -94,20 +94,16 @@ public class DeploymentClientTest {
         Response response = new Response(engineKey, true, getEngineStatus);
         List<Message> messageList = new ArrayList<>();
         messageList.add(response);
-        
+
         MessageBlock<Message> responseBlock = new MessageBlock<>(messageList, null);
         messageListener.getValue().onMessage(responseBlock);
-        
-        try {
-            messageListener.getValue().onMessage("StringMessage");
-            fail("test should throw an exception here");
-        } catch (UnsupportedOperationException use) {
-            assertEquals("String mesages are not supported on the EngDep protocol", use.getMessage());
-        }
+
+        assertThatThrownBy(() -> messageListener.getValue().onMessage("StringMessage"))
+            .hasMessageContaining("String mesages are not supported on the EngDep protocol");
 
         await().atMost(300, TimeUnit.MILLISECONDS).until(() -> deploymentClient.getMessagesReceived() == 2);
         assertEquals(2, deploymentClient.getMessagesReceived());
-        
+
         deploymentClient.stopClient();
     }
 

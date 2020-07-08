@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ package org.onap.policy.apex.core.engine.context;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -128,13 +127,8 @@ public class ApexInternalContextTest {
 
     @Test
     public void testAlbumInit() throws ContextException {
-        try {
-            new ApexInternalContext(null);
-            fail("test should throw an exception");
-        } catch (ContextException ce) {
-            assertEquals("internal context update failed, supplied model is null", ce.getMessage());
-        }
-
+        assertThatThrownBy(() -> new ApexInternalContext(null))
+            .hasMessageContaining("internal context update failed, supplied model is null");
         ApexInternalContext context = new ApexInternalContext(policyModel);
 
         assertEquals(policyModel.getKey(), context.getKey());

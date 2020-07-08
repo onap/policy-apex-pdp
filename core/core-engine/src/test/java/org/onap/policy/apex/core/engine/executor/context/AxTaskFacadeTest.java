@@ -1,28 +1,29 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.core.engine.executor.context;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -115,40 +116,20 @@ public class AxTaskFacadeTest {
         assertEquals("Task0", taskFacade.getTaskName());
         assertEquals("Task0:0.0.1", taskFacade.getId());
 
-        try {
-            taskFacade.getInFieldSchemaHelper("InFieldDoesntExist");
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("no incoming field with name \"InFieldDoesntExist\" " + "defined on task \"Task0:0.0.1\"",
-                            exc.getMessage());
-        }
-
-        try {
-            taskFacade.getOutFieldSchemaHelper("OutFieldDoesntExist");
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("no outgoing field with name \"OutFieldDoesntExist\" " + "defined on task \"Task0:0.0.1\"",
-                            exc.getMessage());
-        }
-
+        assertThatThrownBy(() -> taskFacade.getInFieldSchemaHelper("InFieldDoesntExist"))
+            .hasMessageContaining("no incoming field with name \"InFieldDoesntExist\" " + "defined on task "
+                    + "\"Task0:0.0.1\"");
+        assertThatThrownBy(() -> taskFacade.getOutFieldSchemaHelper("OutFieldDoesntExist"))
+            .hasMessageContaining("no outgoing field with name \"OutFieldDoesntExist\" " + "defined on task "
+                    + "\"Task0:0.0.1\"");
         assertNotNull(taskFacade.getInFieldSchemaHelper("InField0"));
         assertNotNull(taskFacade.getOutFieldSchemaHelper("OutField0"));
 
-        try {
-            taskFacade.getInFieldSchemaHelper("InFieldBad");
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("schema helper cannot be created for task field \"InFieldBad\" "
-                            + "with key \"null\" with schema \"null\"", exc.getMessage());
-        }
-
-        try {
-            taskFacade.getOutFieldSchemaHelper("OutFieldBad");
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("schema helper cannot be created for task field \"OutFieldBad\" "
-                            + "with key \"null\" with schema \"null\"", exc.getMessage());
-        }
-
+        assertThatThrownBy(() -> taskFacade.getInFieldSchemaHelper("InFieldBad"))
+            .hasMessageContaining("schema helper cannot be created for task field \"InFieldBad\" "
+                    + "with key \"null\" with schema \"null\"");
+        assertThatThrownBy(() -> taskFacade.getOutFieldSchemaHelper("OutFieldBad"))
+            .hasMessageContaining("schema helper cannot be created for task field \"OutFieldBad\" "
+                    + "with key \"null\" with schema \"null\"");
     }
 }
