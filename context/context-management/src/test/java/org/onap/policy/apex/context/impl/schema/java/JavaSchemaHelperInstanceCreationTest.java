@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,8 @@
 
 package org.onap.policy.apex.context.impl.schema.java;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -87,32 +88,20 @@ public class JavaSchemaHelperInstanceCreationTest {
         final SchemaHelper schemaHelper2 =
                 new SchemaHelperFactory().createSchemaHelper(testKey, javaStringSchema.getKey());
 
-        try {
-            schemaHelper0.createNewInstance();
-            fail("this test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\" using the default"
-                    + " constructor \"Boolean()\"", e.getMessage());
-        }
+        assertThatThrownBy(() -> schemaHelper0.createNewInstance())
+            .hasMessageContaining("AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\""
+                    + " using the default constructor \"Boolean()\"");
         assertEquals(true, schemaHelper0.createNewInstance("true"));
 
-        try {
-            schemaHelper1.createNewInstance();
-            fail("this test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\" using the default "
-                    + "constructor \"Long()\"", e.getMessage());
-        }
+        assertThatThrownBy(() -> schemaHelper1.createNewInstance())
+            .hasMessageContaining("AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\""
+                    + " using the default constructor \"Long()\"");
         assertEquals(65536L, schemaHelper1.createNewInstance("65536"));
 
         assertEquals("", schemaHelper2.createNewInstance());
         assertEquals("true", schemaHelper2.createNewInstance("true"));
 
-        try {
-            schemaHelper1.createNewSubInstance("SomeSubtype");
-            fail("this test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("sub types are not supported on this schema helper", e.getMessage());
-        }
+        assertThatThrownBy(() -> schemaHelper1.createNewSubInstance("SomeSubtype"))
+            .hasMessageContaining("sub types are not supported on this schema helper");
     }
 }

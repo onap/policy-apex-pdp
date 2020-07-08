@@ -1,7 +1,11 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+<<<<<<< HEAD
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+=======
+ *  Modifications Copyright (C) 2020 Nordix Foundation
+>>>>>>> 48e07ed7... Replace try/catch with assertj - apex-pdp
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +25,7 @@
 
 package org.onap.policy.apex.core.deployment;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -43,39 +46,27 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 public class BatchDeployerTest {
     @Test
     public void testBatchDeployerBad() {
-        try {
-            final String[] eventArgs = { "-h" };
+        final String[] eventArgs = { "-h" };
 
-            BatchDeployer.main(eventArgs);
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("invalid arguments: [-h]", exc.getMessage().substring(0, 23));
-        }
+        assertThatThrownBy(() -> BatchDeployer.main(eventArgs))
+            .hasMessageContaining("invalid arguments: [-h]");
     }
 
     @Test
     public void testBatchDeployerBadPort() {
-        try {
-            final String[] eventArgs = { "localhost", "aport", "afile" };
-
-            BatchDeployer.main(eventArgs);
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("argument port is invalid", exc.getMessage().substring(0, 24));
-        }
+        final String[] eventArgs = { "localhost", "aport", "afile" };
+    
+        assertThatThrownBy(() -> BatchDeployer.main(eventArgs))
+            .hasMessage("argument port is invalid");
     }
 
     @Test
     public void testBatchDeployerOk() {
-        try {
-            final String[] eventArgs = { "Host", "43443",
-                "src/test/resources/models/SamplePolicyModelJAVASCRIPT.json" };
+        final String[] eventArgs = { "Host", "43443",
+            "src/test/resources/models/SamplePolicyModelJAVASCRIPT.json" };
 
-            BatchDeployer.main(eventArgs);
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("model deployment failed on parameters Host 43443", exc.getMessage());
-        }
+        assertThatThrownBy(() -> BatchDeployer.main(eventArgs))
+            .hasMessageContaining("model deployment failed on parameters Host 43443");
     }
 
     @Test
@@ -88,13 +79,7 @@ public class BatchDeployerTest {
 
         // We are testing towards a dummy client, make it return a failed initiation
         dummyDeploymentClient.setInitSuccessful(false);
-        try {
-            deployer.init();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("model deployment failed on parameters localhost 12345", ade.getMessage());
-        }
-
+        assertThatThrownBy(deployer::init).hasMessage("model deployment failed on parameters localhost 12345");
         // Wait until the connection to the server closes following the bad connection
         // attempt
         Awaitility.await().atLeast(Duration.ofMillis(100));
@@ -103,14 +88,8 @@ public class BatchDeployerTest {
         dummyDeploymentClient.setInitSuccessful(true);
         deployer.init();
 
-        try {
-            deployer.deployModel("src/test/resources/models/SmallModel.json", false, false);
-            fail("test should throw an exception");
-        } catch (ApexException ade) {
-            assertEquals("could not deploy apex model from src/test/resources/models/SmallModel.json",
-                ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> deployer.deployModel("src/test/resources/models/SmallModel.json", false, false))
+            .hasMessage("could not deploy apex model from src/test/resources/models/SmallModel.json");
         deployer.deployModel("src/test/resources/models/SmallModel.json", false, false);
 
         deployer.close();
@@ -126,18 +105,14 @@ public class BatchDeployerTest {
         deployer.getEngineServiceFacade().setDeploymentClient(dummyDeploymentClient);
 
         dummyDeploymentClient.setInitSuccessful(false);
-        try {
-            deployer.init();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("model deployment failed on parameters localhost 12345", ade.getMessage());
-        }
-
+        assertThatThrownBy(deployer::init)
+            .hasMessage("model deployment failed on parameters localhost 12345");
         // Wait until the connection to the server closes following the bad connection
         // attempt
         Awaitility.await().atLeast(Duration.ofMillis(100));
 
         dummyDeploymentClient.setInitSuccessful(true);
+
         deployer.init();
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
@@ -145,12 +120,8 @@ public class BatchDeployerTest {
         final AxPolicyModel apexPolicyModel = modelReader
             .read(new FileInputStream(new File("src/test/resources/models/SmallModel.json")));
 
-        try {
-            deployer.deployModel(apexPolicyModel, false, false);
-            fail("test should throw an exception");
-        } catch (ApexException ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
-        }
+        assertThatThrownBy(() -> deployer.deployModel(apexPolicyModel, false, false))
+            .hasMessage("failed response Operation failed received from serverlocalhost:12345");
 
         deployer.deployModel(apexPolicyModel, false, false);
 
@@ -164,19 +135,12 @@ public class BatchDeployerTest {
         BatchDeployer deployer = new BatchDeployer("localhost", 12345, new PrintStream(baosOut, true));
         deployer.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
 
-        try {
-            deployer.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
-            fail("test should throw an exception");
-        } catch (ApexException ade) {
-            assertEquals("could not deploy apex model, deployer is not initialized", ade.getMessage());
-        }
-
-        try {
-            deployer.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
-            fail("test should throw an exception");
-        } catch (ApexException ade) {
-            assertEquals("could not deploy apex model, deployer is not initialized", ade.getMessage());
-        }
+        assertThatThrownBy(() -> deployer.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json",
+                false, false))
+            .hasMessage("could not deploy apex model, deployer is not initialized");
+        assertThatThrownBy(() -> deployer.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json",
+                false, false))
+            .hasMessage("could not deploy apex model, deployer is not initialized");
 
         deployer.close();
     }
@@ -193,13 +157,8 @@ public class BatchDeployerTest {
         final AxPolicyModel apexPolicyModel = modelReader
             .read(new FileInputStream(new File("src/test/resources/models/SmallModel.json")));
 
-        try {
-            deployer.deployModel(apexPolicyModel, false, false);
-            fail("test should throw an exception");
-        } catch (ApexException ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> deployer.deployModel(apexPolicyModel, false, false))
+            .hasMessageContaining("failed response Operation failed received from serverlocalhost:12345");
         deployer.close();
     }
 }

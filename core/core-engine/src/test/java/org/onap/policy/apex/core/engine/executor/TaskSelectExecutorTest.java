@@ -23,7 +23,6 @@ package org.onap.policy.apex.core.engine.executor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -85,7 +84,7 @@ public class TaskSelectExecutorTest {
     }
 
     @Test
-    public void testTaskSelectionExecutor() {
+    public void testTaskSelectionExecutor() throws StateMachineException {
         DummyTaskSelectExecutor executor = new DummyTaskSelectExecutor();
 
         executor.setContext(null, axStateMock, internalContextMock);
@@ -104,102 +103,44 @@ public class TaskSelectExecutorTest {
         executor.setNext(null);
         assertEquals(null, executor.getNext());
 
-        try {
-            executor.cleanUp();
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("cleanUp() not implemented on class", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.cleanUp())
+            .hasMessageContaining("cleanUp() not implemented on class");
         Mockito.doReturn(null).when(taskSelectionLogicMock).getLogic();
 
-        try {
-            executor.prepare();
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("task selection logic cannot be null.", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.prepare())
+            .hasMessageContaining("task selection logic cannot be null.");
         Mockito.doReturn("some task logic").when(taskSelectionLogicMock).getLogic();
 
-        try {
-            executor.prepare();
-        } catch (StateMachineException e) {
-            fail("test should not throw an exception");
-        }
+        executor.prepare();
 
-        try {
-            executor.executePre(0, new Properties(), incomingEvent);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        executor.executePre(0, new Properties(), incomingEvent);
 
-        try {
-            executor.execute(0, new Properties(), incomingEvent);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute() not implemented on class", ex.getMessage());
-        }
-
-        try {
-            executor.executePost(false);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\"",
-                ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.execute(0, new Properties(), incomingEvent))
+            .hasMessage("execute() not implemented on class");
+        assertThatThrownBy(() -> executor.executePost(false))
+            .hasMessage("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\"");
 
         executor.getExecutionContext().setMessage("Execution message");
-        try {
-            executor.executePost(false);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execute-post: task selection logic failed on state \"State0Parent:0.0.1:Parent:State0\", "
-                + "user message: Execution message", ex.getMessage());
-        }
+        assertThatThrownBy(() -> executor.executePost(false))
+            .hasMessageContaining("execute-post: task selection logic failed on state \""
+                + "State0Parent:0.0.1:Parent:State0\", user message: Execution message");
+        executor.executePre(0, new Properties(), incomingEvent);
 
-        try {
-            executor.executePre(0, new Properties(), incomingEvent);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        executor.executePost(true);
+        assertEquals("Task1", executor.getOutgoing().getName());
 
-        try {
-            executor.executePost(true);
-            assertEquals("Task1", executor.getOutgoing().getName());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            executor.executePre(0, new Properties(), incomingEvent);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        executor.executePre(0, new Properties(), incomingEvent);
 
         executor.getOutgoing().setName("IDontExist");
-        try {
-            executor.executePost(true);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("task \"IDontExist:0.0.0\" returned by task selection logic not defined "
-                + "on state \"State0Parent:0.0.1:Parent:State0\"", ex.getMessage());
-        }
-
-        try {
-            executor.executePre(0, new Properties(), incomingEvent);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(() -> executor.executePost(true))
+            .hasMessageContaining("task \"IDontExist:0.0.0\" returned by task selection logic not defined "
+                + "on state \"State0Parent:0.0.1:Parent:State0\"");
+        executor.executePre(0, new Properties(), incomingEvent);
 
         executor.getOutgoing().setName("Task0");
 
-        try {
-            executor.executePost(true);
-            assertEquals("Task0", executor.getOutgoing().getName());
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        executor.executePost(true);
+        assertEquals("Task0", executor.getOutgoing().getName());
 
         assertThatThrownBy(() -> executor.executePre(0, null, incomingEvent))
             .hasMessageMatching("^executionProperties is marked .*on.*ull but is null$");

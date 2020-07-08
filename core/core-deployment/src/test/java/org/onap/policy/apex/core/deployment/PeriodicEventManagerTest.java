@@ -21,9 +21,8 @@
 
 package org.onap.policy.apex.core.deployment;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,26 +36,18 @@ import org.junit.Test;
 public class PeriodicEventManagerTest {
     @Test
     public void testPeroidicEventManagerBad() {
-        try {
-            final String[] eventArgs = { "-h" };
+        final String[] eventArgs = { "-h" };
 
-            PeriodicEventManager.main(eventArgs);
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("invalid arguments: [-h]", exc.getMessage().substring(0, 23));
-        }
+        assertThatThrownBy(() -> PeriodicEventManager.main(eventArgs))
+            .hasMessageContaining("invalid arguments: [-h]");
     }
 
     @Test
     public void testPeroidicEventManagerOk() {
-        try {
-            final String[] eventArgs = { "Host", "43443", "start", "1000" };
+        final String[] eventArgs = { "Host", "43443", "start", "1000" };
 
-            PeriodicEventManager.main(eventArgs);
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("periodic event setting failed on parameters Host 43443 true", exc.getMessage());
-        }
+        assertThatThrownBy(() -> PeriodicEventManager.main(eventArgs))
+            .hasMessage("periodic event setting failed on parameters Host 43443 true");
     }
 
     @Test
@@ -107,54 +98,31 @@ public class PeriodicEventManagerTest {
     }
 
     @Test
-    public void testPeroidicEventManagerStart() {
+    public void testPeroidicEventManagerStart() throws ApexDeploymentException {
         final String[] eventArgs = { "localhost", "12345", "start", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
         PeriodicEventManager peManager = null;
         final DummyDeploymentClient dummyDeploymentClient = new DummyDeploymentClient("aHost", 54553);
-        try {
-            peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
-            peManager.getEngineServiceFacade().setDeploymentClient(dummyDeploymentClient);
-        } catch (ApexDeploymentException ade) {
-            fail("test should not throw an exception");
-        }
+        peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
+        peManager.getEngineServiceFacade().setDeploymentClient(dummyDeploymentClient);
 
         dummyDeploymentClient.setInitSuccessful(false);
-        try {
-            peManager.init();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("periodic event setting failed on parameters localhost 12345 true", ade.getMessage());
-        }
-
+        assertThatThrownBy(peManager::init)
+            .hasMessage("periodic event setting failed on parameters localhost 12345 true");
         dummyDeploymentClient.setInitSuccessful(true);
-        try {
-            peManager.init();
-        } catch (ApexDeploymentException ade) {
-            ade.printStackTrace();
-            fail("test should not throw an exception");
-        }
+        peManager.init();
 
-        try {
-            peManager.runCommand();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
-        }
-
-        try {
-            peManager.runCommand();
-        } catch (ApexDeploymentException ade) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(peManager::runCommand)
+            .hasMessage("failed response Operation failed received from serverlocalhost:12345");
 
         peManager.close();
     }
 
     @Test
     public void testPeroidicEventManagerStop() throws ApexDeploymentException {
+
         final String[] eventArgs = { "localhost", "12345", "stop", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
@@ -165,23 +133,13 @@ public class PeriodicEventManagerTest {
         peManager.getEngineServiceFacade().setDeploymentClient(dummyDeploymentClient);
 
         dummyDeploymentClient.setInitSuccessful(false);
-        try {
-            peManager.init();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("periodic event setting failed on parameters localhost 12345 false", ade.getMessage());
-        }
-
+        assertThatThrownBy(peManager::init)
+            .hasMessage("periodic event setting failed on parameters localhost 12345 false");
         dummyDeploymentClient.setInitSuccessful(true);
         peManager.init();
 
-        try {
-            peManager.runCommand();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
-        }
-
+        assertThatThrownBy(peManager::runCommand)
+            .hasMessage("failed response Operation failed received from serverlocalhost:12345");
         peManager.runCommand();
 
         peManager.close();
@@ -189,6 +147,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerStartUninitialized() throws ApexDeploymentException {
+
         final String[] eventArgs = { "localhost", "12345", "start", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
@@ -199,26 +158,18 @@ public class PeriodicEventManagerTest {
         peManager.getEngineServiceFacade().setDeploymentClient(dummyDeploymentClient);
 
         dummyDeploymentClient.setInitSuccessful(false);
-        try {
-            peManager.runCommand();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("connection to apex is not initialized", ade.getMessage());
-        }
-
+        assertThatThrownBy(peManager::runCommand)
+            .hasMessage("connection to apex is not initialized");
         dummyDeploymentClient.setInitSuccessful(true);
-        try {
-            peManager.runCommand();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("connection to apex is not initialized", ade.getMessage());
-        }
+        assertThatThrownBy(peManager::runCommand)
+            .hasMessage("connection to apex is not initialized");
 
         peManager.close();
     }
 
     @Test
     public void testPeroidicEventManagerStopUninitialized() throws ApexDeploymentException {
+
         final String[] eventArgs = { "localhost", "12345", "stop", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
@@ -227,13 +178,8 @@ public class PeriodicEventManagerTest {
         peManager = new PeriodicEventManager(eventArgs, new PrintStream(baosOut, true));
         peManager.getEngineServiceFacade().setDeploymentClient(new DummyDeploymentClient("aHost", 54553));
 
-        try {
-            peManager.runCommand();
-            fail("test should throw an exception");
-        } catch (ApexDeploymentException ade) {
-            assertEquals("connection to apex is not initialized", ade.getMessage());
-        }
-
+        assertThatThrownBy(peManager::runCommand)
+            .hasMessageContaining("connection to apex is not initialized");
         peManager.close();
     }
 

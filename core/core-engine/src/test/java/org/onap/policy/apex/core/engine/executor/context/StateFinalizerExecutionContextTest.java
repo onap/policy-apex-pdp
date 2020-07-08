@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.core.engine.executor.context;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -101,12 +102,8 @@ public class StateFinalizerExecutionContextTest {
         ContextAlbum contextAlbum = sfec.getContextAlbum("AlbumKey0");
         assertEquals("AlbumKey0:0.0.1", contextAlbum.getKey().getId());
 
-        try {
-            sfec.getContextAlbum("AlbumKeyNonExistant");
-            fail("test should throw an exception");
-        } catch (Exception exc) {
-            assertEquals("cannot find definition of context album \"AlbumKeyNonExistant\" "
-                            + "on state \"Parent:0.0.1:ParentName:StateName\"", exc.getMessage());
-        }
+        assertThatThrownBy(() -> sfec.getContextAlbum("AlbumKeyNonExistant"))
+            .hasMessageContaining("cannot find definition of context album \"AlbumKeyNonExistant\" "
+                            + "on state \"Parent:0.0.1:ParentName:StateName\"");
     }
 }
