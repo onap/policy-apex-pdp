@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -68,14 +67,14 @@ public class SupportApexBasicModelConceptsTester {
         final AxModel clonedModel = new AxModel(model);
         assertTrue(clonedModel.toString().startsWith("AxModel:(key=AxArtifactKey:(name=BasicModel"));
 
-        assertFalse(model.hashCode() == 0);
+        assertNotEquals(0, model.hashCode());
 
-        assertTrue(model.equals(model));
-        assertTrue(model.equals(clonedModel));
-        assertFalse(model.equals(null));
-        assertFalse(model.equals((Object) "Hello"));
+        assertEquals(model, model);
+        assertEquals(model, clonedModel);
+        assertNotEquals(model, null);
+        assertNotEquals(model, (Object) "Hello");
         clonedModel.getKey().setVersion("0.0.2");
-        assertFalse(model.equals(clonedModel));
+        assertNotEquals(model, clonedModel);
         clonedModel.getKey().setVersion("0.0.1");
 
         assertEquals(0, model.compareTo(model));
@@ -94,12 +93,12 @@ public class SupportApexBasicModelConceptsTester {
         final AxKeyInformation keyI = model.getKeyInformation();
         final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
 
-        assertFalse(keyI.equals(null));
-        assertFalse(keyI.equals((Object) new AxArtifactKey()));
-        assertTrue(keyI.equals(clonedKeyI));
+        assertNotEquals(keyI, null);
+        assertNotEquals(keyI, (Object) new AxArtifactKey());
+        assertEquals(keyI, clonedKeyI);
 
         clonedKeyI.setKey(new AxArtifactKey());
-        assertFalse(keyI.equals(clonedKeyI));
+        assertNotEquals(keyI, clonedKeyI);
         clonedKeyI.setKey(keyI.getKey());
 
         assertEquals(0, keyI.compareTo(keyI));
