@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@
 
 package org.onap.policy.apex.core.engine.event;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -34,7 +34,6 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -75,20 +74,10 @@ public class EnEventTest {
     @Test
     public void testEnEvent() {
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
-        try {
-            new EnEvent(eventKey);
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("event definition is null or was not found in model service", ee.getMessage());
-        }
-
-        try {
-            new EnEvent((AxEvent) null);
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("event definition is null or was not found in model service", ee.getMessage());
-        }
-
+        assertThatThrownBy(() -> new EnEvent(eventKey))
+            .hasMessage("event definition is null or was not found in model service");
+        assertThatThrownBy(() -> new EnEvent((AxEvent) null))
+            .hasMessage("event definition is null or was not found in model service");
         AxEvent axEvent = new AxEvent(eventKey, "a.name.space", "some source", "some target");
         ModelService.getModel(AxEvents.class).getEventMap().put(eventKey, axEvent);
 
@@ -108,20 +97,10 @@ public class EnEventTest {
         assertEquals("EnEvent [axEvent=AxEvent:(key=AxArtifactKey:(name=Event,version=0.0.1),nameSpace=a.name.space,"
                         + "source=some source,target=some target,parameter={}), "
                         + "userArtifactStack=[AxArtifactKey:(name=Event,version=0.0.1)], map={}]", event.toString());
-        try {
-            event.put(null, null);
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("null keys are illegal on method parameter \"key\"", ee.getMessage());
-        }
-
-        try {
-            event.put("NonField", null);
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("parameter with key \"NonField\" not defined on event \"Event\"", ee.getMessage());
-        }
-
+        assertThatThrownBy(() -> event.put(null, null))
+            .hasMessage("null keys are illegal on method parameter \"key\"");
+        assertThatThrownBy(() -> event.put("NonField", null))
+            .hasMessage("parameter with key \"NonField\" not defined on event \"Event\"");
         AxReferenceKey fieldKey = new AxReferenceKey("Parent", "0.0.1", "MyParent", "MyField");
         AxArtifactKey fieldSchemaKey = new AxArtifactKey("FieldSchema:0.0.1");
         AxField axField = new AxField(fieldKey, fieldSchemaKey);
@@ -137,21 +116,12 @@ public class EnEventTest {
         parameterMap.put("MyField", axField);
         ModelService.getModel(AxEvents.class).get(eventKey).setParameterMap(parameterMap);
 
-        try {
-            event.put("MyField", null);
-        } catch (ContextRuntimeException cre) {
-            fail("test should throw an exception here");
-        }
+        event.put("MyField", null);
         assertNull(event.get("MyField"));
 
-        try {
-            event.put("MyField", "Hello");
-            fail("test should throw an exception here");
-        } catch (ContextRuntimeException cre) {
-            assertEquals("Parent:0.0.1:MyParent:MyField: object \"Hello\" of class \"java.lang.String\" "
-                            + "not compatible with class \"java.lang.Integer\"", cre.getMessage());
-        }
-
+        assertThatThrownBy(() -> event.put("MyField", "Hello"))
+            .hasMessage("Parent:0.0.1:MyParent:MyField: object \"Hello\" of class \"java.lang.String\" "
+                            + "not compatible with class \"java.lang.Integer\"");
         event.put("MyField", 123);
         assertEquals(123, event.get("MyField"));
 
@@ -161,34 +131,14 @@ public class EnEventTest {
 
         event.putAll(event);
 
-        try {
-            event.get(null);
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("null values are illegal on method parameter \"key\"", ee.getMessage());
-        }
-
-        try {
-            event.get("NonField");
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("parameter with key NonField not defined on this event", ee.getMessage());
-        }
-
-        try {
-            event.remove(null);
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("null keys are illegal on method parameter \"key\"", ee.getMessage());
-        }
-
-        try {
-            event.remove("NonField");
-            fail("test should throw an exception here");
-        } catch (EnException ee) {
-            assertEquals("parameter with key NonField not defined on this event", ee.getMessage());
-        }
-
+        assertThatThrownBy(() -> event.get(null))
+            .hasMessage("null values are illegal on method parameter \"key\"");
+        assertThatThrownBy(() -> event.get("NonField"))
+            .hasMessage("parameter with key NonField not defined on this event");
+        assertThatThrownBy(() -> event.remove(null))
+            .hasMessage("null keys are illegal on method parameter \"key\"");
+        assertThatThrownBy(() -> event.remove("NonField"))
+            .hasMessage("parameter with key NonField not defined on this event");
         event.remove("MyField");
         assertNull(event.get("MyField"));
 

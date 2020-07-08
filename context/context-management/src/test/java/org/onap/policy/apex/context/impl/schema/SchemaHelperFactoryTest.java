@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +21,12 @@
 
 package org.onap.policy.apex.context.impl.schema;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
@@ -61,38 +60,19 @@ public class SchemaHelperFactoryTest {
 
     @Test
     public void testSchemaHelperFactory() {
-        try {
-            new SchemaHelperFactory().createSchemaHelper(null, null);
-            fail("this test should throw an exception");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Parameter \"owningEntityKey\" may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(null, null))
+            .hasMessage("Parameter \"owningEntityKey\" may not be null");
         AxArtifactKey ownerKey = new AxArtifactKey("Owner", "0.0.1");
-        try {
-            new SchemaHelperFactory().createSchemaHelper(ownerKey, null);
-            fail("this test should throw an exception");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Parameter \"schemaKey\" may not be null", e.getMessage());
-        }
-
-        try {
-            new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey());
-            fail("this test should throw an exception");
-        } catch (ContextRuntimeException e) {
-            assertEquals("schema \"IntSchema:0.0.1\" for entity Owner:0.0.1 does not exist", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(ownerKey, null))
+            .hasMessage("Parameter \"schemaKey\" may not be null");
+        assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey()))
+            .hasMessage("schema \"IntSchema:0.0.1\" for entity Owner:0.0.1 does not exist");
         schemas.getSchemasMap().put(intSchema.getKey(), intSchema);
         SchemaParameters schemaParameters0 = new SchemaParameters();
         schemaParameters0.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ParameterService.register(schemaParameters0);
-        try {
-            new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey());
-            fail("this test should throw an exception");
-        } catch (ContextRuntimeException e) {
-            assertEquals("context schema helper parameters not found for context schema  \"JAVA\"", e.getMessage());
-        }
+        assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey()))
+            .hasMessage("context schema helper parameters not found for context schema  \"JAVA\"");
         ParameterService.deregister(schemaParameters0);
 
         SchemaParameters schemaParameters1 = new SchemaParameters();
@@ -102,12 +82,8 @@ public class SchemaHelperFactoryTest {
         assertNotNull(new SchemaHelperFactory().createSchemaHelper(ownerKey, intSchema.getKey()));
 
         schemas.getSchemasMap().put(intSchema.getKey(), badSchema);
-        try {
-            new SchemaHelperFactory().createSchemaHelper(ownerKey, badSchema.getKey());
-            fail("this test should throw an exception");
-        } catch (ContextRuntimeException e) {
-            assertEquals("Owner:0.0.1: class/type java.lang.Bad for context schema \"IntSchema:0.0.1\" "
-                            + "not found. Check the class path of the JVM", e.getMessage());
-        }
+        assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(ownerKey, badSchema.getKey()))
+            .hasMessage("Owner:0.0.1: class/type java.lang.Bad for context schema \"IntSchema:0.0.1\" "
+                            + "not found. Check the class path of the JVM");
     }
 }
