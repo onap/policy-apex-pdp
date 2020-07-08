@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.core.deployment;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -43,23 +43,15 @@ public class EngineServiceFacadeTest {
 
         // First init should fail due to our dummy client
         dummyDeploymentClient.setInitSuccessful(false);
-        try {
-            facade.init();
-            fail("could not handshake with server localhost:51273");
-        } catch (final Exception ade) {
-            assertEquals("could not handshake with server localhost:51273", ade.getMessage());
-        }
-
+        assertThatThrownBy(facade::init)
+            .hasMessage("could not handshake with server localhost:51273");
         assertNull(facade.getKey());
         assertNull(facade.getApexModelKey());
         assertNull(facade.getEngineKeyArray());
 
-        try {
-            facade.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("could not deploy apex model, deployer is not initialized", ade.getMessage());
-        }
+        assertThatThrownBy(() -> facade.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json",
+                false, false))
+            .hasMessage("could not deploy apex model, deployer is not initialized");
 
         // Second init should work
         dummyDeploymentClient.setInitSuccessful(true);
@@ -69,126 +61,78 @@ public class EngineServiceFacadeTest {
         assertEquals("Model:0.0.1", facade.getApexModelKey().getId());
         assertEquals("Engine:0.0.1", facade.getEngineKeyArray()[0].getId());
 
-        try {
-            facade.deployModel("src/test/resources/models/NonExistantModel.json", false, false);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("could not create apex model, could not read from file "
-                + "src/test/resources/models/NonExistantModel.json", ade.getMessage());
-        }
-
-        try {
-            facade.deployModel("src/test/resources/models/JunkModel.json", false, false);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("could not deploy apex model from src/test/resources/models/JunkModel.json", ade.getMessage());
-        }
+        assertThatThrownBy(() -> facade.deployModel("src/test/resources/models/NonExistantModel.json",
+                false, false))
+            .hasMessage("could not create apex model, could not read from file "
+                            + "src/test/resources/models/NonExistantModel.json");
+        assertThatThrownBy(() -> facade.deployModel("src/test/resources/models/JunkModel.json",
+                false, false))
+            .hasMessage("could not deploy apex model from src/test/resources/models/JunkModel.json");
 
         InputStream badStream = new ByteArrayInputStream("".getBytes());
-        try {
-            facade.deployModel("MyModel", badStream, false, false);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("format of input for Apex concept is neither JSON nor XML", ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> facade.deployModel("MyModel", badStream, false, false))
+            .hasMessage("format of input for Apex concept is neither JSON nor XML");
         InputStream closedStream = new ByteArrayInputStream("".getBytes());
         closedStream.close();
-        try {
-            facade.deployModel("MyModel", closedStream, false, false);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("format of input for Apex concept is neither JSON nor XML", ade.getMessage());
-        }
 
-        try {
-            facade.deployModel("src/test/resources/models/SmallModel.json", false, false);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("could not deploy apex model from src/test/resources/models/SmallModel.json",
-                ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> facade.deployModel("MyModel", closedStream, false, false))
+            .hasMessage("format of input for Apex concept is neither JSON nor XML");
+        assertThatThrownBy(() -> facade.deployModel("src/test/resources/models/SmallModel.json", false, false))
+            .hasMessage("could not deploy apex model from src/test/resources/models/SmallModel.json");
         facade.deployModel("src/test/resources/models/SmallModel.json", false, false);
 
-        try {
-            facade.startEngine(facade.getEngineKeyArray()[0]);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:51273", ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> facade.startEngine(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
         facade.startEngine(facade.getEngineKeyArray()[0]);
 
-        try {
-            facade.stopEngine(facade.getEngineKeyArray()[0]);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:51273", ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> facade.stopEngine(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
         facade.stopEngine(facade.getEngineKeyArray()[0]);
 
-        try {
-            facade.startPerioidicEvents(facade.getEngineKeyArray()[0], 1000);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:51273", ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> facade.startPerioidicEvents(facade.getEngineKeyArray()[0], 1000))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
         facade.startPerioidicEvents(facade.getEngineKeyArray()[0], 1000);
 
-        try {
-            facade.stopPerioidicEvents(facade.getEngineKeyArray()[0]);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:51273", ade.getMessage());
-        }
+        assertThatThrownBy(() -> facade.stopPerioidicEvents(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
+        facade.stopPerioidicEvents(facade.getEngineKeyArray()[0]);
+
+        assertThatThrownBy(() -> facade.getEngineStatus(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
+        facade.getEngineStatus(facade.getEngineKeyArray()[0]);
+
+        assertThatThrownBy(() -> facade.getEngineInfo(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
+        facade.getEngineInfo(facade.getEngineKeyArray()[0]);
+
+        assertThatThrownBy(() -> facade.getEngineStatus(new AxArtifactKey("ReturnBadMessage", "0.0.1")))
+            .hasMessage("response received from server is of incorrect type "
+                + "org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus, should be of type "
+                + "org.onap.policy.apex.core.protocols.engdep.messages.Response");
+        assertThatThrownBy(() -> facade.getEngineStatus(new AxArtifactKey("ReturnBadResponse", "0.0.1")))
+            .hasMessage("response received is not correct response to sent message GET_ENGINE_STATUS");
+        assertThatThrownBy(() -> facade.getEngineStatus(new AxArtifactKey("DoNotRespond", "0.0.1")))
+            .hasMessage("no response received to sent message GET_ENGINE_STATUS");
+        assertThatThrownBy(() -> facade.stopPerioidicEvents(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
 
         facade.stopPerioidicEvents(facade.getEngineKeyArray()[0]);
 
-        try {
-            facade.getEngineStatus(facade.getEngineKeyArray()[0]);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:51273", ade.getMessage());
-        }
-
         facade.getEngineStatus(facade.getEngineKeyArray()[0]);
 
-        try {
-            facade.getEngineInfo(facade.getEngineKeyArray()[0]);
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("failed response Operation failed received from serverlocalhost:51273", ade.getMessage());
-        }
+        assertThatThrownBy(() -> facade.getEngineInfo(facade.getEngineKeyArray()[0]))
+            .hasMessage("failed response Operation failed received from serverlocalhost:51273");
 
         facade.getEngineInfo(facade.getEngineKeyArray()[0]);
 
-        try {
-            facade.getEngineStatus(new AxArtifactKey("ReturnBadMessage", "0.0.1"));
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("response received from server is of incorrect type "
-                + "org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus, should be of type "
-                + "org.onap.policy.apex.core.protocols.engdep.messages.Response", ade.getMessage());
-        }
-
-        try {
-            facade.getEngineStatus(new AxArtifactKey("ReturnBadResponse", "0.0.1"));
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("response received is not correct response to sent message GET_ENGINE_STATUS",
-                ade.getMessage());
-        }
-
-        try {
-            facade.getEngineStatus(new AxArtifactKey("DoNotRespond", "0.0.1"));
-            fail("test should throw an exception here");
-        } catch (final Exception ade) {
-            assertEquals("no response received to sent message GET_ENGINE_STATUS", ade.getMessage());
-        }
-
+        assertThatThrownBy(() -> facade.getEngineStatus(new AxArtifactKey("ReturnBadMessage", "0.0.1")))
+            .hasMessage("response received from server is of incorrect type "
+                            + "org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus, should be of type "
+                            + "org.onap.policy.apex.core.protocols.engdep.messages.Response");
+        assertThatThrownBy(() -> facade.getEngineStatus(new AxArtifactKey("ReturnBadResponse", "0.0.1")))
+            .hasMessage("response received is not correct response to sent message GET_ENGINE_STATUS");
+        assertThatThrownBy(() -> facade.getEngineStatus(new AxArtifactKey("DoNotRespond", "0.0.1")))
+            .hasMessage("no response received to sent message GET_ENGINE_STATUS");
         facade.close();
     }
 }

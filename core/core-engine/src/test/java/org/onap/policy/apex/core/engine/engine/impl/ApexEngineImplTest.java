@@ -28,7 +28,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -175,10 +174,10 @@ public class ApexEngineImplTest {
         assertNotNull(engine);
         assertEquals(engineKey, engine.getKey());
 
-        assertThatThrownBy(() -> engine.start()).hasMessage("start()<-Engine:0.0.1,STOPPED,  cannot start engine, "
+        assertThatThrownBy(engine::start).hasMessage("start()<-Engine:0.0.1,STOPPED,  cannot start engine, "
                             + "engine has not been initialized, its model is not loaded");
 
-        assertThatThrownBy(() -> engine.stop())
+        assertThatThrownBy(engine::stop)
             .hasMessage("stop()<-Engine:0.0.1,STOPPED, cannot stop engine, " + "engine is already stopped");
 
         assertEquals(AxEngineState.STOPPED, engine.getState());
@@ -222,10 +221,10 @@ public class ApexEngineImplTest {
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
 
-        assertThatThrownBy(() -> engine.start())
+        assertThatThrownBy(engine::start)
             .hasMessage("start()<-Engine:0.0.1,READY, cannot start engine, engine not in state STOPPED");
 
-        assertThatThrownBy(() -> engine.clear())
+        assertThatThrownBy(engine::clear)
             .hasMessage("clear()<-Engine:0.0.1,READY, cannot clear engine, engine is not stopped");
 
         engine.stop();
@@ -234,7 +233,7 @@ public class ApexEngineImplTest {
         engine.clear();
         assertEquals(AxEngineState.STOPPED, engine.getState());
 
-        assertThatThrownBy(() -> engine.start()).hasMessage("start()<-Engine:0.0.1,STOPPED,  cannot start engine, "
+        assertThatThrownBy(engine::start).hasMessage("start()<-Engine:0.0.1,STOPPED,  cannot start engine, "
             + "engine has not been initialized, its model is not loaded");
 
         engine.updateModel(policyModel, false);
@@ -320,19 +319,11 @@ public class ApexEngineImplTest {
         assertFalse(engine.handleEvent(event));
         assertNotNull(engine.createEvent(eventKey));
 
-        try {
-            engine.stop();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
+        engine.stop();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
 
-        try {
-            engine.start();
-            assertEquals(AxEngineState.READY, engine.getState());
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
+        engine.start();
+        assertEquals(AxEngineState.READY, engine.getState());
 
         // 4 seconds is more than the 3 second wait on engine stopping
         slowListener.setWaitTime(4000);
@@ -346,20 +337,11 @@ public class ApexEngineImplTest {
 
         await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
-        try {
-            engine.stop();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("stop()<-Engine:0.0.1,STOPPED, error stopping engine, engine stop timed out", ae.getMessage());
-        }
-
-        try {
-            engine.clear();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException e) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(engine::stop)
+            .hasMessage("stop()<-Engine:0.0.1,STOPPED, error stopping engine, engine stop timed out");
+        assertEquals(AxEngineState.STOPPED, engine.getState());
+        engine.clear();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
     }
 
     @Test
@@ -390,32 +372,16 @@ public class ApexEngineImplTest {
         assertFalse(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
 
-        try {
-            engine.stop();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            Mockito.doThrow(new StateMachineException("mocked state machine exception",
-                            new IOException("nexted exception"))).when(smHandlerMock).start();
-
-            engine.start();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("updateModel()<-Engine:0.0.1, error starting the engine state machines \"Engine:0.0.1\"",
-                            ae.getMessage());
-        }
-
+        engine.stop();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
+        Mockito.doThrow(new StateMachineException("mocked state machine exception",
+                new IOException("nexted exception"))).when(smHandlerMock).start();
+        assertThatThrownBy(engine::start).hasMessage("updateModel()<-Engine:0.0.1, error starting the engine state "
+                + "machines \"Engine:0.0.1\"");
         assertEquals(AxEngineState.STOPPED, engine.getState());
 
-        try {
-            engine.clear();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException e) {
-            fail("test should not throw an exception");
-        }
+        engine.clear();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
     }
 
     @Test
@@ -463,54 +429,28 @@ public class ApexEngineImplTest {
         assertEquals(1, smExMap.size());
         DummySmExecutor dummyExecutor = new DummySmExecutor(null, event.getKey());
         smExMap.put(event.getAxEvent(), dummyExecutor);
-        
-        try {
-            ApexInternalContext internalContext = new ApexInternalContext(policyModelWithStates);
-            dummyExecutor.setContext(null, null, internalContext);
-        } catch (Exception e) {
-            // Ignore this exception, we just need to set the internal context
-        }
+        ApexInternalContext internalContext = new ApexInternalContext(policyModelWithStates);
+        assertThatThrownBy(() -> dummyExecutor.setContext(null, null, internalContext))
+            .isInstanceOf(NullPointerException.class);
 
-        try {
-            engine.stop();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
-        
-        try {
-            engine.start();
-            fail("test should throw an exception");
-        } catch (ApexException ae) {
-            assertEquals("updateModel()<-Engine:0.0.1, error starting the engine state machines \"Engine:0.0.1\"",
-                            ae.getMessage());
-        }
-
+        engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
 
-        try {
-            engine.start();
-            assertEquals(AxEngineState.READY, engine.getState());
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(engine::start).hasMessageContaining("updateModel()<-Engine:0.0.1, error starting the "
+                    + "engine state machines \"Engine:0.0.1\"");
+        assertEquals(AxEngineState.STOPPED, engine.getState());
+
+        engine.start();
+        assertEquals(AxEngineState.READY, engine.getState());
 
         // Works, Dummy executor fakes event execution
         assertTrue(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
 
-        try {
-            engine.stop();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException ae) {
-            fail("test should not throw an exception");
-        }
+        engine.stop();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
 
-        try {
-            engine.clear();
-            assertEquals(AxEngineState.STOPPED, engine.getState());
-        } catch (ApexException e) {
-            fail("test should not throw an exception");
-        }
+        engine.clear();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
     }
 }

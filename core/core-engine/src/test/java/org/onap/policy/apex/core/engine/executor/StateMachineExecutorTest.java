@@ -21,10 +21,9 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,10 +33,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
+import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -182,17 +183,12 @@ public class StateMachineExecutorTest {
     }
 
     @Test
-    public void testStateMachineExecutor() {
+    public void testStateMachineExecutor() throws StateMachineException, ContextException {
         StateMachineExecutor executor =
             new StateMachineExecutor(executorFactoryMock, new AxArtifactKey("OwnerKey:0.0.1"));
 
-        try {
-            executor.execute(0, null, incomingEventMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("no states defined on state machine", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
+            .hasMessage("no states defined on state machine");
         executor.setContext(null, axPolicy, internalContextMock);
         assertEquals("Policy:0.0.1", executor.getKey().getId());
         assertEquals(null, executor.getParent());
@@ -208,213 +204,109 @@ public class StateMachineExecutorTest {
         executor.setNext(null);
         assertEquals(null, executor.getNext());
 
-        try {
-            executor.executePre(0, null, null);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execution pre work not implemented on class", ex.getMessage());
-        }
-
-        try {
-            executor.executePost(false);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("execution post work not implemented on class", ex.getMessage());
-        }
-
-        try {
-            executor.prepare();
-            fail("test should throw an exception");
-        } catch (Exception e) {
-            assertTrue(e instanceof NullPointerException);
-        }
-
+        assertThatThrownBy(() -> executor.executePre(0, null, null))
+            .hasMessage("execution pre work not implemented on class");
+        assertThatThrownBy(() -> executor.executePost(false))
+            .hasMessage("execution post work not implemented on class");
+        assertThatThrownBy(executor::prepare)
+            .isInstanceOf(NullPointerException.class);
         axPolicy.setFirstState("BadState");
         executor.setContext(null, axPolicy, internalContextMock);
-        try {
-            executor.execute(0, null, incomingEventMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("first state not defined on state machine", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
+            .hasMessage("first state not defined on state machine");
         axPolicy.setFirstState("state0");
         executor.setContext(null, axPolicy, internalContextMock);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
         AxReferenceKey badStateKey = new AxReferenceKey("Policy:0.0.1:PName:BadState");
         axPolicy.getStateMap().get("State1").getStateOutputs().get("stateOutput1").setNextState(badStateKey);
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("state execution failed, next state \"Policy:0.0.1:PName:BadState\" not found",
-                ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
+            .hasMessage("state execution failed, next state \"Policy:0.0.1:PName:BadState\" not found");
         axPolicy.getStateMap().get("State1").getStateOutputs().get("stateOutput1")
             .setNextState(AxReferenceKey.getNullKey());
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
         axPolicy.getStateMap().get("State1").setTrigger(new AxArtifactKey("BadTrigger:0.0.1"));
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("incoming event \"Event1:0.0.1\" does not match trigger \"BadTrigger:0.0.1\" "
-                + "of state \"Policy:0.0.1:NULL:state1\"", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
+            .hasMessage("incoming event \"Event1:0.0.1\" does not match trigger \"BadTrigger:0.0.1\" "
+                + "of state \"Policy:0.0.1:NULL:state1\"");
         axPolicy.getStateMap().get("State1").setTrigger(new AxArtifactKey("Event1:0.0.1"));
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
         AxStateFinalizerLogic savedSfl = axPolicy.getStateMap().get("State1").getStateFinalizerLogicMap().get("sfl");
         axPolicy.getStateMap().get("State1").getStateFinalizerLogicMap().put("sfl", null);
-        try {
-            executor.setContext(null, axPolicy, internalContextMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("state finalizer logic on task reference "
+        assertThatThrownBy(() -> executor.setContext(null, axPolicy, internalContextMock))
+            .hasMessage("state finalizer logic on task reference "
                 + "\"AxStateTaskReference:(stateKey=AxReferenceKey:(parentKeyName=Policy,"
                 + "parentKeyVersion=0.0.1,parentLocalName=state1,localName=str1),"
                 + "outputType=LOGIC,output=AxReferenceKey:(parentKeyName=Policy,parentKeyVersion=0.0.1,"
-                + "parentLocalName=state1,localName=sfl))\" on state \"Policy:0.0.1:NULL:state1\" " + "does not exist",
-                ex.getMessage());
-        }
-
+                + "parentLocalName=state1,localName=sfl))\" on state \"Policy:0.0.1:NULL:state1\" " + "does not exist");
         axPolicy.getStateMap().get("State1").getStateFinalizerLogicMap().put("sfl", savedSfl);
         executor.setContext(null, axPolicy, internalContextMock);
 
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
         AxArtifactKey task1Key = new AxArtifactKey("task1:0.0.1");
-        try {
-            axPolicy.getStateMap().get("State1").getTaskReferences().get(task1Key)
-                .setStateTaskOutputType(AxStateTaskOutputType.UNDEFINED);
-            executor.setContext(null, axPolicy, internalContextMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("invalid state output type on task reference \"AxStateTaskReference:(stateKey=AxReferenceKey:"
-                + "(parentKeyName=Policy,parentKeyVersion=0.0.1,parentLocalName=state1,localName=str1),"
+        axPolicy.getStateMap().get("State1").getTaskReferences().get(task1Key)
+            .setStateTaskOutputType(AxStateTaskOutputType.UNDEFINED);
+        assertThatThrownBy(() -> executor.setContext(null, axPolicy, internalContextMock))
+            .hasMessage("invalid state output type on task reference \"AxStateTaskReference:(stateKey"
+                + "=AxReferenceKey:(parentKeyName=Policy,parentKeyVersion=0.0.1,parentLocalName=state1,localName=str1),"
                 + "outputType=UNDEFINED,output=AxReferenceKey:(parentKeyName=Policy,"
                 + "parentKeyVersion=0.0.1,parentLocalName=state1,localName=sfl))\" "
-                + "on state \"Policy:0.0.1:NULL:state1\"", ex.getMessage());
-        }
-
+                + "on state \"Policy:0.0.1:NULL:state1\"");
         axPolicy.getStateMap().get("State1").getTaskReferences().get(task1Key)
             .setStateTaskOutputType(AxStateTaskOutputType.LOGIC);
         executor.setContext(null, axPolicy, internalContextMock);
 
         dummyTsle.setTaskNo(0);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
         dummyTsle.setTaskNo(0);
         dummySfle.setReturnBad(true);
-        try {
-            executor.execute(0, null, incomingEventMock);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("State execution of state \"Policy:0.0.1:NULL:state1\" on task \"task1:0.0.1\" failed: "
-                + "state output definition for state output \"stateOutputBad\" not found for "
-                + "state \"Policy:0.0.1:NULL:state1\"", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
+            .hasMessage("State execution of state \"Policy:0.0.1:NULL:state1\" on task \"task1:0.0.1\""
+                + " failed: state output definition for state output \"stateOutputBad\" not found for "
+                + "state \"Policy:0.0.1:NULL:state1\"");
         dummyTsle.setTaskNo(0);
         dummySfle.setReturnBad(false);
-        try {
-            executor.execute(0, null, incomingEventMock);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        executor.execute(0, null, incomingEventMock);
 
-        try {
-            executor.cleanUp();
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("cleanUp() not implemented on class", ex.getMessage());
-        }
+        assertThatThrownBy(executor::cleanUp)
+            .hasMessage("cleanUp() not implemented on class");
     }
 
     @Test
-    public void testStateOutput() {
-        StateOutput output =
+    public void testStateOutput() throws StateMachineException {
+        final StateOutput output =
             new StateOutput(axPolicy.getStateMap().get("State0").getStateOutputs().get("stateOutput0"));
         assertNotNull(output);
 
         assertEquals("stateOutput0", output.getStateOutputDefinition().getKey().getLocalName());
 
-        try {
-            output.setEventFields(null, null);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("incomingFieldDefinitionMap may not be null", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> output.setEventFields(null, null))
+            .hasMessage("incomingFieldDefinitionMap may not be null");
         Map<String, AxField> incomingFieldDefinitionMap = new LinkedHashMap<>();
-        try {
-            output.setEventFields(incomingFieldDefinitionMap, null);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("eventFieldMap may not be null", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, null))
+            .hasMessage("eventFieldMap may not be null");
         Map<String, Object> eventFieldMap = new LinkedHashMap<>();
-        try {
-            output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
 
         eventFieldMap.put("key", "Value");
-        try {
-            output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("field definitions and values do not match for event Event1:0.0.1\n[]\n[key]",
-                ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, eventFieldMap))
+            .hasMessage("field definitions and values do not match for event Event1:0.0.1\n[]\n[key]");
         AxField axBadFieldDefinition = new AxField();
         incomingFieldDefinitionMap.put("key", axBadFieldDefinition);
-        try {
-            output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
-            fail("test should throw an exception");
-        } catch (Exception ex) {
-            assertEquals("field \"key\" does not exist on event \"Event1:0.0.1\"", ex.getMessage());
-        }
-
+        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, eventFieldMap))
+            .hasMessage("field \"key\" does not exist on event \"Event1:0.0.1\"");
         incomingFieldDefinitionMap.clear();
         eventFieldMap.clear();
         AxArtifactKey stringSchemaKey = new AxArtifactKey("StringSchema:0.0.1");
@@ -422,18 +314,15 @@ public class StateMachineExecutorTest {
         AxField event1Field0Definition = new AxField(fieldKey, stringSchemaKey);
         incomingFieldDefinitionMap.put("Event1Field0", event1Field0Definition);
         eventFieldMap.put("Event1Field0", "Value");
-        try {
-            output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
-        } catch (Exception ex) {
-            fail("test should not throw an exception");
-        }
+        output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
 
-        output = new StateOutput(axPolicy.getStateMap().get("State0").getStateOutputs().get("stateOutput0"));
+        StateOutput outputCopy = new StateOutput(axPolicy.getStateMap().get("State0")
+                .getStateOutputs().get("stateOutput0"));
 
         EnEvent incomingEvent = new EnEvent(new AxArtifactKey("Event0:0.0.1"));
-        output.copyUnsetFields(incomingEvent);
+        outputCopy.copyUnsetFields(incomingEvent);
 
         incomingEvent.put("Event1Field0", "Hello");
-        output.copyUnsetFields(incomingEvent);
+        outputCopy.copyUnsetFields(incomingEvent);
     }
 }
