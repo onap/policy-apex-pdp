@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -151,13 +152,13 @@ public class EntityTest {
         apexDao.create(keyInfo0);
 
         final AxKeyInfo keyInfoBack0 = apexDao.get(AxKeyInfo.class, aKey0);
-        assertTrue(keyInfo0.equals(keyInfoBack0));
+        assertEquals(keyInfo0, keyInfoBack0);
 
         final AxKeyInfo keyInfoBackNull = apexDao.get(AxKeyInfo.class, AxArtifactKey.getNullKey());
         assertNull(keyInfoBackNull);
 
         final AxKeyInfo keyInfoBack1 = apexDao.getArtifact(AxKeyInfo.class, aKey0);
-        assertTrue(keyInfoBack0.equals(keyInfoBack1));
+        assertEquals(keyInfoBack0, keyInfoBack1);
 
         final AxKeyInfo keyInfoBack2 = apexDao.getArtifact(AxKeyInfo.class, new AxArtifactKey("A-KEY3", "0.0.1"));
         assertNull(keyInfoBack2);
@@ -171,12 +172,12 @@ public class EntityTest {
         Set<AxKeyInfo> keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
 
         keyInfoSetIn.add(keyInfo0);
-        assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
+        assertEquals(keyInfoSetIn, keyInfoSetOut);
 
         apexDao.delete(keyInfo1);
         keyInfoSetIn.remove(keyInfo1);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
-        assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
+        assertEquals(keyInfoSetIn, keyInfoSetOut);
 
         apexDao.deleteCollection(keyInfoSetIn);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
@@ -187,7 +188,7 @@ public class EntityTest {
         keyInfoSetIn.add(keyInfo0);
         apexDao.createCollection(keyInfoSetIn);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
-        assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
+        assertEquals(keyInfoSetIn, keyInfoSetOut);
 
         apexDao.delete(AxKeyInfo.class, aKey0);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
@@ -209,7 +210,7 @@ public class EntityTest {
         keyInfoSetIn.add(keyInfo0);
         apexDao.createCollection(keyInfoSetIn);
         keyInfoSetOut = new TreeSet<AxKeyInfo>(apexDao.getAll(AxKeyInfo.class));
-        assertTrue(keyInfoSetIn.equals(keyInfoSetOut));
+        assertEquals(keyInfoSetIn, keyInfoSetOut);
 
         apexDao.deleteAll(AxKeyInfo.class);
         assertEquals(0, apexDao.size(AxKeyInfo.class));

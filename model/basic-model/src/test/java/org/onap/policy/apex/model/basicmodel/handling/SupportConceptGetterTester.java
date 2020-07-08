@@ -1,25 +1,27 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -149,34 +151,34 @@ public class SupportConceptGetterTester {
         basicModel.getKeyInformation().getKeyInfoMap().put(floatKI93.getKey(), floatKI93);
 
         assertNull(basicModel.getKeyInformation().get("NonExistantKey", "0.0.6"));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey26", "0.0.6").equals(intKI26));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey62", "0.0.2").equals(intKI62));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey21", "0.0.1").equals(intKI21));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey61", "0.0.1").equals(intKI61));
+        assertEquals(intKI26, basicModel.getKeyInformation().get("IntegerKIKey26", "0.0.6"));
+        assertEquals(intKI62, basicModel.getKeyInformation().get("IntegerKIKey62", "0.0.2"));
+        assertEquals(intKI21, basicModel.getKeyInformation().get("IntegerKIKey21", "0.0.1"));
+        assertEquals(intKI61, basicModel.getKeyInformation().get("IntegerKIKey61", "0.0.1"));
 
         assertNull(basicModel.getKeyInformation().get("NonExistantKey"));
 
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey01").equals(intKI01));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey11").equals(intKI11));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey26").equals(intKI26));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey31").equals(intKI31));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey41").equals(intKI41));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey54").equals(intKI54));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey64").equals(intKI64));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey71").equals(intKI71));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey81").equals(intKI81));
-        assertTrue(basicModel.getKeyInformation().get("IntegerKIKey91").equals(intKI91));
+        assertEquals(intKI01, basicModel.getKeyInformation().get("IntegerKIKey01"));
+        assertEquals(intKI11, basicModel.getKeyInformation().get("IntegerKIKey11"));
+        assertEquals(intKI26, basicModel.getKeyInformation().get("IntegerKIKey26"));
+        assertEquals(intKI31, basicModel.getKeyInformation().get("IntegerKIKey31"));
+        assertEquals(intKI41, basicModel.getKeyInformation().get("IntegerKIKey41"));
+        assertEquals(intKI54, basicModel.getKeyInformation().get("IntegerKIKey54"));
+        assertEquals(intKI64, basicModel.getKeyInformation().get("IntegerKIKey64"));
+        assertEquals(intKI71, basicModel.getKeyInformation().get("IntegerKIKey71"));
+        assertEquals(intKI81, basicModel.getKeyInformation().get("IntegerKIKey81"));
+        assertEquals(intKI91, basicModel.getKeyInformation().get("IntegerKIKey91"));
 
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey01").equals(floatKI01));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey11").equals(floatKI11));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey21").equals(floatKI21));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey31").equals(floatKI31));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey41").equals(floatKI41));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey51").equals(floatKI51));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey61").equals(floatKI61));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey71").equals(floatKI71));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey83").equals(floatKI83));
-        assertTrue(basicModel.getKeyInformation().get("FloatKIKey93").equals(floatKI93));
+        assertEquals(floatKI01, basicModel.getKeyInformation().get("FloatKIKey01"));
+        assertEquals(floatKI11, basicModel.getKeyInformation().get("FloatKIKey11"));
+        assertEquals(floatKI21, basicModel.getKeyInformation().get("FloatKIKey21"));
+        assertEquals(floatKI31, basicModel.getKeyInformation().get("FloatKIKey31"));
+        assertEquals(floatKI41, basicModel.getKeyInformation().get("FloatKIKey41"));
+        assertEquals(floatKI51, basicModel.getKeyInformation().get("FloatKIKey51"));
+        assertEquals(floatKI61, basicModel.getKeyInformation().get("FloatKIKey61"));
+        assertEquals(floatKI71, basicModel.getKeyInformation().get("FloatKIKey71"));
+        assertEquals(floatKI83, basicModel.getKeyInformation().get("FloatKIKey83"));
+        assertEquals(floatKI93, basicModel.getKeyInformation().get("FloatKIKey93"));
 
         // Ensure marshalling and unmarshalling is OK
         ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class);
@@ -191,8 +193,8 @@ public class SupportConceptGetterTester {
         FileInputStream xmlFileInputStream = new FileInputStream(tempXmlFile);
         AxModel readXmlModel = modelReader.read(xmlFileInputStream);
         xmlFileInputStream.close();
-        assertTrue(basicModel.equals(readXmlModel));
-        assertTrue(readXmlModel.getKeyInformation().get("IntegerKIKey91").equals(intKI91));
+        assertEquals(basicModel, readXmlModel);
+        assertEquals(intKI91, readXmlModel.getKeyInformation().get("IntegerKIKey91"));
         assertNotNull(readXmlModel.getKeyInformation().get("FloatKIKey"));
         tempXmlFile.delete();
     }
