@@ -21,11 +21,11 @@
 
 package org.onap.policy.apex.model.contextmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -57,13 +57,9 @@ public class ContextAlbumsTest {
         assertEquals("NewAlbumName:0.0.1", album.getKeys().get(0).getId());
         album.setKey(albumKey);
 
-        try {
-            album.setScope("");
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("parameter \"scope\": value \"\", does not match regular expression \"[A-Za-z0-9\\-_]+\"",
-                            e.getMessage());
-        }
+        assertThatThrownBy(() -> album.setScope(""))
+            .hasMessage("parameter \"scope\": value \"\", does not match regular expression "
+                    + "\"[A-Za-z0-9\\-_]+\"");
 
         album.setScope("NewAlbumScope");
         assertEquals("NewAlbumScope", album.getScope());

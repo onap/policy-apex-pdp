@@ -1,29 +1,30 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -75,126 +76,84 @@ public class ApexModelWriterTest {
 
         modelWriter.setValidateFlag(true);
         model.getKeyInformation().getKeyInfoMap().clear();
-        try {
-            modelWriter.write(model, baos);
-            fail("Test should throw an exception here");
-        } catch (Exception e) {
-            assertEquals("Apex concept xml (BasicModel:0.0.1) validation failed", e.getMessage().substring(0, 53));
-        }
+        assertThatThrownBy(() -> modelWriter.write(model, baos))
+            .hasMessageContaining("Apex concept xml (BasicModel:0.0.1) validation failed");
         model.getKeyInformation().generateKeyInfo(model);
 
-        try {
-            modelWriter.write(null, baos);
-            fail("Test should throw an exception here");
-        } catch (Exception e) {
-            assertEquals("concept may not be null", e.getMessage());
-        }
+        assertThatThrownBy(() -> modelWriter.write(null, baos))
+            .hasMessage("concept may not be null");
 
-        try {
-            ByteArrayOutputStream nullBaos = null;
-            modelWriter.write(model, nullBaos);
-            fail("Test should throw an exception here");
-        } catch (Exception e) {
-            assertEquals("concept stream may not be null", e.getMessage());
-        }
+        ByteArrayOutputStream nullBaos = null;
+        assertThatThrownBy(() -> modelWriter.write(model, nullBaos))
+            .hasMessage("concept stream may not be null");
     }
 
     @Test
-    public void testSetOutputTypeError() throws ApexModelException {
+    public void testSetOutputTypeError() throws ApexModelException, NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, PropertyException {
         MockitoAnnotations.initMocks(this);
 
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
 
-        try {
-            Field marshallerField = modelWriter.getClass().getDeclaredField("marshaller");
-            marshallerField.setAccessible(true);
-            marshallerField.set(modelWriter, marshallerMock);
-            marshallerField.setAccessible(false);
-        } catch (Exception validationException) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(marshallerMock)
-                .setProperty(Mockito.anyString(), Mockito.anyString());
-            modelWriter.setJsonOutput(true);
-            fail("Test should throw an exception here");
-        } catch (Exception jaxbe) {
-            assertEquals("JAXB error setting marshaller for JSON output", jaxbe.getMessage());
-        }
-
-        try {
-            Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(marshallerMock)
-                .setProperty(Mockito.anyString(), Mockito.anyString());
-            modelWriter.setJsonOutput(false);
-            fail("Test should throw an exception here");
-        } catch (Exception jaxbe) {
-            assertEquals("JAXB error setting marshaller for XML output", jaxbe.getMessage());
-        }
+        Field marshallerField = modelWriter.getClass().getDeclaredField("marshaller");
+        marshallerField.setAccessible(true);
+        marshallerField.set(modelWriter, marshallerMock);
+        marshallerField.setAccessible(false);
+        Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(marshallerMock)
+            .setProperty(Mockito.anyString(), Mockito.anyString());
+        assertThatThrownBy(() -> modelWriter.setJsonOutput(true))
+            .hasMessage("JAXB error setting marshaller for JSON output");
+        Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(marshallerMock)
+            .setProperty(Mockito.anyString(), Mockito.anyString());
+        assertThatThrownBy(() -> modelWriter.setJsonOutput(false))
+            .hasMessage("JAXB error setting marshaller for XML output");
     }
 
     @Test
-    public void testOutputJsonError() throws ApexModelException {
+    public void testOutputJsonError() throws ApexModelException, NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, JAXBException {
         MockitoAnnotations.initMocks(this);
 
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
 
-        try {
-            Field marshallerField = modelWriter.getClass().getDeclaredField("marshaller");
-            marshallerField.setAccessible(true);
-            marshallerField.set(modelWriter, marshallerMock);
-            marshallerField.setAccessible(false);
-        } catch (Exception validationException) {
-            fail("test should not throw an exception");
-        }
+        Field marshallerField = modelWriter.getClass().getDeclaredField("marshaller");
+        marshallerField.setAccessible(true);
+        marshallerField.set(modelWriter, marshallerMock);
+        marshallerField.setAccessible(false);
 
         modelWriter.setValidateFlag(false);
         modelWriter.setJsonOutput(true);
 
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            AxModel model = new DummyApexBasicModelCreator().getModel();
-
-            Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(marshallerMock)
-                .marshal((AxModel) Mockito.anyObject(), (Writer) Mockito.anyObject());
-
-            modelWriter.write(model, baos);
-            fail("Test should throw an exception here");
-        } catch (Exception jaxbe) {
-            assertEquals("Unable to marshal Apex concept to JSON", jaxbe.getMessage());
-        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        AxModel model = new DummyApexBasicModelCreator().getModel();
+        Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(marshallerMock)
+            .marshal((AxModel) Mockito.anyObject(), (Writer) Mockito.anyObject());
+        assertThatThrownBy(() -> modelWriter.write(model, baos)).hasMessage("Unable to marshal Apex concept to JSON");
     }
 
     @Test
-    public void testOutputXmlError() throws ApexModelException {
+    public void testOutputXmlError() throws ApexModelException, NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, JAXBException {
         MockitoAnnotations.initMocks(this);
 
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
         modelWriter.setJsonOutput(false);
 
-        try {
-            Field marshallerField = modelWriter.getClass().getDeclaredField("marshaller");
-            marshallerField.setAccessible(true);
-            marshallerField.set(modelWriter, marshallerMock);
-            marshallerField.setAccessible(false);
-        } catch (Exception validationException) {
-            fail("test should not throw an exception");
-        }
+        Field marshallerField = modelWriter.getClass().getDeclaredField("marshaller");
+        marshallerField.setAccessible(true);
+        marshallerField.set(modelWriter, marshallerMock);
+        marshallerField.setAccessible(false);
 
         modelWriter.setValidateFlag(false);
         modelWriter.setJsonOutput(false);
 
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            AxModel model = new DummyApexBasicModelCreator().getModel();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        AxModel model = new DummyApexBasicModelCreator().getModel();
 
-            Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(marshallerMock)
-                .marshal((AxModel) Mockito.anyObject(), (Document) Mockito.anyObject());
+        Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(marshallerMock)
+            .marshal((AxModel) Mockito.anyObject(), (Document) Mockito.anyObject());
 
-            modelWriter.write(model, baos);
-            fail("Test should throw an exception here");
-        } catch (Exception jaxbe) {
-            assertEquals("Unable to marshal Apex concept to XML", jaxbe.getMessage());
-        }
+        assertThatThrownBy(() -> modelWriter.write(model, baos))
+            .hasMessage("Unable to marshal Apex concept to XML");
     }
 }
