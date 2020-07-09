@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ffdf0a3_7f494f7d",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-09T14:46:19Z",
+      "side": 1,
+      "message": "This should assertTrue",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 55
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e4a51fd_1116734b",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-09T14:46:19Z",
+      "side": 1,
+      "message": "assertFalse",
+      "range": {
+        "startLine": 435,
+        "startChar": 7,
+        "endLine": 435,
+        "endChar": 56
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97aae6f5_922a3206",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-09T14:46:19Z",
+      "side": 1,
+      "message": "assertNotNull ??",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 43
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6242f8f6_bc4ff792",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-09T14:46:19Z",
+      "side": 1,
+      "message": "assertNotNull",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 40
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
