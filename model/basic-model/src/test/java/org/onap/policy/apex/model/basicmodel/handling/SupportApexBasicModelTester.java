@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +21,11 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
@@ -52,11 +52,8 @@ public class SupportApexBasicModelTester {
 
     @Test
     public void testApexModelVaidateObservation() throws Exception {
-        try {
-            testApexModel.testApexModelVaidateObservation();
-        } catch (final ApexException e) {
-            assertEquals("model should have observations", e.getMessage());
-        }
+        assertThatThrownBy(testApexModel::testApexModelVaidateObservation)
+            .hasMessage("model should have observations");
     }
 
     @Test

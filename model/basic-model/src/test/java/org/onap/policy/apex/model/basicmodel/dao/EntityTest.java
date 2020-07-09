@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,11 @@
 
 package org.onap.policy.apex.model.basicmodel.dao;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,34 +51,16 @@ public class EntityTest {
 
         apexDao = new ApexDaoFactory().createApexDao(daoParameters);
 
-        try {
-            apexDao.init(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("Apex persistence unit parameter not set", e.getMessage());
-        }
-
-        try {
-            apexDao.init(daoParameters);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("Apex persistence unit parameter not set", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> apexDao.init(null))
+            .hasMessageContaining("Apex persistence unit parameter not set");
+        assertThatThrownBy(() -> apexDao.init(daoParameters))
+            .hasMessageContaining("Apex persistence unit parameter not set");
         daoParameters.setPluginClass("somewhere.over.the.rainbow");
         daoParameters.setPersistenceUnit("Dorothy");
-        try {
-            apexDao.init(daoParameters);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("Creation of Apex persistence unit \"Dorothy\" failed", e.getMessage());
-        }
-        try {
-            apexDao.create(new AxArtifactKey());
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("Apex DAO has not been initialized", e.getMessage());
-        }
+        assertThatThrownBy(() -> apexDao.init(daoParameters))
+            .hasMessageContaining("Creation of Apex persistence unit \"Dorothy\" failed");
+        assertThatThrownBy(() -> apexDao.create(new AxArtifactKey()))
+            .hasMessageContaining("Apex DAO has not been initialized");
         apexDao.close();
     }
 

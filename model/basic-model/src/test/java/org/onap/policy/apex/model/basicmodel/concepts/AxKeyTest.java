@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@
 
 package org.onap.policy.apex.model.basicmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import org.junit.Test;
@@ -35,15 +35,9 @@ public class AxKeyTest {
 
     @Test
     public void testArtifactKey() {
-        try {
-            new AxArtifactKey("some bad key id");
-            fail("This test should throw an exception");
-        } catch (IllegalArgumentException e) {
-            assertEquals("parameter \"id\": value \"some bad key id\", "
-                            + "does not match regular expression \"[A-Za-z0-9\\-_\\.]+:[0-9].[0-9].[0-9]\"",
-                            e.getMessage());
-        }
-
+        assertThatThrownBy(() -> new AxArtifactKey("some bad key id"))
+            .hasMessageContaining("parameter \"id\": value \"some bad key id\", "
+                            + "does not match regular expression \"[A-Za-z0-9\\-_\\.]+:[0-9].[0-9].[0-9]\"");
         AxArtifactKey someKey0 = new AxArtifactKey();
         assertEquals(AxArtifactKey.getNullKey(), someKey0);
 
@@ -108,12 +102,8 @@ public class AxKeyTest {
         assertEquals(0, someKey7.compareTo(someKey1));
         assertEquals(-12, someKey7.compareTo(someKey0));
 
-        try {
-            someKey0.compareTo(null);
-        } catch (IllegalArgumentException e) {
-            assertEquals("comparison object may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> someKey0.compareTo(null))
+            .hasMessageContaining("comparison object may not be null");
         assertEquals(0, someKey0.compareTo(someKey0));
         assertEquals(353602977, someKey0.compareTo(new AxReferenceKey()));
 
@@ -134,40 +124,33 @@ public class AxKeyTest {
 
 
     @Test
-    public void testValidation() {
+    public void testValidation() throws IllegalArgumentException, IllegalAccessException,
+        NoSuchFieldException, SecurityException {
         AxArtifactKey testKey = new AxArtifactKey("TheKey", "0.0.1");
         assertEquals("TheKey:0.0.1", testKey.getId());
 
-        try {
-            Field nameField = testKey.getClass().getDeclaredField("name");
-            nameField.setAccessible(true);
-            nameField.set(testKey, "Key Name");
-            AxValidationResult validationResult = new AxValidationResult();
-            testKey.validate(validationResult);
-            nameField.set(testKey, "TheKey");
-            nameField.setAccessible(false);
-            assertEquals(
-                "name invalid-parameter name with value Key Name "
-                    + "does not match regular expression [A-Za-z0-9\\-_\\.]+",
-                validationResult.getMessageList().get(0).getMessage());
-        } catch (Exception validationException) {
-            fail("test should not throw an exception");
-        }
+        Field nameField = testKey.getClass().getDeclaredField("name");
+        nameField.setAccessible(true);
+        nameField.set(testKey, "Key Name");
+        AxValidationResult validationResult = new AxValidationResult();
+        testKey.validate(validationResult);
+        nameField.set(testKey, "TheKey");
+        nameField.setAccessible(false);
+        assertEquals(
+            "name invalid-parameter name with value Key Name "
+                + "does not match regular expression [A-Za-z0-9\\-_\\.]+",
+            validationResult.getMessageList().get(0).getMessage());
 
-        try {
-            Field versionField = testKey.getClass().getDeclaredField("version");
-            versionField.setAccessible(true);
-            versionField.set(testKey, "Key Version");
-            AxValidationResult validationResult = new AxValidationResult();
-            testKey.validate(validationResult);
-            versionField.set(testKey, "0.0.1");
-            versionField.setAccessible(false);
-            assertEquals(
-                "version invalid-parameter version with value Key Version "
-                    + "does not match regular expression [A-Za-z0-9.]+",
-                validationResult.getMessageList().get(0).getMessage());
-        } catch (Exception validationException) {
-            fail("test should not throw an exception");
-        }
+        Field versionField = testKey.getClass().getDeclaredField("version");
+        versionField.setAccessible(true);
+        versionField.set(testKey, "Key Version");
+        AxValidationResult validationResultV = new AxValidationResult();
+        testKey.validate(validationResultV);
+        versionField.set(testKey, "0.0.1");
+        versionField.setAccessible(false);
+        assertEquals(
+            "version invalid-parameter version with value Key Version "
+                + "does not match regular expression [A-Za-z0-9.]+",
+            validationResultV.getMessageList().get(0).getMessage());
     }
 }
