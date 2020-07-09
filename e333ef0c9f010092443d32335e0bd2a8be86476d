@@ -16,6 +16,52 @@
       "revId": "e333ef0c9f010092443d32335e0bd2a8be86476d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd001a0d_fda920a8",
+        "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/RestResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-09T14:48:55Z",
+      "side": 1,
+      "message": "assertNull",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 50
+      },
+      "revId": "e333ef0c9f010092443d32335e0bd2a8be86476d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f82d1e2_0eb25a8b",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/event/EnEventTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-09T14:48:55Z",
+      "side": 1,
+      "message": "assertNotNull",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 37
+      },
+      "revId": "e333ef0c9f010092443d32335e0bd2a8be86476d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
