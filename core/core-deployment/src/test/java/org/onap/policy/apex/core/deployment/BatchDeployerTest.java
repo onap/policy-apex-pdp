@@ -105,7 +105,7 @@ public class BatchDeployerTest {
             .hasMessage("model deployment failed on parameters localhost 12345");
         // Wait until the connection to the server closes following the bad connection
         // attempt
-        Awaitility.await().atLeast(Duration.ofMillis(100));
+        Awaitility.await().atLeast(Duration.ofMillis(1000));
 
         dummyDeploymentClient.setInitSuccessful(true);
 

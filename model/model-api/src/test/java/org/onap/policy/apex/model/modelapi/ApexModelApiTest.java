@@ -1,4 +1,4 @@
-/*-
+/*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
@@ -21,11 +21,10 @@
 
 package org.onap.policy.apex.model.modelapi;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -144,24 +143,13 @@ public class ApexModelApiTest {
 
     @Test
     public void testApexModelUrl() throws IOException {
-        ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
-
+        final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
+        //ApexApiResult result = null;
+        assertThatThrownBy(() -> apexModel.readFromUrl(null))
+            .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> apexModel.writeToUrl(null, true))
+            .isInstanceOf(IllegalArgumentException.class);
         ApexApiResult result = null;
-
-        try {
-            result = apexModel.readFromUrl(null);
-            fail("expecting an IllegalArgumentException");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
-        try {
-            result = apexModel.writeToUrl(null, true);
-            fail("expecting an IllegalArgumentException");
-        } catch (final Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
-
         result = apexModel.readFromUrl("zooby/looby");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
@@ -174,9 +162,10 @@ public class ApexModelApiTest {
         result = apexModel.writeToUrl("zooby://zooby/looby", false);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        apexModel = new ApexModelFactory().createApexModel(null, false);
+        final ApexModel apexModelJSon = new ApexModelFactory().createApexModel(null, false);
 
         final File tempJsonModelFile = File.createTempFile("ApexModelTest", ".json");
+
         result = apexModel.saveToFile(tempJsonModelFile.getCanonicalPath(), false);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
