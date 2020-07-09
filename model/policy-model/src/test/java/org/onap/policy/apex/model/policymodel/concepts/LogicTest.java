@@ -1,26 +1,27 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -105,21 +106,11 @@ public class LogicTest {
         result = logic.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        try {
-            logic.setLogicFlavour(null);
-            fail("test shold throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("parameter \"logicFlavour\" is null", e.getMessage());
-        }
-
-        try {
-            logic.setLogicFlavour("");
-            fail("test shold throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("parameter \"logicFlavour\": value \"\", "
-                            + "does not match regular expression \"[A-Za-z0-9\\-_]+\"", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> logic.setLogicFlavour(null))
+            .hasMessageContaining("parameter \"logicFlavour\" is null");
+        assertThatThrownBy(() -> logic.setLogicFlavour(""))
+            .hasMessage("parameter \"logicFlavour\": value \"\", "
+                    + "does not match regular expression \"[A-Za-z0-9\\-_]+\"");
         logic.setLogicFlavour(AxLogic.LOGIC_FLAVOUR_UNDEFINED);
         result = new AxValidationResult();
         result = logic.validate(result);
@@ -130,13 +121,7 @@ public class LogicTest {
         result = logic.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        try {
-            logic.setLogic(null);
-            fail("test shold throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("logic may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> logic.setLogic(null)).hasMessage("logic may not be null");
         logic.setLogic("");
         result = new AxValidationResult();
         result = logic.validate(result);
