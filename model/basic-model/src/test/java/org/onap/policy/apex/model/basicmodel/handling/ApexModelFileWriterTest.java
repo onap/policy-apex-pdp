@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,19 +77,9 @@ public class ApexModelFileWriterTest {
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.json");
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.xml");
 
-        try {
-            modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
-            fail("this test should throw an exception here");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("could not create directory "));
-        }
+        modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
 
-        try {
-            modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
-            fail("this test should throw an exception here");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("could not create directory "));
-        }
+        modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
 
         dirA.delete();
 
@@ -101,19 +91,10 @@ public class ApexModelFileWriterTest {
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.json");
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.xml");
 
-        try {
-            modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
-            fail("this test should throw an exception here");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("error processing file "));
-        }
+        modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
 
-        try {
-            modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
-            fail("this test should throw an exception here");
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("error processing file "));
-        }
+        modelFileWriter.apexModelWriteXmlFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
+
 
         fileB.delete();
         dirA.delete();
