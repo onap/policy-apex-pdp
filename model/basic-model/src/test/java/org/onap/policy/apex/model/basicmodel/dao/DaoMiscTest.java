@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.model.basicmodel.dao;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import java.util.Properties;
 import org.junit.Test;
@@ -47,21 +48,12 @@ public class DaoMiscTest {
         final DaoParameters daoParameters = new DaoParameters();
 
         daoParameters.setPluginClass("somewhere.over.the.rainbow");
-        try {
-            new ApexDaoFactory().createApexDao(daoParameters);
-            fail("test shold throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("Apex DAO class not found for DAO plugin \"somewhere.over.the.rainbow\"", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> new ApexDaoFactory().createApexDao(daoParameters))
+            .hasMessageContaining("Apex DAO class not found for DAO plugin \"somewhere.over.the.rainbow\"");
         daoParameters.setPluginClass("java.lang.String");
-        try {
-            new ApexDaoFactory().createApexDao(daoParameters);
-            fail("test shold throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("Specified Apex DAO plugin class \"java.lang.String\" "
-                            + "does not implement the ApexDao interface", e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexDaoFactory().createApexDao(daoParameters))
+            .hasMessageContaining("Specified Apex DAO plugin class \"java.lang.String\" "
+                            + "does not implement the ApexDao interface");
     }
 
     @Test

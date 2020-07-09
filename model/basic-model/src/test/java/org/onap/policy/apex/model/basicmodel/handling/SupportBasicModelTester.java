@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,7 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -37,12 +36,8 @@ public class SupportBasicModelTester {
             new DummyApexBasicModelCreator());
 
         testApexModel.testApexModelValid();
-        try {
-            testApexModel.testApexModelVaidateObservation();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertEquals("model should have observations", e.getMessage());
-        }
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateObservation())
+            .hasMessageContaining("model should have observations");
         testApexModel.testApexModelVaidateWarning();
         testApexModel.testApexModelVaidateInvalidModel();
         testApexModel.testApexModelVaidateMalstructured();
@@ -60,13 +55,8 @@ public class SupportBasicModelTester {
 
         testApexModel1.getModel().getKey().setVersion("0.0.2");
 
-        try {
-            testApexModel0.checkModelEquality(testApexModel0.getModel(), testApexModel1.getModel(),
-                "Models are not equal");
-            fail("test should throw an exception here");
-        } catch (ApexException ae) {
-            assertEquals("Models are not equal", ae.getMessage());
-        }
+        assertThatThrownBy(() -> testApexModel0.checkModelEquality(testApexModel0.getModel(), testApexModel1.getModel(),
+                "Models are not equal")).hasMessageContaining("Models are not equal");
     }
 
     @Test
@@ -75,30 +65,14 @@ public class SupportBasicModelTester {
             new SupportApexModelCreator0());
 
         testApexModel.testApexModelValid();
-        try {
-            testApexModel.testApexModelVaidateObservation();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertEquals("model should have observations", e.getMessage());
-        }
-        try {
-            testApexModel.testApexModelVaidateWarning();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertEquals("model should have warnings", e.getMessage());
-        }
-        try {
-            testApexModel.testApexModelVaidateInvalidModel();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertEquals("model should not be valid ***validation of model successful***", e.getMessage());
-        }
-        try {
-            testApexModel.testApexModelVaidateMalstructured();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertEquals("model should not be valid ***validation of model successful***", e.getMessage());
-        }
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateObservation())
+            .hasMessageContaining("model should have observations");
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateWarning())
+            .hasMessageContaining("model should have warnings");
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateInvalidModel())
+            .hasMessageContaining("model should not be valid ***validation of model successful***");
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateMalstructured())
+            .hasMessageContaining("model should not be valid ***validation of model successful***");
     }
 
     @Test
@@ -106,24 +80,12 @@ public class SupportBasicModelTester {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
             new SupportApexModelCreator1());
 
-        try {
-            testApexModel.testApexModelValid();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("model is invalid"));
-        }
-        try {
-            testApexModel.testApexModelVaidateObservation();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("model is invalid"));
-        }
-        try {
-            testApexModel.testApexModelVaidateWarning();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("model is invalid"));
-        }
+        assertThatThrownBy(() -> testApexModel.testApexModelValid())
+            .hasMessageContaining("model is invalid");
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateObservation())
+            .hasMessageContaining("model is invalid");
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateWarning())
+            .hasMessageContaining("model is invalid");
         testApexModel.testApexModelVaidateInvalidModel();
         testApexModel.testApexModelVaidateMalstructured();
     }
@@ -135,12 +97,8 @@ public class SupportBasicModelTester {
 
         testApexModel.testApexModelValid();
         testApexModel.testApexModelVaidateObservation();
-        try {
-            testApexModel.testApexModelVaidateWarning();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertEquals("model should have warnings", e.getMessage());
-        }
+        assertThatThrownBy(() -> testApexModel.testApexModelVaidateWarning())
+            .hasMessageContaining("model should have warnings");
     }
 
     @Test
@@ -148,18 +106,10 @@ public class SupportBasicModelTester {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
             new SupportApexModelCreator1());
 
-        try {
-            testApexModel.testApexModelWriteReadJson();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("error processing file"));
-        }
+        assertThatThrownBy(() -> testApexModel.testApexModelWriteReadJson())
+            .hasMessageContaining("error processing file");
 
-        try {
-            testApexModel.testApexModelWriteReadXml();
-            fail("Test should throw an exception");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("error processing file"));
-        }
+        assertThatThrownBy(() -> testApexModel.testApexModelWriteReadXml())
+            .hasMessageContaining("error processing file");
     }
 }
