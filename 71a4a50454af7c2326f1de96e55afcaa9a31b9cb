@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fcc27150_fd88ecaf",
+        "filename": "client/client-editor/src/test/java/org/onap/policy/apex/client/editor/rest/RestInterfaceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-09T12:44:01Z",
+      "side": 1,
+      "message": "nvm - I see you modified it in the other review",
+      "parentUuid": "24e950ff_e7adf28e",
+      "revId": "71a4a50454af7c2326f1de96e55afcaa9a31b9cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72b831ba_ca8959a7",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfoTest.java",
         "patchSetId": 3
