@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,8 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -35,7 +33,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 
 /**
  * Test fields.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class FieldTest {
@@ -110,16 +108,16 @@ public class FieldTest {
                         + "parentLocalName=PLN,localName=LN),fieldSchemaKey="
                         + "AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)", clonedField.toString());
 
-        assertFalse(field.hashCode() == 0);
+        assertNotEquals(field.hashCode(), 0);
 
-        assertTrue(field.equals(field));
-        assertTrue(field.equals(clonedField));
-        assertFalse(field.equals(null));
-        assertFalse(field.equals((Object) "Hello"));
-        assertFalse(field.equals(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
-        assertFalse(field.equals(new AxField(fieldKey, AxArtifactKey.getNullKey(), false)));
-        assertFalse(field.equals(new AxField(fieldKey, schemaKey, false)));
-        assertTrue(field.equals(new AxField(fieldKey, schemaKey, true)));
+        assertEquals(field, field);
+        assertEquals(field, clonedField);
+        assertNotNull(field);
+        assertNotEquals(field, (Object) "Hello");
+        assertNotEquals(field, new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false));
+        assertNotEquals(field, new AxField(fieldKey, AxArtifactKey.getNullKey(), false));
+        assertNotEquals(field, new AxField(fieldKey, schemaKey, false));
+        assertEquals(field, new AxField(fieldKey, schemaKey, true));
 
         assertEquals(0, field.compareTo(field));
         assertEquals(0, field.compareTo(clonedField));

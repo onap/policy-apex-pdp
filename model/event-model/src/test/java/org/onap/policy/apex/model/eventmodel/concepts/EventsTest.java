@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -186,19 +185,19 @@ public class EventsTest {
         assertEquals("AxEvent:(key=AxArtifactKey:(name=EventName,version=0.0.1),nameSpace=namespace",
                 clonedEvent.toString().substring(0, 77));
 
-        assertFalse(event.hashCode() == 0);
+        assertNotEquals(event.hashCode(), 0);
 
-        assertTrue(event.equals(event));
-        assertTrue(event.equals(clonedEvent));
-        assertFalse(event.equals(null));
-        assertFalse(event.equals((Object) "Hello"));
-        assertFalse(
-                event.equals(new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap)));
-        assertFalse(event.equals(new AxEvent(eventKey, "namespace1", "source", "target", parameterMap)));
-        assertFalse(event.equals(new AxEvent(eventKey, "namespace", "source2", "target", parameterMap)));
-        assertFalse(event.equals(new AxEvent(eventKey, "namespace", "source", "target3", parameterMap)));
-        assertFalse(event.equals(new AxEvent(eventKey, "namespace", "source", "target", parameterMapEmpty)));
-        assertTrue(event.equals(new AxEvent(eventKey, "namespace", "source", "target", parameterMap)));
+        assertEquals(event, event);
+        assertEquals(event, clonedEvent);
+        assertNotNull(event);
+        assertNotEquals(event, (Object) "Hello");
+        assertNotEquals(
+                event, new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace1", "source", "target", parameterMap));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source2", "target", parameterMap));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source", "target3", parameterMap));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source", "target", parameterMapEmpty));
+        assertEquals(event, new AxEvent(eventKey, "namespace", "source", "target", parameterMap));
 
         assertEquals(0, event.compareTo(event));
         assertEquals(0, event.compareTo(clonedEvent));
@@ -269,13 +268,13 @@ public class EventsTest {
         assertEquals("AxEvents:(key=AxArtifactKey:(name=EventsKey,version=0.0.1),e",
                 clonedEvents.toString().substring(0, 60));
 
-        assertFalse(events.hashCode() == 0);
+        assertNotEquals(events.hashCode(), 0);
 
-        assertTrue(events.equals(events));
-        assertTrue(events.equals(clonedEvents));
-        assertFalse(events.equals(null));
-        assertFalse(events.equals((Object) "Hello"));
-        assertFalse(events.equals(new AxEvents(new AxArtifactKey())));
+        assertEquals(events, events);
+        assertEquals(events, clonedEvents);
+        assertNotNull(events);
+        assertNotEquals(events, (Object) "Hello");
+        assertNotEquals(events, new AxEvents(new AxArtifactKey()));
 
         assertEquals(0, events.compareTo(events));
         assertEquals(0, events.compareTo(clonedEvents));

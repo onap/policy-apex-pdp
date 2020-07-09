@@ -1,20 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,10 +22,8 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -36,7 +34,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 
 /**
  * Test state task references.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class StateTaskReferenceTest {
@@ -129,18 +127,18 @@ public class StateTaskReferenceTest {
         AxStateTaskReference clonedStRef = new AxStateTaskReference(stRef);
         assertEquals("AxStateTaskReference:(stateKey=AxReferenceKey:(par", clonedStRef.toString().substring(0, 50));
 
-        assertFalse(stRef.hashCode() == 0);
+        assertNotEquals(0, stRef.hashCode());
 
-        assertTrue(stRef.equals(stRef));
-        assertTrue(stRef.equals(clonedStRef));
-        assertFalse(stRef.equals(null));
-        assertFalse(stRef.equals((Object) "Hello"));
-        assertFalse(stRef.equals(
-                        new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
-        assertFalse(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));
-        assertFalse(stRef
-                        .equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey())));
-        assertTrue(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, soKey)));
+        assertEquals(stRef, stRef);
+        assertEquals(stRef, clonedStRef);
+        assertNotNull(stRef);
+        assertNotEquals((Object) "Hello", stRef);
+        assertNotEquals(new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey),
+                        stRef);
+        assertNotEquals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey), stRef);
+        assertNotEquals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey()),
+                    stRef);
+        assertEquals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, soKey), stRef);
 
         assertNotNull(new AxStateTaskReference(new AxReferenceKey(), new AxArtifactKey(),
                         AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));
