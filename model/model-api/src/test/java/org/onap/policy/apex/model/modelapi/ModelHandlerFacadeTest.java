@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.model.modelapi;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,29 +35,19 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test the model handler facade.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ModelHandlerFacadeTest {
 
     @Test
     public void testModelHandlerFacade() throws IOException {
-        try {
-            new ModelHandlerFacade(null, null, false);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("apexModel may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> new ModelHandlerFacade(null, null, false))
+            .hasMessage("apexModel may not be null");
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
 
-        try {
-            new ModelHandlerFacade(apexModel, null, false);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("apexProperties may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> new ModelHandlerFacade(apexModel, null, false))
+            .hasMessage("apexProperties may not be null");
         final Properties modelProperties = new Properties();
         final ModelHandlerFacade mhf = new ModelHandlerFacade(apexModel, modelProperties, false);
         assertNotNull(mhf);

@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.model.enginemodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -49,13 +50,8 @@ public class EngineStatsTest {
         final AxReferenceKey statsKey = new AxReferenceKey("EngineKey", "0.0.1", "EngineStats");
         final AxEngineStats stats = new AxEngineStats(statsKey);
 
-        try {
-            stats.setKey(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("key may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> stats.setKey(null))
+            .hasMessage("key may not be null");
         stats.setKey(statsKey);
         assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKey().getId());
         assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKeys().get(0).getId());
