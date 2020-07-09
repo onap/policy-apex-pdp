@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72b831ba_ca8959a7",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-09T12:41:03Z",
+      "side": 1,
+      "message": "maybe reverse the arguments\n\nsame comment for hashCode comparisons in the other files, too",
+      "revId": "71a4a50454af7c2326f1de96e55afcaa9a31b9cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e8f2f9_64fe313a",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportConceptGetterTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-09T12:41:03Z",
+      "side": 1,
+      "message": "looks to me like the arguments for all of these should be reversed - the \"expected\" value should be on the left\n\nnote: the order looks right to me, in the other files (except for the hashCode tests)",
+      "revId": "71a4a50454af7c2326f1de96e55afcaa9a31b9cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "548713b1_9a66c861",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportConceptGetterTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-09T12:41:03Z",
+      "side": 1,
+      "message": "argument order",
+      "revId": "71a4a50454af7c2326f1de96e55afcaa9a31b9cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
