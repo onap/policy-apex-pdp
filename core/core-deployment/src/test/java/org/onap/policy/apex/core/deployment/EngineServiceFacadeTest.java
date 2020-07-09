@@ -27,6 +27,8 @@ import static org.junit.Assert.assertNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.time.Duration;
+import org.awaitility.Awaitility;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
@@ -54,6 +56,7 @@ public class EngineServiceFacadeTest {
             .hasMessage("could not deploy apex model, deployer is not initialized");
 
         // Second init should work
+        Awaitility.await().atLeast(Duration.ofMillis(1000));
         dummyDeploymentClient.setInitSuccessful(true);
         facade.init();
 
