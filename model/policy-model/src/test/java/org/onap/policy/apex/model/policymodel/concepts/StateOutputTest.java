@@ -6,15 +6,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,10 +22,8 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -36,7 +34,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 
 /**
  * Test state outputs.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class StateOutputTest {
@@ -114,16 +112,16 @@ public class StateOutputTest {
         final AxStateOutput clonedPar = new AxStateOutput(so);
         assertEquals("AxStateOutput:(stateKey=AxReferenceKey:(parentKeyN", clonedPar.toString().substring(0, 50));
 
-        assertFalse(so.hashCode() == 0);
+        assertNotEquals(0, so.hashCode());
 
-        assertTrue(so.equals(so));
-        assertTrue(so.equals(clonedPar));
-        assertFalse(so.equals(null));
-        assertFalse(so.equals((Object) "Hello"));
-        assertFalse(so.equals(new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey)));
-        assertFalse(so.equals(new AxStateOutput(soKey, new AxArtifactKey(), nsKey)));
-        assertFalse(so.equals(new AxStateOutput(soKey, eKey, new AxReferenceKey())));
-        assertTrue(so.equals(new AxStateOutput(soKey, eKey, nsKey)));
+        assertEquals(so, so);
+        assertEquals(so, clonedPar);
+        assertNotNull(so);
+        assertNotEquals((Object) "Hello", so);
+        assertNotEquals(new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey), so);
+        assertNotEquals(new AxStateOutput(soKey, new AxArtifactKey(), nsKey), so);
+        assertNotEquals(new AxStateOutput(soKey, eKey, new AxReferenceKey()), so);
+        assertEquals(new AxStateOutput(soKey, eKey, nsKey), so);
 
         assertEquals(0, so.compareTo(so));
         assertEquals(0, so.compareTo(clonedPar));
