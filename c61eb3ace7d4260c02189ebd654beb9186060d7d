@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "97b5527d_2fa84eaf",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-09T14:57:28Z",
+      "side": 1,
+      "message": "not sure if sonar complains about this or not",
+      "parentUuid": "5ffdf0a3_7f494f7d",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 55
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a51fd_1116734b",
         "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
         "patchSetId": 4
@@ -59,6 +83,30 @@
       "writtenOn": "2020-07-09T14:46:19Z",
       "side": 1,
       "message": "assertNotNull ??",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 43
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08d790d2_f3b124b0",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-09T14:57:28Z",
+      "side": 1,
+      "message": "I think sonar is ok with this, as well (but would have to verify)",
+      "parentUuid": "97aae6f5_922a3206",
       "range": {
         "startLine": 64,
         "startChar": 8,
