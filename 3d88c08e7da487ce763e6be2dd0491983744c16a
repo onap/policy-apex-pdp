@@ -45,6 +45,109 @@
       "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e24b6d_89f10891",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:39:06Z",
+      "side": 1,
+      "message": "not sure, but sonar may say to move line 105 outside the assertThat",
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b5138e2_cee1bc8b",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:39:06Z",
+      "side": 1,
+      "message": "similar comment for these two lines",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 111,
+        "endChar": 23
+      },
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b7f520_b277312a",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:39:06Z",
+      "side": 1,
+      "message": "does this variable name pass checkstyle?",
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78701b30_ee3ecbe6",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportApexBasicModelTester.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:39:06Z",
+      "side": 1,
+      "message": "sonar: change \"() -\u003e testApexModel.testApexModelVaidateObservation()\" to \"testApexModel::testApexModelVaidateObservation\"",
+      "range": {
+        "startLine": 55,
+        "startChar": 27,
+        "endLine": 55,
+        "endChar": 80
+      },
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c38efb8f_7e2779ef",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ApexModelApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:39:06Z",
+      "side": 1,
+      "message": "does \"apexModelJSon\" pass checkstyle and sonar?  If so, we\u0027re good.  Otherwise, may need to change to \"apexModelJson\"",
+      "range": {
+        "startLine": 171,
+        "startChar": 24,
+        "endLine": 171,
+        "endChar": 38
+      },
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
