@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd1d8d4d_0313518d",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DeploymentClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 8
+      },
+      "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb4924f_f087b761",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 1,
+      "message": "tab",
+      "range": {
+        "startLine": 441,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 1
+      },
+      "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "377544e8_c14296f8",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/event/EnFieldTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 1,
+      "message": "You didn\u0027t remove the old code :-)",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 78,
+        "endChar": 9
+      },
+      "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

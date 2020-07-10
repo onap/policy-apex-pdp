@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80e42013_a6059f30",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 0,
+      "message": "I think this did not make it into the new version.",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63089bb6_5ba3a81a",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 0,
+      "message": "Same comment here.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e40de39e_c561a2b7",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 0,
+      "message": "The test here is that two init() calls should work fine, so we should put back in the pManager.init() call.",
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2def9406_ec1159d3",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 0,
+      "message": "Again, we should run the command twice to make sure that the command fails twice in the same way.",
+      "range": {
+        "startLine": 217,
+        "startChar": 1,
+        "endLine": 230,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e40a0e6c_29441008",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/TaskSelectExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T12:24:57Z",
+      "side": 0,
+      "message": "I think we should get an exception here. We should definitely check the case where the input fields are not there.",
+      "range": {
+        "startLine": 131,
+        "startChar": 1,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
