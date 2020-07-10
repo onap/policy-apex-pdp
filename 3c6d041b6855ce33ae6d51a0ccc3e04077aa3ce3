@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6bee591_ee35e4e8",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/PoliciesTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "surprised this variable name passes checkstyle (as well as sonar\u0027s style checks) - at one point, abbreviations were discouraged, but maybe that restriction has been relaxed",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45fde625_6e282e3c",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyLogicReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "new sonar item: use \"assertThat(...).endsWith(...)",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a98ce232_8b428569",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelSplitterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "maybe move this before line 72 (I\u0027m unsure whether sonar would flag this or not since it doesn\u0027t check for a particular exception type.  Seems to me that the message should make it clear which part of the code generated the exception, but not sure if sonar would agree.)",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9ba513_b057ec0e",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaRecordTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "is the assignment necessary?  If so, I don\u0027t think the variable name passes checkstyle (though maybe that restriction was been loosened?)",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "816f6e79_361f4207",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "move line 87 after line 89",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a06a0b_e8fe16de",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "move line 75 after line 77",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebff3021_da6ec8dc",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "sonar: one of these lines should probably be moved out of the assertThat() call",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 24
+      },
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55cc8086_a1d12967",
+        "filename": "plugins/plugins-executor/plugins-executor-java/src/test/java/org/onap/policy/apex/plugins/executor/java/JavaStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:55:38Z",
+      "side": 1,
+      "message": "sonar: one of these lines should probably be moved out of the assertThat()",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 54
+      },
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
