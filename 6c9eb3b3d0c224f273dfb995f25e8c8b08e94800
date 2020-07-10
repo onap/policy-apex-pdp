@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "30385883_6e47d38c",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:29:16Z",
+      "side": 1,
+      "message": "sonar: change \"() -\u003e albumRo.clear()\" to \"albumRo::clear\"",
+      "range": {
+        "startLine": 175,
+        "startChar": 27,
+        "endLine": 175,
+        "endChar": 48
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ce16b0d_7124b646",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:29:16Z",
+      "side": 1,
+      "message": "similar comment",
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d757de9_d457b388",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:29:16Z",
+      "side": 1,
+      "message": "similar comment",
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2bf697c5_165a8d64",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
         "patchSetId": 1
@@ -13,6 +70,30 @@
       "writtenOn": "2020-07-10T11:43:00Z",
       "side": 1,
       "message": "This isn\u0027t equivalent to the catch in the original test case. I think we should keep the error message check here.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcb7f6c9_deac3809",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:29:16Z",
+      "side": 1,
+      "message": "you mean change \"hasMessageContaining\" to \"hasMessage\"?  Or is this new code OK as it is?\n\nthe original code is ambiguous - can\u0027t tell for sure if it expects an exception, because there is no \"fail()\" statement inside the \"try\" block.  (This is, in fact, why I push the use of assertj so much over try/catch blocks - the developer invariably leaves out a \"fail()\" in one of the branches.)",
+      "parentUuid": "2bf697c5_165a8d64",
       "range": {
         "startLine": 175,
         "startChar": 0,
@@ -89,6 +170,47 @@
         "endLine": 102,
         "endChar": 112
       },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d8ad35_b2d97fe4",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:29:16Z",
+      "side": 1,
+      "message": "once again, the original code is ambiguous.  If we expect it to throw an exception, then we should check the error message.  If we don\u0027t expect it to throw an exception, then this new code is fine.",
+      "parentUuid": "dea7242f_251392e9",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 112
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "966412ab_814990be",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/engine/ApexServiceModelUpdateTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T14:29:16Z",
+      "side": 1,
+      "message": "sonar: change \"() -\u003e service.startAll()\" to \"service::startAll\"",
       "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
