@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a055df3_d4a265c8",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-10T10:05:55Z",
+      "side": 1,
+      "message": "Add license.",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 58
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67b0b7d5_af3652b3",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-10T10:05:55Z",
+      "side": 1,
+      "message": "Does this throw an exception always? If so, shouldn\u0027t we check the exception message?",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 112
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
