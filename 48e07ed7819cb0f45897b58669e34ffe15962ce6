@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ae6ba821_25695444",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/schema/java/JavaSchemaHelperInstanceCreationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:37:34Z",
+      "side": 1,
+      "message": "sonar: use alternate form, change \"() -\u003e schemaHelper0.createNewInstance()\" to \"schemaHelper0::createNewInstance\"\n\nsame comment in other places where the method takes no arguments",
+      "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd1d8d4d_0313518d",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DeploymentClientTest.java",
         "patchSetId": 2
@@ -19,6 +36,40 @@
         "endLine": 79,
         "endChar": 8
       },
+      "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10518968_2ab0c920",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:37:34Z",
+      "side": 1,
+      "message": "sonar: should probably move line 342 after line 343",
+      "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341c8635_d0f8e33c",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-10T13:37:34Z",
+      "side": 1,
+      "message": "sonar - move this before line 437\n\nbasically, sonar complains if the code makes more than one method call within an assertThat() block, because it can\u0027t tell by looking at method signatures which method may actually throw the exception.  It\u0027s my understanding that if the code is testing for a checked exception, then sonar allows it, but not for runtime exceptions.",
       "revId": "48e07ed7819cb0f45897b58669e34ffe15962ce6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
