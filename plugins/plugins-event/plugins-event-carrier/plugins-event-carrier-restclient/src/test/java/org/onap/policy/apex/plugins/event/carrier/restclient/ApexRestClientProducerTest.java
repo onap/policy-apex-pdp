@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.Properties;
 import javax.ws.rs.client.Client;
@@ -64,29 +64,18 @@ public class ApexRestClientProducerTest {
         assertNotNull(arcp);
 
         EventHandlerParameters producerParameters = new EventHandlerParameters();
-        try {
-            arcp.init("RestClientProducer", producerParameters);
-            fail("test should throw an exception here");
-        } catch (ApexEventException e) {
-            assertEquals(
-                    "specified producer properties are not applicable to REST client producer (RestClientProducer)",
-                    e.getMessage());
-        }
+        assertThatThrownBy(() -> arcp.init("RestClientProducer", producerParameters))
+            .hasMessage("specified producer properties are not applicable to REST client producer"
+                + " (RestClientProducer)");
 
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(rcctp);
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.DELETE);
-        try {
-            arcp.init("RestClientConsumer", producerParameters);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
-            fail("test should throw an exception here");
-        } catch (ApexEventException e) {
-            assertEquals(
-                    "specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
-                            + "are supported for event sending on REST client producer (RestClientConsumer)",
-                    e.getMessage());
-        }
+        assertThatThrownBy(() -> arcp.init("RestClientConsumer", producerParameters))
+            .hasMessage("specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\""
+                + " and \"PUT\" are supported for event sending on REST client producer (RestClientConsumer)");
 
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rcctp.getHttpMethod());
         rcctp.setHttpMethod(null);
         arcp.init("RestClientConsumer", producerParameters);
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
@@ -168,15 +157,12 @@ public class ApexRestClientProducerTest {
         rcctp.setUrl("http://some.place2.that.{key}.not/{tag}and.again.{tag}");
         Properties properties = new Properties();
         properties.put("tag", "exist");
-        try {
+        assertThatThrownBy(() -> {
             arcp.sendEvent(123, properties, "EventName", "This is an Event");
             arcp.stop();
-            fail("test should throw an exception");
-        } catch (Exception e) {
-            assertEquals("key \"key\" specified on url "
-                    + "\"http://some.place2.that.{key}.not/{tag}and.again.{tag}\" not found "
-                    + "in execution properties passed by the current policy", e.getMessage());
-        }
+        }).hasMessageContaining("key \"key\" specified on url "
+                + "\"http://some.place2.that.{key}.not/{tag}and.again.{tag}\" not found "
+                + "in execution properties passed by the current policy");
     }
 
     @Test
@@ -303,14 +289,8 @@ public class ApexRestClientProducerTest {
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
-        try {
-            arcp.sendEvent(123, null, "EventName", "This is an Event");
-            fail("test should throw an exception here");
-        } catch (Exception e) {
-            assertEquals(
-                    "send of event to URL \"http://some.place.that.does.not/exist\" using HTTP \"POST\" "
-                            + "failed with status code 400 and message \"null\", event:\n" + "This is an Event",
-                    e.getMessage());
-        }
+        assertThatThrownBy(() -> arcp.sendEvent(123, null, "EventName", "This is an Event"))
+            .hasMessageContaining("send of event to URL \"http://some.place.that.does.not/exist\" using HTTP \"POST\" "
+                + "failed with status code 400 and message \"null\", event:\n" + "This is an Event");
     }
 }
