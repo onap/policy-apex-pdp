@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "386097c2_c2adfdda",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxConceptGetterImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T11:56:49Z",
+      "side": 1,
+      "message": "better to use hasMessage() rather than hasMessageContaining() to replace assertEquals(), as that checks that the message is exactly what was there before\n\nPlease check the other files for this as well.",
+      "range": {
+        "startLine": 50,
+        "startChar": 13,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc3be4dc_db5a06f7",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T11:56:49Z",
+      "side": 1,
+      "message": "tabs",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 8
+      },
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
