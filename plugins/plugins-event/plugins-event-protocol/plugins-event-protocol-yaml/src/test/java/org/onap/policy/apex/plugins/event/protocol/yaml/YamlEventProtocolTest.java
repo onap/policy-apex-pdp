@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.plugins.event.protocol.yaml;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -215,13 +215,8 @@ public class YamlEventProtocolTest {
      */
     @Test
     public void testYamlProcessing() throws ApexEventException, IOException {
-        try {
-            testYamlDecodeEncode("TestEvent0", 1, 0, "Empty0");
-            fail("test should fail here");
-        } catch (ApexEventException e) {
-            assertEquals("event processing failed, event is null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> testYamlDecodeEncode("TestEvent0", 1, 0, "Empty0"))
+            .hasMessageContaining("event processing failed, event is null");
         testYamlDecodeEncode("TestEvent0", 1, 0, "Empty1");
         testYamlDecodeEncode("TestEvent1", 1, 1, "Collection0");
         testYamlDecodeEncode("TestEvent2", 1, 3, "Collection1");

@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import org.apache.avro.generic.GenericData.Fixed;
@@ -98,15 +98,10 @@ public class AvroSchemaFixedTest {
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
-        try {
-            schemaHelper.createNewInstance();
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: could not create an instance "
+        assertThatThrownBy(() -> schemaHelper.createNewInstance())
+            .hasMessageContaining("AvroTest:0.0.1: could not create an instance "
                     + "of class \"org.apache.avro.generic.GenericData$Fixed\" "
-                    + "using the default constructor \"Fixed()\"", e.getMessage());
-        }
-
+                    + "using the default constructor \"Fixed()\"");
         final String inString = TextFileUtils.getTextFileAsString("src/test/resources/data/FixedExampleGood.json");
         final Fixed newFixedFull = (Fixed) schemaHelper.createNewInstance(inString);
         assertTrue(newFixedFull.toString().startsWith("[48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65"));
@@ -128,35 +123,19 @@ public class AvroSchemaFixedTest {
 
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleGood.json");
 
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                    e.getMessage());
-        }
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                    e.getMessage());
-        }
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad0.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object \"\"BADBAD\"\" "
-                    + "Avro unmarshalling failed: Expected fixed length 64, but got6", e.getMessage());
-        }
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad1.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object "
-                    + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
-                    + "Avro unmarshalling failed: Expected fixed length 64, but got65", e.getMessage());
-        }
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json"))
+            .hasMessageContaining("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
+                    + "Got VALUE_NULL");
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json"))
+            .hasMessageContaining("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
+                    + "Got VALUE_NULL");
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad0.json"))
+            .hasMessageContaining("AvroTest:0.0.1: object \"\"BADBAD\"\" "
+                + "Avro unmarshalling failed: Expected fixed length 64, but got6");
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad1.json"))
+            .hasMessageContaining("AvroTest:0.0.1: object "
+                + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
+                + "Avro unmarshalling failed: Expected fixed length 64, but got65");
     }
 
     /**

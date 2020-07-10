@@ -22,10 +22,10 @@
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Set;
 import org.junit.Test;
@@ -45,13 +45,8 @@ public class RestClientCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderBadList.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage().contains("HTTP header array entry is null\n    parameter"));
-            assertTrue(pe.getMessage().trim().endsWith("HTTP header array entry is null"));
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("HTTP header array entry is null\n    parameter");
     }
 
     @Test
@@ -60,15 +55,8 @@ public class RestClientCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderNotKvPairs.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage()
-                    .contains("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]"));
-            assertTrue(pe.getMessage().trim()
-                    .endsWith("HTTP header array entries must have one key and one value: [aaa]"));
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]");
     }
 
     @Test
@@ -77,13 +65,8 @@ public class RestClientCarrierTechnologyParametersTest {
         arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderNulls.json");
         arguments.setRelativeFileRoot(".");
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (ParameterException pe) {
-            assertTrue(pe.getMessage().contains("HTTP header key is null or blank: [null, bbb]"));
-            assertTrue(pe.getMessage().trim().endsWith("HTTP header value is null or blank: [ccc, null]"));
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("HTTP header key is null or blank: [null, bbb]");
     }
 
     @Test

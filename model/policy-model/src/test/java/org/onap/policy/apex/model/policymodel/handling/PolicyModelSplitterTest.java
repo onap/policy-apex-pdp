@@ -1,29 +1,29 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.handling;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -34,7 +34,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 public class PolicyModelSplitterTest {
     @Test
-    public void test() {
+    public void test() throws ApexModelException {
         final AxPolicyModel apexModel = new SupportApexPolicyModelCreator().getModel();
 
         final Set<AxArtifactKey> requiredPolicySet = new TreeSet<AxArtifactKey>();
@@ -43,11 +43,7 @@ public class PolicyModelSplitterTest {
         // There's only one policy so a split of this model on that policy should return the same
         // model
         AxPolicyModel splitApexModel = null;
-        try {
-            splitApexModel = PolicyModelSplitter.getSubPolicyModel(apexModel, requiredPolicySet);
-        } catch (final ApexModelException e) {
-            fail(e.getMessage());
-        }
+        splitApexModel = PolicyModelSplitter.getSubPolicyModel(apexModel, requiredPolicySet);
 
         // The only difference between the models should be that the unused event outEvent1 should
         // not be in the split model
@@ -59,19 +55,11 @@ public class PolicyModelSplitterTest {
         requiredPolicySet.add(new AxArtifactKey("MissingPolicy", "0.0.1"));
 
         AxPolicyModel missingSplitApexModel = null;
-        try {
-            missingSplitApexModel = PolicyModelSplitter.getSubPolicyModel(apexModel, requiredMissingPolicySet);
-        } catch (final ApexModelException e) {
-            fail(e.getMessage());
-        }
+        missingSplitApexModel = PolicyModelSplitter.getSubPolicyModel(apexModel, requiredMissingPolicySet);
         assertNotNull(missingSplitApexModel);
 
         splitApexModel = null;
-        try {
-            splitApexModel = PolicyModelSplitter.getSubPolicyModel(apexModel, requiredPolicySet, true);
-        } catch (final ApexModelException e) {
-            fail(e.getMessage());
-        }
+        splitApexModel = PolicyModelSplitter.getSubPolicyModel(apexModel, requiredPolicySet, true);
 
         // The only difference between the models should be that the unused event outEvent1 should
         // not be in the split model
@@ -81,13 +69,9 @@ public class PolicyModelSplitterTest {
 
         // There's only one policy so a split of this model on that policy should return the same
         // model
-        try {
+        assertThatThrownBy(() -> {
             apexModel.getKey().setName("InvalidPolicyModelName");
             PolicyModelSplitter.getSubPolicyModel(apexModel, requiredPolicySet);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("source model is invalid: \n***validation of model f", e.getMessage().substring(0, 50));
-        }
-
+        }).hasMessageContaining("source model is invalid: \n***validation of model f");
     }
 }
