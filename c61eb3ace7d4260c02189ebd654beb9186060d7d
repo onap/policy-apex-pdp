@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f47865ac_bcc756c3",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T14:41:13Z",
+      "side": 1,
+      "message": "I think this is best:\nassertTrue(result.get(\"BLACKLIST_ON\");",
+      "parentUuid": "5f217020_60ae5bb0",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 55
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a51fd_1116734b",
         "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "writtenOn": "2020-07-09T14:46:19Z",
       "side": 1,
       "message": "assertFalse",
+      "range": {
+        "startLine": 435,
+        "startChar": 7,
+        "endLine": 435,
+        "endChar": 56
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4980ed17_8f7a2307",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T14:41:13Z",
+      "side": 1,
+      "message": "assertFalse(result.get(\"BLACKLIST_ON\");",
+      "parentUuid": "1e4a51fd_1116734b",
       "range": {
         "startLine": 435,
         "startChar": 7,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "655f9e03_192da7b2",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyInfoTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T14:41:13Z",
+      "side": 1,
+      "message": "I think assertNotNull() reads better.",
+      "parentUuid": "08d790d2_f3b124b0",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 43
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6242f8f6_bc4ff792",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
         "patchSetId": 4
@@ -154,6 +226,30 @@
       "writtenOn": "2020-07-09T14:46:19Z",
       "side": 1,
       "message": "assertNotNull",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 40
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1508a1bf_ee8a598a",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T14:41:13Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "6242f8f6_bc4ff792",
       "range": {
         "startLine": 121,
         "startChar": 8,
