@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3848162d_f1253300",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T11:43:00Z",
+      "side": 0,
+      "message": "Yes, it\u0027s OK to delete this, there are tests later for checking that a write operation on the read only album fail.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 119
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

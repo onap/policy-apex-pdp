@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2bf697c5_165a8d64",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T11:43:00Z",
+      "side": 1,
+      "message": "This isn\u0027t equivalent to the catch in the original test case. I think we should keep the error message check here.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a055df3_d4a265c8",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
         "patchSetId": 1
@@ -36,6 +59,30 @@
       "writtenOn": "2020-07-10T10:05:55Z",
       "side": 1,
       "message": "Does this throw an exception always? If so, shouldn\u0027t we check the exception message?",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 112
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea7242f_251392e9",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-10T11:43:00Z",
+      "side": 1,
+      "message": "I think we should check the exception message.",
+      "parentUuid": "67b0b7d5_af3652b3",
       "range": {
         "startLine": 102,
         "startChar": 8,
