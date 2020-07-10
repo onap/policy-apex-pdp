@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5f217020_60ae5bb0",
+        "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 6708
+      },
+      "writtenOn": "2020-07-10T14:21:12Z",
+      "side": 1,
+      "message": "Nothing shows up in sonar when I analyze it. Should I change it back or leave it how it is now?",
+      "parentUuid": "97b5527d_2fa84eaf",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 55
+      },
+      "revId": "c61eb3ace7d4260c02189ebd654beb9186060d7d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e4a51fd_1116734b",
         "filename": "examples/examples-aadm/src/test/java/org/onap/policy/apex/examples/aadm/AadmUseCaseTest.java",
         "patchSetId": 4
