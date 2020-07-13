@@ -28,24 +28,4 @@
     <artifactId>plugins-executor-java</artifactId>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for execution of Java logic in Apex</description>
-
-    <profiles>
-        <profile>
-            <id>apexSite</id>
-            <activation>
-                <property>
-                    <name>apexSite</name>
-                </property>
-            </activation>
-            <properties>
-                <adsite-plugins-executor-java-dir>${project.basedir}/src</adsite-plugins-executor-java-dir>
-            </properties>
-            <distributionManagement>
-                <site>
-                    <id>${project.artifactId}-site</id>
-                    <url>${apex.adsite.prefix}/modules/plugins/${project.parent.artifactId}/${project.artifactId}/</url>
-                </site>
-            </distributionManagement>
-        </profile>
-    </profiles>
 </project>
