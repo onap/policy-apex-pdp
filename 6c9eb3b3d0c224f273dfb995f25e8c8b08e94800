@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b58676d_9e65d9a4",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-13T12:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30385883_6e47d38c",
+      "range": {
+        "startLine": 175,
+        "startChar": 27,
+        "endLine": 175,
+        "endChar": 48
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ce16b0d_7124b646",
         "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "efd259ba_4240005e",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-13T12:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ce16b0d_7124b646",
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d757de9_d457b388",
         "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
         "patchSetId": 1
@@ -56,6 +98,24 @@
       "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "634318a4_a3869e12",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-13T12:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d757de9_d457b388",
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -310,6 +370,24 @@
       "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "367b49b3_45552974",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/engine/ApexServiceModelUpdateTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-13T12:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "966412ab_814990be",
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
