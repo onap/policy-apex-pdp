@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a81ea62e_ecdd53b2",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-13T13:12:03Z",
+      "side": 1,
+      "message": "We did the gRPC plugin for CDS in Frankfurt so it is a new module, we did not do the old documentation for it. Its documented in the RST only.",
+      "parentUuid": "2a322ce1_4d1d076a",
+      "revId": "cfd849936ab0dba02df60c5a8509d83cb8c58fdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be64cc9a_6a582366",
         "filename": "testsuites/apex-pdp-stability/pom.xml",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2020-07-13T12:51:31Z",
       "side": 1,
       "message": "same question about css, png, xml",
+      "revId": "cfd849936ab0dba02df60c5a8509d83cb8c58fdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8a5a3d8_6dfc0edf",
+        "filename": "testsuites/apex-pdp-stability/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-13T13:12:03Z",
+      "side": 1,
+      "message": "We did the first stability tests in Dublin (I think) and again we did not do asciidoc based documentation, the documentation is in RST format only.",
+      "parentUuid": "be64cc9a_6a582366",
       "revId": "cfd849936ab0dba02df60c5a8509d83cb8c58fdb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
