@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "29268e0e_54f2e9a6",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T14:48:37Z",
+      "side": 1,
+      "message": "It does pass checkstyle. Should I rename to something else?",
+      "parentUuid": "d1b7f520_b277312a",
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78701b30_ee3ecbe6",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportApexBasicModelTester.java",
         "patchSetId": 1
@@ -139,6 +157,30 @@
       "writtenOn": "2020-07-10T14:39:06Z",
       "side": 1,
       "message": "does \"apexModelJSon\" pass checkstyle and sonar?  If so, we\u0027re good.  Otherwise, may need to change to \"apexModelJson\"",
+      "range": {
+        "startLine": 171,
+        "startChar": 24,
+        "endLine": 171,
+        "endChar": 38
+      },
+      "revId": "3d88c08e7da487ce763e6be2dd0491983744c16a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa37750_9f34a183",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ApexModelApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T14:48:37Z",
+      "side": 1,
+      "message": "This passes checkstyle too.",
+      "parentUuid": "c38efb8f_7e2779ef",
       "range": {
         "startLine": 171,
         "startChar": 24,
