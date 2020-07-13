@@ -130,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "192cec4b_3445b159",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-13T11:29:01Z",
+      "side": 1,
+      "message": "Looking at it again, I think an exception should be thrown here because TestMatchCase should only accept numerals, not strings. Let\u0027s investigate this.",
+      "parentUuid": "2e815ccb_fa9ac88b",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a055df3_d4a265c8",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
         "patchSetId": 1
@@ -236,6 +260,30 @@
       "side": 1,
       "message": "Yes, I believe this code was never throwing the exception that it suggests it is expecting. Hence, I removed the unreachable code.",
       "parentUuid": "21d8ad35_b2d97fe4",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 112
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ea3eccb_013c1ee3",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-13T11:29:01Z",
+      "side": 1,
+      "message": "Again, I think the exception should be thrown here. Let\u0027s check this as well.",
+      "parentUuid": "4748431f_9c323caf",
       "range": {
         "startLine": 102,
         "startChar": 8,
