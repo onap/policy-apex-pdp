@@ -106,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "2e815ccb_fa9ac88b",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T11:16:58Z",
+      "side": 1,
+      "message": "I think what was happening here Liam is the code was never throwing an exception in the first place even though the code suggests it was expecting one to be thrown. So I just removed the catch block entirely as it was unreachable code.",
+      "parentUuid": "fcb7f6c9_deac3809",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 5
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a055df3_d4a265c8",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
         "patchSetId": 1
@@ -188,6 +212,30 @@
       "side": 1,
       "message": "once again, the original code is ambiguous.  If we expect it to throw an exception, then we should check the error message.  If we don\u0027t expect it to throw an exception, then this new code is fine.",
       "parentUuid": "dea7242f_251392e9",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 112
+      },
+      "revId": "6c9eb3b3d0c224f273dfb995f25e8c8b08e94800",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4748431f_9c323caf",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T11:16:58Z",
+      "side": 1,
+      "message": "Yes, I believe this code was never throwing the exception that it suggests it is expecting. Hence, I removed the unreachable code.",
+      "parentUuid": "21d8ad35_b2d97fe4",
       "range": {
         "startLine": 102,
         "startChar": 8,
