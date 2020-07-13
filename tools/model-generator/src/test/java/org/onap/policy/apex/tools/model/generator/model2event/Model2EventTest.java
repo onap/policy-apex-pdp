@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,14 +22,12 @@
 package org.onap.policy.apex.tools.model.generator.model2event;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 
 /**
  * Test the Model2Event utility.
@@ -36,14 +35,11 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 public class Model2EventTest {
     @Test
     public void testModel2Event() {
-        try {
-            final String[] EventArgs =
-                { "-h" };
+        final String[] EventArgs =
+            { "-h" };
 
-            Model2EventMain.main(EventArgs);
-        } catch (Exception exc) {
-            fail("test should not throw an exception");
-        }
+        Model2EventMain.main(EventArgs);
+
     }
 
     @Test
@@ -112,28 +108,28 @@ public class Model2EventTest {
     }
 
     @Test
-    public void testModel2EventAnomaly() {
+    public void testModel2EventAnomaly() throws IOException {
         testModel2EventModel("AnomalyDetectionPolicyModel");
     }
 
     @Test
-    public void testModel2EventAutoLearn() {
+    public void testModel2EventAutoLearn() throws IOException {
         testModel2EventModel("AutoLearnPolicyModel");
     }
 
     @Test
-    public void testModel2EventMfp() {
+    public void testModel2EventMfp() throws IOException {
         testModel2EventModel("MyFirstPolicyModel");
     }
 
     @Test
-    public void testModel2EventSample() {
+    public void testModel2EventSample() throws IOException {
         testModel2EventModel("SamplePolicyModelJAVASCRIPT");
     }
 
     /**
      * Run the application.
-     * 
+     *
      * @param eventArgs the command arguments
      * @return a string containing the command output
      */
@@ -151,31 +147,27 @@ public class Model2EventTest {
 
     /**
      * Test Event generation.
-     * 
+     *
      * @param modelName the name of the model file
      */
-    private void testModel2EventModel(String modelName) {
-        try {
-            File tempFile = File.createTempFile(modelName, ".apex");
-            tempFile.deleteOnExit();
+    private void testModel2EventModel(String modelName) throws IOException {
+        File tempFile = File.createTempFile(modelName, ".apex");
+        tempFile.deleteOnExit();
 
-            final String[] eventArgs0 =
-                { "-m", "src/test/resources/models/" + modelName + ".json", "-t", "stimuli" };
-            final String outputString0 = runModel2Event(eventArgs0);
+        final String[] eventArgs0 =
+            { "-m", "src/test/resources/models/" + modelName + ".json", "-t", "stimuli" };
+        final String outputString0 = runModel2Event(eventArgs0);
 
-            assertTrue(outputString0.contains("type: stimuli"));
+        assertTrue(outputString0.contains("type: stimuli"));
 
-            final String[] eventArgs1 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "response" };
-            final String outputString1 = runModel2Event(eventArgs1);
+        final String[] eventArgs1 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "response" };
+        final String outputString1 = runModel2Event(eventArgs1);
 
-            assertTrue(outputString1.contains("type: response"));
+        assertTrue(outputString1.contains("type: response"));
 
-            final String[] eventArgs2 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "internal" };
-            final String outputString2 = runModel2Event(eventArgs2);
+        final String[] eventArgs2 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "internal" };
+        final String outputString2 = runModel2Event(eventArgs2);
 
-            assertTrue(outputString2.contains("type: internal"));
-        } catch (Exception e) {
-            throw new ApexRuntimeException("test should not throw an exception", e);
-        }
+        assertTrue(outputString2.contains("type: internal"));
     }
 }

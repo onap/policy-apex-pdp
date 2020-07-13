@@ -1,25 +1,27 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.service.engine.event;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -37,69 +39,27 @@ public class JsonEventConverterTest {
     public void testJsonEventConverter() {
         Apex2JsonEventConverter converter = new Apex2JsonEventConverter();
 
-        try {
-            converter.init(null);
-            fail("test should throw an exception");
-        } catch (Exception ie) {
-            assertEquals("specified consumer properties are not applicable to the JSON event protocol",
-                            ie.getMessage());
-        }
-
-        try {
-            converter.init(new EventProtocolParameters() {
-            });
-            fail("test should throw an exception");
-        } catch (Exception ie) {
-            assertEquals("specified consumer properties are not applicable to the JSON event protocol",
-                            ie.getMessage());
-        }
-
+        assertThatThrownBy(() -> converter.init(null))
+            .hasMessage("specified consumer properties are not applicable to the JSON event protocol");
+        assertThatThrownBy(() -> converter.init(new EventProtocolParameters() {}))
+            .hasMessage("specified consumer properties are not applicable to the JSON event protocol");
         JsonEventProtocolParameters pars = new JsonEventProtocolParameters();
         converter.init(pars);
 
-        try {
-            converter.toApexEvent(null, null);
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals("event processing failed, event is null", tae.getMessage());
-        }
-
-        try {
-            converter.toApexEvent(null, 1);
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals("error converting event \"1\" to a string", tae.getMessage());
-        }
-
-        try {
-            converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]");
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals("Failed to unmarshal JSON event: event received without mandatory parameter \"name\" "
-                            + "on configuration or on event, event=[{\"aKey\": 1},{\"aKey\": 2}]", tae.getMessage());
-        }
-
-        try {
-            converter.toApexEvent(null, "[1,2,3]");
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals("Failed to unmarshal JSON event: incoming event ([1,2,3]) is a JSON object array "
-                            + "containing an invalid object 1.0, event=[1,2,3]", tae.getMessage());
-        }
-
-        try {
-            converter.fromApexEvent(null);
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals("event processing failed, Apex event is null", tae.getMessage());
-        }
-
-        try {
-            converter.fromApexEvent(new ApexEvent("Event", "0.0.1", "a.name.space", "here", "there"));
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals("Model for org.onap.policy.apex.model.eventmodel.concepts.AxEvents not found in model service",
-                            tae.getMessage());
-        }
+        assertThatThrownBy(() -> converter.toApexEvent(null, null))
+            .hasMessage("event processing failed, event is null");
+        assertThatThrownBy(() -> converter.toApexEvent(null, 1))
+            .hasMessage("error converting event \"1\" to a string");
+        assertThatThrownBy(() -> converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]"))
+            .hasMessage("Failed to unmarshal JSON event: event received without mandatory parameter \"name\" "
+                            + "on configuration or on event, event=[{\"aKey\": 1},{\"aKey\": 2}]");
+        assertThatThrownBy(() -> converter.toApexEvent(null, "[1,2,3]"))
+            .hasMessage("Failed to unmarshal JSON event: incoming event ([1,2,3]) is a JSON object array "
+                    + "containing an invalid object 1.0, event=[1,2,3]");
+        assertThatThrownBy(() -> converter.fromApexEvent(null))
+            .hasMessage("event processing failed, Apex event is null");
+        assertThatThrownBy(() -> converter.fromApexEvent(new ApexEvent("Event", "0.0.1", "a.name.space",
+                "here", "there")))
+            .hasMessage("Model for org.onap.policy.apex.model.eventmodel.concepts.AxEvents not found in model service");
     }
 }

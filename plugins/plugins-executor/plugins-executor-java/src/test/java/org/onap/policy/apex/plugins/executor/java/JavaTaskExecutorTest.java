@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.executor.java;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,7 @@ import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
+import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.common.parameters.ParameterService;
@@ -66,73 +68,38 @@ public class JavaTaskExecutorTest {
     }
 
     @Test
-    public void testJavaTaskExecutor() {
+    public void testJavaTaskExecutor() throws ContextException, StateMachineException {
         JavaTaskExecutor jte = new JavaTaskExecutor();
         assertNotNull(jte);
 
-        try {
-            jte.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals(java.lang.NullPointerException.class, jteException.getClass());
-        }
-
+        assertThatThrownBy(jte::prepare)
+            .isInstanceOf(java.lang.NullPointerException.class);
         AxTask task = new AxTask();
         ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+        internalContext = new ApexInternalContext(new AxPolicyModel());
+
         jte.setContext(null, task, internalContext);
 
-        try {
-            jte.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("instantiation error on Java class \"\"", jteException.getMessage());
-        }
-
+        assertThatThrownBy(jte::prepare)
+            .hasMessageContaining("instantiation error on Java class \"\"");
         task.getTaskLogic().setLogic("java.lang.String");
 
-        try {
-            jte.prepare();
-        } catch (Exception jteException) {
-            fail("test should not throw an exception here");
-        }
+        jte.prepare();
 
-        try {
-            jte.execute(-1, new Properties(), null);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals(java.lang.NullPointerException.class, jteException.getClass());
-        }
-
+        assertThatThrownBy(() -> jte.execute(-1, new Properties(), null))
+            .isInstanceOf(java.lang.NullPointerException.class);
         Map<String, Object> incomingParameters = new HashMap<>();
-        try {
-            jte.execute(-1, new Properties(), incomingParameters);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("task logic failed to run for task  \"NULL:0.0.0\"", jteException.getMessage());
-        }
-
+        assertThatThrownBy(() -> jte.execute(-1, new Properties(), incomingParameters))
+            .hasMessageContaining("task logic failed to run for task  \"NULL:0.0.0\"");
         task.getTaskLogic().setLogic("org.onap.policy.apex.plugins.executor.java.DummyJavaTaskLogic");
-        try {
-            jte.prepare();
+        jte.prepare();
+        assertThatThrownBy(() -> {
             jte.execute(-1, new Properties(), incomingParameters);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
-                            jteException.getMessage());
-        }
+        }).hasMessageContaining("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0");
+        jte.prepare();
+        Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
+        assertEquals(0, returnMap.size());
+        jte.cleanUp();
 
-        try {
-            jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
-            assertEquals(0, returnMap.size());
-            jte.cleanUp();
-        } catch (Exception jteException) {
-            fail("test should not throw an exception here");
-        }
     }
 }

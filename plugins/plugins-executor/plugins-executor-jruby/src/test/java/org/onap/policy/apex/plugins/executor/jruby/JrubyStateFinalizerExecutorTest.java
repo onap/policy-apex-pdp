@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.executor.jruby;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.util.Properties;
@@ -76,68 +77,45 @@ public class JrubyStateFinalizerExecutorTest {
     }
 
     @Test
-    public void testJrubyStateFinalizerExecutor() {
+    public void testJrubyStateFinalizerExecutor() throws StateMachineException, ContextException {
         JrubyStateFinalizerExecutor jsfe = new JrubyStateFinalizerExecutor();
         assertNotNull(jsfe);
 
-        try {
+        assertThatThrownBy(() -> {
             Field fieldContainer = JrubyStateFinalizerExecutor.class.getDeclaredField("container");
             fieldContainer.setAccessible(true);
             fieldContainer.set(jsfe, null);
             jsfe.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
-        }
+        }).isInstanceOf(java.lang.NullPointerException.class);
         ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+
+        internalContext = new ApexInternalContext(new AxPolicyModel());
 
         StateExecutor parentStateExcutor = null;
-        try {
-            parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
-        } catch (StateMachineException e) {
-            fail("test should not throw an exception here");
-        }
+        parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
 
         AxState state = new AxState();
         parentStateExcutor.setContext(null, state, internalContext);
         AxStateFinalizerLogic stateFinalizerLogic = new AxStateFinalizerLogic();
         jsfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
-        try {
-            jsfe.prepare();
-        } catch (Exception jtseException) {
-            fail("test should not throw an exception here");
-        }
 
-        try {
-            jsfe.execute(-1, new Properties(), null);
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" on "
-                    + "finalizer logic NULL:0.0.0:NULL:NULL", jtseException.getMessage());
-        }
+        jsfe.prepare();
 
+        assertThatThrownBy(() -> jsfe.execute(-1, new Properties(), null))
+            .hasMessageContaining("execute-post: state finalizer logic execution failure on state \""
+                + "NULL:0.0.0:NULL:NULL\" on finalizer logic NULL:0.0.0:NULL:NULL");
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
-        EnEvent event = new EnEvent(axEvent);
 
         final String jrubyLogic = "if executor.executionId == -1" + "\n return false" + "\n else "
                 + "\n executor.setSelectedStateOutputName(\"SelectedOutputIsMe\")" + "\n return true" + "\n end";
         stateFinalizerLogic.setLogic(jrubyLogic);
 
+        EnEvent event = new EnEvent(axEvent);
         state.getStateOutputs().put("SelectedOutputIsMe", null);
-        try {
-            jsfe.prepare();
-            String stateOutput = jsfe.execute(0, new Properties(), event);
-            assertEquals("SelectedOutputIsMe", stateOutput);
-            jsfe.cleanUp();
-        } catch (Exception jtseException) {
-            jtseException.printStackTrace();
-            fail("test should not throw an exception here");
-        }
+        jsfe.prepare();
+        String stateOutput = jsfe.execute(0, new Properties(), event);
+        assertEquals("SelectedOutputIsMe", stateOutput);
+        jsfe.cleanUp();
 
     }
 }

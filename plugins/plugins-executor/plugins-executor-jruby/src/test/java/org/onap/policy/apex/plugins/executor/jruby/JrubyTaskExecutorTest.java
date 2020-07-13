@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.executor.jruby;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -38,6 +38,7 @@ import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
+import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.common.parameters.ParameterService;
@@ -68,7 +69,7 @@ public class JrubyTaskExecutorTest {
     }
 
     @Test
-    public void testJrubyTaskExecutor() {
+    public void testJrubyTaskExecutor() throws StateMachineException, ContextException {
         // Run test twice to check for incorrect shutdown activity
         jrubyExecutorTest();
         jrubyExecutorTest();
@@ -77,63 +78,39 @@ public class JrubyTaskExecutorTest {
     /**
      * Test the JRuby executor.
      */
-    private void jrubyExecutorTest() {
+    private void jrubyExecutorTest() throws StateMachineException, ContextException {
         JrubyTaskExecutor jte = new JrubyTaskExecutor();
         assertNotNull(jte);
 
-        try {
+        assertThatThrownBy(() -> {
             Field fieldContainer = JrubyTaskExecutor.class.getDeclaredField("container");
             fieldContainer.setAccessible(true);
             fieldContainer.set(jte, null);
             jte.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
-        }
-
+        }).isInstanceOf(java.lang.NullPointerException.class);
         AxTask task = new AxTask();
         ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+        internalContext = new ApexInternalContext(new AxPolicyModel());
+
         jte.setContext(null, task, internalContext);
-        try {
-            jte.prepare();
-        } catch (Exception jtseException) {
-            fail("test should not throw an exception here");
-        }
+
+        jte.prepare();
 
         Map<String, Object> incomingParameters = new HashMap<>();
-        try {
-            jte.execute(-1, new Properties(), incomingParameters);
-            fail("test should throw an exception here");
-        } catch (Exception jteException) {
-            assertEquals("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0",
-                            jteException.getMessage());
-        }
-
+        assertThatThrownBy(() -> jte.execute(-1, new Properties(), incomingParameters))
+            .hasMessageContaining("execute-post: task logic execution failure on task \"NULL\" in model NULL:0.0.0");
         final String jrubyLogic = "if executor.executionId == -1" + "\n return false" + "\n else " + "\n return true"
                         + "\n end";
         task.getTaskLogic().setLogic(jrubyLogic);
 
-        try {
-            jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
-            assertEquals(0, returnMap.size());
-            jte.cleanUp();
-        } catch (Exception jteException) {
-            fail("test should not throw an exception here");
-        }
+        jte.prepare();
+        Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
+        assertEquals(0, returnMap.size());
+        jte.cleanUp();
 
-        try {
-            jte.prepare();
-            Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
-            assertEquals(0, returnMap.size());
-            jte.cleanUp();
-        } catch (Exception jteException) {
-            fail("test should not throw an exception here");
-        }
+        jte.prepare();
+        Map<String, Object> returnMap1 = jte.execute(0, new Properties(), incomingParameters);
+        assertEquals(0, returnMap1.size());
+        jte.cleanUp();
     }
 }

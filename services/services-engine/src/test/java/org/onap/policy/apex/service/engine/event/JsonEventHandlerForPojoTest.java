@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.service.engine.event;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -216,35 +216,16 @@ public class JsonEventHandlerForPojoTest {
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 
-        try {
-            jsonEventConverter.toApexEvent("PojoEvent", apexEventJsonStringIn);
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals(
-                    "Failed to unmarshal JSON event: error parsing PojoEvent:0.0.1 event from Json. "
-                            + "Field BAD_POJO_PAR not found on POJO event definition.",
-                    tae.getMessage().substring(0, 133));
-        }
-
+        assertThatThrownBy(() -> jsonEventConverter.toApexEvent("PojoEvent", apexEventJsonStringIn))
+            .hasMessageContaining("Failed to unmarshal JSON event: error parsing PojoEvent:0.0.1 event from Json. "
+                            + "Field BAD_POJO_PAR not found on POJO event definition.");
         pars.setPojoField("POJO_PAR");
-        try {
-            jsonEventConverter.toApexEvent("PojoNoFieldEvent", apexEventJsonStringIn);
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals(
-                    "Failed to unmarshal JSON event: error parsing PojoNoFieldEvent:0.0.1 event from Json, "
-                            + "Field POJO_PAR not found, no fields defined on event.",
-                    tae.getMessage().substring(0, 139));
-        }
-
-        try {
-            jsonEventConverter.toApexEvent("PojoTooManyFieldsEvent", apexEventJsonStringIn);
-            fail("test should throw an exception");
-        } catch (Exception tae) {
-            assertEquals(
-                    "Failed to unmarshal JSON event: error parsing PojoTooManyFieldsEvent:0.0.1 event from Json, "
-                            + "Field POJO_PAR, one and only one field may be defined on a POJO event definition.",
-                    tae.getMessage().substring(0, 173));
-        }
+        assertThatThrownBy(() -> jsonEventConverter.toApexEvent("PojoNoFieldEvent", apexEventJsonStringIn))
+            .hasMessageContaining("Failed to unmarshal JSON event: error parsing PojoNoFieldEvent:0.0.1 "
+                            + "event from Json, Field POJO_PAR not found, no fields defined on event.");
+        assertThatThrownBy(() -> jsonEventConverter.toApexEvent("PojoTooManyFieldsEvent", apexEventJsonStringIn))
+            .hasMessageContaining("Failed to unmarshal JSON event: error parsing PojoTooManyFieldsEvent:0.0.1"
+                            + " event from Json, Field POJO_PAR, one and only one field may be defined on a "
+                            + "POJO event definition.");
     }
 }

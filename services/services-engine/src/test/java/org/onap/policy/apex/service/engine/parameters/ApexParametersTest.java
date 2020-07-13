@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.service.engine.parameters;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -44,16 +45,13 @@ public class ApexParametersTest {
         final String[] args = {"-c", "src/test/resources/parameters/javaPropertiesOK.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertTrue(parameters.checkJavaPropertiesSet());
-            assertEquals("property0", parameters.getJavaProperties()[0][0]);
-            assertEquals("property0Value", parameters.getJavaProperties()[0][1]);
-            assertEquals("property1", parameters.getJavaProperties()[1][0]);
-            assertEquals("property1Value", parameters.getJavaProperties()[1][1]);
-        } catch (final ParameterException e) {
-            fail("This test should not throw an exception");
-        }
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertTrue(parameters.checkJavaPropertiesSet());
+        assertEquals("property0", parameters.getJavaProperties()[0][0]);
+        assertEquals("property0Value", parameters.getJavaProperties()[0][1]);
+        assertEquals("property1", parameters.getJavaProperties()[1][0]);
+        assertEquals("property1Value", parameters.getJavaProperties()[1][1]);
+
     }
 
     @Test
@@ -61,12 +59,9 @@ public class ApexParametersTest {
         final String[] args = {"-c", "src/test/resources/parameters/javaPropertiesEmpty.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertFalse(parameters.checkJavaPropertiesSet());
-        } catch (final ParameterException pe) {
-            fail("This test should not throw an exception");
-        }
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertFalse(parameters.checkJavaPropertiesSet());
+
     }
 
     @Test
@@ -74,15 +69,11 @@ public class ApexParametersTest {
         final String[] args = {"-c", "src/test/resources/parameters/javaPropertiesBad.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException pe) {
-            assertTrue(pe.getMessage().contains("java properties array entries must have one key and one value"));
-            assertTrue(pe.getMessage().contains("java properties key is null or blank"));
-            assertTrue(pe.getMessage().contains("java properties value is null or blank"));
-            assertTrue(pe.getMessage().contains("java properties array entry is null"));
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("java properties array entries must have one key and one value")
+            .hasMessageContaining("java properties key is null or blank")
+            .hasMessageContaining("java properties value is null or blank")
+            .hasMessageContaining("java properties array entry is null");
     }
 
     @Test

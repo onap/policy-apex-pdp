@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.service.engine.engdep;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -75,13 +76,8 @@ public class EngDepMessageListenerTest {
         EngDepMessageListener listener = new EngDepMessageListener(dummyEngineService);
         listener.startProcessorThread();
 
-        try {
-            listener.onMessage("bad string message");
-            fail("test should throw an exception");
-        } catch (Exception uoe) {
-            assertEquals("String messages are not supported on the EngDep protocol", uoe.getMessage());
-        }
-
+        assertThatThrownBy(() -> listener.onMessage("bad string message"))
+            .hasMessageContaining("String messages are not supported on the EngDep protocol");
         List<Message> messageList = new ArrayList<>();
         messageList.add(new StartEngine(new AxArtifactKey("Start:0.0.1")));
         listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
@@ -131,40 +127,36 @@ public class EngDepMessageListenerTest {
         await().until(messageQueue::isEmpty);
         assertEquals("UpdateModel:0.0.1", dummyEngineService.getUpdateModelKey().getId());
 
-        try {
-            messageList.clear();
-            messageList.add(new Response(new AxArtifactKey("UpdateModel:0.0.1"), false,
-                            new GetEngineInfo(new AxArtifactKey("EngineInfo:0.0.1"))));
-            listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
-            await().until(messageQueue::isEmpty);
-            assertEquals("UpdateModel:0.0.1", dummyEngineService.getUpdateModelKey().getId());
+        messageList.clear();
+        messageList.add(new Response(new AxArtifactKey("UpdateModel:0.0.1"), false,
+                        new GetEngineInfo(new AxArtifactKey("EngineInfo:0.0.1"))));
+        listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
+        await().until(messageQueue::isEmpty);
+        assertEquals("UpdateModel:0.0.1", dummyEngineService.getUpdateModelKey().getId());
+        messageList.clear();
+        Message badMessage0 = new DummyMessage(null, null);
+        messageList.add(badMessage0);
+        listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
+        await().until(messageQueue::isEmpty);
 
-            messageList.clear();
-            Message badMessage0 = new DummyMessage(null, null);
-            messageList.add(badMessage0);
-            listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
-            await().until(messageQueue::isEmpty);
+        messageList.clear();
+        Message badMessage1 = new DummyMessage(new DummyAction(null), null);
+        messageList.add(badMessage1);
+        listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
+        await().until(messageQueue::isEmpty);
 
-            messageList.clear();
-            Message badMessage1 = new DummyMessage(new DummyAction(null), null);
-            messageList.add(badMessage1);
-            listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
-            await().until(messageQueue::isEmpty);
+        messageList.clear();
+        Message badMessage2 = new DummyMessage(new DummyAction("throw exception"), null);
+        messageList.add(badMessage2);
+        listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
+        await().until(messageQueue::isEmpty);
 
-            messageList.clear();
-            Message badMessage2 = new DummyMessage(new DummyAction("throw exception"), null);
-            messageList.add(badMessage2);
-            listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
-            await().until(messageQueue::isEmpty);
+        messageList.clear();
+        Mockito.doReturn(false).when(webSocketMock).isOpen();
+        messageList.add(new StartEngine(new AxArtifactKey("Start:0.0.1")));
+        listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
+        await().until(messageQueue::isEmpty);
 
-            messageList.clear();
-            Mockito.doReturn(false).when(webSocketMock).isOpen();
-            messageList.add(new StartEngine(new AxArtifactKey("Start:0.0.1")));
-            listener.onMessage(new MessageBlock<>(messageList, webSocketMock));
-            await().until(messageQueue::isEmpty);
-        } catch (Exception e) {
-            fail("test should not throw exceptions on bad messages");
-        }
         listener.stopProcessorThreads();
     }
 }
