@@ -21,7 +21,6 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -127,13 +126,13 @@ public class CommandLineCommandTest {
 
     @Test
     public void testEquals() {
-        assertFalse(commandLineCommand.equals(new Object()));
-        assertTrue(commandLineCommand.equals(commandLineCommand));
-        assertFalse(commandLineCommand.equals(null));
+        assertNotEquals(commandLineCommand, new Object());
+        assertEquals(commandLineCommand, commandLineCommand);
+        assertNotEquals(commandLineCommand, null);
 
         CommandLineCommand otherCommand = new CommandLineCommand();
-        assertTrue(commandLineCommand.equals(otherCommand));
+        assertEquals(commandLineCommand, otherCommand);
         otherCommand.getKeywordlist().add("TestKeyword");
-        assertFalse(commandLineCommand.equals(otherCommand));
+        assertNotEquals(commandLineCommand, otherCommand);
     }
 }

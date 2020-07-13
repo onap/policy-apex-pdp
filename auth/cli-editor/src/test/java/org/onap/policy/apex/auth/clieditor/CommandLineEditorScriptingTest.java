@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,9 +106,9 @@ public class CommandLineEditorScriptingTest {
         compareModel.getKeyInformation().getKeyInfoMap().clear();
         compareNoAlbumsModel.getKeyInformation().getKeyInfoMap().clear();
 
-        assertTrue(writtenModel.equals(compareModel));
-        assertTrue(writtenModel.equals(compareNoAlbumsModel));
-        assertTrue(compareModel.equals(compareNoAlbumsModel));
+        assertEquals(writtenModel, compareModel);
+        assertEquals(writtenModel, compareNoAlbumsModel);
+        assertEquals(compareModel, compareNoAlbumsModel);
     }
 
     /**
