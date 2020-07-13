@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b1348ec_7ac6fc83",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T12:45:50Z",
+      "side": 0,
+      "message": "Same thing here regarding exceptions expected not being thrown.",
+      "parentUuid": "80e42013_a6059f30",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56d547f2_368b22a7",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
         "patchSetId": 2
@@ -88,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "99457fa4_27f008b7",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T12:45:50Z",
+      "side": 0,
+      "message": "Same thing here regarding exceptions expected not being thrown.",
+      "parentUuid": "e40de39e_c561a2b7",
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2def9406_ec1159d3",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
         "patchSetId": 2
@@ -122,6 +164,30 @@
       "writtenOn": "2020-07-10T12:24:57Z",
       "side": 0,
       "message": "I think we should get an exception here. We should definitely check the case where the input fields are not there.",
+      "range": {
+        "startLine": 131,
+        "startChar": 1,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b136f7e6_4105805c",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/TaskSelectExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-13T12:45:50Z",
+      "side": 0,
+      "message": "I think it\u0027s a similar issue here whereby it doesn\u0027t throw the exception you\u0027d expect it throw.",
+      "parentUuid": "e40a0e6c_29441008",
       "range": {
         "startLine": 131,
         "startChar": 1,
