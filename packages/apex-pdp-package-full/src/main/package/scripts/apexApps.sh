@@ -49,12 +49,10 @@ fi
 
 ## Environment variables for HTTPS
 KEYSTORE="${APEX_HOME}/etc/ssl/policy-keystore"
-KEYSTORE_PASSWD="Pol1cy_0nap"
 TRUSTSTORE="${APEX_HOME}/etc/ssl/policy-truststore"
-TRUSTSTORE_PASSWD="Pol1cy_0nap"
 
 ## HTTPS parameters
-HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWD} -Djavax.net.ssl.trustStore=${TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWD}"
+HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWD:-Pol1cy_0nap} -Djavax.net.ssl.trustStore=$TRUSTSTORE -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWD:-Pol1cy_0nap}"
 
 ## script name for output
 MOD_SCRIPT_NAME=`basename $0`
@@ -71,7 +69,7 @@ fi
 _config="${HTTPS_PARAMETERS} -Dlogback.configurationFile=$APEX_HOME/etc/logback.xml -Dhazelcast.config=$APEX_HOME/etc/hazelcast.xml -Dhazelcast.mancenter.enabled=false"
 
 ## jmx test config
-_jmxconfig="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9911 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+_jmxconfig="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9911 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false "
 
 ## Maven/APEX version
 _version=`cat $APEX_HOME/etc/app-version.txt`
