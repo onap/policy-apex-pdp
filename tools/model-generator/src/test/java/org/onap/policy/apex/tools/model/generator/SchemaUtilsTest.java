@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.tools.model.generator;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -77,40 +77,30 @@ public class SchemaUtilsTest {
     @Test
     public void testSchemaUtilsErrors() throws ApexEventException {
         AxEvent event = avroModel.getEvents().get("CustomerContextEventIn");
-        AxContextSchema avroCtxtSchema = avroModel.getSchemas().get("ctxtTopologyNodesDecl");
 
-        AxArtifactKey topoNodesKey = new AxArtifactKey("albumTopoNodes", "0.0.1");
-        try {
-            SchemaUtils.getEventSchema(event);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
-                    + " not found in model service", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> SchemaUtils.getEventSchema(event))
+            .hasMessage("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
+                + " not found in model service");
 
-        try {
+        assertThatThrownBy(() -> {
             Map<String, Schema> preexistingParamSchemas = new LinkedHashMap<>();
             SchemaUtils.getEventParameterSchema(event.getParameterMap().get("links"), preexistingParamSchemas);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
-                    + " not found in model service", apEx.getMessage());
-        }
+        }).hasMessage("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
+                + " not found in model service");
 
         List<Field> skeletonFields = SchemaUtils.getSkeletonEventSchemaFields();
         assertEquals(5, skeletonFields.size());
 
-        try {
+        AxContextSchema avroCtxtSchema = avroModel.getSchemas().get("ctxtTopologyNodesDecl");
+        AxArtifactKey topoNodesKey = new AxArtifactKey("albumTopoNodes", "0.0.1");
+        assertThatThrownBy(() -> {
             AvroSchemaHelper schemaHelper = (AvroSchemaHelper) new SchemaHelperFactory()
                     .createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
 
             Map<String, Schema> schemaMap = new LinkedHashMap<>();
             SchemaUtils.processSubSchemas(schemaHelper.getAvroSchema(), schemaMap);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
-                    + " not found in model service", apEx.getMessage());
-        }
+        }).hasMessage("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas"
+                + " not found in model service");
     }
 
     @Test
@@ -124,8 +114,6 @@ public class SchemaUtilsTest {
         ModelService.registerModel(AxContextSchemas.class, avroModel.getSchemas());
 
         AxEvent event = avroModel.getEvents().get("CustomerContextEventIn");
-        AxContextSchema avroCtxtSchema = avroModel.getSchemas().get("ctxtTopologyNodesDecl");
-        AxArtifactKey topoNodesKey = new AxArtifactKey("albumTopoNodes", "0.0.1");
 
         Schema eventSchema = SchemaUtils.getEventSchema(event);
         assertEquals("{\"type\":\"record\",\"name\":\"CustomerContextEventIn\"",
@@ -136,19 +124,18 @@ public class SchemaUtilsTest {
                 SchemaUtils.getEventParameterSchema(event.getParameterMap().get("links"), preexistingParamSchemas);
         assertEquals("\"string\"", epSchema.toString());
 
+        AxContextSchema avroCtxtSchema = avroModel.getSchemas().get("ctxtTopologyNodesDecl");
+        AxArtifactKey topoNodesKey = new AxArtifactKey("albumTopoNodes", "0.0.1");
         List<Field> skeletonFields = SchemaUtils.getSkeletonEventSchemaFields();
         assertEquals(5, skeletonFields.size());
 
-        try {
+        assertThatThrownBy(() -> {
             AvroSchemaHelper schemaHelper = (AvroSchemaHelper) new SchemaHelperFactory()
                     .createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
 
             Map<String, Schema> schemaMap = new LinkedHashMap<>();
             SchemaUtils.processSubSchemas(schemaHelper.getAvroSchema(), schemaMap);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("context schema helper parameters not found for context schema  \"Avro\"", apEx.getMessage());
-        }
+        }).hasMessage("context schema helper parameters not found for context schema  \"Avro\"");
 
         schemaParameters.getSchemaHelperParameterMap().put("Avro", new AvroSchemaHelperParameters());
 
@@ -156,11 +143,7 @@ public class SchemaUtilsTest {
                 (AvroSchemaHelper) new SchemaHelperFactory().createSchemaHelper(topoNodesKey, avroCtxtSchema.getKey());
 
         Map<String, Schema> schemaMap = new LinkedHashMap<>();
-        try {
-            SchemaUtils.processSubSchemas(schemaHelper.getAvroSchema(), schemaMap);
-        } catch (Exception exc) {
-            fail("test should not throw an exception");
-        }
+        SchemaUtils.processSubSchemas(schemaHelper.getAvroSchema(), schemaMap);
 
         eventSchema = SchemaUtils.getEventSchema(event);
         assertEquals("{\"type\":\"record\",\"name\":\"CustomerContextEventIn\"",
@@ -179,12 +162,8 @@ public class SchemaUtilsTest {
         assertEquals(5, skeletonFields.size());
 
         schemaParameters.getSchemaHelperParameterMap().put("Avro", new JavaSchemaHelperParameters());
-        try {
-            ep2Schema = SchemaUtils.getEventParameterSchema(inField, preexistingParamSchemas);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("FieldParent:0.0.1:NULL:Field: class/type", apEx.getMessage().substring(0, 40));
-        }
+        assertThatThrownBy(() -> SchemaUtils.getEventParameterSchema(inField, preexistingParamSchemas))
+            .hasMessageContaining("FieldParent:0.0.1:NULL:Field: class/type");
 
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ModelService.clear();

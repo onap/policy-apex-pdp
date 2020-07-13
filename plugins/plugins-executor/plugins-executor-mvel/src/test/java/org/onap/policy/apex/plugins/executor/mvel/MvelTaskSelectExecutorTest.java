@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.executor.mvel;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.Properties;
 import org.junit.After;
@@ -35,6 +36,7 @@ import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
+import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -67,76 +69,37 @@ public class MvelTaskSelectExecutorTest {
     }
 
     @Test
-    public void testJavaTaskSelectExecutor() {
+    public void testJavaTaskSelectExecutor() throws StateMachineException, ContextException {
         MvelTaskSelectExecutor mtse = new MvelTaskSelectExecutor();
         assertNotNull(mtse);
 
-        try {
-            mtse.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception mtseException) {
-            assertEquals(java.lang.NullPointerException.class, mtseException.getClass());
-        }
-
+        assertThatThrownBy(mtse::prepare)
+            .isInstanceOf(java.lang.NullPointerException.class);
         AxState state = new AxState();
         ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+        internalContext = new ApexInternalContext(new AxPolicyModel());
         mtse.setContext(null, state, internalContext);
 
         state.getTaskSelectionLogic().setLogic("x > 1 2 ()");
-        try {
-            mtse.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception mtseException) {
-            assertEquals("failed to compile MVEL code for state NULL:0.0.0:NULL:NULL", mtseException.getMessage());
-        }
-
+        assertThatThrownBy(mtse::prepare)
+            .hasMessage("failed to compile MVEL code for state NULL:0.0.0:NULL:NULL");
         state.getTaskSelectionLogic().setLogic("java.lang.String");
 
-        try {
-            mtse.prepare();
-        } catch (Exception mtseException) {
-            fail("test should not throw an exception here");
-        }
+        mtse.prepare();
 
-        try {
-            mtse.execute(-1, new Properties(), null);
-            fail("test should throw an exception here");
-        } catch (Exception mtseException) {
-            assertEquals(java.lang.NullPointerException.class, mtseException.getClass());
-        }
-
+        assertThatThrownBy(() -> mtse.execute(-1, new Properties(), null))
+            .isInstanceOf(java.lang.NullPointerException.class);
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
-        try {
-            mtse.execute(-1, new Properties(), event);
-            fail("test should throw an exception here");
-        } catch (Exception mtseException) {
-            assertEquals("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL",
-                    mtseException.getMessage());
-        }
-
+        assertThatThrownBy(() -> mtse.execute(-1, new Properties(), event))
+            .hasMessage("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL");
         state.getTaskSelectionLogic().setLogic("executionId != -1");
-        try {
-            mtse.prepare();
-            mtse.execute(-1, new Properties(), event);
-            fail("test should throw an exception here");
-        } catch (Exception mtseException) {
-            assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
-                    mtseException.getMessage());
-        }
-
-        try {
-            mtse.prepare();
-            AxArtifactKey taskKey = mtse.execute(0, new Properties(), event);
-            assertEquals("NULL:0.0.0", taskKey.getId());
-            mtse.cleanUp();
-        } catch (Exception mtseException) {
-            fail("test should not throw an exception here");
-        }
+        mtse.prepare();
+        assertThatThrownBy(() -> mtse.execute(-1, new Properties(), event))
+            .hasMessageContaining("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
+        mtse.prepare();
+        AxArtifactKey taskKey = mtse.execute(0, new Properties(), event);
+        assertEquals("NULL:0.0.0", taskKey.getId());
+        mtse.cleanUp();
     }
 }

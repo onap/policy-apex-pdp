@@ -22,7 +22,6 @@
 package org.onap.policy.apex.tools.model.generator.model2cli;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,13 +35,9 @@ import org.junit.Test;
 public class Model2CliTest {
     @Test
     public void testModel2Cli() {
-        try {
-            final String[] cliArgs = {"-h"};
+        final String[] cliArgs = {"-h"};
 
-            Model2CliMain.main(cliArgs);
-        } catch (Exception exc) {
-            fail("test should not throw an exception");
-        }
+        Model2CliMain.main(cliArgs);
     }
 
     @Test
@@ -104,27 +99,27 @@ public class Model2CliTest {
     }
 
     @Test
-    public void testModel2CliAnomaly() {
+    public void testModel2CliAnomaly() throws IOException {
         testModel2CliModel("target/examples/models/Adaptive", "AnomalyDetectionPolicyModel");
     }
 
     @Test
-    public void testModel2CliAutoLearn() {
+    public void testModel2CliAutoLearn() throws IOException {
         testModel2CliModel("target/examples/models/Adaptive", "AutoLearnPolicyModel");
     }
 
     @Test
-    public void testModel2CliJms() {
+    public void testModel2CliJms() throws IOException {
         testModel2CliModel("target/examples/models/JMS", "JMSTestModel");
     }
 
     @Test
-    public void testModel2CliMfp() {
+    public void testModel2CliMfp() throws IOException {
         testModel2CliModel("target/examples/models/MyFirstPolicy/2", "MyFirstPolicyModel_0.0.1");
     }
 
     @Test
-    public void testModel2CliSample() {
+    public void testModel2CliSample() throws IOException {
         testModel2CliModel("target/examples/models/SampleDomain", "SamplePolicyModelJAVASCRIPT");
     }
 
@@ -151,26 +146,23 @@ public class Model2CliTest {
      *
      * @param modelName the name of the model file
      */
-    private void testModel2CliModel(final String modelPath, final String modelName) {
-        try {
-            File tempFile = File.createTempFile(modelName, ".apex");
-            tempFile.deleteOnExit();
+    private void testModel2CliModel(final String modelPath, final String modelName) throws IOException {
+        File tempFile = File.createTempFile(modelName, ".apex");
+        tempFile.deleteOnExit();
 
-            // @formatter:off
-            final String[] cliArgs = {
-                "-m",
-                modelPath + "/" + modelName + ".json",
-                "-o",
-                tempFile.getCanonicalPath(),
-                "-ow"
-            };
-            // @formatter:on
-            runModel2Cli(cliArgs);
+        // @formatter:off
+        final String[] cliArgs = {
+            "-m",
+            modelPath + "/" + modelName + ".json",
+            "-o",
+            tempFile.getCanonicalPath(),
+            "-ow"
+        };
+        // @formatter:on
+        runModel2Cli(cliArgs);
 
-            assertTrue(tempFile.isFile());
-            assertTrue(tempFile.length() > 0);
-        } catch (Exception e) {
-            fail("test should not throw an exception");
-        }
+        assertTrue(tempFile.isFile());
+        assertTrue(tempFile.length() > 0);
+
     }
 }

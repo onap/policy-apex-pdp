@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.service.engine.parameters;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -43,14 +44,10 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextNoParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from \"src/test/resources/parameters/serviceContextNoParams.json\"\n"
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from \"src/test/resources/parameters/serviceContextNoParams.json\"\n"
                     + "(ParameterRuntimeException):could not find field \"parameterClassName\" in "
-                    + "\"contextParameters\" entry", e.getMessage());
-        }
+                    + "\"contextParameters\" entry");
     }
 
     @Test
@@ -58,15 +55,11 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from \"src/test/resources/parameters/serviceContextBadParams.json\""
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from \"src/test/resources/parameters/serviceContextBadParams.json\""
                     + "\n(ParameterRuntimeException):failed to deserialize the parameters for "
                     + "\"contextParameters\" to parameter class "
-                    + "\"hello\"\njava.lang.ClassNotFoundException: hello", e.getMessage());
-        }
+                    + "\"hello\"\njava.lang.ClassNotFoundException: hello");
     }
 
     @Test
@@ -74,15 +67,11 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadPluginNameParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceContextBadPluginNameParams.json\"\n"
-                    + "(ParameterRuntimeException):could not find field \"parameterClassName\" in "
-                    + "\"contextParameters\" entry", e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadPluginNameParams.json\"\n"
+                + "(ParameterRuntimeException):could not find field \"parameterClassName\" in "
+                + "\"contextParameters\" entry");
     }
 
     @Test
@@ -90,19 +79,13 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals(
-                    "error reading parameters from "
-                            + "\"src/test/resources/parameters/serviceContextBadClassParams.json\""
-                            + "\n(ParameterRuntimeException):failed to deserialize "
-                            + "the parameters for \"contextParameters\""
-                            + " to parameter class \"java.lang.Integer\"\ncom.google.gson.JsonSyntaxException: "
-                            + "java.lang.IllegalStateException: Expected NUMBER but was BEGIN_OBJECT at path $",
-                    e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadClassParams.json\""
+                + "\n(ParameterRuntimeException):failed to deserialize "
+                + "the parameters for \"contextParameters\""
+                + " to parameter class \"java.lang.Integer\"\ncom.google.gson.JsonSyntaxException: "
+                + "java.lang.IllegalStateException: Expected NUMBER but was BEGIN_OBJECT at path $");
     }
 
     @Test
@@ -110,126 +93,106 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadPluginClassParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceContextBadPluginClassParams.json\""
-                    + "\n(ClassCastException):class org.onap.policy.apex.service.engine.parameters."
-                    + "dummyclasses.SuperDooperExecutorParameters"
-                    + " cannot be cast to class org.onap.policy.apex.context.parameters.ContextParameters "
-                    + "(org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters and "
-                    + "org.onap.policy.apex.context.parameters.ContextParameters are "
-                    + "in unnamed module of loader 'app')", e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadPluginClassParams.json\""
+                + "\n(ClassCastException):class org.onap.policy.apex.service.engine.parameters."
+                + "dummyclasses.SuperDooperExecutorParameters"
+                + " cannot be cast to class org.onap.policy.apex.context.parameters.ContextParameters "
+                + "(org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters and "
+                + "org.onap.policy.apex.context.parameters.ContextParameters are "
+                + "in unnamed module of loader 'app')");
     }
 
     @Test
-    public void testOkFlushParamTest() {
+    public void testOkFlushParamTest() throws ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKFlushParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
-                    .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
-            assertEquals(123456, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                    .getPersistorParameters().getFlushPeriod());
-        } catch (final ParameterException e) {
-            fail("This test should not throw any exception: " + e.getMessage());
-        }
+        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
+               .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
+        assertEquals(123456, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+               .getPersistorParameters().getFlushPeriod());
+
     }
 
     @Test
-    public void testOkDefaultParamTest() {
+    public void testOkDefaultParamTest() throws ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKDefaultParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
-                    .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
-            assertEquals(300000, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                    .getPersistorParameters().getFlushPeriod());
-        } catch (final ParameterException e) {
-            fail("This test should not throw any exception: " + e.getMessage());
-        }
+        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
+                .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
+        assertEquals(300000, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                .getPersistorParameters().getFlushPeriod());
+
     }
 
     @Test
-    public void testOkDistParamTest() {
+    public void testOkDistParamTest() throws ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKDistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
-                    .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
-            assertEquals("org.onap.policy.apex.context.parameters.DistributorParameters",
-                    parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                            .getDistributorParameters().getClass().getName());
-        } catch (final ParameterException e) {
-            fail("This test should not throw any exception: " + e.getMessage());
-        }
+        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
+                .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
+        assertEquals("org.onap.policy.apex.context.parameters.DistributorParameters",
+                parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getDistributorParameters().getClass().getName());
+
     }
 
     @Test
-    public void testOkFullDefaultParamTest() {
+    public void testOkFullDefaultParamTest() throws ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
-                    .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
-            assertEquals("org.onap.policy.apex.context.parameters.DistributorParameters",
-                    parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                            .getDistributorParameters().getClass().getName());
-            assertEquals("org.onap.policy.apex.context.parameters.LockManagerParameters",
-                    parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                            .getLockManagerParameters().getClass().getName());
-            assertEquals("org.onap.policy.apex.context.parameters.PersistorParameters",
-                    parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                            .getPersistorParameters().getClass().getName());
-            assertEquals(300000, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                    .getPersistorParameters().getFlushPeriod());
-        } catch (final ParameterException e) {
-            fail("This test should not throw any exception: " + e.getMessage());
-        }
+        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
+                .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
+        assertEquals("org.onap.policy.apex.context.parameters.DistributorParameters",
+                parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getDistributorParameters().getClass().getName());
+        assertEquals("org.onap.policy.apex.context.parameters.LockManagerParameters",
+                parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getLockManagerParameters().getClass().getName());
+        assertEquals("org.onap.policy.apex.context.parameters.PersistorParameters",
+                parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getPersistorParameters().getClass().getName());
+        assertEquals(300000, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                .getPersistorParameters().getFlushPeriod());
+
     }
 
     @Test
-    public void testOkFullParamTest() {
+    public void testOkFullParamTest() throws ParameterException {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKFullParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-            assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
-                    .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
-            assertEquals("org.onap.policy.apex.context.parameters.LockManagerParameters",
-                    parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                            .getLockManagerParameters().getClass().getName());
-            assertEquals("org.onap.policy.apex.context.parameters.PersistorParameters",
-                    parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                            .getPersistorParameters().getClass().getName());
-            assertEquals(123456, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                    .getPersistorParameters().getFlushPeriod());
+        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+        assertEquals("org.onap.policy.apex.context.parameters.ContextParameters", parameters
+                .getEngineServiceParameters().getEngineParameters().getContextParameters().getClass().getName());
+        assertEquals("org.onap.policy.apex.context.parameters.LockManagerParameters",
+                parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getLockManagerParameters().getClass().getName());
+        assertEquals("org.onap.policy.apex.context.parameters.PersistorParameters",
+                parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                        .getPersistorParameters().getClass().getName());
+        assertEquals(123456, parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
+                .getPersistorParameters().getFlushPeriod());
 
-            final SuperDooperDistributorParameters infinispanParameters =
-                    (SuperDooperDistributorParameters) parameters.getEngineServiceParameters().getEngineParameters()
-                            .getContextParameters().getDistributorParameters();
-            assertEquals("org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperDistributorParameters",
-                    infinispanParameters.getClass().getName());
-            assertEquals("my/lovely/configFile.xml", infinispanParameters.getConfigFile());
-            assertEquals("holy/stone.xml", infinispanParameters.getJgroupsFile());
-            assertEquals(false, infinispanParameters.isPreferIPv4Stack());
-            assertEquals("fatherted", infinispanParameters.getJgroupsBindAddress());
+        final SuperDooperDistributorParameters infinispanParameters =
+                (SuperDooperDistributorParameters) parameters.getEngineServiceParameters().getEngineParameters()
+                        .getContextParameters().getDistributorParameters();
+        assertEquals("org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperDistributorParameters",
+                infinispanParameters.getClass().getName());
+        assertEquals("my/lovely/configFile.xml", infinispanParameters.getConfigFile());
+        assertEquals("holy/stone.xml", infinispanParameters.getJgroupsFile());
+        assertEquals(false, infinispanParameters.isPreferIPv4Stack());
+        assertEquals("fatherted", infinispanParameters.getJgroupsBindAddress());
 
-        } catch (final ParameterException e) {
-            fail("This test should not throw any exception: " + e.getMessage());
-        }
     }
 
     @Test
@@ -237,18 +200,14 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassDistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceContextBadClassDistParams.json\"\n"
-                    + "(ClassCastException):class "
-                    + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to class"
-                    + " org.onap.policy.apex.context.parameters.DistributorParameters (org.onap.policy.apex.context."
-                    + "parameters.ContextParameters and org.onap.policy.apex.context.parameters.DistributorParameters "
-                    + "are in unnamed module of loader 'app')", e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadClassDistParams.json\"\n"
+                + "(ClassCastException):class "
+                + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to class"
+                + " org.onap.policy.apex.context.parameters.DistributorParameters (org.onap.policy.apex.context."
+                + "parameters.ContextParameters and org.onap.policy.apex.context.parameters.DistributorParameters "
+                + "are in unnamed module of loader 'app')");
     }
 
     @Test
@@ -256,18 +215,14 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassLockParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceContextBadClassLockParams.json\"\n"
-                    + "(ClassCastException):class "
-                    + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to class "
-                    + "org.onap.policy.apex.context.parameters.LockManagerParameters (org.onap.policy.apex.context."
-                    + "parameters.ContextParameters and org.onap.policy.apex.context.parameters.LockManagerParameters "
-                    + "are in unnamed module of loader 'app')", e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadClassLockParams.json\"\n"
+                + "(ClassCastException):class "
+                + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to class "
+                + "org.onap.policy.apex.context.parameters.LockManagerParameters (org.onap.policy.apex.context."
+                + "parameters.ContextParameters and org.onap.policy.apex.context.parameters.LockManagerParameters "
+                + "are in unnamed module of loader 'app')");
     }
 
     @Test
@@ -275,17 +230,13 @@ public class ContextParameterTests {
         final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassPersistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        try {
-            new ApexParameterHandler().getParameters(arguments);
-            fail("This test should throw an exception");
-        } catch (final ParameterException e) {
-            assertEquals("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceContextBadClassPersistParams.json\"\n"
-                    + "(ClassCastException):class "
-                    + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to class "
-                    + "org.onap.policy.apex.context.parameters.PersistorParameters (org.onap.policy.apex.context."
-                    + "parameters.ContextParameters and org.onap.policy.apex.context.parameters.PersistorParameters "
-                    + "are in unnamed module of loader 'app')", e.getMessage());
-        }
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessage("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadClassPersistParams.json\"\n"
+                + "(ClassCastException):class "
+                + "org.onap.policy.apex.context.parameters.ContextParameters cannot be cast to class "
+                + "org.onap.policy.apex.context.parameters.PersistorParameters (org.onap.policy.apex.context."
+                + "parameters.ContextParameters and org.onap.policy.apex.context.parameters.PersistorParameters "
+                + "are in unnamed module of loader 'app')");
     }
 }
