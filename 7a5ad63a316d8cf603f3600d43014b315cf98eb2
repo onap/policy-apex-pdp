@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ad0cd84_59effdc8",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-13T17:53:35Z",
+      "side": 1,
+      "message": "did we verify that sonar is happy if this line is left inside of the assertThat() ?",
+      "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
