@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cb56368_127f455e",
+        "filename": "model/engine-model/src/test/java/org/onap/policy/apex/model/enginemodel/concepts/EngineModelTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-14T12:47:40Z",
+      "side": 1,
+      "message": "swap the arguments.\nMaybe assertNotEquals doesn\u0027t show the sonar violation on the expected, actual order I guess. But good to keep everywhere as \u003cexpected,actual\u003e",
+      "range": {
+        "startLine": 114,
+        "startChar": 7,
+        "endLine": 114,
+        "endChar": 44
+      },
+      "revId": "8157ce0e367e60e3ac6303665d6809af25512ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c03d2ea_e72c8c25",
+        "filename": "model/engine-model/src/test/java/org/onap/policy/apex/model/enginemodel/concepts/EngineStatsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-14T12:47:40Z",
+      "side": 1,
+      "message": "same comment.",
+      "range": {
+        "startLine": 139,
+        "startChar": 9,
+        "endLine": 139,
+        "endChar": 43
+      },
+      "revId": "8157ce0e367e60e3ac6303665d6809af25512ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f848d6d_4e4773e2",
+        "filename": "model/event-model/src/test/java/org/onap/policy/apex/model/eventmodel/concepts/EventModelTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-14T12:47:40Z",
+      "side": 1,
+      "message": "same comment.",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "8157ce0e367e60e3ac6303665d6809af25512ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5558fbc3_cd124b7e",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/StateOutputTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-14T12:47:40Z",
+      "side": 1,
+      "message": "update license.",
+      "range": {
+        "startLine": 4,
+        "startChar": 31,
+        "endLine": 4,
+        "endChar": 37
+      },
+      "revId": "8157ce0e367e60e3ac6303665d6809af25512ecb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
