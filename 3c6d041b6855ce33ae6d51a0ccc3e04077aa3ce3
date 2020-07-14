@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "01e20c46_104b5705",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/PoliciesTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "Yes, this passed Sonar analysis.",
+      "parentUuid": "a6bee591_ee35e4e8",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45fde625_6e282e3c",
         "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyLogicReaderTest.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd70afc2_643dff12",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyLogicReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "45fde625_6e282e3c",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c69d7368_aa3e1d19",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelSplitterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a98ce232_8b428569",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec9ba513_b057ec0e",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaRecordTest.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2020-07-10T13:55:38Z",
       "side": 1,
       "message": "is the assignment necessary?  If so, I don\u0027t think the variable name passes checkstyle (though maybe that restriction was been loosened?)",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d6872d6_724b7087",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaRecordTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "Passes checkstyle but - yes, this assignment is not needed. I should have seen this.",
+      "parentUuid": "ec9ba513_b057ec0e",
       "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fabab8fa_2d30e4e7",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "Same comment here as with ApexRestClientProducerTest.",
+      "parentUuid": "816f6e79_361f4207",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2a06a0b_e8fe16de",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2020-07-10T13:55:38Z",
       "side": 1,
       "message": "move line 75 after line 77",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d20f3e3_62ecca89",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "This assertEquals(..) on the GET method is throwing an error. DELETE is being returned from the rcctp.getHttpMethod() when it is expecting GET to be returned. Same in other file.",
+      "parentUuid": "e2a06a0b_e8fe16de",
       "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -147,6 +255,30 @@
       "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cad0fa71_5cb5ec87",
+        "filename": "plugins/plugins-executor/plugins-executor-java/src/test/java/org/onap/policy/apex/plugins/executor/java/JavaStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-14T08:54:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "55cc8086_a1d12967",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 54
+      },
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
