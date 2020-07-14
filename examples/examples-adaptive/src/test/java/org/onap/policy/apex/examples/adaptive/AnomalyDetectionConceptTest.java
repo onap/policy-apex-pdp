@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (c) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.examples.adaptive;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
@@ -65,40 +67,40 @@ public class AnomalyDetectionConceptTest {
     public void testEquals() {
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         AnomalyDetection comparisonDetection = new AnomalyDetection();
-        assertTrue(anomalyDetection.equals(comparisonDetection));
+        assertEquals(anomalyDetection, comparisonDetection);
         //Compare object to itself
-        assertTrue(anomalyDetection.equals(anomalyDetection));
+        assertEquals(anomalyDetection, anomalyDetection);
         //Compare object to null
-        assertFalse(anomalyDetection.equals(null));
+        assertNotNull(anomalyDetection);
         //compare object to string
-        assertFalse(anomalyDetection.equals("test"));
+        assertNotEquals(anomalyDetection, "test");
         // Anomaly Scores comparison
         anomalyDetection.setAnomalyScores(null);
-        assertFalse(anomalyDetection.equals(comparisonDetection));
+        assertNotEquals(anomalyDetection, comparisonDetection);
         comparisonDetection.setAnomalyScores(null);
-        assertTrue(anomalyDetection.equals(comparisonDetection));
+        assertEquals(anomalyDetection, comparisonDetection);
         List<Double> anomalyScores = new LinkedList<>();
         anomalyScores.add((double) 20);
         anomalyDetection.setAnomalyScores(anomalyScores);
-        assertFalse(anomalyDetection.equals(comparisonDetection));
+        assertNotEquals(anomalyDetection, comparisonDetection);
         comparisonDetection.setAnomalyScores(anomalyScores);
         assertTrue(anomalyDetection.checkSetAnomalyScores());
         //First Round Checks
         anomalyDetection.setFirstRound(false);
-        assertFalse(anomalyDetection.equals(comparisonDetection));
+        assertNotEquals(anomalyDetection, comparisonDetection);
         anomalyDetection.setFirstRound(true);
         //Frequency Checks
         anomalyDetection.setFrequency(55);
-        assertFalse(anomalyDetection.equals(comparisonDetection));
+        assertNotEquals(anomalyDetection, comparisonDetection);
         anomalyDetection.setFrequency(0);
         //FrequencyForecasted Checks
         List<Double> comparisonFrequency = new LinkedList<>();
         comparisonDetection.setFrequencyForecasted(comparisonFrequency);
-        assertFalse(anomalyDetection.equals(comparisonDetection));
+        assertNotEquals(anomalyDetection, comparisonDetection);
         anomalyDetection.setFrequencyForecasted(anomalyScores);
-        assertFalse(anomalyDetection.equals(comparisonDetection));
+        assertNotEquals(anomalyDetection, comparisonDetection);
         anomalyDetection.setFrequencyForecasted(comparisonFrequency);
-        assertTrue(anomalyDetection.equals(comparisonDetection));
+        assertEquals(anomalyDetection, comparisonDetection);
     }
 
     @Test
