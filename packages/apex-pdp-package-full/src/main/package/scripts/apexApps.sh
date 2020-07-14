@@ -49,12 +49,10 @@ fi
 
 ## Environment variables for HTTPS
 KEYSTORE="${APEX_HOME}/etc/ssl/policy-keystore"
-KEYSTORE_PASSWD="Pol1cy_0nap"
 TRUSTSTORE="${APEX_HOME}/etc/ssl/policy-truststore"
-TRUSTSTORE_PASSWD="Pol1cy_0nap"
 
 ## HTTPS parameters
-HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWD} -Djavax.net.ssl.trustStore=${TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWD}"
+HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD:-Pol1cy_0nap} -Djavax.net.ssl.trustStore=$TRUSTSTORE -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWORD:-Pol1cy_0nap}"
 
 ## script name for output
 MOD_SCRIPT_NAME=`basename $0`

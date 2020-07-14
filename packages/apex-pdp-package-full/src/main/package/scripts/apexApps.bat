@@ -32,6 +32,12 @@
 @echo off
 setlocal enableDelayedExpansion
 
+if not defined KEYSTORE_PASSWORD (
+  set KEYSTORE_PASSWORD=Pol1cy_0nap
+)
+if not defined TRUSTSTORE_PASSWORD (
+  set TRUSTSTORE_PASSWORD=Pol1cy_0nap
+)
 
 if defined APEX_HOME (
     if exist "%APEX_HOME%\" (
@@ -58,7 +64,7 @@ set TRUSTSTORE=%APEX_HOME%/etc/ssl/policy-truststore"
 set TRUSTSTORE_PASSWD="Pol1cy_0nap"
 
 :: HTTPS parameters
-set HTTPS_PARAMETERS=-Djavax.net.ssl.keyStore=%KEYSTORE% -Djavax.net.ssl.keyStorePassword=%KEYSTORE_PASSWD% -Djavax.net.ssl.trustStore=%TRUSTSTORE% -Djavax.net.ssl.trustStorePassword=%TRUSTSTORE_PASSWD%
+set HTTPS_PARAMETERS=-Djavax.net.ssl.keyStore=%KEYSTORE% -Djavax.net.ssl.keyStorePassword=%KEYSTORE_PASSWORD% -Djavax.net.ssl.trustStore=%TRUSTSTORE% -Djavax.net.ssl.trustStorePassword=%TRUSTSTORE_PASSWORD%
 
 :: script name for output
 set MOD_SCRIPT_NAME=apexApps
