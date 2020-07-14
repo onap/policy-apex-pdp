@@ -34,6 +34,41 @@
       "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2251fa5_3c547e16",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T13:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a45e2f8a_d24ccf4d",
+      "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb57103d_55835c08",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T13:53:26Z",
+      "side": 1,
+      "message": "sonar: remove \"{\" and \"}\"",
+      "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
