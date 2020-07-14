@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81043272_cd73c05b",
+        "filename": "plugins/plugins-executor/plugins-executor-java/src/test/java/org/onap/policy/apex/plugins/executor/java/JavaTaskExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T15:11:54Z",
+      "side": 1,
+      "message": "hasMessage() ?\n\nsame question in several files",
+      "range": {
+        "startLine": 84,
+        "startChar": 13,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "6309513638c50c425fef56ad33401144ec55fe93",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca99a47c_141f42ea",
+        "filename": "plugins/plugins-executor/plugins-executor-jruby/src/test/java/org/onap/policy/apex/plugins/executor/jruby/JrubyStateFinalizerExecutorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T15:11:54Z",
+      "side": 1,
+      "message": "is sonar OK with these other methods appearing within the same lambda?\n\nsame comment in other files",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "6309513638c50c425fef56ad33401144ec55fe93",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f5af45_ef980497",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T15:11:54Z",
+      "side": 1,
+      "message": "never reached",
+      "revId": "6309513638c50c425fef56ad33401144ec55fe93",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "097e49cd_02d2372b",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/ParameterTests.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T15:11:54Z",
+      "side": 1,
+      "message": "maybe in the future we could dump these long text strings into flat files",
+      "revId": "6309513638c50c425fef56ad33401144ec55fe93",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
