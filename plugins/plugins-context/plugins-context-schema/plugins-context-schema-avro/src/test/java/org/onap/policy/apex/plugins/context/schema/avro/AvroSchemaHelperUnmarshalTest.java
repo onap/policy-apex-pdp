@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -189,7 +189,7 @@ public class AvroSchemaHelperUnmarshalTest {
             schemaHelper2.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
                             + "String to read from cannot be null!"));
         }
     }
@@ -242,14 +242,14 @@ public class AvroSchemaHelperUnmarshalTest {
             schemaHelper3.unmarshal("\"Hello\"");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
                             + "Expected long. Got VALUE_STRING"));
         }
         try {
             schemaHelper3.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
                             + "String to read from cannot be null!"));
         }
     }
@@ -288,14 +288,14 @@ public class AvroSchemaHelperUnmarshalTest {
             schemaHelper4.unmarshal("\"Hello\"");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
                             + "Expected float. Got VALUE_STRING"));
         }
         try {
             schemaHelper4.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
                             + "String to read from cannot be null!"));
         }
     }
@@ -334,14 +334,14 @@ public class AvroSchemaHelperUnmarshalTest {
             schemaHelper5.unmarshal("\"Hello\"");
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
                             + "Expected double. Got VALUE_STRING"));
         }
         try {
             schemaHelper5.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
                             + "String to read from cannot be null!"));
         }
     }
@@ -376,7 +376,7 @@ public class AvroSchemaHelperUnmarshalTest {
             schemaHelper7.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
                             + "String to read from cannot be null!"));
         }
     }
@@ -411,7 +411,7 @@ public class AvroSchemaHelperUnmarshalTest {
             schemaHelper.unmarshal(null);
             fail("Test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().equals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
+            assertEquals(e.getMessage(), ("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
                             + "String to read from cannot be null!"));
         }
     }

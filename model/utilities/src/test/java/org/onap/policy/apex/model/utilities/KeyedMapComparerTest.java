@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.utilities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.TreeMap;
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class KeyedMapComparerTest {
         KeyedMapDifference<String, String> kmComparedDiff =
                 new KeyedMapComparer<String, String>().compareMaps(leftMap, rightMap);
 
-        assertTrue(kmComparedSame.getIdenticalValues().equals(leftMap));
+        assertEquals(leftMap, kmComparedSame.getIdenticalValues());
         assertEquals(1, kmComparedDiff.getLeftOnly().size());
         assertEquals(3, kmComparedDiff.getRightOnly().size());
         assertEquals(2, kmComparedDiff.getDifferentValues().size());

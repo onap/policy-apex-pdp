@@ -166,7 +166,7 @@ public class ApexMainTest {
         apexMain.shutdown();
         final String outString = outContent.toString();
         assertTrue(outString.contains("I/O Parameters for id2:v2 has duplicates. So this policy is not executed"));
-        assertTrue(apexMain.getApexParametersMap().size() == 1); // only id1:v1 is kept in the map, id2:v2 failed
+        assertEquals(1, apexMain.getApexParametersMap().size()); // only id1:v1 is kept in the map, id2:v2 failed
     }
 
     @Test
