@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "1eaf8672_21c16d46",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-14T13:56:33Z",
+      "side": 1,
+      "message": "so then we can remove the \"assertEquals()\" wrapper and simply invoke getHttpMethod() - it should throw an exception, right?",
+      "parentUuid": "8d20f3e3_62ecca89",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebff3021_da6ec8dc",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
         "patchSetId": 1
