@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "68ac54a9_102551b3",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaRecordTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-15T13:33:17Z",
+      "side": 1,
+      "message": "no problem",
+      "parentUuid": "4d6872d6_724b7087",
+      "revId": "3c6d041b6855ce33ae6d51a0ccc3e04077aa3ce3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "816f6e79_361f4207",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConusmerTest.java",
         "patchSetId": 1
