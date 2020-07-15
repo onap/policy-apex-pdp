@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fbe4c0d7_9783ef0d",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "This test is ambiguous but you have made it unambiguous in the new version so that\u0027s fine.",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 78,
+        "endChar": 4
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80e42013_a6059f30",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
         "patchSetId": 2
@@ -37,6 +60,30 @@
       "side": 0,
       "message": "Same thing here regarding exceptions expected not being thrown.",
       "parentUuid": "80e42013_a6059f30",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b76fe91b_14a89d99",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "I need to check what should happen here.",
+      "parentUuid": "1b1348ec_7ac6fc83",
       "range": {
         "startLine": 86,
         "startChar": 7,
@@ -95,6 +142,76 @@
     },
     {
       "key": {
+        "uuid": "9a116bc6_79991c62",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "I need to check this one too.",
+      "parentUuid": "63089bb6_5ba3a81a",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1a6609e_c7cbaef4",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "Should remove this stack trace print.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 1
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409f4d39_0fb42c0b",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "And this one.",
+      "range": {
+        "startLine": 141,
+        "startChar": 1,
+        "endLine": 145,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e40de39e_c561a2b7",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
         "patchSetId": 2
@@ -130,6 +247,93 @@
     },
     {
       "key": {
+        "uuid": "fd967668_6b75a69b",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "I need to check this one.",
+      "parentUuid": "99457fa4_27f008b7",
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4985c579_983970be",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "And this one",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd6dec38_c33e9caa",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "And this",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 185,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9610bc7_b172bcb9",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "And here",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 197,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2def9406_ec1159d3",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
         "patchSetId": 2
@@ -145,6 +349,29 @@
         "startLine": 217,
         "startChar": 1,
         "endLine": 230,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5d727c8_270f03f3",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "And here",
+      "range": {
+        "startLine": 242,
+        "startChar": 8,
+        "endLine": 255,
         "endChar": 9
       },
       "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
@@ -188,6 +415,30 @@
       "side": 0,
       "message": "I think it\u0027s a similar issue here whereby it doesn\u0027t throw the exception you\u0027d expect it throw.",
       "parentUuid": "e40a0e6c_29441008",
+      "range": {
+        "startLine": 131,
+        "startChar": 1,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "871421fb99f7e6221b2c084e43a9388f618f882d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a70ed08_9d8ad7b9",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/TaskSelectExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T14:42:25Z",
+      "side": 0,
+      "message": "I need to check this one.",
+      "parentUuid": "b136f7e6_4105805c",
       "range": {
         "startLine": 131,
         "startChar": 1,
