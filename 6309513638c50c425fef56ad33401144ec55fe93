@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "26951f1b_7b0b8286",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T08:35:40Z",
+      "side": 1,
+      "message": "Yes, delete the assertTrue line, looks like a copy/paste thing.",
+      "parentUuid": "76f5af45_ef980497",
+      "revId": "6309513638c50c425fef56ad33401144ec55fe93",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "097e49cd_02d2372b",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/parameters/ParameterTests.java",
         "patchSetId": 1
