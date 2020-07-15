@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9de24078_8e63010b",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelperUnmarshalTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T08:57:05Z",
+      "side": 1,
+      "message": "This overlaps with Wayne\u0027s work so would you mind chatting with him. I Think we probably should let him do the changes in this file.",
+      "revId": "bc1cacd2208cc24aea36776188893d98a73ccf94",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
