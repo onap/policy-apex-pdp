@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba4aab64_b4da1fa9",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T08:52:15Z",
+      "side": 1,
+      "message": "hasMesage()",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36256213_296fa9c0",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T08:52:15Z",
+      "side": 1,
+      "message": "hasMessage()",
+      "range": {
+        "startLine": 106,
+        "startChar": 13,
+        "endLine": 106,
+        "endChar": 33
+      },
+      "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ac032a_f7016653",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxReferenceKeyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-15T08:52:15Z",
+      "side": 1,
+      "message": "Please change hasMessageContaining() ---\u003e hasMessage() where appropriate.",
+      "revId": "7a5ad63a316d8cf603f3600d43014b315cf98eb2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ad0cd84_59effdc8",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
         "patchSetId": 2
