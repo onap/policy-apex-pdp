@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dbe113b_08b0b5ba",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/BatchDeployer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-16T19:23:48Z",
+      "side": 1,
+      "message": "can this throw an exception?  if so, then sonar may complain\n\nsure you want to close, even if previous init() succeeded?",
+      "revId": "dfd1a7ad14a53f4389b730ec2af9c2e8dd072a2e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8c485e0_901f7f47",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-16T19:23:48Z",
+      "side": 1,
+      "message": "really want getters and setters on all fields?  should any be marked getter(access\u003dprotected) ?",
+      "revId": "dfd1a7ad14a53f4389b730ec2af9c2e8dd072a2e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

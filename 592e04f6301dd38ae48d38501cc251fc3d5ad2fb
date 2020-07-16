@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa7bf419_fa3a13d0",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/TaskSelectExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-16T19:23:48Z",
+      "side": 0,
+      "message": "no longer need to invoke it again?",
+      "revId": "592e04f6301dd38ae48d38501cc251fc3d5ad2fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
