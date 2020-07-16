@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +29,13 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class {@link BatchDeployer} deploys an Apex model held as an XML or Json file onto an Apex engine. It uses the
- * EngDep protocol to communicate with the engine, with the EngDep protocol being carried on Java web sockets.
+ * The Class {@link BatchDeployer} deploys an Apex model held as an XML or Json
+ * file onto an Apex engine. It uses the EngDep protocol to communicate with the
+ * engine, with the EngDep protocol being carried on Java web sockets.
  *
- * <p>This deployer is a simple command line deployer that reads the communication parameters and the location of the
- * Apex model file as arguments.
+ * <p>This deployer is a simple command line deployer that reads the
+ * communication parameters and the location of the Apex model file as
+ * arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -51,8 +54,8 @@ public class BatchDeployer {
     /**
      * Instantiates a new deployer.
      *
-     * @param hostName the apex host name
-     * @param port the apex EngDep port
+     * @param hostName     the apex host name
+     * @param port         the apex EngDep port
      * @param outputStream the output stream
      */
     public BatchDeployer(final String hostName, final int port, final PrintStream outputStream) {
@@ -63,7 +66,8 @@ public class BatchDeployer {
     }
 
     /**
-     * Initializes the deployer, opens an EngDep communication session with the Apex engine.
+     * Initializes the deployer, opens an EngDep communication session with the Apex
+     * engine.
      *
      * @throws ApexDeploymentException thrown on deployment and communication errors
      */
@@ -71,9 +75,9 @@ public class BatchDeployer {
         try {
             engineServiceFacade.init();
         } catch (final ApexException e) {
+            this.close();
             final String errorMessage = "model deployment failed on parameters " + hostName + " " + port;
-            LOGGER.error(errorMessage, e);
-            throw new ApexDeploymentException(errorMessage);
+            throw new ApexDeploymentException(errorMessage, e);
         }
     }
 
@@ -89,9 +93,12 @@ public class BatchDeployer {
     /**
      * Deploy an Apex model on the Apex server.
      *
-     * @param modelFileName the name of the model file containing the model to deploy
-     * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param modelFileName   the name of the model file containing the model to
+     *                        deploy
+     * @param ignoreConflicts true if conflicts between context in polices is to be
+     *                        ignored
+     * @param force           true if the model is to be applied even if it is
+     *                        incompatible with the existing model
      * @throws ApexException on Apex errors
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
@@ -102,9 +109,11 @@ public class BatchDeployer {
     /**
      * Deploy an Apex model on the Apex server.
      *
-     * @param policyModel the model to deploy
-     * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param policyModel     the model to deploy
+     * @param ignoreConflicts true if conflicts between context in polices is to be
+     *                        ignored
+     * @param force           true if the model is to be applied even if it is
+     *                        incompatible with the existing model
      * @throws ApexException on Apex errors
      */
     public void deployModel(final AxPolicyModel policyModel, final boolean ignoreConflicts, final boolean force)
@@ -113,7 +122,8 @@ public class BatchDeployer {
     }
 
     /**
-     * Get the engine service facade of the event manager. This method is used for testing only.
+     * Get the engine service facade of the event manager. This method is used for
+     * testing only.
      *
      * @return the engine service facade
      */
@@ -122,10 +132,11 @@ public class BatchDeployer {
     }
 
     /**
-     * The main method, reads the Apex server host address, port and location of the Apex model file from the command
-     * line arguments.
+     * The main method, reads the Apex server host address, port and location of the
+     * Apex model file from the command line arguments.
      *
-     * @param args the arguments that specify the Apex engine and the Apex model file
+     * @param args the arguments that specify the Apex engine and the Apex model
+     *             file
      * @throws ApexException on deployment errors
      */
     public static void main(final String[] args) throws ApexException {

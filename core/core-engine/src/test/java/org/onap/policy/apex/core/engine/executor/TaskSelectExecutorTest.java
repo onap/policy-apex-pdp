@@ -130,12 +130,6 @@ public class TaskSelectExecutorTest {
 
         try {
             executor.executePre(0, new Properties(), incomingEvent);
-        } catch (Exception ex) {
-            assertEquals("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"", ex.getMessage());
-        }
-
-        try {
-            executor.executePre(0, new Properties(), incomingEvent);
         } catch (Exception e) {
             fail("test should not throw an exception");
         }

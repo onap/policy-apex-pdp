@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.core.protocols.engdep.messages.EngineServiceInfoResponse;
 import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineInfo;
@@ -46,6 +48,8 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 /**
  * Dummy deployment client.
  */
+@Getter
+@Setter
 public class DummyDeploymentClient extends DeploymentClient implements Runnable {
     private static final AxArtifactKey MODEL_KEY = new AxArtifactKey("Model", "0.0.1");
     private static final AxArtifactKey ENGINE_KEY = new AxArtifactKey("Engine", "0.0.1");
@@ -130,14 +134,12 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
         infoResponse.setEngineServiceKey(ENGINE_SERVICE_KEY);
 
         receiveQueue.add(infoResponse);
-
-        initSuccessful = !initSuccessful;
     }
 
     /**
      * Handle and return the response to the engine status message.
      *
-     * @param message the incoming status message
+     * @param message     the incoming status message
      * @param successFlag true if the result should be successful
      * @return engine status success or not
      */
@@ -203,17 +205,8 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
     }
 
     /**
-     * Checks if the client thread is started.
-     *
-     * @return true, if the client thread is started
-     */
-    @Override
-    public boolean isStarted() {
-        return started;
-    }
-
-    /**
-     * Allows users of this class to get a reference to the receive queue to receove messages.
+     * Allows users of this class to get a reference to the receive queue to receove
+     * messages.
      *
      * @return the receive queue
      */
