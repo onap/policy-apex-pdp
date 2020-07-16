@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -39,8 +40,13 @@ public class EngineServiceFacadeTest {
 
         facade.setDeploymentClient(new DummyDeploymentClient("localhost", 51273));
 
-        // First init should fail
-        facade.init();
+        // First init should fail due to our dummy client
+        try {
+            facade.init();
+            fail("could not handshake with server localhost:51273");
+        } catch (final Exception ade) {
+            assertEquals("could not handshake with server localhost:51273", ade.getMessage());
+        }
 
         assertNull(facade.getKey());
         assertNull(facade.getApexModelKey());
@@ -50,7 +56,7 @@ public class EngineServiceFacadeTest {
             facade.deployModel("src/test/resources/models/SamplePolicyModelJAVASCRIPT.json", false, false);
             fail("test should throw an exception here");
         } catch (final Exception ade) {
-            assertEquals("cound not deploy apex model, deployer is not initialized", ade.getMessage());
+            assertEquals("could not deploy apex model, deployer is not initialized", ade.getMessage());
         }
 
         // Second init should work
@@ -64,8 +70,8 @@ public class EngineServiceFacadeTest {
             facade.deployModel("src/test/resources/models/NonExistantModel.json", false, false);
             fail("test should throw an exception here");
         } catch (final Exception ade) {
-            assertEquals("cound not create apex model, could not read from file "
-                            + "src/test/resources/models/NonExistantModel.json", ade.getMessage());
+            assertEquals("could not create apex model, could not read from file "
+                + "src/test/resources/models/NonExistantModel.json", ade.getMessage());
         }
 
         try {
@@ -97,7 +103,7 @@ public class EngineServiceFacadeTest {
             fail("test should throw an exception here");
         } catch (final Exception ade) {
             assertEquals("could not deploy apex model from src/test/resources/models/SmallModel.json",
-                            ade.getMessage());
+                ade.getMessage());
         }
 
         try {
@@ -189,8 +195,8 @@ public class EngineServiceFacadeTest {
             fail("test should throw an exception here");
         } catch (final Exception ade) {
             assertEquals("response received from server is of incorrect type "
-                            + "org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus, should be of type "
-                            + "org.onap.policy.apex.core.protocols.engdep.messages.Response", ade.getMessage());
+                + "org.onap.policy.apex.core.protocols.engdep.messages.GetEngineStatus, should be of type "
+                + "org.onap.policy.apex.core.protocols.engdep.messages.Response", ade.getMessage());
         }
 
         try {
@@ -198,7 +204,7 @@ public class EngineServiceFacadeTest {
             fail("test should throw an exception here");
         } catch (final Exception ade) {
             assertEquals("response received is not correct response to sent message GET_ENGINE_STATUS",
-                            ade.getMessage());
+                ade.getMessage());
         }
 
         try {

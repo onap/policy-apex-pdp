@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +38,7 @@ public class PeriodicEventManagerTest {
     @Test
     public void testPeroidicEventManagerBad() {
         try {
-            final String[] eventArgs =
-                { "-h" };
+            final String[] eventArgs = { "-h" };
 
             PeriodicEventManager.main(eventArgs);
             fail("test should throw an exception");
@@ -51,8 +50,7 @@ public class PeriodicEventManagerTest {
     @Test
     public void testPeroidicEventManagerOk() {
         try {
-            final String[] eventArgs =
-                { "Host", "43443", "start", "1000" };
+            final String[] eventArgs = { "Host", "43443", "start", "1000" };
 
             PeriodicEventManager.main(eventArgs);
             fail("test should throw an exception");
@@ -63,30 +61,27 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerNoOptions() {
-        final String[] eventArgs = new String[]
-            {};
+        final String[] eventArgs = new String[] {};
 
         final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
-        assertTrue(outputString.contains(
-                        "usage: PeriodicEventManager <server address> <port address> <start/stop> <periods in ms>"));
+        assertTrue(outputString
+            .contains("usage: PeriodicEventManager <server address> <port address> <start/stop> <periods in ms>"));
     }
 
     @Test
     public void testPeroidicEventManagerBadOptions() {
-        final String[] eventArgs =
-            { "-zabbu" };
+        final String[] eventArgs = { "-zabbu" };
 
         final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
-        assertTrue(outputString.contains(
-                        "usage: PeriodicEventManager <server address> <port address> <start/stop> <periods in ms>"));
+        assertTrue(outputString
+            .contains("usage: PeriodicEventManager <server address> <port address> <start/stop> <periods in ms>"));
     }
 
     @Test
     public void testPeroidicEventManagerNonNumeric3() {
-        final String[] eventArgs =
-            { "aaa", "bbb", "ccc", "ddd" };
+        final String[] eventArgs = { "aaa", "bbb", "ccc", "ddd" };
 
         final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
@@ -95,8 +90,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerNonNumeric2() {
-        final String[] eventArgs =
-            { "aaa", "12345", "start", "stop" };
+        final String[] eventArgs = { "aaa", "12345", "start", "stop" };
 
         final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
@@ -105,8 +99,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerNotStartStop() {
-        final String[] eventArgs =
-            { "aaa", "12345", "1000", "1000" };
+        final String[] eventArgs = { "aaa", "12345", "1000", "1000" };
 
         final String outputString = testPeriodicEventManagerConstructor(eventArgs);
 
@@ -115,8 +108,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerStart() {
-        final String[] eventArgs =
-            { "localhost", "12345", "start", "1000" };
+        final String[] eventArgs = { "localhost", "12345", "start", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
@@ -130,8 +122,9 @@ public class PeriodicEventManagerTest {
 
         try {
             peManager.init();
+            fail("test should throw an exception");
         } catch (ApexDeploymentException ade) {
-            assertEquals("model deployment failed on parameters localhost 12345 true", ade.getMessage());
+            assertEquals("periodic event setting failed on parameters localhost 12345 true", ade.getMessage());
         }
 
         try {
@@ -143,6 +136,7 @@ public class PeriodicEventManagerTest {
 
         try {
             peManager.runCommand();
+            fail("test should throw an exception");
         } catch (ApexDeploymentException ade) {
             assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
         }
@@ -158,8 +152,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerStop() {
-        final String[] eventArgs =
-            { "localhost", "12345", "stop", "1000" };
+        final String[] eventArgs = { "localhost", "12345", "stop", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
@@ -173,19 +166,20 @@ public class PeriodicEventManagerTest {
 
         try {
             peManager.init();
+            fail("test should throw an exception");
         } catch (ApexDeploymentException ade) {
-            assertEquals("model deployment failed on parameters localhost 12345 true", ade.getMessage());
+            assertEquals("periodic event setting failed on parameters localhost 12345 false", ade.getMessage());
         }
 
         try {
             peManager.init();
         } catch (ApexDeploymentException ade) {
-            ade.printStackTrace();
             fail("test should not throw an exception");
         }
 
         try {
             peManager.runCommand();
+            fail("test should throw an exception");
         } catch (ApexDeploymentException ade) {
             assertEquals("failed response Operation failed received from serverlocalhost:12345", ade.getMessage());
         }
@@ -201,8 +195,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerStartUninitialized() {
-        final String[] eventArgs =
-            { "localhost", "12345", "start", "1000" };
+        final String[] eventArgs = { "localhost", "12345", "start", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
@@ -234,8 +227,7 @@ public class PeriodicEventManagerTest {
 
     @Test
     public void testPeroidicEventManagerStopUninitialized() {
-        final String[] eventArgs =
-            { "localhost", "12345", "stop", "1000" };
+        final String[] eventArgs = { "localhost", "12345", "stop", "1000" };
 
         final ByteArrayOutputStream baosOut = new ByteArrayOutputStream();
 
@@ -282,6 +274,6 @@ public class PeriodicEventManagerTest {
         String errString = baosErr.toString();
 
         return "*** StdOut ***\n" + outString + "\n*** StdErr ***\n" + errString + "\n*** exception ***\n"
-                        + exceptionString;
+            + exceptionString;
     }
 }
