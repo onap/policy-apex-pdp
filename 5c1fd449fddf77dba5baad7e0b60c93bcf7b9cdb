@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd6ac085_2550436e",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-07-16T14:43:56Z",
+      "side": 1,
+      "message": "Do IllegalArgumentException, IllegaclAccessException need to be declared in the signature?   Usually unchecked exceptions are not declared, at least in the past we used to have sonars complaining about it.",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7c290e_3b7a84c7",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-07-16T14:43:56Z",
+      "side": 1,
+      "message": "general question about runtime exceptions",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
