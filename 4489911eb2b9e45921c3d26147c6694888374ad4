@@ -16,6 +16,24 @@
       "revId": "4489911eb2b9e45921c3d26147c6694888374ad4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88343882_25016135",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-16T14:14:59Z",
+      "side": 1,
+      "message": "Wayne\u0027s work showed up this bug, the plan is that I fix the bug and update the tests in the \"old\" way, and then Wayne rebases his review and modenizes the tests.",
+      "parentUuid": "486e4825_64f80c19",
+      "revId": "4489911eb2b9e45921c3d26147c6694888374ad4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
