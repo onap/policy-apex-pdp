@@ -21,15 +21,14 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import org.apache.avro.generic.GenericRecord;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -149,13 +148,8 @@ public class AvroSchemaRecordTest {
         subRecord = (GenericRecord) schemaHelper.createNewSubInstance("EmailAddress");
         assertEquals(null, subRecord.get("address"));
 
-        try {
-            subRecord = (GenericRecord) schemaHelper.createNewSubInstance("IDontExist");
-            fail("test should throw an exception here");
-        } catch (ContextRuntimeException cre) {
-            assertEquals("AvroTest:0.0.1: the schema \"User\" does not have a subtype of type \"IDontExist\"",
-                    cre.getMessage());
-        }
+        assertThatThrownBy(() -> schemaHelper.createNewSubInstance("IDontExist"))
+            .hasMessage("AvroTest:0.0.1: the schema \"User\" does not have a subtype of type \"IDontExist\"");
     }
 
     /**

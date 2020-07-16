@@ -21,9 +21,8 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -109,24 +108,14 @@ public class AvroSchemaHelperMarshalTest {
 
         assertEquals("true", schemaHelper1.marshal2String(true));
         assertEquals("false", schemaHelper1.marshal2String(false));
-        try {
-            schemaHelper1.marshal2String(0);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            e.printStackTrace();
-            assertEquals("AvroTest:0.0.1: object \"0\" Avro marshalling failed: "
+        assertThatThrownBy(() -> schemaHelper1.marshal2String(0))
+            .hasMessage("AvroTest:0.0.1: object \"0\" Avro marshalling failed: "
                     + "class java.lang.Integer cannot be cast to class java.lang.Boolean (java.lang.Integer and "
-                    + "java.lang.Boolean are in module java.base of loader 'bootstrap')", e.getMessage());
-        }
-        try {
-            schemaHelper1.marshal2String("0");
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            e.printStackTrace();
-            assertEquals("AvroTest:0.0.1: object \"0\" Avro marshalling failed: class java.lang.String cannot be cast "
-                    + "to class java.lang.Boolean (java.lang.String and java.lang.Boolean are in module java.base of "
-                    + "loader 'bootstrap')", e.getMessage());
-        }
+                    + "java.lang.Boolean are in module java.base of loader 'bootstrap')");
+        assertThatThrownBy(() -> schemaHelper1.marshal2String("0"))
+            .hasMessage("AvroTest:0.0.1: object \"0\" Avro marshalling failed: class java.lang.String "
+                + "cannot be cast to class java.lang.Boolean (java.lang.String and java.lang.Boolean are in module"
+                + " java.base of loader 'bootstrap')");
     }
 
     /**
@@ -148,20 +137,11 @@ public class AvroSchemaHelperMarshalTest {
         assertEquals("-1", schemaHelper2.marshal2String(-1.23));
         assertEquals("2147483647", schemaHelper2.marshal2String(2147483647));
         assertEquals("-2147483648", schemaHelper2.marshal2String(-2147483648));
-        try {
-            schemaHelper2.marshal2String("Hello");
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
-                    + "class java.lang.String cannot be cast to class java.lang.Number"));
-        }
-        try {
-            schemaHelper2.marshal2String(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Integer\""));
-        }
+        assertThatThrownBy(() -> schemaHelper2.marshal2String("Hello"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
+                + "class java.lang.String cannot be cast to class java.lang.Number");
+        assertThatThrownBy(() -> schemaHelper2.marshal2String(null))
+            .hasMessageStartingWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Integer\"");
     }
 
     /**
@@ -181,20 +161,11 @@ public class AvroSchemaHelperMarshalTest {
         assertEquals("-1", schemaHelper3.marshal2String(-1L));
         assertEquals("9223372036854775807", schemaHelper3.marshal2String(9223372036854775807L));
         assertEquals("-9223372036854775808", schemaHelper3.marshal2String(-9223372036854775808L));
-        try {
-            schemaHelper3.marshal2String("Hello");
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
-                    + "class java.lang.String cannot be cast to class java.lang.Long"));
-        }
-        try {
-            schemaHelper3.marshal2String(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Long\""));
-        }
+        assertThatThrownBy(() -> schemaHelper3.marshal2String("Hello"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
+                + "class java.lang.String cannot be cast to class java.lang.Long");
+        assertThatThrownBy(() -> schemaHelper3.marshal2String(null))
+            .hasMessageStartingWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Long\"");
     }
 
     /**
@@ -218,20 +189,11 @@ public class AvroSchemaHelperMarshalTest {
         assertEquals("-9.223372E18", schemaHelper4.marshal2String(-9.223372E18F));
         assertEquals("9.223372E18", schemaHelper4.marshal2String(9.223372E18F));
         assertEquals("-9.223372E18", schemaHelper4.marshal2String(-9.223372E18F));
-        try {
-            schemaHelper4.marshal2String("Hello");
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
-                    + "class java.lang.String cannot be cast to class java.lang.Float"));
-        }
-        try {
-            schemaHelper4.marshal2String(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Float\""));
-        }
+        assertThatThrownBy(() -> schemaHelper4.marshal2String("Hello"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
+                + "class java.lang.String cannot be cast to class java.lang.Float");
+        assertThatThrownBy(() -> schemaHelper4.marshal2String(null))
+            .hasMessageStartingWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Float\"");
     }
 
     /**
@@ -255,20 +217,11 @@ public class AvroSchemaHelperMarshalTest {
         assertEquals("-9.223372036854776E18", schemaHelper5.marshal2String(-9.223372036854776E18));
         assertEquals("9.223372036854776E18", schemaHelper5.marshal2String(9.223372036854776E18));
         assertEquals("-9.223372036854776E18", schemaHelper5.marshal2String(-9.223372036854776E18));
-        try {
-            schemaHelper5.marshal2String("Hello");
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
-                    + "class java.lang.String cannot be cast to class java.lang.Double"));
-        }
-        try {
-            schemaHelper5.marshal2String(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Double\""));
-        }
+        assertThatThrownBy(() -> schemaHelper5.marshal2String("Hello"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed: "
+                + "class java.lang.String cannot be cast to class java.lang.Double");
+        assertThatThrownBy(() -> schemaHelper5.marshal2String(null))
+            .hasMessageStartingWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.Double\"");
     }
 
     /**
@@ -293,13 +246,8 @@ public class AvroSchemaHelperMarshalTest {
         assertEquals("\"9223372036854775808\"", schemaHelper7.marshal2String("9223372036854775808"));
         assertEquals("\"-9223372036854775809\"", schemaHelper7.marshal2String("-9223372036854775809"));
         assertEquals("\"Hello\"", schemaHelper7.marshal2String("Hello"));
-        try {
-            schemaHelper7.marshal2String(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.String\""));
-        }
+        assertThatThrownBy(() -> schemaHelper7.marshal2String(null))
+            .hasMessageStartingWith("AvroTest:0.0.1: cannot encode a null object of class \"java.lang.String\"");
     }
 
     /**
@@ -317,12 +265,7 @@ public class AvroSchemaHelperMarshalTest {
         final String helloOut = schemaHelper.marshal2String(helloBytes);
         assertEquals("\"hello\"", helloOut);
 
-        try {
-            schemaHelper.marshal2String(null);
-            fail("Test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .startsWith("AvroTest:0.0.1: cannot encode a null object of class \"[Ljava.lang.Byte;\""));
-        }
+        assertThatThrownBy(() -> schemaHelper.marshal2String(null))
+            .hasMessageStartingWith("AvroTest:0.0.1: cannot encode a null object of class \"[Ljava.lang.Byte;\"");
     }
 }

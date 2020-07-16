@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import org.apache.avro.generic.GenericData.EnumSymbol;
@@ -120,35 +120,18 @@ public class AvroSchemaEnumTest {
 
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleHearts.json");
 
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleNull.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                    e.getMessage());
-        }
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleNull.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. Got VALUE_NULL",
-                    e.getMessage());
-        }
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleBad0.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("AvroTest:0.0.1: object \"\"TWEED\"\" Avro unmarshalling failed: Unknown symbol in enum TWEED",
-                    e.getMessage());
-        }
-        try {
-            testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleBad1.json");
-            fail("This test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals(
-                    "AvroTest:0.0.1: object \"\"Hearts\"\" Avro unmarshalling failed: Unknown symbol in enum Hearts",
-                    e.getMessage());
-        }
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleNull.json"))
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
+                    + "Got VALUE_NULL");
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleNull.json"))
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
+                    + "Got VALUE_NULL");
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleBad0.json"))
+            .hasMessage("AvroTest:0.0.1: object \"\"TWEED\"\" Avro unmarshalling failed: Unknown symbol "
+                    + "in enum TWEED");
+        assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleBad1.json"))
+            .hasMessage("AvroTest:0.0.1: object \"\"Hearts\"\" Avro unmarshalling failed: Unknown symbol "
+                    + "in enum Hearts");
     }
 
     /**

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +21,12 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Set;
 import java.util.TreeMap;
@@ -75,13 +76,8 @@ public class StateTest {
         final AxArtifactKey taskKey2 = new AxArtifactKey("Task2", "0.0.1");
         final AxArtifactKey taskKeyBad = new AxArtifactKey("TaskBad", "0.0.1");
 
-        try {
-            state.setKey(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("key may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setKey(null))
+            .hasMessage("key may not be null");
         state.setKey(stateKey);
         assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKey().getId());
         assertEquals("PolicyName:0.0.1:NULL:StateName", state.getKeys().get(0).getId());
@@ -116,75 +112,40 @@ public class StateTest {
         trMap.put(taskKey1.getKey(), str1);
         trMap.put(taskKey2.getKey(), str2);
 
-        try {
-            state.setTrigger(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("trigger may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setTrigger(null))
+            .hasMessage("trigger may not be null");
         state.setTrigger(triggerKey);
         assertEquals(triggerKey, state.getTrigger());
 
-        try {
-            state.setStateOutputs(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("stateOutputs may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setStateOutputs(null))
+            .hasMessage("stateOutputs may not be null");
         state.setStateOutputs(soMap);
         assertEquals(soMap, state.getStateOutputs());
 
-        try {
-            state.setContextAlbumReferences(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("contextAlbumReferenceSet may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setContextAlbumReferences(null))
+            .hasMessage("contextAlbumReferenceSet may not be null");
         state.setContextAlbumReferences(ctxtSet);
         assertEquals(ctxtSet, state.getContextAlbumReferences());
 
-        try {
-            state.setTaskSelectionLogic(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("taskSelectionLogic may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setTaskSelectionLogic(null))
+            .hasMessage("taskSelectionLogic may not be null");
         assertEquals(false, state.checkSetTaskSelectionLogic());
         state.setTaskSelectionLogic(tsl);
         assertEquals(tsl, state.getTaskSelectionLogic());
         assertEquals(true, state.checkSetTaskSelectionLogic());
 
-        try {
-            state.setStateFinalizerLogicMap(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("stateFinalizerLogic may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setStateFinalizerLogicMap(null))
+            .hasMessage("stateFinalizerLogic may not be null");
         state.setStateFinalizerLogicMap(sflMap);
         assertEquals(sflMap, state.getStateFinalizerLogicMap());
 
-        try {
-            state.setDefaultTask(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("defaultTask may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setDefaultTask(null))
+            .hasMessage("defaultTask may not be null");
         state.setDefaultTask(defTaskKey);
         assertEquals(defTaskKey, state.getDefaultTask());
 
-        try {
-            state.setTaskReferences(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("taskReferenceMap may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> state.setTaskReferences(null))
+            .hasMessage("taskReferenceMap may not be null");
         state.setTaskReferences(trMap);
         assertEquals(trMap, state.getTaskReferences());
 

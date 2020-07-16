@@ -1,32 +1,32 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -36,7 +36,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 
 /**
  * Test state outputs.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class StateOutputTest {
@@ -54,34 +54,19 @@ public class StateOutputTest {
         final AxReferenceKey nsKey = new AxReferenceKey("SOStateParent", "0.0.1", "NotUsed", "NextStateName");
         final AxArtifactKey eKey = new AxArtifactKey("EventName", "0.0.1");
 
-        try {
-            so.setKey(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("key may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> so.setKey(null))
+            .hasMessage("key may not be null");
         so.setKey(soKey);
         assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKey().getId());
         assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKeys().get(0).getId());
 
-        try {
-            so.setNextState(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("nextState may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> so.setNextState(null))
+            .hasMessage("nextState may not be null");
         so.setNextState(nsKey);
         assertEquals(nsKey, so.getNextState());
 
-        try {
-            so.setOutgoingEvent(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("outgoingEvent may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> so.setOutgoingEvent(null))
+            .hasMessage("outgoingEvent may not be null");
         so.setOutgoingEvent(eKey);
         assertEquals(eKey, so.getOutgingEvent());
 

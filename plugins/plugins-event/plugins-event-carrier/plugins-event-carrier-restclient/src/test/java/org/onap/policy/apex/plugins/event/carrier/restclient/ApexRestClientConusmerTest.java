@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -76,27 +77,19 @@ public class ApexRestClientConusmerTest {
 
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
         SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
-        try {
-            arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            fail("test should throw an exception here");
-        } catch (ApexEventException e) {
-            assertEquals(
-                "specified consumer properties are not applicable to REST client consumer (RestClientConsumer)",
-                e.getMessage());
-        }
+        assertThatThrownBy(() -> arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver))
+            .hasMessageContaining("specified consumer properties are not applicable to REST client"
+                + " consumer (RestClientConsumer)");
 
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rcctp);
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.DELETE);
-        try {
+        assertThatThrownBy(() -> {
             arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
-            fail("test should throw an exception here");
-        } catch (ApexEventException e) {
-            assertEquals("specified HTTP method of \"DELETE\" is invalid, only HTTP method \"GET\" is supported "
-                + "for event reception on REST client consumer (RestClientConsumer)", e.getMessage());
-        }
+        }).hasMessageContaining("specified HTTP method of \"DELETE\" is invalid, only HTTP method \"GET\" is "
+                    + "supported for event reception on REST client consumer (RestClientConsumer)");
 
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rcctp.getHttpMethod());
         rcctp.setHttpMethod(null);
         rcctp.setHttpCodeFilter("zzz");
 
@@ -174,7 +167,7 @@ public class ApexRestClientConusmerTest {
     }
 
     @Test
-    public void testApexRestClientConsumerJsonError() {
+    public void testApexRestClientConsumerJsonError() throws ApexEventException {
         MockitoAnnotations.initMocks(this);
 
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
@@ -186,18 +179,13 @@ public class ApexRestClientConusmerTest {
         consumerParameters.setCarrierTechnologyParameters(rcctp);
         rcctp.setHttpCodeFilter("[1-5][0][0-5]");
 
-        try {
-            arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
-            assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+        arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.GET, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcc.getName());
 
-            assertEquals("RestClientConsumer", arcc.getName());
+        arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
 
-            arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-
-            assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        } catch (ApexEventException e) {
-            fail("test should not throw an exception");
-        }
+        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -341,14 +329,8 @@ public class ApexRestClientConusmerTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        try {
-            // We have not set the URL, this test should not receive any events
-            arcc.start();
-            await().atMost(200, TimeUnit.MILLISECONDS).until(() -> incomingEventReceiver.getEventCount() == 0);
-            arcc.stop();
-        } catch (Exception e) {
-            // test invalid status code
-            assertEquals("received an invalid status code \"200\"", e.getMessage());
-        }
+        arcc.start();
+        await().atMost(200, TimeUnit.MILLISECONDS).until(() -> incomingEventReceiver.getEventCount() == 0);
+        arcc.stop();
     }
 }

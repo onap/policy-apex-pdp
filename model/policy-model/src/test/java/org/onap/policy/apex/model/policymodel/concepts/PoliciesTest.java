@@ -1,32 +1,32 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -54,7 +54,7 @@ public class PoliciesTest {
         assertNotNull(new AxPolicy(new AxArtifactKey()));
         assertNotNull(new AxPolicy(new AxArtifactKey(), "PolicyTemplate", stateMapEmpty, "FirstState"));
 
-        AxPolicy policy = new AxPolicy();
+        final AxPolicy policy = new AxPolicy();
 
         final AxArtifactKey policyKey = new AxArtifactKey("PolicyName", "0.0.1");
 
@@ -65,199 +65,180 @@ public class PoliciesTest {
         badState.getStateOutputs().put(badStateOutput.getKey().getLocalName(), badStateOutput);
         stateMap.put(firstState.getKey().getLocalName(), firstState);
 
-        try {
-            policy.setKey(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("key may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> policy.setKey(null))
+            .hasMessage("key may not be null");
         policy.setKey(policyKey);
         assertEquals("PolicyName:0.0.1", policy.getKey().getId());
         assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getId());
 
-        try {
-            policy.setTemplate(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("template may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> policy.setTemplate(null))
+            .hasMessage("template may not be null");
         policy.setTemplate("PolicyTemplate");
         assertEquals("PolicyTemplate", policy.getTemplate());
 
-        try {
-            policy.setStateMap(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("stateMap may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> policy.setStateMap(null))
+            .hasMessage("stateMap may not be null");
         policy.setStateMap(stateMap);
         assertEquals(stateMap, policy.getStateMap());
 
-        try {
-            policy.setFirstState(null);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("firstState may not be null", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> policy.setFirstState(null))
+            .hasMessage("firstState may not be null");
         policy.setFirstState("FirstState");
         assertEquals("FirstState", policy.getFirstState());
 
         assertEquals("PolicyName:0.0.1", policy.getKeys().get(0).getId());
 
-        policy = new SupportApexPolicyModelCreator().getModel().getPolicies().get("policy");
+        final AxPolicy policyPN = new SupportApexPolicyModelCreator().getModel().getPolicies().get("policy");
 
         AxValidationResult result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxArtifactKey savedPolicyKey = policy.getKey();
-        policy.setKey(AxArtifactKey.getNullKey());
+        final AxArtifactKey savedPolicyKey = policyPN.getKey();
+        policyPN.setKey(AxArtifactKey.getNullKey());
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        policy.setKey(savedPolicyKey);
+        policyPN.setKey(savedPolicyKey);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final String savedTemplate = policy.getTemplate();
-        policy.setTemplate("");
+        final String savedTemplate = policyPN.getTemplate();
+        policyPN.setTemplate("");
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.OBSERVATION, result.getValidationResult());
 
-        policy.setTemplate(savedTemplate);
+        policyPN.setTemplate(savedTemplate);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final Map<String, AxState> savedStateMap = policy.getStateMap();
+        final Map<String, AxState> savedStateMap = policyPN.getStateMap();
 
-        policy.setStateMap(stateMapEmpty);
+        policyPN.setStateMap(stateMapEmpty);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        policy.setStateMap(savedStateMap);
+        policyPN.setStateMap(savedStateMap);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         savedStateMap.put(AxKey.NULL_KEY_NAME, firstState);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         savedStateMap.remove(AxKey.NULL_KEY_NAME);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         savedStateMap.put("NullState", null);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         savedStateMap.remove("NullState");
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         savedStateMap.put("BadStateKey", firstState);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         savedStateMap.remove("BadStateKey");
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         savedStateMap.put(badState.getKey().getLocalName(), badState);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         savedStateMap.remove(badState.getKey().getLocalName());
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final String savedFirstState = policy.getFirstState();
+        final String savedFirstState = policyPN.getFirstState();
 
-        policy.setFirstState("");
+        policyPN.setFirstState("");
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        policy.setFirstState(savedFirstState);
+        policyPN.setFirstState(savedFirstState);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        policy.setFirstState("NonExistantFirstState");
+        policyPN.setFirstState("NonExistantFirstState");
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        policy.setFirstState(savedFirstState);
+        policyPN.setFirstState(savedFirstState);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxState clonedState = new AxState(policy.getStateMap().get("state"));
+        final AxState clonedState = new AxState(policyPN.getStateMap().get("state"));
         clonedState.getKey().setLocalName("ClonedState");
         clonedState.afterUnmarshal(null, null);
 
         savedStateMap.put(clonedState.getKey().getLocalName(), clonedState);
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.WARNING, result.getValidationResult());
 
         savedStateMap.remove(clonedState.getKey().getLocalName());
         result = new AxValidationResult();
-        result = policy.validate(result);
+        result = policyPN.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        policy.clean();
+        policyPN.clean();
 
-        final AxPolicy clonedPolicy = new AxPolicy(policy);
+        final AxPolicy clonedPolicy = new AxPolicy(policyPN);
         assertEquals("AxPolicy:(key=AxArtifactKey:(name=policy,version=0.0.1),template=FREEFORM,sta",
                         clonedPolicy.toString().substring(0, 77));
 
-        assertFalse(policy.hashCode() == 0);
+        assertFalse(policyPN.hashCode() == 0);
 
-        assertTrue(policy.equals(policy));
-        assertTrue(policy.equals(clonedPolicy));
-        assertFalse(policy.equals(null));
-        assertFalse(policy.equals((Object) "Hello"));
-        assertFalse(policy.equals(
+        assertTrue(policyPN.equals(policyPN));
+        assertTrue(policyPN.equals(clonedPolicy));
+        assertFalse(policyPN.equals(null));
+        assertFalse(policyPN.equals((Object) "Hello"));
+        assertFalse(policyPN.equals(
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
-        assertFalse(policy.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
-        assertFalse(policy.equals(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
-        assertFalse(policy.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
-        assertTrue(policy.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, savedFirstState)));
+        assertFalse(policyPN.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
+        assertFalse(policyPN.equals(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
+        assertFalse(policyPN.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
+        assertTrue(policyPN.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, savedFirstState)));
 
-        assertEquals(0, policy.compareTo(policy));
-        assertEquals(0, policy.compareTo(clonedPolicy));
-        assertNotEquals(0, policy.compareTo(new AxArtifactKey()));
-        assertNotEquals(0, policy.compareTo(null));
-        assertNotEquals(0, policy.compareTo(
+        assertEquals(0, policyPN.compareTo(policyPN));
+        assertEquals(0, policyPN.compareTo(clonedPolicy));
+        assertNotEquals(0, policyPN.compareTo(new AxArtifactKey()));
+        assertNotEquals(0, policyPN.compareTo(null));
+        assertNotEquals(0, policyPN.compareTo(
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
-        assertNotEquals(0,
-                        policy.compareTo(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
-        assertNotEquals(0,
-                        policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
-        assertNotEquals(0,
-                        policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
-        assertEquals(0, policy.compareTo(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, savedFirstState)));
+        assertNotEquals(0, policyPN.compareTo(new AxPolicy(savedPolicyKey,
+                "SomeTemplate", savedStateMap, savedFirstState)));
+        assertNotEquals(0, policyPN.compareTo(new AxPolicy(savedPolicyKey, savedTemplate,
+                stateMapEmpty, savedFirstState)));
+        assertNotEquals(0, policyPN.compareTo(new AxPolicy(savedPolicyKey, savedTemplate,
+                savedStateMap, "SomeFirstState")));
+        assertEquals(0, policyPN.compareTo(new AxPolicy(savedPolicyKey, savedTemplate,
+                savedStateMap, savedFirstState)));
 
-        assertNotNull(policy.getKeys());
+        assertNotNull(policyPN.getKeys());
 
         final AxPolicies policies = new AxPolicies();
         result = new AxValidationResult();
@@ -272,7 +253,7 @@ public class PoliciesTest {
         result = policies.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
-        policies.getPolicyMap().put(savedPolicyKey, policy);
+        policies.getPolicyMap().put(savedPolicyKey, policyPN);
         result = new AxValidationResult();
         result = policies.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
@@ -297,7 +278,7 @@ public class PoliciesTest {
         result = policies.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        policies.getPolicyMap().put(new AxArtifactKey("BadEventKey", "0.0.1"), policy);
+        policies.getPolicyMap().put(new AxArtifactKey("BadEventKey", "0.0.1"), policyPN);
         result = new AxValidationResult();
         result = policies.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
@@ -343,78 +324,64 @@ public class PoliciesTest {
         assertNotNull(stateTree.getReferencedStateList());
         assertNotNull(stateTree.getReferencedStateSet());
 
-        final AxState secondState = new AxState(policy.getStateMap().get("state"));
+        final AxState secondState = new AxState(policyPN.getStateMap().get("state"));
         secondState.getKey().setLocalName("SecondState");
         secondState.afterUnmarshal(null, null);
-        policy.getStateMap().put("SecondState", secondState);
-        policy.getStateMap().get("state").getStateOutputs().get("stateOutput0").setNextState(secondState.getKey());
+        policyPN.getStateMap().put("SecondState", secondState);
+        policyPN.getStateMap().get("state").getStateOutputs().get("stateOutput0").setNextState(secondState.getKey());
 
-        stateTree = policy.getStateTree();
+        stateTree = policyPN.getStateTree();
         assertNotNull(stateTree);
         assertNotNull(stateTree.getReferencedStateList());
         assertNotNull(stateTree.getReferencedStateSet());
         assertNotNull(stateTree.getNextStates());
 
-        policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
-                        .setNextState(policy.getStateMap().get("state").getKey());
-        try {
-            policy.getStateTree();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("loop detected in state tree for policy policy:0.0.1 state SecondState, "
-                            + "next state state referenced more than once", e.getMessage());
-        }
-
-        policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
+        policyPN.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
+                        .setNextState(policyPN.getStateMap().get("state").getKey());
+        assertThatThrownBy(() -> policyPN.getStateTree())
+            .hasMessageContaining("loop detected in state tree for policy policy:0.0.1 state SecondState, "
+                + "next state state referenced more than once");
+        policyPN.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
                         .setNextState(AxReferenceKey.getNullKey());
 
-        final AxState thirdState = new AxState(policy.getStateMap().get("state"));
+        final AxState thirdState = new AxState(policyPN.getStateMap().get("state"));
         thirdState.getKey().setLocalName("ThirdState");
         thirdState.afterUnmarshal(null, null);
-        policy.getStateMap().put("ThirdState", thirdState);
-        policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0").setNextState(thirdState.getKey());
-        policy.getStateMap().get("ThirdState").getStateOutputs().get("stateOutput0")
+        policyPN.getStateMap().put("ThirdState", thirdState);
+        policyPN.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
+                        .setNextState(thirdState.getKey());
+        policyPN.getStateMap().get("ThirdState").getStateOutputs().get("stateOutput0")
                         .setNextState(AxReferenceKey.getNullKey());
 
-        stateTree = policy.getStateTree();
+        stateTree = policyPN.getStateTree();
 
         final AxStateOutput ssS0Clone = new AxStateOutput(
-                        policy.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0"));
+                        policyPN.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0"));
         ssS0Clone.getKey().setLocalName("ssS0Clone");
-        policy.getStateMap().get("SecondState").getStateOutputs().put("ssS0Clone", ssS0Clone);
+        policyPN.getStateMap().get("SecondState").getStateOutputs().put("ssS0Clone", ssS0Clone);
 
-        try {
-            policy.getStateTree();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("loop detected in state tree for policy policy:0.0.1 state SecondState, "
-                            + "next state ThirdState referenced more than once", e.getMessage());
-        }
+        assertThatThrownBy(() -> policyPN.getStateTree())
+            .hasMessageContaining("loop detected in state tree for policy policy:0.0.1 state SecondState, "
+                + "next state ThirdState referenced more than once");
+        policyPN.getStateMap().get("SecondState").getStateOutputs().remove("ssS0Clone");
 
-        policy.getStateMap().get("SecondState").getStateOutputs().remove("ssS0Clone");
-
-        policy.getStateMap().get("state").getStateOutputs().get("stateOutput0").setNextState(secondState.getKey());
+        policyPN.getStateMap().get("state").getStateOutputs().get("stateOutput0").setNextState(secondState.getKey());
         secondState.getStateOutputs().get("stateOutput0").setNextState(thirdState.getKey());
         thirdState.getStateOutputs().get("stateOutput0").setNextState(AxReferenceKey.getNullKey());
 
-        stateTree = policy.getStateTree();
+        stateTree = policyPN.getStateTree();
         assertNotNull(stateTree.getState());
 
         thirdState.getStateOutputs().get("stateOutput0").setNextState(secondState.getKey());
 
-        try {
-            policy.getStateTree();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("loop detected in state tree for policy policy:0.0.1 state ThirdState, "
-                            + "next state SecondState referenced more than once", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> policyPN.getStateTree())
+            .hasMessageContaining("loop detected in state tree for policy policy:0.0.1 state ThirdState, "
+                            + "next state SecondState referenced more than once");
         thirdState.getStateOutputs().get("stateOutput0").setNextState(AxReferenceKey.getNullKey());
 
-        stateTree = policy.getStateTree();
+        stateTree = policyPN.getStateTree();
 
-        final AxStateTree otherStateTree = policy.getStateTree();
+        final AxStateTree otherStateTree = policyPN.getStateTree();
         assertEquals(0, stateTree.compareTo(otherStateTree));
 
         for (final AxStateTree childStateTree : stateTree.getNextStates()) {
