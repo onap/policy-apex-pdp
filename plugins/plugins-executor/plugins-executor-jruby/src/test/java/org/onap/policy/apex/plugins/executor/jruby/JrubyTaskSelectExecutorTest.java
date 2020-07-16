@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.executor.jruby;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.util.Properties;
@@ -36,6 +37,7 @@ import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
+import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -68,56 +70,36 @@ public class JrubyTaskSelectExecutorTest {
     }
 
     @Test
-    public void testJrubyTaskSelectExecutor() {
+    public void testJrubyTaskSelectExecutor() throws StateMachineException, ContextException,
+        NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         JrubyTaskSelectExecutor jtse = new JrubyTaskSelectExecutor();
         assertNotNull(jtse);
         assertNotNull(jtse.getOutputEventSet());
-        try {
-            Field fieldContainer = JrubyTaskSelectExecutor.class.getDeclaredField("container");
-            fieldContainer.setAccessible(true);
-            fieldContainer.set(jtse, null);
-            jtse.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals(java.lang.NullPointerException.class, jtseException.getClass());
-        }
 
+        Field fieldContainer = JrubyTaskSelectExecutor.class.getDeclaredField("container");
+        fieldContainer.setAccessible(true);
+        fieldContainer.set(jtse, null);
+
+        assertThatThrownBy(jtse::prepare).isInstanceOf(java.lang.NullPointerException.class);
         AxState state = new AxState();
         ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+        internalContext = new ApexInternalContext(new AxPolicyModel());
+
         jtse.setContext(null, state, internalContext);
 
 
-        try {
-            jtse.prepare();
-        } catch (Exception jtseException) {
-            fail("test should not throw an exception here");
-        }
+        jtse.prepare();
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
-        try {
-            jtse.execute(-1, new Properties(), event);
-            fail("test should throw an exception here");
-        } catch (Exception jtseException) {
-            assertEquals("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"",
-                    jtseException.getMessage());
-        }
-
+        assertThatThrownBy(() -> jtse.execute(-1, new Properties(), event))
+            .hasMessage("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
         final String jrubyLogic =
                 "if executor.executionId == -1" + "\n return false" + "\n else " + "\n return true" + "\n end";
         state.getTaskSelectionLogic().setLogic(jrubyLogic);
 
-        try {
-            jtse.prepare();
-            AxArtifactKey taskKey = jtse.execute(0, new Properties(), event);
-            assertEquals("NULL:0.0.0", taskKey.getId());
-            jtse.cleanUp();
-        } catch (Exception jtseException) {
-            fail("test should not throw an exception here");
-        }
+        jtse.prepare();
+        AxArtifactKey taskKey = jtse.execute(0, new Properties(), event);
+        assertEquals("NULL:0.0.0", taskKey.getId());
+        jtse.cleanUp();
     }
 }

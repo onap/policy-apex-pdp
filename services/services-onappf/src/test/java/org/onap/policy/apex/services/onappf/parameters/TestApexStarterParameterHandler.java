@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.services.onappf.parameters;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
 import org.junit.Test;
@@ -44,13 +45,9 @@ public class TestApexStarterParameterHandler {
         final ApexStarterCommandLineArguments emptyArguments = new ApexStarterCommandLineArguments();
         emptyArguments.parse(emptyArgumentString);
 
-        try {
-            new ApexStarterParameterHandler().getParameters(emptyArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getCause() instanceof CoderException);
-            assertTrue(e.getCause().getCause() instanceof FileNotFoundException);
-        }
+        assertThatThrownBy(() -> new ApexStarterParameterHandler().getParameters(emptyArguments))
+            .hasCauseInstanceOf(CoderException.class)
+            .hasRootCauseInstanceOf(FileNotFoundException.class);
     }
 
     @Test
@@ -60,12 +57,8 @@ public class TestApexStarterParameterHandler {
         final ApexStarterCommandLineArguments noArguments = new ApexStarterCommandLineArguments();
         noArguments.parse(noArgumentString);
 
-        try {
-            new ApexStarterParameterHandler().getParameters(noArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("no parameters found"));
-        }
+        assertThatThrownBy(() -> new ApexStarterParameterHandler().getParameters(noArguments))
+            .hasMessageContaining("no parameters found");
     }
 
     @Test
@@ -75,13 +68,9 @@ public class TestApexStarterParameterHandler {
         final ApexStarterCommandLineArguments invalidArguments = new ApexStarterCommandLineArguments();
         invalidArguments.parse(invalidArgumentString);
 
-        try {
-            new ApexStarterParameterHandler().getParameters(invalidArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().startsWith("error reading parameters from"));
-            assertTrue(e.getCause() instanceof CoderException);
-        }
+        assertThatThrownBy(() -> new ApexStarterParameterHandler().getParameters(invalidArguments))
+            .hasMessageStartingWith("error reading parameters from")
+            .hasCauseInstanceOf(CoderException.class);
     }
 
     @Test
@@ -91,11 +80,8 @@ public class TestApexStarterParameterHandler {
         final ApexStarterCommandLineArguments noArguments = new ApexStarterCommandLineArguments();
         noArguments.parse(noArgumentString);
 
-        try {
-            new ApexStarterParameterHandler().getParameters(noArguments);
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("is null"));
-        }
+        assertThatThrownBy(() -> new ApexStarterParameterHandler().getParameters(noArguments))
+            .hasMessageContaining("is null");
     }
 
     @Test
@@ -118,13 +104,9 @@ public class TestApexStarterParameterHandler {
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         arguments.parse(apexStarterConfigParameters);
 
-        try {
-            new ApexStarterParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
-        }
+        assertThatThrownBy(() -> new ApexStarterParameterHandler().getParameters(arguments))
+            .hasMessageContaining("field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a "
+                    + "non-blank string");
     }
 
     @Test
@@ -147,10 +129,7 @@ public class TestApexStarterParameterHandler {
     public void testApexStarterInvalidOption() throws ApexStarterException {
         final String[] apexStarterConfigParameters = { "-d" };
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
-        try {
-            arguments.parse(apexStarterConfigParameters);
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().startsWith("invalid command line arguments specified"));
-        }
+        assertThatThrownBy(() -> arguments.parse(apexStarterConfigParameters))
+            .hasMessageStartingWith("invalid command line arguments specified");
     }
 }

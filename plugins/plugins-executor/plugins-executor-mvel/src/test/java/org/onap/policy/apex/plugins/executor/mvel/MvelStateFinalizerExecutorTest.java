@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.executor.mvel;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.Properties;
 import org.junit.After;
@@ -80,30 +81,18 @@ public class MvelStateFinalizerExecutorTest {
     }
 
     @Test
-    public void testJavaStateFinalizerExecutor() {
+    public void testJavaStateFinalizerExecutor() throws StateMachineException, ContextException {
         MvelStateFinalizerExecutor msfe = new MvelStateFinalizerExecutor();
         assertNotNull(msfe);
 
-        try {
-            msfe.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception msfeException) {
-            assertEquals(java.lang.NullPointerException.class, msfeException.getClass());
-        }
-
+        assertThatThrownBy(msfe::prepare)
+            .isInstanceOf(java.lang.NullPointerException.class);
         ApexInternalContext internalContext = null;
-        try {
-            internalContext = new ApexInternalContext(new AxPolicyModel());
-        } catch (ContextException e) {
-            fail("test should not throw an exception here");
-        }
+        internalContext = new ApexInternalContext(new AxPolicyModel());
 
         StateExecutor parentStateExcutor = null;
-        try {
-            parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
-        } catch (StateMachineException e) {
-            fail("test should not throw an exception here");
-        }
+
+        parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
 
         AxState state = new AxState();
         parentStateExcutor.setContext(null, state, internalContext);
@@ -111,69 +100,31 @@ public class MvelStateFinalizerExecutorTest {
         msfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
 
         stateFinalizerLogic.setLogic("x > 1 2 ()");
-        try {
-            msfe.prepare();
-            fail("test should throw an exception here");
-        } catch (Exception msfeException) {
-            assertEquals("failed to compile MVEL code for state NULL:0.0.0:NULL:NULL", msfeException.getMessage());
-        }
-
+        assertThatThrownBy(msfe::prepare)
+            .hasMessage("failed to compile MVEL code for state NULL:0.0.0:NULL:NULL");
         stateFinalizerLogic.setLogic("java.lang.String");
 
-        try {
-            msfe.prepare();
-        } catch (Exception msfeException) {
-            fail("test should not throw an exception here");
-        }
+        msfe.prepare();
 
-        try {
-            msfe.execute(-1, new Properties(), null);
-            fail("test should throw an exception here");
-        } catch (Exception msfeException) {
-            assertEquals("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL",
-                    msfeException.getMessage());
-        }
-
+        assertThatThrownBy(() -> msfe.execute(-1, new Properties(), null))
+            .hasMessage("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL");
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
-        try {
-            msfe.execute(-1, new Properties(), event);
-            fail("test should throw an exception here");
-        } catch (Exception msfeException) {
-            assertEquals("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL",
-                    msfeException.getMessage());
-        }
-
+        assertThatThrownBy(() -> msfe.execute(-1, new Properties(), event))
+            .hasMessage("failed to execute MVEL code for state NULL:0.0.0:NULL:NULL");
         stateFinalizerLogic.setLogic("executionId !=-1");
-        try {
-            msfe.prepare();
-            msfe.execute(-1, new Properties(), event);
-            fail("test should throw an exception here");
-        } catch (Exception msfeException) {
-            assertEquals(
-                    "execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:NULL:NULL\" "
-                            + "on finalizer logic NULL:0.0.0:NULL:NULL",
-                    msfeException.getMessage());
-        }
-
+        msfe.prepare();
+        assertThatThrownBy(() -> msfe.execute(-1, new Properties(), event))
+            .hasMessage("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:"
+                + "NULL:NULL\" on finalizer logic NULL:0.0.0:NULL:NULL");
         stateFinalizerLogic.setLogic(
                 "if (executionId == -1) {return false;}setSelectedStateOutputName(\"SelectedOutputIsMe\");"
                         + "return true;");
         state.getStateOutputs().put("SelectedOutputIsMe", null);
-        try {
-            msfe.prepare();
-            String stateOutput = msfe.execute(0, new Properties(), event);
-            assertEquals("SelectedOutputIsMe", stateOutput);
-        } catch (Exception msfeException) {
-            LOGGER.warn("Unexpected exception happened here.", msfeException);
-            fail("test should not throw an exception here");
-        } finally {
-            try {
-                msfe.cleanUp();
-            } catch (StateMachineException msfeException) {
-                LOGGER.warn("Unexpected exception happened here.", msfeException);
-                fail("test should not throw an exception here");
-            }
-        }
+
+        msfe.prepare();
+        String stateOutput = msfe.execute(0, new Properties(), event);
+        assertEquals("SelectedOutputIsMe", stateOutput);
+        msfe.cleanUp();
     }
 }
