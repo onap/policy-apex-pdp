@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "486e4825_64f80c19",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/PeriodicEventManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-07-16T13:57:53Z",
+      "side": 1,
+      "message": "would it be a good time to switch to using assertj in some of these tests?",
+      "revId": "4489911eb2b9e45921c3d26147c6694888374ad4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
