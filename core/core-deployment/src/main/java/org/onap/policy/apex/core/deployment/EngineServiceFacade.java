@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,11 +49,12 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class Deployer deploys an Apex model held as an XML file onto an Apex engine. It uses the EngDep protocol to
- * communicate with the engine, with the EngDep protocol being carried on Java web sockets.
+ * The Class Deployer deploys an Apex model held as an XML file onto an Apex
+ * engine. It uses the EngDep protocol to communicate with the engine, with the
+ * EngDep protocol being carried on Java web sockets.
  *
- * <p>This deployer is a simple command line deployer that reads the communication parameters and the location of
- * the XML model file as arguments.
+ * <p>This deployer is a simple command line deployer that reads the
+ * communication parameters and the location of the XML model file as arguments.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -64,7 +66,8 @@ public class EngineServiceFacade {
     private static final String RECEIVED_FROM_SERVER = " received from server";
     private static final String FAILED_RESPONSE = "failed response ";
 
-    // The default message timeout and timeout increment (the amount of time between polls) in
+    // The default message timeout and timeout increment (the amount of time between
+    // polls) in
     // milliseconds
     private static final int CLIENT_START_WAIT_INTERVAL = 100;
     private static final int REPLY_MESSAGE_TIMEOUT_DEFAULT = 10000;
@@ -74,7 +77,8 @@ public class EngineServiceFacade {
     private final String hostName;
     private final int port;
 
-    // The deployment client handles the EngDep communication session towards the Apex server
+    // The deployment client handles the EngDep communication session towards the
+    // Apex server
     private DeploymentClient client = null;
     private Thread clientThread = null;
 
@@ -87,27 +91,36 @@ public class EngineServiceFacade {
      * Instantiates a new deployer.
      *
      * @param hostName the host name of the host running the Apex Engine
-     * @param port the port to use for EngDep communication with the Apex engine
+     * @param port     the port to use for EngDep communication with the Apex engine
      */
     public EngineServiceFacade(final String hostName, final int port) {
         this.hostName = hostName;
         this.port = port;
 
-        // Use the deployment client to handle the EngDep communication towards the Apex server.
+        // Use the deployment client to handle the EngDep communication towards the Apex
+        // server.
         client = new DeploymentClient(hostName, port);
     }
 
     /**
-     * Initializes the facade, opens an EngDep communication session with the Apex engine.
+     * Initializes the facade, opens an EngDep communication session with the Apex
+     * engine.
      *
      * @throws ApexDeploymentException thrown on deployment and communication errors
      */
     public void init() throws ApexDeploymentException {
+
+        if (client.isStarted()) {
+            throw new ApexDeploymentException("connection already active to " + hostName + ":" + port);
+        }
+
         try {
             LOGGER.debug("handshaking with server {}:{} . . .", hostName, port);
 
-            // Use the deployment client to handle the EngDep communication towards the Apex server.
-            // The deployment client runs a thread to monitor the session and to send messages
+            // Use the deployment client to handle the EngDep communication towards the Apex
+            // server.
+            // The deployment client runs a thread to monitor the session and to send
+            // messages
             clientThread = new Thread(client);
             clientThread.start();
 
@@ -116,8 +129,7 @@ public class EngineServiceFacade {
                 if (clientThread.isAlive()) {
                     ThreadUtilities.sleep(CLIENT_START_WAIT_INTERVAL);
                 } else {
-                    LOGGER.error("cound not handshake with server {}:{}", hostName, port);
-                    throw new ApexDeploymentException("cound not handshake with server " + hostName + ":" + port);
+                    throw new ApexDeploymentException("could not handshake with server " + hostName + ":" + port);
                 }
             }
 
@@ -126,21 +138,24 @@ public class EngineServiceFacade {
             // Get engine service information to see what engines we're dealing with
             final GetEngineServiceInfo engineServiceInfo = new GetEngineServiceInfo(null);
             LOGGER.debug("sending get engine service info message {} to server {}:{} . . .", engineServiceInfo,
-                    hostName, port);
+                hostName, port);
             client.sendMessage(engineServiceInfo);
             LOGGER.debug("sent get engine service info message to server {}:{} . . .", hostName, port);
 
-            final EngineServiceInfoResponse engineServiceInfoResponse =
-                    (EngineServiceInfoResponse) getResponse(engineServiceInfo);
+            final EngineServiceInfoResponse engineServiceInfoResponse = (EngineServiceInfoResponse) getResponse(
+                engineServiceInfo);
             if (engineServiceInfoResponse.isSuccessful()) {
                 engineServiceKey = engineServiceInfoResponse.getEngineServiceKey();
                 engineKeyArray = engineServiceInfoResponse.getEngineKeyArray();
                 apexModelKey = engineServiceInfoResponse.getApexModelKey();
+            } else {
+                throw new ApexDeploymentException(
+                    "could not get engine service information from server " + hostName + ":" + port);
             }
+
         } catch (final Exception e) {
-            LOGGER.error("cound not handshake with server {}:{}", hostName, port, e);
             client.stopClient();
-            throw new ApexDeploymentException("cound not handshake with server " + hostName + ":" + port, e);
+            throw new ApexDeploymentException("could not handshake with server " + hostName + ":" + port, e);
         }
 
     }
@@ -178,7 +193,9 @@ public class EngineServiceFacade {
     public void close() {
         LOGGER.debug("closing connection to server {}:{} . . .", hostName, port);
 
-        client.stopClient();
+        if (client.isStarted()) {
+            client.stopClient();
+        }
 
         LOGGER.debug("closed connection to server {}:{} . . .", hostName, port);
     }
@@ -186,16 +203,18 @@ public class EngineServiceFacade {
     /**
      * Deploy an Apex model on the Apex engine service.
      *
-     * @param modelFileName the name of the model file containing the model to deploy
-     * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param modelFileName   the name of the model file containing the model to
+     *                        deploy
+     * @param ignoreConflicts true if conflicts between context in polices is to be
+     *                        ignored
+     * @param force           true if the model is to be applied even if it is
+     *                        incompatible with the existing model
      * @throws ApexException on Apex errors
      */
     public void deployModel(final String modelFileName, final boolean ignoreConflicts, final boolean force)
-            throws ApexException {
+        throws ApexException {
         if (engineServiceKey == null || engineKeyArray == null || engineKeyArray.length == 0) {
-            LOGGER.error("cound not deploy apex model, deployer is not initialized");
-            throw new ApexDeploymentException("cound not deploy apex model, deployer is not initialized");
+            throw new ApexDeploymentException("could not deploy apex model, deployer is not initialized");
         }
 
         // Get the model file as a string
@@ -203,9 +222,8 @@ public class EngineServiceFacade {
         if (apexModelUrl == null) {
             apexModelUrl = ResourceUtils.getUrlResource(modelFileName);
             if (apexModelUrl == null) {
-                LOGGER.error("cound not create apex model, could not read from file {}", modelFileName);
                 throw new ApexDeploymentException(
-                        "cound not create apex model, could not read from file " + modelFileName);
+                    "could not create apex model, could not read from file " + modelFileName);
             }
         }
 
@@ -213,7 +231,6 @@ public class EngineServiceFacade {
             deployModel(modelFileName, apexModelUrl.openStream(), ignoreConflicts, force);
         } catch (final Exception deployException) {
             final String errorMessage = "could not deploy apex model from " + modelFileName;
-            LOGGER.error(errorMessage, deployException);
             throw new ApexDeploymentException(errorMessage, deployException);
         }
     }
@@ -221,14 +238,17 @@ public class EngineServiceFacade {
     /**
      * Deploy an Apex model on the Apex engine service.
      *
-     * @param modelFileName the name of the model file containing the model to deploy
+     * @param modelFileName    the name of the model file containing the model to
+     *                         deploy
      * @param modelInputStream the stream that holds the Apex model
-     * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param ignoreConflicts  true if conflicts between context in polices is to be
+     *                         ignored
+     * @param force            true if the model is to be applied even if it is
+     *                         incompatible with the existing model
      * @throws ApexException on model deployment errors
      */
     public void deployModel(final String modelFileName, final InputStream modelInputStream,
-            final boolean ignoreConflicts, final boolean force) throws ApexException {
+        final boolean ignoreConflicts, final boolean force) throws ApexException {
         // Read the policy model from the stream
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         modelReader.setValidateFlag(!ignoreConflicts);
@@ -242,20 +262,22 @@ public class EngineServiceFacade {
      * Deploy an Apex model on the Apex engine service.
      *
      * @param apexPolicyModel the name of the model to deploy
-     * @param ignoreConflicts true if conflicts between context in polices is to be ignored
-     * @param force true if the model is to be applied even if it is incompatible with the existing model
+     * @param ignoreConflicts true if conflicts between context in polices is to be
+     *                        ignored
+     * @param force           true if the model is to be applied even if it is
+     *                        incompatible with the existing model
      * @throws ApexException on model deployment errors
      */
     public void deployModel(final AxPolicyModel apexPolicyModel, final boolean ignoreConflicts, final boolean force)
-            throws ApexException {
+        throws ApexException {
         // Write the model into a byte array
         final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
         final ApexModelWriter<AxPolicyModel> modelWriter = new ApexModelWriter<>(AxPolicyModel.class);
         modelWriter.write(apexPolicyModel, baOutputStream);
 
         // Create and send Update message
-        final UpdateModel umMessage =
-                new UpdateModel(engineServiceKey, baOutputStream.toString(), ignoreConflicts, force);
+        final UpdateModel umMessage = new UpdateModel(engineServiceKey, baOutputStream.toString(), ignoreConflicts,
+            force);
 
         LOGGER.debug("sending update message {} to server {}:{} . . .", umMessage, hostName, port);
         client.sendMessage(umMessage);
@@ -264,9 +286,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(umMessage);
         if (!response.isSuccessful()) {
-            LOGGER.warn(FAILED_RESPONSE + "{} received from server {}:{}", response.getMessageData(), hostName, port);
             throw new ApexException(
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port);
+                FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port);
         }
     }
 
@@ -285,9 +306,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(startEngineMessage);
         if (!response.isSuccessful()) {
-            final String message =
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
-            LOGGER.warn(message);
+            final String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':'
+                + port;
             throw new ApexDeploymentException(message);
         }
     }
@@ -307,9 +327,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(stopEngineMessage);
         if (!response.isSuccessful()) {
-            final String message =
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
-            LOGGER.warn(message);
+            final String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':'
+                + port;
             throw new ApexDeploymentException(message);
         }
     }
@@ -318,23 +337,22 @@ public class EngineServiceFacade {
      * Start periodic events on an Apex engine on the engine service.
      *
      * @param engineKey the key of the engine to start periodic events on
-     * @param period the period in milliseconds between periodic events
+     * @param period    the period in milliseconds between periodic events
      * @throws ApexDeploymentException on messaging errors
      */
     public void startPerioidicEvents(final AxArtifactKey engineKey, final long period) throws ApexDeploymentException {
         final StartPeriodicEvents startPerioidicEventsMessage = new StartPeriodicEvents(engineKey);
         startPerioidicEventsMessage.setMessageData(Long.toString(period));
         LOGGER.debug("sending start perioidic events {} to server {}:{} . . .", startPerioidicEventsMessage, hostName,
-                port);
+            port);
         client.sendMessage(startPerioidicEventsMessage);
         LOGGER.debug("sent start perioidic events message to server {}:{} . . .", hostName, port);
 
         // Check if we got a response
         final Response response = getResponse(startPerioidicEventsMessage);
         if (!response.isSuccessful()) {
-            final String message =
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
-            LOGGER.warn(message);
+            final String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':'
+                + port;
             throw new ApexDeploymentException(message);
         }
     }
@@ -348,16 +366,15 @@ public class EngineServiceFacade {
     public void stopPerioidicEvents(final AxArtifactKey engineKey) throws ApexDeploymentException {
         final StopPeriodicEvents stopPerioidicEventsMessage = new StopPeriodicEvents(engineKey);
         LOGGER.debug("sending stop perioidic events {} to server {}:{} . . .", stopPerioidicEventsMessage, hostName,
-                port);
+            port);
         client.sendMessage(stopPerioidicEventsMessage);
         LOGGER.debug("sent stop perioidic events message to server {}:{} . . .", hostName, port);
 
         // Check if we got a response
         final Response response = getResponse(stopPerioidicEventsMessage);
         if (!response.isSuccessful()) {
-            final String message =
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
-            LOGGER.warn(message);
+            final String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':'
+                + port;
             throw new ApexDeploymentException(message);
         }
     }
@@ -378,9 +395,8 @@ public class EngineServiceFacade {
         // Check if we got a response
         final Response response = getResponse(engineStatusMessage);
         if (!response.isSuccessful()) {
-            final String message =
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
-            LOGGER.warn(message);
+            final String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':'
+                + port;
             throw new ApexException(message);
         }
 
@@ -394,22 +410,22 @@ public class EngineServiceFacade {
      * Get the runtime information of an Apex engine.
      *
      * @param engineKey the key of the engine to get information for
-     * @return an engine model containing information on the engine for the given key
+     * @return an engine model containing information on the engine for the given
+     *         key
      * @throws ApexException the apex exception
      */
     public String getEngineInfo(final AxArtifactKey engineKey) throws ApexException {
         final GetEngineInfo engineInfoMessage = new GetEngineInfo(engineKey);
         LOGGER.debug("sending get engine information message {} to server {}:{} . . .", engineInfoMessage, hostName,
-                port);
+            port);
         client.sendMessage(engineInfoMessage);
         LOGGER.debug("sent get engine information message to server {}:{} . . .", hostName, port);
 
         // Check if we got a response
         final Response response = getResponse(engineInfoMessage);
         if (!response.isSuccessful()) {
-            final String message =
-                    FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':' + port;
-            LOGGER.warn(message);
+            final String message = FAILED_RESPONSE + response.getMessageData() + RECEIVED_FROM_SERVER + hostName + ':'
+                + port;
             throw new ApexException(message);
         }
 
@@ -430,33 +446,30 @@ public class EngineServiceFacade {
             timeoutTime = REPLY_MESSAGE_TIMEOUT_DEFAULT;
         }
 
-        // Wait for the required amount of milliseconds for the response from the Apex server
+        // Wait for the required amount of milliseconds for the response from the Apex
+        // server
         Message receivedMessage = null;
-        for (int timeWaitedSoFar = 0; receivedMessage == null && timeWaitedSoFar < timeoutTime; timeWaitedSoFar +=
-                REPLY_MESSAGE_TIMEOUT_INCREMENT) {
+        for (int timeWaitedSoFar = 0; receivedMessage == null
+            && timeWaitedSoFar < timeoutTime; timeWaitedSoFar += REPLY_MESSAGE_TIMEOUT_INCREMENT) {
             try {
                 receivedMessage = client.getReceiveQueue().poll(REPLY_MESSAGE_TIMEOUT_INCREMENT, TimeUnit.MILLISECONDS);
             } catch (final InterruptedException e) {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();
-                LOGGER.warn("reception of response from server interrupted {}:{}", hostName, port, e);
                 throw new ApexDeploymentException(
-                        "reception of response from server interrupted " + hostName + ':' + port, e);
+                    "reception of response from server interrupted " + hostName + ':' + port, e);
             }
         }
 
         // Check if response to sent message
         if (receivedMessage == null) {
-            LOGGER.warn("no response received to sent message " + sentMessage.getAction());
             throw new ApexDeploymentException("no response received to sent message " + sentMessage.getAction());
         }
 
         // Check instance is a response message
         if (!(receivedMessage instanceof Response)) {
-            LOGGER.warn("response received from server is of incorrect type {}, should be of type {}",
-                    receivedMessage.getClass().getName(), Response.class.getName());
             throw new ApexDeploymentException("response received from server is of incorrect type "
-                    + receivedMessage.getClass().getName() + ", should be of type " + Response.class.getName());
+                + receivedMessage.getClass().getName() + ", should be of type " + Response.class.getName());
         }
 
         // Cast the response message
@@ -464,18 +477,17 @@ public class EngineServiceFacade {
 
         // Check if response to sent message
         if (!responseMessage.getResponseTo().equals(sentMessage)) {
-            LOGGER.warn("response received is not response to sent message " + sentMessage.getAction());
             throw new ApexDeploymentException(
-                    "response received is not correct response to sent message " + sentMessage.getAction());
+                "response received is not correct response to sent message " + sentMessage.getAction());
         }
 
         // Check if successful
         if (responseMessage.isSuccessful()) {
             LOGGER.debug("response received: {} message was succssful: {}", sentMessage.getAction(),
-                    responseMessage.getMessageData());
+                responseMessage.getMessageData());
         } else {
             LOGGER.debug("response received: {} message failed: {}", sentMessage.getAction(),
-                    responseMessage.getMessageData());
+                responseMessage.getMessageData());
         }
 
         return responseMessage;
@@ -483,7 +495,7 @@ public class EngineServiceFacade {
 
     /**
      * Set a deployment client for this facade. This method is for testing.
-     * 
+     *
      * @param deploymentClient the deployment client to set
      */
     protected void setDeploymentClient(final DeploymentClient deploymentClient) {
