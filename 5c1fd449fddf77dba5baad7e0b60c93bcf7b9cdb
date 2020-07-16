@@ -19,6 +19,41 @@
     },
     {
       "key": {
+        "uuid": "49b51631_2015658e",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-16T19:30:24Z",
+      "side": 1,
+      "message": "good question",
+      "parentUuid": "fd6ac085_2550436e",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09f5c23a_14ee04f2",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-16T19:30:24Z",
+      "side": 1,
+      "message": "should line 134 be moved out, too?",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e7c290e_3b7a84c7",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
         "patchSetId": 3
@@ -30,6 +65,23 @@
       "writtenOn": "2020-07-16T14:43:56Z",
       "side": 1,
       "message": "general question about runtime exceptions",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59fd9986_09bb181d",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-16T19:30:24Z",
+      "side": 1,
+      "message": "should this be moved out?",
       "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
