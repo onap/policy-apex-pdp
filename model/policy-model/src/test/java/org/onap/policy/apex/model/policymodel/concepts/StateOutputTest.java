@@ -23,10 +23,8 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -99,16 +97,16 @@ public class StateOutputTest {
         final AxStateOutput clonedPar = new AxStateOutput(so);
         assertEquals("AxStateOutput:(stateKey=AxReferenceKey:(parentKeyN", clonedPar.toString().substring(0, 50));
 
-        assertFalse(so.hashCode() == 0);
+        assertNotEquals(0, so.hashCode());
 
-        assertTrue(so.equals(so));
-        assertTrue(so.equals(clonedPar));
-        assertFalse(so.equals(null));
-        assertFalse(so.equals((Object) "Hello"));
-        assertFalse(so.equals(new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey)));
-        assertFalse(so.equals(new AxStateOutput(soKey, new AxArtifactKey(), nsKey)));
-        assertFalse(so.equals(new AxStateOutput(soKey, eKey, new AxReferenceKey())));
-        assertTrue(so.equals(new AxStateOutput(soKey, eKey, nsKey)));
+        assertEquals(so, so);
+        assertEquals(so, clonedPar);
+        assertNotNull(so);
+        assertNotEquals(so, (Object) "Hello");
+        assertNotEquals(so, new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey));
+        assertNotEquals(so, new AxStateOutput(soKey, new AxArtifactKey(), nsKey));
+        assertNotEquals(so, new AxStateOutput(soKey, eKey, new AxReferenceKey()));
+        assertEquals(so, new AxStateOutput(soKey, eKey, nsKey));
 
         assertEquals(0, so.compareTo(so));
         assertEquals(0, so.compareTo(clonedPar));

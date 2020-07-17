@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.enginemodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -137,15 +136,15 @@ public class EngineStatsTest {
 
         assertNotNull(stats.getKeys());
 
-        assertFalse(stats.hashCode() == 0);
+        assertNotEquals(0, stats.hashCode());
 
-        assertTrue(stats.equals(stats));
-        assertTrue(stats.equals(clonedStats));
-        assertFalse(stats.equals(null));
+        assertEquals(stats, stats);
+        assertEquals(stats, clonedStats);
+        assertNotNull(stats);
 
         Object helloObject = "Hello";
-        assertFalse(stats.equals(helloObject));
-        assertFalse(stats.equals(new AxEngineStats(new AxReferenceKey())));
+        assertNotEquals(stats, helloObject);
+        assertNotEquals(stats, new AxEngineStats(new AxReferenceKey()));
 
         assertEquals(0, stats.compareTo(stats));
         assertEquals(0, stats.compareTo(clonedStats));
@@ -154,51 +153,51 @@ public class EngineStatsTest {
         assertNotEquals(0, stats.compareTo(new AxEngineStats(new AxReferenceKey())));
 
         stats.setTimeStamp(1);
-        assertFalse(stats.equals(new AxEngineStats(statsKey)));
+        assertNotEquals(stats, new AxEngineStats(statsKey));
         assertNotEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
         stats.setTimeStamp(0);
-        assertTrue(stats.equals(new AxEngineStats(statsKey)));
+        assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
 
         stats.setEventCount(1);
-        assertFalse(stats.equals(new AxEngineStats(statsKey)));
+        assertNotEquals(stats, new AxEngineStats(statsKey));
         assertNotEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
         stats.setEventCount(0);
-        assertTrue(stats.equals(new AxEngineStats(statsKey)));
+        assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
 
         stats.setLastExecutionTime(1);
-        assertFalse(stats.equals(new AxEngineStats(statsKey)));
+        assertNotEquals(stats, new AxEngineStats(statsKey));
         assertNotEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
         stats.setLastExecutionTime(0);
-        assertTrue(stats.equals(new AxEngineStats(statsKey)));
+        assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
 
         stats.setAverageExecutionTime(1);
-        assertFalse(stats.equals(new AxEngineStats(statsKey)));
+        assertNotEquals(stats, new AxEngineStats(statsKey));
         assertNotEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
         stats.setAverageExecutionTime(0);
-        assertTrue(stats.equals(new AxEngineStats(statsKey)));
+        assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
 
         stats.setUpTime(1);
-        assertFalse(stats.equals(new AxEngineStats(statsKey)));
+        assertNotEquals(stats, new AxEngineStats(statsKey));
         assertNotEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
         stats.setUpTime(0);
-        assertTrue(stats.equals(new AxEngineStats(statsKey)));
+        assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
 
         assertEquals(-1, stats.compareTo(new AxEngineStats(statsKey, 0, 0, 0, 0.0, 0, 1)));
 
         stats.engineStart();
-        assertFalse(stats.equals(new AxEngineStats(statsKey)));
+        assertNotEquals(stats, new AxEngineStats(statsKey));
         final AxEngineStats newStats = new AxEngineStats(statsKey);
         newStats.setTimeStamp(stats.getTimeStamp());
-        assertFalse(stats.equals(newStats));
+        assertNotEquals(stats, newStats);
         assertNotEquals(0, stats.compareTo(newStats));
         stats.engineStop();
         stats.reset();
-        assertTrue(stats.equals(new AxEngineStats(statsKey)));
+        assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
     }
 
