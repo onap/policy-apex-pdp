@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "b11231b0_1bf14753",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/BatchDeployer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-17T15:59:53Z",
+      "side": 1,
+      "message": "To be honest I don\u0027t want to put a lot of effort into this code because it is code that is used to load policies into apex-pdp using the legacy WebSocket interface and we\u0027ll probably be removing that in favour of using the TOSCA based loading that Ajith wrote once I get the clients working in policy-gui",
+      "parentUuid": "aff67d4c_782d6066",
+      "revId": "dfd1a7ad14a53f4389b730ec2af9c2e8dd072a2e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8c485e0_901f7f47",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
         "patchSetId": 2
