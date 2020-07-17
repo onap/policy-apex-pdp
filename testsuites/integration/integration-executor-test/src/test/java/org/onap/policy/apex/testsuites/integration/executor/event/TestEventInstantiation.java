@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Date;
@@ -194,11 +193,11 @@ public class TestEventInstantiation {
 
         final double temp2 = (double) event.get("TestTemperature");
         assertNotNull(temp2);
-        assertTrue(temp2 == 123.456789);
+        assertEquals(123.456789, temp2, 0);
 
         final Double temp3 = (Double) event.get("TestTemperature");
         assertNotNull(temp3);
-        assertTrue(temp3 == 123.456789);
+        assertEquals(123.456789, temp3, 0);
 
         final Date aDate = new Date(1433453067123L);
         final Map<String, Object> eventDataList = new HashMap<String, Object>();
@@ -223,7 +222,7 @@ public class TestEventInstantiation {
 
         final double temp4 = (double) event.get("TestTemperature");
         assertNotNull(temp4);
-        assertTrue(temp4 == 34.5445667);
+        assertEquals(34.5445667, temp4, 0);
 
         logger.debug(event.toString());
     }
