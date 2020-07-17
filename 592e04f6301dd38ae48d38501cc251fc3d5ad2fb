@@ -16,6 +16,24 @@
       "revId": "592e04f6301dd38ae48d38501cc251fc3d5ad2fb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a5fe9ff_c03058e0",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/executor/TaskSelectExecutorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-07-17T08:32:55Z",
+      "side": 0,
+      "message": "I believe this was a copy paste error from the task executor test case that was probably used as a template for writing this test case.\n\nThere are no tasks associated with task selectors in the input, the job of a task selector is to select a task. This exception can\u0027t be thrown by the executePre() method on a task selection executor.",
+      "parentUuid": "aa7bf419_fa3a13d0",
+      "revId": "592e04f6301dd38ae48d38501cc251fc3d5ad2fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
