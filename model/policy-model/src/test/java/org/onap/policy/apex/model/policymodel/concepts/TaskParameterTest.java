@@ -23,10 +23,8 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -37,7 +35,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 
 /**
  * Test task parameters.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TaskParameterTest {
@@ -90,15 +88,15 @@ public class TaskParameterTest {
         assertEquals("AxTaskParameter:(key=AxReferenceKey:(parentKeyName=ParParentName,parentKeyVersion=0.0.1,"
                         + "parentLocalName=PLN,localName=LN),defaultValue=DefaultValue)", clonedPar.toString());
 
-        assertFalse(par.hashCode() == 0);
+        assertNotEquals(0, par.hashCode());
 
-        assertTrue(par.equals(par));
-        assertTrue(par.equals(clonedPar));
-        assertFalse(par.equals(null));
-        assertFalse(par.equals((Object) "Hello"));
-        assertFalse(par.equals(new AxTaskParameter(AxReferenceKey.getNullKey(), "DefaultValue")));
-        assertFalse(par.equals(new AxTaskParameter(parKey, "OtherDefaultValue")));
-        assertTrue(par.equals(new AxTaskParameter(parKey, "DefaultValue")));
+        assertEquals(par, par);
+        assertEquals(par, clonedPar);
+        assertNotNull(par);
+        assertNotEquals(par, (Object) "Hello");
+        assertNotEquals(par, new AxTaskParameter(AxReferenceKey.getNullKey(), "DefaultValue"));
+        assertNotEquals(par, new AxTaskParameter(parKey, "OtherDefaultValue"));
+        assertEquals(par, new AxTaskParameter(parKey, "DefaultValue"));
 
         assertEquals(0, par.compareTo(par));
         assertEquals(0, par.compareTo(clonedPar));

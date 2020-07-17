@@ -23,10 +23,8 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -114,18 +112,17 @@ public class StateTaskReferenceTest {
         AxStateTaskReference clonedStRef = new AxStateTaskReference(stRef);
         assertEquals("AxStateTaskReference:(stateKey=AxReferenceKey:(par", clonedStRef.toString().substring(0, 50));
 
-        assertFalse(stRef.hashCode() == 0);
+        assertNotEquals(0, stRef.hashCode());
 
-        assertTrue(stRef.equals(stRef));
-        assertTrue(stRef.equals(clonedStRef));
-        assertFalse(stRef.equals(null));
-        assertFalse(stRef.equals((Object) "Hello"));
-        assertFalse(stRef.equals(
-                        new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC, soKey)));
-        assertFalse(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey)));
-        assertFalse(stRef
-                        .equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey())));
-        assertTrue(stRef.equals(new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, soKey)));
+        assertEquals(stRef, stRef);
+        assertEquals(stRef, clonedStRef);
+        assertNotNull(stRef);
+        assertNotEquals(stRef, (Object) "Hello");
+        assertNotEquals(stRef, new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC,
+                        soKey));
+        assertNotEquals(stRef, new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey));
+        assertNotEquals(stRef, new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, new AxReferenceKey()));
+        assertEquals(stRef, new AxStateTaskReference(stRefKey, AxStateTaskOutputType.LOGIC, soKey));
 
         assertNotNull(new AxStateTaskReference(new AxReferenceKey(), new AxArtifactKey(),
                         AxStateTaskOutputType.UNDEFINED, new AxReferenceKey()));

@@ -23,10 +23,8 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 import java.util.TreeMap;
@@ -384,40 +382,40 @@ public class StateTest {
         final AxState clonedState = new AxState(state);
         assertEquals("AxState:(stateKey=AxReferenceKey:(parent", clonedState.toString().substring(0, 40));
 
-        assertFalse(state.hashCode() == 0);
+        assertNotEquals(0, state.hashCode());
 
-        assertTrue(state.equals(state));
-        assertTrue(state.equals(clonedState));
-        assertFalse(state.equals(null));
-        assertFalse(state.equals((Object) "Hello"));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
+        assertEquals(state, state);
+        assertEquals(state, clonedState);
+        assertNotNull(state);
+        assertNotEquals(state, (Object) "Hello");
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(new AxArtifactKey())
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(new AxArtifactKey())
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
                         .stateOutputs(soEmptyMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtEmptySet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet)
                         .taskSelectionLogic(new AxTaskSelectionLogic()).stateFinalizerLogicMap(sflMap)
-                        .defaultTask(defTaskKey).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                        .defaultTask(defTaskKey).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflEmptyMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                        .stateFinalizerLogicMap(sflEmptyMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(new AxArtifactKey()).taskReferenceMap(trMap))));
-        assertFalse(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                        .stateFinalizerLogicMap(sflMap).defaultTask(new AxArtifactKey()).taskReferenceMap(trMap)));
+        assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trEmptyMap))));
-        assertTrue(state.equals(new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
-                        .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
-                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap))));
+                        .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trEmptyMap)));
+        assertEquals(state, new AxState(new AxStateParamsBuilder().key(stateKey).trigger(triggerKey)
+                     .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
+                     .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));
 
         assertEquals(0, state.compareTo(state));
         assertEquals(0, state.compareTo(clonedState));

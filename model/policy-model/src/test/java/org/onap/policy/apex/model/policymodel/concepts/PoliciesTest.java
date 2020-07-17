@@ -23,10 +23,8 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -40,7 +38,7 @@ import org.onap.policy.apex.model.policymodel.handling.SupportApexPolicyModelCre
 
 /**
  * Test apex policies.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class PoliciesTest {
@@ -210,18 +208,18 @@ public class PoliciesTest {
         assertEquals("AxPolicy:(key=AxArtifactKey:(name=policy,version=0.0.1),template=FREEFORM,sta",
                         clonedPolicy.toString().substring(0, 77));
 
-        assertFalse(policyPN.hashCode() == 0);
+        assertNotEquals(0, policyPN.hashCode());
 
-        assertTrue(policyPN.equals(policyPN));
-        assertTrue(policyPN.equals(clonedPolicy));
-        assertFalse(policyPN.equals(null));
-        assertFalse(policyPN.equals((Object) "Hello"));
-        assertFalse(policyPN.equals(
-                        new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState)));
-        assertFalse(policyPN.equals(new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState)));
-        assertFalse(policyPN.equals(new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState)));
-        assertFalse(policyPN.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState")));
-        assertTrue(policyPN.equals(new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, savedFirstState)));
+        assertEquals(policyPN, policyPN);
+        assertEquals(policyPN, clonedPolicy);
+        assertNotNull(policyPN);
+        assertNotEquals(policyPN, (Object) "Hello");
+        assertNotEquals(policyPN,
+                        new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState));
+        assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState));
+        assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, savedTemplate, stateMapEmpty, savedFirstState));
+        assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, "SomeFirstState"));
+        assertEquals(policyPN, new AxPolicy(savedPolicyKey, savedTemplate, savedStateMap, savedFirstState));
 
         assertEquals(0, policyPN.compareTo(policyPN));
         assertEquals(0, policyPN.compareTo(clonedPolicy));
@@ -295,13 +293,13 @@ public class PoliciesTest {
         assertEquals("AxPolicies:(key=AxArtifactKey:(name=PoliciesKey,version=0.0.",
                         clonedPolicies.toString().substring(0, 60));
 
-        assertFalse(policies.hashCode() == 0);
+        assertNotEquals(0, policies.hashCode());
 
-        assertTrue(policies.equals(policies));
-        assertTrue(policies.equals(clonedPolicies));
-        assertFalse(policies.equals(null));
-        assertFalse(policies.equals((Object) "Hello"));
-        assertFalse(policies.equals(new AxPolicies(new AxArtifactKey())));
+        assertEquals(policies, policies);
+        assertEquals(policies, clonedPolicies);
+        assertNotNull(policies);
+        assertNotEquals(policies, (Object) "Hello");
+        assertNotEquals(policies, new AxPolicies(new AxArtifactKey()));
 
         assertEquals(0, policies.compareTo(policies));
         assertEquals(0, policies.compareTo(clonedPolicies));
