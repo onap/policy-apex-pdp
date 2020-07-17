@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.policymodel.handling;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -51,20 +50,20 @@ public class PolicyModelComparerTest {
         resultString = policyModelComparer.asString(false, true);
         checkString = TextFileUtils
                 .getTextFileAsString("src/test/resources/checkFiles/PolicyModelComparisonIdenticalVerboseKeys.txt");
-        assertTrue(resultString.trim().replaceAll("[\\r?\\n]+", " ")
-                .equals(checkString.trim().replaceAll("[\\r?\\n]+", " ")));
+        assertEquals(checkString.trim().replaceAll("[\\r?\\n]+", " "),
+                     resultString.trim().replaceAll("[\\r?\\n]+", " "));
 
         resultString = policyModelComparer.asString(true, false);
         checkString = TextFileUtils
                 .getTextFileAsString("src/test/resources/checkFiles/PolicyModelComparisonIdenticalTerse.txt");
-        assertTrue(resultString.trim().replaceAll("[\\r?\\n]+", " ")
-                .equals(checkString.trim().replaceAll("[\\r?\\n]+", " ")));
+        assertEquals(checkString.trim().replaceAll("[\\r?\\n]+", " "),
+                     resultString.trim().replaceAll("[\\r?\\n]+", " "));
 
         resultString = policyModelComparer.asString(true, true);
         checkString = TextFileUtils
                 .getTextFileAsString("src/test/resources/checkFiles/PolicyModelComparisonIdenticalTerse.txt");
-        assertTrue(resultString.trim().replaceAll("[\\r?\\n]+", " ")
-                .equals(checkString.trim().replaceAll("[\\r?\\n]+", " ")));
+        assertEquals(checkString.trim().replaceAll("[\\r?\\n]+", " "),
+                     resultString.trim().replaceAll("[\\r?\\n]+", " "));
 
         final AxKeyInfo leftOnlyKeyInfo = new AxKeyInfo(new AxArtifactKey("LeftOnlyKeyInfo", "0.0.1"),
                 UUID.fromString("ce9168c-e6df-414f-9646-6da464b6f000"), "Left only key info");
@@ -90,20 +89,20 @@ public class PolicyModelComparerTest {
         resultString = policyModelComparer.asString(false, true);
         checkString = TextFileUtils
                 .getTextFileAsString("src/test/resources/checkFiles/PolicyModelComparisonDifferentVerboseKeys.txt");
-        assertTrue(resultString.trim().replaceAll("[\\r?\\n]+", " ")
-                .equals(checkString.trim().replaceAll("[\\r?\\n]+", " ")));
+        assertEquals(checkString.trim().replaceAll("[\\r?\\n]+", " "),
+                     resultString.trim().replaceAll("[\\r?\\n]+", " "));
 
         resultString = policyModelComparer.asString(true, false);
         checkString = TextFileUtils
                 .getTextFileAsString("src/test/resources/checkFiles/PolicyModelComparisonDifferentTerseValues.txt");
-        assertTrue(resultString.trim().replaceAll("[\\r?\\n]+", " ")
-                .equals(checkString.trim().replaceAll("[\\r?\\n]+", " ")));
+        assertEquals(checkString.trim().replaceAll("[\\r?\\n]+", " "),
+                     resultString.trim().replaceAll("[\\r?\\n]+", " "));
 
         resultString = policyModelComparer.asString(true, true);
         checkString = TextFileUtils
                 .getTextFileAsString("src/test/resources/checkFiles/PolicyModelComparisonDifferentTerseKeys.txt");
-        assertTrue(resultString.trim().replaceAll("[\\r?\\n]+", " ")
-                .equals(checkString.trim().replaceAll("[\\r?\\n]+", " ")));
+        assertEquals(checkString.trim().replaceAll("[\\r?\\n]+", " "),
+                     resultString.trim().replaceAll("[\\r?\\n]+", " "));
 
         assertNotNull(policyModelComparer.getContextAlbumComparisonResult());
         assertNotNull(policyModelComparer.getContextAlbumKeyDifference());

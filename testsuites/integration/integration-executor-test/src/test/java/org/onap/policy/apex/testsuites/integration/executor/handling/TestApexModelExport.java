@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.handling;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,13 +89,13 @@ public class TestApexModelExport {
         model.getKeyInformation().getKeyInfoMap().remove(new AxArtifactKey("TestContextItem00B", "0.0.1"));
         model.getKeyInformation().getKeyInfoMap().remove(new AxArtifactKey("TestContextItem00C", "0.0.1"));
 
-        assertTrue(model.equals(exportedModel0));
+        assertEquals(model, exportedModel0);
 
         exportPolicyList.remove(0);
 
         final AxPolicyModel exportedModel1 = PolicyModelSplitter.getSubPolicyModel(model, exportPolicyList);
-        assertFalse(model.equals(exportedModel1));
-        assertTrue(model.getPolicies().get("Policy1").equals(exportedModel1.getPolicies().get("Policy1")));
+        assertNotEquals(model, exportedModel1);
+        assertEquals(model.getPolicies().get("Policy1"), exportedModel1.getPolicies().get("Policy1"));
 
         exportPolicyList.clear();
         exportPolicyList.add(new AxArtifactKey("NonExistentPolicy", "0.0.1"));

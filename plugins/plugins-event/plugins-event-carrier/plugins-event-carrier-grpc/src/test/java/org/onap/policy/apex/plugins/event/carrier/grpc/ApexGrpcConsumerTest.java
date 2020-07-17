@@ -23,7 +23,6 @@ package org.onap.policy.apex.plugins.event.carrier.grpc;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -80,8 +79,8 @@ public class ApexGrpcConsumerTest {
         grpcConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
         PeeredReference peeredReference = grpcConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR);
         assertNotNull(peeredReference);
-        assertTrue(peeredReference.getPeeredConsumer().equals(grpcConsumer));
-        assertTrue(peeredReference.getPeeredProducer().equals(grpcProducer));
+        assertEquals(grpcConsumer, peeredReference.getPeeredConsumer());
+        assertEquals(grpcProducer, peeredReference.getPeeredProducer());
     }
 
     private EventHandlerParameters populateConsumerParameters(boolean isConsumer, boolean isPeeredMode) {
