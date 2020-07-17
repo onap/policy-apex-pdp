@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "aff80905_98264d8b",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-17T07:52:36Z",
+      "side": 1,
+      "message": "Lines 138 \u0026 135 require a throws declaration or a try/catch. I have ran a sonar analysis on it and it seems to be fine?",
+      "parentUuid": "49b51631_2015658e",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09f5c23a_14ee04f2",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
         "patchSetId": 3
@@ -51,6 +69,24 @@
       "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6544a3a4_5a1fad55",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-17T07:52:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "09f5c23a_14ee04f2",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +121,24 @@
       "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e6bd49d_902af771",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-17T07:52:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "59fd9986_09bb181d",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
