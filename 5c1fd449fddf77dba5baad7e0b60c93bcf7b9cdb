@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9f569de4_ebcfd665",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:12:13Z",
+      "side": 1,
+      "message": "I\u0027m thinking the two runtime exceptions can be removed from the \"throws\" list.\n\nInteresting that sonar doesn\u0027t complain - I know it\u0027s more lenient with @Test methods, so maybe that\u0027s the explanation",
+      "parentUuid": "aff80905_98264d8b",
+      "revId": "5c1fd449fddf77dba5baad7e0b60c93bcf7b9cdb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09f5c23a_14ee04f2",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelWriterTest.java",
         "patchSetId": 3
