@@ -21,7 +21,9 @@
 
 package org.onap.policy.apex.plugins.event.protocol.xml;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -62,14 +64,14 @@ public class XmlEventHandlerTest {
                 logger.debug(apexEvent.toString());
 
                 assertTrue(apexEvent.getName().equals("Event0000") || apexEvent.getName().equals("Event0100"));
-                assertTrue(apexEvent.getVersion().equals("0.0.1"));
-                assertTrue(apexEvent.getNameSpace().equals("org.onap.policy.apex.sample.events"));
-                assertTrue(apexEvent.getSource().equals("test"));
-                assertTrue(apexEvent.getTarget().equals("apex"));
+                assertEquals("0.0.1", apexEvent.getVersion());
+                assertEquals("org.onap.policy.apex.sample.events", apexEvent.getNameSpace());
+                assertEquals("test", apexEvent.getSource());
+                assertEquals("apex", apexEvent.getTarget());
                 assertTrue(apexEvent.get("TestSlogan").toString().startsWith("Test slogan for External Event"));
 
                 final Object testMatchCaseSelected = apexEvent.get("TestMatchCaseSelected");
-                assertTrue(testMatchCaseSelected == null);
+                assertNull(testMatchCaseSelected);
             }
         } catch (final Exception e) {
             e.printStackTrace();

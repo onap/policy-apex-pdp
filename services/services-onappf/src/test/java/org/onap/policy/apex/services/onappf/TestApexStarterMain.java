@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.services.onappf;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -81,14 +83,14 @@ public class TestApexStarterMain {
     public void testApexStarter_NoArguments() {
         final String[] apexStarterConfigParameters = {};
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
-        assertTrue(apexStarter.getParameters() == null);
+        assertNull(apexStarter.getParameters());
     }
 
     @Test
     public void testApexStarter_InvalidArguments() {
         final String[] apexStarterConfigParameters = { "src/test/resources/ApexStarterConfigParameters.json" };
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
-        assertTrue(apexStarter.getParameters() == null);
+        assertNull(apexStarter.getParameters());
     }
 
     @Test
@@ -102,6 +104,6 @@ public class TestApexStarterMain {
         final String[] apexStarterConfigParameters =
         { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
-        assertTrue(apexStarter.getParameters() == null);
+        assertNull(apexStarter.getParameters());
     }
 }
