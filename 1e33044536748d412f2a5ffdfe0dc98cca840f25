@@ -16,6 +16,24 @@
       "revId": "1e33044536748d412f2a5ffdfe0dc98cca840f25",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c80033_ca8447ee",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/StateTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:23:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c1bcc40_033bdecb",
+      "revId": "1e33044536748d412f2a5ffdfe0dc98cca840f25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
