@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,6 @@ package org.onap.policy.apex.plugins.persistence.jpa.eclipselink;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -85,7 +85,7 @@ public class EclipselinkApexDaoTest {
         assertNull(eclipselinkApexDao.getArtifact(ReferenceKeyTestEntity.class, nullRefernceKey));
 
         assertNotNull(eclipselinkApexDao.getAll(null));
-        assertTrue(eclipselinkApexDao.getAll(null).equals(emptyList));
+        assertEquals(emptyList, eclipselinkApexDao.getAll(null));
         assertNotNull(eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class));
     }
 
@@ -233,7 +233,7 @@ public class EclipselinkApexDaoTest {
 
         // test with null class with known key --> return an empty list
         assertNotNull(eclipselinkApexDao.getAll(null, artiKey1));
-        assertTrue(eclipselinkApexDao.getAll(null, artiKey1).equals(Collections.emptyList()));
+        assertEquals(Collections.emptyList(), eclipselinkApexDao.getAll(null, artiKey1));
 
         // test with (not_null) ArtifactKeyTestEntity class
         assertEquals(0, eclipselinkApexDao.getAll(ReferenceKeyTestEntity.class, artiKey0).size());

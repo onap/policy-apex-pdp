@@ -499,9 +499,9 @@ public class ApexServiceTest {
         private void checkResult(final ApexEvent result) {
             assertTrue(result.getName().startsWith("Event0004") || result.getName().startsWith("Event0104"));
 
-            assertTrue(result.get("TestSlogan").equals("This is a test slogan"));
-            assertTrue(result.get("TestMatchCase").equals((byte) 123));
-            assertTrue(result.get("TestTemperature").equals(34.5445667));
+            assertEquals("This is a test slogan", result.get("TestSlogan"));
+            assertEquals((byte) 123, result.get("TestMatchCase"));
+            assertEquals(34.5445667, result.get("TestTemperature"));
             assertTrue(((byte) result.get("TestMatchCaseSelected")) >= 0
                     && ((byte) result.get("TestMatchCaseSelected") <= 3));
             assertTrue(((byte) result.get("TestEstablishCaseSelected")) >= 0
