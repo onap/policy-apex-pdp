@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "aff67d4c_782d6066",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/BatchDeployer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:08:07Z",
+      "side": 1,
+      "message": "could it use a latch instead, so the test doesn\u0027t have to sleep?",
+      "parentUuid": "435c0519_6b6c1297",
+      "revId": "dfd1a7ad14a53f4389b730ec2af9c2e8dd072a2e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8c485e0_901f7f47",
         "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "dfd1a7ad14a53f4389b730ec2af9c2e8dd072a2e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0374a604_7c8dc0eb",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/DummyDeploymentClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:08:07Z",
+      "side": 1,
+      "message": "oh, right!",
+      "parentUuid": "074d906d_a8d26084",
+      "revId": "dfd1a7ad14a53f4389b730ec2af9c2e8dd072a2e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
