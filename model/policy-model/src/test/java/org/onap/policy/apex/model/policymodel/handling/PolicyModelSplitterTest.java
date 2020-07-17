@@ -22,8 +22,8 @@
 package org.onap.policy.apex.model.policymodel.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -49,7 +49,7 @@ public class PolicyModelSplitterTest {
         // not be in the split model
         apexModel.getEvents().getEventMap().remove(new AxArtifactKey("outEvent1", "0.0.1"));
         apexModel.getKeyInformation().getKeyInfoMap().remove(new AxArtifactKey("outEvent1", "0.0.1"));
-        assertTrue(apexModel.equals(splitApexModel));
+        assertEquals(splitApexModel, apexModel);
 
         final Set<AxArtifactKey> requiredMissingPolicySet = new TreeSet<AxArtifactKey>();
         requiredPolicySet.add(new AxArtifactKey("MissingPolicy", "0.0.1"));
@@ -65,7 +65,7 @@ public class PolicyModelSplitterTest {
         // not be in the split model
         apexModel.getEvents().getEventMap().remove(new AxArtifactKey("outEvent1", "0.0.1"));
         apexModel.getKeyInformation().getKeyInfoMap().remove(new AxArtifactKey("outEvent1", "0.0.1"));
-        assertTrue(apexModel.equals(splitApexModel));
+        assertEquals(splitApexModel, apexModel);
 
         // There's only one policy so a split of this model on that policy should return the same
         // model
