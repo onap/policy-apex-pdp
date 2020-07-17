@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,7 @@
 
 package org.onap.policy.apex.model.enginemodel.handling;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,19 +46,19 @@ public class ApexEngineModelTest {
     @Test
     public void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
-        assertTrue(result.toString().equals(VALID_MODEL_STRING));
+        assertEquals(VALID_MODEL_STRING, result.toString());
     }
 
     @Test
     public void testModelVaidateInvalidModel() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
-        assertTrue(result.toString().equals(INVALID_MODEL_STRING));
+        assertEquals(INVALID_MODEL_STRING, result.toString());
     }
 
     @Test
     public void testModelVaidateMalstructured() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
-        assertTrue(result.toString().equals(INVALID_MODEL_MALSTRUCTURED_STRING));
+        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
     }
 
     @Test
