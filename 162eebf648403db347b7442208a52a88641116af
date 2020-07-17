@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "678125d4_e2b8e4ce",
+        "filename": "model/event-model/src/test/java/org/onap/policy/apex/model/eventmodel/concepts/FieldTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dfa736e_1ca54b3d",
+      "revId": "162eebf648403db347b7442208a52a88641116af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1ac4e6_006a9ed9",
         "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/LogicTest.java",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "162eebf648403db347b7442208a52a88641116af",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36a039a_50c26e4e",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/LogicTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1ac4e6_006a9ed9",
+      "revId": "162eebf648403db347b7442208a52a88641116af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a4da2ec6_ed2ecb28",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/PoliciesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d56056bd_68f688f7",
+      "revId": "162eebf648403db347b7442208a52a88641116af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30894cd3_dff8d765",
         "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/PoliciesTest.java",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "162eebf648403db347b7442208a52a88641116af",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "935b44eb_db57db65",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/PoliciesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-17T15:00:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30894cd3_dff8d765",
+      "revId": "162eebf648403db347b7442208a52a88641116af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
