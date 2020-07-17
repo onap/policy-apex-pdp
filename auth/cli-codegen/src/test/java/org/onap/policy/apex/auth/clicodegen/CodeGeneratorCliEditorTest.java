@@ -2,19 +2,20 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,11 +23,9 @@
 package org.onap.policy.apex.auth.clicodegen;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,32 +64,25 @@ public class CodeGeneratorCliEditorTest {
     private File outFile = null;
 
     @Test
-    public void test() throws IOException {
+    public void test() throws IOException, ApexModelException {
         final CodeGeneratorCliEditor codeGen = new CodeGeneratorCliEditor();
 
         outFile = File.createTempFile("ApexTestGenerated", ".apex");
 
         ApexModelReader<AxPolicyModel> modelReader = null;
-        try {
-            modelReader = new ApexModelReader<>(AxPolicyModel.class);
-        } catch (ApexModelException e1) {
-            fail("test should not throw an exception");
-        }
+        modelReader = new ApexModelReader<>(AxPolicyModel.class);
+
         modelReader.setValidateFlag(false);
         AxPolicyModel apexPolicyModel = null;
-        try {
-            apexPolicyModel = modelReader
+        apexPolicyModel = modelReader
                             .read(new FileInputStream(new File("src/test/resources/models/TestPolicyModel.json")));
-        } catch (ApexModelException | FileNotFoundException e) {
-            fail("test should not throw an exception");
-        }
 
         assertEquals(0, generateCli(codeGen, apexPolicyModel));
     }
 
     /**
      * Generate the CLI from the model.
-     * 
+     *
      * @param codeGen the code generator
      * @param policyModel the policy model
      * @throws IOException  on generation exceptions

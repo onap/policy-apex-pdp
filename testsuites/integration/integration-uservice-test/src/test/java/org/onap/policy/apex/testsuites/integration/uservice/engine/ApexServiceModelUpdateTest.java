@@ -21,10 +21,10 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.engine;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -159,14 +159,9 @@ public class ApexServiceModelUpdateTest {
      */
     @Test
     public void testNoModelStart() {
-        try {
-            service.startAll();
-            fail("Engine should not start with no model");
-        } catch (final Exception e) {
-            e.printStackTrace();
-            assertEquals("start()<-Machine-1_process-1_engine-1-0:0.0.0,STOPPED,  cannot start engine, "
-                    + "engine has not been initialized, its model is not loaded", e.getMessage());
-        }
+        assertThatThrownBy(service::startAll)
+            .hasMessage("start()<-Machine-1_process-1_engine-1-0:0.0.0,STOPPED,  cannot start engine, "
+                    + "engine has not been initialized, its model is not loaded");
     }
 
     /**
@@ -227,16 +222,10 @@ public class ApexServiceModelUpdateTest {
         final AxPolicyModel incoPolicyModel0 = new AxPolicyModel(apexSamplePolicyModel);
         incoPolicyModel0.getKey().setName("INCOMPATIBLE");
 
-        try {
-            service.updateModel(parameters.getEngineKey(), incoPolicyModel0, false);
-            fail("model update should fail on incompatible model without force being true");
-        } catch (final Exception e) {
-            System.err.println(e.getMessage());
-            assertEquals("apex model update failed, supplied model with key \"INCOMPATIBLE:0.0.1\" is not a compatible "
-                    + "model update from the existing engine model " + "with key \"SamplePolicyModelJAVASCRIPT:0.0.1\"",
-                    e.getMessage());
-        }
-
+        assertThatThrownBy(() -> service.updateModel(parameters.getEngineKey(), incoPolicyModel0, false))
+            .hasMessage("apex model update failed, supplied model with key \"INCOMPATIBLE:0.0.1\" is "
+                    + "not a compatible model update from the existing engine model " + "with key "
+                    + "\"SamplePolicyModelJAVASCRIPT:0.0.1\"");
         // Still on old model
         sendEvents();
 
@@ -244,17 +233,10 @@ public class ApexServiceModelUpdateTest {
         final AxPolicyModel incoPolicyModel1 = new AxPolicyModel(apexSamplePolicyModel);
         incoPolicyModel1.getKey().setVersion("1.0.1");
 
-        try {
-            service.updateModel(parameters.getEngineKey(), incoPolicyModel1, false);
-            fail("model update should fail on incompatible model without force being true");
-        } catch (final Exception e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-            assertEquals("apex model update failed, supplied model with key \"SamplePolicyModelJAVASCRIPT:1.0.1\" "
-                    + "is not a compatible model update from the existing engine model with key "
-                    + "\"SamplePolicyModelJAVASCRIPT:0.0.1\"", e.getMessage());
-        }
-
+        assertThatThrownBy(() -> service.updateModel(parameters.getEngineKey(), incoPolicyModel1, false))
+            .hasMessage("apex model update failed, supplied model with key \"SamplePolicyModelJAVASCRIPT:"
+                    + "1.0.1\" is not a compatible model update from the existing engine model with key "
+                    + "\"SamplePolicyModelJAVASCRIPT:0.0.1\"");
         // Still on old model
         sendEvents();
 

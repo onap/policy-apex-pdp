@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,10 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
@@ -35,287 +35,165 @@ import org.junit.Test;
 public class EventGeneratorParametersHandlerTest {
 
     @Test
-    public void testEventGeneratorParameterhandler() {
+    public void testEventGeneratorParameterhandler() throws ParseException {
         EventGeneratorParameterHandler handler = new EventGeneratorParameterHandler();
         assertNotNull(handler);
 
-        try {
-            String[] args =
-                { "-h" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertNull(parameters);
-            assertEquals("usage: EventGenerator [options...]",
-                            handler.getHelp(EventGenerator.class.getSimpleName()).substring(0, 34));
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        String[] args = { "-h" };
+        EventGeneratorParameters parameters = handler.parse(args);
+        assertNull(parameters);
+        assertEquals("usage: EventGenerator [options...]",
+                        handler.getHelp(EventGenerator.class.getSimpleName()).substring(0, 34));
 
-        try {
-            String[] args =
-                {};
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals("localhost", parameters.getHost());
-            assertEquals(32801, parameters.getPort());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] {};
+        parameters = handler.parse(args);
+        assertEquals("localhost", parameters.getHost());
+        assertEquals(32801, parameters.getPort());
 
-        try {
-            String[] args =
-                { "-H", "MyHost" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals("MyHost", parameters.getHost());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] { "-H", "MyHost" };
+        parameters = handler.parse(args);
+        assertEquals("MyHost", parameters.getHost());
 
-        try {
-            String[] args =
-                { "-p", "12345" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals(12345, parameters.getPort());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] { "-p", "12345" };
+        parameters = handler.parse(args);
+        assertEquals(12345, parameters.getPort());
 
-        try {
-            String[] args =
-                { "-H", "MyHost", "-p", "12345" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals("MyHost", parameters.getHost());
-            assertEquals(12345, parameters.getPort());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Valid.json" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals("ValidPars", parameters.getName());
-            assertEquals("FileHost", parameters.getHost());
-            assertEquals(54321, parameters.getPort());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] { "-H", "MyHost", "-p", "12345" };
+        parameters = handler.parse(args);
+        assertEquals("MyHost", parameters.getHost());
+        assertEquals(12345, parameters.getPort());
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals("localhost", parameters.getHost());
-            assertEquals(32801, parameters.getPort());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] { "-c", "src/test/resources/parameters/unit/Valid.json" };
+        parameters = handler.parse(args);
+        assertEquals("ValidPars", parameters.getName());
+        assertEquals("FileHost", parameters.getHost());
+        assertEquals(54321, parameters.getPort());
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-bc", "100" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals(100, parameters.getBatchCount());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json" };
+        parameters = handler.parse(args);
+        assertEquals("localhost", parameters.getHost());
+        assertEquals(32801, parameters.getPort());
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-bc", "-1" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
+        args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bc", "100" };
+        parameters = handler.parse(args);
+        assertEquals(100, parameters.getBatchCount());
+
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bc", "-1" };
+            handler.parse(arguments);
+        }).hasMessage("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
                             + "type \"org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator."
                             + "EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
                             + "  field \"batchCount\" type \"int\" value \"-1\" INVALID, "
                             + "batchCount must be an integer with a value of zero or more, "
-                            + "zero means generate batches forever\n", pe.getMessage());
-        }
+                            + "zero means generate batches forever\n");
+        args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bs", "12345" };
+        parameters = handler.parse(args);
+        assertEquals(12345, parameters.getBatchSize());
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-bs", "12345" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals(12345, parameters.getBatchSize());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-bs", "0" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bs", "0" };
+            handler.parse(arguments);
+        }).hasMessage("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
                             + "type \"org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator."
                             + "EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
                             + "  field \"batchSize\" type \"int\" value \"0\" INVALID, "
-                            + "batchSize must be an integer greater than zero\n", pe.getMessage());
-        }
+                            + "batchSize must be an integer greater than zero\n");
+        args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bd", "1000" };
+        parameters = handler.parse(args);
+        assertEquals(1000, parameters.getDelayBetweenBatches());
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-bd", "1000" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals(1000, parameters.getDelayBetweenBatches());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-bd", "-1" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bd", "-1" };
+            handler.parse(arguments);
+        }).hasMessage("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
                             + "type \"org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator."
                             + "EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
                             + "  field \"batchSize\" type \"int\" value \"1\" INVALID, "
-                            + "batchSize must be an integer with a value of zero or more\n", pe.getMessage());
-        }
+                            + "batchSize must be an integer with a value of zero or more\n");
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Default.json", "-o", "Zooby" };
-            EventGeneratorParameters parameters = handler.parse(args);
-            assertEquals("Zooby", parameters.getOutFile());
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-o", "Zooby" };
+        parameters = handler.parse(args);
+        assertEquals("Zooby", parameters.getOutFile());
 
-        try {
-            String[] args =
-                { "-z" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Unrecognized option: -z", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-z" };
+            handler.parse(arguments);
+        }).hasMessage("Unrecognized option: -z");
 
-        try {
-            String[] args =
-                { "-H" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Missing argument for option: H", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-H" };
+            handler.parse(arguments);
+        }).hasMessage("Missing argument for option: H");
 
-        try {
-            String[] args =
-                { "-p" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Missing argument for option: p", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-p" };
+            handler.parse(arguments);
+        }).hasMessage("Missing argument for option: p");
 
-        try {
-            String[] args =
-                { "-p", "12345", "-z" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Unrecognized option: -z", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-p", "12345", "-z" };
+            handler.parse(arguments);
+        }).hasMessage("Unrecognized option: -z");
 
-        try {
-            String[] args =
-                { "-p", "12345", "somethingElse" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("too many command line arguments specified : [somethingElse]", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-p", "12345", "somethingElse" };
+            handler.parse(arguments);
+        }).hasMessage("too many command line arguments specified : [somethingElse]");
 
-        try {
-            String[] args =
-                { "-c" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Missing argument for option: c", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c" };
+            handler.parse(arguments);
+        }).hasMessage("Missing argument for option: c");
 
-        try {
-            String[] args =
-                { "-H", "MyHost", "-c", "src/test/resources/parameters/unit/Valid.json" };
-            EventGeneratorParameters pars = handler.parse(args);
-            assertEquals("MyHost", pars.getHost());
+        args = new String[] { "-H", "MyHost", "-c", "src/test/resources/parameters/unit/Valid.json" };
+        parameters = handler.parse(args);
+        assertEquals("MyHost", parameters.getHost());
 
-        } catch (ParseException pe) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/NonExistant.json" };
+            handler.parse(arguments);
+        }).hasMessageStartingWith("Could not read parameters from configuration file ");
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/NonExistant.json" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertTrue(pe.getMessage().startsWith("Could not read parameters from configuration file "));
-        }
-
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/BadHost.json" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Error parsing JSON parameters from configuration file "
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/BadHost.json" };
+            handler.parse(arguments);
+        }).hasMessage("Error parsing JSON parameters from configuration file "
                             + "\"src/test/resources/parameters/unit/BadHost.json\": "
                             + "com.google.gson.stream.MalformedJsonException: "
-                            + "Unexpected value at line 3 column 14 path $.host", pe.getMessage());
-        }
+                            + "Unexpected value at line 3 column 14 path $.host");
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/BadPort.json" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("Error parsing JSON parameters from configuration file "
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/BadPort.json" };
+            handler.parse(arguments);
+        }).hasMessage("Error parsing JSON parameters from configuration file "
                             + "\"src/test/resources/parameters/unit/BadPort.json\": "
                             + "java.lang.IllegalStateException: Expected an int "
-                            + "but was BOOLEAN at line 4 column 18 path $.port", pe.getMessage());
-        }
+                            + "but was BOOLEAN at line 4 column 18 path $.port");
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/Empty.json" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("No parameters found in configuration file "
-                            + "\"src/test/resources/parameters/unit/Empty.json\"", pe.getMessage());
-        }
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Empty.json" };
+            handler.parse(arguments);
+        }).hasMessage("No parameters found in configuration file "
+                + "\"src/test/resources/parameters/unit/Empty.json\"");
 
-        try {
-            String[] args =
-                { "-c", "src/test/resources/parameters/unit/NullHost.json" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("specified parameters are not valid: parameter group \"ValidPars\" "
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/NullHost.json" };
+            handler.parse(arguments);
+        }).hasMessage("specified parameters are not valid: parameter group \"ValidPars\" "
                             + "type \"org.onap.policy.apex.testsuites.performance."
                             + "benchmark.eventgenerator.EventGeneratorParameters\" INVALID, "
                             + "parameter group has status INVALID\n" + "  field \"host\" type \"java.lang.String\" "
-                            + "value \"null\" INVALID, host must be a non-blank string\n", pe.getMessage());
-        }
+                            + "value \"null\" INVALID, host must be a non-blank string\n");
 
-        try {
-            String[] args =
-                { "-p", "1023" };
-            handler.parse(args);
-            fail("test should throw an exception");
-        } catch (ParseException pe) {
-            assertEquals("specified parameters are not valid: parameter group \""
+        assertThatThrownBy(() -> {
+            String[] arguments = new String[] { "-p", "1023" };
+            handler.parse(arguments);
+        }).hasMessage("specified parameters are not valid: parameter group \""
                             + "EventGeneratorParameters\" type \"org.onap.policy.apex.testsuites.performance.benchmark."
                             + "eventgenerator.EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
                             + "  field \"port\" type \"int\" value \"1023\" INVALID, "
-                            + "port must be an integer between 1024 and 65535 inclusive\n" + "", pe.getMessage());
-        }
+                            + "port must be an integer between 1024 and 65535 inclusive\n" + "");
     }
 }
