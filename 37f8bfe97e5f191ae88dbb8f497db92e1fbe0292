@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c55d875e_9916a923",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-20T12:36:41Z",
+      "side": 1,
+      "message": "trailing spaces",
+      "revId": "37f8bfe97e5f191ae88dbb8f497db92e1fbe0292",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
