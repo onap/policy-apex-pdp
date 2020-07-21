@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -133,9 +134,9 @@ public final class AvroSchemaKeyTranslationUtilities {
      */
     private static String translateIllegalKey(final String key, final boolean revert) {
         if (revert) {
-            return key.replaceAll(DOT_STRING_REPLACEMENT, DOT_STRING).replaceAll(DASH_STRING_REPLACEMENT, DASH_STRING);
+            return key.replace(DOT_STRING_REPLACEMENT, DOT_STRING).replace(DASH_STRING_REPLACEMENT, DASH_STRING);
         } else {
-            return key.replaceAll(DOT_STRING, DOT_STRING_REPLACEMENT).replaceAll(DASH_STRING, DASH_STRING_REPLACEMENT);
+            return key.replace(DOT_STRING, DOT_STRING_REPLACEMENT).replace(DASH_STRING, DASH_STRING_REPLACEMENT);
         }
     }
 }
