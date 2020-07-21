@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "328718e9_bbc21759",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-grpc/src/test/java/org/onap/policy/apex/plugins/event/carrier/grpc/ApexGrpcConsumerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-21T11:32:37Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "cf3a42695ec432bca86a68053562c74fb8425d9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b5c07e_3ad940f0",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/TestApexStarterMain.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-21T11:32:37Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "cf3a42695ec432bca86a68053562c74fb8425d9d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
