@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cfcd85a_15c73915",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/handling/PolicyModelSplitterTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-21T13:25:53Z",
+      "side": 1,
+      "message": "the expected value should appear on the left.  Is \"splitApexModel\" the expected value?  If not, then the arguments should be swapped.\n\nsame question below",
+      "revId": "caffea1ba5dc7882e52db144f9ddc13f50526770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53b14ba_2080ac3d",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestApexModelExport.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-21T13:25:53Z",
+      "side": 1,
+      "message": "is the expected value on the left?  if not, then the arguments should be swapped.\n\nsame question below",
+      "revId": "caffea1ba5dc7882e52db144f9ddc13f50526770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad06b96_10ac876b",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/handling/TestContextUpdateDifferentModels.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-21T13:25:53Z",
+      "side": 1,
+      "message": "same questions as before - is argument order correct?",
+      "revId": "caffea1ba5dc7882e52db144f9ddc13f50526770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
