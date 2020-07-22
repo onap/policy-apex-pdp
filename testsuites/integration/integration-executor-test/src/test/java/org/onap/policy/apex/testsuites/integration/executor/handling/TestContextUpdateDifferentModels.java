@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ package org.onap.policy.apex.testsuites.integration.executor.handling;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import org.junit.After;
@@ -67,12 +66,12 @@ public class TestContextUpdateDifferentModels {
     @Before
     public void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
@@ -84,7 +83,7 @@ public class TestContextUpdateDifferentModels {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         ParameterService.register(engineParameters);
@@ -96,7 +95,7 @@ public class TestContextUpdateDifferentModels {
     @After
     public void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
@@ -136,16 +135,16 @@ public class TestContextUpdateDifferentModels {
         assertEquals(apexEngine.getInternalContext().getContextAlbums().size(),
                 apexModelSample.getAlbums().getAlbumsMap().size());
         for (final ContextAlbum contextAlbum : apexEngine.getInternalContext().getContextAlbums().values()) {
-            assertTrue(
-                    contextAlbum.getAlbumDefinition().equals(apexModelSample.getAlbums().get(contextAlbum.getKey())));
+            assertEquals(
+                    contextAlbum.getAlbumDefinition(), apexModelSample.getAlbums().get(contextAlbum.getKey()));
         }
 
         apexEngine.updateModel(someSpuriousModel, false);
         assertEquals(apexEngine.getInternalContext().getContextAlbums().size(),
                 someSpuriousModel.getAlbums().getAlbumsMap().size());
         for (final ContextAlbum contextAlbum : apexEngine.getInternalContext().getContextAlbums().values()) {
-            assertTrue(
-                    contextAlbum.getAlbumDefinition().equals(someSpuriousModel.getAlbums().get(contextAlbum.getKey())));
+            assertEquals(
+                    contextAlbum.getAlbumDefinition(), someSpuriousModel.getAlbums().get(contextAlbum.getKey()));
         }
 
         apexEngine.clear();

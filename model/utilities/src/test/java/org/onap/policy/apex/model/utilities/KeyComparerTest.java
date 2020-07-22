@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.model.utilities;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.utilities.comparison.KeyComparer;
@@ -40,14 +40,14 @@ public class KeyComparerTest {
         KeyDifference<String> keyDifference = new KeyComparer<String>().compareKeys("Hello", "Goodbye");
 
         assertFalse(keyDifference.isEqual());
-        assertTrue("Hello".equals(keyDifference.getLeftKey().toString()));
-        assertTrue("Goodbye".equals(keyDifference.getRightKey().toString()));
+        assertEquals("Hello", keyDifference.getLeftKey().toString());
+        assertEquals("Goodbye", keyDifference.getRightKey().toString());
 
-        assertTrue("left key Hello and right key Goodbye differ\n".equals(keyDifference.asString(true)));
-        assertTrue("left key Hello and right key Goodbye differ\n".equals(keyDifference.asString(false)));
+        assertEquals("left key Hello and right key Goodbye differ\n", keyDifference.asString(true));
+        assertEquals("left key Hello and right key Goodbye differ\n", keyDifference.asString(false));
 
         KeyDifference<String> keyDifference2 = new KeyComparer<String>().compareKeys("Here", "Here");
-        assertTrue("".equals(keyDifference2.asString(true)));
-        assertTrue("left key Here equals right key Here\n".equals(keyDifference2.asString(false)));
+        assertEquals("", keyDifference2.asString(true));
+        assertEquals("left key Here equals right key Here\n", keyDifference2.asString(false));
     }
 }
