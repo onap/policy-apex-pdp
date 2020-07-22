@@ -70,6 +70,30 @@
       "revId": "4b462150f5ef3e47778914e6254dff1474ea2aef",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100bb176_c584315f",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaKeyTranslationUtilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-22T22:03:29Z",
+      "side": 1,
+      "message": "Great!",
+      "parentUuid": "fe5849db_aa15e72d",
+      "range": {
+        "startLine": 137,
+        "startChar": 23,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "4b462150f5ef3e47778914e6254dff1474ea2aef",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
