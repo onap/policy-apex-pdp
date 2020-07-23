@@ -46,6 +46,30 @@
       "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f8738b_66eb940c",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/EngineServiceFacadeTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-23T14:10:48Z",
+      "side": 1,
+      "message": "Actually, I think the problem is not with these changes. It has to do something with another change related to double initiation in EngineServiceFacade which happened last week. That was a bug fix, but we need to tweak some timings around that for thread cleanup and initialization.",
+      "parentUuid": "40493de9_a88fffaa",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
