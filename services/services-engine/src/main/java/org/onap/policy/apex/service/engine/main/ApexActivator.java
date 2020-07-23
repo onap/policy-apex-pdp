@@ -36,6 +36,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
@@ -88,6 +89,7 @@ public class ApexActivator {
 
     // The engine service
     private EngineService apexEngineService;
+    private AxArtifactKey engineKey;
 
     /**
      * Instantiate the activator for the Apex engine as a complete service.
@@ -112,8 +114,9 @@ public class ApexActivator {
             int totalInstanceCount = apexParametersMap.values().stream()
                 .mapToInt(p -> p.getEngineServiceParameters().getInstanceCount()).sum();
             apexParameters.getEngineServiceParameters().setInstanceCount(totalInstanceCount);
+            engineKey = apexParameters.getEngineServiceParameters().getEngineKey();
             instantiateEngine(apexParameters);
-            setUpModelMarhsallerAndUnmarshaller(apexParameters);
+            setUpModelMarshallerAndUnmarshaller(apexParameters);
         } catch (final Exception e) {
             LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
             throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
@@ -122,7 +125,7 @@ public class ApexActivator {
         LOGGER.debug("Apex engine started as a service");
     }
 
-    private void setUpModelMarhsallerAndUnmarshaller(ApexParameters apexParameters) throws ApexException {
+    private void setUpModelMarshallerAndUnmarshaller(ApexParameters apexParameters) throws ApexException {
         policyModelsMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> inputParametersMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> outputParametersMap = new LinkedHashMap<>();
@@ -149,8 +152,7 @@ public class ApexActivator {
                 try {
                     final String policyModelString = TextFileUtils
                         .getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
-                    AxPolicyModel policyModel = EngineServiceImpl
-                        .createModel(apexParams.getEngineServiceParameters().getEngineKey(), policyModelString);
+                    AxPolicyModel policyModel = EngineServiceImpl.createModel(engineKey, policyModelString);
                     policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
                 } catch (ApexException | IOException e) {
                     throw new ApexRuntimeException("Failed to create the apex model.", e);
@@ -160,10 +162,10 @@ public class ApexActivator {
         AxPolicyModel finalPolicyModel = aggregatePolicyModels(policyModelsMap);
 
         // Set the policy model in the engine
-        apexEngineService.updateModel(apexParameters.getEngineServiceParameters().getEngineKey(), finalPolicyModel,
-            true);
+        apexEngineService.updateModel(engineKey, finalPolicyModel, true);
 
-        setUpMarshallerAndUnmarshaller(apexParameters.getEngineServiceParameters(), inputParametersMap,
+        handleExistingMarshallerAndUnmarshaller(inputParametersMap, outputParametersMap);
+        setUpNewMarshallerAndUnmarshaller(apexParameters.getEngineServiceParameters(), inputParametersMap,
             outputParametersMap);
 
         // Wire up pairings between marhsallers and unmarshallers
@@ -197,9 +199,10 @@ public class ApexActivator {
         return finalPolicyModel;
     }
 
-    private void setUpMarshallerAndUnmarshaller(EngineServiceParameters engineServiceParameters,
+    private void setUpNewMarshallerAndUnmarshaller(EngineServiceParameters engineServiceParameters,
         Map<String, EventHandlerParameters> inputParametersMap, Map<String, EventHandlerParameters> outputParametersMap)
         throws ApexEventException {
+
         // Producer parameters specify what event marshalers to handle events leaving Apex are
         // set up and how they are set up
         for (Entry<String, EventHandlerParameters> outputParameters : outputParametersMap.entrySet()) {
@@ -220,9 +223,25 @@ public class ApexActivator {
         }
     }
 
+    private void handleExistingMarshallerAndUnmarshaller(Map<String, EventHandlerParameters> inputParametersMap,
+        Map<String, EventHandlerParameters> outputParametersMap) {
+        // stop and remove any marshaller/unmarshaller that is part of a policy that is undeployed
+        marshallerMap.entrySet().stream()
+            .filter(marshallerEntry -> !outputParametersMap.containsKey(marshallerEntry.getKey()))
+            .forEach(marshallerEntry -> marshallerEntry.getValue().stop());
+        marshallerMap.keySet().removeIf(marshallerKey -> !outputParametersMap.containsKey(marshallerKey));
+        unmarshallerMap.entrySet().stream()
+            .filter(unmarshallerEntry -> !inputParametersMap.containsKey(unmarshallerEntry.getKey()))
+            .forEach(unmarshallerEntry -> unmarshallerEntry.getValue().stop());
+        unmarshallerMap.keySet().removeIf(unmarshallerKey -> !inputParametersMap.containsKey(unmarshallerKey));
+
+        // If a marshaller/unmarshaller is already initialized, they don't need to be reinitialized during model update.
+        outputParametersMap.keySet().removeIf(marshallerMap::containsKey);
+        inputParametersMap.keySet().removeIf(unmarshallerMap::containsKey);
+    }
+
     private void instantiateEngine(ApexParameters apexParameters) throws ApexException {
-        if (null != apexEngineService
-            && apexEngineService.getKey().equals(apexParameters.getEngineServiceParameters().getEngineKey())) {
+        if (null != apexEngineService && apexEngineService.getKey().equals(engineKey)) {
             throw new ApexException("Apex Engine already initialized.");
         }
         // Create engine with specified thread count
@@ -284,9 +303,8 @@ public class ApexActivator {
      */
     public void updateModel(Map<ToscaPolicyIdentifier, ApexParameters> apexParamsMap) throws ApexException {
         try {
-            shutdownMarshallerAndUnmarshaller();
             ApexParameters apexParameters = apexParamsMap.values().iterator().next();
-            setUpModelMarhsallerAndUnmarshaller(apexParameters);
+            setUpModelMarshallerAndUnmarshaller(apexParameters);
         } catch (final Exception e) {
             LOGGER.debug(APEX_ENGINE_FAILED_MSG, e);
             throw new ApexActivatorException(APEX_ENGINE_FAILED_MSG, e);
