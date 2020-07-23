@@ -2,19 +2,20 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -24,7 +25,6 @@ package org.onap.policy.apex.service.parameters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.FileReader;
-import lombok.Setter;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
@@ -46,9 +46,6 @@ import org.slf4j.ext.XLoggerFactory;
 public class ApexParameterHandler {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexParameterHandler.class);
 
-    @Setter
-    private boolean keepParameterServiceFlag;
-
     /**
      * Read the parameters from the parameter file.
      *
@@ -57,11 +54,8 @@ public class ApexParameterHandler {
      * @throws ParameterException on parameter exceptions
      */
     public ApexParameters getParameters(final ApexCommandLineArguments arguments) throws ParameterException {
-        // when populating parameters for multiple policies, do not clear the ParameterService already registered
-        // otherwise clear all existing parameters
-        if (!keepParameterServiceFlag) {
-            ParameterService.clear();
-        }
+
+        ParameterService.clear();
 
         ApexParameters parameters = null;
 
@@ -70,11 +64,11 @@ public class ApexParameterHandler {
             // Register the adapters for our carrier technologies and event protocols with GSON
             // @formatter:off
             final Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(EngineParameters.class, 
+                            .registerTypeAdapter(EngineParameters.class,
                                             new EngineServiceParametersJsonAdapter())
-                            .registerTypeAdapter(CarrierTechnologyParameters.class, 
+                            .registerTypeAdapter(CarrierTechnologyParameters.class,
                                             new CarrierTechnologyParametersJsonAdapter())
-                            .registerTypeAdapter(EventProtocolParameters.class, 
+                            .registerTypeAdapter(EventProtocolParameters.class,
                                             new EventProtocolParametersJsonAdapter())
                             .create();
             // @formatter:on
@@ -116,13 +110,6 @@ public class ApexParameterHandler {
             returnMessage += validationResult.getResult();
 
             LOGGER.info(returnMessage);
-        }
-
-        // engine parameters in multiple policies are expected to be same.
-        // no need to do registration if already registered
-        if (!keepParameterServiceFlag) {
-            // Register the parameters with the parameter service
-            registerParameters(parameters);
         }
 
         return parameters;
