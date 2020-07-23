@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "96d217cb_7f803247",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/BatchDeployerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-23T10:09:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec54ff23_cac7719a",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 59
+      },
+      "revId": "9572dc578693ede06ceadfa0765211d21273c235",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47a71195_792e5ac1",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelFileWriterTest.java",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2020-07-23T09:43:50Z",
       "side": 1,
       "message": "why are these commented?",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 0
+      },
+      "revId": "9572dc578693ede06ceadfa0765211d21273c235",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95219aa1_f25ce549",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelFileWriterTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-07-23T10:09:50Z",
+      "side": 1,
+      "message": "Apologies, I forgot to un-comment",
+      "parentUuid": "47a71195_792e5ac1",
       "range": {
         "startLine": 80,
         "startChar": 8,
