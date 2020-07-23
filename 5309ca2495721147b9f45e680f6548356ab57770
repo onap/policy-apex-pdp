@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "71cfb973_d528c702",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-23T22:28:41Z",
+      "side": 1,
+      "message": "this is correct - I verified before pushing the review",
+      "parentUuid": "b5a405f4_087b5b95",
+      "revId": "5309ca2495721147b9f45e680f6548356ab57770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3dddfbbe_407c3a8f",
         "filename": "INFO.yaml",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2020-07-23T17:14:08Z",
       "side": 1,
       "message": "This should be \u0027Europe/Ireland\u0027",
+      "range": {
+        "startLine": 73,
+        "startChar": 17,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "5309ca2495721147b9f45e680f6548356ab57770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d870ed5e_33704f0a",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-23T22:28:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3dddfbbe_407c3a8f",
       "range": {
         "startLine": 73,
         "startChar": 17,
