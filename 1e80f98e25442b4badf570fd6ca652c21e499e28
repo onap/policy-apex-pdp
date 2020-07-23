@@ -22,6 +22,30 @@
       "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40493de9_a88fffaa",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/EngineServiceFacadeTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-23T13:57:02Z",
+      "side": 1,
+      "message": "build failed. :-(\n\nwhat is different with these couple of places than before?  I thought these calls were just replacing sleep() calls.  Does this have the effect expected when there is no actual test condition?\n\nThe real intention of this sonar complaint is to eliminate these flaky sleep() calls altogether and wait on something (e.g., a latch) that indicates that things are ready to proceed.  Thus it would be good if a latch could be set inside the engine when it\u0027s running, then these tests could just wait for the latch.  Perhaps that can be done in another review?",
+      "parentUuid": "866aba8a_c49f649c",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
