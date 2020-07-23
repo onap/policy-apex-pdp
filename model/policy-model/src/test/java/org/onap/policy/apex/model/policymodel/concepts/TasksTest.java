@@ -22,7 +22,6 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -219,19 +218,19 @@ public class TasksTest {
         final AxTask clonedTask = new AxTask(task);
         assertEquals("AxTask:(key=AxArtifactKey:(name=TaskName", clonedTask.toString().substring(0, 40));
 
-        assertFalse(task.hashCode() == 0);
+        assertNotEquals(0, task.hashCode());
 
-        assertTrue(task.equals(task));
-        assertTrue(task.equals(clonedTask));
-        assertFalse(task.equals(null));
-        assertFalse(task.equals((Object) "Hello"));
-        assertFalse(task.equals(new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl)));
-        assertFalse(task.equals(new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl)));
-        assertFalse(task.equals(new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl)));
-        assertFalse(task.equals(new AxTask(taskKey, ifMap, ofMap, tpEmptyMap, ctxtSet, tl)));
-        assertFalse(task.equals(new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtEmptySet, tl)));
-        assertFalse(task.equals(new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, new AxTaskLogic())));
-        assertTrue(task.equals(new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, tl)));
+        assertEquals(task, task);
+        assertEquals(task, clonedTask);
+        assertNotNull(task);
+        assertNotEquals(task, (Object) "Hello");
+        assertNotEquals(task, new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl));
+        assertNotEquals(task, new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl));
+        assertNotEquals(task, new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl));
+        assertNotEquals(task, new AxTask(taskKey, ifMap, ofMap, tpEmptyMap, ctxtSet, tl));
+        assertNotEquals(task, new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtEmptySet, tl));
+        assertNotEquals(task, new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, new AxTaskLogic()));
+        assertEquals(task, new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, tl));
 
         assertEquals(0, task.compareTo(task));
         assertEquals(0, task.compareTo(clonedTask));
@@ -302,13 +301,13 @@ public class TasksTest {
         assertEquals("AxTasks:(key=AxArtifactKey:(name=TasksKey,version=0.0.1),tas",
                         clonedTasks.toString().substring(0, 60));
 
-        assertFalse(tasks.hashCode() == 0);
+        assertNotEquals(0, tasks.hashCode());
 
-        assertTrue(tasks.equals(tasks));
-        assertTrue(tasks.equals(clonedTasks));
-        assertFalse(tasks.equals(null));
-        assertFalse(tasks.equals((Object) "Hello"));
-        assertFalse(tasks.equals(new AxTasks(new AxArtifactKey())));
+        assertEquals(tasks, tasks);
+        assertEquals(tasks, clonedTasks);
+        assertNotNull(tasks);
+        assertNotEquals(tasks, (Object) "Hello");
+        assertNotEquals(tasks, new AxTasks(new AxArtifactKey()));
 
         assertEquals(0, tasks.compareTo(tasks));
         assertEquals(0, tasks.compareTo(clonedTasks));
