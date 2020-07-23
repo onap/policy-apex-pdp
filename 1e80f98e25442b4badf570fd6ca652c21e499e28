@@ -70,6 +70,30 @@
       "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92cc6c51_0320c644",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/EngineServiceFacadeTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-23T15:20:03Z",
+      "side": 1,
+      "message": "Agreed Jim. This will need another review. A latch in the EngineServiceFacade class init method should fix these.",
+      "parentUuid": "26f8738b_66eb940c",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
