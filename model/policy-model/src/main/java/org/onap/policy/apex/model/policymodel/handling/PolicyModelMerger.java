@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,9 +116,9 @@ public final class PolicyModelMerger {
 
         if (failOnDuplicateKeys) {
             StringBuilder errorMessage = new StringBuilder();
-            checkForDuplicateContextItem(mergedSchemasMap, copyOverSchemasMap, errorMessage, "schema");
+            checkForDuplicateItem(mergedSchemasMap, copyOverSchemasMap, errorMessage, "schema");
             checkForDuplicateItem(mergedEventMap, copyOverEventMap, errorMessage, "event");
-            checkForDuplicateContextItem(mergedAlbumsMap, copyOverAlbumsMap, errorMessage, "album");
+            checkForDuplicateItem(mergedAlbumsMap, copyOverAlbumsMap, errorMessage, "album");
             checkForDuplicateItem(mergedTaskMap, copyOverTaskMap, errorMessage, "task");
             checkForDuplicateItem(mergedPolicyMap, copyOverPolicyMap, errorMessage, "policy");
             if (errorMessage.length() > 0) {
@@ -146,18 +147,9 @@ public final class PolicyModelMerger {
 
     private static <V> void checkForDuplicateItem(Map<AxArtifactKey, V> mergedItemsMap,
         Map<AxArtifactKey, V> copyOverItemsMap, StringBuilder errorMessage, String itemType) {
-        for (AxArtifactKey key : copyOverItemsMap.keySet()) {
-            if (mergedItemsMap.containsKey(key)) {
-                errorMessage.append("\n Duplicate " + itemType + " found - ").append(key.getId());
-            }
-        }
-    }
-
-    private static <V> void checkForDuplicateContextItem(Map<AxArtifactKey, V> mergedItemsMap,
-        Map<AxArtifactKey, V> copyOverItemsMap, StringBuilder errorMessage, String itemType) {
         for (Entry<AxArtifactKey, V> entry : copyOverItemsMap.entrySet()) {
             V item = mergedItemsMap.get(entry.getKey());
-            // same context schema name with different definitions cannot occur in multiple policies
+            // same item with different definitions cannot occur in multiple policies
             if (null != item) {
                 if (item.equals(entry.getValue())) {
                     LOGGER.info("Same {} - {} is used by multiple policies.", itemType, entry.getKey().getId());

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +30,7 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.model.policymodel.concepts.AxTaskLogic;
 
 /**
  * Test model merging.
@@ -79,8 +81,12 @@ public class PolicyModelMergerTest {
         assertNotNull(mergedPolicyModel);
 
         final AxPolicyModel rightPolicyModel3 = new SupportApexPolicyModelCreator().getModel();
-        assertThatThrownBy(
-            () -> PolicyModelMerger.getMergedPolicyModel(leftPolicyModel, rightPolicyModel3, true, true))
-                .hasMessageContaining("Duplicate policy found");
+        AxArtifactKey taskArtifactKey = new AxArtifactKey("task", "0.0.1");
+        // fail when concepts in two policies have same name but different definition
+        // here make up some change so as to update the definition of the task in second policy
+        rightPolicyModel3.getTasks().getTaskMap().get(taskArtifactKey)
+            .setTaskLogic(new AxTaskLogic(taskArtifactKey, "logicName", "logicFlavour", "logicImpl"));
+        assertThatThrownBy(() -> PolicyModelMerger.getMergedPolicyModel(leftPolicyModel, rightPolicyModel3, true, true))
+            .hasMessageContaining("Same task - task:0.0.1 with different definitions used in different policies");
     }
 }
