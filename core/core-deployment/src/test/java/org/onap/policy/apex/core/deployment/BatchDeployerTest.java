@@ -78,7 +78,7 @@ public class BatchDeployerTest {
         assertThatThrownBy(deployer::init).hasMessage("model deployment failed on parameters localhost 12345");
         // Wait until the connection to the server closes following the bad connection
         // attempt
-        Awaitility.await().atLeast(Duration.ofMillis(100));
+        Awaitility.await().atLeast(Duration.ofMillis(500));
 
         // We are testing towards a dummy client, make it return a successful initiation
         dummyDeploymentClient.setInitSuccessful(true);
@@ -105,7 +105,7 @@ public class BatchDeployerTest {
             .hasMessage("model deployment failed on parameters localhost 12345");
         // Wait until the connection to the server closes following the bad connection
         // attempt
-        Awaitility.await().atLeast(Duration.ofMillis(100));
+        Awaitility.await().atLeast(Duration.ofMillis(500));
 
         dummyDeploymentClient.setInitSuccessful(true);
 
