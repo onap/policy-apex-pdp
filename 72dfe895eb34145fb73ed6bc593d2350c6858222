@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "59c3e50e_bc213ecf",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/TasksTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-23T13:43:19Z",
+      "side": 1,
+      "message": "good catch!",
+      "parentUuid": "d19a5c28_5818e494",
+      "revId": "72dfe895eb34145fb73ed6bc593d2350c6858222",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "248d2ec4_31dfca1e",
         "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/TasksTest.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-07-23T13:36:18Z",
       "side": 1,
       "message": "not sure if these should be reversed, the \"expected\" value should be on the left and the \"actual\" on the right. Fyi only, not sure of which is which here.",
+      "revId": "72dfe895eb34145fb73ed6bc593d2350c6858222",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "735a8fb5_2f999c1c",
+        "filename": "model/policy-model/src/test/java/org/onap/policy/apex/model/policymodel/concepts/TasksTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-23T13:43:19Z",
+      "side": 1,
+      "message": "in this particular case, I believe the order is correct, as we\u0027re trying to test the task.equals() method, which requires \"task\" to appear on the left.  We may need to add \"NOSONAR\" to lines 223 \u0026 226, but that can be done in another review.",
+      "parentUuid": "248d2ec4_31dfca1e",
       "revId": "72dfe895eb34145fb73ed6bc593d2350c6858222",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
