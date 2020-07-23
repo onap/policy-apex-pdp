@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "866aba8a_c49f649c",
+        "filename": "core/core-deployment/src/test/java/org/onap/policy/apex/core/deployment/EngineServiceFacadeTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-23T13:49:25Z",
+      "side": 1,
+      "message": "I slightly suspect if we should go to the EngineServiceFacade class and put a better wait for thread something like that. But lets see.",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 60
+      },
+      "revId": "1e80f98e25442b4badf570fd6ca652c21e499e28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
