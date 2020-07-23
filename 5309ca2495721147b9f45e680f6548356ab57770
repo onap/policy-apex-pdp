@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dddfbbe_407c3a8f",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-07-23T17:14:08Z",
+      "side": 1,
+      "message": "This should be \u0027Europe/Ireland\u0027",
+      "range": {
+        "startLine": 73,
+        "startChar": 17,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "5309ca2495721147b9f45e680f6548356ab57770",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
