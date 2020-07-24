@@ -105,7 +105,7 @@ public class PolicyLogicReader implements AxLogicReader {
         // Now, we read in the script
 
         // Get the package name of the current package and convert dots to slashes for the file path
-        String fullLogicFilePath = logicPackage.replaceAll("\\.", "/");
+        String fullLogicFilePath = logicPackage.replace(".", "/");
 
         // Now, the logic should be in a sub directory for the logic executor type
         fullLogicFilePath += "/" + axLogic.getLogicFlavour().toLowerCase();

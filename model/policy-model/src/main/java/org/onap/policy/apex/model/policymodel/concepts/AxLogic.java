@@ -361,8 +361,8 @@ public class AxLogic extends AxConcept {
         if (!logicFlavour.equals(other.logicFlavour)) {
             return false;
         }
-        final String thislogic = CDataConditioner.clean(logic).replaceAll("\n", "");
-        final String otherlogic = CDataConditioner.clean(other.logic).replaceAll("\n", "");
+        final String thislogic = CDataConditioner.clean(logic).replace("\n", "");
+        final String otherlogic = CDataConditioner.clean(other.logic).replace("\n", "");
         return thislogic.equals(otherlogic);
     }
 

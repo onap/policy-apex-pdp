@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -324,8 +324,8 @@ public class AxContextSchema extends AxConcept {
         if (!schemaFlavour.equals(other.schemaFlavour)) {
             return false;
         }
-        final String thisSchema = CDataConditioner.clean(schemaDefinition).replaceAll("\n", "");
-        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replaceAll("\n", "");
+        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
+        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replace("\n", "");
         return thisSchema.equals(otherSchema);
     }
 
@@ -351,8 +351,8 @@ public class AxContextSchema extends AxConcept {
         if (!schemaFlavour.equals(other.schemaFlavour)) {
             return schemaFlavour.compareTo(other.schemaFlavour);
         }
-        final String thisSchema = CDataConditioner.clean(schemaDefinition).replaceAll("\n", "");
-        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replaceAll("\n", "");
+        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
+        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replace("\n", "");
         return thisSchema.compareTo(otherSchema);
     }
 }
