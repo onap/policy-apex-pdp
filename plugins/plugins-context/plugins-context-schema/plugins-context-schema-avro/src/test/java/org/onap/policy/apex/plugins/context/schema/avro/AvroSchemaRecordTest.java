@@ -23,6 +23,7 @@ package org.onap.policy.apex.plugins.context.schema.avro;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import org.apache.avro.generic.GenericRecord;
@@ -193,6 +194,7 @@ public class AvroSchemaRecordTest {
     public void testVpnRecordReuse() throws IOException {
         final AxContextSchema avroSchema =
                 new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", recordSchemaVpnReuse);
+        assertNotNull(avroSchema);
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);

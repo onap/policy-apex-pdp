@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,8 @@
 
 package org.onap.policy.apex.services.onappf;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
@@ -32,6 +35,6 @@ public class TestApexStarterConstants {
     @Test
     public void test() throws Exception {
         // verify that constructor does not throw an exception
-        Whitebox.invokeConstructor(ApexStarterConstants.class);
+        assertThatCode(() -> Whitebox.invokeConstructor(ApexStarterConstants.class)).doesNotThrowAnyException();
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -58,22 +60,24 @@ public class ApexJmsConsumerTest {
         apexJmsProducer = new ApexJmsProducer();
     }
 
-    @Test(expected = ApexEventException.class)
+    @Test
     public void testInitWithNonJmsCarrierTechnologyParameters() throws ApexEventException {
         consumerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {});
-        apexJmsConsumer.init("TestApexJmsConsumer", consumerParameters, incomingEventReceiver);
+        assertThatThrownBy(() -> apexJmsConsumer.init("TestApexJmsConsumer", consumerParameters, incomingEventReceiver))
+            .isInstanceOf(ApexEventException.class);
     }
 
-    @Test(expected = ApexEventException.class)
+    @Test
     public void testInitWithJmsCarrierTechnologyParameters() throws ApexEventException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
-        apexJmsConsumer.init("TestApexJmsConsumer", consumerParameters, incomingEventReceiver);
+        assertThatThrownBy(() -> apexJmsConsumer.init("TestApexJmsConsumer", consumerParameters, incomingEventReceiver))
+            .isInstanceOf(ApexEventException.class);
     }
 
     @Test
     public void testStart() {
-        apexJmsConsumer.start();
+        assertThatCode(apexJmsConsumer::start).doesNotThrowAnyException();
     }
 
     @Test
@@ -94,20 +98,20 @@ public class ApexJmsConsumerTest {
         assertNotNull(apexJmsConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
-    @Test(expected = ApexEventRuntimeException.class)
+    @Test
     public void testRun() {
-        apexJmsConsumer.run();
-
+        assertThatThrownBy(apexJmsConsumer::run).isInstanceOf(ApexEventRuntimeException.class);
     }
 
-    @Test(expected = ApexEventRuntimeException.class)
+    @Test
     public void testOnMessage() {
         Message jmsMessage = null;
-        apexJmsConsumer.onMessage(jmsMessage);
+        assertThatThrownBy(() -> apexJmsConsumer.onMessage(jmsMessage))
+            .isInstanceOf(ApexEventRuntimeException.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testStop() {
-        apexJmsConsumer.stop();
+        assertThatThrownBy(apexJmsConsumer::stop).isInstanceOf(NullPointerException.class);
     }
 }

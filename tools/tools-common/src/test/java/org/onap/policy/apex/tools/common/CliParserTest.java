@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.tools.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertNotNull;
 
 import org.apache.commons.cli.Option;
 import org.junit.Test;
@@ -42,6 +44,7 @@ public class CliParserTest {
     @Test
     public void testappVersion() {
         final CliParser cli = new CliParser();
+        assertNotNull(cli);
         LOGGER.info(cli.getAppVersion());
     }
 

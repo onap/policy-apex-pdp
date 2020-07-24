@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.tools.simple.wsclient;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -38,7 +39,7 @@ public class WsClientTest {
         final String[] EventArgs =
             { "-h" };
 
-        WsClientMain.main(EventArgs);
+        assertThatCode(() -> WsClientMain.main(EventArgs)).doesNotThrowAnyException();
     }
 
     @Test

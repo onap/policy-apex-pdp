@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,8 @@
 
 package org.onap.policy.apex.tools.common.docs;
 
+import static org.junit.Assert.assertNotNull;
+
 ////
 ////NOTE: This file contains tags for ASCIIDOC
 ////DO NOT REMOVE any of those tag lines, e.g.
@@ -28,7 +31,6 @@ package org.onap.policy.apex.tools.common.docs;
 ////
 ////DO NOT auto-refresh imports or organise imports!
 ////
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.junit.Test;
@@ -62,9 +64,11 @@ public class ExampleCliParserTest {
 
         // tag::setCli[]
         final CliParser cli = new CliParser();
+        assertNotNull(cli);
         cli.addOption(CliOptions.HELP);
         cli.addOption(CliOptions.VERSION);
         cli.addOption(CliOptions.MODELFILE);
+        assertNotNull(cli.getOptions());
         // end::setCli[]
 
         // tag::parseCli[]
