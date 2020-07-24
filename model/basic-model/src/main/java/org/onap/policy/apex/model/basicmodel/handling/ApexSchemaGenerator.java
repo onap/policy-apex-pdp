@@ -1,19 +1,20 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -117,16 +118,16 @@ public class ApexSchemaGenerator {
      */
     private String fixForUnqualifiedBug(final String schemaString) {
         // Fix the "entry" element
-        String newSchemaString = schemaString.replaceAll(
+        String newSchemaString = schemaString.replace(
                         "<xs:element name=\"entry\" minOccurs=\"0\" maxOccurs=\"unbounded\">",
                         "<xs:element name=\"entry\" minOccurs=\"0\" maxOccurs=\"unbounded\" form=\"unqualified\">");
 
         // Fix the "key" element
-        newSchemaString = newSchemaString.replaceAll("<xs:element name=\"key\"",
+        newSchemaString = newSchemaString.replace("<xs:element name=\"key\"",
                         "<xs:element name=\"key\" form=\"unqualified\"");
 
         // Fix the "value" element
-        newSchemaString = newSchemaString.replaceAll("<xs:element name=\"value\"",
+        newSchemaString = newSchemaString.replace("<xs:element name=\"value\"",
                         "<xs:element name=\"value\" form=\"unqualified\"");
 
         return newSchemaString;
