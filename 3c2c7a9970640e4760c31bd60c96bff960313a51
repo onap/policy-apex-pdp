@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9ee5e29_c0c4f9bb",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-24T16:18:22Z",
+      "side": 1,
+      "message": "No, it won\u0027t throw an exception. The stop method basically just updates a flag which in turn is used in that class to stop the event processing gracefully.",
+      "parentUuid": "8582550c_e6a296c1",
+      "range": {
+        "startLine": 231,
+        "startChar": 67,
+        "endLine": 231,
+        "endChar": 71
+      },
+      "revId": "3c2c7a9970640e4760c31bd60c96bff960313a51",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a389519_b72ab620",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-07-24T13:02:34Z",
       "side": 1,
       "message": "can this throw an exception?",
+      "range": {
+        "startLine": 235,
+        "startChar": 71,
+        "endLine": 235,
+        "endChar": 75
+      },
+      "revId": "3c2c7a9970640e4760c31bd60c96bff960313a51",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60acade_a87481c2",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-24T16:18:22Z",
+      "side": 1,
+      "message": "Same answer as above.",
+      "parentUuid": "8a389519_b72ab620",
       "range": {
         "startLine": 235,
         "startChar": 71,
@@ -68,6 +116,30 @@
       "revId": "3c2c7a9970640e4760c31bd60c96bff960313a51",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e800a199_ce069b66",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-24T16:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa614dd7_06cc8909",
+      "range": {
+        "startLine": 307,
+        "startChar": 12,
+        "endLine": 307,
+        "endChar": 47
+      },
+      "revId": "3c2c7a9970640e4760c31bd60c96bff960313a51",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
