@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.engine;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
@@ -96,8 +98,10 @@ public class TestApexEngineJava {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testApexEngineJava() throws InterruptedException, IOException, ApexException {
-        new TestApexEngine("JAVA", engineParameters);
-        new TestApexEngine("JAVA", engineParameters);
+    public void testApexEngineJava() {
+        assertThatCode(() -> {
+            new TestApexEngine("JAVA", engineParameters);
+            new TestApexEngine("JAVA", engineParameters);
+        }).doesNotThrowAnyException();
     }
 }

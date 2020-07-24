@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -61,17 +63,19 @@ public class ApexJmsProducerTest {
         apexJmsProducer = new ApexJmsProducer();
     }
 
-    @Test(expected = ApexEventException.class)
-    public void testInitWithNonJmsCarrierTechnologyParameters() throws ApexEventException {
+    @Test
+    public void testInitWithNonJmsCarrierTechnologyParameters() {
         producerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {});
-        apexJmsProducer.init("TestApexJmsProducer", producerParameters);
+        assertThatThrownBy(() -> apexJmsProducer.init("TestApexJmsProducer", producerParameters))
+            .isInstanceOf(ApexEventException.class);
     }
 
-    @Test(expected = ApexEventException.class)
+    @Test
     public void testInitWithJmsCarrierTechnologyParameters() throws ApexEventException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
-        apexJmsProducer.init("TestApexJmsProducer", producerParameters);
+        assertThatThrownBy(() -> apexJmsProducer.init("TestApexJmsProducer", producerParameters))
+            .isInstanceOf(ApexEventException.class);
     }
 
     @Test
@@ -92,7 +96,7 @@ public class ApexJmsProducerTest {
         assertNotNull(apexJmsProducer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testSendEvent() throws ApexEventException {
         producerParameters.setCarrierTechnologyParameters(new JmsCarrierTechnologyParameters() {});
         synchronousEventCache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS,
@@ -101,21 +105,23 @@ public class ApexJmsProducerTest {
                 synchronousEventCache);
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
                 "testSource", "testTarget");
-        apexJmsProducer.sendEvent(1000L, null, "TestApexJmsProducer", apexEvent);
+        assertThatThrownBy(() -> apexJmsProducer.sendEvent(1000L, null, "TestApexJmsProducer", apexEvent))
+            .isInstanceOf(NullPointerException.class);
     }
 
-    @Test(expected = ApexEventRuntimeException.class)
+    @Test
     public void testSendEventWithNonSerializableObject() throws ApexEventException {
         producerParameters.setCarrierTechnologyParameters(new JmsCarrierTechnologyParameters() {});
         synchronousEventCache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS,
                 apexJmsConsumer, apexJmsProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
         apexJmsProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
                 synchronousEventCache);
-        apexJmsProducer.sendEvent(-1L, null, "TestApexJmsProducer", new ApexJmsProducerTest());
+        assertThatThrownBy(() -> apexJmsProducer.sendEvent(-1L, null, "TestApexJmsProducer", new ApexJmsProducerTest()))
+            .isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
     public void testStop() {
-        apexJmsProducer.stop();
+        assertThatCode(apexJmsProducer::stop).doesNotThrowAnyException();
     }
 }

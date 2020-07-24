@@ -20,13 +20,14 @@
 
 package org.onap.policy.apex.tools.common.docs;
 
+import static org.junit.Assert.assertNotNull;
+
 ////
 //// NOTE: This file contains tags for ASCIIDOC
 //// DO NOT REMOVE any of those tag lines, e.g.
 ////// tag::**
 ////// end::**
 ////
-
 import org.apache.commons.cli.CommandLine;
 import org.junit.Test;
 import org.onap.policy.apex.tools.common.CliOptions;
@@ -51,6 +52,7 @@ public class ExampleAppVersionTest {
         // tag::setupParser[]
         final CliParser cli = new CliParser();
         cli.addOption(CliOptions.VERSION);
+        assertNotNull(cli.getOptions());
         final CommandLine cmd = cli.parseCli(args);
         // end::setupParser[]
 

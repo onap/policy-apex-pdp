@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.tools.model.generator.model2event;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -38,7 +39,7 @@ public class Model2EventTest {
         final String[] EventArgs =
             { "-h" };
 
-        Model2EventMain.main(EventArgs);
+        assertThatCode(() -> Model2EventMain.main(EventArgs)).doesNotThrowAnyException();
 
     }
 

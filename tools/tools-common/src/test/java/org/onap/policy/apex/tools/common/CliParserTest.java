@@ -22,6 +22,7 @@ package org.onap.policy.apex.tools.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertNotNull;
 
 import org.apache.commons.cli.Option;
 import org.junit.Test;
@@ -42,6 +43,7 @@ public class CliParserTest {
     @Test
     public void testappVersion() {
         final CliParser cli = new CliParser();
+        assertNotNull(cli);
         LOGGER.info(cli.getAppVersion());
     }
 
