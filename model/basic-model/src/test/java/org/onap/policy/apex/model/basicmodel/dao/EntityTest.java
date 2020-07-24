@@ -79,8 +79,11 @@ public class EntityTest {
     @Test
     public void testEntityTestBadVals() throws ApexException {
         final DaoParameters daoParameters = new DaoParameters();
+        assertNotNull(daoParameters);
         daoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
+        assertEquals("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao", daoParameters.getPluginClass());
         daoParameters.setPersistenceUnit("DaoTest");
+        assertEquals("DaoTest", daoParameters.getPersistenceUnit());
 
         apexDao = new ApexDaoFactory().createApexDao(daoParameters);
         apexDao.init(daoParameters);

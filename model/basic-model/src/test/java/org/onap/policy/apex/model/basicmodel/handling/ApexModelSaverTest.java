@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,12 +35,14 @@ public class ApexModelSaverTest {
     @Test
     public void testModelSaver() throws IOException, ApexException {
         AxModel model = new DummyApexBasicModelCreator().getModel();
+        assertNotNull(model);
 
         Path tempPath = Files.createTempDirectory("ApexTest");
+        assertNotNull(tempPath);
 
         ApexModelSaver<AxModel> modelSaver = new ApexModelSaver<AxModel>(AxModel.class, model,
                         tempPath.toAbsolutePath().toString());
-
+        assertNotNull(modelSaver);
         modelSaver.apexModelWriteXml();
         modelSaver.apexModelWriteJson();
 

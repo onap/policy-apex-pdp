@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.tools.model.generator.model2cli;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +38,7 @@ public class Model2CliTest {
     public void testModel2Cli() {
         final String[] cliArgs = {"-h"};
 
-        Model2CliMain.main(cliArgs);
+        assertThatCode(() -> Model2CliMain.main(cliArgs)).doesNotThrowAnyException();
     }
 
     @Test

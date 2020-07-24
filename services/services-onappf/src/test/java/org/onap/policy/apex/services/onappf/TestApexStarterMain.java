@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.services.onappf;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -95,7 +96,7 @@ public class TestApexStarterMain {
     @Test
     public void testApexStarter_Help() {
         final String[] apexStarterConfigParameters = { "-h" };
-        ApexStarterMain.main(apexStarterConfigParameters);
+        assertThatCode(() -> ApexStarterMain.main(apexStarterConfigParameters)).doesNotThrowAnyException();
     }
 
     @Test

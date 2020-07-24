@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.services.onappf;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 
@@ -32,6 +34,6 @@ public class TestApexStarterConstants {
     @Test
     public void test() throws Exception {
         // verify that constructor does not throw an exception
-        Whitebox.invokeConstructor(ApexStarterConstants.class);
+        assertThatCode(() -> Whitebox.invokeConstructor(ApexStarterConstants.class)).doesNotThrowAnyException();
     }
 }

@@ -20,6 +20,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -57,7 +58,7 @@ public class ApexKafkaConsumerTest {
 
     @Test
     public void testStart() {
-        apexKafkaConsumer.start();
+        assertThatCode(apexKafkaConsumer::start).doesNotThrowAnyException();
     }
 
     @Test
