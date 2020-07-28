@@ -16,6 +16,24 @@
       "revId": "b2e2d5f8daeefb08873d11de44cb4cfe7cfab03a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29cbe948_17eba4da",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/dao/EntityTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-28T17:58:12Z",
+      "side": 1,
+      "message": "that\u0027s correct - maybe remove in another review?",
+      "parentUuid": "36a7a00a_d00c3208",
+      "revId": "b2e2d5f8daeefb08873d11de44cb4cfe7cfab03a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
