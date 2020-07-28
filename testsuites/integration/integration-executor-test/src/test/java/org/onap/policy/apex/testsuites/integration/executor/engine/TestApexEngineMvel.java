@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.engine;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+
 import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
@@ -95,7 +97,9 @@ public class TestApexEngineMvel {
      */
     @Test
     public void testApexEngineMvel() throws ApexException, InterruptedException, IOException {
-        new TestApexEngine("MVEL", engineParameters);
-        new TestApexEngine("MVEL", engineParameters);
+        assertThatCode(() -> {
+            new TestApexEngine("MVEL", engineParameters);
+            new TestApexEngine("MVEL", engineParameters);
+        }).doesNotThrowAnyException();
     }
 }

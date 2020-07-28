@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.model.utilities;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,6 +37,7 @@ public class DirectoryUtilsTest {
         DirectoryUtils.emptyDirectory(new File("/i/dont/exist"));
 
         File tempDir = Files.createTempDirectory("test").toFile();
+        assertNotNull(tempDir);
 
         Files.createTempDirectory(tempDir.toPath(), "testsubprefix");
 
