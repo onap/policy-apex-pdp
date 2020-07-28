@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36a7a00a_d00c3208",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/dao/EntityTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-07-28T16:46:00Z",
+      "side": 1,
+      "message": "Since a constructor can never returned a \u0027null\u0027 object, I believe these assertNotNull are unnecessary.",
+      "revId": "b2e2d5f8daeefb08873d11de44cb4cfe7cfab03a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
