@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import lombok.Getter;
@@ -84,7 +85,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
         thisThread.setName(DeploymentClient.class.getName() + "-" + getHost() + ":" + getPort());
 
         started = true;
-
+        countDownLatch.countDown();
         // Loop forever, sending messages as they appear on the queue
         await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> !(started && !thisThread.isInterrupted()));
         // Thread has been interrupted
@@ -202,6 +203,7 @@ public class DummyDeploymentClient extends DeploymentClient implements Runnable 
             thisThread.interrupt();
         }
         started = false;
+        countDownLatch = new CountDownLatch(1);
     }
 
     /**

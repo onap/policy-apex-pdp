@@ -26,6 +26,7 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
@@ -71,6 +72,7 @@ public class DeploymentClient implements Runnable {
     // Number of messages processed
     private long messagesSent = 0;
     private long messagesReceived = 0;
+    protected CountDownLatch countDownLatch;
 
     /**
      * Instantiates a new deployment client.
@@ -81,6 +83,7 @@ public class DeploymentClient implements Runnable {
     public DeploymentClient(final String host, final int port) {
         this.host = host;
         this.port = port;
+        countDownLatch = new CountDownLatch(1);
     }
 
     /**
@@ -102,6 +105,7 @@ public class DeploymentClient implements Runnable {
 
             service.startConnection();
             started = true;
+            countDownLatch.countDown();
             LOGGER.debug("engine<-->deployment client thread started");
         } catch (final Exception e) {
             LOGGER.error("engine<-->deployment client thread exception", e);
@@ -198,6 +202,7 @@ public class DeploymentClient implements Runnable {
             service.stopConnection();
         }
         started = false;
+        countDownLatch = new CountDownLatch(1);
         LOGGER.debug("engine<-->deployment test client stopped . . .");
     }
 
