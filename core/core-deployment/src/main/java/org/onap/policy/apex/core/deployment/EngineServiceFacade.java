@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.core.protocols.Message;
 import org.onap.policy.apex.core.protocols.engdep.messages.EngineServiceInfoResponse;
 import org.onap.policy.apex.core.protocols.engdep.messages.GetEngineInfo;
@@ -69,7 +69,6 @@ public class EngineServiceFacade {
     // The default message timeout and timeout increment (the amount of time between
     // polls) in
     // milliseconds
-    private static final int CLIENT_START_WAIT_INTERVAL = 100;
     private static final int REPLY_MESSAGE_TIMEOUT_DEFAULT = 10000;
     private static final int REPLY_MESSAGE_TIMEOUT_INCREMENT = 100;
 
@@ -125,12 +124,8 @@ public class EngineServiceFacade {
             clientThread.start();
 
             // Wait for the connection to come up
-            while (!client.isStarted()) {
-                if (clientThread.isAlive()) {
-                    ThreadUtilities.sleep(CLIENT_START_WAIT_INTERVAL);
-                } else {
-                    throw new ApexDeploymentException("could not handshake with server " + hostName + ":" + port);
-                }
+            if (!client.getCountDownLatch().get().await(5L, TimeUnit.SECONDS)) {
+                throw new ApexDeploymentException("could not handshake with server " + hostName + ":" + port);
             }
 
             LOGGER.debug("opened connection to server {}:{} . . .", hostName, port);

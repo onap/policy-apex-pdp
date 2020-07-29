@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +27,12 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageHolder;
 import org.onap.policy.apex.core.infrastructure.messaging.MessageListener;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingService;
@@ -71,6 +76,9 @@ public class DeploymentClient implements Runnable {
     // Number of messages processed
     private long messagesSent = 0;
     private long messagesReceived = 0;
+    @Getter
+    @Setter
+    private AtomicReference<CountDownLatch> countDownLatch = new AtomicReference<>();
 
     /**
      * Instantiates a new deployment client.
@@ -81,6 +89,7 @@ public class DeploymentClient implements Runnable {
     public DeploymentClient(final String host, final int port) {
         this.host = host;
         this.port = port;
+        countDownLatch.set(new CountDownLatch(1));
     }
 
     /**
@@ -102,6 +111,7 @@ public class DeploymentClient implements Runnable {
 
             service.startConnection();
             started = true;
+            countDownLatch.get().countDown();
             LOGGER.debug("engine<-->deployment client thread started");
         } catch (final Exception e) {
             LOGGER.error("engine<-->deployment client thread exception", e);
@@ -198,6 +208,7 @@ public class DeploymentClient implements Runnable {
             service.stopConnection();
         }
         started = false;
+        countDownLatch.set(new CountDownLatch(1));
         LOGGER.debug("engine<-->deployment test client stopped . . .");
     }
 
