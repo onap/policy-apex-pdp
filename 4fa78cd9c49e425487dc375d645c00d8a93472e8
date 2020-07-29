@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84016f61_e1885736",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/DeploymentClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-29T12:36:20Z",
+      "side": 1,
+      "message": "should probably use two \"final\" latches, one for start and the other for stop.  (Or at least wrap it in an AtomicReference since it can be changed.)\n\nshould probably access this via a getter method, or add methods awaitStart() and awaitStop().",
+      "revId": "4fa78cd9c49e425487dc375d645c00d8a93472e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
