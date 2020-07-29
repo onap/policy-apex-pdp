@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b6f4656c_ec5d2b30",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/DeploymentClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-29T15:38:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "911c18b5_2db973c8",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "4fa78cd9c49e425487dc375d645c00d8a93472e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84016f61_e1885736",
         "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/DeploymentClient.java",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2020-07-29T12:36:20Z",
       "side": 1,
       "message": "should probably use two \"final\" latches, one for start and the other for stop.  (Or at least wrap it in an AtomicReference since it can be changed.)\n\nshould probably access this via a getter method, or add methods awaitStart() and awaitStop().",
+      "revId": "4fa78cd9c49e425487dc375d645c00d8a93472e8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b60b41_af4f3acc",
+        "filename": "core/core-deployment/src/main/java/org/onap/policy/apex/core/deployment/DeploymentClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-07-29T15:38:15Z",
+      "side": 1,
+      "message": "The test classes are creating the DeploymentClient class once, then testing failure and success scenarios back to back. That is why latch count is decremented while starting up and incremented while stopping. This way, the countdown and await on the latch works continuosly. This could be improved, not sure if more time should be spent on these \"to be removed\" classes.",
+      "parentUuid": "84016f61_e1885736",
       "revId": "4fa78cd9c49e425487dc375d645c00d8a93472e8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
