@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0928d233_4b060f4b",
+        "filename": "client/client-deployment/src/main/resources/webapp/jest.config.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-30T17:11:29Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "5d7f153ab5ee0479db2e2167cd99feee5b6541a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6371e8f3_1ab107e5",
+        "filename": "client/client-editor/src/main/resources/webapp/jest.config.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-30T17:11:29Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "5d7f153ab5ee0479db2e2167cd99feee5b6541a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5efa7061_ab5ed3b2",
+        "filename": "client/client-full/src/main/resources/webapp/jest.config.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-30T17:11:29Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "5d7f153ab5ee0479db2e2167cd99feee5b6541a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2238f05c_ea4d6980",
+        "filename": "client/client-monitoring/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-30T17:11:29Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "5d7f153ab5ee0479db2e2167cd99feee5b6541a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a59dc9_397d5029",
+        "filename": "client/client-monitoring/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-30T17:11:29Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "5d7f153ab5ee0479db2e2167cd99feee5b6541a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "246c1d3a_f5630844",
+        "filename": "client/client-monitoring/src/main/resources/webapp/jest.config.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-30T17:11:29Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "5d7f153ab5ee0479db2e2167cd99feee5b6541a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
