@@ -1,9 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -x
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
 #  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,11 +49,13 @@ then
 fi
 
 ## Environment variables for HTTPS
-KEYSTORE="${APEX_HOME}/etc/ssl/policy-keystore"
-TRUSTSTORE="${APEX_HOME}/etc/ssl/policy-truststore"
+KEYSTORE="${KEYSTORE:-$APEX_HOME/etc/ssl/policy-keystore}"
+TRUSTSTORE="${TRUSTSTORE:-$APEX_HOME/etc/ssl/policy-truststore}"
+KEYSTORE_PASSWORD="${KEYSTORE_PASSWORD:-Pol1cy_0nap}"
+TRUSTSTORE_PASSWORD="${TRUSTSTORE_PASSWORD:-Pol1cy_0nap}"
 
 ## HTTPS parameters
-HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD:-Pol1cy_0nap} -Djavax.net.ssl.trustStore=$TRUSTSTORE -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWORD:-Pol1cy_0nap}"
+HTTPS_PARAMETERS="-Djavax.net.ssl.keyStore=${KEYSTORE} -Djavax.net.ssl.keyStorePassword=${KEYSTORE_PASSWORD} -Djavax.net.ssl.trustStore=$TRUSTSTORE -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWORD}"
 
 ## script name for output
 MOD_SCRIPT_NAME=`basename $0`
