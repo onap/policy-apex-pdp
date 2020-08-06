@@ -106,7 +106,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
      * @param key the key of the context album container
      */
     public AxContextAlbums(final AxArtifactKey key) {
-        this(key, new TreeMap<AxArtifactKey, AxContextAlbum>());
+        this(key, new TreeMap<>());
     }
 
     /**

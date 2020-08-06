@@ -22,6 +22,7 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -257,9 +258,7 @@ public class CommandLineParser {
 
         // Split on space characters
         final String[] splitWords = singleSpaceWord.split(" ");
-        for (final String splitWord : splitWords) {
-            strippedAndSplitWords.add(splitWord);
-        }
+        Collections.addAll(strippedAndSplitWords, splitWords);
 
         return strippedAndSplitWords;
     }

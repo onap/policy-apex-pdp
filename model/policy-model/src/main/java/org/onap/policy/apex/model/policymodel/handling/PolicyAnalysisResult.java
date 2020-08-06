@@ -57,20 +57,20 @@ public class PolicyAnalysisResult {
      */
     public PolicyAnalysisResult(final AxPolicyModel policyModel) {
         for (final AxArtifactKey contextSchemaKey : policyModel.getSchemas().getSchemasMap().keySet()) {
-            contextSchemaUsage.put(contextSchemaKey, new TreeSet<AxKey>());
+            contextSchemaUsage.put(contextSchemaKey, new TreeSet<>());
         }
 
         for (final Entry<AxArtifactKey, AxContextAlbum> contextAlbumEntry : policyModel.getAlbums().getAlbumsMap()
                         .entrySet()) {
-            contextAlbumUsage.put(contextAlbumEntry.getKey(), new TreeSet<AxKey>());
+            contextAlbumUsage.put(contextAlbumEntry.getKey(), new TreeSet<>());
         }
 
         for (final AxArtifactKey eventKey : policyModel.getEvents().getEventMap().keySet()) {
-            eventUsage.put(eventKey, new TreeSet<AxKey>());
+            eventUsage.put(eventKey, new TreeSet<>());
         }
 
         for (final AxArtifactKey taskKey : policyModel.getTasks().getTaskMap().keySet()) {
-            taskUsage.put(taskKey, new TreeSet<AxKey>());
+            taskUsage.put(taskKey, new TreeSet<>());
         }
     }
 
