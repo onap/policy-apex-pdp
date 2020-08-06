@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -294,7 +295,7 @@ public class ApexMonitoringRestResource {
         SlidingWindowList<Counter> valueList;
 
         if (!cache.containsKey(host)) {
-            cache.put(host, new HashMap<String, List<Counter>>());
+            cache.put(host, new HashMap<>());
         }
 
         if (cache.get(host).containsKey(id)) {
@@ -312,7 +313,7 @@ public class ApexMonitoringRestResource {
 
     /**
      * Get an engine service facade for sending REST requests. This method is package because it is used by unit test.
-     * 
+     *
      * @param hostName the host name of the Apex engine
      * @param port the port of the Apex engine
      * @return the engine service facade
@@ -359,21 +360,21 @@ public class ApexMonitoringRestResource {
             if (this == obj) {
                 return true;
             }
-            
+
             if (!super.equals(obj)) {
                 return false;
             }
-            
+
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            
+
             @SuppressWarnings("unchecked")
             SlidingWindowList<V> other = (SlidingWindowList<V>) obj;
             if (!getOuterType().equals(other.getOuterType())) {
                 return false;
             }
-            
+
             return maxEntries == other.maxEntries;
         }
     }

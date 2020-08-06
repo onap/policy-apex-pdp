@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -217,7 +218,7 @@ public class CliUtils {
                 if (argValue instanceof String && !key.equals("o")) {
                     cliArgsList.add("-" + key);
                     cliArgsList.add(argValue.toString());
-                } else if (argValue instanceof Boolean && (Boolean) argValue) {
+                } else if (argValue instanceof Boolean && (boolean) argValue) {
                     cliArgsList.add("-" + key);
                 }
             } catch (Exception e) {
