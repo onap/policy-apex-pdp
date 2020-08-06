@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d089abbc_41591935",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-06T16:11:18Z",
+      "side": 1,
+      "message": "sonar: use assertThat(xxx).contains(yyy) instead",
+      "revId": "6ed09cbba3d8764ad3d11a4c7dc6f3818f3b9809",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c3bf49_aaabf71f",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-06T16:11:18Z",
+      "side": 1,
+      "message": "same comment",
+      "revId": "6ed09cbba3d8764ad3d11a4c7dc6f3818f3b9809",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
