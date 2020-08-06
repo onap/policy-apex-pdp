@@ -107,7 +107,7 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
      * @param key the event container key
      */
     public AxEvents(final AxArtifactKey key) {
-        this(key, new TreeMap<AxArtifactKey, AxEvent>());
+        this(key, new TreeMap<>());
     }
 
     /**
