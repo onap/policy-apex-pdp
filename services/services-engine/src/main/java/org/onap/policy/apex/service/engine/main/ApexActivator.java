@@ -24,6 +24,7 @@ package org.onap.policy.apex.service.engine.main;
 
 import java.io.IOException;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -133,16 +134,19 @@ public class ApexActivator {
             new LinkedHashSet<>(apexParametersMap.entrySet());
         apexParamsEntrySet.stream().forEach(apexParamsEntry -> {
             ApexParameters apexParams = apexParamsEntry.getValue();
-            boolean duplicateInputParameterExist =
-                apexParams.getEventInputParameters().keySet().stream().anyMatch(inputParametersMap::containsKey);
-            boolean duplicateOutputParameterExist =
-                apexParams.getEventOutputParameters().keySet().stream().anyMatch(outputParametersMap::containsKey);
-            if (duplicateInputParameterExist || duplicateOutputParameterExist) {
-                LOGGER.error("I/O Parameters for {}:{} has duplicates. So this policy is not executed.",
-                    apexParamsEntry.getKey().getName(), apexParamsEntry.getKey().getVersion());
+            List<String> duplicateInputParameters = new ArrayList<>(apexParams.getEventInputParameters().keySet());
+            duplicateInputParameters.retainAll(inputParametersMap.keySet());
+            List<String> duplicateOutputParameters = new ArrayList<>(apexParams.getEventOutputParameters().keySet());
+            duplicateOutputParameters.retainAll(outputParametersMap.keySet());
+
+            if (!(duplicateInputParameters.isEmpty() && duplicateOutputParameters.isEmpty())) {
+                LOGGER.error("I/O Parameters {}/{} for {}:{} are duplicates. So this policy is not executed.",
+                    duplicateInputParameters, duplicateOutputParameters, apexParamsEntry.getKey().getName(),
+                    apexParamsEntry.getKey().getVersion());
                 apexParametersMap.remove(apexParamsEntry.getKey());
                 return;
             }
+
             inputParametersMap.putAll(apexParams.getEventInputParameters());
             outputParametersMap.putAll(apexParams.getEventOutputParameters());
             // Check if a policy model file has been specified
