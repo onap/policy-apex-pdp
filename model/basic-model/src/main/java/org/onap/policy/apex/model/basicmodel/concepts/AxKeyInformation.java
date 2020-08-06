@@ -100,7 +100,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * @param key the key of the concept
      */
     public AxKeyInformation(final AxArtifactKey key) {
-        this(key, new TreeMap<AxArtifactKey, AxKeyInfo>());
+        this(key, new TreeMap<>());
     }
 
     /**

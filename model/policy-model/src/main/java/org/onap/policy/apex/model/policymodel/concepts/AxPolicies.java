@@ -99,7 +99,7 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
      * @param key the key
      */
     public AxPolicies(final AxArtifactKey key) {
-        this(key, new TreeMap<AxArtifactKey, AxPolicy>());
+        this(key, new TreeMap<>());
     }
 
     /**
