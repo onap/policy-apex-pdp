@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,7 +130,7 @@ public class AxEvent extends AxConcept {
      * @param key the key of the event
      */
     public AxEvent(final AxArtifactKey key) {
-        this(key, "", "", "", new TreeMap<String, AxField>());
+        this(key, "", "", "", new TreeMap<>());
     }
 
     /**
@@ -141,7 +141,7 @@ public class AxEvent extends AxConcept {
      * @param nameSpace the name space of the event
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace) {
-        this(key, nameSpace, "", "", new TreeMap<String, AxField>());
+        this(key, nameSpace, "", "", new TreeMap<>());
     }
 
     /**
@@ -154,7 +154,7 @@ public class AxEvent extends AxConcept {
      * @param target the target of the event
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace, final String source, final String target) {
-        this(key, nameSpace, source, target, new TreeMap<String, AxField>());
+        this(key, nameSpace, source, target, new TreeMap<>());
     }
 
     /**

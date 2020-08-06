@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -34,7 +35,7 @@ import org.slf4j.ext.XLoggerFactory;
 /**
  * This class holds a cache of the synchronous events sent into Apex and that have not yet been replied to. It runs a
  * thread to time out events that have not been replied to in the specified timeout.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class SynchronousEventCache extends PeeredReference implements Runnable {
@@ -64,7 +65,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Create a synchronous event cache that caches outstanding synchronous Apex events.
-     * 
+     *
      * @param peeredMode the peered mode for which to return the reference
      * @param consumer the consumer that is populating the cache
      * @param producer the producer that is emptying the cache
@@ -110,7 +111,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Remove the record of an event sent to Apex if it exists in the cache.
-     * 
+     *
      * @param executionId the execution ID of the event
      * @return The removed event
      */
@@ -122,7 +123,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Check if an event exists in the to apex cache.
-     * 
+     *
      * @param executionId the execution ID of the event
      * @return true if the event exists, false otherwise
      */
@@ -147,7 +148,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Remove the record of an event received from Apex if it exists in the cache.
-     * 
+     *
      * @param executionId the execution ID of the event
      * @return The removed event
      */
@@ -159,7 +160,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Check if an event exists in the from apex cache.
-     * 
+     *
      * @param executionId the execution ID of the event
      * @return true if the event exists, false otherwise
      */
@@ -215,7 +216,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Cache a synchronized event sent in an event cache.
-     * 
+     *
      * @param eventCacheMap the map to cache the event on
      * @param executionId the execution ID of the event
      * @param event the event to cache
@@ -236,7 +237,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
         }
 
         // Add the event to the map
-        eventCacheMap.put(executionId, new SimpleEntry<Long, Object>(System.currentTimeMillis(), event));
+        eventCacheMap.put(executionId, new SimpleEntry<>(System.currentTimeMillis(), event));
 
         if (LOGGER.isDebugEnabled()) {
             String message = "event has been cached:" + event;
@@ -248,7 +249,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
 
     /**
      * Remove the record of an event if it exists in the cache.
-     * 
+     *
      * @param eventCacheMap the map to remove the event from
      * @param executionId the execution ID of the event
      * @return The removed event
@@ -272,7 +273,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
     /**
      * Time out events on an event cache map. Events that have a timeout longer than the configured timeout are timed
      * out.
-     * 
+     *
      * @param eventCacheMap the event cache to operate on
      */
     private void timeoutEventsOnCache(final Map<Long, SimpleEntry<Long, Object>> eventCacheMap) {
