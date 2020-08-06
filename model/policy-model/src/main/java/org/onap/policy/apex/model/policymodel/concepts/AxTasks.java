@@ -106,7 +106,7 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
      * @param key the key
      */
     public AxTasks(final AxArtifactKey key) {
-        this(key, new TreeMap<AxArtifactKey, AxTask>());
+        this(key, new TreeMap<>());
     }
 
     /**

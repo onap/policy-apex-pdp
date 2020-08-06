@@ -152,10 +152,10 @@ public class AxTask extends AxConcept {
      */
     public AxTask(final AxArtifactKey key) {
         this(key, // Task Key
-                new TreeMap<String, AxInputField>(), // Input fields
-                new TreeMap<String, AxOutputField>(), // Output Fields
-                new TreeMap<String, AxTaskParameter>(), // Task Parameters
-                new TreeSet<AxArtifactKey>(), // Context Album References
+                new TreeMap<>(), // Input fields
+                new TreeMap<>(), // Output Fields
+                new TreeMap<>(), // Task Parameters
+                new TreeSet<>(), // Context Album References
                 new AxTaskLogic(new AxReferenceKey(key)) // Task Logic
         );
     }

@@ -243,12 +243,12 @@ public class AxState extends AxConcept {
         this(new AxStateParamsBuilder()
                         .key(key)                                                             // Key
                         .trigger(AxArtifactKey.getNullKey())                                  // Trigger Reference
-                        .stateOutputs(new TreeMap<String, AxStateOutput>())                   // State Outputs
-                        .contextAlbumReferenceSet(new TreeSet<AxArtifactKey>())               // Context Album Refs
+                        .stateOutputs(new TreeMap<>())                   // State Outputs
+                        .contextAlbumReferenceSet(new TreeSet<>())               // Context Album Refs
                         .taskSelectionLogic(new AxTaskSelectionLogic())                       // Task Selection Logic
-                        .stateFinalizerLogicMap(new TreeMap<String, AxStateFinalizerLogic>()) // State Finalizer Logics
+                        .stateFinalizerLogicMap(new TreeMap<>()) // State Finalizer Logics
                         .defaultTask(AxArtifactKey.getNullKey())                              // Default Task
-                        .taskReferenceMap(new TreeMap<AxArtifactKey, AxStateTaskReference>()) // Task References
+                        .taskReferenceMap(new TreeMap<>()) // Task References
         );
         // @formatter:on
     }
