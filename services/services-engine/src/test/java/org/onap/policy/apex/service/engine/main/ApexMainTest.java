@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +22,10 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -61,6 +63,8 @@ public class ApexMainTest {
         ApexMain.main(null);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
                 .contains("Apex configuration file was not specified as an argument"));
+        assertThat(outContent.toString())
+            .contains("Apex configuration file was not specified as an argument");
     }
 
     @Test
@@ -73,6 +77,7 @@ public class ApexMainTest {
         final ApexMain apexMain = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
                 .contains("invalid command line arguments specified : Unrecognized option: -whee"));
+        assertNotNull(apexMain);
         apexMain.shutdown();
     }
 
@@ -86,6 +91,7 @@ public class ApexMainTest {
         final ApexMain apexMain = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
                 .contains("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
+        assertNotNull(apexMain);
         apexMain.shutdown();
     }
 
@@ -99,6 +105,7 @@ public class ApexMainTest {
         final ApexMain apexMain = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
                 .contains("parameter group has status INVALID"));
+        assertNotNull(apexMain);
         apexMain.shutdown();
     }
 
@@ -148,7 +155,7 @@ public class ApexMainTest {
         assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
         apexMain.shutdown();
         final String outString = outContent.toString();
-        assertTrue(outString.contains("Added the action listener to the engine"));
+        assertThat(outString).contains("Added the action listener to the engine");
     }
 
     @Test
@@ -165,7 +172,8 @@ public class ApexMainTest {
         assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
         apexMain.shutdown();
         final String outString = outContent.toString();
-        assertTrue(outString.contains("I/O Parameters for id2:v2 has duplicates. So this policy is not executed"));
+        assertThat(outString).contains("I/O Parameters [TheFileConsumer1]/[FirstProducer] for id2:v2 are duplicates. "
+            + "So this policy is not executed");
         assertEquals(1, apexMain.getApexParametersMap().size()); // only id1:v1 is kept in the map, id2:v2 failed
     }
 
@@ -179,8 +187,7 @@ public class ApexMainTest {
         final ApexMain apexMain = new ApexMain(argsMap);
         final String outString = outContent.toString();
         apexMain.shutdown();
-        assertTrue(
-            outString.contains("Arguments validation failed") && outString.contains("start of Apex service failed"));
-        assertTrue(apexMain.getApexParametersMap().isEmpty()); // No policy is running in the engine
+        assertThat(outString).contains("Arguments validation failed", "start of Apex service failed");
+        assertThat(apexMain.getApexParametersMap()).isEmpty(); // No policy is running in the engine
     }
 }
