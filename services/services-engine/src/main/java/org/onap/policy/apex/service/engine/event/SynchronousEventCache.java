@@ -236,7 +236,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
         }
 
         // Add the event to the map
-        eventCacheMap.put(executionId, new SimpleEntry<Long, Object>(System.currentTimeMillis(), event));
+        eventCacheMap.put(executionId, new SimpleEntry<>(System.currentTimeMillis(), event));
 
         if (LOGGER.isDebugEnabled()) {
             String message = "event has been cached:" + event;

@@ -134,7 +134,7 @@ public class AxPolicy extends AxConcept {
      * @param key the key of the policy
      */
     public AxPolicy(final AxArtifactKey key) {
-        this(key, "", new TreeMap<String, AxState>(), "");
+        this(key, "", new TreeMap<>(), "");
     }
 
     /**

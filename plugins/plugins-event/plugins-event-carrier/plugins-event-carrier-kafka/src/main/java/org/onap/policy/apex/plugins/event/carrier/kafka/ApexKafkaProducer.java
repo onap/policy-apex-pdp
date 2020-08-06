@@ -80,7 +80,7 @@ public class ApexKafkaProducer extends ApexPluginsEventProducer {
             }
         }
 
-        kafkaProducer.send(new ProducerRecord<String, Object>(kafkaProducerProperties.getProducerTopic(), name, event));
+        kafkaProducer.send(new ProducerRecord<>(kafkaProducerProperties.getProducerTopic(), name, event));
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("event sent from engine using {} to topic {} : {} ", this.name,
                     kafkaProducerProperties.getProducerTopic(), event);

@@ -294,7 +294,7 @@ public class ApexMonitoringRestResource {
         SlidingWindowList<Counter> valueList;
 
         if (!cache.containsKey(host)) {
-            cache.put(host, new HashMap<String, List<Counter>>());
+            cache.put(host, new HashMap<>());
         }
 
         if (cache.get(host).containsKey(id)) {
