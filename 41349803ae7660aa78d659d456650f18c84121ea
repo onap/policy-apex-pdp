@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e391a300_317d13a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-08-07T13:01:29Z",
+      "side": 1,
+      "message": "FYI: https://wiki.onap.org/display/DW/Commit+Message, summary line preferibly \u003c than 50 chars.",
+      "revId": "41349803ae7660aa78d659d456650f18c84121ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
