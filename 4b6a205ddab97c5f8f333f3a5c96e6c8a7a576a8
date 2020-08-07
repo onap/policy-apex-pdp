@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0ddef132_8dbc81d6",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-07T11:53:22Z",
+      "side": 1,
+      "message": "license 😊",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "4b6a205ddab97c5f8f333f3a5c96e6c8a7a576a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7d3e4ce_a960f18d",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
         "patchSetId": 5
@@ -13,6 +36,29 @@
       "writtenOn": "2020-08-07T10:53:15Z",
       "side": 1,
       "message": "hmm.  Didn\u0027t know about this addAll().  I\u0027ve learned something new today - thx!",
+      "revId": "4b6a205ddab97c5f8f333f3a5c96e6c8a7a576a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d19753_45465416",
+        "filename": "model/policy-model/src/main/java/org/onap/policy/apex/model/policymodel/concepts/AxState.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-07T11:53:22Z",
+      "side": 1,
+      "message": "Don\u0027t have to fix, but it was a little nicer having the comments line up. Since formatter was off",
+      "range": {
+        "startLine": 246,
+        "startChar": 70,
+        "endLine": 251,
+        "endChar": 77
+      },
       "revId": "4b6a205ddab97c5f8f333f3a5c96e6c8a7a576a8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
