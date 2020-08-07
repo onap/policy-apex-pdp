@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "beda18eb_12ff723f",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/UpdateModelTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-07T18:26:45Z",
+      "side": 1,
+      "message": "Just 2020",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 38
+      },
+      "revId": "d6ad62261e757f9fa1bde566e417b4406454f9ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "155102a7_e22d5a31",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
         "patchSetId": 1

@@ -16,6 +16,24 @@
       "revId": "a926cdc113b5fad19a34dbf45e66bd7cbb5ed6e0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "221bc2ef_640abcbd",
+        "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/RestResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-07T18:26:45Z",
+      "side": 0,
+      "message": "Adds to code coverage also, bummer if sonar discourages it. Do they offer an alternative?",
+      "parentUuid": "a1c5eaf4_f7808596",
+      "revId": "a926cdc113b5fad19a34dbf45e66bd7cbb5ed6e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
