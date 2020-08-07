@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7d3e4ce_a960f18d",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-07T10:53:15Z",
+      "side": 1,
+      "message": "hmm.  Didn\u0027t know about this addAll().  I\u0027ve learned something new today - thx!",
+      "revId": "4b6a205ddab97c5f8f333f3a5c96e6c8a7a576a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
