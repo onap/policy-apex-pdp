@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "155102a7_e22d5a31",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-07T14:25:41Z",
+      "side": 1,
+      "message": "maybe remove the extra parentheses",
+      "revId": "d6ad62261e757f9fa1bde566e417b4406454f9ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

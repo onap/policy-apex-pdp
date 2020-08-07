@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1c5eaf4_f7808596",
+        "filename": "client/client-monitoring/src/test/java/org/onap/policy/apex/client/monitoring/rest/RestResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-07T14:25:41Z",
+      "side": 0,
+      "message": "this added value - it verified that the equals() method worked when applied to itself.  I\u0027d suggest adding \"// NOSONAR\" to the end of the line and then adding a comment before this line, explaining why sonar was disabled, something to the effect of:\n\n  // disabling sonar because this code tests the equals() method\n\nsame comment in the other files",
+      "revId": "a926cdc113b5fad19a34dbf45e66bd7cbb5ed6e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
