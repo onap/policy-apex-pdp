@@ -103,10 +103,9 @@ public class ContextSchemasTest {
 
         assertNotEquals(0, schema.hashCode());
 
-        assertEquals(schema, schema);
         assertEquals(schema, clonedSchema);
         assertNotNull(schema);
-        assertNotEquals(schema, (Object) "Hello");
+        assertNotEquals(schema, "Hello");
         assertNotEquals(schema, new AxContextSchema(new AxArtifactKey(), "Flavour", "Def"));
         assertNotEquals(schema, new AxContextSchema(newKey, "Flavour", "Def"));
         assertNotEquals(schema, new AxContextSchema(newKey, "NewSchemaFlavour", "Def"));
@@ -165,10 +164,9 @@ public class ContextSchemasTest {
 
         assertNotEquals(0, schemas.hashCode());
 
-        assertEquals(schemas, schemas);
         assertEquals(schemas, clonedSchemas);
         assertNotNull(schemas);
-        assertNotEquals(schemas, (Object) "Hello");
+        assertNotEquals(schemas, "Hello");
         assertNotEquals(schemas, new AxContextSchemas(new AxArtifactKey()));
 
         assertEquals(0, schemas.compareTo(schemas));

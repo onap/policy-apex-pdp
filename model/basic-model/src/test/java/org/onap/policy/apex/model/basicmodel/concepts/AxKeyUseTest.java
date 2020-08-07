@@ -61,9 +61,8 @@ public class AxKeyUseTest {
 
         assertNotEquals(0, keyUse.hashCode());
 
-        assertEquals(keyUse, keyUse);
         assertEquals(keyUse, clonedKeyUse);
-        assertNotEquals(keyUse, (Object) "Hello");
+        assertNotEquals(keyUse, "Hello");
         assertEquals(keyUse, new AxKeyUse(key));
 
         assertEquals(0, keyUse.compareTo(keyUse));

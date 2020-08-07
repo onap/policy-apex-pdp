@@ -59,9 +59,8 @@ public class EventModelTest {
 
         assertNotEquals(0, model.hashCode());
 
-        assertEquals(model, model);
         assertEquals(model, clonedModel);
-        assertNotEquals(model, (Object) "Hello");
+        assertNotEquals(model, "Hello");
         assertNotEquals(model, new AxEventModel(new AxArtifactKey()));
         assertNotEquals(model, new AxEventModel(modelKey, new AxContextSchemas(), new AxKeyInformation(keyInfoKey),
                 new AxEvents(eventsKey)));

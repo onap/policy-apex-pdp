@@ -220,10 +220,9 @@ public class TasksTest {
 
         assertNotEquals(0, task.hashCode());
 
-        assertEquals(task, task);
         assertEquals(task, clonedTask);
         assertNotNull(task);
-        assertNotEquals(task, (Object) "Hello");
+        assertNotEquals(task, "Hello");
         assertNotEquals(task, new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl));
         assertNotEquals(task, new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl));
         assertNotEquals(task, new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl));
@@ -303,10 +302,9 @@ public class TasksTest {
 
         assertNotEquals(0, tasks.hashCode());
 
-        assertEquals(tasks, tasks);
         assertEquals(tasks, clonedTasks);
         assertNotNull(tasks);
-        assertNotEquals(tasks, (Object) "Hello");
+        assertNotEquals(tasks, "Hello");
         assertNotEquals(tasks, new AxTasks(new AxArtifactKey()));
 
         assertEquals(0, tasks.compareTo(tasks));

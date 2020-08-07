@@ -237,7 +237,6 @@ public class RestResourceTest {
         assertTrue(slidingWindowList0.add("Howdy"));
 
         assertNotNull(slidingWindowList0);
-        assertEquals(slidingWindowList0, slidingWindowList0);
 
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList1 = restResource.new SlidingWindowList<>(
                         2);

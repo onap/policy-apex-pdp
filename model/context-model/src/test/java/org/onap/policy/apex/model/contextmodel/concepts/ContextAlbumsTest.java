@@ -116,10 +116,9 @@ public class ContextAlbumsTest {
 
         assertNotEquals(0, album.hashCode());
 
-        assertEquals(album, album);
         assertEquals(album, clonedAlbum);
         assertNotNull(album);
-        assertNotEquals(album, (Object) "Hello");
+        assertNotEquals(album, "Hello");
         assertNotEquals(album, new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey()));
         assertNotEquals(album, new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey()));
         assertNotEquals(album, new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey()));
@@ -183,10 +182,9 @@ public class ContextAlbumsTest {
 
         assertNotEquals(0, albums.hashCode());
 
-        assertEquals(albums, albums);
         assertEquals(albums, clonedAlbums);
         assertNotNull(albums);
-        assertNotEquals(albums, (Object) "Hello");
+        assertNotEquals(albums, "Hello");
         assertNotEquals(albums, new AxContextAlbums(new AxArtifactKey()));
 
         assertEquals(0, albums.compareTo(albums));

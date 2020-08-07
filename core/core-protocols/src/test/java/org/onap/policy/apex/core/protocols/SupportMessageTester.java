@@ -64,7 +64,6 @@ public class SupportMessageTester {
         dummyMessage = new DummyMessage(null, null, null);
         assertEquals(0, dummyMessage.hashCode());
 
-        assertEquals(dummyMessage, dummyMessage);
         assertNotNull(dummyMessage);
         assertNotEquals(dummyMessage, new StartEngine(new AxArtifactKey()));
 

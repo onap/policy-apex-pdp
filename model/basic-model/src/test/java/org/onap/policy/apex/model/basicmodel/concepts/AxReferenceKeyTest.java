@@ -87,9 +87,8 @@ public class AxReferenceKeyTest {
 
         assertNotEquals(0, testReferenceKey.hashCode());
 
-        assertEquals(testReferenceKey, testReferenceKey);
         assertEquals(testReferenceKey, clonedReferenceKey);
-        assertNotEquals(testReferenceKey, (Object) "Hello");
+        assertNotEquals(testReferenceKey, "Hello");
         assertNotEquals(testReferenceKey, new AxReferenceKey("PKN", "0.0.2", "PLN", "LN"));
         assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.2", "PLN", "LN"));
         assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN"));

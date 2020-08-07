@@ -149,7 +149,6 @@ public class EnEventTest {
 
         assertNotEquals(0, event.hashCode());
 
-        assertEquals(event, event);
         assertNotNull(event);
         Map<String, Object> hashMap = new HashMap<>();
         assertNotEquals(event, hashMap);

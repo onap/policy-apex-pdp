@@ -72,9 +72,8 @@ public class EngineServiceInfoResponseTest {
         assertNotEquals(0, response.hashCode());
         response.setEngineKeyArray(null);
 
-        assertEquals(response, response);
         assertNotNull(response);
-        assertNotEquals(response, (Object) new StartEngine(new AxArtifactKey()));
+        assertNotEquals(response, new StartEngine(new AxArtifactKey()));
 
         response = new EngineServiceInfoResponse(null, false, null);
         EngineServiceInfoResponse otherResponse = new EngineServiceInfoResponse(null, false, null);

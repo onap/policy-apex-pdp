@@ -60,9 +60,8 @@ public class ContextModelTest {
 
         assertNotEquals(0, model.hashCode());
 
-        assertEquals(model, model);
         assertEquals(model, clonedModel);
-        assertNotEquals(model, (Object) "Hello");
+        assertNotEquals(model, "Hello");
         assertNotEquals(model, new AxContextModel(new AxArtifactKey()));
         assertNotEquals(model, new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
                         new AxKeyInformation()));

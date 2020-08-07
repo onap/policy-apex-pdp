@@ -134,7 +134,6 @@ public class EngineStatsTest {
 
         assertNotEquals(0, stats.hashCode());
 
-        assertEquals(stats, stats);
         assertEquals(stats, clonedStats);
         assertNotNull(stats);
 

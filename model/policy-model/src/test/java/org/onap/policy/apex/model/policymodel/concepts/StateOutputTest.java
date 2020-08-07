@@ -99,10 +99,9 @@ public class StateOutputTest {
 
         assertNotEquals(0, so.hashCode());
 
-        assertEquals(so, so);
         assertEquals(so, clonedPar);
         assertNotNull(so);
-        assertNotEquals(so, (Object) "Hello");
+        assertNotEquals(so, "Hello");
         assertNotEquals(so, new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey));
         assertNotEquals(so, new AxStateOutput(soKey, new AxArtifactKey(), nsKey));
         assertNotEquals(so, new AxStateOutput(soKey, eKey, new AxReferenceKey()));

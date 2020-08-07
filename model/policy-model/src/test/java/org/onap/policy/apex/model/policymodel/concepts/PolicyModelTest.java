@@ -79,9 +79,8 @@ public class PolicyModelTest {
 
         assertNotEquals(0, model.hashCode());
 
-        assertEquals(model, model);
         assertEquals(model, clonedModel);
-        assertNotEquals(model, (Object) "Hello");
+        assertNotEquals(model, "Hello");
         assertNotEquals(model, new AxPolicyModel(new AxArtifactKey()));
         assertNotEquals(model, new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),

@@ -53,7 +53,7 @@ public class ResponseTest {
         final AxArtifactKey responseKey = new AxArtifactKey("ResponseTest", "0.0.1");
         final AxArtifactKey responseToKey = new AxArtifactKey("ResponseTestTo", "0.0.1");
         UpdateModel responseTo = new UpdateModel(responseToKey);
-        
+
         Response message = new Response(responseKey, false, responseTo);
         logger.debug(message.toString());
         assertTrue(message.toString().contains("ResponseTest"));
@@ -74,7 +74,6 @@ public class ResponseTest {
         message = new Response(responseKey, true, new UpdateModel(null));
         assertNotEquals(0, message.hashCode());
 
-        assertEquals(message, message);
         assertNotNull(message);
         assertNotEquals(message, new StartEngine(new AxArtifactKey()));
 

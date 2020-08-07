@@ -187,10 +187,9 @@ public class EventsTest {
 
         assertNotEquals(0, event.hashCode());
 
-        assertEquals(event, event);
         assertEquals(event, clonedEvent);
         assertNotNull(event);
-        assertNotEquals(event, (Object) "Hello");
+        assertNotEquals(event, "Hello");
         assertNotEquals(
                 event, new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap));
         assertNotEquals(event, new AxEvent(eventKey, "namespace1", "source", "target", parameterMap));
@@ -270,10 +269,9 @@ public class EventsTest {
 
         assertNotEquals(0, events.hashCode());
 
-        assertEquals(events, events);
         assertEquals(events, clonedEvents);
         assertNotNull(events);
-        assertNotEquals(events, (Object) "Hello");
+        assertNotEquals(events, "Hello");
         assertNotEquals(events, new AxEvents(new AxArtifactKey()));
 
         assertEquals(0, events.compareTo(events));

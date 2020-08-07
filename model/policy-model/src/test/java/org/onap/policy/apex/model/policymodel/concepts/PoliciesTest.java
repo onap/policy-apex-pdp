@@ -210,10 +210,9 @@ public class PoliciesTest {
 
         assertNotEquals(0, policyPN.hashCode());
 
-        assertEquals(policyPN, policyPN);
         assertEquals(policyPN, clonedPolicy);
         assertNotNull(policyPN);
-        assertNotEquals(policyPN, (Object) "Hello");
+        assertNotEquals(policyPN, "Hello");
         assertNotEquals(policyPN,
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState));
         assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState));
@@ -295,10 +294,9 @@ public class PoliciesTest {
 
         assertNotEquals(0, policies.hashCode());
 
-        assertEquals(policies, policies);
         assertEquals(policies, clonedPolicies);
         assertNotNull(policies);
-        assertNotEquals(policies, (Object) "Hello");
+        assertNotEquals(policies, "Hello");
         assertNotEquals(policies, new AxPolicies(new AxArtifactKey()));
 
         assertEquals(0, policies.compareTo(policies));

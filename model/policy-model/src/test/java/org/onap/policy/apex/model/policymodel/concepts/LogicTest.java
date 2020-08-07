@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -139,10 +138,9 @@ public class LogicTest {
 
         assertNotEquals(0, logic.hashCode());
 
-        assertEquals(logic, logic);
         assertEquals(logic, clonedLogic);
         assertNotNull(logic);
-        assertNotEquals(logic, (Object) "Hello");
+        assertNotEquals(logic, "Hello");
         assertNotEquals(logic, new AxLogic(AxReferenceKey.getNullKey(), "LogicFlavour", "Logic"));
         assertNotEquals(logic, new AxLogic(logicKey, "AnotherLogicFlavour", "Logic"));
         assertNotEquals(logic, new AxLogic(logicKey, "LogicFlavour", "AnotherLogic"));

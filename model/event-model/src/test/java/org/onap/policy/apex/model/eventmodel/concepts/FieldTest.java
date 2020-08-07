@@ -110,10 +110,9 @@ public class FieldTest {
 
         assertNotEquals(0, field.hashCode());
 
-        assertEquals(field, field);
         assertEquals(field, clonedField);
         assertNotNull(field);
-        assertNotEquals(field, (Object) "Hello");
+        assertNotEquals(field, "Hello");
         assertNotEquals(field, new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false));
         assertNotEquals(field, new AxField(fieldKey, AxArtifactKey.getNullKey(), false));
         assertNotEquals(field, new AxField(fieldKey, schemaKey, false));
