@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a541040_2aed2dbc",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/utils/CliUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-07T12:56:20Z",
+      "side": 1,
+      "message": "this one isn\u0027t needed",
+      "revId": "d2b1dfed3017d1e846ef153ed6f0acbdedc674f3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
