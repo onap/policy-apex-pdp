@@ -383,11 +383,11 @@ public class StateTest {
         assertEquals("AxState:(stateKey=AxReferenceKey:(parent", clonedState.toString().substring(0, 40));
 
         assertNotEquals(0, state.hashCode());
-
-        assertEquals(state, state);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(state, state); // NOSONAR
         assertEquals(state, clonedState);
         assertNotNull(state);
-        assertNotEquals(state, (Object) "Hello");
+        assertNotEquals(state, "Hello");
         assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
                         .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));

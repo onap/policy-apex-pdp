@@ -60,10 +60,10 @@ public class AxKeyUseTest {
         assertEquals("AxKeyUse:(usedKey=AxArtifactKey:(name=Key,version=0.0.1))", clonedKeyUse.toString());
 
         assertNotEquals(0, keyUse.hashCode());
-
-        assertEquals(keyUse, keyUse);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(keyUse, keyUse); // NOSONAR
         assertEquals(keyUse, clonedKeyUse);
-        assertNotEquals(keyUse, (Object) "Hello");
+        assertNotEquals(keyUse, "Hello");
         assertEquals(keyUse, new AxKeyUse(key));
 
         assertEquals(0, keyUse.compareTo(keyUse));

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,8 +69,8 @@ public class UpdateModelTest {
         assertNotEquals(0, message.hashCode());
         message = new UpdateModel(null, null, false, true);
         assertNotEquals(0, message.hashCode());
-
-        assertEquals(message, message);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(message, message); // NOSONAR
         assertNotNull(message);
         assertNotEquals(message, new StartEngine(new AxArtifactKey()));
 

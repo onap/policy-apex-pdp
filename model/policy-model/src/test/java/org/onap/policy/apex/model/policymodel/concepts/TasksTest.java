@@ -219,11 +219,11 @@ public class TasksTest {
         assertEquals("AxTask:(key=AxArtifactKey:(name=TaskName", clonedTask.toString().substring(0, 40));
 
         assertNotEquals(0, task.hashCode());
-
-        assertEquals(task, task);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(task, task); // NOSONAR
         assertEquals(task, clonedTask);
         assertNotNull(task);
-        assertNotEquals(task, (Object) "Hello");
+        assertNotEquals(task, "Hello");
         assertNotEquals(task, new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl));
         assertNotEquals(task, new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl));
         assertNotEquals(task, new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl));
@@ -303,10 +303,11 @@ public class TasksTest {
 
         assertNotEquals(0, tasks.hashCode());
 
-        assertEquals(tasks, tasks);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(tasks, tasks); // NOSONAR
         assertEquals(tasks, clonedTasks);
         assertNotNull(tasks);
-        assertNotEquals(tasks, (Object) "Hello");
+        assertNotEquals(tasks, "Hello");
         assertNotEquals(tasks, new AxTasks(new AxArtifactKey()));
 
         assertEquals(0, tasks.compareTo(tasks));

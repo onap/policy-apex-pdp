@@ -69,10 +69,11 @@ public class SupportApexBasicModelConceptsTester {
 
         assertNotEquals(0, model.hashCode());
 
-        assertEquals(model, model);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(model, model); // NOSONAR
         assertEquals(model, clonedModel);
         assertNotNull(model);
-        assertNotEquals(model, (Object) "Hello");
+        assertNotEquals(model, "Hello");
         clonedModel.getKey().setVersion("0.0.2");
         assertNotEquals(model, clonedModel);
         clonedModel.getKey().setVersion("0.0.1");
@@ -94,7 +95,7 @@ public class SupportApexBasicModelConceptsTester {
         final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
 
         assertNotNull(keyI);
-        assertNotEquals(keyI, (Object) new AxArtifactKey());
+        assertNotEquals(keyI, new AxArtifactKey());
         assertEquals(keyI, clonedKeyI);
 
         clonedKeyI.setKey(new AxArtifactKey());

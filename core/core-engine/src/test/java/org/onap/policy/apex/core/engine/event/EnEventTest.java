@@ -148,8 +148,8 @@ public class EnEventTest {
         assertNull(event.get("MyField"));
 
         assertNotEquals(0, event.hashCode());
-
-        assertEquals(event, event);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(event, event); // NOSONAR
         assertNotNull(event);
         Map<String, Object> hashMap = new HashMap<>();
         assertNotEquals(event, hashMap);

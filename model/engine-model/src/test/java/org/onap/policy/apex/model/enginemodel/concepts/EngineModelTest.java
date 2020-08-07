@@ -98,9 +98,10 @@ public class EngineModelTest {
 
         assertNotEquals(0, model.hashCode());
 
-        assertEquals(model, model);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(model, model); // NOSONAR
         assertEquals(model, clonedModel);
-        assertNotEquals(model, (Object) "Hello");
+        assertNotEquals(model, "Hello");
         assertNotEquals(model, new AxEngineModel(new AxArtifactKey()));
         assertNotEquals(model, new AxEngineModel(new AxArtifactKey(), new AxContextSchemas(schemasKey),
                 new AxKeyInformation(keyInfoKey), new AxContextAlbums(albumKey), AxEngineState.READY, stats));

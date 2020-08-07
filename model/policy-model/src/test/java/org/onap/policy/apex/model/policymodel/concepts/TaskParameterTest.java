@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -89,11 +88,11 @@ public class TaskParameterTest {
                         + "parentLocalName=PLN,localName=LN),defaultValue=DefaultValue)", clonedPar.toString());
 
         assertNotEquals(0, par.hashCode());
-
-        assertEquals(par, par);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(par, par); // NOSONAR
         assertEquals(par, clonedPar);
         assertNotNull(par);
-        assertNotEquals(par, (Object) "Hello");
+        assertNotEquals(par, "Hello");
         assertNotEquals(par, new AxTaskParameter(AxReferenceKey.getNullKey(), "DefaultValue"));
         assertNotEquals(par, new AxTaskParameter(parKey, "OtherDefaultValue"));
         assertEquals(par, new AxTaskParameter(parKey, "DefaultValue"));

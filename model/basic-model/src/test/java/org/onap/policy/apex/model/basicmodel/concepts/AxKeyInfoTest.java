@@ -58,11 +58,11 @@ public class AxKeyInfoTest {
                         .startsWith("AxKeyInfo:(artifactId=AxArtifactKey:(name=key,version=0.0.1),uuid="));
 
         assertNotEquals(0, testKeyInfo.hashCode());
-
-        assertEquals(testKeyInfo, testKeyInfo);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(testKeyInfo, testKeyInfo); // NOSONAR
         assertEquals(testKeyInfo, clonedReferenceKey);
         assertNotNull(testKeyInfo);
-        assertNotEquals(testKeyInfo, (Object) new AxArtifactKey());
+        assertNotEquals(testKeyInfo, new AxArtifactKey());
         assertNotEquals(testKeyInfo, new AxKeyInfo(new AxArtifactKey()));
         assertNotEquals(testKeyInfo, new AxKeyInfo(key, UUID.randomUUID(), "Some Description"));
         assertNotEquals(testKeyInfo, new AxKeyInfo(key, uuid, "Some Description"));

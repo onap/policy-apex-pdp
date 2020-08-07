@@ -237,8 +237,8 @@ public class RestResourceTest {
         assertTrue(slidingWindowList0.add("Howdy"));
 
         assertNotNull(slidingWindowList0);
-        assertEquals(slidingWindowList0, slidingWindowList0);
-
+        // disabling sonar because this code tests the equals() method
+        assertEquals(slidingWindowList0, slidingWindowList0); // NOSONAR
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList1 = restResource.new SlidingWindowList<>(
                         2);
         ApexMonitoringRestResource.SlidingWindowList<String> slidingWindowList2 = restResource.new SlidingWindowList<>(

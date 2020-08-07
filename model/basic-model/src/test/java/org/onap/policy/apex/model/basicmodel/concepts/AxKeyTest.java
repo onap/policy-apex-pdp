@@ -109,8 +109,9 @@ public class AxKeyTest {
         assertEquals(353602977, someKey0.compareTo(new AxReferenceKey()));
 
         assertNotNull(someKey0);
-        assertEquals(someKey0, someKey0);
-        assertNotEquals(((AxKey) someKey0), new AxReferenceKey());
+        // disabling sonar because this code tests the equals() method
+        assertEquals(someKey0, someKey0); // NOSONAR
+        assertNotEquals(someKey0, new AxReferenceKey());
 
         AxArtifactKey nullKey0 = AxArtifactKey.getNullKey();
         assertTrue(nullKey0.isNullKey());

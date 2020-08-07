@@ -209,11 +209,11 @@ public class PoliciesTest {
                         clonedPolicy.toString().substring(0, 77));
 
         assertNotEquals(0, policyPN.hashCode());
-
-        assertEquals(policyPN, policyPN);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(policyPN, policyPN); // NOSONAR
         assertEquals(policyPN, clonedPolicy);
         assertNotNull(policyPN);
-        assertNotEquals(policyPN, (Object) "Hello");
+        assertNotEquals(policyPN, "Hello");
         assertNotEquals(policyPN,
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState));
         assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState));
@@ -294,11 +294,11 @@ public class PoliciesTest {
                         clonedPolicies.toString().substring(0, 60));
 
         assertNotEquals(0, policies.hashCode());
-
-        assertEquals(policies, policies);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(policies, policies); // NOSONAR
         assertEquals(policies, clonedPolicies);
         assertNotNull(policies);
-        assertNotEquals(policies, (Object) "Hello");
+        assertNotEquals(policies, "Hello");
         assertNotEquals(policies, new AxPolicies(new AxArtifactKey()));
 
         assertEquals(0, policies.compareTo(policies));

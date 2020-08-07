@@ -134,7 +134,8 @@ public class EngineStatsTest {
 
         assertNotEquals(0, stats.hashCode());
 
-        assertEquals(stats, stats);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(stats, stats); // NOSONAR
         assertEquals(stats, clonedStats);
         assertNotNull(stats);
 

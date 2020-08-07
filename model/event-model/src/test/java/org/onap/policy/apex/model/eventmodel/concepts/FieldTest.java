@@ -109,11 +109,11 @@ public class FieldTest {
                         + "AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)", clonedField.toString());
 
         assertNotEquals(0, field.hashCode());
-
-        assertEquals(field, field);
+        // disabling sonar because this code tests the equals() method
+        assertEquals(field, field); // NOSONAR
         assertEquals(field, clonedField);
         assertNotNull(field);
-        assertNotEquals(field, (Object) "Hello");
+        assertNotEquals(field, "Hello");
         assertNotEquals(field, new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false));
         assertNotEquals(field, new AxField(fieldKey, AxArtifactKey.getNullKey(), false));
         assertNotEquals(field, new AxField(fieldKey, schemaKey, false));
