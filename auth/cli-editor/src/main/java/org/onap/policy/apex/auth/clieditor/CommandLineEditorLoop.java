@@ -257,7 +257,6 @@ public class CommandLineEditorLoop {
                 writer.println(e.getMessage());
                 executionStatus.setRight(executionStatus.getRight() + 1);
                 LOGGER.debug(COMMAND_LINE_ERROR, e);
-                continue;
             } catch (final Exception e) {
                 e.printStackTrace(writer);
                 LOGGER.error(COMMAND_LINE_ERROR, e);

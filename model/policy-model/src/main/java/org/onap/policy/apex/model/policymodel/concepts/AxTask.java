@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,10 +152,10 @@ public class AxTask extends AxConcept {
      */
     public AxTask(final AxArtifactKey key) {
         this(key, // Task Key
-                new TreeMap<String, AxInputField>(), // Input fields
-                new TreeMap<String, AxOutputField>(), // Output Fields
-                new TreeMap<String, AxTaskParameter>(), // Task Parameters
-                new TreeSet<AxArtifactKey>(), // Context Album References
+                new TreeMap<>(), // Input fields
+                new TreeMap<>(), // Output Fields
+                new TreeMap<>(), // Task Parameters
+                new TreeSet<>(), // Context Album References
                 new AxTaskLogic(new AxReferenceKey(key)) // Task Logic
         );
     }

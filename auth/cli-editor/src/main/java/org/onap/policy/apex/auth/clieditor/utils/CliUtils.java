@@ -217,7 +217,7 @@ public class CliUtils {
                 if (argValue instanceof String && !key.equals("o")) {
                     cliArgsList.add("-" + key);
                     cliArgsList.add(argValue.toString());
-                } else if (argValue instanceof Boolean && (Boolean) argValue) {
+                } else if (argValue instanceof Boolean && (boolean) argValue) {
                     cliArgsList.add("-" + key);
                 }
             } catch (Exception e) {
