@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,7 +118,7 @@ public class EventHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Event/Create" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Event/Create" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
@@ -197,7 +197,7 @@ public class EventHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Event/Update" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Event/Update" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
@@ -237,9 +237,11 @@ public class EventHandler implements RestCommandHandler {
 
         ApexApiResult result = session.getApexModelEdited().deleteEvent(blank2Null(name), blank2Null(version));
 
-        session.finishSession(result.isOk());
+        if (result != null) {
+            session.finishSession(result.isOk());
+            LOGGER.exit("Event/Delete" + (result.isOk() ? OK : NOT_OK));
+        }
 
-        LOGGER.exit("Event/Delete" + (result != null && result.isOk() ? OK : NOT_OK));
         return result;
     }
 
