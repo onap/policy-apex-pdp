@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,8 +130,7 @@ public class ModelHandler implements RestCommandHandler {
         ApexApiResult result = session.getApexModelEdited().loadFromString(jsonString);
 
         session.finishSession(result.isOk());
-
-        LOGGER.exit("Model/Load" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Model/Load" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
@@ -189,7 +188,7 @@ public class ModelHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Model/Create" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Model/Create" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
@@ -213,7 +212,7 @@ public class ModelHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Model/Update" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Model/Update" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
@@ -250,7 +249,7 @@ public class ModelHandler implements RestCommandHandler {
 
         result = addKeyInfo2Messages(session, result);
 
-        LOGGER.exit("Model/Get" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Model/Get" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
@@ -285,7 +284,7 @@ public class ModelHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Model/Delete" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Model/Delete" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 

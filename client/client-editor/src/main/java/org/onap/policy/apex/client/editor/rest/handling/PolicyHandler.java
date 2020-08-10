@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -129,13 +130,13 @@ public class PolicyHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Policy/Create" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Policy/Create" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
     /**
      * Create the content of the policy.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonString the JSON string to be parsed See {@linkplain BeanPolicy}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
@@ -185,7 +186,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create a state on the policy.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -221,7 +222,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create the content of a state on the policy.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -256,7 +257,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create the task selection logic for the state.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -287,7 +288,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create the context references for the state.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -333,7 +334,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create the state finalizers for the state.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -380,7 +381,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create the state outputs for the state.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -434,7 +435,7 @@ public class PolicyHandler implements RestCommandHandler {
 
     /**
      * Create the task references for the state.
-     * 
+     *
      * @param session the Apex model editing session
      * @param policyName the policy name
      * @param policVersion the policy version
@@ -524,7 +525,7 @@ public class PolicyHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Policy/Update" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Policy/Update" + (result.isOk() ? OK : NOT_OK));
         return result;
 
     }
@@ -570,7 +571,7 @@ public class PolicyHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Policy/Delete" + (result != null && result.isOk() ? OK : NOT_OK));
+        LOGGER.exit("Policy/Delete" + (result.isOk() ? OK : NOT_OK));
         return result;
     }
 
