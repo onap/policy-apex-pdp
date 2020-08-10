@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -121,13 +122,14 @@ public class TaskHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Task/Create" + (result != null && result.isOk() ? OK : NOT_OK));
+        // disabling sonar because this code checks if result is not null
+        LOGGER.exit("Task/Create" + (result != null && result.isOk() ? OK : NOT_OK)); // NOSONAR
         return result;
     }
 
     /**
      * Create the content of the task.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonString the JSON string to be parsed. See {@linkplain BeanTask}
      * @return an ApexAPIResult object. If successful then {@link ApexApiResult#isOk()} will return true. Any
@@ -156,7 +158,7 @@ public class TaskHandler implements RestCommandHandler {
 
     /**
      * Create the input fields for the task.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonbean the ban containing the fields
      * @return the result of the operation
@@ -206,7 +208,7 @@ public class TaskHandler implements RestCommandHandler {
 
     /**
      * Create the output fields for the task.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonbean the ban containing the fields
      * @return the result of the operation
@@ -255,7 +257,7 @@ public class TaskHandler implements RestCommandHandler {
 
     /**
      * Create the task logic for the task.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonbean the bean containing the logic
      * @return the result of the operation
@@ -282,7 +284,7 @@ public class TaskHandler implements RestCommandHandler {
 
     /**
      * Create the task parameters for the task.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonbean the bean containing the parameters
      * @return the result of the operation
@@ -321,7 +323,7 @@ public class TaskHandler implements RestCommandHandler {
 
     /**
      * Create the context references for the task.
-     * 
+     *
      * @param session the Apex model editing session
      * @param jsonbean the bean containing the context references
      * @return the result of the operation
@@ -390,7 +392,8 @@ public class TaskHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Task/Update" + (result != null && result.isOk() ? OK : NOT_OK));
+        // disabling sonar because this code checks if result is not null
+        LOGGER.exit("Task/Update" + (result != null && result.isOk() ? OK : NOT_OK)); // NOSONAR
         return result;
     }
 
@@ -435,7 +438,8 @@ public class TaskHandler implements RestCommandHandler {
 
         session.finishSession(result.isOk());
 
-        LOGGER.exit("Task/Delete" + (result != null && result.isOk() ? OK : NOT_OK));
+        // disabling sonar because this code checks if result is not null
+        LOGGER.exit("Task/Delete" + (result != null && result.isOk() ? OK : NOT_OK)); // NOSONAR
         return result;
     }
 
