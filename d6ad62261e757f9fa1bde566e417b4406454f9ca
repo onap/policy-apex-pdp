@@ -39,6 +39,24 @@
       "revId": "d6ad62261e757f9fa1bde566e417b4406454f9ca",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d155ebb_223131e7",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-08-10T13:44:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "155102a7_e22d5a31",
+      "revId": "d6ad62261e757f9fa1bde566e417b4406454f9ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
