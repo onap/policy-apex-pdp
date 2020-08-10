@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7856533f_0129f87e",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/TaskHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-08-10T15:06:13Z",
+      "side": 1,
+      "message": "I believe the sonars are correct, this code is unreachable is line 437 returns \"null\", as line 439 will throw a NullPointerException.",
+      "revId": "1f2455c1ac31371fe94bb1e5859c089c8f5b37c9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
