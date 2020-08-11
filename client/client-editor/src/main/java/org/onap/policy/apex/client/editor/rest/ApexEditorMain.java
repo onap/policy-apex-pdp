@@ -22,6 +22,8 @@
 package org.onap.policy.apex.client.editor.rest;
 
 import java.io.PrintStream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.io.IoBuilder;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -32,6 +34,8 @@ import org.slf4j.ext.XLoggerFactory;
 public class ApexEditorMain {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEditorMain.class);
+    private static final PrintStream outputLogger =
+        IoBuilder.forLogger(LogManager.getLogger(ApexEditorMain.class)).buildPrintStream();
 
     // Recurring string constants
     private static final String REST_ENDPOINT_PREFIX = "Apex Editor REST endpoint (";
@@ -202,7 +206,7 @@ public class ApexEditorMain {
      */
     public static void main(final String[] args) {
         try {
-            final ApexEditorMain editorMain = new ApexEditorMain(args, System.out);
+            final ApexEditorMain editorMain = new ApexEditorMain(args, outputLogger);
             editorMain.init();
         } catch (final Exception e) {
             LOGGER.error("start failed", e);

@@ -22,6 +22,8 @@
 package org.onap.policy.apex.client.monitoring.rest;
 
 import java.io.PrintStream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.io.IoBuilder;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -33,6 +35,8 @@ import org.slf4j.ext.XLoggerFactory;
 public class ApexMonitoringRestMain {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexMonitoringRestMain.class);
+    private static final PrintStream outputLogger =
+        IoBuilder.forLogger(LogManager.getLogger(ApexMonitoringRestMain.class)).buildPrintStream();
 
     // Recurring string constants
     private static final String REST_ENDPOINT_PREFIX = "Apex Services REST endpoint (";
@@ -195,7 +199,7 @@ public class ApexMonitoringRestMain {
      */
     public static void main(final String[] args) {
         try {
-            final ApexMonitoringRestMain restMain = new ApexMonitoringRestMain(args, System.out);
+            final ApexMonitoringRestMain restMain = new ApexMonitoringRestMain(args, outputLogger);
             restMain.init();
         } catch (final Exception e) {
             LOGGER.error("start failed", e);

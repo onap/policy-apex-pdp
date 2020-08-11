@@ -23,6 +23,8 @@ package org.onap.policy.apex.core.deployment;
 
 import java.io.PrintStream;
 import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.io.IoBuilder;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.slf4j.ext.XLogger;
@@ -44,6 +46,8 @@ public class BatchDeployer {
 
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(BatchDeployer.class);
+    private static final PrintStream outputLogger =
+        IoBuilder.forLogger(LogManager.getLogger(BatchDeployer.class)).buildPrintStream();
 
     // The facade that is handling messaging to the engine service
     private EngineServiceFacade engineServiceFacade = null;
@@ -153,7 +157,7 @@ public class BatchDeployer {
             throw new ApexDeploymentException("argument port is invalid", nfe);
         }
 
-        final BatchDeployer deployer = new BatchDeployer(args[0], port, System.out);
+        final BatchDeployer deployer = new BatchDeployer(args[0], port, outputLogger);
         deployer.init();
         deployer.deployModel(args[2], false, false);
         deployer.close();
