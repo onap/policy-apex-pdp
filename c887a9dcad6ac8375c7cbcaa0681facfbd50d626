@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "935efd7e_a7408ca9",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ContextAlbumHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-08-11T16:21:32Z",
+      "side": 1,
+      "message": "If there\u0027s a possibility that \"result\" is null as the original code seemed to indicate, could surround lines 113-115 with an \"if result !\u003d null\", otherwise this is good.",
+      "revId": "c887a9dcad6ac8375c7cbcaa0681facfbd50d626",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
