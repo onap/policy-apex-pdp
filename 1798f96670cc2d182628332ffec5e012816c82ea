@@ -22,6 +22,30 @@
       "revId": "1798f96670cc2d182628332ffec5e012816c82ea",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a448dd58_76d0cd12",
+        "filename": "client/client-editor/src/main/java/org/onap/policy/apex/client/editor/rest/handling/ContextAlbumHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-12T12:38:47Z",
+      "side": 1,
+      "message": "yes.  Though the original code would imply that the check is not needed, this should still be OK, without triggering a sonar complaint here.  It\u0027s possible, though, that this will trigger a sonar complaint about a possible NPE in code that invokes this.  If that occurs, we can always go back and remove the tests from here.",
+      "parentUuid": "ebca1d48_c17e5ea5",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 9
+      },
+      "revId": "1798f96670cc2d182628332ffec5e012816c82ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
