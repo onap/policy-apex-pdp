@@ -139,8 +139,8 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
         }
         // Everything is now set up
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("event receiver " + this.getClass().getName() + ":" + this.name + " subscribed to JMS topic: "
-                    + jmsConsumerProperties.getConsumerTopic());
+            LOGGER.debug("event receiver {}:{} subscribed to JMS topic: {}", this.getClass().getName(),
+                    this.name, jmsConsumerProperties.getConsumerTopic());
         }
     }
 

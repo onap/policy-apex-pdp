@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -199,14 +200,14 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
                 }
             } while (!textBlock.isEndOfText());
         } catch (final Exception e) {
-            LOGGER.warn("\"" + consumerName + "\" failed to read event from file: \""
-                            + fileCarrierTechnologyParameters.getFileName() + "\"", e);
+            LOGGER.warn("\"{}\" failed to read event from file: \"{}\"", consumerName,
+                    fileCarrierTechnologyParameters.getFileName(), e);
         } finally {
             try {
                 eventInputStream.close();
             } catch (final IOException e) {
-                LOGGER.warn(APEX_FILE_CONSUMER_PREAMBLE + consumerName + "\" failed to close file: \""
-                                + fileCarrierTechnologyParameters.getFileName() + "\"", e);
+                LOGGER.warn("{}{}\" failed to close file: \"{}\"", APEX_FILE_CONSUMER_PREAMBLE, consumerName,
+                        fileCarrierTechnologyParameters.getFileName(), e);
             }
         }
 
@@ -220,8 +221,8 @@ public class ApexFileEventConsumer implements ApexEventConsumer, Runnable {
         try {
             eventInputStream.close();
         } catch (final IOException e) {
-            LOGGER.warn(APEX_FILE_CONSUMER_PREAMBLE + consumerName + "\" failed to close file for reading: \""
-                            + fileCarrierTechnologyParameters.getFileName() + "\"", e);
+            LOGGER.warn("{}{}\" failed to close file for reading: \"{}\"",
+                    APEX_FILE_CONSUMER_PREAMBLE, consumerName, fileCarrierTechnologyParameters.getFileName(), e);
         }
 
         if (consumerThread.isAlive() && !consumerThread.isInterrupted()) {
