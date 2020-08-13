@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b9896b7_01728829",
+        "filename": "tools/tools-common/testing.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-13T12:20:27Z",
+      "side": 1,
+      "message": "Was this a mistake to add? Not sure where I see it being used.",
+      "revId": "fcd384cb0e9c323aad3af2d71dd349ce9794e81d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
