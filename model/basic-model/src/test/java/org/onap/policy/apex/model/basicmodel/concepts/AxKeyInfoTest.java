@@ -62,7 +62,7 @@ public class AxKeyInfoTest {
         assertEquals(testKeyInfo, testKeyInfo); // NOSONAR
         assertEquals(testKeyInfo, clonedReferenceKey);
         assertNotNull(testKeyInfo);
-        assertNotEquals(testKeyInfo, new AxArtifactKey());
+        assertNotEquals(testKeyInfo, (Object) new AxArtifactKey());
         assertNotEquals(testKeyInfo, new AxKeyInfo(new AxArtifactKey()));
         assertNotEquals(testKeyInfo, new AxKeyInfo(key, UUID.randomUUID(), "Some Description"));
         assertNotEquals(testKeyInfo, new AxKeyInfo(key, uuid, "Some Description"));

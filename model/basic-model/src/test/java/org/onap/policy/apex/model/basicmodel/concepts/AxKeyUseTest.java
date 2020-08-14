@@ -63,7 +63,7 @@ public class AxKeyUseTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(keyUse, keyUse); // NOSONAR
         assertEquals(keyUse, clonedKeyUse);
-        assertNotEquals(keyUse, "Hello");
+        assertNotEquals(keyUse, (Object) "Hello");
         assertEquals(keyUse, new AxKeyUse(key));
 
         assertEquals(0, keyUse.compareTo(keyUse));

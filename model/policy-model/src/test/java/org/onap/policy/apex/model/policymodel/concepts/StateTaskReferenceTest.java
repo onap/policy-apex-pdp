@@ -118,7 +118,7 @@ public class StateTaskReferenceTest {
         assertEquals(stRef, stRef); // NOSONAR
         assertEquals(stRef, clonedStRef);
         assertNotNull(stRef);
-        assertNotEquals(stRef, "Hello");
+        assertNotEquals(stRef, (Object) "Hello");
         assertNotEquals(stRef, new AxStateTaskReference(AxReferenceKey.getNullKey(), AxStateTaskOutputType.LOGIC,
                         soKey));
         assertNotEquals(stRef, new AxStateTaskReference(stRefKey, AxStateTaskOutputType.DIRECT, soKey));
