@@ -74,7 +74,7 @@ public class EngineServiceInfoResponseTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(response, response); // NOSONAR
         assertNotNull(response);
-        assertNotEquals(response, new StartEngine(new AxArtifactKey()));
+        assertNotEquals(response, (Object) new StartEngine(new AxArtifactKey()));
 
         response = new EngineServiceInfoResponse(null, false, null);
         EngineServiceInfoResponse otherResponse = new EngineServiceInfoResponse(null, false, null);

@@ -92,7 +92,7 @@ public class TaskParameterTest {
         assertEquals(par, par); // NOSONAR
         assertEquals(par, clonedPar);
         assertNotNull(par);
-        assertNotEquals(par, "Hello");
+        assertNotEquals(par, (Object) "Hello");
         assertNotEquals(par, new AxTaskParameter(AxReferenceKey.getNullKey(), "DefaultValue"));
         assertNotEquals(par, new AxTaskParameter(parKey, "OtherDefaultValue"));
         assertEquals(par, new AxTaskParameter(parKey, "DefaultValue"));

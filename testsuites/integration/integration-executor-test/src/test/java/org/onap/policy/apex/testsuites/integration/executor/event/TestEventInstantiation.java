@@ -180,19 +180,19 @@ public class TestEventInstantiation {
         assertEquals("This is a slogan", slogan2);
 
         final byte mc21 = (byte) event.get("TestMatchCase");
-        assertNotNull(mc21);
+        assertNotNull(mc21); // NOSONAR
         assertEquals(16, mc21);
 
         final byte mc22 = (byte) event.get("TestMatchCase");
-        assertNotNull(mc22);
+        assertNotNull(mc22); // NOSONAR
         assertEquals((byte) 16, mc22);
 
         final long timestamp2 = (Long) event.get("TestTimestamp");
-        assertNotNull(timestamp2);
+        assertNotNull(timestamp2); // NOSONAR
         assertEquals(timestamp2, timestamp1);
 
         final double temp2 = (double) event.get("TestTemperature");
-        assertNotNull(temp2);
+        assertNotNull(temp2); // NOSONAR
         assertEquals(123.456789, temp2, 0);
 
         final Double temp3 = (Double) event.get("TestTemperature");
@@ -213,15 +213,15 @@ public class TestEventInstantiation {
         assertEquals("This is a test slogan", slogan3);
 
         final byte mc31 = (byte) event.get("TestMatchCase");
-        assertNotNull(mc31);
+        assertNotNull(mc31); // NOSONAR
         assertEquals((byte) 123, mc31);
 
         final long timestamp3 = (Long) event.get("TestTimestamp");
-        assertNotNull(timestamp3);
+        assertNotNull(timestamp3); // NOSONAR
         assertEquals(timestamp3, aDate.getTime());
 
         final double temp4 = (double) event.get("TestTemperature");
-        assertNotNull(temp4);
+        assertNotNull(temp4); // NOSONAR
         assertEquals(34.5445667, temp4, 0);
 
         logger.debug(event.toString());

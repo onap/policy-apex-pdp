@@ -103,7 +103,7 @@ public class StateOutputTest {
         assertEquals(so, so); // NOSONAR
         assertEquals(so, clonedPar);
         assertNotNull(so);
-        assertNotEquals(so, "Hello");
+        assertNotEquals(so, (Object) "Hello");
         assertNotEquals(so, new AxStateOutput(AxReferenceKey.getNullKey(), eKey, nsKey));
         assertNotEquals(so, new AxStateOutput(soKey, new AxArtifactKey(), nsKey));
         assertNotEquals(so, new AxStateOutput(soKey, eKey, new AxReferenceKey()));

@@ -82,7 +82,7 @@ public class PolicyModelTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(model, model); // NOSONAR
         assertEquals(model, clonedModel);
-        assertNotEquals(model, "Hello");
+        assertNotEquals(model, (Object) "Hello");
         assertNotEquals(model, new AxPolicyModel(new AxArtifactKey()));
         assertNotEquals(model, new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),

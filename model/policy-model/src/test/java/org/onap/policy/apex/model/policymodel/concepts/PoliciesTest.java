@@ -213,7 +213,7 @@ public class PoliciesTest {
         assertEquals(policyPN, policyPN); // NOSONAR
         assertEquals(policyPN, clonedPolicy);
         assertNotNull(policyPN);
-        assertNotEquals(policyPN, "Hello");
+        assertNotEquals(policyPN, (Object) "Hello");
         assertNotEquals(policyPN,
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState));
         assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState));
@@ -298,7 +298,7 @@ public class PoliciesTest {
         assertEquals(policies, policies); // NOSONAR
         assertEquals(policies, clonedPolicies);
         assertNotNull(policies);
-        assertNotEquals(policies, "Hello");
+        assertNotEquals(policies, (Object) "Hello");
         assertNotEquals(policies, new AxPolicies(new AxArtifactKey()));
 
         assertEquals(0, policies.compareTo(policies));

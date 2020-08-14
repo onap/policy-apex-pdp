@@ -73,7 +73,7 @@ public class SupportApexBasicModelConceptsTester {
         assertEquals(model, model); // NOSONAR
         assertEquals(model, clonedModel);
         assertNotNull(model);
-        assertNotEquals(model, "Hello");
+        assertNotEquals(model, (Object) "Hello");
         clonedModel.getKey().setVersion("0.0.2");
         assertNotEquals(model, clonedModel);
         clonedModel.getKey().setVersion("0.0.1");
@@ -95,7 +95,7 @@ public class SupportApexBasicModelConceptsTester {
         final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
 
         assertNotNull(keyI);
-        assertNotEquals(keyI, new AxArtifactKey());
+        assertNotEquals(keyI, (Object) new AxArtifactKey());
         assertEquals(keyI, clonedKeyI);
 
         clonedKeyI.setKey(new AxArtifactKey());

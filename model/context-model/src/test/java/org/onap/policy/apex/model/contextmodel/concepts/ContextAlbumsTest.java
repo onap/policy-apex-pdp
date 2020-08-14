@@ -119,7 +119,7 @@ public class ContextAlbumsTest {
         assertEquals(album, album); // NOSONAR
         assertEquals(album, clonedAlbum);
         assertNotNull(album);
-        assertNotEquals(album, "Hello");
+        assertNotEquals(album, (Object) "Hello");
         assertNotEquals(album, new AxContextAlbum(new AxArtifactKey(), "Scope", false, AxArtifactKey.getNullKey()));
         assertNotEquals(album, new AxContextAlbum(newKey, "Scope", false, AxArtifactKey.getNullKey()));
         assertNotEquals(album, new AxContextAlbum(newKey, "NewAlbumScope", false, AxArtifactKey.getNullKey()));
@@ -185,7 +185,7 @@ public class ContextAlbumsTest {
 
         assertEquals(albums, clonedAlbums);
         assertNotNull(albums);
-        assertNotEquals(albums, "Hello");
+        assertNotEquals(albums, (Object) "Hello");
         assertNotEquals(albums, new AxContextAlbums(new AxArtifactKey()));
 
         assertEquals(0, albums.compareTo(albums));
