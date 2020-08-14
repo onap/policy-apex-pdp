@@ -191,7 +191,7 @@ public class EventsTest {
         assertEquals(event, event); // NOSONAR
         assertEquals(event, clonedEvent);
         assertNotNull(event);
-        assertNotEquals(event, "Hello");
+        assertNotEquals(event, (Object) "Hello");
         assertNotEquals(
                 event, new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap));
         assertNotEquals(event, new AxEvent(eventKey, "namespace1", "source", "target", parameterMap));
@@ -273,7 +273,7 @@ public class EventsTest {
 
         assertEquals(events, clonedEvents);
         assertNotNull(events);
-        assertNotEquals(events, "Hello");
+        assertNotEquals(events, (Object) "Hello");
         assertNotEquals(events, new AxEvents(new AxArtifactKey()));
 
         assertEquals(0, events.compareTo(events));

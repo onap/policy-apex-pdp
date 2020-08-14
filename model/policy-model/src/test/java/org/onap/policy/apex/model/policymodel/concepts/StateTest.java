@@ -387,7 +387,7 @@ public class StateTest {
         assertEquals(state, state); // NOSONAR
         assertEquals(state, clonedState);
         assertNotNull(state);
-        assertNotEquals(state, "Hello");
+        assertNotEquals(state, (Object) "Hello");
         assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
                         .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));

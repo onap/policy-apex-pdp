@@ -63,7 +63,7 @@ public class ContextModelTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(model, model); // NOSONAR
         assertEquals(model, clonedModel);
-        assertNotEquals(model, "Hello");
+        assertNotEquals(model, (Object) "Hello");
         assertNotEquals(model, new AxContextModel(new AxArtifactKey()));
         assertNotEquals(model, new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
                         new AxKeyInformation()));

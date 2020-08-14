@@ -141,7 +141,7 @@ public class LogicTest {
         assertEquals(logic, logic); // NOSONAR
         assertEquals(logic, clonedLogic);
         assertNotNull(logic);
-        assertNotEquals(logic, "Hello");
+        assertNotEquals(logic, (Object) "Hello");
         assertNotEquals(logic, new AxLogic(AxReferenceKey.getNullKey(), "LogicFlavour", "Logic"));
         assertNotEquals(logic, new AxLogic(logicKey, "AnotherLogicFlavour", "Logic"));
         assertNotEquals(logic, new AxLogic(logicKey, "LogicFlavour", "AnotherLogic"));

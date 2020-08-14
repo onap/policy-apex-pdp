@@ -89,7 +89,7 @@ public class AxReferenceKeyTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(testReferenceKey, testReferenceKey); // NOSONAR
         assertEquals(testReferenceKey, clonedReferenceKey);
-        assertNotEquals(testReferenceKey, "Hello");
+        assertNotEquals(testReferenceKey, (Object) "Hello");
         assertNotEquals(testReferenceKey, new AxReferenceKey("PKN", "0.0.2", "PLN", "LN"));
         assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.2", "PLN", "LN"));
         assertNotEquals(testReferenceKey, new AxReferenceKey("NPKN", "0.0.1", "PLN", "LN"));
