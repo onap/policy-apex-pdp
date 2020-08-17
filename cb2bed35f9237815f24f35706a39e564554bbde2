@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ed773b4_d98be390",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-17T11:44:59Z",
+      "side": 1,
+      "message": "These should simply be removed per the sonar recommendations, instead of adding NOSONAR.",
+      "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
