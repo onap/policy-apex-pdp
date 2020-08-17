@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d5b09419_1a975f9d",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/EngineServiceInfoResponseTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-17T12:47:03Z",
+      "side": 1,
+      "message": "does this really eliminate the sonar complaint?  If so, then it\u0027s fine.  Otherwise, I would just add NOSONAR to these, ensuring that the comment on line 74 appears somewhere close by\n\nsame question/comment for most of these files",
+      "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ed773b4_d98be390",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
         "patchSetId": 2
@@ -13,6 +30,24 @@
       "writtenOn": "2020-08-17T11:44:59Z",
       "side": 1,
       "message": "These should simply be removed per the sonar recommendations, instead of adding NOSONAR.",
+      "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c739b090_f92aca8b",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-17T12:47:03Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "7ed773b4_d98be390",
       "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
