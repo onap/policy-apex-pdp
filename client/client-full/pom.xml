@@ -35,11 +35,6 @@
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.client</groupId>
-            <artifactId>apex-client-editor</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.client</groupId>
             <artifactId>apex-client-monitoring</artifactId>
             <version>${project.version}</version>
         </dependency>
