@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +25,10 @@ package org.onap.policy.apex.services.onappf;
 import java.util.Arrays;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
+import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
+import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.common.utils.services.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +39,6 @@ import org.slf4j.LoggerFactory;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class ApexStarterMain {
-
-    private static final String APEX_STARTER_FAIL_MSG = "start of services-onappf failed";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexStarterMain.class);
 
@@ -63,36 +64,30 @@ public class ApexStarterMain {
             }
             // Validate that the arguments are sane
             arguments.validate();
-        } catch (final ApexStarterException e) {
-            LOGGER.error(APEX_STARTER_FAIL_MSG, e);
-            return;
-        }
 
-        // Read the parameters
-        try {
+            // Read the parameters
             parameterGroup = new ApexStarterParameterHandler().getParameters(arguments);
-        } catch (final Exception e) {
-            LOGGER.error(APEX_STARTER_FAIL_MSG, e);
-            return;
-        }
 
-        // create the activator
-        activator = new ApexStarterActivator(parameterGroup);
-        Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
-        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, new ApexPolicyStatisticsManager());
-        // Start the activator
-        try {
+            // create the activator
+            activator = new ApexStarterActivator(parameterGroup);
+            Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
+            Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER,
+                new ApexPolicyStatisticsManager());
+
+            // Start the activator
             activator.initialize();
         } catch (final ApexStarterException e) {
-            LOGGER.error("start of ApexStarter failed, used parameters are {}", Arrays.toString(args), e);
-            Registry.unregister(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR);
-            return;
+            if (null != activator) {
+                Registry.unregister(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR);
+            }
+            throw new ApexStarterRunTimeException(
+                String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_APEX_PDP), e);
         }
 
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new ApexStarterShutdownHookClass());
-
-        LOGGER.info("Started ApexStarter service");
+        String successMsg = String.format(MessageConstants.START_SUCCESS_MSG, MessageConstants.POLICY_APEX_PDP);
+        LOGGER.info(successMsg);
     }
 
     /**
