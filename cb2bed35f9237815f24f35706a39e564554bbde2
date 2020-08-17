@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4e6cb254_eb28a89b",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/EngineServiceInfoResponseTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-08-17T12:53:17Z",
+      "side": 1,
+      "message": "Adding (Object) does eliminate the SONAR complaint. I can remove these and add the \"// NOSONAR\" comment if that is what\u0027s preferred.",
+      "parentUuid": "d5b09419_1a975f9d",
+      "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ed773b4_d98be390",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "side": 1,
       "message": "agree",
       "parentUuid": "7ed773b4_d98be390",
+      "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce97854f_0b6f5765",
+        "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-08-17T12:53:17Z",
+      "side": 1,
+      "message": "I will remove these now.",
+      "parentUuid": "c739b090_f92aca8b",
       "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
