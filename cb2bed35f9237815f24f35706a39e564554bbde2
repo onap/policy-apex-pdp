@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d4774827_69904fbb",
+        "filename": "core/core-protocols/src/test/java/org/onap/policy/apex/core/protocols/engdep/messages/EngineServiceInfoResponseTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-08-17T13:34:28Z",
+      "side": 1,
+      "message": "Since sonar is happy with it, what you\u0027ve done is perfect - I\u0027d prefer to avoid using NOSONAR where possible.",
+      "parentUuid": "4e6cb254_eb28a89b",
+      "revId": "cb2bed35f9237815f24f35706a39e564554bbde2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ed773b4_d98be390",
         "filename": "testsuites/integration/integration-executor-test/src/test/java/org/onap/policy/apex/testsuites/integration/executor/event/TestEventInstantiation.java",
         "patchSetId": 2
