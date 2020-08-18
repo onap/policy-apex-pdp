@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +23,9 @@
 package org.onap.policy.apex.services.onappf;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -32,7 +33,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
+import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.apex.services.onappf.parameters.CommonTestData;
+import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.common.utils.services.Registry;
 
 /**
@@ -59,8 +62,8 @@ public class TestApexStarterMain {
     @After
     public void tearDown() throws Exception {
         // shut down activator
-        final ApexStarterActivator activator = Registry.getOrDefault(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR,
-                ApexStarterActivator.class, null);
+        final ApexStarterActivator activator =
+            Registry.getOrDefault(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class, null);
         if (activator != null && activator.isAlive()) {
             activator.terminate();
         }
@@ -68,43 +71,46 @@ public class TestApexStarterMain {
 
     @Test
     public void testApexStarter() throws ApexStarterException {
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
+        final String[] apexStarterConfigParameters = {"-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
         apexStarter = new ApexStarterMain(apexStarterConfigParameters);
         assertTrue(apexStarter.getParameters().isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarter.getParameters().getName());
 
         // ensure items were added to the registry
         assertNotNull(Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class));
-        assertNotNull(Registry.get(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER,
-                ApexPolicyStatisticsManager.class));
+        assertNotNull(
+            Registry.get(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, ApexPolicyStatisticsManager.class));
         apexStarter.shutdown();
     }
 
     @Test
     public void testApexStarter_NoArguments() {
         final String[] apexStarterConfigParameters = {};
-        apexStarter = new ApexStarterMain(apexStarterConfigParameters);
-        assertNull(apexStarter.getParameters());
+        assertThatThrownBy(() -> new ApexStarterMain(apexStarterConfigParameters))
+            .isInstanceOf(ApexStarterRunTimeException.class)
+            .hasMessage(String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_APEX_PDP));
     }
 
     @Test
     public void testApexStarter_InvalidArguments() {
-        final String[] apexStarterConfigParameters = { "src/test/resources/ApexStarterConfigParameters.json" };
-        apexStarter = new ApexStarterMain(apexStarterConfigParameters);
-        assertNull(apexStarter.getParameters());
+        final String[] apexStarterConfigParameters = {"src/test/resources/ApexStarterConfigParameters.json"};
+        assertThatThrownBy(() -> new ApexStarterMain(apexStarterConfigParameters))
+            .isInstanceOf(ApexStarterRunTimeException.class)
+            .hasMessage(String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_APEX_PDP));
     }
 
     @Test
     public void testApexStarter_Help() {
-        final String[] apexStarterConfigParameters = { "-h" };
+        final String[] apexStarterConfigParameters = {"-h"};
         assertThatCode(() -> ApexStarterMain.main(apexStarterConfigParameters)).doesNotThrowAnyException();
     }
 
     @Test
     public void testApexStarter_InvalidParameters() {
         final String[] apexStarterConfigParameters =
-        { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
-        apexStarter = new ApexStarterMain(apexStarterConfigParameters);
-        assertNull(apexStarter.getParameters());
+            {"-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json"};
+        assertThatThrownBy(() -> new ApexStarterMain(apexStarterConfigParameters))
+            .isInstanceOf(ApexStarterRunTimeException.class)
+            .hasMessage(String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_APEX_PDP));
     }
 }
