@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -37,16 +37,19 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 
 /**
- * This class reads and handles command line parameters for the Apex main program.
+ * This class reads and handles command line parameters for the Apex main
+ * program.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexCommandLineArguments {
-    // A system property holding the root directory for relative paths in the configuration file
-    public static final String RELATIVE_FILE_ROOT = "APEX_RELATIVE_FILE_ROOT";
+    // A system property holding the root directory for relative paths in the
+    // configuration file
+    public static final String APEX_RELATIVE_FILE_ROOT = "APEX_RELATIVE_FILE_ROOT";
 
     // Recurring string constants
     private static final String FILE_PREAMBLE = " file \"";
+    private static final String RELATIVE_FILE_ROOT = "relative file root \"";
     private static final int HELP_LINE_LENGTH = 120;
 
     // Apache Commons CLI options
@@ -90,7 +93,7 @@ public class ApexCommandLineArguments {
                         .desc("the root file path for relative file paths specified in the Apex configuration file, "
                                         + "defaults to the current directory from where Apex is executed")
                         .hasArg()
-                        .argName(RELATIVE_FILE_ROOT)
+                        .argName(APEX_RELATIVE_FILE_ROOT)
                         .required(false)
                         .type(String.class)
                         .build());
@@ -123,7 +126,8 @@ public class ApexCommandLineArguments {
      * Parse the command line options.
      *
      * @param args The command line arguments
-     * @return a string with a message for help and version, or null if there is no message
+     * @return a string with a message for help and version, or null if there is no
+     *         message
      * @throws ApexException on command argument errors
      */
     public String parse(final String[] args) throws ApexException {
@@ -191,7 +195,7 @@ public class ApexCommandLineArguments {
 
     /**
      * Print version information for Apex.
-     * 
+     *
      * @return the version string
      */
     public String version() {
@@ -209,7 +213,7 @@ public class ApexCommandLineArguments {
         final PrintWriter stringPrintWriter = new PrintWriter(stringWriter);
 
         new HelpFormatter().printHelp(stringPrintWriter, HELP_LINE_LENGTH, mainClassName + " [options...]", "options",
-                        options, 0, 0, "");
+            options, 0, 0, "");
 
         return stringWriter.toString();
     }
@@ -287,7 +291,7 @@ public class ApexCommandLineArguments {
         String relativeFileRootValue = relativeFileRoot;
 
         if (!ParameterValidationUtils.validateStringParameter(relativeFileRoot)) {
-            relativeFileRootValue = System.getProperty(RELATIVE_FILE_ROOT);
+            relativeFileRootValue = System.getProperty(APEX_RELATIVE_FILE_ROOT);
         }
 
         if (!ParameterValidationUtils.validateStringParameter(relativeFileRootValue)) {
@@ -297,7 +301,7 @@ public class ApexCommandLineArguments {
         }
 
         this.relativeFileRoot = relativeFileRootValue;
-        System.setProperty(RELATIVE_FILE_ROOT, relativeFileRootValue);
+        System.setProperty(APEX_RELATIVE_FILE_ROOT, relativeFileRootValue);
     }
 
     /**
@@ -312,7 +316,7 @@ public class ApexCommandLineArguments {
     /**
      * Validate readable file.
      *
-     * @param fileTag the file tag
+     * @param fileTag  the file tag
      * @param fileName the file name
      * @throws ApexException the apex exception
      */
@@ -321,7 +325,8 @@ public class ApexCommandLineArguments {
             throw new ApexException(fileTag + " file was not specified as an argument");
         }
 
-        // The file name can refer to a resource on the local file system or on the class path
+        // The file name can refer to a resource on the local file system or on the
+        // class path
         final URL fileUrl = ResourceUtils.getUrl4Resource(fileName);
         if (fileUrl == null) {
             throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" does not exist");
@@ -345,13 +350,15 @@ public class ApexCommandLineArguments {
     private void validateRelativeFileRoot() throws ApexException {
         File relativeFileRootPath = new File(relativeFileRoot);
         if (!relativeFileRootPath.isDirectory()) {
-            throw new ApexException(
-                            "relative file root \"" + relativeFileRoot + "\" does not exist or is not a directory");
+            throw new ApexException(RELATIVE_FILE_ROOT + relativeFileRoot + "\" does not exist or is not a directory");
         }
 
-        if (!relativeFileRootPath.canWrite()) {
-            throw new ApexException(
-                            "relative file root \"" + relativeFileRoot + "\" does not exist or is not a directory");
+        if (!relativeFileRootPath.canRead()) {
+            throw new ApexException(RELATIVE_FILE_ROOT + relativeFileRoot + "\" is not a readable directory");
+        }
+
+        if (!relativeFileRootPath.canExecute()) {
+            throw new ApexException(RELATIVE_FILE_ROOT + relativeFileRoot + "\" is not an executable directory");
         }
     }
 
