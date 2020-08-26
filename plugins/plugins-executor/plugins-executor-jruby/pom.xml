@@ -18,7 +18,8 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
@@ -34,7 +35,7 @@
         <dependency>
             <groupId>org.jruby</groupId>
             <artifactId>jruby-core</artifactId>
-            <version>9.2.11.1</version>
+            <version>9.2.13.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jruby.extras</groupId>
@@ -48,7 +49,16 @@
                     <groupId>com.github.jnr</groupId>
                     <artifactId>jffi</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.jruby.joni</groupId>
+                    <artifactId>joni</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jruby.joni</groupId>
+            <artifactId>joni</artifactId>
+            <version>2.1.40</version>
         </dependency>
         <dependency>
             <groupId>org.jruby.extras</groupId>
