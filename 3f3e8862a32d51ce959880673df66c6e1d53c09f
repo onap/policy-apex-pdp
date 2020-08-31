@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29558c8c_228cda00",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-31T18:58:15Z",
+      "side": 1,
+      "message": "you probably want to exclude src/main/resources/webapp/js/jquery\nSince that is a library and we aren\u0027t responsible for testing it.",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 85
+      },
+      "revId": "3f3e8862a32d51ce959880673df66c6e1d53c09f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3119ae_a19b1392",
+        "filename": "client/client-monitoring/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-31T18:58:15Z",
+      "side": 1,
+      "message": "kind of the same here- there are 2 sub-directories with .js in it that are libraries.",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 85
+      },
+      "revId": "3f3e8862a32d51ce959880673df66c6e1d53c09f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed57278_7517df1f",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-08-31T18:58:15Z",
+      "side": 1,
+      "message": "This is for java, and probably not needed as we are already getting sonar java coverage ok from apex.",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 103
+      },
+      "revId": "3f3e8862a32d51ce959880673df66c6e1d53c09f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
