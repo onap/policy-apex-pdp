@@ -32,6 +32,13 @@
     <name>${project.artifactId}</name>
     <description>Web client for deploying models in Apex engine</description>
 
+    <properties>
+        <webapp.dir>src/main/resources/webapp</webapp.dir>
+        <sonar.nodejs.executable>${project.basedir}/src/main/resources/webapp/node/node</sonar.nodejs.executable>
+        <sonar.sources>${project.basedir}/src/main,${project.basedir}/src/main/resources/webapp/js</sonar.sources>
+        <sonar.exclusions>src/main/resources/webapp/js/__test__/**</sonar.exclusions>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.common</groupId>
