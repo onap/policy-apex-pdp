@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c937071c_032662e6",
+        "filename": "client/client-monitoring/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-09-01T11:40:55Z",
+      "side": 1,
+      "message": "There is no jquery sub-directory here. There are avsc and d3. Those should be excluded.",
+      "range": {
+        "startLine": 39,
+        "startChar": 67,
+        "endLine": 39,
+        "endChar": 102
+      },
+      "revId": "8c57f8dd93605bebd959b8cf8cfcf705149b3b51",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
