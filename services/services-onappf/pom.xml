@@ -63,6 +63,11 @@
             </exclusions>
             <version>${version.policy.models}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${version.apache.commons}</version>
+        </dependency>
 
         <!--test dependencies -->
         <dependency>

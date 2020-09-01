@@ -21,6 +21,7 @@
 package org.onap.policy.apex.services.onappf.handler;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -30,6 +31,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.apache.commons.text.StringEscapeUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -87,6 +89,17 @@ public class ApexEngineHandler {
         }
     }
 
+    private JsonObject formatProperty(Object valueObject, StandardCoder standardCoder)
+        throws CoderException {
+        if (valueObject instanceof JsonPrimitive) {
+            int length = valueObject.toString().length();
+            String stringValue =
+                StringEscapeUtils.unescapeJava(valueObject.toString().substring(1, length - 1));
+            return standardCoder.convert(stringValue, JsonObject.class);
+        }
+        return standardCoder.convert(valueObject, JsonObject.class);
+    }
+
     private Map<ToscaPolicyIdentifier, String[]> createPolicyArgsMap(List<ToscaPolicy> policies)
         throws ApexStarterException {
         Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
@@ -97,7 +110,7 @@ public class ApexEngineHandler {
             JsonObject apexConfigJsonObject = new JsonObject();
             try {
                 for (Entry<String, Object> property : policy.getProperties().entrySet()) {
-                    JsonObject body = standardCoder.decode(standardCoder.encode(property.getValue()), JsonObject.class);
+                    JsonObject body = formatProperty(property.getValue(), standardCoder);
                     if ("engineServiceParameters".equals(property.getKey())) {
                         policyModel = standardCoder.encode(body.get(POLICY_TYPE_IMPL));
                         body.remove(POLICY_TYPE_IMPL);

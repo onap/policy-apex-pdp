@@ -164,6 +164,15 @@ public class TestPdpStateChangeListener {
         assertTrue(outContent.toString().contains("Apex engine started and policies are running."));
         assertEquals(PdpState.ACTIVE, pdpStatus.getState());
 
+        final ToscaPolicy toscaPolicy2 =
+            TestListenerUtils.createToscaPolicy("apex", "1.0", "src/test/resources/dummyPropertiesStringValue.json");
+        final List<ToscaPolicy> toscaPolicies2 = new ArrayList<ToscaPolicy>();
+        toscaPolicies2.add(toscaPolicy2);
+        final PdpUpdate pdpUpdateMsg2 = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies2);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg2);
+        assertTrue(outContent.toString().contains("Apex engine started and policies are running."));
+        assertEquals(PdpState.ACTIVE, pdpStatus.getState());
+
         final ApexPolicyStatisticsManager policyCounterManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
         assertNotNull(policyCounterManager);
         assertEquals(policyCounterManager.getPolicyDeployCount(),
