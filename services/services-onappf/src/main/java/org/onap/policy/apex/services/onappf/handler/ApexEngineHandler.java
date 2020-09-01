@@ -21,6 +21,7 @@
 package org.onap.policy.apex.services.onappf.handler;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -87,6 +88,17 @@ public class ApexEngineHandler {
         }
     }
 
+    private JsonObject formatProperty(Object valueObject, StandardCoder standardCoder)
+        throws CoderException {
+        if (valueObject instanceof JsonPrimitive) {
+            int length = valueObject.toString().length();
+            String stringValue = valueObject.toString().substring(1, length - 1)
+                .replace("\\", "").replace("rn", "");
+            return standardCoder.decode(stringValue, JsonObject.class);
+        }
+        return standardCoder.decode(standardCoder.encode(valueObject), JsonObject.class);
+    }
+
     private Map<ToscaPolicyIdentifier, String[]> createPolicyArgsMap(List<ToscaPolicy> policies)
         throws ApexStarterException {
         Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
@@ -97,7 +109,7 @@ public class ApexEngineHandler {
             JsonObject apexConfigJsonObject = new JsonObject();
             try {
                 for (Entry<String, Object> property : policy.getProperties().entrySet()) {
-                    JsonObject body = standardCoder.decode(standardCoder.encode(property.getValue()), JsonObject.class);
+                    JsonObject body = formatProperty(property.getValue(), standardCoder);
                     if ("engineServiceParameters".equals(property.getKey())) {
                         policyModel = standardCoder.encode(body.get(POLICY_TYPE_IMPL));
                         body.remove(POLICY_TYPE_IMPL);
