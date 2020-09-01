@@ -16,6 +16,24 @@
       "revId": "2365471ec9b74779caad1edb5a6397305426abc7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5958b0af_3b2e0f74",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-09-01T16:16:40Z",
+      "side": 1,
+      "message": "No - just look at the codebase in src/main/resources/webapp/js. Those directories aren\u0027t there. Every sub-module is different.",
+      "parentUuid": "aeb44e75_81813f0e",
+      "revId": "2365471ec9b74779caad1edb5a6397305426abc7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
