@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aeb44e75_81813f0e",
+        "filename": "client/client-full/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-01T16:15:14Z",
+      "side": 1,
+      "message": "one of the poms in policy-gui also has this:\n\n  src/main/resources/webapp/js/jquery/**/*,src/main/resources/webapp/js/jquery-ui-1.12.1/**/*,src/main/resources/webapp/js/lib/**/*\n\nshould that appear here, too?  or in any of the other poms?",
+      "revId": "2365471ec9b74779caad1edb5a6397305426abc7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

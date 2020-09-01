@@ -140,6 +140,30 @@
       "revId": "3f3e8862a32d51ce959880673df66c6e1d53c09f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65146da2_f5a4a31d",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-01T16:15:14Z",
+      "side": 1,
+      "message": "hmm.  Then that probably means we didn\u0027t need to add this line in the top-level pom for policy/gui, either.  Oh well.",
+      "parentUuid": "b54a3d9b_00d51dee",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 103
+      },
+      "revId": "3f3e8862a32d51ce959880673df66c6e1d53c09f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
