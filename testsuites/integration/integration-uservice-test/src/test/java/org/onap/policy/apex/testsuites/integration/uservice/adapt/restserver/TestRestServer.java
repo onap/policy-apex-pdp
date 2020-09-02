@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +82,7 @@ public class TestRestServer {
     public void testRestServerPut() throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerPut start");
 
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -126,7 +127,7 @@ public class TestRestServer {
     @Test
     public void testRestServerPost() throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerPost start");
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -170,7 +171,7 @@ public class TestRestServer {
     @Test
     public void testRestServerGetStatus() throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerGetStatus start");
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/RESTServerJsonEvent.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
@@ -231,7 +232,7 @@ public class TestRestServer {
         throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerMultiInputs start");
         final String[] args =
-            {"-rfr", "target", "-c", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json"};
+            {"-rfr", "target", "-p", "target/examples/config/SampleDomain/RESTServerJsonEventMultiIn.json"};
         final ApexMain apexMain = new ApexMain(args);
         if (!NetworkUtil.isTcpPortOpen("localhost", 23324, 60, 500L)) {
             throw new IllegalStateException("cannot connect to Apex Rest Server");
