@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,8 +53,7 @@ public class EventGeneratorTest {
         pars.setBatchSize(10);
 
         EventGenerator eventGenerator = new EventGenerator(pars);
-
-        final String[] args = { "-rfr", "target", "-c",
+        final String[] args = { "-rfr", "target", "-p",
             "target/examples/config/SampleDomain/REST2RESTJsonEventJavascript.json" };
 
         final ApexMain apexMain = new ApexMain(args);
@@ -106,6 +106,7 @@ public class EventGeneratorTest {
         System.setOut(new PrintStream(outContent));
 
         (new Thread() {
+            @Override
             public void run() {
                 EventGenerator.main(null);
             }

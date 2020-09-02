@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +43,7 @@ public class RestClientCarrierTechnologyParametersTest {
     @Test
     public void testRestClientCarrierTechnologyParametersBadList() {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderBadList.json");
+        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderBadList.json");
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -52,7 +53,7 @@ public class RestClientCarrierTechnologyParametersTest {
     @Test
     public void testRestClientCarrierTechnologyParametersNotKvPairs() {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderNotKvPairs.json");
+        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderNotKvPairs.json");
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -63,7 +64,7 @@ public class RestClientCarrierTechnologyParametersTest {
     @Test
     public void testRestClientCarrierTechnologyParametersNulls() {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderNulls.json");
+        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderNulls.json");
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -74,7 +75,7 @@ public class RestClientCarrierTechnologyParametersTest {
     @Test
     public void testRestClientCarrierTechnologyParameterFilterInvalid() {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json");
+        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json");
         arguments.setRelativeFileRoot(".");
 
         assertThatCode(() -> {
@@ -87,7 +88,7 @@ public class RestClientCarrierTechnologyParametersTest {
     @Test
     public void testRestClientCarrierTechnologyParametersOk() throws ParameterException {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
         arguments.setRelativeFileRoot(".");
 
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -110,7 +111,7 @@ public class RestClientCarrierTechnologyParametersTest {
     @Test
     public void testRestClientCarrierTechnologyHttpCodeFilterOk() throws ParameterException {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setConfigurationFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
+        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPHeaderOK.json");
         arguments.setRelativeFileRoot(".");
 
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
