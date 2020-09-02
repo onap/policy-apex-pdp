@@ -26,6 +26,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.Arrays;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -56,9 +58,9 @@ public class ApexCommandLineArguments {
     // Apache Commons CLI options
     private final Options options;
 
-    // The command line options
-    private String modelFilePath = null;
-    private String configurationFilePath = null;
+    @Getter
+    @Setter
+    private String toscaPolicyFilePath = null;
     private String relativeFileRoot = null;
 
     /**
@@ -79,16 +81,6 @@ public class ApexCommandLineArguments {
                         .required(false)
                         .type(Boolean.class)
                         .build());
-        options.addOption(Option.builder("c")
-                        .longOpt("config-file")
-                        .desc("the full path to the configuration file to use, "
-                                        + "the configuration file must be a Json file "
-                                        + "containing the Apex configuration parameters")
-                        .hasArg()
-                        .argName("CONFIG_FILE")
-                        .required(false)
-                        .type(String.class)
-                        .build());
         options.addOption(Option.builder("rfr")
                         .longOpt("relative-file-root")
                         .desc("the root file path for relative file paths specified in the Apex configuration file, "
@@ -98,11 +90,10 @@ public class ApexCommandLineArguments {
                         .required(false)
                         .type(String.class)
                         .build());
-        options.addOption(Option.builder("m").longOpt("model-file")
-                .desc("the full path to the model file to use, if set it overrides the model file set in the "
-                        + "configuration file").hasArg().argName("MODEL_FILE")
-                .required(false)
-                .type(String.class).build());
+        options.addOption(Option.builder("p").longOpt("tosca-policy-file")
+            .desc("the full path to the ToscaPolicy file to use.").hasArg().argName("TOSCA_POLICY_FILE")
+            .required(false)
+            .type(String.class).build());
         //@formatter:on
     }
 
@@ -133,9 +124,7 @@ public class ApexCommandLineArguments {
      */
     public String parse(final String[] args) throws ApexException {
         // Clear all our arguments
-        setConfigurationFilePath(null);
-        setModelFilePath(null);
-
+        setToscaPolicyFilePath(null);
         CommandLine commandLine = null;
         try {
             commandLine = new DefaultParser().parse(options, args);
@@ -146,12 +135,12 @@ public class ApexCommandLineArguments {
         // Arguments left over after Commons CLI does its stuff
         final String[] remainingArgs = commandLine.getArgs();
 
-        if (remainingArgs.length > 0 && commandLine.hasOption('c') || remainingArgs.length > 1) {
+        if (remainingArgs.length > 0 && commandLine.hasOption('p') || remainingArgs.length > 1) {
             throw new ApexException("too many command line arguments specified : " + Arrays.toString(args));
         }
 
         if (remainingArgs.length == 1) {
-            configurationFilePath = remainingArgs[0];
+            toscaPolicyFilePath = remainingArgs[0];
         }
 
         if (commandLine.hasOption('h')) {
@@ -162,20 +151,15 @@ public class ApexCommandLineArguments {
             return version();
         }
 
-        if (commandLine.hasOption('c')) {
-            setConfigurationFilePath(commandLine.getOptionValue('c'));
-        }
-
         if (commandLine.hasOption("rfr")) {
             setRelativeFileRoot(commandLine.getOptionValue("rfr"));
         } else {
             setRelativeFileRoot(null);
         }
 
-        if (commandLine.hasOption('m')) {
-            setModelFilePath(commandLine.getOptionValue('m'));
+        if (commandLine.hasOption('p')) {
+            setToscaPolicyFilePath(commandLine.getOptionValue('p'));
         }
-
         return null;
     }
 
@@ -185,12 +169,7 @@ public class ApexCommandLineArguments {
      * @throws ApexException on command argument validation errors
      */
     public void validate() throws ApexException {
-        validateReadableFile("Apex configuration", configurationFilePath);
-
-        if (checkSetModelFilePath()) {
-            validateReadableFile("Apex model", modelFilePath);
-        }
-
+        validateReadableFile("Tosca Policy", toscaPolicyFilePath);
         validateRelativeFileRoot();
     }
 
@@ -220,42 +199,6 @@ public class ApexCommandLineArguments {
     }
 
     /**
-     * Gets the model file path.
-     *
-     * @return the model file path
-     */
-    public String getModelFilePath() {
-        return ResourceUtils.getFilePath4Resource(modelFilePath);
-    }
-
-    /**
-     * Sets the model file path.
-     *
-     * @param modelFilePath the model file path
-     */
-    public void setModelFilePath(final String modelFilePath) {
-        this.modelFilePath = modelFilePath;
-    }
-
-    /**
-     * Check set model file path.
-     *
-     * @return true, if check set model file path
-     */
-    public boolean checkSetModelFilePath() {
-        return modelFilePath != null && modelFilePath.length() > 0;
-    }
-
-    /**
-     * Gets the configuration file path.
-     *
-     * @return the configuration file path
-     */
-    public String getConfigurationFilePath() {
-        return configurationFilePath;
-    }
-
-    /**
      * Gets the root file path for relative file paths in the configuration file.
      *
      * @return the root file path
@@ -264,24 +207,6 @@ public class ApexCommandLineArguments {
         return relativeFileRoot;
     }
 
-    /**
-     * Gets the full expanded configuration file path.
-     *
-     * @return the configuration file path
-     */
-    public String getFullConfigurationFilePath() {
-        return ResourceUtils.getFilePath4Resource(getConfigurationFilePath());
-    }
-
-    /**
-     * Sets the configuration file path.
-     *
-     * @param configurationFilePath the configuration file path
-     */
-    public void setConfigurationFilePath(final String configurationFilePath) {
-        this.configurationFilePath = configurationFilePath;
-
-    }
 
     /**
      * Sets the root file path for relative file paths in the configuration file.
@@ -303,15 +228,6 @@ public class ApexCommandLineArguments {
 
         this.relativeFileRoot = relativeFileRootValue;
         System.setProperty(APEX_RELATIVE_FILE_ROOT, relativeFileRootValue);
-    }
-
-    /**
-     * Check set configuration file path.
-     *
-     * @return true, if check set configuration file path
-     */
-    public boolean checkSetConfigurationFilePath() {
-        return configurationFilePath != null && configurationFilePath.length() > 0;
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +42,7 @@ public class ApexParametersTest {
 
     @Test
     public void testJavaPropertiesOk() throws ParameterException {
-        final String[] args = { "-c", "src/test/resources/parameters/javaPropertiesOK.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesOK.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -55,7 +56,7 @@ public class ApexParametersTest {
 
     @Test
     public void testJavaPropertiesEmpty() throws ParameterException {
-        final String[] args = { "-c", "src/test/resources/parameters/javaPropertiesEmpty.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesEmpty.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -65,7 +66,7 @@ public class ApexParametersTest {
 
     @Test
     public void testJavaPropertiesBad() throws ParameterException {
-        final String[] args = { "-c", "src/test/resources/parameters/javaPropertiesBad.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesBad.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
