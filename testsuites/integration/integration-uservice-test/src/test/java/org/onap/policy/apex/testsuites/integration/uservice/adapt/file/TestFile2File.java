@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,14 +45,14 @@ public class TestFile2File {
 
     @Test
     public void testJsonFileEvents() throws MessagingException, ApexException, IOException {
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileJsonEvent.json"};
 
         testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.json", 42200);
     }
 
     @Test
     public void testXmlFileEvents() throws MessagingException, ApexException, IOException {
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileXmlEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileXmlEvent.json"};
 
         testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.xmlfile", 100000);
     }

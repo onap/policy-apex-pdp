@@ -24,8 +24,14 @@ package org.onap.policy.apex.service.parameters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.FileReader;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map.Entry;
 import org.onap.policy.apex.core.engine.EngineParameters;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParametersJsonAdapter;
@@ -35,6 +41,8 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterException;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.coder.StandardCoder;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -44,7 +52,17 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexParameterHandler {
+    private static final String EVENT_OUTPUT_PARAMETERS = "eventOutputParameters";
+
+    private static final String EVENT_INPUT_PARAMETERS = "eventInputParameters";
+
+    private static final String ENGINE_SERVICE_PARAMETERS = "engineServiceParameters";
+
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexParameterHandler.class);
+
+    private static final String POLICY_TYPE_IMPL = "policy_type_impl";
+    private String policyModel;
+    private String apexConfig;
 
     /**
      * Read the parameters from the parameter file.
@@ -58,9 +76,10 @@ public class ApexParameterHandler {
         ParameterService.clear();
 
         ApexParameters parameters = null;
-
+        String toscaPolicyFilePath = arguments.getToscaPolicyFilePath();
         // Read the parameters
         try {
+            stripConfigAndModel(toscaPolicyFilePath);
             // Register the adapters for our carrier technologies and event protocols with GSON
             // @formatter:off
             final Gson gson = new GsonBuilder()
@@ -72,41 +91,33 @@ public class ApexParameterHandler {
                                             new EventProtocolParametersJsonAdapter())
                             .create();
             // @formatter:on
-            parameters = gson.fromJson(new FileReader(arguments.getFullConfigurationFilePath()), ApexParameters.class);
+            parameters = gson.fromJson(apexConfig, ApexParameters.class);
         } catch (final Exception e) {
-            final String errorMessage = "error reading parameters from \"" + arguments.getConfigurationFilePath()
-                            + "\"\n" + "(" + e.getClass().getSimpleName() + "):" + e.getMessage();
-            LOGGER.error(errorMessage, e);
+            final String errorMessage = "error reading parameters from \"" + toscaPolicyFilePath + "\"\n" + "("
+                + e.getClass().getSimpleName() + "):" + e.getMessage();
             throw new ParameterException(errorMessage, e);
         }
 
         // The JSON processing returns null if there is an empty file
         if (parameters == null) {
-            final String errorMessage = "no parameters found in \"" + arguments.getConfigurationFilePath() + "\"";
-            LOGGER.error(errorMessage);
+            final String errorMessage = "no parameters found in \"" + toscaPolicyFilePath + "\"";
             throw new ParameterException(errorMessage);
         }
 
-        // Check if we should override the model file parameter
-        final String modelFilePath = arguments.getModelFilePath();
-        if (modelFilePath != null && modelFilePath.replaceAll("\\s+", "").length() > 0) {
-            parameters.getEngineServiceParameters().setPolicyModelFileName(modelFilePath);
+        if (null != parameters.getEngineServiceParameters()) {
+            parameters.getEngineServiceParameters().setPolicyModel(policyModel);
         }
 
         // Validate the parameters
         final GroupValidationResult validationResult = parameters.validate();
         if (!validationResult.isValid()) {
-            String returnMessage = "validation error(s) on parameters from \"" + arguments.getConfigurationFilePath()
-                            + "\"\n";
+            String returnMessage = "validation error(s) on parameters from \"" + toscaPolicyFilePath + "\"\n";
             returnMessage += validationResult.getResult();
-
-            LOGGER.error(returnMessage);
             throw new ParameterException(returnMessage);
         }
 
         if (!validationResult.isClean()) {
-            String returnMessage = "validation messages(s) on parameters from \"" + arguments.getConfigurationFilePath()
-                            + "\"\n";
+            String returnMessage = "validation messages(s) on parameters from \"" + toscaPolicyFilePath + "\"\n";
             returnMessage += validationResult.getResult();
 
             LOGGER.info(returnMessage);
@@ -133,5 +144,38 @@ public class ApexParameterHandler {
                         .getLockManagerParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
                         .getPersistorParameters());
+    }
+
+    private void stripConfigAndModel(final String toscaPolicyFilePath) throws ApexException {
+        policyModel = null;
+        apexConfig = null;
+        final StandardCoder standardCoder = new StandardCoder();
+        JsonObject apexConfigJsonObject = new JsonObject();
+        try {
+            ToscaServiceTemplate toscaServiceTemplate = standardCoder
+                .decode(Files.readString(Paths.get(toscaPolicyFilePath)), ToscaServiceTemplate.class);
+            for (Entry<String, Object> property : toscaServiceTemplate.getToscaTopologyTemplate().getPolicies().get(0)
+                .entrySet().iterator().next().getValue().getProperties().entrySet()) {
+                JsonElement body = null;
+                if ("javaProperties".equals(property.getKey())) {
+                    body = standardCoder.convert(property.getValue(), JsonArray.class);
+                } else if (EVENT_INPUT_PARAMETERS.equals(property.getKey())
+                    || ENGINE_SERVICE_PARAMETERS.equals(property.getKey())
+                    || EVENT_OUTPUT_PARAMETERS.equals(property.getKey())) {
+                    body = standardCoder.convert(property.getValue(), JsonObject.class);
+                    if (ENGINE_SERVICE_PARAMETERS.equals(property.getKey())) {
+                        JsonElement policyModelObject = ((JsonObject) body).get(POLICY_TYPE_IMPL);
+                        if (null != policyModelObject) {
+                            policyModel = standardCoder.encode(policyModelObject);
+                        }
+                        ((JsonObject) body).remove(POLICY_TYPE_IMPL);
+                    }
+                }
+                apexConfigJsonObject.add(property.getKey(), body);
+            }
+            apexConfig = standardCoder.encode(apexConfigJsonObject);
+        } catch (Exception e) {
+            throw new ApexException("Parsing config and model from the tosca policy failed.", e);
+        }
     }
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,6 @@ package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testNoParamsTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorNoParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorNoParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -56,7 +56,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testBadParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -68,7 +68,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testNoExecutorParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorNoExecutorParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorNoExecutorParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -80,7 +80,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testEmptyParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorEmptyParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorEmptyParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -92,7 +92,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testBadPluginParamNameTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginNameParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginNameParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -104,7 +104,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testBadPluginParamObjectTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -116,7 +116,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testBadPluginParamBlankTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -128,7 +128,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testBadPluginParamValueTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceExecutorBadPluginValueParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginValueParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -141,7 +141,7 @@ public class ExecutorParameterTests {
 
     @Test
     public void testGoodParametersTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -160,7 +160,7 @@ public class ExecutorParameterTests {
         final String[] args = {
             "-rfr",
             "src/test/resources",
-            "-c",
+            "-p",
             "src/test/resources/parameters/goodParamsRelative.json"
         };
         // @formatter:on
@@ -173,7 +173,5 @@ public class ExecutorParameterTests {
         assertEquals(45, parameters.getEngineServiceParameters().getId());
         assertEquals(19, parameters.getEngineServiceParameters().getInstanceCount());
         assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
-        assertTrue(parameters.getEngineServiceParameters().getPolicyModelFileName()
-                .endsWith("policymodels/SmallModel.json"));
     }
 }

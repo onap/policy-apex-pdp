@@ -3,10 +3,10 @@
   "topology_template": {
     "policies": [
       {
-        "onap.policies.native.apex.Vcpe": {
+        "onap.policies.native.apex.DecisionMaker": {
           "type": "onap.policies.native.Apex",
           "type_version": "1.0.0",
-          "name": "onap.policies.native.apex.Vcpe",
+          "name": "onap.policies.native.apex.DecisionMaker",
           "version": "1.0.0",
           "properties": {
           }

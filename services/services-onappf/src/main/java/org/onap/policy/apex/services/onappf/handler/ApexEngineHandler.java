@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,6 @@
 
 package org.onap.policy.apex.services.onappf.handler;
 
-import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -38,6 +37,8 @@ import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaTopologyTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,6 @@ import org.slf4j.LoggerFactory;
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
 public class ApexEngineHandler {
-    private static final String POLICY_TYPE_IMPL = "policy_type_impl";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexEngineHandler.class);
 
@@ -91,28 +91,21 @@ public class ApexEngineHandler {
         throws ApexStarterException {
         Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
         for (ToscaPolicy policy : policies) {
+            String policyName = policy.getIdentifier().getName();
             final StandardCoder standardCoder = new StandardCoder();
-            String policyModel = "";
-            String apexConfig;
-            JsonObject apexConfigJsonObject = new JsonObject();
+            ToscaServiceTemplate toscaServiceTemplate = new ToscaServiceTemplate();
+            ToscaTopologyTemplate toscaTopologyTemplate = new ToscaTopologyTemplate();
+            toscaTopologyTemplate.setPolicies(List.of(Map.of(policyName, policy)));
+            toscaServiceTemplate.setToscaTopologyTemplate(toscaTopologyTemplate);
+            String toscaServiceTemplateStr;
             try {
-                for (Entry<String, Object> property : policy.getProperties().entrySet()) {
-                    JsonObject body = standardCoder.decode(standardCoder.encode(property.getValue()), JsonObject.class);
-                    if ("engineServiceParameters".equals(property.getKey())) {
-                        policyModel = standardCoder.encode(body.get(POLICY_TYPE_IMPL));
-                        body.remove(POLICY_TYPE_IMPL);
-                    }
-                    apexConfigJsonObject.add(property.getKey(), body);
-                }
-                apexConfig = standardCoder.encode(apexConfigJsonObject);
+                toscaServiceTemplateStr = standardCoder.encode(toscaServiceTemplate);
             } catch (CoderException e) {
                 throw new ApexStarterException(e);
             }
 
-            final String modelFilePath = createFile(policyModel, "modelFile");
-
-            final String apexConfigFilePath = createFile(apexConfig, "apexConfigFile");
-            final String[] apexArgs = { "-c", apexConfigFilePath, "-m", modelFilePath };
+            final String toscaServiceTemplateFilePath = createFile(toscaServiceTemplateStr, policyName);
+            final String[] apexArgs = { "-p", toscaServiceTemplateFilePath };
             policyArgsMap.put(policy.getIdentifier(), apexArgs);
         }
         return policyArgsMap;
