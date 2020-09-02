@@ -1,25 +1,35 @@
 {
-    "engineServiceParameters": {
-        "name": "SONOM_LoadBalancing_Apex_Engine",
-        "version": "0.0.1",
-        "id": 102,
-        "instanceCount": 1,
-        "deploymentPort": 12549,
-        "policyModelFileName": "target/examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.json",
-        "engineParameters": {
-            "executorParameters": {
-                "JAVASCRIPT": {
+  "tosca_definitions_version": "tosca_simple_yaml_1_1_0",
+  "topology_template": {
+    "policies": [
+      {
+        "onap.policies.apex.Test": {
+          "type": "onap.policies.native.Apex",
+          "type_version": "1.0.0",
+          "name": "onap.policies.apex.Test",
+          "version": "1.0.0",
+          "properties": {
+            "engineServiceParameters": {
+              "name": "SONOM_LoadBalancing_Apex_Engine",
+              "version": "0.0.1",
+              "id": 102,
+              "instanceCount": 1,
+              "deploymentPort": 12549,
+              "policyModelFileName": "target/examples/models/SampleDomain/SamplePolicyModelJAVASCRIPT.json",
+              "engineParameters": {
+                "executorParameters": {
+                  "JAVASCRIPT": {
                     "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+                  }
                 }
-            }
-        }
-    },
-    "eventOutputParameters": {
-        "aProducer": {
-            "carrierTechnologyParameters": {
-                "carrierTechnology": "KAFKA",
-                "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
-                "parameters": {
+              }
+            },
+            "eventOutputParameters": {
+              "aProducer": {
+                "carrierTechnologyParameters": {
+                  "carrierTechnology": "KAFKA",
+                  "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
+                  "parameters": {
                     "bootstrapServers": "localhost:9092",
                     "acks": "all",
                     "retries": 0,
@@ -29,24 +39,29 @@
                     "producerTopic": "apex-out",
                     "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
                     "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer"
+                  }
+                },
+                "eventProtocolParameters": {
+                  "eventProtocol": "JSON"
                 }
+              }
             },
-            "eventProtocolParameters": {
-                "eventProtocol": "JSON"
-            }
-        }
-    },
-    "eventInputParameters": {
-        "aConsumer": {
-            "carrierTechnologyParameters": {
-                "carrierTechnology": "FILE",
-                "parameters": {
+            "eventInputParameters": {
+              "aConsumer": {
+                "carrierTechnologyParameters": {
+                  "carrierTechnology": "FILE",
+                  "parameters": {
                     "fileName": "src/test/resources/events/SampleLBPolicyEventIn.json"
+                  }
+                },
+                "eventProtocolParameters": {
+                  "eventProtocol": "JSON"
                 }
-            },
-            "eventProtocolParameters": {
-                "eventProtocol": "JSON"
+              }
             }
+          }
         }
-    }
+      }
+    ]
+  }
 }
