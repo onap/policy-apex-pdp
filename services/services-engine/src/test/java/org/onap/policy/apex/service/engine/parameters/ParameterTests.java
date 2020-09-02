@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  * Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ * Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.NoSuchFileException;
 import java.util.Arrays;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
@@ -48,27 +50,25 @@ import org.onap.policy.common.parameters.ParameterException;
 public class ParameterTests {
     @Test
     public void testInvalidParametersNoFileTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/invalidNoFile.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/invalidNoFile.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessageStartingWith("error reading parameters from \"src")
-            .hasMessageContaining("FileNotFoundException");
+            .hasRootCauseInstanceOf(NoSuchFileException.class);
     }
 
     @Test
     public void testInvalidParametersEmptyTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/empty.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/empty.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessageStartingWith("validation error(s) on parameters from \"src/test/resources/parameters/empty"
-                    + ".json\"");
+            .hasMessageStartingWith("error reading parameters from \"src/test/resources/parameters/empty.json");
     }
 
     @Test
     public void testInvalidParametersNoParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/noParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/noParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -85,7 +85,7 @@ public class ParameterTests {
 
     @Test
     public void testInvalidParametersBlankParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/blankParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/blankParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -105,7 +105,7 @@ public class ParameterTests {
 
     @Test
     public void testInvalidParametersTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/badParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/badParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -146,24 +146,8 @@ public class ParameterTests {
     }
 
     @Test
-    public void testModelNotFileTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/badParamsModelNotFile.json"};
-        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
-
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/badParamsModelNotFile.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group \"MyApexEngine\" type "
-                + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
-                + "INVALID, parameter group has status INVALID\n" + "    field \"policyModelFileName\" "
-                + "type \"java.lang.String\" value \"src/test\" INVALID, is not a plain file\n");
-    }
-
-    @Test
     public void testGoodParametersTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -207,7 +191,7 @@ public class ParameterTests {
 
     @Test
     public void testSuperDooperParametersTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/superDooperParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/superDooperParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
