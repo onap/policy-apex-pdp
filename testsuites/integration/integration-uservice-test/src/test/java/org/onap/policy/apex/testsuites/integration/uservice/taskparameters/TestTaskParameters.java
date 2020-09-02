@@ -31,7 +31,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
+import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
@@ -55,24 +55,6 @@ public class TestTaskParameters {
     private static final int PORT = 32801;
     private static final String HOST = "localhost";
 
-    /**
-     * Compile the policy.
-     */
-    @BeforeClass
-    public static void compilePolicy() {
-        // @formatter:off
-        final String[] cliArgs = {
-            "-c",
-            "src/test/resources/policies/taskparameters/TaskParametersTestPolicyModel.apex",
-            "-l",
-            "target/TaskParametersTestPolicyModel.log",
-            "-o",
-            "target/TaskParametersTestPolicyModel.json"
-        };
-        // @formatter:on
-
-        new ApexCommandLineEditorMain(cliArgs);
-    }
 
     /**
      * Sets up a server for testing.
@@ -156,7 +138,21 @@ public class TestTaskParameters {
 
     private String testTaskParameters(String apexConfigPath) throws ApexException {
         final Client client = ClientBuilder.newClient();
-        final String[] args = {apexConfigPath};
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/taskparameters/TaskParametersTestPolicyModel.apex",
+            "-ac",
+            apexConfigPath,
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
+        final String[] args = {"target/classes/APEXPolicy.json"};
         // clear the details set in server
         client.target("http://" + HOST + ":" + PORT + "/TestTaskParametersRest/apex/event/clearDetails")
             .request("application/json").get();

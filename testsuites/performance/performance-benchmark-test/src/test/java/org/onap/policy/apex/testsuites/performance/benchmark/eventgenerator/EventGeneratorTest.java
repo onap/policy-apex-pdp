@@ -52,8 +52,7 @@ public class EventGeneratorTest {
         pars.setBatchSize(10);
 
         EventGenerator eventGenerator = new EventGenerator(pars);
-
-        final String[] args = { "-rfr", "target", "-c",
+        final String[] args = { "-rfr", "target", "-p",
             "target/examples/config/SampleDomain/REST2RESTJsonEventJavascript.json" };
 
         final ApexMain apexMain = new ApexMain(args);
@@ -106,6 +105,7 @@ public class EventGeneratorTest {
         System.setOut(new PrintStream(outContent));
 
         (new Thread() {
+            @Override
             public void run() {
                 EventGenerator.main(null);
             }

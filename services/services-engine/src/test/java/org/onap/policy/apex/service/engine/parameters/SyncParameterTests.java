@@ -45,7 +45,7 @@ import org.onap.policy.common.parameters.ParameterException;
 public class SyncParameterTests {
     @Test
     public void testSyncBadNoSyncWithPeer() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -63,7 +63,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncBadNotSyncWithPeer() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -81,7 +81,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncBadSyncBadPeers() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncBadParamsBadPeers.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsBadPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -110,7 +110,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncBadSyncInvalidTimeout() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncBadParamsInvalidTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsInvalidTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -141,7 +141,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncBadSyncBadTimeout() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncBadParamsBadTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsBadTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -159,7 +159,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncBadSyncUnpairedTimeout() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncBadParamsUnpairedTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsUnpairedTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -190,7 +190,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncGoodSyncGoodTimeoutProducer() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncGoodParamsProducerTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParamsProducerTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -207,7 +207,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncGoodSyncGoodTimeoutConsumer() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncGoodParamsConsumerTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParamsConsumerTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -224,7 +224,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncGoodSyncGoodTimeoutBoth() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncGoodParamsBothTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParamsBothTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -241,7 +241,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncUnusedConsumerPeers() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncUnusedConsumerPeers.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncUnusedConsumerPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -266,7 +266,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncMismatchedPeers() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncMismatchedPeers.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncMismatchedPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -297,7 +297,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncUnusedProducerPeers() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncUnusedProducerPeers.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncUnusedProducerPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -320,7 +320,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncMismatchedTimeout() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncMismatchedTimeout.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncMismatchedTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -345,7 +345,7 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncGoodParametersTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/syncGoodParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);

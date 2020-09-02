@@ -20,7 +20,7 @@
 
 package org.onap.policy.apex.domains.onap.vcpe;
 
-import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
+import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -32,30 +32,27 @@ public class OnapVcpeStandaloneRunner {
 
     private OnapVcpeStandaloneRunner() throws ApexException {
 
-        // @formatter:off
+     // @formatter:off
         final String[] cliArgs = new String[] {
             "-c",
             "src/main/resources/policy/ONAPvCPEPolicyModelStandalone.apex",
-            "-l",
-            "target/ONAPvCPEPolicyModel.log",
-            "-o",
-            "target/classes/ONAPvCPEPolicyModelStandalone.json"
+            "-ac",
+            "src/main/resources/examples/config/ONAPvCPEStandalone/ApexConfig_Sim.json",
+            "-t",
+            "src/main/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
         };
         // @formatter:on
 
-        new ApexCommandLineEditorMain(cliArgs);
+        new ApexCliToscaEditorMain(cliArgs);
 
         // @formatter:off
         final String[] apexArgs = {
-            "-rfr",
-            "target/classes",
-            "-c",
-            "src/main/resources/examples/config/ONAPvCPEStandalone/ApexConfig_Sim.json",
-            "-m",
-            "target/classes/ONAPvCPEPolicyModelStandalone.json"
+            "-p",
+            "target/classes/APEXPolicy.json"
         };
         // @formatter:on
-
         final ApexMain apexMain = new ApexMain(apexArgs);
 
         ThreadUtilities.sleep(1000000);

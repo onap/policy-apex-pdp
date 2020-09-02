@@ -62,9 +62,9 @@ public class ApexMainTest {
 
         ApexMain.main(null);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("Apex configuration file was not specified as an argument"));
+                .contains("Tosca Policy file was not specified as an argument"));
         assertThat(outContent.toString())
-            .contains("Apex configuration file was not specified as an argument");
+            .contains("Tosca Policy file was not specified as an argument");
     }
 
     @Test
@@ -100,7 +100,7 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = { "-c", "src/test/resources/parameters/badParams.json" };
+        String[] args = { "-p", "src/test/resources/parameters/badParams.json" };
 
         final ApexMain apexMain = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
@@ -114,7 +114,7 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = { "-c", "src/test/resources/parameters/correctParams.json" };
+        String[] args = { "-p", "src/test/resources/parameters/correctParams.json" };
 
         final ApexMain apexMain = new ApexMain(args);
         assertEquals("MyApexEngine",
@@ -129,7 +129,7 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = { "-c", "src/test/resources/parameters/correctParamsJavaProperties.json" };
+        String[] args = { "-p", "src/test/resources/parameters/correctParamsJavaProperties.json" };
 
         final ApexMain apexMain = new ApexMain(args);
         assertEquals("MyApexEngine",
@@ -147,8 +147,7 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
-        String[] args = {"-c", "src/test/resources/parameters/correctParams.json", "-m",
-            "src/test/resources/policymodels/SmallModel.json"};
+        String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
         argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
         final ApexMain apexMain = new ApexMain(argsMap);
         ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
@@ -163,8 +162,7 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
-        String[] args = {"-c", "src/test/resources/parameters/correctParams.json", "-m",
-            "src/test/resources/policymodels/SmallModel.json"};
+        String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
         argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
         argsMap.put(new ToscaPolicyIdentifier("id2", "v2"), args);
         final ApexMain apexMain = new ApexMain(argsMap);
