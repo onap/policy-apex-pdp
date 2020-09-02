@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "46ea5378_47015e6d",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-02T12:50:45Z",
+      "side": 1,
+      "message": "right, but why bother using String operations to make it parseable?  The original value is basically created by double encoding, from object to json, and then from json to json again, so why not do the reverse?  Then you don\u0027t have to worry about making the string parseable, as it\u0027s already parseable by json (i.e., it\u0027s already a valid json string):\n\n  return coder.decode(coder.decode(valueObject.toString(), String.class), JsonObject.class)",
+      "parentUuid": "38c8040f_9b277d10",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "26b68aaf228c45205747d9d760b88d459c17e29a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3888fe58_17f54b67",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 1
