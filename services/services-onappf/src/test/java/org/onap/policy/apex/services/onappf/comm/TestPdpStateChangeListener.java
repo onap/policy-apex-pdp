@@ -156,7 +156,7 @@ public class TestPdpStateChangeListener {
         assertTrue(outContent.toString().contains("State changed to active. No policies found."));
 
         final ToscaPolicy toscaPolicy =
-            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+            TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
         final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
@@ -179,7 +179,7 @@ public class TestPdpStateChangeListener {
     public void testPdpStateChangeMessageListener_activetopassive() throws InterruptedException, CoderException {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         final ToscaPolicy toscaPolicy =
-            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+            TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
         final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
