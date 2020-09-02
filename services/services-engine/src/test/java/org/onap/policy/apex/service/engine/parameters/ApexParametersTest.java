@@ -27,7 +27,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
@@ -42,7 +41,7 @@ public class ApexParametersTest {
 
     @Test
     public void testJavaPropertiesOk() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/javaPropertiesOK.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesOK.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -56,7 +55,7 @@ public class ApexParametersTest {
 
     @Test
     public void testJavaPropertiesEmpty() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/javaPropertiesEmpty.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesEmpty.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -66,7 +65,7 @@ public class ApexParametersTest {
 
     @Test
     public void testJavaPropertiesBad() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/javaPropertiesBad.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesBad.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))

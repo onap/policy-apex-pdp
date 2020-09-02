@@ -46,7 +46,7 @@ public class TestFile2FileFiltered {
     public void testJsonFilteredFileInOutEvents() throws MessagingException, ApexException, IOException {
         // @formatter:off
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredInOutJsonEvent.json" };
+            { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredInOutJsonEvent.json" };
 
         final String[] outFilePaths =
             { "target/examples/events/SampleDomain/Events0004Out.json",
@@ -63,7 +63,7 @@ public class TestFile2FileFiltered {
     public void testJsonFilteredFileOutEvents() throws MessagingException, ApexException, IOException {
         // @formatter:off
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredOutJsonEvent.json" };
+            { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredOutJsonEvent.json" };
 
         final String[] outFilePaths =
             { "target/examples/events/SampleDomain/Events0004Out.json",
@@ -80,7 +80,7 @@ public class TestFile2FileFiltered {
     public void testJsonFilteredFileInEvents() throws MessagingException, ApexException, IOException {
         // @formatter:off
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredInJsonEvent.json" };
+            { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredInJsonEvent.json" };
 
         final String[] outFilePaths =
             { "target/examples/events/SampleDomain/Events0004Out.json" };

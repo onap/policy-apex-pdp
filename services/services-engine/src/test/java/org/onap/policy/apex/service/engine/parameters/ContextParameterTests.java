@@ -23,7 +23,6 @@ package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
@@ -41,7 +40,7 @@ public class ContextParameterTests {
 
     @Test
     public void testNoParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextNoParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextNoParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -52,7 +51,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadParamsTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -64,7 +63,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadPluginParamNameTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadPluginNameParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadPluginNameParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -76,7 +75,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadClassParamTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -90,7 +89,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadPluginClassTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadPluginClassParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadPluginClassParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -106,7 +105,7 @@ public class ContextParameterTests {
 
     @Test
     public void testOkFlushParamTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKFlushParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKFlushParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -119,7 +118,7 @@ public class ContextParameterTests {
 
     @Test
     public void testOkDefaultParamTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKDefaultParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKDefaultParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -132,7 +131,7 @@ public class ContextParameterTests {
 
     @Test
     public void testOkDistParamTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKDistParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKDistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -146,7 +145,7 @@ public class ContextParameterTests {
 
     @Test
     public void testOkFullDefaultParamTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -168,7 +167,7 @@ public class ContextParameterTests {
 
     @Test
     public void testOkFullParamTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextOKFullParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKFullParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -197,7 +196,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadClassDistParamTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassDistParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassDistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -212,7 +211,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadClassLockParamTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassLockParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassLockParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -227,7 +226,7 @@ public class ContextParameterTests {
 
     @Test
     public void testBadClassPersistParamTest() {
-        final String[] args = {"-c", "src/test/resources/parameters/serviceContextBadClassPersistParams.json"};
+        final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassPersistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))

@@ -1,4 +1,14 @@
 {
+  "tosca_definitions_version": "tosca_simple_yaml_1_1_0",
+  "topology_template": {
+    "policies": [
+      {
+        "onap.policies.apex.Simplecontrolloop": {
+          "type": "onap.policies.native.Apex",
+          "type_version": "1.0.0",
+          "name": "onap.policies.apex.Simplecontrolloop",
+          "version": "1.0.0",
+          "properties": {
     "engineServiceParameters": {
         "name": "MyApexEngine",
         "version": "0.0.1",
@@ -71,4 +81,10 @@
             }
         }
     }
+}
+
+        }
+      }
+    ]
+  }
 }

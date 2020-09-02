@@ -30,7 +30,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import org.junit.Test;
-import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
+import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
 /**
@@ -48,20 +48,22 @@ public class TestApexGrpcExample {
             "src/main/resources/policy/APEXgRPCPolicy.apex",
             "-l",
             "target/APEXgRPCPolicyModel.log",
-            "-o",
+            "-ac",
+            "src/main/resources/examples/config/APEXgRPC/ApexConfig.json",
+            "-t",
+            "src/main/resources/tosca/ToscaTemplate.json",
+            "-ot",
             "target/classes/APEXgRPCPolicy.json"
         };
         // @formatter:on
 
-        new ApexCommandLineEditorMain(cliArgs);
+        new ApexCliToscaEditorMain(cliArgs);
 
         // @formatter:off
         final String[] apexArgs = {
             "-rfr",
             "target/classes",
-            "-c",
-            "src/main/resources/examples/config/APEXgRPC/ApexConfig.json",
-            "-m",
+            "-p",
             "target/classes/APEXgRPCPolicy.json"
         };
         // @formatter:on
