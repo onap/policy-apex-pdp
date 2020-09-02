@@ -44,14 +44,14 @@ public class TestFile2File {
 
     @Test
     public void testJsonFileEvents() throws MessagingException, ApexException, IOException {
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileJsonEvent.json"};
 
         testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.json", 42200);
     }
 
     @Test
     public void testXmlFileEvents() throws MessagingException, ApexException, IOException {
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileXmlEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileXmlEvent.json"};
 
         testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.xmlfile", 100000);
     }

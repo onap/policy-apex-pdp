@@ -68,7 +68,7 @@ public class TestKafka2Kafka {
     public void testJsonKafkaEvents() throws Exception {
         final String conditionedConfigFile = getConditionedConfigFile(
             "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
-        final String[] args = {"-rfr", "target", "-c", conditionedConfigFile};
+        final String[] args = {"-rfr", "target", "-p", conditionedConfigFile};
         testKafkaEvents(args, false, "json");
     }
 
@@ -81,7 +81,7 @@ public class TestKafka2Kafka {
     public void testXmlKafkaEvents() throws Exception {
         final String conditionedConfigFile = getConditionedConfigFile(
             "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
-        final String[] args = {"-rfr", "target", "-c", conditionedConfigFile};
+        final String[] args = {"-rfr", "target", "-p", conditionedConfigFile};
 
         testKafkaEvents(args, true, "xml");
     }

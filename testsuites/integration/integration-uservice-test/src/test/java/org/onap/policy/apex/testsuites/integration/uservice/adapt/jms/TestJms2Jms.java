@@ -140,7 +140,7 @@ public class TestJms2Jms {
      */
     @Test
     public void testJmsObjectEvents() throws ApexException, JMSException {
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/JMS/JMS2JMSObjectEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSObjectEvent.json"};
         testJmsEvents(args, true);
     }
 
@@ -152,7 +152,7 @@ public class TestJms2Jms {
      */
     @Test
     public void testJmsJsonEvents() throws ApexException, JMSException {
-        final String[] args = {"-rfr", "target", "-c", "target/examples/config/JMS/JMS2JMSJsonEvent.json"};
+        final String[] args = {"-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSJsonEvent.json"};
         testJmsEvents(args, false);
     }
 

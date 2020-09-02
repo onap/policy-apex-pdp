@@ -48,7 +48,7 @@ public class ApexCommandLineArgumentsTest {
         assertThatThrownBy(() -> {
             apexArguments.parse(args00);
             apexArguments.validate();
-        }).hasMessage("Apex configuration file was not specified as an argument");
+        }).hasMessage("Tosca Policy file was not specified as an argument");
         final String[] args01 =
             { "-h" };
 
@@ -77,14 +77,14 @@ public class ApexCommandLineArgumentsTest {
         assertThatThrownBy(() -> apexArguments.parse(args05))
             .hasMessage("invalid command line arguments specified : Unrecognized option: -a");
         final String[] args06 =
-            { "-c", "hello", "-m", "goodbye", "-h", "-v" };
+            { "-p", "goodbye", "-h", "-v" };
         final String result06 = apexArguments.parse(args06);
         assertTrue(result06.startsWith("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
 
         final String[] args07 =
-            { "-c", "hello", "-m", "goodbye", "-h", "aaa" };
+            { "-p", "goodbye", "-h", "aaa" };
         assertThatThrownBy(() -> apexArguments.parse(args07))
-            .hasMessage("too many command line arguments specified : [-c, hello, -m, goodbye, -h, aaa]");
+            .hasMessage("too many command line arguments specified : [-p, goodbye, -h, aaa]");
     }
 
     @Test
@@ -96,46 +96,27 @@ public class ApexCommandLineArgumentsTest {
         assertThatThrownBy(() -> {
             apexArguments.parse(args00);
             apexArguments.validate();
-        }).hasMessage("Apex configuration file \"zooby\" does not exist");
+        }).hasMessage("invalid command line arguments specified : Unrecognized option: -c");
         final String[] args01 =
-            { "-c" };
+            { "-p" };
         assertThatThrownBy(() -> {
             apexArguments.parse(args01);
             apexArguments.validate();
-        }).hasMessage("invalid command line arguments specified : Missing argument for option: c");
+        }).hasMessage("invalid command line arguments specified : Missing argument for option: p");
         final String[] args02 =
-            { "-c", "src/test/resources/parameters/goodParams.json" };
+            { "-p", "src/test/resources/parameters/goodParams.json" };
         apexArguments.parse(args02);
         apexArguments.validate();
 
         final String[] args03 =
-            { "-c", "src/test/resources/parameters/goodParams.json", "-m", "zooby" };
+            { "-p", "src/test/resources/parameters/goodParams.json", "-m", "zooby" };
         assertThatThrownBy(() -> {
             apexArguments.parse(args03);
             apexArguments.validate();
-        }).hasMessage("Apex model file \"zooby\" does not exist");
-        final String[] args04 =
-            { "-m" };
-        assertThatThrownBy(() -> {
-            apexArguments.parse(args04);
-            apexArguments.validate();
-        }).hasMessage("invalid command line arguments specified : Missing argument for option: m");
-        final String[] args05 =
-            { "-c", "src/test/resources/parameters/goodParams.json", "-m" };
-        assertThatThrownBy(() -> {
-            apexArguments.parse(args05);
-            apexArguments.validate();
-        }).hasMessage("invalid command line arguments specified : Missing argument for option: m");
+        }).hasMessage("invalid command line arguments specified : Unrecognized option: -m");
         final String[] args06 =
-            { "-c", "src/test/resources/parameters/goodParams.json", "-m",
-                "src/test/resources/main/DummyModelFile.json" };
+            { "-p", "src/test/resources/parameters/goodParams.json" };
         apexArguments.parse(args06);
-        apexArguments.validate();
-
-        final String[] args07 =
-            { "-c", "parameters/goodParams.json", "-m", "main/DummyModelFile.json" };
-
-        apexArguments.parse(args07);
         apexArguments.validate();
     }
 
@@ -144,7 +125,7 @@ public class ApexCommandLineArgumentsTest {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
         final String[] args00 =
-            { "-c", "src/test/resources/parameters/goodParams.json", "-rfr", "zooby" };
+            { "-p", "src/test/resources/parameters/goodParams.json", "-rfr", "zooby" };
         assertThatThrownBy(() -> {
             apexArguments.parse(args00);
             apexArguments.validate();
@@ -156,19 +137,19 @@ public class ApexCommandLineArgumentsTest {
             apexArguments.validate();
         }).hasMessage("invalid command line arguments specified : Missing argument for option: rfr");
         final String[] args02 =
-            { "-c", "src/test/resources/parameters/goodParams.json", "-rfr", "pom.xml" };
+            { "-p", "src/test/resources/parameters/goodParams.json", "-rfr", "pom.xml" };
         assertThatThrownBy(() -> {
             apexArguments.parse(args02);
             apexArguments.validate();
         }).hasMessageContaining("pom.xml\" does not exist or is not a directory");
         final String[] args03 =
-            { "-c", "src/test/resources/parameters/goodParams.json", "-rfr", "target" };
+            { "-p", "src/test/resources/parameters/goodParams.json", "-rfr", "target" };
 
         apexArguments.parse(args03);
         apexArguments.validate();
 
         final String[] args04 =
-            { "-c", "src/test/resources/parameters/goodParamsRelative.json", "-rfr", "src/test/resources" };
+            { "-p", "src/test/resources/parameters/goodParamsRelative.json", "-rfr", "src/test/resources" };
 
         apexArguments.parse(args04);
         apexArguments.validate();
