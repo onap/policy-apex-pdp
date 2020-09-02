@@ -96,6 +96,7 @@ public class ApexServiceTest {
         parameters.setName(engineServiceKey.getName());
         parameters.setVersion(engineServiceKey.getVersion());
         parameters.setId(100);
+        parameters.setPolicyModel("policy model impl");
         parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         service = EngineServiceImpl.create(parameters);
 
