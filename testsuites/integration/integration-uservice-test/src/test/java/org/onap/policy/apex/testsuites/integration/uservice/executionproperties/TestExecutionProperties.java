@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,40 +23,20 @@ package org.onap.policy.apex.testsuites.integration.uservice.executionproperties
 
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
+import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
 /**
  * This class runs integration tests for execution properties.
  */
 public class TestExecutionProperties {
-    /**
-     * Compile the policy.
-     */
-    @BeforeClass
-    public static void compilePolicy() {
-        // @formatter:off
-        final String[] cliArgs = {
-            "-c",
-            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesTestPolicyModel.apex",
-            "-l",
-            "target/ExecutionPropertiesTestPolicyModel.log",
-            "-o",
-            "target/ExecutionPropertiesTestPolicyModel.json"
-        };
-        // @formatter:on
-
-        new ApexCommandLineEditorMain(cliArgs);
-    }
 
     /**
      * Clear relative file root environment variable.
@@ -106,8 +87,22 @@ public class TestExecutionProperties {
     }
 
     private void testExecutionProperties(final String testName) throws Exception {
-        File compiledPolicyFile = new File("target/ExecutionPropertiesTestPolicyModel.json");
-        assertTrue(compiledPolicyFile.exists());
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesTestPolicyModel.apex",
+            "-l",
+            "target/ExecutionPropertiesTestPolicyModel.log",
+            "-ac",
+            "src/test/resources/testdata/executionproperties/" + testName + "_conf.json",
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
 
         File outFile = new File("target/" + testName + "_out.properties");
         outFile.deleteOnExit();
@@ -115,9 +110,9 @@ public class TestExecutionProperties {
         // @formatter:off
         final String[] args = {
             "-rfr",
-            "target",
-            "-c",
-            "src/test/resources/testdata/executionproperties/" + testName + "_conf.json"
+            "target/classes",
+            "-p",
+            "target/classes/APEXPolicy.json"
         };
         // @formatter:on
         final ApexMain apexMain = new ApexMain(args);

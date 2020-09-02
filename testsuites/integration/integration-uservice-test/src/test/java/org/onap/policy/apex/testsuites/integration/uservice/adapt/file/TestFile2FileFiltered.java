@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +47,7 @@ public class TestFile2FileFiltered {
     public void testJsonFilteredFileInOutEvents() throws MessagingException, ApexException, IOException {
         // @formatter:off
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredInOutJsonEvent.json" };
+            { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredInOutJsonEvent.json" };
 
         final String[] outFilePaths =
             { "target/examples/events/SampleDomain/Events0004Out.json",
@@ -63,7 +64,7 @@ public class TestFile2FileFiltered {
     public void testJsonFilteredFileOutEvents() throws MessagingException, ApexException, IOException {
         // @formatter:off
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredOutJsonEvent.json" };
+            { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredOutJsonEvent.json" };
 
         final String[] outFilePaths =
             { "target/examples/events/SampleDomain/Events0004Out.json",
@@ -80,7 +81,7 @@ public class TestFile2FileFiltered {
     public void testJsonFilteredFileInEvents() throws MessagingException, ApexException, IOException {
         // @formatter:off
         final String[] args =
-            { "-rfr", "target", "-c", "target/examples/config/SampleDomain/File2FileFilteredInJsonEvent.json" };
+            { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredInJsonEvent.json" };
 
         final String[] outFilePaths =
             { "target/examples/events/SampleDomain/Events0004Out.json" };

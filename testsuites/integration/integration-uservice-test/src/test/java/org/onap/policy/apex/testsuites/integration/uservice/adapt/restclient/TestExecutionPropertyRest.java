@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +32,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
+import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
@@ -56,24 +57,6 @@ public class TestExecutionPropertyRest {
 
     private final PrintStream stdout = System.out;
     private final PrintStream stderr = System.err;
-
-    /**
-     * Compile the policy.
-     */
-    @BeforeClass
-    public static void compilePolicy() {
-        // @formatter:off
-        final String[] cliArgs = { "-c",
-            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
-            "-l",
-            "target/ExecutionPropertiesRestTestPolicyModel.log",
-            "-o",
-            "target/ExecutionPropertiesRestTestPolicyModel.json"
-        };
-        // @formatter:on
-
-        new ApexCommandLineEditorMain(cliArgs);
-    }
 
     /**
      * Sets the up.
@@ -125,10 +108,33 @@ public class TestExecutionPropertyRest {
      */
     @Test
     public void testBadUrl() throws Exception {
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
+            "-o",
+            "target/ExecutionPropertiesRestTestPolicyModel.json",
+            "-ac",
+            "src/test/resources/testdata/executionproperties/RESTEventBadUrl.json",
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
+
+        // @formatter:off
+        final String[] args = {
+            "-p",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventBadUrl.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(500);
@@ -150,10 +156,33 @@ public class TestExecutionPropertyRest {
      */
     @Test
     public void testNoValueSetForTagUrl() throws Exception {
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
+            "-o",
+            "target/ExecutionPropertiesRestTestPolicyModel.json",
+            "-ac",
+            "src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json",
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
+
+        // @formatter:off
+        final String[] args = {
+            "-p",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventNoValueSetForTag.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(2000);
@@ -175,10 +204,33 @@ public class TestExecutionPropertyRest {
      */
     @Test
     public void testBadCodeFilter() throws Exception {
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
+            "-o",
+            "target/ExecutionPropertiesRestTestPolicyModel.json",
+            "-ac",
+            "src/test/resources/testdata/executionproperties/RESTEventBadHttpCodeFilter.json",
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
+
+        // @formatter:off
+        final String[] args = {
+            "-p",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
 
-        final String[] args = { "src/test/resources/testdata/executionproperties/RESTEventBadHttpCodeFilter.json" };
         final ApexMain apexMain = new ApexMain(args);
 
         ThreadUtilities.sleep(500);
@@ -200,9 +252,29 @@ public class TestExecutionPropertyRest {
     @Test
     public void testReplaceUrlTag() throws Exception {
         final Client client = ClientBuilder.newClient();
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
+            "-o",
+            "target/ExecutionPropertiesRestTestPolicyModel.json",
+            "-ac",
+            "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json",
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
 
+        new ApexCliToscaEditorMain(cliArgs);
+
+        // @formatter:off
         final String[] args = {
-            "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json" };
+            "-p",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(1000);
         apexMain.shutdown();
@@ -227,8 +299,27 @@ public class TestExecutionPropertyRest {
     public void testReplaceUrlMultiTag() throws Exception {
         final Client client = ClientBuilder.newClient();
         // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c",
+            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
+            "-o",
+            "target/ExecutionPropertiesRestTestPolicyModel.json",
+            "-ac",
+            "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToMultiTagUrlOK.json",
+            "-t",
+            "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot",
+            "target/classes/APEXPolicy.json"
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
+
+        // @formatter:off
         final String[] args = {
-            "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToMultiTagUrlOK.json" };
+            "-p",
+            "target/classes/APEXPolicy.json"
+        };
         // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
         ThreadUtilities.sleep(1500);

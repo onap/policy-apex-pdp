@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +41,7 @@ import org.onap.policy.common.parameters.ParameterException;
 public class ProducerConsumerTests {
     @Test
     public void testGoodParametersTest() throws ParameterException {
-        final String[] args = { "-c", "src/test/resources/parameters/goodParams.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -70,7 +71,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoCarrierTechnology() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoCT.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsNoCT.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -86,7 +87,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoEventProcol() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoEP.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsNoEP.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -111,7 +112,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoCarrierTechnologyParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoCTParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsNoCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -122,7 +123,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testMismatchCarrierTechnologyParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsMismatchCTParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsMismatchCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
@@ -135,7 +136,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testWrongTypeCarrierTechnologyParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
@@ -151,7 +152,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testOkFileNameCarrierTechnology() throws ParameterException {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsOKFileName.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsOKFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -166,7 +167,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testBadFileNameCarrierTechnology() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsBadFileName.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsBadFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
@@ -186,7 +187,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testBadEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsBadEPParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsBadEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -199,7 +200,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoEPParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsNoEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -210,7 +211,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testMismatchEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsMismatchEPParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsMismatchEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
@@ -224,7 +225,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testWrongTypeEventProtocolParClass() {
-        final String[] args = { "-c", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json" };
+        final String[] args = {"-p", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(

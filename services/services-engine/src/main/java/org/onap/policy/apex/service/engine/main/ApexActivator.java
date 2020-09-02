@@ -22,7 +22,6 @@
 
 package org.onap.policy.apex.service.engine.main;
 
-import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -52,7 +51,6 @@ import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParame
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -150,15 +148,13 @@ public class ApexActivator {
             inputParametersMap.putAll(apexParams.getEventInputParameters());
             outputParametersMap.putAll(apexParams.getEventOutputParameters());
             // Check if a policy model file has been specified
-            if (apexParams.getEngineServiceParameters().getPolicyModelFileName() != null) {
-                LOGGER.debug("deploying policy model in \"{}\" to the apex engines . . .",
-                    apexParams.getEngineServiceParameters().getPolicyModelFileName());
+            if (apexParams.getEngineServiceParameters().getPolicyModel() != null) {
+                LOGGER.debug("deploying policy model to the apex engines . . .");
                 try {
-                    final String policyModelString = TextFileUtils
-                        .getTextFileAsString(apexParams.getEngineServiceParameters().getPolicyModelFileName());
+                    final String policyModelString = apexParams.getEngineServiceParameters().getPolicyModel();
                     AxPolicyModel policyModel = EngineServiceImpl.createModel(engineKey, policyModelString);
                     policyModelsMap.put(apexParamsEntry.getKey(), policyModel);
-                } catch (ApexException | IOException e) {
+                } catch (ApexException e) {
                     throw new ApexRuntimeException("Failed to create the apex model.", e);
                 }
             }

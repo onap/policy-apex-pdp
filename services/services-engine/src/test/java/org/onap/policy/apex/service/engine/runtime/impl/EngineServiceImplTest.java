@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.service.engine.runtime.impl;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -73,7 +75,7 @@ public class EngineServiceImplTest {
         simpleModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
         differentModelString =
-                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         simpleModel = modelReader.read(new ByteArrayInputStream(simpleModelString.getBytes()));
@@ -110,18 +112,18 @@ public class EngineServiceImplTest {
         ExecutorParameters jsExecutorParameters = new ExecutorParameters();
         jsExecutorParameters.setName("JAVASCRIPT");
         jsExecutorParameters
-                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+            .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         jsExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
         jsExecutorParameters
-                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+            .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", jsExecutorParameters);
         ExecutorParameters mvvelExecutorParameters = new ExecutorParameters();
         mvvelExecutorParameters.setName("MVEL");
         mvvelExecutorParameters
-                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+            .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         mvvelExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
         mvvelExecutorParameters
-                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+            .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
         engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
         ParameterService.register(engineParameters);
     }
@@ -142,26 +144,17 @@ public class EngineServiceImplTest {
 
     @Test
     public void testEngineServiceImplSanity() throws ApexException {
-        try {
-            EngineServiceImpl.create(null);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine service configuration parameters are null", apEx.getMessage());
-        }
-
+        assertThatThrownBy(() -> EngineServiceImpl.create(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine service configuration parameters are null");
         EngineServiceParameters config = new EngineServiceParameters();
         config.setInstanceCount(0);
-
-        try {
-            EngineServiceImpl.create(config);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("Invalid engine service configuration parameters:", apEx.getMessage().substring(0, 48));
-        }
+        assertThatThrownBy(() -> EngineServiceImpl.create(config)).isInstanceOf(ApexException.class)
+            .hasMessageContaining("Invalid engine service configuration parameters");
 
         config.setId(123);
         config.setEngineKey(new AxArtifactKey("Engine", "0.0.1"));
         config.setInstanceCount(1);
+        config.setPolicyModel("policyModelContent");
 
         EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertEquals("Engine:0.0.1", esImpl.getKey().getId());
@@ -171,12 +164,8 @@ public class EngineServiceImplTest {
         esImpl.registerActionListener(null, new DummyApexEventListener());
 
         esImpl.registerActionListener("DummyListener", new DummyApexEventListener());
-        try {
-            esImpl.deregisterActionListener(null);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("removeEventListener()<-Engine-0:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.deregisterActionListener(null))
+            .hasMessage("removeEventListener()<-Engine-0:0.0.1,STOPPED, listenerName is null");
 
         esImpl.deregisterActionListener("DummyListener");
 
@@ -185,38 +174,21 @@ public class EngineServiceImplTest {
 
         assertNull(esImpl.getApexModelKey());
 
-        try {
-            esImpl.getRuntimeInfo(null);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.getRuntimeInfo(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.getRuntimeInfo(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine with key DummyKey:0.0.1 not found in engine service", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.getRuntimeInfo(new AxArtifactKey("DummyKey", "0.0.1")))
+            .isInstanceOf(ApexException.class).hasMessage("engine with key DummyKey:0.0.1 not found in engine service");
 
         String runtimeInfo = esImpl.getRuntimeInfo(esImpl.getEngineKeys().iterator().next());
         assertEquals("{\n  \"TimeStamp\":", runtimeInfo.substring(0, 16));
 
         assertEquals(AxEngineState.STOPPED, esImpl.getState());
 
-        try {
-            esImpl.getStatus(null);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
-
-        try {
-            esImpl.getStatus(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine with key DummyKey:0.0.1 not found in engine service", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.getStatus(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
+        assertThatThrownBy(() -> esImpl.getStatus(new AxArtifactKey("DummyKey", "0.0.1")))
+            .isInstanceOf(ApexException.class).hasMessage("engine with key DummyKey:0.0.1 not found in engine service");
 
         String status = esImpl.getStatus(esImpl.getEngineKeys().iterator().next());
         assertTrue(status.contains("\n   \"apexEngineModel\" :"));
@@ -230,182 +202,84 @@ public class EngineServiceImplTest {
         assertTrue(esImpl.isStopped(new AxArtifactKey("DummyKey", "0.0.1")));
         assertTrue(esImpl.isStopped(esImpl.getEngineKeys().iterator().next()));
 
-        try {
-            esImpl.start(null);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.start(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.start(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine with key DummyKey:0.0.1 not found in engine service", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.start(new AxArtifactKey("DummyKey", "0.0.1"))).isInstanceOf(ApexException.class)
+            .hasMessage("engine with key DummyKey:0.0.1 not found in engine service");
 
-        try {
-            esImpl.start(esImpl.getEngineKeys().iterator().next());
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
-                    + "engine has not been initialized, its model is not loaded", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.start(esImpl.getEngineKeys().iterator().next()))
+            .isInstanceOf(ApexException.class).hasMessage("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
+                + "engine has not been initialized, its model is not loaded");
 
-        try {
-            esImpl.startAll();
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
-                    + "engine has not been initialized, its model is not loaded", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.startAll()).isInstanceOf(ApexException.class)
+            .hasMessage("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
+                + "engine has not been initialized, its model is not loaded");
 
-        try {
-            esImpl.stop(null);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.stop(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.stop(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine with key DummyKey:0.0.1 not found in engine service", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.stop(new AxArtifactKey("DummyKey", "0.0.1"))).isInstanceOf(ApexException.class)
+            .hasMessage("engine with key DummyKey:0.0.1 not found in engine service");
 
-        try {
-            esImpl.stop(esImpl.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        esImpl.stop(esImpl.getEngineKeys().iterator().next());
 
-        try {
-            esImpl.stop();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            esImpl.sendEvent(null);
-        } catch (Exception apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            esImpl.sendEvent(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget"));
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        esImpl.stop();
+        esImpl.sendEvent(null);
+        esImpl.sendEvent(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget"));
 
         esImpl.startPeriodicEvents(100000);
 
-        try {
-            esImpl.startPeriodicEvents(100000);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("Peiodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
-                    + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.startPeriodicEvents(100000)).isInstanceOf(ApexException.class)
+            .hasMessage("Peiodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
+                + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]");
 
         esImpl.stopPeriodicEvents();
-        try {
-            esImpl.stopPeriodicEvents();
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("Peiodic event geneation not running on engine Engine:0.0.1", apEx.getMessage());
-        }
 
-        try {
-            esImpl.clear(null);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.stopPeriodicEvents()).isInstanceOf(ApexException.class)
+            .hasMessage("Peiodic event geneation not running on engine Engine:0.0.1");
 
-        try {
-            esImpl.clear(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine with key DummyKey:0.0.1 not found in engine service", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.clear(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.clear(esImpl.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(() -> esImpl.clear(new AxArtifactKey("DummyKey", "0.0.1"))).isInstanceOf(ApexException.class)
+            .hasMessage("engine with key DummyKey:0.0.1 not found in engine service");
+        esImpl.clear(esImpl.getEngineKeys().iterator().next());
+        esImpl.clear();
 
-        try {
-            esImpl.clear();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(null, (String) null, true)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.updateModel(null, (String) null, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), (String) null, true))
+            .isInstanceOf(ApexException.class)
+            .hasMessage("model for updating engine service with key DummyKey:0.0.1 is empty");
 
-        try {
-            esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), (String) null, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("model for updating engine service with key DummyKey:0.0.1 is empty", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "", true))
+            .isInstanceOf(ApexException.class)
+            .hasMessage("model for updating engine service with key DummyKey:0.0.1 is empty");
 
-        try {
-            esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "", true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("model for updating engine service with key DummyKey:0.0.1 is empty", apEx.getMessage());
-        }
+        assertThatThrownBy(
+            () -> esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "I am not an Apex model", true))
+                .isInstanceOf(ApexException.class)
+                .hasMessage("failed to unmarshal the apex model on engine service DummyKey:0.0.1");
 
-        try {
-            esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "I am not an Apex model", true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("failed to unmarshal the apex model on engine service DummyKey:0.0.1", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModelString, true))
+            .isInstanceOf(ApexException.class)
+            .hasMessage("engine service key DummyKey:0.0.1 does not match the keyEngine:0.0.1 of this engine service");
 
-        try {
-            esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModelString, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine service key DummyKey:0.0.1 does not match the keyEngine:0.0.1 of this engine service",
-                    apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(null, simpleModelString, true)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.updateModel(null, simpleModelString, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(null, (AxPolicyModel) null, true)).isInstanceOf(ApexException.class)
+            .hasMessage("engine key must be specified and may not be null");
 
-        try {
-            esImpl.updateModel(null, (AxPolicyModel) null, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key must be specified and may not be null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), (AxPolicyModel) null, true))
+            .isInstanceOf(ApexException.class)
+            .hasMessage("model for updating on engine service with key DummyKey:0.0.1 is null");
 
-        try {
-            esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), (AxPolicyModel) null, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("model for updating on engine service with key DummyKey:0.0.1 is null", apEx.getMessage());
-        }
-
-        try {
-            esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModel, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine service key DummyKey:0.0.1 does not match the keyEngine:0.0.1 of this engine service",
-                    apEx.getMessage());
-        }
+        assertThatThrownBy(() -> esImpl.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModel, true))
+            .isInstanceOf(ApexException.class)
+            .hasMessage("engine service key DummyKey:0.0.1 does not match the keyEngine:0.0.1 of this engine service");
     }
 
     @Test
@@ -414,7 +288,7 @@ public class EngineServiceImplTest {
         config.setId(123);
         config.setEngineKey(new AxArtifactKey("Engine", "0.0.1"));
         config.setInstanceCount(1);
-
+        config.setPolicyModel("policyModelContent");
         EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertEquals("Engine:0.0.1", esImpl.getKey().getId());
 
