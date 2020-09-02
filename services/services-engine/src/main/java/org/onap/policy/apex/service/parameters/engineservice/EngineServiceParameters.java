@@ -1,26 +1,29 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.service.parameters.engineservice;
 
-import java.io.File;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -54,6 +57,8 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * </ol>
  */
 // @formatter:on
+@Getter
+@Setter
 public class EngineServiceParameters implements ParameterGroup {
     private static final int MAX_PORT = 65535;
 
@@ -74,7 +79,6 @@ public class EngineServiceParameters implements ParameterGroup {
     public static final int DEFAULT_DEPLOYMENT_PORT = 34421;
 
     // Constants for repeated strings
-    private static final String POLICY_MODEL_FILE_NAME = "policyModelFileName";
 
     // Apex engine service parameters
     private String name                = DEFAULT_NAME;
@@ -82,7 +86,7 @@ public class EngineServiceParameters implements ParameterGroup {
     private int    id                  = DEFAULT_ID;
     private int    instanceCount       = DEFAULT_INSTANCE_COUNT;
     private int    deploymentPort      = DEFAULT_DEPLOYMENT_PORT;
-    private String policyModelFileName = null;
+    private String policyModel = null;
     private long   periodicEventPeriod = 0;
     // @formatter:on
 
@@ -111,157 +115,12 @@ public class EngineServiceParameters implements ParameterGroup {
 
     /**
      * Sets the key of the Apex engine service.
-     * 
+     *
      * @param key the the Apex engine service key
      */
     public void setEngineKey(final AxArtifactKey key) {
         this.setName(key.getName());
         this.setVersion(key.getVersion());
-    }
-
-    /**
-     * Gets the name of the engine service.
-     *
-     * @return the name of the engine service
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the engine service.
-     *
-     * @param name the name of the engine service
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets the version of the engine service.
-     *
-     * @return the version of the engine service
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version of the engine service.
-     *
-     * @param version the version of the engine service
-     */
-    public void setVersion(final String version) {
-        this.version = version;
-    }
-
-    /**
-     * Gets the id of the engine service.
-     *
-     * @return the id of the engine service
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the engine service.
-     *
-     * @param id the id of the engine service
-     */
-    public void setId(final int id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets the instance count of the engine service.
-     *
-     * @return the instance count of the engine service
-     */
-    public int getInstanceCount() {
-        return instanceCount;
-    }
-
-    /**
-     * Sets the instance count of the engine service.
-     *
-     * @param instanceCount the instance count of the engine service
-     */
-    public void setInstanceCount(final int instanceCount) {
-        this.instanceCount = instanceCount;
-    }
-
-    /**
-     * Gets the deployment port of the engine service.
-     *
-     * @return the deployment port of the engine service
-     */
-    public int getDeploymentPort() {
-        return deploymentPort;
-    }
-
-    /**
-     * Sets the deployment port of the engine service.
-     *
-     * @param deploymentPort the deployment port of the engine service
-     */
-    public void setDeploymentPort(final int deploymentPort) {
-        this.deploymentPort = deploymentPort;
-    }
-
-    /**
-     * Gets the file name of the policy engine for deployment on the engine service.
-     *
-     * @return the file name of the policy engine for deployment on the engine service
-     */
-    public String getPolicyModelFileName() {
-        return policyModelFileName;
-    }
-
-    /**
-     * Sets the file name of the policy engine for deployment on the engine service.
-     *
-     * @param policyModelFileName the file name of the policy engine for deployment on the engine service
-     */
-    public void setPolicyModelFileName(final String policyModelFileName) {
-        this.policyModelFileName = policyModelFileName;
-    }
-
-    /**
-     * Get the period in milliseconds at which periodic events are sent, zero means no periodic events are being sent.
-     * 
-     * @return the periodic period
-     */
-    public long getPeriodicEventPeriod() {
-        return periodicEventPeriod;
-    }
-
-    /**
-     * Set the period in milliseconds at which periodic events are sent, zero means no periodic events are to be sent,
-     * negative values are illegal.
-     * 
-     * @param periodicEventPeriod the periodic period
-     */
-    public void setPeriodicEventPeriod(final long periodicEventPeriod) {
-        this.periodicEventPeriod = periodicEventPeriod;
-    }
-
-    /**
-     * Gets the engine parameters for engines in the engine service.
-     *
-     * @return the engine parameters for engines in the engine service
-     */
-    public EngineParameters getEngineParameters() {
-        return engineParameters;
-    }
-
-    /**
-     * Sets the engine parameters for engines in the engine service.
-     *
-     * @param engineParameters the engine parameters for engines in the engine service
-     */
-    public void setEngineParameters(final EngineParameters engineParameters) {
-        this.engineParameters = engineParameters;
     }
 
     /**
@@ -275,8 +134,8 @@ public class EngineServiceParameters implements ParameterGroup {
 
         validateNumericParameters(result);
 
-        if (policyModelFileName != null) {
-            validatePolicyModelFileName(result);
+        if (StringUtils.isBlank(policyModel)) {
+            result.setResult("policyModel", ValidationStatus.INVALID, "must be specified");
         }
         result.setResult("engineParameters", engineParameters.validate());
 
@@ -285,7 +144,7 @@ public class EngineServiceParameters implements ParameterGroup {
 
     /**
      * Validate string parameters.
-     * 
+     *
      * @param result the result of string parameter validation
      */
     private void validateStringParameters(final GroupValidationResult result) {
@@ -327,44 +186,4 @@ public class EngineServiceParameters implements ParameterGroup {
         }
     }
 
-    /**
-     * Validate the policy model file name parameter.
-     * 
-     * @param result the variable in which to store the result of the validation
-     */
-    private void validatePolicyModelFileName(final GroupValidationResult result) {
-        if (policyModelFileName.trim().length() == 0) {
-            result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID,
-                            "\"" + policyModelFileName + "\" invalid, must be specified as a non-empty string");
-            return;
-        }
-
-        String absolutePolicyFileName = null;
-
-        // Resolve the file name if it is a relative file name
-        File policyModelFile = new File(policyModelFileName);
-        if (policyModelFile.isAbsolute()) {
-            absolutePolicyFileName = policyModelFileName;
-        } else {
-            absolutePolicyFileName = System.getProperty("APEX_RELATIVE_FILE_ROOT") + File.separator
-                            + policyModelFileName;
-            policyModelFile = new File(absolutePolicyFileName);
-        }
-
-        // Check that the file exists
-        if (!policyModelFile.exists()) {
-            result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "not found");
-        } else if (!policyModelFile.isFile()) {
-            // Check that the file is a regular file
-            result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "is not a plain file");
-        } else {
-            // OK, we found the file and it's OK, so reset the file name
-            policyModelFileName = absolutePolicyFileName;
-
-            // Check that the file is readable
-            if (!policyModelFile.canRead()) {
-                result.setResult(POLICY_MODEL_FILE_NAME, ValidationStatus.INVALID, "is not readable");
-            }
-        }
-    }
 }

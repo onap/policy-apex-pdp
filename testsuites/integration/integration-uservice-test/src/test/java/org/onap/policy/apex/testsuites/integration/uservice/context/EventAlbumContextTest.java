@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +31,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
+import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -40,7 +41,7 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 public class EventAlbumContextTest {
     private File tempCommandFile;
     private File tempLogFile;
-    private File tempModelFile;
+    private File tempPolicyFile;
     private String eventContextString;
     private String configFile;
     private String outputFile;
@@ -61,7 +62,7 @@ public class EventAlbumContextTest {
     public void testJavaEventAlbumContextTest() throws IOException, ApexException {
         tempCommandFile = tempTestDir.newFile("TestPolicyJavaEventContext.apex");
         tempLogFile = tempTestDir.newFile("TestPolicyJavaEventContext.log");
-        tempModelFile = tempTestDir.newFile("TestPolicyJavaEventContext.json");
+        tempPolicyFile = tempTestDir.newFile("TestPolicyJavaEventContext.json");
 
         eventContextString = ResourceUtils.getResourceAsString("examples/scripts/TestPolicyJavaEventContext.apex");
 
@@ -76,7 +77,7 @@ public class EventAlbumContextTest {
     public void testAvroEventAlbumContextTest() throws IOException, ApexException {
         tempCommandFile = tempTestDir.newFile("TestPolicyAvroEventContext.apex");
         tempLogFile = tempTestDir.newFile("TestPolicyAvroEventContext.log");
-        tempModelFile = tempTestDir.newFile("TestPolicyAvroEventContext.json");
+        tempPolicyFile = tempTestDir.newFile("TestPolicyAvroEventContext.json");
 
         eventContextString = ResourceUtils.getResourceAsString("examples/scripts/TestPolicyAvroEventContext.apex");
 
@@ -91,11 +92,12 @@ public class EventAlbumContextTest {
         TextFileUtils.putStringAsFile(eventContextString, tempCommandFile);
 
         final String[] cliArgs = new String[] {"-c", tempCommandFile.getCanonicalPath(), "-l",
-            tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
+            tempLogFile.getAbsolutePath(), "-ac", configFile, "-t", "src/test/resources/tosca/ToscaTemplate.json",
+            "-ot", tempPolicyFile.getAbsolutePath()};
 
-        new ApexCommandLineEditorMain(cliArgs);
+        new ApexCliToscaEditorMain(cliArgs);
 
-        final String[] args = new String[] {"-m", tempModelFile.getAbsolutePath(), "-c", configFile};
+        final String[] args = new String[] {"-p", tempPolicyFile.getAbsolutePath()};
         final ApexMain apexMain = new ApexMain(args);
 
         // The output event will be in this file

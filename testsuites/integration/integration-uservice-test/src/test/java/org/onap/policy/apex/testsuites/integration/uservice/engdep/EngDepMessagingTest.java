@@ -105,6 +105,7 @@ public class EngDepMessagingTest {
         engineServiceParameters.setDeploymentPort(58820);
         engineServiceParameters.setInstanceCount(3);
         engineServiceParameters.setId(100);
+        engineServiceParameters.setPolicyModel("policy model impl");
         engineServiceParameters.getEngineParameters().getExecutorParameterMap().put("JAVASCRIPT",
                 new JavascriptExecutorParameters());
 
