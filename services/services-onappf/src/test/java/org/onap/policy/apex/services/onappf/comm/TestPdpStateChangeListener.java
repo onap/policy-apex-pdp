@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,7 +157,7 @@ public class TestPdpStateChangeListener {
         assertTrue(outContent.toString().contains("State changed to active. No policies found."));
 
         final ToscaPolicy toscaPolicy =
-            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+            TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
         final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
@@ -179,7 +180,7 @@ public class TestPdpStateChangeListener {
     public void testPdpStateChangeMessageListener_activetopassive() throws InterruptedException, CoderException {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         final ToscaPolicy toscaPolicy =
-            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+            TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
         final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);

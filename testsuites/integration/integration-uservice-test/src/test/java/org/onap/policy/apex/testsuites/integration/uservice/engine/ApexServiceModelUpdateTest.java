@@ -127,14 +127,16 @@ public class ApexServiceModelUpdateTest {
         parameters.setVersion(engineServiceKey.getVersion());
         parameters.setId(100);
         parameters.getEngineParameters().getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
-        service = EngineServiceImpl.create(parameters);
-
-        LOGGER.debug("Running TestApexEngine. . .");
 
         apexSamplePolicyModel = new SampleDomainModelFactory().getSamplePolicyModel("JAVASCRIPT");
         assertNotNull(apexSamplePolicyModel);
 
         apexSampleModelString = getModelString(apexSamplePolicyModel);
+
+        parameters.setPolicyModel(apexSampleModelString);
+        service = EngineServiceImpl.create(parameters);
+
+        LOGGER.debug("Running TestApexEngine. . .");
 
         // create engine
         listener = new TestListener();
