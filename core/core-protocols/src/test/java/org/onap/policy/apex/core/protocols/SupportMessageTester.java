@@ -34,7 +34,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
  */
 public class SupportMessageTester {
 
-    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testMessage() {
         assertNotNull(new DummyMessage(new DummyAction(null), new AxArtifactKey()));
@@ -43,7 +42,7 @@ public class SupportMessageTester {
         DummyMessage dummyMessage = new DummyMessage(new DummyAction(null), new AxArtifactKey("Target:0.0.1"));
         assertEquals(new DummyAction(null), dummyMessage.getAction());
         assertEquals("Message [action=org.onap.policy.apex.core.protocols.DummyAction@1f, "
-                        + "targetKey=AxArtifactKey:(name=Target,version=0.0.1), data=null]", dummyMessage.toString());
+            + "targetKey=AxArtifactKey:(name=Target,version=0.0.1), data=null]", dummyMessage.toString());
 
         dummyMessage.setMessageData("Message Data");
         assertEquals("Message Data", dummyMessage.getMessageData());

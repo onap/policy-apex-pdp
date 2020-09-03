@@ -22,10 +22,7 @@ package org.onap.policy.apex.plugins.executor.javascript;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
@@ -94,7 +91,7 @@ public class JavascriptStateFinalizerExecutorTest {
         assertThatThrownBy(() -> {
             jsfe.prepare();
         }).hasMessage("logic failed to compile for NULL:0.0.0:NULL:NULL "
-                + "with message: invalid return (NULL:0.0.0:NULL:NULL#1)");
+            + "with message: invalid return (NULL:0.0.0:NULL:NULL#1)");
 
         stateFinalizerLogic.setLogic("java.lang.String");
         jsfe.prepare();
@@ -102,10 +99,10 @@ public class JavascriptStateFinalizerExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
         stateFinalizerLogic.setLogic("if(executor.executionId==-1)" + "{\r\n"
-                + "var returnValueType = java.lang.Boolean;" + "var returnValue = new returnValueType(false); }\n"
-                + "else{\n" + "executor.setSelectedStateOutputName(\"SelectedOutputIsMe\");\n"
-                + "var returnValueType = java.lang.Boolean;\n" + "\n"
-                + "var returnValue = new returnValueType(true);} true;");
+            + "var returnValueType = java.lang.Boolean;" + "var returnValue = new returnValueType(false); }\n"
+            + "else{\n" + "executor.setSelectedStateOutputName(\"SelectedOutputIsMe\");\n"
+            + "var returnValueType = java.lang.Boolean;\n" + "\n"
+            + "var returnValue = new returnValueType(true);} true;");
 
         assertThatThrownBy(() -> {
             jsfe.prepare();

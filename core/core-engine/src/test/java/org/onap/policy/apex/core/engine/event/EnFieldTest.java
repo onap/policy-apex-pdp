@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -71,7 +70,7 @@ public class EnFieldTest {
 
         assertThatThrownBy(() -> new EnField(axField, null))
             .hasMessage("schema helper cannot be created for parameter with key \"Parent:0.0.1:MyParent:My"
-                            + "Field\" with schema \"AxArtifactKey:(name=FieldSchema,version=0.0.1)\"");
+                + "Field\" with schema \"AxArtifactKey:(name=FieldSchema,version=0.0.1)\"");
         AxContextSchema schema = new AxContextSchema(fieldSchemaKey, "Java", "java.lang.Integer");
         ModelService.getModel(AxContextSchemas.class).getSchemasMap().put(fieldSchemaKey, schema);
         EnField field = new EnField(axField, 123);
@@ -81,11 +80,11 @@ public class EnFieldTest {
         assertEquals(fieldKey, field.getKey());
         assertEquals("MyField", field.getName());
         assertEquals("org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelper",
-                        field.getSchemaHelper().getClass().getName());
+            field.getSchemaHelper().getClass().getName());
         assertEquals(123, field.getAssignableValue());
         assertEquals("EnField [axField=AxField:(key=AxReferenceKey:(parentKeyName=Parent,parentKeyVersion=0.0.1,"
-                        + "parentLocalName=MyParent,localName=MyField),fieldSchemaKey=AxArtifactKey:"
-                        + "(name=FieldSchema,version=0.0.1),optional=false), value=123]", field.toString());
+            + "parentLocalName=MyParent,localName=MyField),fieldSchemaKey=AxArtifactKey:"
+            + "(name=FieldSchema,version=0.0.1),optional=false), value=123]", field.toString());
         assertTrue(field.isAssignableValue());
 
         field = new EnField(axField, "Hello");

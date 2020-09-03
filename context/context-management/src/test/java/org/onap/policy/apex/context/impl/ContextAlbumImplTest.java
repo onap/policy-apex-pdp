@@ -57,7 +57,7 @@ public class ContextAlbumImplTest {
     public static void prepareForTest() {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters()
-                        .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
+            .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
         contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
@@ -101,25 +101,25 @@ public class ContextAlbumImplTest {
             .hasMessage("Album map may not be null");
 
         assertThatThrownBy(() -> new ContextAlbumImpl(new AxContextAlbum(), new JvmLocalDistributor(),
-                new LinkedHashMap<String, Object>()))
-            .hasMessage("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas "
-                            + "not found in model service");
+            new LinkedHashMap<String, Object>()))
+                .hasMessage("Model for org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas "
+                    + "not found in model service");
     }
 
     @Test
     public void testAlbumInterface() throws ContextException {
         AxContextSchemas schemas = new AxContextSchemas();
         AxContextSchema simpleStringSchema = new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"),
-                        "JAVA", "java.lang.String");
+            "JAVA", "java.lang.String");
         schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
         ModelService.registerModel(AxContextSchemas.class, schemas);
 
         AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                        true, AxArtifactKey.getNullKey());
+            true, AxArtifactKey.getNullKey());
 
-        assertThatThrownBy(() -> new ContextAlbumImpl(axContextAlbum, new JvmLocalDistributor(),
-                new LinkedHashMap<String, Object>()))
-            .hasMessageContaining("could not initiate schema management for context album AxContextAlbum");
+        assertThatThrownBy(
+            () -> new ContextAlbumImpl(axContextAlbum, new JvmLocalDistributor(), new LinkedHashMap<String, Object>()))
+                .hasMessageContaining("could not initiate schema management for context album AxContextAlbum");
 
         axContextAlbum.setItemSchema(simpleStringSchema.getKey());
         Distributor distributor = new JvmLocalDistributor();
@@ -146,16 +146,15 @@ public class ContextAlbumImplTest {
             .hasMessage("album \"TestContextAlbum:0.0.1\" null keys are illegal on keys for put()");
 
         assertThatThrownBy(() -> album.put("KeyNull", null))
-            .hasMessage("album \"TestContextAlbum:0.0.1\" null values are illegal on key \"KeyNull\""
-                    + " for put()");
+            .hasMessage("album \"TestContextAlbum:0.0.1\" null values are illegal on key \"KeyNull\"" + " for put()");
 
         AxContextAlbum axContextAlbumRo = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                false, simpleStringSchema.getKey());
+            false, simpleStringSchema.getKey());
         ContextAlbum albumRo = new ContextAlbumImpl(axContextAlbumRo, distributor, new LinkedHashMap<String, Object>());
 
         assertThatThrownBy(() -> albumRo.put("KeyReadOnly", "A value for a Read Only Album"))
             .hasMessage("album \"TestContextAlbum:0.0.1\" put() not allowed on read only albums "
-                            + "for key=\"KeyReadOnly\", value=\"A value for a Read Only Album");
+                + "for key=\"KeyReadOnly\", value=\"A value for a Read Only Album");
 
         Map<String, Object> putAllData = new LinkedHashMap<>();
         putAllData.put("AllKey0", "vaue of AllKey0");
@@ -165,9 +164,8 @@ public class ContextAlbumImplTest {
         assertThatThrownBy(() -> albumRo.putAll(putAllData))
             .hasMessage("album \"TestContextAlbum:0.0.1\" putAll() not allowed on read only albums");
 
-        assertThatThrownBy(() -> albumRo.remove("AllKey0"))
-            .hasMessage("album \"TestContextAlbum:0.0.1\" remove() not allowed "
-                            + "on read only albums for key=\"AllKey0\"");
+        assertThatThrownBy(() -> albumRo.remove("AllKey0")).hasMessage(
+            "album \"TestContextAlbum:0.0.1\" remove() not allowed " + "on read only albums for key=\"AllKey0\"");
 
         assertThatThrownBy(() -> album.remove(null))
             .hasMessage("null values are illegal on method parameter \"keyID\"");
@@ -175,7 +173,8 @@ public class ContextAlbumImplTest {
         assertThatThrownBy(albumRo::clear)
             .hasMessage("album \"TestContextAlbum:0.0.1\" clear() not allowed on read only albums");
 
-        // The following locking tests pass because the locking protects access to Key0 across all
+        // The following locking tests pass because the locking protects access to Key0
+        // across all
         // copies of the distributed album whether the key exists or not
         album.lockForReading("Key0");
         assertEquals(null, album.get("Key0"));
@@ -205,8 +204,7 @@ public class ContextAlbumImplTest {
         AxArtifactKey somePolicyKey = new AxArtifactKey("MyPolicy", "0.0.1");
         AxReferenceKey somePolicyState = new AxReferenceKey(somePolicyKey, "SomeState");
 
-        AxConcept[] userArtifactStack =
-            { somePolicyKey, somePolicyState };
+        AxConcept[] userArtifactStack = { somePolicyKey, somePolicyState };
         album.setUserArtifactStack(userArtifactStack);
         assertEquals("MyPolicy:0.0.1", album.getUserArtifactStack()[0].getId());
         assertEquals("MyPolicy:0.0.1:NULL:SomeState", album.getUserArtifactStack()[1].getId());
@@ -215,10 +213,10 @@ public class ContextAlbumImplTest {
         assertEquals(true, album.values().contains("value of Key0"));
         assertEquals(1, album.entrySet().size());
 
-        // The flush() operation fails because the distributor is not initialized with the album which
+        // The flush() operation fails because the distributor is not initialized with
+        // the album which
         // is fine for unit test
-        assertThatThrownBy(album::flush)
-            .hasMessage("map flush failed, supplied map is null");
+        assertThatThrownBy(album::flush).hasMessage("map flush failed, supplied map is null");
         assertEquals(1, album.size());
         assertEquals(false, album.isEmpty());
 
@@ -229,8 +227,7 @@ public class ContextAlbumImplTest {
 
         putAllData.put("AllKey3", null);
         assertThatThrownBy(() -> album.putAll(putAllData))
-            .hasMessage("album \"TestContextAlbum:0.0.1\" null values are illegal on key "
-                    + "\"AllKey3\" for put()");
+            .hasMessage("album \"TestContextAlbum:0.0.1\" null values are illegal on key " + "\"AllKey3\" for put()");
         assertEquals("New value of Key0", album.remove("Key0"));
 
         album.clear();
@@ -239,20 +236,19 @@ public class ContextAlbumImplTest {
         ModelService.clear();
     }
 
-    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testCompareToEqualsHash() throws ContextException {
         AxContextSchemas schemas = new AxContextSchemas();
         AxContextSchema simpleIntSchema = new AxContextSchema(new AxArtifactKey("SimpleIntSchema", "0.0.1"), "JAVA",
-                        "java.lang.Integer");
+            "java.lang.Integer");
         schemas.getSchemasMap().put(simpleIntSchema.getKey(), simpleIntSchema);
         AxContextSchema simpleStringSchema = new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"),
-                        "JAVA", "java.lang.String");
+            "JAVA", "java.lang.String");
         schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
         ModelService.registerModel(AxContextSchemas.class, schemas);
 
         AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                        true, AxArtifactKey.getNullKey());
+            true, AxArtifactKey.getNullKey());
 
         axContextAlbum.setItemSchema(simpleIntSchema.getKey());
         Distributor distributor = new JvmLocalDistributor();
@@ -268,7 +264,7 @@ public class ContextAlbumImplTest {
         assertNotEquals(album, new DummyContextAlbumImpl());
 
         ContextAlbumImpl otherAlbum = new ContextAlbumImpl(axContextAlbum, distributor,
-                        new LinkedHashMap<String, Object>());
+            new LinkedHashMap<String, Object>());
         assertEquals(album, otherAlbum);
 
         otherAlbum.put("Key", 123);
@@ -276,20 +272,19 @@ public class ContextAlbumImplTest {
 
         assertThatThrownBy(() -> {
             ContextAlbumImpl otherAlbumBad = new ContextAlbumImpl(axContextAlbum, distributor,
-                    new LinkedHashMap<String, Object>());
+                new LinkedHashMap<String, Object>());
             otherAlbumBad.put("Key", "BadValue");
         }).hasMessage("Failed to set context value for key \"Key\" in album \"TestContextAlbum:0.0.1\": "
-                            + "TestContextAlbum:0.0.1: object \"BadValue\" of class \"java.lang.String\" "
-                            + "not compatible with class \"java.lang.Integer\"");
+            + "TestContextAlbum:0.0.1: object \"BadValue\" of class \"java.lang.String\" "
+            + "not compatible with class \"java.lang.Integer\"");
         AxContextAlbum otherAxContextAlbum = new AxContextAlbum(new AxArtifactKey("OtherTestContextAlbum", "0.0.1"),
-                        "Policy", true, AxArtifactKey.getNullKey());
+            "Policy", true, AxArtifactKey.getNullKey());
 
         otherAxContextAlbum.setItemSchema(simpleStringSchema.getKey());
         otherAlbum = new ContextAlbumImpl(otherAxContextAlbum, distributor, new LinkedHashMap<String, Object>());
         assertNotEquals(album, otherAlbum);
 
-        assertThatThrownBy(album::flush)
-            .hasMessage("map flush failed, supplied map is null");
+        assertThatThrownBy(album::flush).hasMessage("map flush failed, supplied map is null");
         AxContextAlbums albums = new AxContextAlbums();
         ModelService.registerModel(AxContextAlbums.class, albums);
         albums.getAlbumsMap().put(axContextAlbum.getKey(), axContextAlbum);

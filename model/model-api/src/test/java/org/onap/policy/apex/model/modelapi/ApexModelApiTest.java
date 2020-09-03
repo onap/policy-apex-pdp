@@ -144,11 +144,9 @@ public class ApexModelApiTest {
     @Test
     public void testApexModelUrl() throws IOException {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
-        //ApexApiResult result = null;
-        assertThatThrownBy(() -> apexModel.readFromUrl(null))
-            .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> apexModel.writeToUrl(null, true))
-            .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> apexModel.readFromUrl(null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> apexModel.writeToUrl(null, true)).isInstanceOf(IllegalArgumentException.class);
         ApexApiResult result = null;
         result = apexModel.readFromUrl("zooby/looby");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -161,8 +159,6 @@ public class ApexModelApiTest {
 
         result = apexModel.writeToUrl("zooby://zooby/looby", false);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-
-        final ApexModel apexModelJSon = new ApexModelFactory().createApexModel(null, false);
 
         final File tempJsonModelFile = File.createTempFile("ApexModelTest", ".json");
 

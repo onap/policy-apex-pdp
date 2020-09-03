@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.basicmodel.handling;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,47 +43,47 @@ public class SupportConceptGetterTester {
         assertNotNull(basicModel);
 
         AxKeyInfo intKI01 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey01", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey01 description");
+            "IntegerKIKey01 description");
         AxKeyInfo intKI11 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey11", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey11 description");
+            "IntegerKIKey11 description");
         AxKeyInfo intKI21 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey21", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey21 description");
+            "IntegerKIKey21 description");
         AxKeyInfo intKI22 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey22", "0.0.2"), UUID.randomUUID(),
-                        "IntegerKIKey22 description");
+            "IntegerKIKey22 description");
         AxKeyInfo intKI23 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey23", "0.0.3"), UUID.randomUUID(),
-                        "IntegerKIKey23 description");
+            "IntegerKIKey23 description");
         AxKeyInfo intKI24 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey24", "0.0.4"), UUID.randomUUID(),
-                        "IntegerKIKey24 description");
+            "IntegerKIKey24 description");
         AxKeyInfo intKI25 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey25", "0.0.5"), UUID.randomUUID(),
-                        "IntegerKIKey25 description");
+            "IntegerKIKey25 description");
         AxKeyInfo intKI26 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey26", "0.0.6"), UUID.randomUUID(),
-                        "IntegerKIKey26 description");
+            "IntegerKIKey26 description");
         AxKeyInfo intKI31 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey31", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey31 description");
+            "IntegerKIKey31 description");
         AxKeyInfo intKI41 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey41", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey41 description");
+            "IntegerKIKey41 description");
         AxKeyInfo intKI51 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey51", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey51 description");
+            "IntegerKIKey51 description");
         AxKeyInfo intKI52 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey52", "0.0.2"), UUID.randomUUID(),
-                        "IntegerKIKey52 description");
+            "IntegerKIKey52 description");
         AxKeyInfo intKI53 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey53", "0.0.3"), UUID.randomUUID(),
-                        "IntegerKIKey53 description");
+            "IntegerKIKey53 description");
         AxKeyInfo intKI54 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey54", "0.0.4"), UUID.randomUUID(),
-                        "IntegerKIKey54 description");
+            "IntegerKIKey54 description");
         AxKeyInfo intKI61 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey61", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey61 description");
+            "IntegerKIKey61 description");
         AxKeyInfo intKI62 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey62", "0.0.2"), UUID.randomUUID(),
-                        "IntegerKIKey62 description");
+            "IntegerKIKey62 description");
         AxKeyInfo intKI63 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey63", "0.0.3"), UUID.randomUUID(),
-                        "IntegerKIKey63 description");
+            "IntegerKIKey63 description");
         AxKeyInfo intKI64 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey64", "0.0.4"), UUID.randomUUID(),
-                        "IntegerKIKey64 description");
+            "IntegerKIKey64 description");
         AxKeyInfo intKI71 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey71", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey71 description");
+            "IntegerKIKey71 description");
         AxKeyInfo intKI81 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey81", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey81 description");
+            "IntegerKIKey81 description");
         AxKeyInfo intKI91 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey91", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey91 description");
+            "IntegerKIKey91 description");
         basicModel.getKeyInformation().getKeyInfoMap().put(intKI31.getKey(), intKI31);
         basicModel.getKeyInformation().getKeyInfoMap().put(intKI24.getKey(), intKI24);
         basicModel.getKeyInformation().getKeyInfoMap().put(intKI11.getKey(), intKI11);
@@ -108,33 +107,33 @@ public class SupportConceptGetterTester {
         basicModel.getKeyInformation().getKeyInfoMap().put(intKI63.getKey(), intKI63);
 
         AxKeyInfo floatKI01 = new AxKeyInfo(new AxArtifactKey("FloatKIKey01", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey01 description");
+            "IntegerKIKey01 description");
         AxKeyInfo floatKI11 = new AxKeyInfo(new AxArtifactKey("FloatKIKey11", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey11 description");
+            "IntegerKIKey11 description");
         AxKeyInfo floatKI21 = new AxKeyInfo(new AxArtifactKey("FloatKIKey21", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey21 description");
+            "IntegerKIKey21 description");
         AxKeyInfo floatKI31 = new AxKeyInfo(new AxArtifactKey("FloatKIKey31", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey31 description");
+            "IntegerKIKey31 description");
         AxKeyInfo floatKI41 = new AxKeyInfo(new AxArtifactKey("FloatKIKey41", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey41 description");
+            "IntegerKIKey41 description");
         AxKeyInfo floatKI51 = new AxKeyInfo(new AxArtifactKey("FloatKIKey51", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey51 description");
+            "IntegerKIKey51 description");
         AxKeyInfo floatKI61 = new AxKeyInfo(new AxArtifactKey("FloatKIKey61", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey61 description");
+            "IntegerKIKey61 description");
         AxKeyInfo floatKI71 = new AxKeyInfo(new AxArtifactKey("FloatKIKey71", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey71 description");
+            "IntegerKIKey71 description");
         AxKeyInfo floatKI81 = new AxKeyInfo(new AxArtifactKey("FloatKIKey81", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey81 description");
+            "IntegerKIKey81 description");
         AxKeyInfo floatKI82 = new AxKeyInfo(new AxArtifactKey("FloatKIKey82", "0.0.2"), UUID.randomUUID(),
-                        "IntegerKIKey82 description");
+            "IntegerKIKey82 description");
         AxKeyInfo floatKI83 = new AxKeyInfo(new AxArtifactKey("FloatKIKey83", "0.0.3"), UUID.randomUUID(),
-                        "IntegerKIKey83 description");
+            "IntegerKIKey83 description");
         AxKeyInfo floatKI91 = new AxKeyInfo(new AxArtifactKey("FloatKIKey91", "0.0.1"), UUID.randomUUID(),
-                        "IntegerKIKey91 description");
+            "IntegerKIKey91 description");
         AxKeyInfo floatKI92 = new AxKeyInfo(new AxArtifactKey("FloatKIKey92", "0.0.2"), UUID.randomUUID(),
-                        "IntegerKIKey92 description");
+            "IntegerKIKey92 description");
         AxKeyInfo floatKI93 = new AxKeyInfo(new AxArtifactKey("FloatKIKey93", "0.0.3"), UUID.randomUUID(),
-                        "IntegerKIKey93 description");
+            "IntegerKIKey93 description");
         basicModel.getKeyInformation().getKeyInfoMap().put(floatKI11.getKey(), floatKI11);
         basicModel.getKeyInformation().getKeyInfoMap().put(floatKI83.getKey(), floatKI83);
         basicModel.getKeyInformation().getKeyInfoMap().put(floatKI51.getKey(), floatKI51);

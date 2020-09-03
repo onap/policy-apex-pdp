@@ -22,7 +22,6 @@ package org.onap.policy.apex.plugins.executor.javascript;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Properties;
@@ -83,9 +82,6 @@ public class JavascriptTaskSelectExecutorTest {
             jtse.prepare();
         }).hasMessage("no logic specified for NULL:0.0.0:NULL:NULL");
 
-        AxEvent axEvent1 = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
-        EnEvent event1 = new EnEvent(axEvent1);
-
         state.getTaskSelectionLogic().setLogic("java.lang.String");
         jtse.prepare();
 
@@ -99,7 +95,7 @@ public class JavascriptTaskSelectExecutorTest {
         assertThatThrownBy(() -> {
             jtse.execute(-1, new Properties(), event);
         }).hasMessage(
-                "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
+            "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
 
         state.getTaskSelectionLogic().setLogic("var x=1;\n" + "false; ");
 

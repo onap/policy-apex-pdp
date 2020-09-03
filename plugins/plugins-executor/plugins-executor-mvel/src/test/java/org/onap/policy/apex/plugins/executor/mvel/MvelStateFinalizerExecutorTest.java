@@ -47,17 +47,12 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
 import org.onap.policy.common.parameters.ParameterService;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
 
 /**
  * Test the MvelStateFinalizerExecutor class.
  *
  */
 public class MvelStateFinalizerExecutorTest {
-
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(MvelStateFinalizerExecutorTest.class);
-
     /**
      * Initiate Parameters.
      */
@@ -85,8 +80,7 @@ public class MvelStateFinalizerExecutorTest {
         MvelStateFinalizerExecutor msfe = new MvelStateFinalizerExecutor();
         assertNotNull(msfe);
 
-        assertThatThrownBy(msfe::prepare)
-            .isInstanceOf(java.lang.NullPointerException.class);
+        assertThatThrownBy(msfe::prepare).isInstanceOf(java.lang.NullPointerException.class);
         ApexInternalContext internalContext = null;
         internalContext = new ApexInternalContext(new AxPolicyModel());
 
@@ -100,8 +94,7 @@ public class MvelStateFinalizerExecutorTest {
         msfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
 
         stateFinalizerLogic.setLogic("x > 1 2 ()");
-        assertThatThrownBy(msfe::prepare)
-            .hasMessage("failed to compile MVEL code for state NULL:0.0.0:NULL:NULL");
+        assertThatThrownBy(msfe::prepare).hasMessage("failed to compile MVEL code for state NULL:0.0.0:NULL:NULL");
         stateFinalizerLogic.setLogic("java.lang.String");
 
         msfe.prepare();
@@ -117,9 +110,9 @@ public class MvelStateFinalizerExecutorTest {
         assertThatThrownBy(() -> msfe.execute(-1, new Properties(), event))
             .hasMessage("execute-post: state finalizer logic execution failure on state \"NULL:0.0.0:"
                 + "NULL:NULL\" on finalizer logic NULL:0.0.0:NULL:NULL");
-        stateFinalizerLogic.setLogic(
-                "if (executionId == -1) {return false;}setSelectedStateOutputName(\"SelectedOutputIsMe\");"
-                        + "return true;");
+        stateFinalizerLogic
+            .setLogic("if (executionId == -1) {return false;}setSelectedStateOutputName(\"SelectedOutputIsMe\");"
+                + "return true;");
         state.getStateOutputs().put("SelectedOutputIsMe", null);
 
         msfe.prepare();
