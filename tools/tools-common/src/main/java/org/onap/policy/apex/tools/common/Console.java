@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StrBuilder;
 import org.slf4j.ext.XLoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 
@@ -188,7 +188,7 @@ public final class Console {
             return;
         }
 
-        final StrBuilder err = new StrBuilder();
+        final StringBuilder err = new StringBuilder();
         if (appName != null) {
             err.append(this.getAppName()).append(": ");
         }
@@ -196,10 +196,10 @@ public final class Console {
         err.append(MessageFormatter.arrayFormat(message, objects).getMessage());
 
         if ((types & TYPE_ERROR) == TYPE_ERROR) {
-            ERR_STREAM.println(err.build());
+            ERR_STREAM.println(err.toString());
         }
         if ((configuration & CONFIG_COLLECT_ERRORS) == CONFIG_COLLECT_ERRORS) {
-            errors.add(err.build());
+            errors.add(err.toString());
         }
     }
 
@@ -217,7 +217,7 @@ public final class Console {
             return;
         }
 
-        final StrBuilder warn = new StrBuilder();
+        final StringBuilder warn = new StringBuilder();
         if (appName != null) {
             warn.append(this.getAppName()).append(": ");
         }
@@ -225,10 +225,10 @@ public final class Console {
         warn.append(MessageFormatter.arrayFormat(message, objects).getMessage());
 
         if ((types & TYPE_WARNING) == TYPE_WARNING) {
-            ERR_STREAM.println(warn.build());
+            ERR_STREAM.println(warn.toString());
         }
         if ((configuration & CONFIG_COLLECT_WARNINGS) == CONFIG_COLLECT_WARNINGS) {
-            warnings.add(warn.build());
+            warnings.add(warn.toString());
         }
     }
 

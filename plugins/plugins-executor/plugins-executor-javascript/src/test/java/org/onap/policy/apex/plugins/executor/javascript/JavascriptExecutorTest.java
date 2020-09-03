@@ -33,7 +33,7 @@ public class JavascriptExecutorTest {
     public void testReturnOK() throws StateMachineException {
         JavascriptExecutor executor = new JavascriptExecutor(
             new AxArtifactKey("TestTask:0.0.1"), "true;");
-        assertThatCode(() -> executor.execute(new Object()));
+        assertThatCode(() -> executor.execute(new Object())).doesNotThrowAnyException();
     }
 
     @Test
