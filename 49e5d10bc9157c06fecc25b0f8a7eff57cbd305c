@@ -39,6 +39,24 @@
       "revId": "49e5d10bc9157c06fecc25b0f8a7eff57cbd305c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574b1a80_ad2f653c",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/Console.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-03T14:46:49Z",
+      "side": 1,
+      "message": "still wondering :-)",
+      "parentUuid": "236f36ae_93b52e85",
+      "revId": "49e5d10bc9157c06fecc25b0f8a7eff57cbd305c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
