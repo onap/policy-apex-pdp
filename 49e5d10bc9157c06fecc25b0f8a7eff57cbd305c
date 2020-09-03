@@ -93,6 +93,24 @@
       "revId": "49e5d10bc9157c06fecc25b0f8a7eff57cbd305c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef51ad66_b58bacc3",
+        "filename": "tools/tools-common/src/main/java/org/onap/policy/apex/tools/common/Console.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2020-09-03T15:03:50Z",
+      "side": 1,
+      "message": "I can it to java.util.StringBuilder if that is preferred?",
+      "parentUuid": "eb2f69eb_ca1ede4d",
+      "revId": "49e5d10bc9157c06fecc25b0f8a7eff57cbd305c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
