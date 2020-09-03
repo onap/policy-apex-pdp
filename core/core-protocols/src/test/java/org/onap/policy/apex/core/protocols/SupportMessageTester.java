@@ -66,7 +66,7 @@ public class SupportMessageTester {
         // disabling sonar because this code tests the equals() method
         assertEquals(dummyMessage, dummyMessage); // NOSONAR
         assertNotNull(dummyMessage);
-        assertNotEquals(dummyMessage, new StartEngine(new AxArtifactKey()));
+        assertNotEquals(dummyMessage, (Object) new StartEngine(new AxArtifactKey()));
 
         dummyMessage = new DummyMessage(new DummyAction(null), null, null);
         DummyMessage otherDummyMessage = new DummyMessage(null, null, null);

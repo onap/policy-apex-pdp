@@ -75,7 +75,7 @@ public class ResponseTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(message, message); // NOSONAR
         assertNotNull(message);
-        assertNotEquals(message, new StartEngine(new AxArtifactKey()));
+        assertNotEquals(message, (Object) new StartEngine(new AxArtifactKey()));
 
         message = new Response(null, false, responseTo);
         Response otherMessage = new Response(null, false, null);
