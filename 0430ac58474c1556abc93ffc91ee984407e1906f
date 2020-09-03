@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8541857_be7482a1",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-09-03T12:48:25Z",
+      "side": 1,
+      "message": "1.9 is the latest version - please check for outstanding cve/sonatype issues.",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "0430ac58474c1556abc93ffc91ee984407e1906f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
