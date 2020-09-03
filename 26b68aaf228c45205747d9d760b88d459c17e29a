@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5503873b_84068707",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5307
+      },
+      "writtenOn": "2020-09-03T01:33:50Z",
+      "side": 1,
+      "message": "Yes, you are right. This is where the bug is. The valueObject is defined as a string in the system. But the system simply force to add a double quatation mark on valueObject no matter what it is. Often, the valueObject is a JsonObject, after the adding, it become a JsonPrimitive. So we have to delete it and return the string back. So now, it is a not a valid json and the decode do not work.\n\nExample: JsonPrimitive: \"\"{\\r\\n \\\"example\\\": example}\"\"",
+      "parentUuid": "46ea5378_47015e6d",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "26b68aaf228c45205747d9d760b88d459c17e29a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3888fe58_17f54b67",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 1
