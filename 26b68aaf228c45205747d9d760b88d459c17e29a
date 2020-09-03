@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "ce5de556_f89416fe",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-03T12:57:02Z",
+      "side": 1,
+      "message": "right, so don\u0027t remove the enclosing quotes first - just replace all of lines 94-97 with the code I showed above.",
+      "parentUuid": "5503873b_84068707",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "26b68aaf228c45205747d9d760b88d459c17e29a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3888fe58_17f54b67",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 1
