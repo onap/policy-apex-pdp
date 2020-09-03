@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25485d97_9dea9b05",
+        "filename": "model/model-api/src/test/java/org/onap/policy/apex/model/modelapi/ApexModelApiTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-09-03T12:51:03Z",
+      "side": 1,
+      "message": "commented out code???",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 39
+      },
+      "revId": "d7a218f6db44b94dc3357b596195bf936796a83e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
