@@ -47,7 +47,6 @@ public class ResponseTest {
      *
      * @throws UnknownHostException the unknown host exception
      */
-    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testResponse() throws UnknownHostException {
         final AxArtifactKey responseKey = new AxArtifactKey("ResponseTest", "0.0.1");

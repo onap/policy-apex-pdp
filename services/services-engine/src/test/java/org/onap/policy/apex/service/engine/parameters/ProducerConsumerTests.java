@@ -24,7 +24,6 @@ package org.onap.policy.apex.service.engine.parameters;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
@@ -41,7 +40,7 @@ import org.onap.policy.common.parameters.ParameterException;
 public class ProducerConsumerTests {
     @Test
     public void testGoodParametersTest() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/goodParams.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/goodParams.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
@@ -51,35 +50,34 @@ public class ProducerConsumerTests {
         assertEquals(45, parameters.getEngineServiceParameters().getId());
         assertEquals(19, parameters.getEngineServiceParameters().getInstanceCount());
         assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
-        assertEquals("FILE", parameters.getEventOutputParameters().get("FirstProducer")
-                .getCarrierTechnologyParameters().getLabel());
+        assertEquals("FILE",
+            parameters.getEventOutputParameters().get("FirstProducer").getCarrierTechnologyParameters().getLabel());
         assertEquals("JSON",
-                parameters.getEventOutputParameters().get("FirstProducer").getEventProtocolParameters().getLabel());
-        assertEquals("FILE", parameters.getEventOutputParameters().get("MyOtherProducer")
-                .getCarrierTechnologyParameters().getLabel());
-        assertEquals("JSON", parameters.getEventOutputParameters().get("MyOtherProducer")
-                .getEventProtocolParameters().getLabel());
-        assertEquals("FILE", parameters.getEventInputParameters().get("TheFileConsumer1")
-                .getCarrierTechnologyParameters().getLabel());
-        assertEquals("JSON", parameters.getEventInputParameters().get("TheFileConsumer1")
-                .getEventProtocolParameters().getLabel());
+            parameters.getEventOutputParameters().get("FirstProducer").getEventProtocolParameters().getLabel());
+        assertEquals("FILE",
+            parameters.getEventOutputParameters().get("MyOtherProducer").getCarrierTechnologyParameters().getLabel());
+        assertEquals("JSON",
+            parameters.getEventOutputParameters().get("MyOtherProducer").getEventProtocolParameters().getLabel());
+        assertEquals("FILE",
+            parameters.getEventInputParameters().get("TheFileConsumer1").getCarrierTechnologyParameters().getLabel());
+        assertEquals("JSON",
+            parameters.getEventInputParameters().get("TheFileConsumer1").getEventProtocolParameters().getLabel());
         assertEquals("SUPER_DOOPER", parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                .getCarrierTechnologyParameters().getLabel());
-        assertEquals("SUPER_TOK_DEL", parameters.getEventInputParameters().get("MySuperDooperConsumer1")
-                .getEventProtocolParameters().getLabel());
+            .getCarrierTechnologyParameters().getLabel());
+        assertEquals("SUPER_TOK_DEL",
+            parameters.getEventInputParameters().get("MySuperDooperConsumer1").getEventProtocolParameters().getLabel());
     }
 
     @Test
     public void testNoCarrierTechnology() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsNoCT.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoCT.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
             .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/prodConsNoCT.json\"\n"
                 + "parameter group \"APEX_PARAMETERS\" type "
                 + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
+                + "parameter group has status INVALID\n" + "  parameter group map \"eventInputParameters\" INVALID, "
                 + "parameter group map has status INVALID\n" + "    parameter group \"aConsumer\" type "
                 + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
                 + " parameter group has status INVALID\n" + "      parameter group \"UNDEFINED\" INVALID, "
@@ -88,15 +86,14 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoEventProcol() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsNoEP.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoEP.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
             .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/prodConsNoEP.json\"\n"
                 + "parameter group \"APEX_PARAMETERS\" type "
                 + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
+                + "parameter group has status INVALID\n" + "  parameter group map \"eventOutputParameters\" INVALID, "
                 + "parameter group map has status INVALID\n" + "    parameter group \"aProducer\" type "
                 + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
                 + ", parameter group has status INVALID\n" + "      parameter group \"UNDEFINED\" INVALID, "
@@ -114,7 +111,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoCarrierTechnologyParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsNoCTParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoCTParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -125,27 +122,24 @@ public class ProducerConsumerTests {
 
     @Test
     public void testMismatchCarrierTechnologyParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsMismatchCTParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsMismatchCTParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("error reading parameters from "
-                + "\"src/test/resources/parameters/prodConsMismatchCTParClass.json\"\n"
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
+            "error reading parameters from " + "\"src/test/resources/parameters/prodConsMismatchCTParClass.json\"\n"
                 + "(ParameterRuntimeException):carrier technology \"SUPER_LOOPER\" "
                 + "does not match plugin \"SUPER_DOOPER\" in \"" + "org.onap.policy.apex.service.engine."
                 + "parameters.dummyclasses.SuperDooperCarrierTechnologyParameters"
-                + "\", specify correct carrier technology parameter plugin "
-                + "in parameter \"parameterClassName\"");
+                + "\", specify correct carrier technology parameter plugin " + "in parameter \"parameterClassName\"");
     }
 
     @Test
     public void testWrongTypeCarrierTechnologyParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("error reading parameters from "
-                + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
+            "error reading parameters from " + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
                 + "(ParameterRuntimeException):could not create default parameters for carrier technology "
                 + "\"SUPER_DOOPER\"\n" + "class org.onap.policy.apex.service.engine.parameters.dummyclasses."
                 + "SuperTokenDelimitedEventProtocolParameters cannot be cast to class "
@@ -157,12 +151,12 @@ public class ProducerConsumerTests {
 
     @Test
     public void testOkFileNameCarrierTechnology() throws ParameterException {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsOKFileName.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsOKFileName.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
         final FileCarrierTechnologyParameters fileParams = (FileCarrierTechnologyParameters) parameters
-                .getEventOutputParameters().get("aProducer").getCarrierTechnologyParameters();
+            .getEventOutputParameters().get("aProducer").getCarrierTechnologyParameters();
         assertTrue(fileParams.getFileName().endsWith("target/aaa.json"));
         assertEquals(false, fileParams.isStandardError());
         assertEquals(false, fileParams.isStandardIo());
@@ -172,16 +166,14 @@ public class ProducerConsumerTests {
 
     @Test
     public void testBadFileNameCarrierTechnology() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsBadFileName.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsBadFileName.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/prodConsBadFileName.json\"\n"
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
+            "validation error(s) on parameters from " + "\"src/test/resources/parameters/prodConsBadFileName.json\"\n"
                 + "parameter group \"APEX_PARAMETERS\" type "
                 + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
+                + "parameter group has status INVALID\n" + "  parameter group map \"eventOutputParameters\" INVALID, "
                 + "parameter group map has status INVALID\n" + "    parameter group \"aProducer\" type "
                 + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
                 + "INVALID, parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
@@ -194,7 +186,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testBadEventProtocolParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsBadEPParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsBadEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -207,7 +199,7 @@ public class ProducerConsumerTests {
 
     @Test
     public void testNoEventProtocolParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsNoEPParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsNoEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
@@ -218,12 +210,11 @@ public class ProducerConsumerTests {
 
     @Test
     public void testMismatchEventProtocolParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsMismatchEPParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsMismatchEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("error reading parameters from "
-                + "\"src/test/resources/parameters/prodConsMismatchEPParClass.json\"\n"
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
+            "error reading parameters from " + "\"src/test/resources/parameters/prodConsMismatchEPParClass.json\"\n"
                 + "(ParameterRuntimeException):event protocol \"SUPER_TOK_BEL\" "
                 + "does not match plugin \"SUPER_TOK_DEL\" in "
                 + "\"org.onap.policy.apex.service.engine.parameters.dummyclasses."
@@ -233,12 +224,11 @@ public class ProducerConsumerTests {
 
     @Test
     public void testWrongTypeEventProtocolParClass() {
-        final String[] args = {"-c", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json"};
+        final String[] args = { "-c", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json" };
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("error reading parameters from "
-                + "\"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n"
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
+            "error reading parameters from " + "\"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n"
                 + "(ParameterRuntimeException):could not create default parameters for event protocol "
                 + "\"SUPER_TOK_DEL\"\n" + "class org.onap.policy.apex.service.engine."
                 + "parameters.dummyclasses.SuperDooperCarrierTechnologyParameters "

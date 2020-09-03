@@ -57,9 +57,6 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
  */
 public class ContextUpdate {
-    // Recurring string constants.
-    private static final String NORMAL_TEST_EXCEPTION = "normal test exception";
-
     private static final String ZERO = "zero";
     private static final String NUMBER_ZERO = "0";
     // Logger for this class

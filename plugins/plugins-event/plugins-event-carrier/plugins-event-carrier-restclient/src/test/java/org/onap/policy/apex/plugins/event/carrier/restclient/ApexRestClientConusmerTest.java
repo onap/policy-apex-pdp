@@ -26,7 +26,6 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -78,8 +77,8 @@ public class ApexRestClientConusmerTest {
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
         SupportApexEventReceiver incomingEventReceiver = new SupportApexEventReceiver();
         assertThatThrownBy(() -> arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver))
-            .hasMessageContaining("specified consumer properties are not applicable to REST client"
-                + " consumer (RestClientConsumer)");
+            .hasMessageContaining(
+                "specified consumer properties are not applicable to REST client" + " consumer (RestClientConsumer)");
 
         RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rcctp);
@@ -87,7 +86,7 @@ public class ApexRestClientConusmerTest {
         assertThatThrownBy(() -> {
             arcc.init("RestClientConsumer", consumerParameters, incomingEventReceiver);
         }).hasMessageContaining("specified HTTP method of \"DELETE\" is invalid, only HTTP method \"GET\" is "
-                    + "supported for event reception on REST client consumer (RestClientConsumer)");
+            + "supported for event reception on REST client consumer (RestClientConsumer)");
 
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.DELETE, rcctp.getHttpMethod());
         rcctp.setHttpMethod(null);

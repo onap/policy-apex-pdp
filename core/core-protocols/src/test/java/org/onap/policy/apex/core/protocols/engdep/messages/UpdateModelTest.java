@@ -49,7 +49,6 @@ public class UpdateModelTest {
      *
      * @throws UnknownHostException the unknown host exception
      */
-    @SuppressWarnings("unlikely-arg-type")
     @Test
     public void testRegisterEntity() throws UnknownHostException {
         assertNotNull(new UpdateModel(new AxArtifactKey()));

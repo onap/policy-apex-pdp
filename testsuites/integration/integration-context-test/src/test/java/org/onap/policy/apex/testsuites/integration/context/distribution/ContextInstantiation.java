@@ -26,10 +26,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.onap.policy.apex.testsuites.integration.context.factory.TestContextAlbumFactory.createPolicyContextModel;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.BYTE_VAL;
-import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.EXCEPTION_MESSAGE;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.EXTERNAL_CONTEXT;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.EXTERNAL_CONTEXT_ALBUM;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.FLOAT_VAL;
@@ -87,7 +85,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * The Class TestContextInstantiation is used to test Apex context insitiation is correct.
+ * The Class TestContextInstantiation is used to test Apex context insitiation
+ * is correct.
  *
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
  */
@@ -102,9 +101,7 @@ public class ContextInstantiation {
     private static final String TEST_POLICY_CONTEXT_ITEM003 = "TestPolicyContextItem003";
     private static final String TEST_POLICY_CONTEXT_ITEM002 = "TestPolicyContextItem002";
     private static final String TEST_POLICY_CONTEXT_ITEM001 = "TestPolicyContextItem001";
-    private static final String NORMAL_TEST_EXCEPTION = "normal test exception";
-    private static final String NULL_VALUES_ILLEGAL_TAG =
-            "album \"ExternalContextAlbum:0.0.1\" null values are illegal on key ";
+    private static final String NULL_ILLEGAL = "album \"ExternalContextAlbum:0.0.1\" null values are illegal on key ";
 
     private static final TreeSet<String> TEST_TREE_SET = new TreeSet<>();
     private static final Map<String, String> TEST_HASH_MAP = new HashMap<>();
@@ -134,8 +131,8 @@ public class ContextInstantiation {
 
         final Distributor contextDistributor = getDistributor();
 
-        final ContextAlbum policyContextAlbum =
-                contextDistributor.createContextAlbum(new AxArtifactKey(POLICY_CONTEXT_ALBUM, VERSION));
+        final ContextAlbum policyContextAlbum = contextDistributor
+            .createContextAlbum(new AxArtifactKey(POLICY_CONTEXT_ALBUM, VERSION));
 
         assertNotNull(policyContextAlbum);
         policyContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
@@ -152,8 +149,8 @@ public class ContextInstantiation {
 
         policyContextAlbum.putAll(valueMap0);
 
-        final TestPolicyContextItem contextItem =
-                (TestPolicyContextItem) policyContextAlbum.get(TEST_POLICY_CONTEXT_ITEM);
+        final TestPolicyContextItem contextItem = (TestPolicyContextItem) policyContextAlbum
+            .get(TEST_POLICY_CONTEXT_ITEM);
         assertEquals(STRING_VAL, contextItem.getTestPolicyContextItem000().getStringValue());
 
         assertEquals(LONG_VAL, contextItem.getTestPolicyContextItem001().getLongValue());
@@ -171,8 +168,8 @@ public class ContextInstantiation {
 
         globalContextAlbum.putAll(valueMap1);
 
-        final TestGlobalContextItem globalContextItem =
-                (TestGlobalContextItem) globalContextAlbum.get(GLOBAL_CONTEXT_KEY);
+        final TestGlobalContextItem globalContextItem = (TestGlobalContextItem) globalContextAlbum
+            .get(GLOBAL_CONTEXT_KEY);
 
         assertFalse(globalContextItem.getTestGlobalContextItem000().isFlag());
 
@@ -188,10 +185,10 @@ public class ContextInstantiation {
         assertEquals((Long) testDate.getTime(), globalContextItem.getTestGlobalContextItem007().getLongValue());
         assertEquals(testDate, globalContextItem.getTestGlobalContextItem008().getDateValue());
         assertEquals(tci9.getDateValue().getTime(),
-                globalContextItem.getTestGlobalContextItem009().getDateValue().getTime());
+            globalContextItem.getTestGlobalContextItem009().getDateValue().getTime());
 
         assertEquals(tciA.getDateValue().getTime(),
-                globalContextItem.getTestGlobalContextItem00A().getDateValue().getTime());
+            globalContextItem.getTestGlobalContextItem00A().getDateValue().getTime());
 
         assertEquals(TEST_TREE_SET, globalContextItem.getTestGlobalContextItem00B().getSetValue());
         assertEquals(TEST_HASH_MAP, globalContextItem.getTestGlobalContextItem00C().getMapValue());
@@ -217,8 +214,8 @@ public class ContextInstantiation {
         externalContextAlbum.putAll(valueMap2);
         externalContextAlbum.getAlbumDefinition().setWritable(false);
 
-        TestExternalContextItem externalContextItem =
-                (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
+        TestExternalContextItem externalContextItem = (TestExternalContextItem) externalContextAlbum
+            .get(EXTERNAL_CONTEXT);
 
         assertFalse(externalContextItem.getTestExternalContextItem000().isFlag());
         assertEquals(BYTE_VAL, externalContextItem.getTestExternalContextItem001().getByteValue());
@@ -232,10 +229,10 @@ public class ContextInstantiation {
         assertEquals((Long) testDate.getTime(), externalContextItem.getTestExternalContextItem007().getLongValue());
         assertEquals(testDate, externalContextItem.getTestExternalContextItem008().getDateValue());
         assertEquals(tci9A.getDateValue().getTime(),
-                externalContextItem.getTestExternalContextItem009().getDateValue().getTime());
+            externalContextItem.getTestExternalContextItem009().getDateValue().getTime());
 
         assertEquals(tciAa.getDateValue().getTime(),
-                externalContextItem.getTestExternalContextItem00A().getDateValue().getTime());
+            externalContextItem.getTestExternalContextItem00A().getDateValue().getTime());
         assertEquals(TEST_TREE_SET, externalContextItem.getTestExternalContextItem00B().getSetValue());
         assertEquals(TEST_HASH_MAP, externalContextItem.getTestExternalContextItem00C().getMapValue());
 
@@ -261,7 +258,7 @@ public class ContextInstantiation {
         assertThatThrownBy(() -> externalContextAlbum.put(null, null))
             .hasMessageContaining("album \"ExternalContextAlbum:0.0.1\" null keys are illegal on keys for put()");
         assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItem00A", null))
-            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()");
+            .hasMessageContaining(NULL_ILLEGAL + "\"TestExternalContextItem00A\" for put()");
         assertEquals(tciAa, externalContextItem.getTestExternalContextItem00A());
 
         // Should return the hash set
@@ -284,16 +281,16 @@ public class ContextInstantiation {
         externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
         assertEquals(INT_VAL_3, externalContextItem.getTestExternalContextItem002().getIntValue());
         assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItem00A", null))
-            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItem00A\" for put()");
+            .hasMessageContaining(NULL_ILLEGAL + "\"TestExternalContextItem00A\" for put()");
 
         assertTrue(externalContextAlbum.get(EXTERNAL_CONTEXT).equals(externalContext));
 
         assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItemFFF", null))
-            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()");
+            .hasMessageContaining(NULL_ILLEGAL + "\"TestExternalContextItemFFF\" for put()");
         assertEquals(1, externalContextAlbum.size());
 
         assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItemFFF", null))
-            .hasMessageContaining(NULL_VALUES_ILLEGAL_TAG + "\"TestExternalContextItemFFF\" for put()");
+            .hasMessageContaining(NULL_ILLEGAL + "\"TestExternalContextItemFFF\" for put()");
         assertEquals(1, externalContextAlbum.size());
 
         // Should ignore remove
@@ -306,7 +303,7 @@ public class ContextInstantiation {
     }
 
     private void assertContextAlbumContains(final TestExternalContextItem externalContext,
-            final ContextAlbum externalContextAlbum) {
+        final ContextAlbum externalContextAlbum) {
         assertThatThrownBy(() -> externalContextAlbum.containsKey(null))
             .hasMessageContaining("null values are illegal on method parameter \"key\"");
         assertTrue(externalContextAlbum.containsKey(EXTERNAL_CONTEXT));
@@ -319,15 +316,15 @@ public class ContextInstantiation {
     }
 
     private ContextAlbum getContextAlbum(final Distributor contextDistributor) throws ContextException {
-        final ContextAlbum globalContextAlbum =
-                contextDistributor.createContextAlbum(new AxArtifactKey(GLOBAL_CONTEXT_ALBUM, VERSION));
+        final ContextAlbum globalContextAlbum = contextDistributor
+            .createContextAlbum(new AxArtifactKey(GLOBAL_CONTEXT_ALBUM, VERSION));
         assertNotNull(globalContextAlbum);
         globalContextAlbum.setUserArtifactStack(Constants.getAxArtifactKeyArray());
         return globalContextAlbum;
     }
 
     private TestGlobalContextItem getTestGlobalContextItem(final Distributor contextDistributor, final Date testDate,
-            final TestContextDateTzItem tci9, final TestContextDateLocaleItem tciA) throws ContextException {
+        final TestContextDateTzItem tci9, final TestContextDateLocaleItem tciA) throws ContextException {
         final AxContextModel globalContextModel = TestContextAlbumFactory.createGlobalContextModel();
         final TestGlobalContextItem globalContext = getTestGlobalContextItem(testDate, tci9, tciA);
         contextDistributor.registerModel(globalContextModel);
@@ -335,7 +332,7 @@ public class ContextInstantiation {
     }
 
     private TestGlobalContextItem getTestGlobalContextItem(final Date testDate, final TestContextDateTzItem tci9,
-            final TestContextDateLocaleItem tciA) {
+        final TestContextDateLocaleItem tciA) {
         final TestGlobalContextItem globalContext = new TestGlobalContextItem();
 
         final TestContextBooleanItem testGlobalContextItem000 = new TestContextBooleanItem(false);
@@ -399,13 +396,13 @@ public class ContextInstantiation {
     }
 
     private void assertPutMethods(final ContextAlbum policyContextAlbum, final TestContextStringItem contextStringItem,
-            final Map<String, Object> valueMapA) {
+        final Map<String, Object> valueMapA) {
         assertThatThrownBy(() -> policyContextAlbum.put(TEST_POLICY_CONTEXT_ITEM000, contextStringItem))
             .hasMessageContaining(getMessage(TEST_POLICY_CONTEXT_ITEM000, "TestContextItem006",
-                    TestContextStringItem.class.getName(), "stringValue=" + STRING_VAL));
+                TestContextStringItem.class.getName(), "stringValue=" + STRING_VAL));
         assertThatThrownBy(() -> policyContextAlbum.putAll(valueMapA))
             .hasMessageContaining(getMessage(TEST_POLICY_CONTEXT_ITEM001, "TestContextItem003",
-                    TestContextLongItem.class.getName(), "longValue=" + INT_VAL_3));
+                TestContextLongItem.class.getName(), "longValue=" + INT_VAL_3));
     }
 
     private AxContextModel getAxContextModel() {
@@ -437,7 +434,7 @@ public class ContextInstantiation {
     }
 
     private TestExternalContextItem getTestExternalContextItem(final Date testDate, final TestContextDateTzItem tci9A,
-            final TestContextDateLocaleItem tciAa) {
+        final TestContextDateLocaleItem tciAa) {
         final TestExternalContextItem externalContext = new TestExternalContextItem();
 
         final TestContextBooleanItem testExternalContextItem000 = new TestContextBooleanItem(false);
@@ -473,10 +470,10 @@ public class ContextInstantiation {
     }
 
     private String getMessage(final String key, final String objName, final String clazzName, final String valString,
-            final String compatibleClazzName) {
+        final String compatibleClazzName) {
         return "Failed to set context value for key \"" + key + "\" in album \"PolicyContextAlbum:0.0.1\": "
-                + "PolicyContextAlbum:0.0.1: object \"" + objName + " [" + valString + "]\" " + "of class \""
-                + clazzName + "\"" + " not compatible with class \"" + compatibleClazzName + "\"";
+            + "PolicyContextAlbum:0.0.1: object \"" + objName + " [" + valString + "]\" " + "of class \"" + clazzName
+            + "\"" + " not compatible with class \"" + compatibleClazzName + "\"";
     }
 
     private void assertFloat(final float actual, final float expected) {
