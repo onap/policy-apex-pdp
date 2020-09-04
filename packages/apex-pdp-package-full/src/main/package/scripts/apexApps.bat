@@ -92,7 +92,6 @@ set APEX_APP_MAP[model-2-cli]=java -Dlogback.configurationFile=%APEX_HOME%\etc\l
 set APEX_APP_MAP[cli-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain
 set APEX_APP_MAP[cli-tosca-editor]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain
 set APEX_APP_MAP[engine]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.service.engine.main.ApexMain
-set APEX_APP_MAP[full-client]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -jar %APEX_HOME%\lib\applications\apex-client-full-%_VERSION%-full.jar
 set APEX_APP_MAP[event-generator]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.EventGenerator
 set APEX_APP_MAP[onappf]=java -Dlogback.configurationFile=%APEX_HOME%\etc\logback.xml -cp %CLASSPATH% %_CONFIG% org.onap.policy.apex.services.onappf.ApexStarterMain
 
@@ -105,7 +104,6 @@ set APEX_APP_DESCR_MAP[model-2-cli]=generates CLI Editor Commands from a policy 
 set APEX_APP_DESCR_MAP[cli-editor]=runs the APEX CLI Editor
 set APEX_APP_DESCR_MAP[cli-tosca-editor]=runs the APEX CLI Tosca Editor
 set APEX_APP_DESCR_MAP[engine]=starts the APEX engine
-set APEX_APP_DESCR_MAP[full-client]=starts the full APEX client (rest editor, deployment, monitoring) in a simple webserver
 set APEX_APP_DESCR_MAP["event-generator"]=starts the event generator in a simple webserver for performance testing
 set APEX_APP_DESCR_MAP[onappf]=starts the ApexStarter which handles the Apex Engine based on instructions from PAP
 

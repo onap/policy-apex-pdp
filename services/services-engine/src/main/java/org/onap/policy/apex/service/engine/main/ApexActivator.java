@@ -43,7 +43,6 @@ import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelMerger;
-import org.onap.policy.apex.service.engine.engdep.EngDepMessagingService;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.impl.EngineServiceImpl;
@@ -58,8 +57,8 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class wraps an Apex engine so that it can be activated as a complete service together with all its context,
- * executor, and event plugins.
+ * This class wraps an Apex engine so that it can be activated as a complete
+ * service together with all its context, executor, and event plugins.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
@@ -83,7 +82,8 @@ public class ApexActivator {
     // Event marshalers are used to send events asynchronously from Apex
     private final Map<String, ApexEventMarshaller> marshallerMap = new LinkedHashMap<>();
 
-    // The engine service handler holds the references to the engine and its EngDep deployment
+    // The engine service handler holds the references to the engine and its EngDep
+    // deployment
     // interface. It also acts as a receiver for asynchronous
     // and synchronous events from the engine.
     private ApexEngineServiceHandler engineServiceHandler = null;
@@ -130,8 +130,8 @@ public class ApexActivator {
         policyModelsMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> inputParametersMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> outputParametersMap = new LinkedHashMap<>();
-        Set<Entry<ToscaPolicyIdentifier, ApexParameters>> apexParamsEntrySet =
-            new LinkedHashSet<>(apexParametersMap.entrySet());
+        Set<Entry<ToscaPolicyIdentifier, ApexParameters>> apexParamsEntrySet = new LinkedHashSet<>(
+            apexParametersMap.entrySet());
         apexParamsEntrySet.stream().forEach(apexParamsEntry -> {
             ApexParameters apexParams = apexParamsEntry.getValue();
             List<String> duplicateInputParameters = new ArrayList<>(apexParams.getEventInputParameters().keySet());
@@ -180,11 +180,12 @@ public class ApexActivator {
     }
 
     private AxPolicyModel aggregatePolicyModels(Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap) {
-        // Doing a deep copy so that original values in policyModelsMap is retained after reduction operation
+        // Doing a deep copy so that original values in policyModelsMap is retained
+        // after reduction operation
         Set<Entry<ToscaPolicyIdentifier, AxPolicyModel>> policyModelsEntries = policyModelsMap.entrySet().stream()
             .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(), entry.getValue())).collect(Collectors.toSet());
-        Optional<Entry<ToscaPolicyIdentifier, AxPolicyModel>> finalPolicyModelEntry =
-            policyModelsEntries.stream().reduce((entry1, entry2) -> {
+        Optional<Entry<ToscaPolicyIdentifier, AxPolicyModel>> finalPolicyModelEntry = policyModelsEntries.stream()
+            .reduce((entry1, entry2) -> {
                 try {
                     entry1.setValue(
                         PolicyModelMerger.getMergedPolicyModel(entry1.getValue(), entry2.getValue(), true, true));
@@ -207,7 +208,8 @@ public class ApexActivator {
         Map<String, EventHandlerParameters> inputParametersMap, Map<String, EventHandlerParameters> outputParametersMap)
         throws ApexEventException {
 
-        // Producer parameters specify what event marshalers to handle events leaving Apex are
+        // Producer parameters specify what event marshalers to handle events leaving
+        // Apex are
         // set up and how they are set up
         for (Entry<String, EventHandlerParameters> outputParameters : outputParametersMap.entrySet()) {
             final ApexEventMarshaller marshaller = new ApexEventMarshaller(outputParameters.getKey(),
@@ -217,7 +219,8 @@ public class ApexActivator {
             marshallerMap.put(outputParameters.getKey(), marshaller);
         }
 
-        // Consumer parameters specify what event unmarshalers to handle events coming into Apex
+        // Consumer parameters specify what event unmarshalers to handle events coming
+        // into Apex
         // are set up and how they are set up
         for (final Entry<String, EventHandlerParameters> inputParameters : inputParametersMap.entrySet()) {
             final ApexEventUnmarshaller unmarshaller = new ApexEventUnmarshaller(inputParameters.getKey(),
@@ -229,7 +232,8 @@ public class ApexActivator {
 
     private void handleExistingMarshallerAndUnmarshaller(Map<String, EventHandlerParameters> inputParametersMap,
         Map<String, EventHandlerParameters> outputParametersMap) {
-        // stop and remove any marshaller/unmarshaller that is part of a policy that is undeployed
+        // stop and remove any marshaller/unmarshaller that is part of a policy that is
+        // undeployed
         marshallerMap.entrySet().stream()
             .filter(marshallerEntry -> !outputParametersMap.containsKey(marshallerEntry.getKey()))
             .forEach(marshallerEntry -> marshallerEntry.getValue().stop());
@@ -239,7 +243,8 @@ public class ApexActivator {
             .forEach(unmarshallerEntry -> unmarshallerEntry.getValue().stop());
         unmarshallerMap.keySet().removeIf(unmarshallerKey -> !inputParametersMap.containsKey(unmarshallerKey));
 
-        // If a marshaller/unmarshaller is already initialized, they don't need to be reinitialized during model update.
+        // If a marshaller/unmarshaller is already initialized, they don't need to be
+        // reinitialized during model update.
         outputParametersMap.keySet().removeIf(marshallerMap::containsKey);
         inputParametersMap.keySet().removeIf(unmarshallerMap::containsKey);
     }
@@ -252,20 +257,16 @@ public class ApexActivator {
         LOGGER.debug("starting apex engine service . . .");
         apexEngineService = EngineServiceImpl.create(apexParameters.getEngineServiceParameters());
 
-        // Instantiate and start the messaging service for Deployment
-        LOGGER.debug("starting apex deployment service . . .");
-        final EngDepMessagingService engDepService = new EngDepMessagingService(apexEngineService,
-            apexParameters.getEngineServiceParameters().getDeploymentPort());
-        engDepService.start();
-
-        // Create the engine holder to hold the engine's references and act as an event receiver
-        engineServiceHandler = new ApexEngineServiceHandler(apexEngineService, engDepService);
+        // Create the engine holder to hold the engine's references and act as an event
+        // receiver
+        engineServiceHandler = new ApexEngineServiceHandler(apexEngineService);
     }
 
     /**
-     * Set up unmarshaler/marshaler pairing for synchronized event handling. We only need to traverse the unmarshalers
-     * because the unmarshalers and marshalers are paired one to one uniquely so if we find a synchronized unmarshaler
-     * we'll also find its paired marshaler
+     * Set up unmarshaler/marshaler pairing for synchronized event handling. We only
+     * need to traverse the unmarshalers because the unmarshalers and marshalers are
+     * paired one to one uniquely so if we find a synchronized unmarshaler we'll
+     * also find its paired marshaler
      *
      * @param inputParametersMap the apex parameters
      */
@@ -278,8 +279,8 @@ public class ApexActivator {
                 // Check if the unmarshaler is synchronized with a marshaler
                 if (inputParameters.getValue().isPeeredMode(peeredMode)) {
                     // Find the unmarshaler and marshaler
-                    final ApexEventMarshaller peeredMarshaler =
-                        marshallerMap.get(inputParameters.getValue().getPeer(peeredMode));
+                    final ApexEventMarshaller peeredMarshaler = marshallerMap
+                        .get(inputParameters.getValue().getPeer(peeredMode));
 
                     // Connect the unmarshaler and marshaler
                     unmarshaller.connectMarshaler(peeredMode, peeredMarshaler);
@@ -289,7 +290,8 @@ public class ApexActivator {
     }
 
     /**
-     * Start up event processing, this happens once all marshaller to unmarshaller wiring has been done.
+     * Start up event processing, this happens once all marshaller to unmarshaller
+     * wiring has been done.
      *
      * @param inputParametersMap the apex parameters
      */

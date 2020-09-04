@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.onap.policy.apex.core.protocols.engdep.messages.StartEngine;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**
@@ -66,7 +65,6 @@ public class SupportMessageTester {
         // disabling sonar because this code tests the equals() method
         assertEquals(dummyMessage, dummyMessage); // NOSONAR
         assertNotNull(dummyMessage);
-        assertNotEquals(dummyMessage, (Object) new StartEngine(new AxArtifactKey()));
 
         dummyMessage = new DummyMessage(new DummyAction(null), null, null);
         DummyMessage otherDummyMessage = new DummyMessage(null, null, null);
