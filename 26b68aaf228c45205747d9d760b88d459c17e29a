@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "ee74a50e_0b4f00af",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-04T13:02:53Z",
+      "side": 1,
+      "message": "the string is, itself, json, thus we should use the proper tools to parse it; we shouldn\u0027t be trying to parse it manually by stripping enclosing quotes and removing/replacing escape sequences.  One concern that I have in particular is that, because this is json, it may contain other json related stuff besides just escape sequences and hence the manual parsing might fail in those cases.  It may work right now, but who knows.  Since it\u0027s json, just use a json parser (i.e., coder) to decode it and then it should work regardless of what json related stuff it might contain.",
+      "parentUuid": "ce5de556_f89416fe",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 96,
+        "endChar": 53
+      },
+      "revId": "26b68aaf228c45205747d9d760b88d459c17e29a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3888fe58_17f54b67",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 1
