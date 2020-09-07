@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "270f808a_eea61e5f",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-09-07T12:58:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6cd2bb1_f9e864d4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8eafcde5_2304e746",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
         "patchSetId": 6
@@ -93,6 +117,30 @@
       "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19da3682_1711c33b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-09-07T12:58:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c219fb73_643c5e33",
+      "range": {
+        "startLine": 111,
+        "startChar": 75,
+        "endLine": 111,
+        "endChar": 111
+      },
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
