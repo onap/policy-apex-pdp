@@ -45,6 +45,46 @@
       "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e9eaf7f_f137e300",
+        "filename": "services/services-onappf/src/main/resources/config/OnapPfConfig.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6738
+      },
+      "writtenOn": "2020-09-07T11:05:12Z",
+      "side": 1,
+      "message": "Are these changes to be committed? I suppose these were test changes and Apex will continue to be running on https port.",
+      "range": {
+        "startLine": 8,
+        "startChar": 17,
+        "endLine": 8,
+        "endChar": 22
+      },
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00b3ff8b_79e191d9",
+        "filename": "services/services-onappf/src/main/resources/config/OnapPfConfig.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6738
+      },
+      "writtenOn": "2020-09-07T11:05:12Z",
+      "side": 1,
+      "message": "Is this change required?\nSame comment in the file below as well.",
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
