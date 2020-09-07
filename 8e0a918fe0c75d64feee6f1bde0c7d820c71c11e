@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6cd2bb1_f9e864d4",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-07T12:20:31Z",
+      "side": 1,
+      "message": "It works. If policyModelFileName is available, and not policy_type_impl, then this is just taken in and used. i.e. currently specifying the file name directly, or specifying policy_type_impl both works. I was more focused on converting the apexconfig file to the tosca file. at the moment, I have changed this only in some places. This can be replaced with policy_type_impl and the actual model itself..",
+      "parentUuid": "97d4338b_d030fe80",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8eafcde5_2304e746",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c219fb73_643c5e33",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-07T12:20:31Z",
+      "side": 1,
+      "message": "Currently specifying policyModelFileName directly is also there as an added support. If this is to be removed, then also  we will have to keep the policyModel String or so somewhere in ApexParamaters class. Also, then all the policyModelFileName occurences must be removed from the config part. I am inclined to remove it entirely as well, but it is there only in these test files. Not very sure of pursuing it at this moment. I will start that route as well now and lets see.",
+      "parentUuid": "8eafcde5_2304e746",
+      "range": {
+        "startLine": 111,
+        "startChar": 75,
+        "endLine": 111,
+        "endChar": 111
+      },
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e9eaf7f_f137e300",
         "filename": "services/services-onappf/src/main/resources/config/OnapPfConfig.json",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2020-09-07T11:05:12Z",
       "side": 1,
       "message": "Are these changes to be committed? I suppose these were test changes and Apex will continue to be running on https port.",
+      "range": {
+        "startLine": 8,
+        "startChar": 17,
+        "endLine": 8,
+        "endChar": 22
+      },
+      "revId": "8e0a918fe0c75d64feee6f1bde0c7d820c71c11e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6378560e_7bae135d",
+        "filename": "services/services-onappf/src/main/resources/config/OnapPfConfig.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-07T12:20:31Z",
+      "side": 1,
+      "message": "Removed this file. It accidentally went through. Thanks.",
+      "parentUuid": "8e9eaf7f_f137e300",
       "range": {
         "startLine": 8,
         "startChar": 17,
