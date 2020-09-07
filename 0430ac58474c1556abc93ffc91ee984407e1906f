@@ -45,6 +45,52 @@
       "revId": "0430ac58474c1556abc93ffc91ee984407e1906f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75480e21_201c6974",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-07T07:53:47Z",
+      "side": 1,
+      "message": "I believe this has more issues. When policy is deployed by CLAMP, it has some additional fields, say \"abatement\": false for example. So trying to covert this property to JsonObject might give JsonSyntaxException",
+      "range": {
+        "startLine": 113,
+        "startChar": 19,
+        "endLine": 113,
+        "endChar": 88
+      },
+      "revId": "0430ac58474c1556abc93ffc91ee984407e1906f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f998ac4d_6d6d2dbc",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-07T07:53:47Z",
+      "side": 1,
+      "message": "Also, now that I am almost done with fixing the standalone TOSCA support issue in APEX, it seems this code will change as well. Here the ToscaPolicy will just be passed to the APEX main engine. The parsing has to be moved to a different class. Sorry about that.",
+      "range": {
+        "startLine": 114,
+        "startChar": 17,
+        "endLine": 117,
+        "endChar": 21
+      },
+      "revId": "0430ac58474c1556abc93ffc91ee984407e1906f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
