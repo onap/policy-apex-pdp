@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb9107c5_bbd90a81",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T21:39:49Z",
+      "side": 1,
+      "message": "of course, now sonar will complain that a shorted lambda expression should be used. :-D",
+      "revId": "bf2aa2f774c86004863223cefd575602cc4ef895",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

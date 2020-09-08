@@ -178,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "8bae9c1f_e211fc94",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T21:39:49Z",
+      "side": 1,
+      "message": "agreed",
+      "parentUuid": "fc20082e_7a940869",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40e199fa_b95eb73f",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
         "patchSetId": 12
@@ -400,6 +418,24 @@
       "side": 1,
       "message": "Agreed. couldn\u0027t work on such improvements as part of this already big review.",
       "parentUuid": "de0d0757_401a25ea",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edfcb5a7_1508c805",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T21:39:49Z",
+      "side": 1,
+      "message": "agreed",
+      "parentUuid": "ab4ed14b_5afba7cf",
       "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
