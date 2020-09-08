@@ -201,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "d000945d_379b9c65",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T17:05:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40e199fa_b95eb73f",
+      "range": {
+        "startLine": 149,
+        "startChar": 17,
+        "endLine": 149,
+        "endChar": 36
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8dafee61_38b023dc",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
         "patchSetId": 12
@@ -264,6 +288,30 @@
       "writtenOn": "2020-09-08T16:40:31Z",
       "side": 1,
       "message": "There is another method to encode directly to a file. No need to encode and then write separately.\nPlease check if that can fit here.",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 85
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b91797_181ded6d",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T17:05:37Z",
+      "side": 1,
+      "message": "Done.\nNice, didn\u0027t know about that. Thanks.",
+      "parentUuid": "676772e5_01b360c1",
       "range": {
         "startLine": 102,
         "startChar": 16,
