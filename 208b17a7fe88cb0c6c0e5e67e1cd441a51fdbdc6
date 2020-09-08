@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ee4a8d6_cdbe7c25",
+        "filename": "examples/examples-decisionmaker/src/main/resources/tosca/ToscaTemplate.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96b87dfa_5b93c29c",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "408641d0_a4d2962f",
         "filename": "examples/examples-decisionmaker/src/test/java/org/onap/policy/apex/examples/decisionmaker/DecisionMakerRunner.java",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82016b4a_7a638993",
+        "filename": "examples/examples-decisionmaker/src/test/java/org/onap/policy/apex/examples/decisionmaker/DecisionMakerRunner.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "408641d0_a4d2962f",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ca44bfbe_3d017488",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArguments.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da39866a_c744d6fb",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 34
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ef79477_7c3c5e1a",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
         "patchSetId": 12
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "fc20082e_7a940869",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "policyModel is consumed as a String later in other places, that\u0027s why it is kept as a String here. Otherwise will have to make corresponding changes everywhere. But better to do that as an improvement I guess.",
+      "parentUuid": "0ef79477_7c3c5e1a",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8dafee61_38b023dc",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
         "patchSetId": 12
@@ -99,6 +189,24 @@
       "writtenOn": "2020-09-08T14:57:54Z",
       "side": 1,
       "message": "FYI: sonar no longer likes two methods being called within the same assertThatXxx() method",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "788f0c50_70af8ac8",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "Done.\nAgreed, i was just focusing on making the Junits pass.",
+      "parentUuid": "8dafee61_38b023dc",
       "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -145,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "dfd647d5_59f773fd",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "Not showing anything locally. So, I guess yes.",
+      "parentUuid": "7423fffd_55a8746a",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 51
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de0d0757_401a25ea",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
         "patchSetId": 12
@@ -156,6 +288,24 @@
       "writtenOn": "2020-09-08T14:57:54Z",
       "side": 1,
       "message": "maybe in another review we can figure out a way to do this without using sleep()",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab4ed14b_5afba7cf",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-08T15:48:18Z",
+      "side": 1,
+      "message": "Agreed. couldn\u0027t work on such improvements as part of this already big review.",
+      "parentUuid": "de0d0757_401a25ea",
       "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
