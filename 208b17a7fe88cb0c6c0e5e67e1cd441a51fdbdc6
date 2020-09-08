@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96b87dfa_5b93c29c",
+        "filename": "examples/examples-decisionmaker/src/main/resources/tosca/ToscaTemplate.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "\"Decisionmaker\" \u003d\u003e \"DecisionMaker\"?",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "408641d0_a4d2962f",
+        "filename": "examples/examples-decisionmaker/src/test/java/org/onap/policy/apex/examples/decisionmaker/DecisionMakerRunner.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "\"DecisionMakerPolicyModel\" \u003d\u003e \"DecisionMakerPolicy\"?",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 44
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da39866a_c744d6fb",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArguments.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "suggestion: use consistent approach for assignment on lines 143 \u0026 161",
+      "range": {
+        "startLine": 161,
+        "startChar": 12,
+        "endLine": 161,
+        "endChar": 34
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ef79477_7c3c5e1a",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "why not just make this a ApexParameters?\n\nand make policyModel a ToscalPolicy (or whatever type is appropriate)?",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dafee61_38b023dc",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexCommandLineArgumentsTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "FYI: sonar no longer likes two methods being called within the same assertThatXxx() method",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e658541_c58861ba",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/runtime/impl/EngineServiceImplTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7423fffd_55a8746a",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "is sonar ok with this?",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 51
+      },
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de0d0757_401a25ea",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-08T14:57:54Z",
+      "side": 1,
+      "message": "maybe in another review we can figure out a way to do this without using sleep()",
+      "revId": "208b17a7fe88cb0c6c0e5e67e1cd441a51fdbdc6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
