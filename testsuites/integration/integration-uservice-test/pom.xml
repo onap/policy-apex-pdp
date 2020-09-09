@@ -48,11 +48,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-deployment</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
             <artifactId>plugins-context-schema-avro</artifactId>
             <version>${project.version}</version>
