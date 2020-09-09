@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1584008_1e37e6d9",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/engdep/EngDepMessagingTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-09T13:22:11Z",
+      "side": 1,
+      "message": "sure this isn\u0027t needed any more?",
+      "revId": "4c5c31eb9a2513af080d60d0f537b8339856150d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
