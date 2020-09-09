@@ -16,6 +16,24 @@
       "revId": "4c5c31eb9a2513af080d60d0f537b8339856150d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2bf5b3b_6b882311",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/engdep/EngDepMessagingTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-09T13:25:16Z",
+      "side": 1,
+      "message": "This file was removed in Liam\u0027s review.",
+      "parentUuid": "b1584008_1e37e6d9",
+      "revId": "4c5c31eb9a2513af080d60d0f537b8339856150d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
