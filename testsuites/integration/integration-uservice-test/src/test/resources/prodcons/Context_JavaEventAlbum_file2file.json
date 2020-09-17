@@ -5,7 +5,6 @@
     "id": 101,
     "instanceCount": 1,
     "deploymentPort": 12550,
-    "policyModelFileName": "/dev/null",
     "engineParameters": {
       "executorParameters": {
         "JAVASCRIPT": {
