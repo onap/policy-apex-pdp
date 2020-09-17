@@ -5,7 +5,6 @@
         "id": 101,
         "instanceCount": 4,
         "deploymentPort": 12345,
-        "policyModelFileName": "/home/apexuser/examples/models/ONAPBBS/NomadicONTPolicyModel.json",
         "engineParameters": {
             "executorParameters": {
                 "MVEL": {
