@@ -5,7 +5,6 @@
         "id": 45,
         "instanceCount": 1,
         "deploymentPort": 12561,
-        "policyModelFileName": "examples/models/SampleDomain/SamplePolicyModelJAVA.xml",
         "engineParameters": {
             "executorParameters": {
                 "JAVA": {

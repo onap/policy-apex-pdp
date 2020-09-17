@@ -5,7 +5,6 @@
         "id"                  : 101,
         "instanceCount"       : 4,
         "deploymentPort"      : 12345,
-        "policyModelFileName" : "examples/models/MyFirstPolicy/1/MyFirstPolicyModel_0.0.1.json",
         "engineParameters"    : {
             "executorParameters" : {
                 "MVEL" : {
