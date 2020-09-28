@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "824c9ece_b2f3f402",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-28T15:40:32Z",
+      "side": 1,
+      "message": "line 224 would become:\n\n  enlst \u003d Arrays.asList(...)\n\nline 226 would become:\n\n  enlst \u003d Collections.singletonList(null)",
+      "parentUuid": "f9ca6b73_a7f694c6",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d27c675_b6e2b2a0",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
         "patchSetId": 4
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Sonar is not showing this. I just extracted this to a method to reduce cognitive complexity as suggested by Sonar.\nDon\u0027t want to log the else part here if sonar is not strict about this, because the exception part is expected here while matching for an event in some cases, and this will unnecessary log messages.",
       "parentUuid": "bd4d463e_f52f5a3d",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2707b938_09ac27c2",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-28T15:40:32Z",
+      "side": 1,
+      "message": "as long as sonar doesn\u0027t complain, it\u0027s fine with me",
+      "parentUuid": "68e030f8_6af419f4",
       "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
