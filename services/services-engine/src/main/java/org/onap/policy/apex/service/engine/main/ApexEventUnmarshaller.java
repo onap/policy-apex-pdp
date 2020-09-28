@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,8 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
@@ -214,39 +217,49 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         }
 
         // Convert the incoming events to Apex events
-        try {
-            final List<ApexEvent> apexEventList = converter.toApexEvent(consumerParameters.getEventName(), event);
-
-            for (final ApexEvent apexEvent : apexEventList) {
-                isEventFilteredOut(apexEvent);
-
-                // Check if this event is filtered out by the incoming filter
-                if (isEventFilteredOut(apexEvent)) {
-                    // Ignore this event
-                    continue;
+        List<ApexEvent> apexEventList = null;
+        Iterator<String> iterator = Arrays.asList(consumerParameters.getEventName().split("\\|")).iterator();
+        // Incoming events in an endpoint can have different structure , for e.g., success/failure response events
+        // Parse the incoming event into an APEX event defined with any one of the names specified in eventName field
+        while (iterator.hasNext()) {
+            String eventName = null;
+            try {
+                eventName = iterator.next();
+                apexEventList = converter.toApexEvent(eventName, event);
+                break;
+            } catch (ApexException e) {
+                if (!iterator.hasNext()) {
+                    final String errorMessage = "Error while converting event into an ApexEvent for " + name + ": "
+                        + e.getMessage() + ", Event=" + event;
+                    throw new ApexEventException(errorMessage, e);
                 }
-
-                if (!generateExecutionId) {
-                    apexEvent.setExecutionId(executionId);
-                }
-
-                apexEvent.setExecutionProperties(executionProperties);
-
-                // Cache synchronized events that are sent
-                if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
-                    final SynchronousEventCache synchronousEventCache =
-                        (SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
-                    synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
-                }
-
-                // Enqueue the event
-                queue.add(apexEvent);
             }
-        } catch (final ApexException e) {
-            final String errorMessage = "Error while converting event into an ApexEvent for " + name + ": "
-                + e.getMessage() + ", Event=" + event;
-            LOGGER.warn(errorMessage, e);
-            throw new ApexEventException(errorMessage, e);
+        }
+
+        for (final ApexEvent apexEvent : apexEventList) {
+            isEventFilteredOut(apexEvent);
+
+            // Check if this event is filtered out by the incoming filter
+            if (isEventFilteredOut(apexEvent)) {
+                // Ignore this event
+                continue;
+            }
+
+            if (!generateExecutionId) {
+                apexEvent.setExecutionId(executionId);
+            }
+
+            apexEvent.setExecutionProperties(executionProperties);
+
+            // Cache synchronized events that are sent
+            if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
+                final SynchronousEventCache synchronousEventCache =
+                    (SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
+                synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
+            }
+
+            // Enqueue the event
+            queue.add(apexEvent);
         }
     }
 
