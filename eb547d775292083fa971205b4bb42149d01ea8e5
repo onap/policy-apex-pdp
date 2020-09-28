@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "168a6b79_d1522d68",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-09-28T14:06:34Z",
+      "side": 1,
+      "message": "Not checking the return code? But then you do on line 250? Should this line have been deleted?",
+      "range": {
+        "startLine": 247,
+        "startChar": 12,
+        "endLine": 247,
+        "endChar": 30
+      },
+      "revId": "eb547d775292083fa971205b4bb42149d01ea8e5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
