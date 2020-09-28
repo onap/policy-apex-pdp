@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "238edc2d_4ef639e4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-09-28T20:45:07Z",
+      "side": 1,
+      "message": "Question: can apexEventList be null (for example case of eventNameList being and empty collection), and if so, would it be ok in calling methods?",
+      "revId": "e0d41e83dc9b5af7e0454e0133c8ddbb332f0c79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
