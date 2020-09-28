@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c44476b1_51c80330",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-28T14:31:23Z",
+      "side": 1,
+      "message": "could avoid creating the ArrayList by doing appropriate assignments on lines 224 \u0026 226",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d27c675_b6e2b2a0",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-28T14:31:23Z",
+      "side": 1,
+      "message": "combine with line 234",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd4d463e_f52f5a3d",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-09-28T14:31:23Z",
+      "side": 1,
+      "message": "sonar may request that \"e\" be logged (for the \"else\" case) - not sure",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
