@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f9ca6b73_a7f694c6",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-28T15:29:09Z",
+      "side": 1,
+      "message": "Actually, I want to create an ArrayList in both cases anyway (with a null entry at the else part to cover an edge case scenario).So, kept it simple",
+      "parentUuid": "c44476b1_51c80330",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d27c675_b6e2b2a0",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1abe5667_752a789f",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-28T15:29:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d27c675_b6e2b2a0",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd4d463e_f52f5a3d",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2020-09-28T14:31:23Z",
       "side": 1,
       "message": "sonar may request that \"e\" be logged (for the \"else\" case) - not sure",
+      "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68e030f8_6af419f4",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-28T15:29:09Z",
+      "side": 1,
+      "message": "Sonar is not showing this. I just extracted this to a method to reduce cognitive complexity as suggested by Sonar.\nDon\u0027t want to log the else part here if sonar is not strict about this, because the exception part is expected here while matching for an event in some cases, and this will unnecessary log messages.",
+      "parentUuid": "bd4d463e_f52f5a3d",
       "revId": "f08dae73b69ba69ce9b5d3d655c80c7f5ba5179b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
