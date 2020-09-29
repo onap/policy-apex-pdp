@@ -34,6 +34,24 @@
       "revId": "e0d41e83dc9b5af7e0454e0133c8ddbb332f0c79",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c140e4c9_5e696e98",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2020-09-29T10:12:25Z",
+      "side": 1,
+      "message": "apexEventList will never become null. Only eventName can be null in some scenarios, but that scenario is handled already(line 251 and in converter classes). apexEventList will always have some proper apexEvent entry(or no entry at all if the configuration is messed up), but in such cases the exception in line 268 will be thrown anyway, and there won\u0027t be any iteration at line 223.",
+      "parentUuid": "3bad2c3f_3bbbdfc7",
+      "revId": "e0d41e83dc9b5af7e0454e0133c8ddbb332f0c79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
