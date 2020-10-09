@@ -249,18 +249,18 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
      * @return object as String
      */
     private String getStringObject(final Object object) {
-        try {
-            if (isObjectString(object)) {
-                return getObjectString(object);
-            } else {
-                return (String) object;
-            }
-        } catch (final ClassCastException e) {
-            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
-                    + (object != null ? object.getClass().getName() : "null") + "\" must be assignable to \""
-                    + getSchemaClass().getName() + "\" or be a Json string representation of it for Avro unmarshalling";
-            LOGGER.warn(returnString, e);
+        if (object == null) {
+            final String returnString = getUserKey().getId()
+                + ": object must be non-null, and must be either assignable to \""
+                + getSchemaClass().getName() + "\" or be a Json string representation of it for Avro unmarshalling";
+            LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
+        }
+
+        if (isObjectString(object)) {
+            return getObjectString(object);
+        } else {
+            return object.toString();
         }
     }
 

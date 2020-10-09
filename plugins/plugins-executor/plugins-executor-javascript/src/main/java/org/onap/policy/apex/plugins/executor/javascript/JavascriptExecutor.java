@@ -68,6 +68,7 @@ public class JavascriptExecutor {
         Object returnObject = null;
 
         Context context = Context.enter();
+        context.getWrapFactory().setJavaPrimitiveWrap(false);
         try {
             // Pass the subject context to the Javascript engine
             Scriptable javascriptScope = context.initStandardObjects();
