@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6927b138_39c0c434",
+        "filename": "releases/2.4.3-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-10-20T15:15:38Z",
+      "side": 1,
+      "message": "I think 499 is OK, but the latest build is 500",
+      "revId": "1ff47bdaf13972cf0f0418b05519c4254ddcd03e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
