@@ -16,6 +16,24 @@
       "revId": "1ff47bdaf13972cf0f0418b05519c4254ddcd03e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a6f78ff_540d354d",
+        "filename": "releases/2.4.3-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-10-20T15:22:52Z",
+      "side": 1,
+      "message": "It was started by a timer, so exactly same results. Agree that this is ok, either job will work.",
+      "parentUuid": "6927b138_39c0c434",
+      "revId": "1ff47bdaf13972cf0f0418b05519c4254ddcd03e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
