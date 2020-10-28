@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42b234bb_649cdd20",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-10-28T13:03:18Z",
+      "side": 1,
+      "message": "this will only work for primitive types or one of the JSON subclasses (e.g., JsonObject).  For example, it will probably not work for Maps, Lists, or POJOs.  Is that sufficient?",
+      "revId": "c9b3a4328e7b2e893e9394931f8702e6052b3055",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
