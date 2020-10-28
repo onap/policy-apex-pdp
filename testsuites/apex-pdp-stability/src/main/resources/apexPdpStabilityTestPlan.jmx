@@ -18,7 +18,7 @@
   limitations under the License.
   ============LICENSE_END=========================================================
   -->
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APEX PDP STABILITY TEST PLAN" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -78,32 +78,32 @@
           </elementProp>
           <elementProp name="PAP_PORT" elementType="Argument">
             <stringProp name="Argument.name">PAP_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(PAP_PORT,32597)}</stringProp>
+            <stringProp name="Argument.value">${__P(PAP_PORT,30844)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="API_PORT" elementType="Argument">
             <stringProp name="Argument.name">API_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(API_PORT,32634)}</stringProp>
+            <stringProp name="Argument.value">${__P(API_PORT,30485)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="APEX_PORT" elementType="Argument">
             <stringProp name="Argument.name">APEX_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(APEX_PORT,31089)}</stringProp>
+            <stringProp name="Argument.value">${__P(APEX_PORT,31686)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DMAAP_PORT" elementType="Argument">
             <stringProp name="Argument.name">DMAAP_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(DMAAP_PORT,31532)}</stringProp>
+            <stringProp name="Argument.value">${__P(DMAAP_PORT,31499)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,10.2.0.197)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,10.2.0.97)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="LOG_PATH" elementType="Argument">
             <stringProp name="Argument.name">LOG_PATH</stringProp>
-            <stringProp name="Argument.value">${__P(LOG_PATH,/home/adityap/apex_stability)}</stringProp>
+            <stringProp name="Argument.value">${__P(LOG_PATH,/home/wayned/apex_stability)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -2371,8 +2371,8 @@
                                     &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
                                     &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
                                     &quot;parameters&quot;: {&#xd;
-                                        &quot;host&quot;: &quot;10.2.0.105&quot;,&#xd;
-                                        &quot;port&quot;: 54322,&#xd;
+                                        &quot;host&quot;: &quot;10.2.0.97&quot;,&#xd;
+                                        &quot;port&quot;: 30386,&#xd;
                                         &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
                                         &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
                                         &quot;timeout&quot;: 60&#xd;
@@ -2543,7 +2543,7 @@
         <stringProp name="ThreadGroup.num_threads">${threads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">260000</stringProp>
+        <stringProp name="ThreadGroup.duration">259200</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -2954,4 +2954,3 @@ if (prev.getResponseCode() == &apos;200&apos;) {
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
-
