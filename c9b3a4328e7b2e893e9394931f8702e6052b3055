@@ -70,6 +70,24 @@
       "revId": "c9b3a4328e7b2e893e9394931f8702e6052b3055",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89e963a1_a4d353e2",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-11-03T16:14:00Z",
+      "side": 1,
+      "message": "We need to find a general solution for this problem.",
+      "parentUuid": "bb4e4198_a4f996e8",
+      "revId": "c9b3a4328e7b2e893e9394931f8702e6052b3055",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
