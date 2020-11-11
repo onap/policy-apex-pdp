@@ -45,6 +45,30 @@
       "revId": "15916c90a5323991842389e8b1b9913049fe1459",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f113ddd1_e561171f",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2020-11-11T13:56:30Z",
+      "side": 1,
+      "message": "\u003e Should be Object\n\nOK, already done",
+      "parentUuid": "22097e00_c4ee7223",
+      "range": {
+        "startLine": 78,
+        "startChar": 39,
+        "endLine": 78,
+        "endChar": 45
+      },
+      "revId": "15916c90a5323991842389e8b1b9913049fe1459",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
