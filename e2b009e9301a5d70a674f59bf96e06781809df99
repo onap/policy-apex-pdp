@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "509ecc8f_bd1d125e",
+        "filename": "examples/examples-onap-vcpe/src/test/resources/logback-test.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-11-11T14:29:22Z",
+      "side": 1,
+      "message": "spaces",
+      "revId": "e2b009e9301a5d70a674f59bf96e06781809df99",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
