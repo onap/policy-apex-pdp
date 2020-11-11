@@ -1,0 +1,85 @@
+/*-
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2020 Nordix Foundation.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+
+package org.onap.policy.apex.core.engine.executor.context;
+
+import java.util.Properties;
+import lombok.Getter;
+import lombok.Setter;
+import org.onap.policy.apex.context.SchemaHelper;
+import org.onap.policy.common.utils.coder.CoderException;
+import org.onap.policy.common.utils.coder.StandardCoder;
+
+/**
+ * Abstract class for the execution context for logic executions in logic being executed in an Apex engine. The
+ * logic must have easy access to its subject definition, the incoming and outgoing field contexts, as well as the
+ * policy, global, and external context.
+ */
+@Getter
+public class AbstractExecutionContext {
+    /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
+    public final Boolean isTrue = true;
+
+    /**
+     * A constant <code>boolean false</code> value available for reuse e.g., for the return value
+     */
+    public final Boolean isFalse = false;
+
+    /** the execution ID for the current APEX policy execution instance. */
+    public final Long executionId;
+
+    // A message specified in the logic
+    @Getter
+    @Setter
+    private String message;
+
+    // Execution properties for a policy execution
+    @Getter
+    private final Properties executionProperties;
+
+    /**
+     * Instantiates a new task execution context.
+     *
+     * @param executionId the execution ID for the current APEX policy execution instance
+     * @param executionProperties the execution properties for task execution
+     */
+    public AbstractExecutionContext(final long executionId, final Properties executionProperties) {
+
+        // Execution ID is the current policy execution instance
+        this.executionId = executionId;
+        this.executionProperties = executionProperties;
+    }
+
+    /**
+     * Get a JSON representation of an object.
+     *
+     * @param theObject the object to get a JSON representation of
+     * @param schemaHelper a schema helper to use for the JSON conversion, if null, a standard conversion is done
+     * @return the JSON version of the object
+     * @throws CoderException on JSON coding errors
+     */
+    public String stringify2Json(final Object theObject, final SchemaHelper schemaHelper) throws CoderException {
+        if (schemaHelper == null) {
+            return new StandardCoder().encode(theObject);
+        } else {
+            return schemaHelper.marshal2String(theObject);
+        }
+    }
+}

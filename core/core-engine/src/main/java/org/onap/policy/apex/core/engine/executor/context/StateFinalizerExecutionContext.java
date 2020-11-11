@@ -48,7 +48,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 @Getter
-public class StateFinalizerExecutionContext {
+public class StateFinalizerExecutionContext extends AbstractExecutionContext {
     /**
      * Logger for state finalizer execution, state finalizer logic can use this field to access and log to Apex logging.
      */
@@ -59,9 +59,6 @@ public class StateFinalizerExecutionContext {
 
     /** A facade to the full state definition for the state finalizer logic being executed. */
     public final AxStateFacade subject;
-
-    /** the execution ID for the current APEX policy execution instance. */
-    public final Long executionId;
 
     /**
      * The list of state outputs for this state finalizer. The purpose of a state finalizer is to select a state output
@@ -92,11 +89,6 @@ public class StateFinalizerExecutionContext {
     // All available context albums
     private final Map<String, ContextAlbum> context;
 
-    // A message specified in the logic
-    @Getter
-    @Setter
-    private String message;
-
     // Execution properties for a policy execution
     @Getter
     private Properties executionProperties;
@@ -115,11 +107,9 @@ public class StateFinalizerExecutionContext {
     public StateFinalizerExecutionContext(final StateFinalizerExecutor stateFinalizerExecutor, final long executionId,
             final Properties executionProperties, final AxState axState, final Map<String, Object> fields,
             final Set<String> stateOutputNames, final ApexInternalContext internalContext) {
-        subject = new AxStateFacade(axState);
+        super(executionId, executionProperties);
 
-        // Execution ID is the current policy execution instance
-        this.executionId = executionId;
-        this.executionProperties = executionProperties;
+        subject = new AxStateFacade(axState);
 
         this.fields = fields;
         this.stateOutputNames = stateOutputNames;
