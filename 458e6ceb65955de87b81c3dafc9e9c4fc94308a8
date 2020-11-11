@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "19fcdb26_cdb1fc51",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-11-11T14:14:08Z",
+      "side": 1,
+      "message": "\"Getter\" not needed",
+      "revId": "458e6ceb65955de87b81c3dafc9e9c4fc94308a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e4c9310_9012271b",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-11-11T14:14:08Z",
+      "side": 1,
+      "message": "\"Getter\" not needed",
+      "revId": "458e6ceb65955de87b81c3dafc9e9c4fc94308a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9319d43_2a2d4e02",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
         "patchSetId": 2
@@ -19,6 +53,46 @@
         "endLine": 78,
         "endChar": 46
       },
+      "revId": "458e6ceb65955de87b81c3dafc9e9c4fc94308a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e867a160_2cf44423",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-11-11T14:14:08Z",
+      "side": 1,
+      "message": "perhaps make this a static object",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 38
+      },
+      "revId": "458e6ceb65955de87b81c3dafc9e9c4fc94308a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a922402_1929fb2f",
+        "filename": "examples/examples-onap-vcpe/src/test/resources/logback-test.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-11-11T14:14:08Z",
+      "side": 1,
+      "message": "spaces",
       "revId": "458e6ceb65955de87b81c3dafc9e9c4fc94308a8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
