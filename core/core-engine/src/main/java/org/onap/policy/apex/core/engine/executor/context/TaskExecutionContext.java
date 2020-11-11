@@ -32,6 +32,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
+import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.Executor;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
@@ -39,6 +40,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
+import org.onap.policy.common.utils.coder.CoderException;
+import org.onap.policy.common.utils.coder.StandardCoder;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -50,26 +53,15 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 @Getter
-public class TaskExecutionContext {
+public class TaskExecutionContext extends AbstractExecutionContext {
     // Logger for task execution
     private static final XLogger EXECUTION_LOGGER =
             XLoggerFactory.getXLogger("org.onap.policy.apex.executionlogging.TaskExecutionLogging");
 
     // CHECKSTYLE:OFF: checkstyle:VisibilityModifier Logic has access to these field
 
-    /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
-    public final Boolean isTrue = true;
-
-    /**
-     * A constant <code>boolean false</code> value available for reuse e.g., for the return value
-     */
-    public final Boolean isFalse = false;
-
     /** A facade to the full task definition for the task logic being executed. */
     public final AxTaskFacade subject;
-
-    /** the execution ID for the current APEX policy execution instance. */
-    public final Long executionId;
 
     /**
      * The incoming fields from the trigger event for the task. The task logic can access these fields when executing
@@ -96,15 +88,6 @@ public class TaskExecutionContext {
     // The artifact stack of users of this context
     private final List<AxConcept> usedArtifactStack;
 
-    // A message specified in the logic
-    @Getter
-    @Setter
-    private String message;
-
-    // Execution properties for a policy execution
-    @Getter
-    private Properties executionProperties;
-
     // Parameters associated to a task
     @Getter
     private Map<String, String> parameters = new HashMap<>();
@@ -123,15 +106,13 @@ public class TaskExecutionContext {
     public TaskExecutionContext(final TaskExecutor taskExecutor, final long executionId,
             final Properties executionProperties, final AxTask axTask, final Map<String, Object> inFields,
             final Map<String, Object> outFields, final ApexInternalContext internalContext) {
+        super(executionId, executionProperties);
+
         // The subject is the task definition
         subject = new AxTaskFacade(axTask);
 
         // Populate parameters to be accessed in the task logic from the task parameters.
         populateParameters(axTask.getTaskParameters());
-
-        // Execution ID is the current policy execution instance
-        this.executionId = executionId;
-        this.executionProperties = executionProperties;
 
         // The input and output fields
         this.inFields = Collections.unmodifiableMap(inFields);
