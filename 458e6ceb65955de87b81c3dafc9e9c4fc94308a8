@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9319d43_2a2d4e02",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-11-11T13:52:06Z",
+      "side": 1,
+      "message": "This has to be an object to avoid casting to string.",
+      "range": {
+        "startLine": 78,
+        "startChar": 33,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "458e6ceb65955de87b81c3dafc9e9c4fc94308a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
