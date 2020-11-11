@@ -48,26 +48,15 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
 @Getter
-public class TaskSelectionExecutionContext {
+public class TaskSelectionExecutionContext extends AbstractExecutionContext {
     // Logger for task execution
     private static final XLogger EXECUTION_LOGGER =
             XLoggerFactory.getXLogger("org.onap.policy.apex.executionlogging.TaskSelectionExecutionLogging");
 
     // CHECKSTYLE:OFF: checkstyle:VisibilityModifier Logic has access to these field
 
-    /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
-    public final Boolean isTrue = true;
-
-    /**
-     * A constant <code>boolean false</code> value available for reuse e.g., for the return value
-     */
-    public final Boolean isFalse = false;
-
     /** A facade to the full state definition for the task selection logic being executed. */
     public final AxStateFacade subject;
-
-    /** the execution ID for the current APEX policy execution instance. */
-    public final Long executionId;
 
     /**
      * The incoming fields from the trigger event for the state. The task selection logic can access these fields to
@@ -91,15 +80,6 @@ public class TaskSelectionExecutionContext {
     // All available context albums
     private final Map<String, ContextAlbum> context;
 
-    // A message specified in the logic
-    @Getter
-    @Setter
-    private String message;
-
-    // Execution properties for a policy execution
-    @Getter
-    private Properties executionProperties;
-
     /**
      * Instantiates a new task selection execution context.
      *
@@ -113,12 +93,9 @@ public class TaskSelectionExecutionContext {
     public TaskSelectionExecutionContext(final TaskSelectExecutor taskSelectExecutor, final long executionId,
             final AxState axState, final EnEvent incomingEvent, final AxArtifactKey outgoingKey,
             final ApexInternalContext internalContext) {
+        super(executionId, incomingEvent.getExecutionProperties());
         // The subject is the state definition
         subject = new AxStateFacade(axState);
-
-        // Execution ID is the current policy execution instance
-        this.executionId = executionId;
-        this.executionProperties = incomingEvent.getExecutionProperties();
 
         // The events
         inFields = incomingEvent;
