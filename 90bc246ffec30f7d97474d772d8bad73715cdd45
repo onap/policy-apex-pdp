@@ -16,6 +16,24 @@
       "revId": "90bc246ffec30f7d97474d772d8bad73715cdd45",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d69881df_f76c716d",
+        "filename": "examples/examples-onap-vcpe/src/test/resources/logback-test.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-11-12T10:09:47Z",
+      "side": 1,
+      "message": "No it\u0027s not. I am using this file in the testing, I\u0027ll update in next review.",
+      "parentUuid": "09d458f9_bbfa6148",
+      "revId": "90bc246ffec30f7d97474d772d8bad73715cdd45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
