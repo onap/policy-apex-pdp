@@ -35,7 +35,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "examples/events/ONAPvCPEStandalone/ConfigureBlackWhiteLists.json"
+                    "fileName": "src/main/resources/examples/events/ONAPvCPEStandalone/ConfigureBlackWhiteLists.json"
                 }
             },
             "eventProtocolParameters": {
@@ -46,7 +46,7 @@
             "carrierTechnologyParameters": {
                 "carrierTechnology": "FILE",
                 "parameters": {
-                    "fileName": "examples/events/ONAPvCPEStandalone/MultiEvents.json"
+                    "fileName": "src/main/resources/examples/events/ONAPvCPEStandalone/MultiEvents.json"
                 }
             },
             "eventProtocolParameters": {
