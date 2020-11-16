@@ -35,11 +35,14 @@ var payloadEntry = executor.subject.getOutFieldSchemaHelper("payload").createNew
 payloadEntry.put("create_DasH_subscription_DasH_properties", payloadProperties)
 
 var payload = executor.subject.getOutFieldSchemaHelper("payload").createNewInstance();
+var payloadSchemaHelper = executor.subject.getOutFieldSchemaHelper("payload");
 payload.put("create_DasH_subscription_DasH_request", payloadEntry);
 
-executor.outFields.put("albumID", executor.inFields.get("albumID"))
+executor.logger.info("CDS payload - " + executor.stringify2Json( payload, payloadSchemaHelper));
+
+executor.outFields.put("albumID", executor.inFields.get("albumID"));
 executor.outFields.put("payload", payload);
 
-executor.logger.info("Sending Create Subscription Event to CDS")
+executor.logger.info("Sending Create Subscription Event to CDS");
 
 true;
