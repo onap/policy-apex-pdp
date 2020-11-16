@@ -1,7 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,8 +67,8 @@ if (clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")) != 
         var aaiInfo = executor.getContextAlbum("ControlLoopStatusAlbum").getSchemaHelper().createNewSubInstance(
                 "VCPE_AAI_Type");
 
-        aaiInfo.put("genericVnfResourceVersion", clEvent.get("AAI").get(
-                new utf8Type("generic_DasH_vnf_DoT_resource_DasH_version")));
+        aaiInfo.put("genericVnfResourceVersion", new utf8Type(clEvent.get("AAI").get(
+                new utf8Type("generic_DasH_vnf_DoT_resource_DasH_version"))));
         aaiInfo.put("genericVnfVnfName", clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_name")));
         aaiInfo.put("genericVnfProvStatus", clEvent.get("AAI").get(
                 new utf8Type("generic_DasH_vnf_DoT_prov_DasH_status")));
@@ -79,9 +78,8 @@ if (clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")) != 
                 new utf8Type("generic_DasH_vnf_DoT_orchestration_DasH_status")));
         aaiInfo.put("genericVnfVnfType", clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_type")));
         aaiInfo.put("genericVnfInMaint", clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_in_DasH_maint")));
-        aaiInfo
-                .put("genericVnfServiceId", clEvent.get("AAI")
-                        .get(new utf8Type("generic_DasH_vnf_DoT_service_DasH_id")));
+        aaiInfo.put("genericVnfServiceId", clEvent.get("AAI")
+               .get(new utf8Type("generic_DasH_vnf_DoT_service_DasH_id")));
         aaiInfo.put("genericVnfVnfId", clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")));
         aaiInfo.put("vserverIsClosedLoopDisabled", clEvent.get("AAI").get(
                 new utf8Type("vserver_DoT_is_DasH_closed_DasH_loop_DasH_disabled")));
@@ -97,6 +95,11 @@ if (clEvent.get("AAI").get(new utf8Type("generic_DasH_vnf_DoT_vnf_DasH_id")) != 
         }
 
         executor.getContextAlbum("ControlLoopStatusAlbum").put(vnfID.toString(), vcpeClosedLoopStatus);
+
+        // Test of stringify
+        executor.logger.info(new java.lang.String("vcpeClosedLoopStatus as JSON:"));
+        executor.logger.info(executor.stringify2Json(vcpeClosedLoopStatus,
+            executor.getContextAlbum("ControlLoopStatusAlbum").getSchemaHelper()));
 
         executor.logger.info("Created context information for new vCPE VNF \"" + vnfID.toString() + "\"");
     }
