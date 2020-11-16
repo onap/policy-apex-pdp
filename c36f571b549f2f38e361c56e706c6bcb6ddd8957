@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6b87b671_a8503c7d",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorLoop.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-11-16T14:55:40Z",
+      "side": 1,
+      "message": "I had a quick look at this, the input parameter checking assigns Standard.in if no file is specified, it would take a bit of work to change the implementation to work in this way. Could we take it in Honolulu?",
+      "parentUuid": "3a8d459d_a3ada928",
+      "revId": "c36f571b549f2f38e361c56e706c6bcb6ddd8957",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32c7ed9e_34e032ba",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorLoop.java",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "c36f571b549f2f38e361c56e706c6bcb6ddd8957",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92618a24_b83e1a44",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorLoop.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-11-16T14:55:40Z",
+      "side": 1,
+      "message": "Done, nice catch Gregory, too much copy/paste.",
+      "parentUuid": "32c7ed9e_34e032ba",
+      "range": {
+        "startLine": 140,
+        "startChar": 49,
+        "endLine": 140,
+        "endChar": 59
+      },
+      "revId": "c36f571b549f2f38e361c56e706c6bcb6ddd8957",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
