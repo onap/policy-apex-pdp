@@ -131,8 +131,15 @@ public class CommandLineEditorLoop {
             }
         }
 
-        reader.close();
-        writer.close();
+        writer.flush();
+
+        if (!System.in.equals(inputStream)) {
+            reader.close();
+        }
+
+        if (!System.out.equals(outputStream) && !System.err.equals(outputStream)) {
+            writer.close();
+        }
 
         return executionStatus.getRight();
     }
