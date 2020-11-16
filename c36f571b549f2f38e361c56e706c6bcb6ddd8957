@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b5a0000f_00b1bab1",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorLoop.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-11-16T15:00:09Z",
+      "side": 1,
+      "message": "In that case, it\u0027s fine as implemented here - no need to change in Honolulu",
+      "parentUuid": "6b87b671_a8503c7d",
+      "revId": "c36f571b549f2f38e361c56e706c6bcb6ddd8957",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32c7ed9e_34e032ba",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorLoop.java",
         "patchSetId": 1
