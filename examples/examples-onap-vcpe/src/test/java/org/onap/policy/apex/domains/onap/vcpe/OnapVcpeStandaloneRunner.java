@@ -20,6 +20,9 @@
 
 package org.onap.policy.apex.domains.onap.vcpe;
 
+import static org.awaitility.Awaitility.await;
+
+import java.util.concurrent.TimeUnit;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -55,6 +58,10 @@ public class OnapVcpeStandaloneRunner {
         // @formatter:on
         final ApexMain apexMain = new ApexMain(apexArgs);
 
+        await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> apexMain.isAlive());
+
+        // This test should be amended to start and shutdown the simulator as part of the test and not separately as
+        // is done in the gRPC test.
         ThreadUtilities.sleep(1000000);
         apexMain.shutdown();
     }

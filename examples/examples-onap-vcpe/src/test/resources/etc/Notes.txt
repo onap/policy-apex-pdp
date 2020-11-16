@@ -50,3 +50,6 @@ Run the engine in Docker, running with pasting into console using standard input
 
 On an extraction of the Apex tarball, run the Apex client
 bin/apexApps.sh full-client
+
+Run standalone version using Maven
+mvn exec:java  -Dexec.classpathScope="test" -Dexec.mainClass=org.onap.policy.apex.domains.onap.vcpe.OnapVcpeStandaloneRunner
