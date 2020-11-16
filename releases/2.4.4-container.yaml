@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.4.4'
+project: 'policy-apex-pdp'
+log_dir: 'policy-apex-pdp-maven-docker-stage-guilin/22'
+ref: 8af08a69d252094e60038afb0184ee914915dad7
+containers:
+    - name: 'policy-apex-pdp'
+      version: '2.4.4-20201116T1821'
