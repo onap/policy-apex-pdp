@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,39 +32,33 @@
 ## DO NOT CHANGE CODE BELOW, unless you know what you are doing
 ##
 
-if [ -z $APEX_USER ]
-then
+if [ -z "${APEX_USER}" ]; then
 	APEX_USER="apexuser"
 fi
 
 id $APEX_USER > /dev/null 2>& 1
-if [ "$?" -ne "0" ]
-then
+if [ "$?" != "0" ]; then
 	echo 'cannot run apex, user "'$APEX_USER'" does not exit'
 	exit
 fi
 
-if [ $(whoami) != "$APEX_USER" ]
-then
+if [ $(whoami) != "$APEX_USER" ]; then
 	echo 'Apex must be run as user "'$APEX_USER'"'
 	exit
 fi
 
-if [ -z $APEX_HOME ]
-then
+if [ -z "${APEX_HOME}" ]; then
 	APEX_HOME="/opt/app/policy/apex-pdp"
 fi
 
-if [ ! -d $APEX_HOME ]
-then
+if [ ! -d "${APEX_HOME}" ]; then
 	echo
 	echo 'Apex directory "'$APEX_HOME'" not set or not a directory'
 	echo "Please set environment for 'APEX_HOME'"
 	exit
 fi
 
-if [ $(whoami) == "$APEX_USER" ]
-then
+if [ $(whoami) = "$APEX_USER" ]; then
 	$APEX_HOME/bin/apexApps.sh engine $*
 else
 	su $APEX_USER -c "$APEX_HOME/bin/apexApps.sh engine $*"

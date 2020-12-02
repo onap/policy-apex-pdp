@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,13 +21,11 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
-if [ -z $APEX_HOME ]
-then
+if [ -z "${APEX_HOME}" ]; then
     APEX_HOME="/opt/app/policy/apex-pdp"
 fi
 
-if [ ! -d $APEX_HOME ]
-then
+if [ ! -d "${APEX_HOME}" ]; then
     echo
     echo 'Apex directory "'$APEX_HOME'" not set or not a directory'
     echo "Please set environment for 'APEX_HOME'"
