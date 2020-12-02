@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env ash
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,8 +22,7 @@
 #-------------------------------------------------------------------------------
 
 # Run from the Apex home directory 
-if [ ! -d /home/apexuser ]
-then
+if [ ! -d /home/apexuser ]; then
     echo Apex user home directory "/home/apexuser" not found
     exit
 fi

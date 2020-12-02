@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2018 Ericsson. All rights reserved.
+#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,35 +21,30 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
-if [ -z $APEX_HOME ]
-then
+if [ -z "${APEX_HOME}" ]; then
     APEX_HOME="/opt/app/policy/apex-pdp"
 fi
 
-if [ ! -d $APEX_HOME ]
-then
+if [ ! -d "${APEX_HOME}" ]; then
     echo
     echo 'Apex directory "'$APEX_HOME'" not set or not a directory'
     echo "Please set environment for 'APEX_HOME'"
     exit
 fi
 
-if [ $# -ne 2 ]
-then
+if [ $# -ne 2 ]; then
     echo "usage: $0 executor-type thread-count"
     echo "  executor-type [Javascript|Jython|JRuby|Mvel|Java]"
     echo "  thread-count [01|02|04|08|16|32|64]"
     exit 1
 fi
 
-if [ "$1" != "Javascript" ] && [ "$1" != "Jython" ] && [ "$1" != "JRuby" ] && [ "$1" != "Mvel" ] && [ "$1" != "Java" ]
-then
+if [ "$1" != "Javascript" ] && [ "$1" != "Jython" ] && [ "$1" != "JRuby" ] && [ "$1" != "Mvel" ] && [ "$1" != "Java" ]; then
    echo "executor-type must be a member of the set [Javascript|Jython|JRuby|Mvel|Java]"
    exit 1
 fi
     
-if [ "$2" != "01" ] && [ "$2" != "02" ] && [ "$2" != "04" ] && [ "$2" != "08" ] && [ "$2" != "16" ] && [ "$2" != "32" ] && [ "$2" != "64" ]
-then
+if [ "$2" != "01" ] && [ "$2" != "02" ] && [ "$2" != "04" ] && [ "$2" != "08" ] && [ "$2" != "16" ] && [ "$2" != "32" ] && [ "$2" != "64" ]; then
     echo "thread-count must be a member of the set [01|02|04|08|16|32|64]"
    exit 1
 fi
@@ -57,11 +53,11 @@ fi
 rm -fr examples/benchmark/Bm$1$2.json
 
 # Start the event generator
-/bin/bash bin/apexApps.sh event-gen -c examples/benchmark/EventGeneratorConfig.json -o examples/benchmark/Bm$1$2.json > examples/benchmark/Bm$1$2_gen.log 2>&1 &
+/bin/ash bin/apexApps.sh event-gen -c examples/benchmark/EventGeneratorConfig.json -o examples/benchmark/Bm$1$2.json > examples/benchmark/Bm$1$2_gen.log 2>&1 &
 
 # Start Apex
 sleep 2
-/bin/bash bin/apexApps.sh engine -c examples/benchmark/$1$2.json > examples/benchmark/Bm$1$2_apex.log 2>&1 &
+/bin/ash bin/apexApps.sh engine -c examples/benchmark/$1$2.json > examples/benchmark/Bm$1$2_apex.log 2>&1 &
 apex_pid=`ps -A -o pid,cmd | grep ApexMain | grep -v grep | head -n 1 | awk '{print $1}'`
 
 echo "running benchmark test for executor $1 with $2 threads" 

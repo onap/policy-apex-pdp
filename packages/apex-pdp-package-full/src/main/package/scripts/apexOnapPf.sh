@@ -1,7 +1,8 @@
-#!/bin/bash -x
+#!/usr/bin/env ash
 #
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2019-2020 Nordix Foundation.
+#  Modifications Copyright (C) 2020 AT&T Intellectual Property
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,54 +29,48 @@
 ## @version    v1.0.0
 
 
-if [ -z $APEX_USER ]
-then
+if [ -z "$APEX_USER" ]; then
    APEX_USER="apexuser"
 fi
 
 id $APEX_USER > /dev/null 2>& 1
-if [ "$?" -ne "0" ]
-then
+if [ "$?" != "0" ]; then
    echo 'cannot run apex, user "'$APEX_USER'" does not exit'
    exit
 fi
 
-if [ $(whoami) != "$APEX_USER" ]
-then
+if [ $(whoami) != "$APEX_USER" ]; then
    echo 'Apex must be run as user "'$APEX_USER'"'
    exit
 fi
 
-if [ -z $APEX_HOME ]
-then
+if [ -z $APEX_HOME ]; then
    APEX_HOME="/opt/app/policy/apex-pdp"
 fi
 
-if [ ! -d $APEX_HOME ]
-then
+if [ ! -d $APEX_HOME ]; then
    echo
    echo 'Apex directory "'$APEX_HOME'" not set or not a directory'
    echo "Please set environment for 'APEX_HOME'"
    exit
 fi
 
-if [[ -f "${HOME}"/config/policy-truststore ]]; then
+if [ -f "${HOME}/config/policy-truststore" ]; then
     echo "overriding policy-truststore"
     cp -f "${HOME}"/config/policy-truststore "${APEX_HOME}"/etc/ssl/
 fi
 
-if [[ -f "${HOME}"/config/policy-keystore ]]; then
+if [ -f "${HOME}"/config/policy-keystore ]; then
     echo "overriding policy-keystore"
     cp -f "${HOME}"/config/policy-keystore "${APEX_HOME}"/etc/ssl/
 fi
 
-if [[ -f "${HOME}"/config/logback.xml ]]; then
+if [ -f "${HOME}"/config/logback.xml ]; then
     echo "overriding logback.xml"
     cp -f "${HOME}"/config/logback.xml "${APEX_HOME}"/etc/
 fi
 
-if [ $(whoami) == "$APEX_USER" ]
-then
+if [ $(whoami) = "$APEX_USER" ]; then
    $APEX_HOME/bin/apexApps.sh onappf $*
 else
    su $APEX_USER -c "$APEX_HOME/bin/apexApps.sh onappf $*"
