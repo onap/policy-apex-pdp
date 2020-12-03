@@ -42,6 +42,29 @@
     },
     {
       "key": {
+        "uuid": "31eb43d2_814ee956",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-12-03T11:18:24Z",
+      "side": 1,
+      "message": "Maybe rather than going with this file approach, it might be better (and possibly more secure) just to hard code a function for each application, certainly I think that woul be easier to follow for maintenance of this script.\n\nSomething like below\n\nI know this is a big change to the script so I can help if you wish.\n    \n\nengine() {​​​​​​​\n    case \"$1\" in\n        -h | --help) $1Help ; exit 0 ;;\n        ...\n    esac\n}​​​​​​​\n\n\nengineHelp() {​​​​​​​\n    printf \"help for engine\"\n}​​​​​​​\n\n\n\ngui() {​​​​​​​\n    bla foo\n}​​​​​​​\n\n\nguiHelp() {​​​​​​​\n\n\n}​​​​​​​\n\n\n\ncase \"$1\" in\n    engine) engine $* ;;\n    gui)    gui $** ;;\n    *)      printf \"error %s\" \"$1\"\nesac",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 103
+      },
+      "revId": "88e749f68aafbc96b89445b5104f0f0f07143a7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "067c7b85_5e7dacf5",
         "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
         "patchSetId": 1
@@ -53,6 +76,24 @@
       "writtenOn": "2020-12-02T21:32:22Z",
       "side": 1,
       "message": "for anything except \"0\", also need to exit from the process rather than continuing to run",
+      "revId": "88e749f68aafbc96b89445b5104f0f0f07143a7a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7335b52f_c2f2ed44",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-12-03T11:18:24Z",
+      "side": 1,
+      "message": "Yes, this looks like a bug in the original",
+      "parentUuid": "067c7b85_5e7dacf5",
       "revId": "88e749f68aafbc96b89445b5104f0f0f07143a7a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
