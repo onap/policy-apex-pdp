@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cb0be5f_8c33d5ca",
+        "filename": "packages/apex-pdp-package-full/src/main/package/scripts/apexApps.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-12-09T09:22:01Z",
+      "side": 1,
+      "message": "Yes, this is much better and so much easier to read.",
+      "revId": "395b49a08401890e7fa3af1fc869e4049a4bda36",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
