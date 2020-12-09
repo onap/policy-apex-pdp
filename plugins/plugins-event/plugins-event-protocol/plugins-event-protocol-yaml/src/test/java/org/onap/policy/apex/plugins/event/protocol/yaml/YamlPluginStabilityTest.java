@@ -21,8 +21,11 @@
 
 package org.onap.policy.apex.plugins.event.protocol.yaml;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -118,14 +121,14 @@ public class YamlPluginStabilityTest {
         converter.init(pars);
 
         assertThatThrownBy(() -> converter.toApexEvent("NonExistantEvent", ""))
-            .hasMessageContaining("Failed to unmarshal YAML event: an event definition for an event named "
-                    + "\"NonExistantEvent\"");
+            .hasMessageContaining("Failed to unmarshal YAML event")
+            .getCause().hasMessageStartingWith("an event definition for an event named \"NonExistantEvent\"");
         assertThatThrownBy(() -> converter.toApexEvent("TestEvent", null))
             .hasMessage("event processing failed, event is null");
         assertThatThrownBy(() -> converter.toApexEvent("TestEvent", 1))
             .hasMessage("error converting event \"1\" to a string");
         assertThatThrownBy(() -> converter.toApexEvent("TestEvent", ""))
-            .hasMessageContaining("Field \"doubleValue\" is missing");
+            .getCause().hasMessageContaining("Field \"doubleValue\" is missing");
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .hasMessage("event processing failed, Apex event is null");
         ApexEvent apexEvent = new ApexEvent(testEvent.getKey().getName(), testEvent.getKey().getVersion(),
@@ -142,12 +145,12 @@ public class YamlPluginStabilityTest {
         assertThatThrownBy(() -> converter.fromApexEvent(apexEvent))
             .hasMessageContaining("error parsing TestEvent:0.0.1 event to Json. Field \"intValue\" is missing");
         assertThatThrownBy(() -> converter.toApexEvent(null, ""))
-            .hasMessageContaining("Failed to unmarshal YAML event: event received without mandatory parameter"
-                    + " \"name\"");
+            .hasMessageStartingWith("Failed to unmarshal YAML event")
+            .getCause().hasMessageStartingWith("event received without mandatory parameter \"name\"");
         pars.setNameAlias("TheNameField");
         assertThatThrownBy(() -> converter.toApexEvent(null, ""))
-            .hasMessageContaining("Failed to unmarshal YAML event: event received without mandatory parameter"
-                    + " \"name\"");
+            .hasMessageStartingWith("Failed to unmarshal YAML event")
+            .getCause().hasMessageStartingWith("event received without mandatory parameter \"name\"");
         apexEvent.put("intValue", 123);
 
         apexEvent.remove("stringValue");
@@ -184,7 +187,8 @@ public class YamlPluginStabilityTest {
         pars.setNameSpaceAlias("stringValue");
         final String yamlInputStringCopy = yamlInputString;
         assertThatThrownBy(() -> converter.toApexEvent("TestEvent", yamlInputStringCopy))
-            .hasMessageContaining("Failed to unmarshal YAML event: namespace \"org.some.other.namespace\" on event");
+            .hasMessageStartingWith("Failed to unmarshal YAML event")
+            .getCause().hasMessageStartingWith("namespace \"org.some.other.namespace\" on event");
         yamlInputString = "doubleValue: 123.45\n" + "intValue: 123\n"
                         + "stringValue: org.onap.policy.apex.plugins.event.protocol.yaml";
         eventList = converter.toApexEvent("TestEvent", yamlInputString);
@@ -207,11 +211,11 @@ public class YamlPluginStabilityTest {
         pars.setSourceAlias(null);
         pars.setTargetAlias("intValue");
         assertThatThrownBy(() -> converter.toApexEvent("TestEvent", yamlInputStringCopy))
-            .hasMessageContaining("Failed to unmarshal YAML event: field \"target\" with type \"java.lang.Integer\"");
+            .hasMessageStartingWith("Failed to unmarshal YAML event")
+            .getCause().hasMessageStartingWith("field \"target\" with type \"java.lang.Integer\"");
         pars.setTargetAlias(null);
 
         assertThatThrownBy(() -> converter.toApexEvent("TestEvent", "doubleValue: 123.45\n" + "intValue: ~\n"
-            + "stringValue: MyString"))
-            .hasMessageContaining("mandatory field \"intValue\" is missing");
+            + "stringValue: MyString")).getCause().hasMessageStartingWith("mandatory field \"intValue\" is missing");
     }
 }

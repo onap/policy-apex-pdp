@@ -49,11 +49,13 @@ public class JsonEventConverterTest {
         assertThatThrownBy(() -> converter.toApexEvent(null, 1))
             .hasMessage("error converting event \"1\" to a string");
         assertThatThrownBy(() -> converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]"))
-            .hasMessage("Failed to unmarshal JSON event: event received without mandatory parameter \"name\" "
-                            + "on configuration or on event, event=[{\"aKey\": 1},{\"aKey\": 2}]");
+            .hasMessageStartingWith("Failed to unmarshal JSON event")
+            .getCause().hasMessageStartingWith("event received without mandatory parameter \"name\" "
+                            + "on configuration or on event");
         assertThatThrownBy(() -> converter.toApexEvent(null, "[1,2,3]"))
-            .hasMessage("Failed to unmarshal JSON event: incoming event ([1,2,3]) is a JSON object array "
-                    + "containing an invalid object 1.0, event=[1,2,3]");
+            .hasMessageStartingWith("Failed to unmarshal JSON event")
+            .getCause().hasMessageStartingWith("incoming event ([1,2,3]) is a JSON object array "
+                    + "containing an invalid object 1.0");
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .hasMessage("event processing failed, Apex event is null");
         assertThatThrownBy(() -> converter.fromApexEvent(new ApexEvent("Event", "0.0.1", "a.name.space",

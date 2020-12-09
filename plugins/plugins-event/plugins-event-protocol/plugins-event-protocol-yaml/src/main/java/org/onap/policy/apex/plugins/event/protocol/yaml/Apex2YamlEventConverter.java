@@ -112,10 +112,8 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         try {
             eventList.add(yamlMap2ApexEvent(eventName, yamlMap));
         } catch (final Exception e) {
-            final String errorString = "Failed to unmarshal YAML event: " + e.getMessage() + ", event="
-                            + yamlEventString;
-            LOGGER.warn(errorString, e);
-            throw new ApexEventException(errorString, e);
+            throw new ApexEventException("Failed to unmarshal YAML event, event="
+                + yamlEventString, e);
         }
 
         // Return the list of events we have unmarshalled
