@@ -21,7 +21,9 @@
 
 package org.onap.policy.apex.service.engine.event;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
@@ -48,12 +50,22 @@ public class JsonEventConverterTest {
             .hasMessage("event processing failed, event is null");
         assertThatThrownBy(() -> converter.toApexEvent(null, 1))
             .hasMessage("error converting event \"1\" to a string");
-        assertThatThrownBy(() -> converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]"))
-            .hasMessage("Failed to unmarshal JSON event: event received without mandatory parameter \"name\" "
-                            + "on configuration or on event, event=[{\"aKey\": 1},{\"aKey\": 2}]");
-        assertThatThrownBy(() -> converter.toApexEvent(null, "[1,2,3]"))
-            .hasMessage("Failed to unmarshal JSON event: incoming event ([1,2,3]) is a JSON object array "
-                    + "containing an invalid object 1.0, event=[1,2,3]");
+
+        Throwable throwable;
+
+        throwable = assertThrows(ApexEventException.class,
+            () -> converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]")
+        );
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("event received without mandatory parameter \"name\" "
+            + "on configuration or on event");
+
+        throwable = assertThrows(ApexEventException.class,
+            () -> converter.toApexEvent(null, "[1,2,3]"));
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("incoming event ([1,2,3]) is a JSON object array "
+            + "containing an invalid object 1.0");
+
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .hasMessage("event processing failed, Apex event is null");
         assertThatThrownBy(() -> converter.fromApexEvent(new ApexEvent("Event", "0.0.1", "a.name.space",
