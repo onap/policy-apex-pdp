@@ -111,10 +111,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                 eventList.add(jsonStringApexEvent(eventName, jsonEventString));
             }
         } catch (final Exception e) {
-            final String errorString = "Failed to unmarshal JSON event: " + e.getMessage() + ", event="
-                            + jsonEventString;
-            LOGGER.warn(errorString, e);
-            throw new ApexEventException(errorString, e);
+            throw new ApexEventException("Failed to unmarshal JSON event, event=" + jsonEventString, e);
         }
 
         // Return the list of events we have unmarshalled

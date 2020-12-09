@@ -21,10 +21,11 @@
 
 package org.onap.policy.apex.service.engine.event;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -137,82 +138,115 @@ public class JsonEventHandlerTest {
     @Test
     public void testJsontoApexBadEvent() throws ApexException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
+        Throwable throwable;
+
         assertNotNull(jsonEventConverter);
         jsonEventConverter.init(new JsonEventProtocolParameters());
 
-        assertThatThrownBy(() -> {
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoName();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: event received without "
-                + "mandatory parameter \"name\" ");
-        assertThatThrownBy(() -> {
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("event received without "
+            + "mandatory parameter \"name\" ");
+
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventBadName();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: field \"name\" with value \"%%%%\" is invalid");
-        assertThatThrownBy(() -> {
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("field \"name\" with value \"%%%%\" is invalid");
+
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoExName();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: an event definition for an event named \"I_DONT_EXI");
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("an event definition for an event named \"I_DONT_EXI");
+
         String apexEventJsonStringIn1 = null;
         apexEventJsonStringIn1 = SupportJsonEventGenerator.jsonEventNoVersion();
         ApexEvent event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn1).get(0);
         assertEquals("0.0.1", event.getVersion());
-        assertThatThrownBy(() -> {
+
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventBadVersion();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: field \"version\" with value \"#####\" is invalid");
-        assertThatThrownBy(() -> {
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("field \"version\" with value \"#####\" is invalid");
+
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoExVersion();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: an event definition for an event named "
-                + "\"BasicEvent\" with version \"1.2.3\" not found in Apex model");
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("an event definition for an event named "
+            + "\"BasicEvent\" with version \"1.2.3\" not found in Apex model");
+
         apexEventJsonStringIn1 = SupportJsonEventGenerator.jsonEventNoNamespace();
         event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn1).get(0);
         assertEquals("org.onap.policy.apex.events", event.getNameSpace());
 
-        assertThatThrownBy(() -> {
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventBadNamespace();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: " + "field \"nameSpace\" with value \"hello.&&&&\" "
-                + "is invalid");
-        assertThatThrownBy(() -> {
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("field \"nameSpace\" with value \"hello.&&&&\" "
+            + "is invalid");
+
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventNoExNamespace();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: namespace \"pie.in.the.sky\" "
-                + "on event \"BasicEvent\" does not" + " match namespace \"org.onap.policy.apex.events\" "
-                + "for that event in the Apex model");
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("namespace \"pie.in.the.sky\" "
+            + "on event \"BasicEvent\" does not" + " match namespace \"org.onap.policy.apex.events\" "
+            + "for that event in the Apex model");
+
         apexEventJsonStringIn1 = SupportJsonEventGenerator.jsonEventNoSource();
         event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn1).get(0);
         assertEquals("source", event.getSource());
 
-        assertThatThrownBy(() -> {
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventBadSource();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: field \"source\" with value \"%!@**@!\" is invalid");
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("field \"source\" with value \"%!@**@!\" is invalid");
+
         apexEventJsonStringIn1 = SupportJsonEventGenerator.jsonEventNoTarget();
         event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn1).get(0);
         assertEquals("target", event.getTarget());
 
-        assertThatThrownBy(() -> {
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventBadTarget();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: field \"target\" with value \"KNIO(*S)A(S)D\" "
-                + "is invalid");
-        assertThatThrownBy(() -> {
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("field \"target\" with value \"KNIO(*S)A(S)D\" "
+            + "is invalid");
+
+        throwable = assertThrows(ApexEventException.class, () -> {
             String apexEventJsonStringIn = null;
             apexEventJsonStringIn = SupportJsonEventGenerator.jsonEventMissingFields();
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
-        }).hasMessageContaining("Failed to unmarshal JSON event: error parsing BasicEvent:0.0.1 "
-               + "event from Json. Field \"intPar\" is missing, but is mandatory.");
+        });
+        assertThat(throwable).hasMessageStartingWith("Failed to unmarshal JSON event");
+        assertThat(throwable.getCause()).hasMessageStartingWith("error parsing BasicEvent:0.0.1 "
+            + "event from Json. Field \"intPar\" is missing, but is mandatory.");
+
         apexEventJsonStringIn1 = SupportJsonEventGenerator.jsonEventNullFields();
         event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn1).get(0);
         assertEquals(null, event.get("TestSlogan"));
