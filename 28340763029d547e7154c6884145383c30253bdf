@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf6d7f6c_0853a082",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/jsonprotocolplugin/Apex2JsonEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2020-12-17T12:23:25Z",
+      "side": 1,
+      "message": "2019-2020",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "28340763029d547e7154c6884145383c30253bdf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
