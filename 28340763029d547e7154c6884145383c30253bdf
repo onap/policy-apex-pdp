@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "210da4b0_cf3fc9af",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/jsonprotocolplugin/Apex2JsonEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2020-12-17T13:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf6d7f6c_0853a082",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "28340763029d547e7154c6884145383c30253bdf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3527870_40771c82",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2020-12-17T13:03:34Z",
       "side": 1,
       "message": "include the event in the message, too?  or does that matter?",
+      "revId": "28340763029d547e7154c6884145383c30253bdf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0db73b46_f4334ced",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexEventUnmarshaller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2020-12-17T13:36:35Z",
+      "side": 1,
+      "message": "The event text is already included in the causing exception by (in this case) Apex2JsonEventConverter. Is that sufficient?",
+      "parentUuid": "a3527870_40771c82",
       "revId": "28340763029d547e7154c6884145383c30253bdf",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
