@@ -130,7 +130,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
             final JAXBElement<XMLApexEvent> rootElement = unmarshaller.unmarshal(source, XMLApexEvent.class);
             xmlApexEvent = rootElement.getValue();
         } catch (final JAXBException e) {
-            LOGGER.warn("Unable to unmarshal Apex XML event\n" + xmlEventString, e);
             throw new ApexEventException("Unable to unmarshal Apex XML event\n" + xmlEventString, e);
         }
 
