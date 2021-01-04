@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,8 +33,8 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaTopologyTemplate;
 import org.slf4j.Logger;
@@ -58,7 +58,7 @@ public class ApexEngineHandler {
      * @throws ApexStarterException if the apex engine instantiation failed using the policies passed
      */
     public ApexEngineHandler(List<ToscaPolicy> policies)  throws ApexStarterException {
-        Map<ToscaPolicyIdentifier, String[]> policyArgsMap = createPolicyArgsMap(policies);
+        Map<ToscaConceptIdentifier, String[]> policyArgsMap = createPolicyArgsMap(policies);
         LOGGER.debug("Starting apex engine.");
         try {
             apexMain = new ApexMain(policyArgsMap);
@@ -77,7 +77,7 @@ public class ApexEngineHandler {
         if (null == apexMain || !apexMain.isAlive()) {
             throw new ApexStarterException("Apex Engine not initialized.");
         }
-        Map<ToscaPolicyIdentifier, String[]> policyArgsMap = createPolicyArgsMap(policies);
+        Map<ToscaConceptIdentifier, String[]> policyArgsMap = createPolicyArgsMap(policies);
         try {
             apexMain.updateModel(policyArgsMap);
         } catch (ApexException e) {
@@ -85,9 +85,9 @@ public class ApexEngineHandler {
         }
     }
 
-    private Map<ToscaPolicyIdentifier, String[]> createPolicyArgsMap(List<ToscaPolicy> policies)
+    private Map<ToscaConceptIdentifier, String[]> createPolicyArgsMap(List<ToscaPolicy> policies)
         throws ApexStarterException {
-        Map<ToscaPolicyIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
+        Map<ToscaConceptIdentifier, String[]> policyArgsMap = new LinkedHashMap<>();
         for (ToscaPolicy policy : policies) {
             String policyName = policy.getIdentifier().getName();
             final StandardCoder standardCoder = new StandardCoder();
@@ -129,7 +129,7 @@ public class ApexEngineHandler {
     /**
      * Method that return the list of running policies in the apex engine.
      */
-    public List<ToscaPolicyIdentifier> getRunningPolicies() {
+    public List<ToscaConceptIdentifier> getRunningPolicies() {
         return new ArrayList<>(apexMain.getApexParametersMap().keySet());
     }
 

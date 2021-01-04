@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.parameters.ApexParameters;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 
 /**
  * Test the ApexMain class.
@@ -146,9 +146,9 @@ public class ApexMainTest {
     public void testCorrectParametersWithMultiplePolicies() throws ApexException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
+        Map<ToscaConceptIdentifier, String[]> argsMap = new HashMap<ToscaConceptIdentifier, String[]>();
         String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
-        argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
+        argsMap.put(new ToscaConceptIdentifier("id1", "v1"), args);
         final ApexMain apexMain = new ApexMain(argsMap);
         ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
         assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
@@ -161,10 +161,10 @@ public class ApexMainTest {
     public void testInCorrectParametersWithMultiplePolicies() throws ApexException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
+        Map<ToscaConceptIdentifier, String[]> argsMap = new HashMap<ToscaConceptIdentifier, String[]>();
         String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
-        argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
-        argsMap.put(new ToscaPolicyIdentifier("id2", "v2"), args);
+        argsMap.put(new ToscaConceptIdentifier("id1", "v1"), args);
+        argsMap.put(new ToscaConceptIdentifier("id2", "v2"), args);
         final ApexMain apexMain = new ApexMain(argsMap);
         ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
         assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
@@ -179,9 +179,9 @@ public class ApexMainTest {
     public void testInvalidArgsWithMultiplePolicies() throws ApexException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        Map<ToscaPolicyIdentifier, String[]> argsMap = new HashMap<ToscaPolicyIdentifier, String[]>();
+        Map<ToscaConceptIdentifier, String[]> argsMap = new HashMap<ToscaConceptIdentifier, String[]>();
         String[] args = {"-c", "file1", "-m", "file2"};
-        argsMap.put(new ToscaPolicyIdentifier("id1", "v1"), args);
+        argsMap.put(new ToscaConceptIdentifier("id1", "v1"), args);
         final ApexMain apexMain = new ApexMain(argsMap);
         final String outString = outContent.toString();
         apexMain.shutdown();

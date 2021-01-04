@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modification Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modification Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +43,7 @@ import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -62,7 +62,7 @@ public class ApexMain {
 
     // The parameters read in from JSON for each policy
     @Getter
-    private Map<ToscaPolicyIdentifier, ApexParameters> apexParametersMap;
+    private Map<ToscaConceptIdentifier, ApexParameters> apexParametersMap;
 
     //engineParameters are aggregated in case of multiple policies
     private EngineParameters aggregatedEngineParameters;
@@ -83,7 +83,7 @@ public class ApexMain {
         apexParametersMap = new LinkedHashMap<>();
         aggregatedEngineParameters = new EngineParameters();
         try {
-            apexParametersMap.put(new ToscaPolicyIdentifier(), populateApexParameters(args));
+            apexParametersMap.put(new ToscaConceptIdentifier(), populateApexParameters(args));
         } catch (ApexException e) {
             LOGGER.error(APEX_SERVICE_FAILED_MSG, e);
             return;
@@ -112,10 +112,10 @@ public class ApexMain {
      * @param policyArgumentsMap the map with command line arguments as value and policy-id as key
      * @throws ApexException on errors
      */
-    public ApexMain(Map<ToscaPolicyIdentifier, String[]> policyArgumentsMap) throws ApexException {
+    public ApexMain(Map<ToscaConceptIdentifier, String[]> policyArgumentsMap) throws ApexException {
         apexParametersMap = new LinkedHashMap<>();
         aggregatedEngineParameters = new EngineParameters();
-        for (Entry<ToscaPolicyIdentifier, String[]> policyArgsEntry: policyArgumentsMap.entrySet()) {
+        for (Entry<ToscaConceptIdentifier, String[]> policyArgsEntry: policyArgumentsMap.entrySet()) {
             try {
                 apexParametersMap.put(policyArgsEntry.getKey(), populateApexParameters(policyArgsEntry.getValue()));
             } catch (ApexException e) {
@@ -157,14 +157,14 @@ public class ApexMain {
      * @param policyArgsMap the map with command line arguments as value and policy-id as key
      * @throws ApexException on errors
      */
-    public void updateModel(Map<ToscaPolicyIdentifier, String[]> policyArgsMap) throws ApexException {
+    public void updateModel(Map<ToscaConceptIdentifier, String[]> policyArgsMap) throws ApexException {
         // flag that determines if any policy received in PDP_UPDATE is already deployed in the engine
         boolean isAnyPolicyDeployed = policyArgsMap.keySet().stream().anyMatch(apexParametersMap::containsKey);
         apexParametersMap.clear();
         aggregatedEngineParameters = new EngineParameters();
         AxContextAlbums albums = ModelService.getModel(AxContextAlbums.class);
         Map<AxArtifactKey, AxContextAlbum> albumsMap = new TreeMap<>();
-        for (Entry<ToscaPolicyIdentifier, String[]> policyArgsEntry : policyArgsMap.entrySet()) {
+        for (Entry<ToscaConceptIdentifier, String[]> policyArgsEntry : policyArgsMap.entrySet()) {
             findAlbumsToHold(albumsMap, policyArgsEntry.getKey());
             try {
                 apexParametersMap.put(policyArgsEntry.getKey(), populateApexParameters(policyArgsEntry.getValue()));
@@ -207,8 +207,8 @@ public class ApexMain {
      * @param albumsMap the albums which should be kept during model update
      * @param policyId the policy id of current policy
      */
-    private void findAlbumsToHold(Map<AxArtifactKey, AxContextAlbum> albumsMap, ToscaPolicyIdentifier policyId) {
-        for (Entry<ToscaPolicyIdentifier, AxPolicyModel> policyModelsEntry : activator.getPolicyModelsMap()
+    private void findAlbumsToHold(Map<AxArtifactKey, AxContextAlbum> albumsMap, ToscaConceptIdentifier policyId) {
+        for (Entry<ToscaConceptIdentifier, AxPolicyModel> policyModelsEntry : activator.getPolicyModelsMap()
             .entrySet()) {
             // If a policy with the same major version is received in PDP_UPDATE,
             // context for that policy has to be retained. For this, take such policies' albums

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ import org.onap.policy.models.pdp.concepts.PdpStateChange;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,7 +118,7 @@ public class PdpStateChangeMessageHandler {
             final ApexEngineHandler apexEngineHandler = new ApexEngineHandler(policies);
             Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             if (apexEngineHandler.isApexEngineRunning()) {
-                List<ToscaPolicyIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
+                List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
                 // only the policies which are succesfully executed should be there in the heartbeat
                 pdpStatusContext.setPolicies(runningPolicies);
                 if (new HashSet<>(runningPolicies)
@@ -129,7 +129,7 @@ public class PdpStateChangeMessageHandler {
                 } else {
                     StringBuilder message = new StringBuilder(
                         "Apex engine started. But, only the following polices are running - ");
-                    for (ToscaPolicyIdentifier policy : runningPolicies) {
+                    for (ToscaConceptIdentifier policy : runningPolicies) {
                         message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
                     }
                     message.append(". Other policies failed execution. Please see the logs for more details.");

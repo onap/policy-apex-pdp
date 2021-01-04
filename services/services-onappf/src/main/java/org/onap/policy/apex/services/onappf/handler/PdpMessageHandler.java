@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,8 @@ import org.onap.policy.models.pdp.enums.PdpEngineWorkerState;
 import org.onap.policy.models.pdp.enums.PdpHealthStatus;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyTypeIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,13 +79,13 @@ public class PdpMessageHandler {
      * @param pdpStatusParameters pdp status parameters
      * @return supportedPolicyTypes list of PolicyTypeIdent
      */
-    public List<ToscaPolicyTypeIdentifier> getSupportedPolicyTypesFromParameters(
+    public List<ToscaConceptIdentifier> getSupportedPolicyTypesFromParameters(
             final PdpStatusParameters pdpStatusParameters) {
-        final List<ToscaPolicyTypeIdentifier> supportedPolicyTypes =
+        final List<ToscaConceptIdentifier> supportedPolicyTypes =
                 new ArrayList<>(pdpStatusParameters.getSupportedPolicyTypes().size());
         for (final ToscaPolicyTypeIdentifierParameters policyTypeIdentParameters : pdpStatusParameters
                 .getSupportedPolicyTypes()) {
-            supportedPolicyTypes.add(new ToscaPolicyTypeIdentifier(policyTypeIdentParameters.getName(),
+            supportedPolicyTypes.add(new ToscaConceptIdentifier(policyTypeIdentParameters.getName(),
                     policyTypeIdentParameters.getVersion()));
         }
         return supportedPolicyTypes;
@@ -222,11 +221,11 @@ public class PdpMessageHandler {
      *
      * @return policyTypeIdentifiers
      */
-    public List<ToscaPolicyIdentifier> getToscaPolicyIdentifiers(final List<ToscaPolicy> policies) {
-        final List<ToscaPolicyIdentifier> policyIdentifiers = new ArrayList<>(policies.size());
+    public List<ToscaConceptIdentifier> getToscaPolicyIdentifiers(final List<ToscaPolicy> policies) {
+        final List<ToscaConceptIdentifier> policyIdentifiers = new ArrayList<>(policies.size());
         for (final ToscaPolicy policy : policies) {
             if (null != policy.getName() && null != policy.getVersion()) {
-                policyIdentifiers.add(new ToscaPolicyIdentifier(policy.getName(), policy.getVersion()));
+                policyIdentifiers.add(new ToscaConceptIdentifier(policy.getName(), policy.getVersion()));
             }
         }
         return policyIdentifiers;

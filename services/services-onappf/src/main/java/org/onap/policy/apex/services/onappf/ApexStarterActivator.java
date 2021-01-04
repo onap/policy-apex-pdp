@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +41,7 @@ import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.common.utils.services.ServiceManager;
 import org.onap.policy.common.utils.services.ServiceManagerException;
 import org.onap.policy.models.pdp.enums.PdpMessageType;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyTypeIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +78,7 @@ public class ApexStarterActivator {
     private volatile boolean alive = false;
 
     @Getter
-    private List<ToscaPolicyTypeIdentifier> supportedPolicyTypes;
+    private List<ToscaConceptIdentifier> supportedPolicyTypes;
 
     /**
      * Instantiate the activator for onappf PDP-A.
