@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,8 +125,7 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         }
 
         if (!EventType.EVENT_COMPONENT_EXECUTED.equals(cdsResponse.get().getStatus().getEventType())) {
-            LOGGER.error("Sending event \"{}\" by {} to CDS failed. Response from CDS:\n{}", eventName, this.name,
-                cdsResponse.get());
+            LOGGER.error("Sending event \"{}\" by {} to CDS failed.", eventName, this.name);
         }
 
         consumeEvent(executionId, cdsResponse.get());
@@ -166,7 +165,6 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
 
     @Override
     public void onMessage(ExecutionServiceOutput message) {
-        LOGGER.info("Received notification from CDS: {}", message);
         cdsResponse.set(message);
     }
 
