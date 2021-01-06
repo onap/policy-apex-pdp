@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -170,7 +170,7 @@ public class PdpUpdateMessageHandler {
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             }
             if (apexEngineHandler.isApexEngineRunning()) {
-                List<ToscaPolicyIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
+                List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
                 if (new HashSet<>(runningPolicies)
                     .equals(new HashSet<>(pdpMessageHandler.getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies())))) {
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
@@ -178,7 +178,7 @@ public class PdpUpdateMessageHandler {
                 } else {
                     StringBuilder message =
                         new StringBuilder("Apex engine started. But, only the following polices are running - ");
-                    for (ToscaPolicyIdentifier policy : runningPolicies) {
+                    for (ToscaConceptIdentifier policy : runningPolicies) {
                         message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
                     }
                     message.append(". Other policies failed execution. Please see the logs for more details.");

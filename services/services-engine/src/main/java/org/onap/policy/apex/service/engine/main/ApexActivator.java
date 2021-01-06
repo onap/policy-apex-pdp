@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,7 +50,7 @@ import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParame
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -69,10 +69,10 @@ public class ApexActivator {
     // The parameters of the Apex activator when running with multiple policies
     @Getter
     @Setter
-    private Map<ToscaPolicyIdentifier, ApexParameters> apexParametersMap;
+    private Map<ToscaConceptIdentifier, ApexParameters> apexParametersMap;
 
     @Getter
-    Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap;
+    Map<ToscaConceptIdentifier, AxPolicyModel> policyModelsMap;
 
     // Event unmarshalers are used to receive events asynchronously into Apex
     private final Map<String, ApexEventUnmarshaller> unmarshallerMap = new LinkedHashMap<>();
@@ -95,7 +95,7 @@ public class ApexActivator {
      *
      * @param parametersMap the apex parameters map for the Apex service
      */
-    public ApexActivator(Map<ToscaPolicyIdentifier, ApexParameters> parametersMap) {
+    public ApexActivator(Map<ToscaConceptIdentifier, ApexParameters> parametersMap) {
         apexParametersMap = parametersMap;
     }
 
@@ -128,7 +128,7 @@ public class ApexActivator {
         policyModelsMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> inputParametersMap = new LinkedHashMap<>();
         Map<String, EventHandlerParameters> outputParametersMap = new LinkedHashMap<>();
-        Set<Entry<ToscaPolicyIdentifier, ApexParameters>> apexParamsEntrySet = new LinkedHashSet<>(
+        Set<Entry<ToscaConceptIdentifier, ApexParameters>> apexParamsEntrySet = new LinkedHashSet<>(
             apexParametersMap.entrySet());
         apexParamsEntrySet.stream().forEach(apexParamsEntry -> {
             ApexParameters apexParams = apexParamsEntry.getValue();
@@ -175,12 +175,12 @@ public class ApexActivator {
         startUnmarshallers(inputParametersMap);
     }
 
-    private AxPolicyModel aggregatePolicyModels(Map<ToscaPolicyIdentifier, AxPolicyModel> policyModelsMap) {
+    private AxPolicyModel aggregatePolicyModels(Map<ToscaConceptIdentifier, AxPolicyModel> policyModelsMap) {
         // Doing a deep copy so that original values in policyModelsMap is retained
         // after reduction operation
-        Set<Entry<ToscaPolicyIdentifier, AxPolicyModel>> policyModelsEntries = policyModelsMap.entrySet().stream()
+        Set<Entry<ToscaConceptIdentifier, AxPolicyModel>> policyModelsEntries = policyModelsMap.entrySet().stream()
             .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(), entry.getValue())).collect(Collectors.toSet());
-        Optional<Entry<ToscaPolicyIdentifier, AxPolicyModel>> finalPolicyModelEntry = policyModelsEntries.stream()
+        Optional<Entry<ToscaConceptIdentifier, AxPolicyModel>> finalPolicyModelEntry = policyModelsEntries.stream()
             .reduce((entry1, entry2) -> {
                 try {
                     entry1.setValue(
@@ -303,7 +303,7 @@ public class ApexActivator {
      * @param apexParamsMap the apex parameters map for the Apex service
      * @throws ApexException on errors
      */
-    public void updateModel(Map<ToscaPolicyIdentifier, ApexParameters> apexParamsMap) throws ApexException {
+    public void updateModel(Map<ToscaConceptIdentifier, ApexParameters> apexParamsMap) throws ApexException {
         try {
             ApexParameters apexParameters = apexParamsMap.values().iterator().next();
             setUpModelMarshallerAndUnmarshaller(apexParameters);
