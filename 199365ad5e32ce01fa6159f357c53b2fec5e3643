@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5e0803d5_713fd27a",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2021-01-13T16:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29dd848_38f37fb8",
+      "range": {
+        "startLine": 74,
+        "startChar": 49,
+        "endLine": 74,
+        "endChar": 63
+      },
+      "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e8994ec_1e6b3505",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "d1dadeb9_2331d390",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2021-01-13T16:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e8994ec_1e6b3505",
+      "range": {
+        "startLine": 231,
+        "startChar": 57,
+        "endLine": 231,
+        "endChar": 69
+      },
+      "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a220f5f4_789803d1",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/apexprotocolplugin/Apex2ApexEventConverter.java",
         "patchSetId": 1
@@ -92,6 +140,30 @@
       "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b158ef79_c1376a31",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/apexprotocolplugin/Apex2ApexEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2021-01-13T16:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a220f5f4_789803d1",
+      "range": {
+        "startLine": 105,
+        "startChar": 76,
+        "endLine": 105,
+        "endChar": 88
+      },
+      "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
