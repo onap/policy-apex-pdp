@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +45,6 @@ import org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 import org.onap.policy.common.utils.resources.ResourceUtils;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -55,7 +54,6 @@ import org.xml.sax.SAXException;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class Apex2XmlEventConverter implements ApexEventProtocolConverter {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(Apex2XmlEventConverter.class);
 
     private static final String MODEL_SCHEMA_NAME = "xml/apex-event.xsd";
 
@@ -87,7 +85,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.setSchema(apexEventSchema);
         } catch (JAXBException | SAXException e) {
-            LOGGER.error("Unable to set up marshalling and unmarshalling for XML events", e);
             throw new ApexEventException("Unable to set up marshalling and unmarshalling for XML events", e);
         }
     }
@@ -107,7 +104,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
         // Check the XML event
         if (eventObject == null) {
-            LOGGER.warn("event processing failed, XML event is null");
             throw new ApexEventException("event processing failed, XML event is null");
         }
 
@@ -117,7 +113,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
             xmlEventString = (String) eventObject;
         } catch (final Exception e) {
             final String errorMessage = "error converting event \"" + eventObject + "\" to a string";
-            LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 
@@ -155,7 +150,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
     public String fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {
         // Check the Apex event
         if (apexEvent == null) {
-            LOGGER.warn("event processing failed, Apex event is null");
             throw new ApexEventException("event processing failed, Apex event is null");
         }
 
@@ -172,7 +166,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
                 }
             }
         } catch (final Exception e) {
-            LOGGER.warn("Unable to transfer Apex event data to XML\n" + apexEvent, e);
             throw new ApexEventException("Unable to transfer Apex event data to XML\n" + apexEvent, e);
         }
 
@@ -189,7 +182,6 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
             // Return the event as XML in a string
             return writer.toString();
         } catch (final JAXBException e) {
-            LOGGER.warn("Unable to unmarshal Apex event to XML\n" + apexEvent, e);
             throw new ApexEventException("Unable to unmarshal Apex event to XML\n" + apexEvent, e);
         }
     }
