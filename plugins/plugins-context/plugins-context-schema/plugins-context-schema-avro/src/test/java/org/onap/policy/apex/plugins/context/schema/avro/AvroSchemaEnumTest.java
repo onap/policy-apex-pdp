@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,17 +122,13 @@ public class AvroSchemaEnumTest {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleHearts.json");
 
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleNull.json"))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
-                    + "Got VALUE_NULL");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleNull.json"))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
-                    + "Got VALUE_NULL");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleBad0.json"))
-            .hasMessage("AvroTest:0.0.1: object \"\"TWEED\"\" Avro unmarshalling failed: Unknown symbol "
-                    + "in enum TWEED");
+            .hasMessage("AvroTest:0.0.1: object \"\"TWEED\"\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/EnumExampleBad1.json"))
-            .hasMessage("AvroTest:0.0.1: object \"\"Hearts\"\" Avro unmarshalling failed: Unknown symbol "
-                    + "in enum Hearts");
+            .hasMessage("AvroTest:0.0.1: object \"\"Hearts\"\" Avro unmarshalling failed.");
     }
 
     /**

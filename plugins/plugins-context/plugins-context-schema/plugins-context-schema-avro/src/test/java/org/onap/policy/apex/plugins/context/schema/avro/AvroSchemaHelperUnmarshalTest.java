@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,8 +96,7 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals(null, schemaHelper0.unmarshal("null"));
 
         assertThatThrownBy(() -> schemaHelper0.unmarshal("123"))
-            .hasMessage("AvroTest:0.0.1: object \"123\" Avro unmarshalling failed: "
-                + "Expected null. Got VALUE_NUMBER_INT");
+            .hasMessage("AvroTest:0.0.1: object \"123\" Avro unmarshalling failed.");
     }
 
     /**
@@ -149,14 +149,11 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals(2147483647, schemaHelper2.unmarshal("2147483647"));
         assertEquals(-2147483648, schemaHelper2.unmarshal("-2147483648"));
         assertThatThrownBy(() -> schemaHelper2.unmarshal("2147483648"))
-            .hasMessageStartingWith("AvroTest:0.0.1: object \"2147483648\" Avro unmarshalling failed: "
-                + "Numeric value (2147483648) out of range of int");
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"2147483648\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper2.unmarshal("-2147483649"))
-            .hasMessageStartingWith("AvroTest:0.0.1: object \"-2147483649\" Avro unmarshalling failed: "
-                + "Numeric value (-2147483649) out of range of int");
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"-2147483649\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper2.unmarshal(null))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
-                + "String to read from cannot be null!");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
     }
 
     /**
@@ -184,17 +181,13 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals(9223372036854775807L, schemaHelper3.unmarshal("9223372036854775807"));
         assertEquals(-9223372036854775808L, schemaHelper3.unmarshal("-9223372036854775808"));
         assertThatThrownBy(() -> schemaHelper3.unmarshal("9223372036854775808"))
-            .hasMessageStartingWith("AvroTest:0.0.1: object \"9223372036854775808\" Avro unmarshalling failed: "
-                + "Numeric value (9223372036854775808) out of range of long");
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"9223372036854775808\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper3.unmarshal("-9223372036854775809"))
-            .hasMessageStartingWith("AvroTest:0.0.1: object \"-9223372036854775809\" Avro unmarshalling failed: "
-                + "Numeric value (-9223372036854775809) out of range of long");
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"-9223372036854775809\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper3.unmarshal("\"Hello\""))
-            .hasMessage("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
-                + "Expected long. Got VALUE_STRING");
+            .hasMessage("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper3.unmarshal(null))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
-                + "String to read from cannot be null!");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
     }
 
     /**
@@ -224,11 +217,9 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals(9.223372E18F, schemaHelper4.unmarshal("9223372036854775808"));
         assertEquals(-9.223372E18F, schemaHelper4.unmarshal("-9223372036854775809"));
         assertThatThrownBy(() -> schemaHelper4.unmarshal("\"Hello\""))
-            .hasMessage("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
-                + "Expected float. Got VALUE_STRING");
+            .hasMessage("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper4.unmarshal(null))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
-                + "String to read from cannot be null!");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
     }
 
     /**
@@ -258,11 +249,9 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals(9.223372036854776E18, schemaHelper5.unmarshal("9223372036854775808"));
         assertEquals(-9.223372036854776E18, schemaHelper5.unmarshal("-9223372036854775809"));
         assertThatThrownBy(() -> schemaHelper5.unmarshal("\"Hello\""))
-            .hasMessage("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed: "
-                + "Expected double. Got VALUE_STRING");
+            .hasMessage("AvroTest:0.0.1: object \"\"Hello\"\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> schemaHelper5.unmarshal(null))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
-                + "String to read from cannot be null!");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
     }
 
     /**
@@ -292,8 +281,7 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals("Hello", schemaHelper7.unmarshal("Hello"));
         assertEquals("Hello", schemaHelper7.unmarshal(new Utf8("Hello")));
         assertThatThrownBy(() -> schemaHelper7.unmarshal(null))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
-                + "String to read from cannot be null!");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
     }
 
     /**
@@ -319,7 +307,6 @@ public class AvroSchemaHelperUnmarshalTest {
         assertEquals(111, newBytes[4]);
 
         assertThatThrownBy(() -> schemaHelper.unmarshal(null))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: "
-                + "String to read from cannot be null!");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
     }
 }
