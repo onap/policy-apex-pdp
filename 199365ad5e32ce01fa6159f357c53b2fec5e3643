@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b92ceef_1f5feda6",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2021-01-13T15:31:58Z",
+      "side": 1,
+      "message": "Cause message is duplicated - here and in the included stacktrace",
+      "range": {
+        "startLine": 74,
+        "startChar": 49,
+        "endLine": 74,
+        "endChar": 63
+      },
+      "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e8994ec_1e6b3505",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2021-01-13T15:31:58Z",
+      "side": 1,
+      "message": "Cause message is duplicated",
+      "range": {
+        "startLine": 231,
+        "startChar": 57,
+        "endLine": 231,
+        "endChar": 69
+      },
+      "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a220f5f4_789803d1",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/apexprotocolplugin/Apex2ApexEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7010
+      },
+      "writtenOn": "2021-01-13T15:31:58Z",
+      "side": 1,
+      "message": "Cause message is duplicated",
+      "range": {
+        "startLine": 105,
+        "startChar": 76,
+        "endLine": 105,
+        "endChar": 88
+      },
+      "revId": "199365ad5e32ce01fa6159f357c53b2fec5e3643",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
