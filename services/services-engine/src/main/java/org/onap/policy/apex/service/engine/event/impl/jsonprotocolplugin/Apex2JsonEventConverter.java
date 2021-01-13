@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +68,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         // Check and get the JSON parameters
         if (!(parameters instanceof JsonEventProtocolParameters)) {
             final String errorMessage = "specified consumer properties are not applicable to the JSON event protocol";
-            LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -81,7 +81,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
         // Check the event eventObject
         if (eventObject == null) {
-            LOGGER.warn("event processing failed, event is null");
             throw new ApexEventException("event processing failed, event is null");
         }
 
@@ -92,7 +91,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             jsonEventString = (String) eventObject;
         } catch (final Exception e) {
             final String errorMessage = "error converting event \"" + eventObject + "\" to a string";
-            LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 
@@ -160,7 +158,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {
         // Check the Apex event
         if (apexEvent == null) {
-            LOGGER.warn("event processing failed, Apex event is null");
             throw new ApexEventException("event processing failed, Apex event is null");
         }
 
@@ -204,7 +201,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                 if (!eventField.getOptional()) {
                     final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. " + "Field \""
                                     + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
-                    LOGGER.debug(errorMessage);
                     throw new ApexEventRuntimeException(errorMessage);
                 }
                 continue;
@@ -237,7 +233,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         if (eventDefinition.getFields().isEmpty()) {
             final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json, Field "
                             + jsonPars.getPojoField() + " not found, no fields defined on event.";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -245,7 +240,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json, Field "
                             + jsonPars.getPojoField() + ", "
                             + " one and only one field may be defined on a POJO event definition.";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -254,7 +248,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         if (!jsonPars.getPojoField().equals(pojoFieldDefinition.getKey().getLocalName())) {
             final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. Field "
                             + jsonPars.getPojoField() + " not found on POJO event definition.";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -332,7 +325,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                 if (!eventField.getOptional()) {
                     final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory.";
-                    LOGGER.debug(errorMessage);
                     throw new ApexEventException(errorMessage);
                 }
                 continue;
@@ -365,7 +357,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         if (eventDefinition.getFields().isEmpty()) {
             final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json, Field "
                             + jsonPars.getPojoField() + " not found, no fields defined on event.";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -373,7 +364,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json, Field "
                             + jsonPars.getPojoField()
                             + ", one and only one field may be defined on a POJO event definition.";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -382,7 +372,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         if (!jsonPars.getPojoField().equals(pojoFieldDefinition.getKey().getLocalName())) {
             final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json. Field "
                             + jsonPars.getPojoField() + " not found on POJO event definition.";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 

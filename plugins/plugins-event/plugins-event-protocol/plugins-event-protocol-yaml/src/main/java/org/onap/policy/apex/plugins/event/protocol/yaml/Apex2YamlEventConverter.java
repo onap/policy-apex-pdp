@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,7 +62,6 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         // Check and get the YAML parameters
         if (!(parameters instanceof YamlEventProtocolParameters)) {
             final String errorMessage = "specified consumer properties are not applicable to the YAML event protocol";
-            LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -75,7 +75,6 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
     public List<ApexEvent> toApexEvent(final String eventName, final Object eventObject) throws ApexEventException {
         // Check the event eventObject
         if (eventObject == null) {
-            LOGGER.warn("event processing failed, event is null");
             throw new ApexEventException("event processing failed, event is null");
         }
 
@@ -83,7 +82,6 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         // always work
         if (!(eventObject instanceof String)) {
             final String errorMessage = "error converting event \"" + eventObject + "\" to a string";
-            LOGGER.debug(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -127,7 +125,6 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {
         // Check the Apex event
         if (apexEvent == null) {
-            LOGGER.warn("event processing failed, Apex event is null");
             throw new ApexEventException("event processing failed, Apex event is null");
         }
 
@@ -155,7 +152,6 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
                 if (!eventField.getOptional()) {
                     final String errorMessage = "error parsing " + eventDefinition.getId() + " event to Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
-                    LOGGER.debug(errorMessage);
                     throw new ApexEventRuntimeException(errorMessage);
                 }
                 continue;
@@ -192,7 +188,6 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
                 if (!eventField.getOptional()) {
                     final String errorMessage = "error parsing " + eventDefinition.getId() + " event from Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory.";
-                    LOGGER.debug(errorMessage);
                     throw new ApexEventException(errorMessage);
                 }
                 continue;
