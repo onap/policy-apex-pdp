@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "106ccdf2_f34af6c3",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/apexprotocolplugin/Apex2ApexEventConverter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-01-13T17:42:26Z",
+      "side": 1,
+      "message": "can remove this concatenation step",
+      "range": {
+        "startLine": 105,
+        "startChar": 70,
+        "endLine": 105,
+        "endChar": 75
+      },
+      "revId": "23fda88751d6a6837bdaeff7f7baa388a699798b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
