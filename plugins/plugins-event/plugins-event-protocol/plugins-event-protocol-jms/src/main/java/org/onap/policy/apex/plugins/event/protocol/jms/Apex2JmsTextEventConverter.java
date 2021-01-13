@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +27,6 @@ import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class Apex2JMSTextEventConverter converts {@link ApexEvent} instances into string instances of
@@ -37,7 +36,6 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(Apex2JmsTextEventConverter.class);
 
     /**
      * {@inheritDoc}.
@@ -52,7 +50,6 @@ public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
         } catch (Exception e) {
             final String errorMessage = "message \"" + eventObject
                             + "\" received from JMS does not have a \"getText()\" method";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -63,7 +60,6 @@ public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
         } catch (final Exception e) {
             final String errorMessage = "object contained in message \"" + eventObject
                     + "\" received from JMS could not be retrieved as a Java String";
-            LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 
@@ -78,7 +74,6 @@ public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {
         // Check the Apex event
         if (apexEvent == null) {
-            LOGGER.warn("event processing failed, Apex event is null");
             throw new ApexEventException("event processing failed, Apex event is null");
         }
 
