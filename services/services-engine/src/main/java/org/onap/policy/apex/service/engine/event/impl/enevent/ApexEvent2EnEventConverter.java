@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +33,6 @@ import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventConverter;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
 
 /**
  * The Class ApexEvent2EnEventConverter converts externally facing {@link ApexEvent} instances to
@@ -42,7 +41,6 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class ApexEvent2EnEventConverter implements ApexEventConverter {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEvent2EnEventConverter.class);
 
     // The Apex engine with its event definitions
     private final ApexEngine apexEngine;
@@ -63,7 +61,6 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
     public List<ApexEvent> toApexEvent(final String eventName, final Object event) throws ApexException {
         // Check the Engine event
         if (event == null) {
-            LOGGER.warn("event processing failed, engine event is null");
             throw new ApexEventException("event processing failed, engine event is null");
         }
 
@@ -74,7 +71,6 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
             enEvent = (EnEvent) event;
         } catch (final Exception e) {
             final String errorMessage = "error transferring event \"" + event + "\" to the Apex engine";
-            LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 
@@ -107,14 +103,12 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
     public EnEvent fromApexEvent(final ApexEvent apexEvent) throws ApexException {
         // Check the Apex model
         if (apexEngine == null) {
-            LOGGER.warn("event processing failed, apex engine is null");
             throw new ApexEventException("event processing failed, apex engine is null");
         }
 
         // Get the event definition
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(apexEvent.getName());
         if (eventDefinition == null) {
-            LOGGER.warn("event processing failed, event \"" + apexEvent.getName() + "\" not found in apex model");
             throw new ApexEventException(
                     "event processing failed, event \"" + apexEvent.getName() + "\" not found in apex model");
         }

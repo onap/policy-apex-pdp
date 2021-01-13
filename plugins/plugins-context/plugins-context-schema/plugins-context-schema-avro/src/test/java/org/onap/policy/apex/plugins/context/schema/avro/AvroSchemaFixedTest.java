@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,18 +125,15 @@ public class AvroSchemaFixedTest {
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleGood.json");
 
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json"))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
-                    + "Got VALUE_NULL");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleNull.json"))
-            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed: Expected fixed. "
-                    + "Got VALUE_NULL");
+            .hasMessage("AvroTest:0.0.1: object \"null\" Avro unmarshalling failed.");
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad0.json"))
-            .hasMessage("AvroTest:0.0.1: object \"\"BADBAD\"\" "
-                + "Avro unmarshalling failed: Expected fixed length 64, but got6");
+            .hasMessage("AvroTest:0.0.1: object \"\"BADBAD\"\" " + "Avro unmarshalling failed.");
         assertThatThrownBy(() -> testUnmarshalMarshal(schemaHelper, "src/test/resources/data/FixedExampleBad1.json"))
-            .hasMessage("AvroTest:0.0.1: object "
-                + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
-                + "Avro unmarshalling failed: Expected fixed length 64, but got65");
+            .hasMessage(
+                "AvroTest:0.0.1: object " + "\"\"0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0\"\" "
+                    + "Avro unmarshalling failed.");
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +44,6 @@ import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
 
 /**
  * This class is the implementation of the {@link org.onap.policy.apex.context.SchemaHelper} interface for Avro schemas.
@@ -53,7 +52,6 @@ import org.slf4j.ext.XLoggerFactory;
  */
 public class AvroSchemaHelper extends AbstractSchemaHelper {
     // Get a reference to the logger
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(AvroSchemaHelper.class);
 
     // Recurring string constants
     private static final String OBJECT_TAG = ": object \"";
@@ -73,9 +71,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             avroSchema = new Schema.Parser().parse(schema.getSchema());
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": avro context schema \"" + schema.getId()
-                    + "\" schema is invalid: " + e.getMessage() + ", schema: " + schema.getSchema();
-            LOGGER.warn(resultSting, e);
-            throw new ContextRuntimeException(resultSting);
+                + "\" schema is invalid." + ", schema: " + schema.getSchema();
+            throw new ContextRuntimeException(resultSting, e);
         }
 
         // Get the object mapper for the schema type to a Java class
@@ -128,7 +125,6 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         } else {
             final String returnString =
                     getUserKey().getId() + ": the object \"" + incomingObject + "\" is not an instance of JsonObject";
-            LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
     }
@@ -144,7 +140,6 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         } else {
             final String returnString = getUserKey().getId() + ": the schema \"" + avroSchema.getName()
                     + "\" does not have a subtype of type \"" + subInstanceType + "\"";
-            LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
     }
@@ -232,9 +227,8 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             final JsonDecoder jsonDecoder = DecoderFactory.get().jsonDecoder(avroSchema, objectString);
             decodedObject = new GenericDatumReader<GenericRecord>(avroSchema).read(null, jsonDecoder);
         } catch (final Exception e) {
-            final String returnString = getUserKey().getId() + OBJECT_TAG + objectString
-                    + "\" Avro unmarshalling failed: " + e.getMessage();
-            LOGGER.warn(returnString, e);
+            final String returnString =
+                getUserKey().getId() + OBJECT_TAG + objectString + "\" Avro unmarshalling failed.";
             throw new ContextRuntimeException(returnString, e);
         }
 
@@ -259,8 +253,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
                     + (object != null ? object.getClass().getName() : "null") + "\" must be assignable to \""
                     + getSchemaClass().getName() + "\" or be a Json string representation of it for Avro unmarshalling";
-            LOGGER.warn(returnString, e);
-            throw new ContextRuntimeException(returnString);
+            throw new ContextRuntimeException(returnString, e);
         }
     }
 
@@ -311,9 +304,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             jsonEncoder.flush();
             return new String(output.toByteArray());
         } catch (final Exception e) {
-            final String returnString =
-                    getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed: " + e.getMessage();
-            LOGGER.warn(returnString);
+            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed.";
             throw new ContextRuntimeException(returnString, e);
         }
     }
