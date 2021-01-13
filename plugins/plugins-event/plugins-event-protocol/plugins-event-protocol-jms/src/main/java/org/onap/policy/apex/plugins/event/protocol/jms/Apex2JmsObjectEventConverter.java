@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +83,6 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         } catch (Exception e) {
             final String errorMessage = "message \"" + eventObject
                             + "\" received from JMS does not have a \"getObject()\" method";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -92,7 +92,6 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         } catch (final Exception e) {
             final String errorMessage = "object contained in message \"" + eventObject
                             + "\" received from JMS could not be retrieved as a Java object";
-            LOGGER.debug(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
 
@@ -100,7 +99,6 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         if (eventProtocolParameters == null) {
             final String errorMessage = "consumer parameters for JMS events consumed by "
                             + "Apex are not set in the Apex configuration for this engine";
-            LOGGER.debug(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -130,7 +128,6 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
     public Object fromApexEvent(final ApexEvent apexEvent) throws ApexEventException {
         // Check the Apex event
         if (apexEvent == null) {
-            LOGGER.warn("event processing failed, Apex event is null");
             throw new ApexEventException("event processing failed, Apex event is null");
         }
 
@@ -138,7 +135,6 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         if (apexEvent.size() != 1) {
             final String errorMessage = "event processing failed, "
                             + "Apex event must have one and only one parameter for JMS Object handling";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
