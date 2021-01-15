@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "489e244b_67d7765c",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src/main/java/org/onap/policy/apex/plugins/event/protocol/jms/Apex2JmsObjectEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-01-15T15:44:38Z",
+      "side": 1,
+      "message": "hmm.  maybe add the \"e\" as the cause, in separte review",
+      "revId": "ee0974b813c23832fbd9ed64eb79b8cb79253a42",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fa90e9d_0e2c1e68",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src/main/java/org/onap/policy/apex/plugins/event/protocol/jms/Apex2JmsTextEventConverter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-01-15T15:44:38Z",
+      "side": 1,
+      "message": "same comment - add \"e\"",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "ee0974b813c23832fbd9ed64eb79b8cb79253a42",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
