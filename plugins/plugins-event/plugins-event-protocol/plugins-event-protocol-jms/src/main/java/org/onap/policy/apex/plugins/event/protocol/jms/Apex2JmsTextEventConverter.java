@@ -47,20 +47,20 @@ public final class Apex2JmsTextEventConverter extends Apex2JsonEventConverter {
         Method getTextMethod;
         try {
             getTextMethod = eventObject.getClass().getMethod("getText", (Class<?>[]) null);
-        } catch (Exception e) {
+        } catch (Exception exp) {
             final String errorMessage = "message \"" + eventObject
                             + "\" received from JMS does not have a \"getText()\" method";
-            throw new ApexEventRuntimeException(errorMessage);
+            throw new ApexEventRuntimeException(errorMessage, exp);
         }
 
 
         String jmsString;
         try {
             jmsString = (String) getTextMethod.invoke(eventObject, (Object[]) null);
-        } catch (final Exception e) {
+        } catch (final Exception exp) {
             final String errorMessage = "object contained in message \"" + eventObject
                     + "\" received from JMS could not be retrieved as a Java String";
-            throw new ApexEventRuntimeException(errorMessage, e);
+            throw new ApexEventRuntimeException(errorMessage, exp);
         }
 
         // Use the generic JSON plugin from here
