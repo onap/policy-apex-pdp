@@ -179,7 +179,6 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
             eventReceiver.receiveEvent(new Properties(), jmsMessage);
         } catch (final Exception e) {
             final String errorMessage = "failed to receive message from JMS";
-            LOGGER.warn(errorMessage, e);
             throw new ApexEventRuntimeException(errorMessage, e);
         }
     }

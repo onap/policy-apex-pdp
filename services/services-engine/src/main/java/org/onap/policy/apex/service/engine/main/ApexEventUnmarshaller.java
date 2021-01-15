@@ -263,8 +263,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 break;
             } catch (ApexException e) {
                 if (!iterator.hasNext()) {
-                    final String errorMessage = "Error while converting event into an ApexEvent for " + name + ": "
-                        + e.getMessage() + ", Event=" + event;
+                    final String errorMessage = "Error while converting event into an ApexEvent for " + name;
                     throw new ApexEventException(errorMessage, e);
                 }
             }

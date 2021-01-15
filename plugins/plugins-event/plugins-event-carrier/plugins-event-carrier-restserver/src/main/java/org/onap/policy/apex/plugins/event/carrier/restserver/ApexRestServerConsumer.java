@@ -160,10 +160,10 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
             // Send the event into Apex
             eventReceiver.receiveEvent(executionId, new Properties(), event);
         } catch (final Exception e) {
-            final String errorMessage = "error receiving events on event consumer " + name + ", " + e.getMessage();
+            final String errorMessage = "error receiving events on event consumer " + name;
             LOGGER.warn(errorMessage, e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
-                    .entity("{'errorMessage', '" + errorMessage + "'}").build();
+                    .entity("{'errorMessage', '" + errorMessage + ", " + e.getMessage() + "'}").build();
         }
 
         final SynchronousEventCache synchronousEventCache =
