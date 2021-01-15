@@ -80,19 +80,19 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         Method getObjectMethod;
         try {
             getObjectMethod = eventObject.getClass().getMethod("getObject", (Class<?>[]) null);
-        } catch (Exception e) {
+        } catch (Exception exp) {
             final String errorMessage = "message \"" + eventObject
                             + "\" received from JMS does not have a \"getObject()\" method";
-            throw new ApexEventRuntimeException(errorMessage);
+            throw new ApexEventRuntimeException(errorMessage, exp);
         }
 
         Object jmsIncomingObject;
         try {
             jmsIncomingObject = getObjectMethod.invoke(eventObject, (Object[]) null);
-        } catch (final Exception e) {
+        } catch (final Exception exp) {
             final String errorMessage = "object contained in message \"" + eventObject
                             + "\" received from JMS could not be retrieved as a Java object";
-            throw new ApexEventRuntimeException(errorMessage, e);
+            throw new ApexEventRuntimeException(errorMessage, exp);
         }
 
         // Check that the consumer parameters for JMS->Apex messaging have been set
