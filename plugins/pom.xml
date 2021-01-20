@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2021 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -34,7 +35,7 @@
     <description>Plugins for Apex that can be implemented with various 3PPs are implemented here.</description>
 
     <properties>
-        <version.hazelcast>3.11-BETA-1</version.hazelcast>
+        <version.hazelcast>4.1.1</version.hazelcast>
     </properties>
 
     <modules>
