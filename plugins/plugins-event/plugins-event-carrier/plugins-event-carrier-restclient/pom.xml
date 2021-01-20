@@ -35,6 +35,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>policy-endpoints</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.apex-pdp.services</groupId>
             <artifactId>services-engine</artifactId>
             <version>${project.version}</version>
