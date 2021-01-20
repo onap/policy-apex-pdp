@@ -291,6 +291,6 @@ public class ApexRestClientProducerTest {
 
         assertThatThrownBy(() -> arcp.sendEvent(123, null, "EventName", "This is an Event"))
             .hasMessageContaining("send of event to URL \"http://some.place.that.does.not/exist\" using HTTP \"POST\" "
-                + "failed with status code 400 and message \"null\", event:\n" + "This is an Event");
+                + "failed with status code 400");
     }
 }
