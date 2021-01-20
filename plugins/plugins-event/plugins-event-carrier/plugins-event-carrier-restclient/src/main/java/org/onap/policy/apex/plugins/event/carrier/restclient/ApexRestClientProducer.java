@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,9 @@ import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventProducer;
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
+import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.endpoints.utils.NetLoggerUtil;
+import org.onap.policy.common.endpoints.utils.NetLoggerUtil.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -114,21 +118,17 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
             // @formatter:on
         }
 
+        NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, untaggedUrl, event.toString());
         // Send the event as a REST request
         final Response response = sendEventAsRestRequest(untaggedUrl, (String) event);
+
+        NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, untaggedUrl, response.readEntity(String.class));
 
         // Check that the request worked
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             final String errorMessage = "send of event to URL \"" + untaggedUrl + "\" using HTTP \""
-                    + restProducerProperties.getHttpMethod() + "\" failed with status code " + response.getStatus()
-                    + " and message \"" + response.readEntity(String.class) + "\", event:\n" + event;
-            LOGGER.warn(errorMessage);
+                    + restProducerProperties.getHttpMethod() + "\" failed with status code " + response.getStatus();
             throw new ApexEventRuntimeException(errorMessage);
-        }
-
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("event sent from engine using {} to URL {} with HTTP {} : {} and response {} ", this.name,
-                    untaggedUrl, restProducerProperties.getHttpMethod(), event, response);
         }
     }
 
