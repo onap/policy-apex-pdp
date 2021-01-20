@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +48,12 @@ import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.ApexPluginsEventConsumer;
+import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters.HttpMethod;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.endpoints.utils.NetLoggerUtil;
+import org.onap.policy.common.endpoints.utils.NetLoggerUtil.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -308,22 +313,25 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
             restRequestThread = Thread.currentThread();
 
             try {
+                if (restConsumerProperties.getHttpMethod().equals(HttpMethod.PUT)
+                    || restConsumerProperties.getHttpMethod().equals(HttpMethod.POST)) {
+                    NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, untaggedUrl,
+                        request.getEvent().toString());
+                }
                 // Execute the REST request
                 final Response response = sendEventAsRestRequest(untaggedUrl);
-
+                // Get the event we received
+                final String eventJsonString = response.readEntity(String.class);
+                NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, untaggedUrl, eventJsonString);
                 // Match the return code
                 Matcher isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
 
                 // Check that the request worked
                 if (!isPass.matches()) {
                     final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
-                        + "\" failed with status code " + response.getStatus() + " and message \""
-                        + response.readEntity(String.class) + "\"";
+                        + "\" failed with status code " + response.getStatus();
                     throw new ApexEventRuntimeException(errorMessage);
                 }
-
-                // Get the event we received
-                final String eventJsonString = response.readEntity(String.class);
 
                 // Check there is content
                 if (StringUtils.isBlank(eventJsonString)) {
