@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -202,29 +203,14 @@ public class TestRest2File {
 
     /**
      * Test file events bad http method.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadHttpMethod() throws MessagingException, ApexException, IOException {
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-
+    public void testFileEventsBadHttpMethod() {
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json"};
-        final ApexMain apexMain = new ApexMain(args);
+        assertThatThrownBy(() -> new ApexMain(args))
+            .hasRootCauseMessage("specified HTTP method of \"POST\" is invalid, "
+                + "only HTTP method \"GET\" is supported for event reception on REST client consumer (FirstConsumer)");
 
-        ThreadUtilities.sleep(5000);
-        apexMain.shutdown();
-
-        final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        checkRequiredString(outString, "specified HTTP method of \"POST\" is invalid, "
-            + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
     }
 
     /**
