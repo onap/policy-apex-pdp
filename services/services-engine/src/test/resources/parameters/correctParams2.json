@@ -10,7 +10,7 @@
           "version": "1.0.0",
           "properties": {
             "engineServiceParameters": {
-              "name": "MyApexEngine",
+              "name": "MyApexEngine2",
               "version": "0.0.1",
               "id": 45,
               "instanceCount": 2,
@@ -479,7 +479,7 @@
               }
             },
             "eventOutputParameters": {
-              "FirstProducer": {
+              "FirstProducer2": {
                 "carrierTechnologyParameters": {
                   "carrierTechnology": "FILE",
                   "parameters": {
@@ -492,7 +492,7 @@
               }
             },
             "eventInputParameters": {
-              "TheFileConsumer1": {
+              "TheFileConsumer2": {
                 "carrierTechnologyParameters": {
                   "carrierTechnology": "FILE",
                   "parameters": {
