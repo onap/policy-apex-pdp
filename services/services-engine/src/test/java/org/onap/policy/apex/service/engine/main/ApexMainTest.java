@@ -25,19 +25,17 @@ package org.onap.policy.apex.service.engine.main;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.service.parameters.ApexParameters;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 
 /**
  * Test the ApexMain class.
@@ -114,13 +112,13 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = { "-p", "src/test/resources/parameters/correctParams.json" };
+        String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
 
         final ApexMain apexMain = new ApexMain(args);
-        assertEquals("MyApexEngine",
-            apexMain.getApexParametersMap().values().iterator().next().getEngineServiceParameters().getName());
-        await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("Added the action listener to the engine"));
+        assertEquals("MyApexEngine", apexMain.getApexParameters().getEngineServiceParameters().getName());
+        await().atMost(200, TimeUnit.MILLISECONDS)
+            .until(() -> outContent.toString().contains("Added the action listener to the engine"));
+        assertTrue(apexMain.isAlive());
         apexMain.shutdown();
     }
 
@@ -129,16 +127,15 @@ public class ApexMainTest {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String[] args = { "-p", "src/test/resources/parameters/correctParamsJavaProperties.json" };
+        String[] args = {"-p", "src/test/resources/parameters/correctParamsJavaProperties.json"};
 
         final ApexMain apexMain = new ApexMain(args);
-        assertEquals("MyApexEngine",
-            apexMain.getApexParametersMap().values().iterator().next().getEngineServiceParameters().getName());
+        assertEquals("MyApexEngine", apexMain.getApexParameters().getEngineServiceParameters().getName());
 
         assertEquals("trust-store-file", System.getProperty("javax.net.ssl.trustStore"));
         assertEquals("Pol1cy_0nap", System.getProperty("javax.net.ssl.trustStorePassword"));
-        await().atMost(10000, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("Added the action listener to the engine"));
+        await().atMost(10000, TimeUnit.MILLISECONDS)
+            .until(() -> outContent.toString().contains("Added the action listener to the engine"));
         apexMain.shutdown();
     }
 
@@ -146,46 +143,30 @@ public class ApexMainTest {
     public void testCorrectParametersWithMultiplePolicies() throws ApexException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        Map<ToscaConceptIdentifier, String[]> argsMap = new HashMap<ToscaConceptIdentifier, String[]>();
-        String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
-        argsMap.put(new ToscaConceptIdentifier("id1", "v1"), args);
-        final ApexMain apexMain = new ApexMain(argsMap);
-        ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
-        assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
-        apexMain.shutdown();
+        String[] args1 = {"-p", "src/test/resources/parameters/correctParams.json"};
+        String[] args2 = {"-p", "src/test/resources/parameters/correctParams2.json"};
+        final ApexMain apexMain1 = new ApexMain(args1);
+        final ApexMain apexMain2 = new ApexMain(args2);
+        assertEquals("MyApexEngine", apexMain1.getApexParameters().getEngineServiceParameters().getName());
+        assertEquals("MyApexEngine2", apexMain2.getApexParameters().getEngineServiceParameters().getName());
         final String outString = outContent.toString();
-        assertThat(outString).contains("Added the action listener to the engine");
-    }
-
-    @Test
-    public void testInCorrectParametersWithMultiplePolicies() throws ApexException {
-        OutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        Map<ToscaConceptIdentifier, String[]> argsMap = new HashMap<ToscaConceptIdentifier, String[]>();
-        String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
-        argsMap.put(new ToscaConceptIdentifier("id1", "v1"), args);
-        argsMap.put(new ToscaConceptIdentifier("id2", "v2"), args);
-        final ApexMain apexMain = new ApexMain(argsMap);
-        ApexParameters apexParam = (ApexParameters) apexMain.getApexParametersMap().values().toArray()[0];
-        assertEquals("MyApexEngine", apexParam.getEngineServiceParameters().getName());
-        apexMain.shutdown();
-        final String outString = outContent.toString();
-        assertThat(outString).contains("I/O Parameters [TheFileConsumer1]/[FirstProducer] for id2:v2 are duplicates. "
-            + "So this policy is not executed");
-        assertEquals(1, apexMain.getApexParametersMap().size()); // only id1:v1 is kept in the map, id2:v2 failed
+        assertThat(outString).contains("Added the action listener to the engine")
+            .contains("Created apex engine MyApexEngine").contains("Created apex engine MyApexEngine2");
+        assertTrue(apexMain1.isAlive());
+        assertTrue(apexMain2.isAlive());
+        apexMain1.shutdown();
+        apexMain2.shutdown();
     }
 
     @Test
     public void testInvalidArgsWithMultiplePolicies() throws ApexException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        Map<ToscaConceptIdentifier, String[]> argsMap = new HashMap<ToscaConceptIdentifier, String[]>();
         String[] args = {"-c", "file1", "-m", "file2"};
-        argsMap.put(new ToscaConceptIdentifier("id1", "v1"), args);
-        final ApexMain apexMain = new ApexMain(argsMap);
+        final ApexMain apexMain = new ApexMain(args);
         final String outString = outContent.toString();
         apexMain.shutdown();
         assertThat(outString).contains("Arguments validation failed", "start of Apex service failed");
-        assertThat(apexMain.getApexParametersMap()).isEmpty(); // No policy is running in the engine
+        assertFalse(apexMain.isAlive()); // No policy is running in the engine
     }
 }

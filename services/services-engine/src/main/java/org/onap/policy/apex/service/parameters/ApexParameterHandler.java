@@ -73,8 +73,6 @@ public class ApexParameterHandler {
      */
     public ApexParameters getParameters(final ApexCommandLineArguments arguments) throws ParameterException {
 
-        ParameterService.clear();
-
         ApexParameters parameters = null;
         String toscaPolicyFilePath = arguments.getToscaPolicyFilePath();
         // Read the parameters

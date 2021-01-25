@@ -302,6 +302,9 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         // Run until interruption
         while (unmarshallerThread.isAlive() && !stopOrderedFlag) {
             try {
+                if(queue.size()>0) {
+                    System.out.println("====================="+queue.size());
+                }
                 // Take the next event from the queue
                 final ApexEvent apexEvent = queue.poll(EVENT_QUEUE_POLL_INTERVAL, TimeUnit.MILLISECONDS);
                 if (apexEvent == null) {
@@ -347,17 +350,17 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         // Order the stop
         stopOrderedFlag = true;
 
-        // Order a stop on the synchronous cache if one exists
+        // Wait for thread shutdown
+        while (unmarshallerThread != null && unmarshallerThread.isAlive()) {
+            ThreadUtilities.sleep(UNMARSHALLER_SHUTDOWN_WAIT_INTERVAL);
+            System.out.println("waiting.........................");
+        }
+
+     // Order a stop on the synchronous cache if one exists
         if (consumerParameters != null && consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)
             && consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
             ((SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS)).stop();
         }
-
-        // Wait for thread shutdown
-        while (unmarshallerThread != null && unmarshallerThread.isAlive()) {
-            ThreadUtilities.sleep(UNMARSHALLER_SHUTDOWN_WAIT_INTERVAL);
-        }
-
         LOGGER.exit("shut down Apex event unmarshaller");
     }
 }

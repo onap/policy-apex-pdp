@@ -145,7 +145,7 @@ public final class PolicyModelMerger {
         return mergedPolicyModel;
     }
 
-    private static <V> void checkForDuplicateItem(Map<AxArtifactKey, V> mergedItemsMap,
+    public static <V> void checkForDuplicateItem(Map<AxArtifactKey, V> mergedItemsMap,
         Map<AxArtifactKey, V> copyOverItemsMap, StringBuilder errorMessage, String itemType) {
         for (Entry<AxArtifactKey, V> entry : copyOverItemsMap.entrySet()) {
             V item = mergedItemsMap.get(entry.getKey());

@@ -75,7 +75,11 @@ public class ApexServletListener implements ServletContextListener {
         }
 
         // Initialize apex
-        apexMain = new ApexMain(argsList.toArray(new String[argsList.size()]));
+        try {
+            apexMain = new ApexMain(argsList.toArray(new String[argsList.size()]));
+        } catch (ApexException e) {
+            LOGGER.error("Apex Engine initialization failed", e);
+        }
     }
 
 

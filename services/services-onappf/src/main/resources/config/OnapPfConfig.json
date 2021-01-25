@@ -5,12 +5,12 @@
         "port": 6969,
         "userName": "healthcheck",
         "password": "zb!XztG34",
-        "https": true
+        "https": false
     },
     "pdpStatusParameters":{
-        "pdpGroup": "defaultGroup",
-        "timeIntervalMs": 120000,
+        "timeIntervalMs": 30000,
         "pdpType":"apex",
+        "pdpGroup": "defaultGroup",
         "description":"Pdp Heartbeat",
         "supportedPolicyTypes": [
             {
@@ -25,13 +25,13 @@
     },
     "topicParameterGroup": {
         "topicSources" : [{
-            "topic" : "POLICY-PDP-PAP",
-            "servers" : [ "message-router" ],
+            "topic" : "POLICY-PDP-PAP-TEST",
+            "servers" : [ "10.2.0.29:32133" ],
             "topicCommInfrastructure" : "dmaap"
         }],
         "topicSinks" : [{
-            "topic" : "POLICY-PDP-PAP",
-            "servers" : [ "message-router" ],
+            "topic" : "POLICY-PDP-PAP-TEST",
+            "servers" : [ "10.2.0.29:32133" ],
             "topicCommInfrastructure" : "dmaap"
         }]
     }

@@ -2,6 +2,7 @@
     "anInt": 1,
     "anInteger": 2,
     "someString": "a string",
+      "intPar": 12345,
     "testSubPojo": {
         "anInt": 10,
         "anInteger": 20,
