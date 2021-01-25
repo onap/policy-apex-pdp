@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -347,17 +347,16 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         // Order the stop
         stopOrderedFlag = true;
 
-        // Order a stop on the synchronous cache if one exists
-        if (consumerParameters != null && consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)
-            && consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
-            ((SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS)).stop();
-        }
-
         // Wait for thread shutdown
         while (unmarshallerThread != null && unmarshallerThread.isAlive()) {
             ThreadUtilities.sleep(UNMARSHALLER_SHUTDOWN_WAIT_INTERVAL);
         }
 
+        // Order a stop on the synchronous cache if one exists
+        if (consumerParameters != null && consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)
+            && consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS) != null) {
+            ((SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS)).stop();
+        }
         LOGGER.exit("shut down Apex event unmarshaller");
     }
 }
