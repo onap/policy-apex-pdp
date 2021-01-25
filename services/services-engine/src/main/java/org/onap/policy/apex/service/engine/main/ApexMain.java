@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modification Copyright (C) 2019-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,26 +24,20 @@ package org.onap.policy.apex.service.engine.main;
 
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
-import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
+import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -58,14 +52,12 @@ public class ApexMain {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexMain.class);
 
     // The Apex Activator that activates the Apex engine
+    @Getter
     private ApexActivator activator;
 
     // The parameters read in from JSON for each policy
     @Getter
-    private Map<ToscaConceptIdentifier, ApexParameters> apexParametersMap;
-
-    //engineParameters are aggregated in case of multiple policies
-    private EngineParameters aggregatedEngineParameters;
+    private ApexParameters apexParameters;
 
     private ApexParameterHandler apexParameterHandler = new ApexParameterHandler();
 
@@ -77,147 +69,32 @@ public class ApexMain {
      * Instantiates the Apex service.
      *
      * @param args the command line arguments
+     * @throws ApexException the apex exception.
      */
-    public ApexMain(final String[] args) {
+    public ApexMain(final String[] args) throws ApexException {
         LOGGER.entry("Starting Apex service with parameters " + Arrays.toString(args) + " . . .");
-        apexParametersMap = new LinkedHashMap<>();
-        aggregatedEngineParameters = new EngineParameters();
         try {
-            apexParametersMap.put(new ToscaConceptIdentifier(), populateApexParameters(args));
+            apexParameters = populateApexParameters(args);
         } catch (ApexException e) {
             LOGGER.error(APEX_SERVICE_FAILED_MSG, e);
             return;
         }
-        apexParameterHandler.registerParameters(apexParametersMap.values().iterator().next());
+        aggregateParametersAndRegister();
+
         // Now, create the activator for the Apex service
-        activator = new ApexActivator(apexParametersMap);
+        activator = new ApexActivator(apexParameters);
 
         // Start the activator
         try {
             activator.initialize();
             setAlive(true);
         } catch (final ApexActivatorException e) {
-            LOGGER.error("start of Apex service failed, used parameters are " + Arrays.toString(args), e);
-            return;
+            throw new ApexException("start of Apex service failed, used parameters are " + Arrays.toString(args), e);
         }
 
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new ApexMainShutdownHookClass());
         LOGGER.exit("Started Apex");
-    }
-
-    /**
-     * Instantiates the Apex service for multiple policies.
-     *
-     * @param policyArgumentsMap the map with command line arguments as value and policy-id as key
-     * @throws ApexException on errors
-     */
-    public ApexMain(Map<ToscaConceptIdentifier, String[]> policyArgumentsMap) throws ApexException {
-        apexParametersMap = new LinkedHashMap<>();
-        aggregatedEngineParameters = new EngineParameters();
-        for (Entry<ToscaConceptIdentifier, String[]> policyArgsEntry: policyArgumentsMap.entrySet()) {
-            try {
-                apexParametersMap.put(policyArgsEntry.getKey(), populateApexParameters(policyArgsEntry.getValue()));
-            } catch (ApexException e) {
-                LOGGER.error("Invalid arguments specified for policy - " + policyArgsEntry.getKey().getName() + ":"
-                    + policyArgsEntry.getKey().getVersion(), e);
-            }
-        }
-        if (apexParametersMap.isEmpty()) {
-            LOGGER.error(APEX_SERVICE_FAILED_MSG);
-            return;
-        }
-
-        // Set the aggregated engineParameters which will be used later while creating the engine
-        ApexParameters apexParameters = apexParametersMap.values().iterator().next();
-        apexParameters.getEngineServiceParameters().setEngineParameters(aggregatedEngineParameters);
-        apexParameterHandler.registerParameters(apexParameters);
-        // Now, create the activator for the Apex service
-        activator = new ApexActivator(apexParametersMap);
-
-        // Start the activator
-        try {
-            activator.initialize();
-            apexParametersMap = activator.getApexParametersMap();
-            setAlive(true);
-        } catch (final ApexActivatorException e) {
-            LOGGER.error(APEX_SERVICE_FAILED_MSG, e);
-            activator.terminate();
-            return;
-        }
-
-        // Add a shutdown hook to shut everything down in an orderly manner
-        Runtime.getRuntime().addShutdownHook(new ApexMainShutdownHookClass());
-        LOGGER.exit("Started Apex");
-    }
-
-    /**
-     * Updates the APEX Engine with the model created from new Policies.
-     *
-     * @param policyArgsMap the map with command line arguments as value and policy-id as key
-     * @throws ApexException on errors
-     */
-    public void updateModel(Map<ToscaConceptIdentifier, String[]> policyArgsMap) throws ApexException {
-        // flag that determines if any policy received in PDP_UPDATE is already deployed in the engine
-        boolean isAnyPolicyDeployed = policyArgsMap.keySet().stream().anyMatch(apexParametersMap::containsKey);
-        apexParametersMap.clear();
-        aggregatedEngineParameters = new EngineParameters();
-        AxContextAlbums albums = ModelService.getModel(AxContextAlbums.class);
-        Map<AxArtifactKey, AxContextAlbum> albumsMap = new TreeMap<>();
-        for (Entry<ToscaConceptIdentifier, String[]> policyArgsEntry : policyArgsMap.entrySet()) {
-            findAlbumsToHold(albumsMap, policyArgsEntry.getKey());
-            try {
-                apexParametersMap.put(policyArgsEntry.getKey(), populateApexParameters(policyArgsEntry.getValue()));
-            } catch (ApexException e) {
-                LOGGER.error("Invalid arguments specified for policy - {}:{}", policyArgsEntry.getKey().getName(),
-                    policyArgsEntry.getKey().getVersion(), e);
-            }
-        }
-        // Set the aggregated engineParameters
-        ApexParameters apexParameters = apexParametersMap.values().iterator().next();
-        apexParameters.getEngineServiceParameters().setEngineParameters(aggregatedEngineParameters);
-        ParameterService.clear();
-        apexParameterHandler.registerParameters(apexParameters);
-        try {
-            if (albumsMap.isEmpty() && !isAnyPolicyDeployed) {
-                // clear context since none of the policies' context albums has to be retained
-                // this could be because all policies have a major version change,
-                // or a full set of new policies are received in the update message
-                activator.terminate();
-                // ParameterService is cleared when activator is terminated. Register the parameters again in this case
-                apexParameterHandler.registerParameters(apexParameters);
-                activator = new ApexActivator(apexParametersMap);
-                activator.initialize();
-                setAlive(true);
-            } else {
-                albums.setAlbumsMap(albumsMap);
-                activator.setApexParametersMap(apexParametersMap);
-                activator.updateModel(apexParametersMap);
-            }
-        } catch (final ApexException e) {
-            LOGGER.error(APEX_SERVICE_FAILED_MSG, e);
-            activator.terminate();
-            throw new ApexException(e.getMessage());
-        }
-    }
-
-    /**
-     * Find the context albums which should be retained when updating the policies.
-     *
-     * @param albumsMap the albums which should be kept during model update
-     * @param policyId the policy id of current policy
-     */
-    private void findAlbumsToHold(Map<AxArtifactKey, AxContextAlbum> albumsMap, ToscaConceptIdentifier policyId) {
-        for (Entry<ToscaConceptIdentifier, AxPolicyModel> policyModelsEntry : activator.getPolicyModelsMap()
-            .entrySet()) {
-            // If a policy with the same major version is received in PDP_UPDATE,
-            // context for that policy has to be retained. For this, take such policies' albums
-            if (policyModelsEntry.getKey().getName().equals(policyId.getName())
-                && policyModelsEntry.getKey().getVersion().split("\\.")[0]
-                    .equals(policyId.getVersion().split("\\.")[0])) {
-                albumsMap.putAll(policyModelsEntry.getValue().getAlbums().getAlbumsMap());
-            }
-        }
     }
 
     private ApexParameters populateApexParameters(String[] args) throws ApexException {
@@ -263,11 +140,32 @@ public class ApexMain {
                 ehParameterEntry.getValue().setName(ehParameterEntry.getKey());
             }
         }
-        aggregateEngineParameters(axParameters.getEngineServiceParameters().getEngineParameters());
         return axParameters;
     }
 
-    private void aggregateEngineParameters(EngineParameters engineParameters) {
+    private void aggregateParametersAndRegister() throws ApexException {
+        ApexParameters aggregatedParameters = null;
+        if (ParameterService.contains(ApexParameterConstants.MAIN_GROUP_NAME)) {
+            aggregatedParameters = ParameterService.get(ApexParameterConstants.MAIN_GROUP_NAME);
+        } else {
+            aggregatedParameters = new ApexParameters();
+            aggregatedParameters.setEngineServiceParameters(new EngineServiceParameters());
+            apexParameterHandler.registerParameters(aggregatedParameters);
+        }
+        List<String> duplicateInputParameters = aggregatedParameters.getEventInputParameters().keySet().stream()
+            .filter(apexParameters.getEventInputParameters()::containsKey).collect(Collectors.toList());
+        List<String> duplicateOutputParameters = aggregatedParameters.getEventOutputParameters().keySet().stream()
+            .filter(apexParameters.getEventOutputParameters()::containsKey).collect(Collectors.toList());
+        if (!(duplicateInputParameters.isEmpty() && duplicateOutputParameters.isEmpty())) {
+            throw new ApexException(
+                "start of Apex service failed because this policy has the following duplicate I/O parameters: "
+                    + duplicateInputParameters + "/" + duplicateOutputParameters);
+        }
+        aggregatedParameters.getEventInputParameters().putAll(apexParameters.getEventInputParameters());
+        aggregatedParameters.getEventOutputParameters().putAll(apexParameters.getEventOutputParameters());
+        EngineParameters aggregatedEngineParameters =
+            aggregatedParameters.getEngineServiceParameters().getEngineParameters();
+        EngineParameters engineParameters = apexParameters.getEngineServiceParameters().getEngineParameters();
         aggregatedEngineParameters.getTaskParameters().addAll(engineParameters.getTaskParameters());
         aggregatedEngineParameters.getExecutorParameterMap().putAll(engineParameters.getExecutorParameterMap());
         aggregatedEngineParameters.getContextParameters().getSchemaParameters().getSchemaHelperParameterMap()
@@ -346,8 +244,9 @@ public class ApexMain {
      * The main method.
      *
      * @param args the arguments
+     * @throws ApexException the apex exception.
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws ApexException {
         new ApexMain(args);
     }
 }

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,7 +145,16 @@ public final class PolicyModelMerger {
         return mergedPolicyModel;
     }
 
-    private static <V> void checkForDuplicateItem(Map<AxArtifactKey, V> mergedItemsMap,
+    /**
+     * Method to check for duplicate items.
+     *
+     * @param <V>  the concept type
+     * @param mergedItemsMap the map to which items are copied
+     * @param copyOverItemsMap the map from where items are copied
+     * @param errorMessage error message in case of any duplicate concepts
+     * @param itemType the type of concept to specify distinguished error messages
+     */
+    public static <V> void checkForDuplicateItem(Map<AxArtifactKey, V> mergedItemsMap,
         Map<AxArtifactKey, V> copyOverItemsMap, StringBuilder errorMessage, String itemType) {
         for (Entry<AxArtifactKey, V> entry : copyOverItemsMap.entrySet()) {
             V item = mergedItemsMap.get(entry.getKey());
