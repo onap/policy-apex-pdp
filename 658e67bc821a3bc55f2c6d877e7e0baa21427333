@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "df64d79a_6b72ec6f",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexActivator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-01-29T18:52:56Z",
+      "side": 1,
+      "message": "This might result in sonar issue for too many arguments. Pls check after merge.",
+      "range": {
+        "startLine": 204,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 64
+      },
+      "revId": "658e67bc821a3bc55f2c6d877e7e0baa21427333",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86651ac0_58489aa1",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 10
@@ -70,6 +93,29 @@
       "revId": "658e67bc821a3bc55f2c6d877e7e0baa21427333",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "568b00c1_35baca58",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-01-29T18:52:56Z",
+      "side": 1,
+      "message": "nice method!",
+      "range": {
+        "startLine": 371,
+        "startChar": 13,
+        "endLine": 371,
+        "endChar": 32
+      },
+      "revId": "658e67bc821a3bc55f2c6d877e7e0baa21427333",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
