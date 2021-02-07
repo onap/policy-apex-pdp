@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
-import java.util.Base64;
 import java.util.Properties;
 import javax.naming.Context;
 import org.apache.commons.lang3.StringUtils;
@@ -87,7 +86,7 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     private static final String  DEFAULT_INITIAL_CTXT_FACTORY  = "org.jboss.naming.remote.client.InitialContextFactory";
     private static final String  DEFAULT_PROVIDER_URL          = "remote://localhost:4447";
     private static final String  DEFAULT_SECURITY_PRINCIPAL    = "userid";
-    private static final String  DEFAULT_SECURITY_CREDENTIALS  = "cGFzc3dvcmQ=";
+    private static final String  DEFAULT_SECURITY_CREDENTIALS  = null;
     private static final String  DEFAULT_CONSUMER_TOPIC        = "apex-in";
     private static final String  DEFAULT_PRODUCER_TOPIC        = "apex-out";
     private static final int     DEFAULT_CONSUMER_WAIT_TIME    = 100;
@@ -104,7 +103,7 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     private String  initialContextFactory = DEFAULT_INITIAL_CTXT_FACTORY;
     private String  providerUrl           = DEFAULT_PROVIDER_URL;
     private String  securityPrincipal     = DEFAULT_SECURITY_PRINCIPAL;
-    private String  securityCredentials   = getDefaultCredential();
+    private String  securityCredentials   = DEFAULT_SECURITY_CREDENTIALS;
     private String  producerTopic         = DEFAULT_PRODUCER_TOPIC;
     private String  consumerTopic         = DEFAULT_CONSUMER_TOPIC;
     private int     consumerWaitTime      = DEFAULT_CONSUMER_WAIT_TIME;
@@ -153,7 +152,10 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         jmsProperties.put(PROPERTY_INITIAL_CONTEXT_FACTORY, initialContextFactory);
         jmsProperties.put(PROPERTY_PROVIDER_URL, providerUrl);
         jmsProperties.put(PROPERTY_SECURITY_PRINCIPAL, securityPrincipal);
-        jmsProperties.put(PROPERTY_SECURITY_CREDENTIALS, securityCredentials);
+
+        if (securityCredentials != null) {
+            jmsProperties.put(PROPERTY_SECURITY_CREDENTIALS, securityCredentials);
+        }
 
         return jmsProperties;
     }
@@ -370,9 +372,5 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         }
 
         return result;
-    }
-
-    private String getDefaultCredential() {
-        return new String(Base64.getDecoder().decode(DEFAULT_SECURITY_CREDENTIALS.getBytes()));
     }
 }

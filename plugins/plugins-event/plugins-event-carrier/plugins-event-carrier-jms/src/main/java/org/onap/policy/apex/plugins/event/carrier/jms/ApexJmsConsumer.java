@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,10 +132,9 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
         try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
             // Create a message consumer for reception of messages and set this class as a message listener
             createMessageConsumer(jmsSession);
-        } catch (final Exception e) {
+        } catch (final Exception exc) {
             final String errorMessage = "failed to create a JMS session towards the JMS server for receiving messages";
-            LOGGER.warn(errorMessage, e);
-            throw new ApexEventRuntimeException(errorMessage, e);
+            throw new ApexEventRuntimeException(errorMessage, exc);
         }
         // Everything is now set up
         if (LOGGER.isDebugEnabled()) {
@@ -157,10 +156,9 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
             while (consumerThread.isAlive() && !stopOrderedFlag) {
                 ThreadUtilities.sleep(jmsConsumerProperties.getConsumerWaitTime());
             }
-        } catch (final Exception e) {
+        } catch (final Exception exc) {
             final String errorMessage = "failed to create a JMS message consumer for receiving messages";
-            LOGGER.warn(errorMessage, e);
-            throw new ApexEventRuntimeException(errorMessage, e);
+            throw new ApexEventRuntimeException(errorMessage, exc);
         }
     }
 
