@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Base64;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +54,6 @@ public class JmsCarrierTechnologyParametersTest {
             "org.jboss.naming.remote.client.InitialContextFactory";
     private static final String DEFAULT_PROVIDER_URL = "remote://localhost:4447";
     private static final String DEFAULT_SECURITY_PRINCIPAL = "userid";
-    private static final String DEFAULT_SECURITY_CREDENTIALS = "cGFzc3dvcmQ=";
     private static final String DEFAULT_CONSUMER_TOPIC = "apex-in";
     private static final String DEFAULT_PRODUCER_TOPIC = "apex-out";
     private static final int DEFAULT_CONSUMER_WAIT_TIME = 100;
@@ -72,6 +71,11 @@ public class JmsCarrierTechnologyParametersTest {
 
     @Test
     public void testValidate() {
+        result = jmsCarrierTechnologyParameters.validate();
+        assertNotNull(result);
+        assertFalse(result.getStatus().isValid());
+
+        jmsCarrierTechnologyParameters.setSecurityCredentials("DUMMY");
         result = jmsCarrierTechnologyParameters.validate();
         assertNotNull(result);
         assertTrue(result.getStatus().isValid());
@@ -179,9 +183,7 @@ public class JmsCarrierTechnologyParametersTest {
 
     @Test
     public void testSetSecurityCredentials() {
-        assertEquals(
-                new String(Base64.getDecoder().decode(DEFAULT_SECURITY_CREDENTIALS.getBytes())),
-                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        assertNull(jmsCarrierTechnologyParameters.getSecurityCredentials());
         jmsCarrierTechnologyParameters.setSecurityCredentials("");
         result = jmsCarrierTechnologyParameters.validate();
         assertFalse(result.getStatus().isValid());
