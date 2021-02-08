@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bf85791_17133260",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/test/java/org/onap/policy/apex/plugins/event/carrier/jms/JmsCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-02-08T13:37:09Z",
+      "side": 1,
+      "message": "may want to add two tests to see that it does and does not populate the security property, depending whether the field is populated or null, respectively",
+      "revId": "6d83fba2952593b092bf618930f41380dae501cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
