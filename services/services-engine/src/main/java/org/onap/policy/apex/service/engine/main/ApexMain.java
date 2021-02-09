@@ -71,7 +71,7 @@ public class ApexMain {
      * @param args the command line arguments
      * @throws ApexException the apex exception.
      */
-    public ApexMain(final String[] args) throws ApexException {
+    public ApexMain(final String[] args) {
         LOGGER.entry("Starting Apex service with parameters " + Arrays.toString(args) + " . . .");
         try {
             apexParameters = populateApexParameters(args);
@@ -79,17 +79,18 @@ public class ApexMain {
             LOGGER.error(APEX_SERVICE_FAILED_MSG, e);
             return;
         }
-        aggregateParametersAndRegister();
-
-        // Now, create the activator for the Apex service
-        activator = new ApexActivator(apexParameters);
-
-        // Start the activator
         try {
+            aggregateParametersAndRegister();
+
+            // Now, create the activator for the Apex service
+            activator = new ApexActivator(apexParameters);
+
+            // Start the activator
             activator.initialize();
             setAlive(true);
-        } catch (final ApexActivatorException e) {
-            throw new ApexException("start of Apex service failed, used parameters are " + Arrays.toString(args), e);
+        } catch (final ApexException e) {
+            LOGGER.error("start of Apex service failed, used parameters are {}", Arrays.toString(args), e);
+            return;
         }
 
         // Add a shutdown hook to shut everything down in an orderly manner
@@ -246,7 +247,7 @@ public class ApexMain {
      * @param args the arguments
      * @throws ApexException the apex exception.
      */
-    public static void main(final String[] args) throws ApexException {
+    public static void main(final String[] args) {
         new ApexMain(args);
     }
 }

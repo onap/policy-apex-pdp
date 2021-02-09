@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,11 +75,7 @@ public class ApexServletListener implements ServletContextListener {
         }
 
         // Initialize apex
-        try {
-            apexMain = new ApexMain(argsList.toArray(new String[argsList.size()]));
-        } catch (ApexException e) {
-            LOGGER.error("Apex Engine initialization failed", e);
-        }
+        apexMain = new ApexMain(argsList.toArray(new String[argsList.size()]));
     }
 
 
