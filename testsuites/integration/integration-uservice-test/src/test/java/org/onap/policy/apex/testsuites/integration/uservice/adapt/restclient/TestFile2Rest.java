@@ -22,7 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -31,9 +31,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -97,11 +99,22 @@ public class TestFile2Rest {
     }
 
     /**
-     * Clear relative file root environment variable.
+     * Before test.
      */
     @Before
-    public void clearRelativeFileRoot() {
+    public void beforeTest() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    /**
+     * After test.
+     */
+    @After
+    public void afterTest() {
+        System.setOut(stdout);
+        System.setErr(stderr);
     }
 
     /**
@@ -207,19 +220,13 @@ public class TestFile2Rest {
      */
     @Test
     public void testFileEventsNoUrl() throws MessagingException, ApexException, IOException {
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventNoURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(200);
         apexMain.shutdown();
-
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
         final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
 
         LOGGER.info("NoUrl-OUTSTRING=\n" + outString + "\nEnd-NoUrl");
         assertTrue(outString.contains(" no URL has been set for event sending on RESTCLIENT"));
@@ -234,23 +241,16 @@ public class TestFile2Rest {
      */
     @Test
     public void testFileEventsBadUrl() throws MessagingException, ApexException, IOException {
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadURL.json"};
         final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(2000);
+        await().atMost(5, TimeUnit.SECONDS)
+            .until(() -> outContent.toString()
+                .contains("send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/Bad\" "
+                    + "using HTTP \"POST\" failed with status code 404"));
+        assertTrue(apexMain.isAlive());
         apexMain.shutdown();
-
-        final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        LOGGER.info("BadUrl-OUTSTRING=\n" + outString + "\nEnd-BadUrl");
-        assertTrue(outString.contains(
-                "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/Bad\" using HTTP \"POST\" failed with status code 404"));
+        LOGGER.info("BadUrl-OUTSTRING=\n {} \nEnd-BadUrl", outContent.toString());
     }
 
     /**
@@ -262,10 +262,17 @@ public class TestFile2Rest {
      */
     @Test
     public void testFileEventsBadHttpMethod() throws MessagingException, ApexException, IOException {
+
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadHTTPMethod.json"};
-        assertThatThrownBy(() -> new ApexMain(args)).hasRootCauseMessage(
-            "specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
-                + "are supported for event sending on REST client producer (FirstProducer)");
+        final ApexMain apexMain = new ApexMain(args);
+        apexMain.shutdown();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+        final String outString = outContent.toString();
+
+        LOGGER.info("BadHttpMethod-OUTSTRING=\n {} \nEnd-BadHttpMethod", outString);
+        assertTrue(outString
+                .contains("specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
+                        + "are supported for event sending on REST client producer"));
     }
 
     /**
@@ -277,23 +284,17 @@ public class TestFile2Rest {
      */
     @Test
     public void testFileEventsBadResponse() throws MessagingException, ApexException, IOException {
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventPostBadResponse.json"};
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(2000);
+        await().atMost(5, TimeUnit.SECONDS)
+            .until(() -> outContent.toString().contains(
+                "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\""
+                    + " using HTTP \"POST\" failed with status code 400"));
+        assertTrue(apexMain.isAlive());
         apexMain.shutdown();
 
-        final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        LOGGER.info("BadResponse-OUTSTRING=\n" + outString + "\nEnd-BadResponse");
-        assertTrue(outString.contains(
-                "send of event to URL \"http://localhost:32801/TestFile2Rest/apex/event/PostEventBadResponse\""
-                        + " using HTTP \"POST\" failed with status code 400"));
+        LOGGER.info("BadResponse-OUTSTRING=\n" + outContent.toString() + "\nEnd-BadResponse");
     }
 }
