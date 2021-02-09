@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ec37896_f5450a33",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/main/java/org/onap/policy/apex/plugins/event/carrier/jms/JmsCarrierTechnologyParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-02-09T14:35:29Z",
+      "side": 1,
+      "message": "Its possible that these would be flagged also as security risks.",
+      "range": {
+        "startLine": 87,
+        "startChar": 65,
+        "endLine": 88,
+        "endChar": 74
+      },
+      "revId": "8f25e72bd3cef408f78037f6c85c264aa9899cf1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
