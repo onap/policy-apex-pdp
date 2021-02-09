@@ -72,7 +72,7 @@ public class ApexEngineHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexEngineHandler.class);
 
-    private Map<ToscaConceptIdentifier, ApexMain> apexMainMap;
+    private Map<ToscaConceptIdentifier, ApexMain> apexMainMap = new LinkedHashMap<>();
 
     /**
      * Constructs the object. Extracts the config and model files from each policy and instantiates the apex engine.
@@ -82,12 +82,7 @@ public class ApexEngineHandler {
      */
     public ApexEngineHandler(List<ToscaPolicy> policies) throws ApexStarterException {
         LOGGER.debug("Starting apex engine.");
-        apexMainMap = initiateApexEngineForPolicies(policies);
-        if (apexMainMap.isEmpty()) {
-            ModelService.clear();
-            ParameterService.clear();
-            throw new ApexStarterException("Apex Engine failed to start.");
-        }
+        initiateApexEngineForPolicies(policies);
     }
 
     /**
@@ -118,11 +113,7 @@ public class ApexEngineHandler {
             updateModelAndParameterServices(undeployedPoliciesMainMap);
         }
         if (!policiesToDeploy.isEmpty()) {
-            Map<ToscaConceptIdentifier, ApexMain> mainMap = initiateApexEngineForPolicies(policiesToDeploy);
-            if (mainMap.isEmpty()) {
-                throw new ApexStarterException("Updating the APEX engine with new policies failed.");
-            }
-            apexMainMap.putAll(mainMap);
+            initiateApexEngineForPolicies(policiesToDeploy);
         }
         if (apexMainMap.isEmpty()) {
             ModelService.clear();
@@ -168,65 +159,80 @@ public class ApexEngineHandler {
             policyKeystoRetain.addAll(main.getActivator().getPolicyModel().getPolicies().getPolicyMap().keySet());
         });
         for (ApexMain main : undeployedPoliciesMainMap.values()) {
-            ApexParameters existingParameters = ParameterService.get(ApexParameterConstants.MAIN_GROUP_NAME);
-            List<String> eventInputParamKeysToRemove = main.getApexParameters().getEventInputParameters().keySet()
-                .stream().filter(key -> !inputParamKeysToRetain.contains(key)).collect(Collectors.toList());
-            List<String> eventOutputParamKeysToRemove = main.getApexParameters().getEventOutputParameters().keySet()
-                .stream().filter(key -> !outputParamKeysToRetain.contains(key)).collect(Collectors.toList());
-            eventInputParamKeysToRemove.forEach(existingParameters.getEventInputParameters()::remove);
-            eventOutputParamKeysToRemove.forEach(existingParameters.getEventOutputParameters()::remove);
-            EngineParameters engineParameters =
-                main.getApexParameters().getEngineServiceParameters().getEngineParameters();
-            final List<TaskParameters> taskParametersToRemove = engineParameters.getTaskParameters().stream()
-                .filter(taskParameter -> !taskParametersToRetain.contains(taskParameter)).collect(Collectors.toList());
-            final List<String> executorParamKeysToRemove = engineParameters.getExecutorParameterMap().keySet().stream()
-                .filter(key -> !executorParamKeysToRetain.contains(key)).collect(Collectors.toList());
-            final List<String> schemaParamKeysToRemove =
-                engineParameters.getContextParameters().getSchemaParameters().getSchemaHelperParameterMap().keySet()
-                    .stream().filter(key -> !schemaParamKeysToRetain.contains(key)).collect(Collectors.toList());
-            EngineParameters aggregatedEngineParameters =
-                existingParameters.getEngineServiceParameters().getEngineParameters();
-            aggregatedEngineParameters.getTaskParameters().removeAll(taskParametersToRemove);
-            executorParamKeysToRemove.forEach(aggregatedEngineParameters.getExecutorParameterMap()::remove);
-            schemaParamKeysToRemove.forEach(aggregatedEngineParameters.getContextParameters().getSchemaParameters()
-                .getSchemaHelperParameterMap()::remove);
+            handleParametersRemoval(inputParamKeysToRetain, outputParamKeysToRetain, taskParametersToRetain,
+                executorParamKeysToRetain, schemaParamKeysToRetain, main);
 
-            final AxPolicyModel policyModel = main.getActivator().getPolicyModel();
-            final List<AxArtifactKey> keyInfoKeystoRemove = policyModel.getKeyInformation().getKeyInfoMap().keySet()
-                .stream().filter(key -> !keyInfoKeystoRetain.contains(key)).collect(Collectors.toList());
-            final List<AxArtifactKey> schemaKeystoRemove = policyModel.getSchemas().getSchemasMap().keySet().stream()
-                .filter(key -> !schemaKeystoRetain.contains(key)).collect(Collectors.toList());
-            final List<AxArtifactKey> eventKeystoRemove = policyModel.getEvents().getEventMap().keySet().stream()
-                .filter(key -> !eventKeystoRetain.contains(key)).collect(Collectors.toList());
-            final List<AxArtifactKey> albumKeystoRemove = policyModel.getAlbums().getAlbumsMap().keySet().stream()
-                .filter(key -> !albumKeystoRetain.contains(key)).collect(Collectors.toList());
-            final List<AxArtifactKey> taskKeystoRemove = policyModel.getTasks().getTaskMap().keySet().stream()
-                .filter(key -> !taskKeystoRetain.contains(key)).collect(Collectors.toList());
-            final List<AxArtifactKey> policyKeystoRemove = policyModel.getPolicies().getPolicyMap().keySet().stream()
-                .filter(key -> !policyKeystoRetain.contains(key)).collect(Collectors.toList());
-
-            final Map<AxArtifactKey, AxKeyInfo> keyInfoMap =
-                ModelService.getModel(AxKeyInformation.class).getKeyInfoMap();
-            final Map<AxArtifactKey, AxContextSchema> schemasMap =
-                ModelService.getModel(AxContextSchemas.class).getSchemasMap();
-            final Map<AxArtifactKey, AxEvent> eventMap = ModelService.getModel(AxEvents.class).getEventMap();
-            final Map<AxArtifactKey, AxContextAlbum> albumsMap =
-                ModelService.getModel(AxContextAlbums.class).getAlbumsMap();
-            final Map<AxArtifactKey, AxTask> taskMap = ModelService.getModel(AxTasks.class).getTaskMap();
-            final Map<AxArtifactKey, AxPolicy> policyMap = ModelService.getModel(AxPolicies.class).getPolicyMap();
-
-            keyInfoKeystoRemove.forEach(keyInfoMap::remove);
-            schemaKeystoRemove.forEach(schemasMap::remove);
-            eventKeystoRemove.forEach(eventMap::remove);
-            albumKeystoRemove.forEach(albumsMap::remove);
-            taskKeystoRemove.forEach(taskMap::remove);
-            policyKeystoRemove.forEach(policyMap::remove);
+            if (null != main.getActivator() && null != main.getActivator().getPolicyModel()) {
+                handleAxConceptsRemoval(keyInfoKeystoRetain, schemaKeystoRetain, eventKeystoRetain, albumKeystoRetain,
+                    taskKeystoRetain, policyKeystoRetain, main);
+            }
         }
     }
 
-    private Map<ToscaConceptIdentifier, ApexMain> initiateApexEngineForPolicies(List<ToscaPolicy> policies)
+    private void handleParametersRemoval(Set<String> inputParamKeysToRetain, Set<String> outputParamKeysToRetain,
+        List<TaskParameters> taskParametersToRetain, List<String> executorParamKeysToRetain,
+        List<String> schemaParamKeysToRetain, ApexMain main) {
+        ApexParameters existingParameters = ParameterService.get(ApexParameterConstants.MAIN_GROUP_NAME);
+        List<String> eventInputParamKeysToRemove = main.getApexParameters().getEventInputParameters().keySet().stream()
+            .filter(key -> !inputParamKeysToRetain.contains(key)).collect(Collectors.toList());
+        List<String> eventOutputParamKeysToRemove = main.getApexParameters().getEventOutputParameters().keySet()
+            .stream().filter(key -> !outputParamKeysToRetain.contains(key)).collect(Collectors.toList());
+        eventInputParamKeysToRemove.forEach(existingParameters.getEventInputParameters()::remove);
+        eventOutputParamKeysToRemove.forEach(existingParameters.getEventOutputParameters()::remove);
+        EngineParameters engineParameters = main.getApexParameters().getEngineServiceParameters().getEngineParameters();
+        final List<TaskParameters> taskParametersToRemove = engineParameters.getTaskParameters().stream()
+            .filter(taskParameter -> !taskParametersToRetain.contains(taskParameter)).collect(Collectors.toList());
+        final List<String> executorParamKeysToRemove = engineParameters.getExecutorParameterMap().keySet().stream()
+            .filter(key -> !executorParamKeysToRetain.contains(key)).collect(Collectors.toList());
+        final List<String> schemaParamKeysToRemove =
+            engineParameters.getContextParameters().getSchemaParameters().getSchemaHelperParameterMap().keySet()
+                .stream().filter(key -> !schemaParamKeysToRetain.contains(key)).collect(Collectors.toList());
+        EngineParameters aggregatedEngineParameters =
+            existingParameters.getEngineServiceParameters().getEngineParameters();
+        aggregatedEngineParameters.getTaskParameters().removeAll(taskParametersToRemove);
+        executorParamKeysToRemove.forEach(aggregatedEngineParameters.getExecutorParameterMap()::remove);
+        schemaParamKeysToRemove.forEach(aggregatedEngineParameters.getContextParameters().getSchemaParameters()
+            .getSchemaHelperParameterMap()::remove);
+    }
+
+    private void handleAxConceptsRemoval(List<AxArtifactKey> keyInfoKeystoRetain,
+        List<AxArtifactKey> schemaKeystoRetain, List<AxArtifactKey> eventKeystoRetain,
+        List<AxArtifactKey> albumKeystoRetain, List<AxArtifactKey> taskKeystoRetain,
+        List<AxArtifactKey> policyKeystoRetain, ApexMain main) {
+        final AxPolicyModel policyModel = main.getActivator().getPolicyModel();
+        final List<AxArtifactKey> keyInfoKeystoRemove = policyModel.getKeyInformation().getKeyInfoMap().keySet()
+            .stream().filter(key -> !keyInfoKeystoRetain.contains(key)).collect(Collectors.toList());
+        final List<AxArtifactKey> schemaKeystoRemove = policyModel.getSchemas().getSchemasMap().keySet().stream()
+            .filter(key -> !schemaKeystoRetain.contains(key)).collect(Collectors.toList());
+        final List<AxArtifactKey> eventKeystoRemove = policyModel.getEvents().getEventMap().keySet().stream()
+            .filter(key -> !eventKeystoRetain.contains(key)).collect(Collectors.toList());
+        final List<AxArtifactKey> albumKeystoRemove = policyModel.getAlbums().getAlbumsMap().keySet().stream()
+            .filter(key -> !albumKeystoRetain.contains(key)).collect(Collectors.toList());
+        final List<AxArtifactKey> taskKeystoRemove = policyModel.getTasks().getTaskMap().keySet().stream()
+            .filter(key -> !taskKeystoRetain.contains(key)).collect(Collectors.toList());
+        final List<AxArtifactKey> policyKeystoRemove = policyModel.getPolicies().getPolicyMap().keySet().stream()
+            .filter(key -> !policyKeystoRetain.contains(key)).collect(Collectors.toList());
+
+        final Map<AxArtifactKey, AxKeyInfo> keyInfoMap = ModelService.getModel(AxKeyInformation.class).getKeyInfoMap();
+        final Map<AxArtifactKey, AxContextSchema> schemasMap =
+            ModelService.getModel(AxContextSchemas.class).getSchemasMap();
+        final Map<AxArtifactKey, AxEvent> eventMap = ModelService.getModel(AxEvents.class).getEventMap();
+        final Map<AxArtifactKey, AxContextAlbum> albumsMap =
+            ModelService.getModel(AxContextAlbums.class).getAlbumsMap();
+        final Map<AxArtifactKey, AxTask> taskMap = ModelService.getModel(AxTasks.class).getTaskMap();
+        final Map<AxArtifactKey, AxPolicy> policyMap = ModelService.getModel(AxPolicies.class).getPolicyMap();
+
+        keyInfoKeystoRemove.forEach(keyInfoMap::remove);
+        schemaKeystoRemove.forEach(schemasMap::remove);
+        eventKeystoRemove.forEach(eventMap::remove);
+        albumKeystoRemove.forEach(albumsMap::remove);
+        taskKeystoRemove.forEach(taskMap::remove);
+        policyKeystoRemove.forEach(policyMap::remove);
+    }
+
+    private void initiateApexEngineForPolicies(List<ToscaPolicy> policies)
         throws ApexStarterException {
-        Map<ToscaConceptIdentifier, ApexMain> mainMap = new LinkedHashMap<>();
+        Map<ToscaConceptIdentifier, ApexMain> failedPoliciesMainMap = new LinkedHashMap<>();
         for (ToscaPolicy policy : policies) {
             String policyName = policy.getIdentifier().getName();
             final StandardCoder standardCoder = new StandardCoder();
@@ -243,14 +249,24 @@ public class ApexEngineHandler {
             }
             final String[] apexArgs = {"-p", file.getAbsolutePath()};
             LOGGER.info("Starting apex engine for policy {}", policy.getIdentifier());
-            try {
-                ApexMain apexMain = new ApexMain(apexArgs);
-                mainMap.put(policy.getIdentifier(), apexMain);
-            } catch (Exception e) {
-                LOGGER.error("Execution of policy {} failed", policy.getIdentifier(), e);
+            ApexMain apexMain = new ApexMain(apexArgs);
+            if (apexMain.isAlive()) {
+                apexMainMap.put(policy.getIdentifier(), apexMain);
+            } else {
+                failedPoliciesMainMap.put(policy.getIdentifier(), apexMain);
+                LOGGER.error("Execution of policy {} failed", policy.getIdentifier());
             }
         }
-        return mainMap;
+        if (apexMainMap.isEmpty()) {
+            ModelService.clear();
+            ParameterService.clear();
+            throw new ApexStarterException("Apex Engine failed to start.");
+        } else if (failedPoliciesMainMap.size() > 0) {
+            updateModelAndParameterServices(failedPoliciesMainMap);
+            if (failedPoliciesMainMap.size() == policies.size()) {
+                throw new ApexStarterException("Updating the APEX engine with new policies failed.");
+            }
+        }
     }
 
     /**
