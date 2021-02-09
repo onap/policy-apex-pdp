@@ -23,7 +23,6 @@
 package org.onap.policy.apex.service.engine.main;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -165,11 +164,18 @@ public class ApexMainTest {
 
     @Test
     public void testInCorrectParametersWithMultiplePolicies() throws ApexException {
+        OutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
         String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
         final ApexMain apexMain1 = new ApexMain(args);
-        assertThatThrownBy(() -> new ApexMain(args)).hasMessage("start of Apex service failed because this"
-            + " policy has the following duplicate I/O parameters: [TheFileConsumer1]/[FirstProducer]");
+        final ApexMain apexMain2 = new ApexMain(args);
+        final String outString = outContent.toString();
+        assertTrue(apexMain1.isAlive());
+        assertFalse(apexMain2.isAlive());
         apexMain1.shutdown();
+        apexMain2.shutdown();
+        assertThat(outString).contains("start of Apex service failed because this"
+            + " policy has the following duplicate I/O parameters: [TheFileConsumer1]/[FirstProducer]");
     }
 
     @Test
