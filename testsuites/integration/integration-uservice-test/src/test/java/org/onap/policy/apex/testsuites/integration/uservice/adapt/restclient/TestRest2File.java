@@ -22,12 +22,13 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -111,7 +112,7 @@ public class TestRest2File {
 
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(5000);
+        await().atMost(5, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
         apexMain.shutdown();
 
         final String outputEventText =
@@ -135,7 +136,6 @@ public class TestRest2File {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEmptyEvents.json"};
         final ApexMain apexMain = new ApexMain(args);
-
         ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
@@ -162,8 +162,6 @@ public class TestRest2File {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventNoURL.json"};
         final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(5000);
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -189,7 +187,7 @@ public class TestRest2File {
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(5000);
+        await().atMost(5, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -203,14 +201,28 @@ public class TestRest2File {
 
     /**
      * Test file events bad http method.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadHttpMethod() {
-        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("specified HTTP method of \"POST\" is invalid, "
-                + "only HTTP method \"GET\" is supported for event reception on REST client consumer (FirstConsumer)");
+    public void testFileEventsBadHttpMethod() throws MessagingException, ApexException, IOException {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
 
+        final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json"};
+        final ApexMain apexMain = new ApexMain(args);
+
+        apexMain.shutdown();
+
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        checkRequiredString(outString, "specified HTTP method of \"POST\" is invalid, "
+            + "only HTTP method \"GET\" is supported for event reception on REST client consumer");
     }
 
     /**
@@ -227,8 +239,7 @@ public class TestRest2File {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadResponse.json"};
         final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(5000);
+        await().atMost(5, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
         apexMain.shutdown();
 
         final String outString = outContent.toString();

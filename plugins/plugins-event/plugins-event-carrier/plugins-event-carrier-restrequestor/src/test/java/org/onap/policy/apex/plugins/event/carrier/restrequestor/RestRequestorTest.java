@@ -22,7 +22,6 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -269,14 +268,28 @@ public class RestRequestorTest {
 
     /**
      * Test REST requestor producer alone.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorProducerAlone() {
-        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("REST Requestor producer (RestRequestorProducer) "
-                + "must run in peered requestor mode with a REST Requestor consumer");
+    public void testRestRequestorProducerAlone() throws MessagingException, ApexException, IOException {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
 
+        final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json"};
+
+        ApexMain apexMain = new ApexMain(args);
+        apexMain.shutdown();
+
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        assertTrue(outString.contains("REST Requestor producer (RestRequestorProducer) "
+            + "must run in peered requestor mode with a REST Requestor consumer"));
     }
 
     /**
@@ -290,17 +303,12 @@ public class RestRequestorTest {
     public void testRestRequestorConsumerAlone() throws MessagingException, ApexException, IOException {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
-
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json"};
-
         ApexMain apexMain = new ApexMain(args);
-        apexMain.shutdown();
-
         final String outString = outContent.toString();
-
+        apexMain.shutdown();
         System.setOut(stdout);
         System.setErr(stderr);
-
         assertTrue(outString.contains("peer \"RestRequestorProducer for peered mode REQUESTOR "
             + "does not exist or is not defined with the same peered mode"));
     }

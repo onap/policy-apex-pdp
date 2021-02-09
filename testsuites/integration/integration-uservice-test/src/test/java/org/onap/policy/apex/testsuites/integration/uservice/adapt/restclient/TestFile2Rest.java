@@ -22,7 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -213,9 +214,8 @@ public class TestFile2Rest {
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventNoURL.json"};
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(200);
         apexMain.shutdown();
-
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
         final String outString = outContent.toString();
 
         System.setOut(stdout);
@@ -239,8 +239,7 @@ public class TestFile2Rest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadURL.json"};
         final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(2000);
+        await().atMost(5, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
         apexMain.shutdown();
 
         final String outString = outContent.toString();
@@ -262,10 +261,22 @@ public class TestFile2Rest {
      */
     @Test
     public void testFileEventsBadHttpMethod() throws MessagingException, ApexException, IOException {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadHTTPMethod.json"};
-        assertThatThrownBy(() -> new ApexMain(args)).hasRootCauseMessage(
-            "specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
-                + "are supported for event sending on REST client producer (FirstProducer)");
+        final ApexMain apexMain = new ApexMain(args);
+        apexMain.shutdown();
+        await().atMost(2, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        LOGGER.info("BadHttpMethod-OUTSTRING=\n" + outString + "\nEnd-BadHttpMethod");
+        assertTrue(outString
+                .contains("specified HTTP method of \"DELETE\" is invalid, only HTTP methods \"POST\" and \"PUT\" "
+                        + "are supported for event sending on REST client producer"));
     }
 
     /**
@@ -283,7 +294,7 @@ public class TestFile2Rest {
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventPostBadResponse.json"};
         final ApexMain apexMain = new ApexMain(args);
 
-        ThreadUtilities.sleep(2000);
+        await().atMost(5, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
         apexMain.shutdown();
 
         final String outString = outContent.toString();
