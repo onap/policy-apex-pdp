@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restserver;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -286,14 +285,35 @@ public class TestRestServer {
 
     /**
      * Test rest server producer standalone.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @Test
-    public void testRestServerProducerStandalone() {
+    public void testRestServerProducerStandalone()
+        throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerProducerStandalone start");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerStandalone.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("the parameters \"host\", \"port\", and \"standalone\" are illegal"
-                + " on REST Server producer (FirstProducer)");
+
+        final ApexMain apexMain = new ApexMain(args);
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        assertTrue(outString
+            .contains("the parameters \"host\", \"port\", and \"standalone\" are illegal on REST Server producer"));
+        LOGGER.debug("testRestServerProducerStandalone end");
     }
 
     /**
@@ -362,40 +382,94 @@ public class TestRestServer {
 
     /**
      * Test rest server consumer standalone no host.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestServerConsumerStandaloneNoHost() {
+    public void testRestServerConsumerStandaloneNoHost() throws MessagingException, ApexException, IOException {
         LOGGER.debug("testRestServerConsumerStandaloneNoHost start");
-        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoHost.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-                + "(FirstConsumer) in standalone mode");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
 
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoHost.json"};
+
+        final ApexMain apexMain = new ApexMain(args);
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        assertTrue(outString.contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
+            + "(FirstConsumer) in standalone mode"));
         LOGGER.debug("testRestServerConsumerStandaloneNoHost end");
     }
 
     /**
      * Test rest server consumer standalone no port.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestServerConsumerStandaloneNoPort() {
+    public void testRestServerConsumerStandaloneNoPort() throws MessagingException, ApexException, IOException {
         LOGGER.debug("testRestServerConsumerStandaloneNoPort start");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoPort.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-                + "(FirstConsumer) in standalone mode");
+
+        final ApexMain apexMain = new ApexMain(args);
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        assertTrue(outString.contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
+            + "(FirstConsumer) in standalone mode"));
         LOGGER.debug("testRestServerConsumerStandaloneNoPort end");
     }
 
     /**
      * Test rest server producer not sync.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestServerProducerNotSync() {
+    public void testRestServerProducerNotSync() throws MessagingException, ApexException, IOException {
         LOGGER.debug("testRestServerProducerNotSync start");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerNotSync.json"};
-        assertThatThrownBy(() -> new ApexMain(args)).hasRootCauseMessage(
-            "REST Server producer (FirstProducer) must run in synchronous mode " + "with a REST Server consumer");
+
+        final ApexMain apexMain = new ApexMain(args);
+        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+
+        System.setOut(stdout);
+        System.setErr(stderr);
+
+        assertTrue(outString.contains(
+            "REST Server producer (FirstProducer) must run in synchronous mode " + "with a REST Server consumer"));
         LOGGER.debug("testRestServerProducerNotSync end");
     }
 
