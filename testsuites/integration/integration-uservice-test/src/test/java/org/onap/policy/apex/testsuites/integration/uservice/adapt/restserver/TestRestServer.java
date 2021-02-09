@@ -22,7 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restserver;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,10 +38,10 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.network.NetworkUtil;
@@ -63,11 +63,22 @@ public class TestRestServer {
     private static int eventsSent = 0;
 
     /**
-     * Clear relative file root environment variable.
+     * Before Test.
      */
     @Before
-    public void clearRelativeFileRoot() {
+    public void beforeTest() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    /**
+     * After test.
+     */
+    @After
+    public void afterTest() {
+        System.setOut(stdout);
+        System.setErr(stderr);
     }
 
     /**
@@ -286,14 +297,28 @@ public class TestRestServer {
 
     /**
      * Test rest server producer standalone.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException interrupted exception
      */
     @Test
-    public void testRestServerProducerStandalone() {
+    public void testRestServerProducerStandalone()
+        throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerProducerStandalone start");
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerStandalone.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("the parameters \"host\", \"port\", and \"standalone\" are illegal"
-                + " on REST Server producer (FirstProducer)");
+
+        final ApexMain apexMain = new ApexMain(args);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+
+        assertThat(outString)
+            .contains("the parameters \"host\", \"port\", and \"standalone\" are illegal on REST Server producer");
+        LOGGER.debug("testRestServerProducerStandalone end");
     }
 
     /**
@@ -308,23 +333,15 @@ public class TestRestServer {
     public void testRestServerProducerHost()
         throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerProducerHost start");
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerHost.json"};
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
         apexMain.shutdown();
 
         await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        assertTrue(outString.contains(" host is specified only in standalone mode"));
+        assertThat(outString).contains(" host is specified only in standalone mode");
         LOGGER.debug("testRestServerProducerHost end");
     }
 
@@ -340,61 +357,84 @@ public class TestRestServer {
     public void testRestServerProducerPort()
         throws MessagingException, ApexException, IOException, InterruptedException {
         LOGGER.debug("testRestServerProducerPort start");
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerPort.json"};
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+        assertThat(outString).contains(" port is specified only in standalone mode");
+        LOGGER.debug("testRestServerProducerPort end");
+    }
+
+    /**
+     * Test rest server consumer standalone no host.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testRestServerConsumerStandaloneNoHost() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerConsumerStandaloneNoHost start");
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoHost.json"};
+
+        final ApexMain apexMain = new ApexMain(args);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+        assertThat(outString).contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
+            + "(FirstConsumer) in standalone mode");
+        LOGGER.debug("testRestServerConsumerStandaloneNoHost end");
+    }
+
+    /**
+     * Test rest server consumer standalone no port.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testRestServerConsumerStandaloneNoPort() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerConsumerStandaloneNoPort start");
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoPort.json"};
+
+        final ApexMain apexMain = new ApexMain(args);
+        apexMain.shutdown();
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
+
+        final String outString = outContent.toString();
+        assertThat(outString).contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
+            + "(FirstConsumer) in standalone mode");
+        LOGGER.debug("testRestServerConsumerStandaloneNoPort end");
+    }
+
+    /**
+     * Test rest server producer not sync.
+     *
+     * @throws MessagingException the messaging exception
+     * @throws ApexException the apex exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testRestServerProducerNotSync() throws MessagingException, ApexException, IOException {
+        LOGGER.debug("testRestServerProducerNotSync start");
+        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerNotSync.json"};
+
+        final ApexMain apexMain = new ApexMain(args);
         apexMain.shutdown();
 
         await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        assertTrue(outString.contains(" port is specified only in standalone mode"));
-        LOGGER.debug("testRestServerProducerPort end");
-    }
-
-    /**
-     * Test rest server consumer standalone no host.
-     */
-    @Test
-    public void testRestServerConsumerStandaloneNoHost() {
-        LOGGER.debug("testRestServerConsumerStandaloneNoHost start");
-        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoHost.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-                + "(FirstConsumer) in standalone mode");
-
-        LOGGER.debug("testRestServerConsumerStandaloneNoHost end");
-    }
-
-    /**
-     * Test rest server consumer standalone no port.
-     */
-    @Test
-    public void testRestServerConsumerStandaloneNoPort() {
-        LOGGER.debug("testRestServerConsumerStandaloneNoPort start");
-        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerStandaloneNoPort.json"};
-        assertThatThrownBy(() -> new ApexMain(args))
-            .hasRootCauseMessage("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-                + "(FirstConsumer) in standalone mode");
-        LOGGER.debug("testRestServerConsumerStandaloneNoPort end");
-    }
-
-    /**
-     * Test rest server producer not sync.
-     */
-    @Test
-    public void testRestServerProducerNotSync() {
-        LOGGER.debug("testRestServerProducerNotSync start");
-        final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventProducerNotSync.json"};
-        assertThatThrownBy(() -> new ApexMain(args)).hasRootCauseMessage(
+        assertThat(outString).contains(
             "REST Server producer (FirstProducer) must run in synchronous mode " + "with a REST Server consumer");
         LOGGER.debug("testRestServerProducerNotSync end");
     }
@@ -409,25 +449,18 @@ public class TestRestServer {
     @Test
     public void testRestServerConsumerNotSync() throws MessagingException, ApexException, IOException {
         LOGGER.debug("testRestServerConsumerNotSync start");
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-
         final String[] args = {"src/test/resources/prodcons/RESTServerJsonEventConsumerNotSync.json"};
 
         final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(200);
         apexMain.shutdown();
 
         await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
 
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        assertTrue(
-            outString.contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
-                + "with the same peered mode"));
+        assertThat(outString)
+            .contains("peer \"FirstConsumer for peered mode SYNCHRONOUS does not exist or is not defined "
+                + "with the same peered mode");
         LOGGER.debug("testRestServerConsumerNotSync end");
     }
 
