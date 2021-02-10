@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70ff60ac_8de3fe6f",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51dbc105_30ac26e9",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 37
+      },
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fa4133c_e82bf3b5",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorTest.java",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "165c10a9_c725d4fc",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/test/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/RestRequestorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fa4133c_e82bf3b5",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9acc2897_63a6feeb",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2021-02-10T15:38:14Z",
       "side": 1,
       "message": "I believe requirements were previously introduced that the JVM should exit with a non-zero exit code if there\u0027s a fatal error.  Throwing an exception accomplishes that.",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf88a733_21f7dd21",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/main/ApexMain.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "ApexMain is the class that is instantiated for each ToscaPolicy. If one of the policies\u0027 deployment failed(or even if all policy deployments failed), then APEX-PDP will just return corresponding information to PAP, but the application will keep running.\nApexMain is the main class for running apex in standalone mode, but the APEX-PDP application main class that runs as part of ONAP is a different one, and that throws all the right exceptions to exit with non zero code in case of a fatal error.",
+      "parentUuid": "9acc2897_63a6feeb",
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -93,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "ad490cf1_a69c913e",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexMainTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "All shutdown calls are moved to the teardown method. In this case, the outContent will have the error messages anyway at this point.",
+      "parentUuid": "da02a124_165480c4",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "779c0ed7_b85e72d8",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 4
@@ -110,6 +188,24 @@
     },
     {
       "key": {
+        "uuid": "c634a9bf_b3e0428d",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "779c0ed7_b85e72d8",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d4c5dad_d9288058",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 4
@@ -121,6 +217,24 @@
       "writtenOn": "2021-02-10T15:38:14Z",
       "side": 1,
       "message": "I assume this reports the successes back to PAP",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "695f9431_a1fbd80e",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "In this case,failure is reported back to PAP since an exception is thrown.",
+      "parentUuid": "2d4c5dad_d9288058",
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -215,6 +329,24 @@
     },
     {
       "key": {
+        "uuid": "b1419b9c_ba460a54",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestFile2Rest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "535c06cc_f4b5938a",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5de2b08_f49fe342",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestFile2Rest.java",
         "patchSetId": 4
@@ -229,6 +361,24 @@
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e1bc0c3_0d1e57c2",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestFile2Rest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5de2b08_f49fe342",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +399,24 @@
     },
     {
       "key": {
+        "uuid": "e5181258_22054b9b",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00689b2a_9e59af93",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eba09f13_2e044d25",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
         "patchSetId": 4
@@ -263,6 +431,24 @@
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "221abc6c_b54a75fc",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba09f13_2e044d25",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -283,6 +469,24 @@
     },
     {
       "key": {
+        "uuid": "33330612_915b4b9b",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8377d166_33d57b5f",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6518b910_9a57d8e2",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
         "patchSetId": 4
@@ -297,6 +501,24 @@
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af41f3a9_f3f243e5",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6518b910_9a57d8e2",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -323,6 +545,30 @@
     },
     {
       "key": {
+        "uuid": "d3e2f24a_584d253c",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "055bb63d_7fc123d1",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 319,
+        "endChar": 21
+      },
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff9d4cf_01c21f6f",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
         "patchSetId": 4
@@ -346,6 +592,30 @@
     },
     {
       "key": {
+        "uuid": "53fae585_9228111b",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ff9d4cf_01c21f6f",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 392,
+        "endChar": 37
+      },
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e619725_2dc55908",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
         "patchSetId": 4
@@ -363,6 +633,24 @@
     },
     {
       "key": {
+        "uuid": "1d374d06_7cbce0a1",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e619725_2dc55908",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "470ee1b9_bf22ac10",
         "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
         "patchSetId": 4
@@ -377,6 +665,24 @@
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02ed2ab3_27c61bb8",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restserver/TestRestServer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:07:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "470ee1b9_bf22ac10",
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
