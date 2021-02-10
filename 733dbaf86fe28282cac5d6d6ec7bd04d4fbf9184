@@ -22,6 +22,30 @@
       "revId": "733dbaf86fe28282cac5d6d6ec7bd04d4fbf9184",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52cdf06e_db4443c1",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-jms/src/test/java/org/onap/policy/apex/plugins/event/carrier/jms/JmsCarrierTechnologyParametersTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-02-10T15:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "130392da_b672f65c",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 20
+      },
+      "revId": "733dbaf86fe28282cac5d6d6ec7bd04d4fbf9184",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
