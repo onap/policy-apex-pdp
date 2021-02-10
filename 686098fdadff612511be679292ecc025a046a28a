@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a748e859_ffc64230",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-02-10T17:32:31Z",
+      "side": 1,
+      "message": "does it matter if shutdown gets called twice?  if so, may need to set apexMain\u003dnull after this line",
+      "revId": "686098fdadff612511be679292ecc025a046a28a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
