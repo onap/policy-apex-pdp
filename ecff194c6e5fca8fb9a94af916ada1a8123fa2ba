@@ -22,6 +22,30 @@
       "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8b979c_cc3442b6",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T14:02:44Z",
+      "side": 1,
+      "message": "Yes, I want to throw an exception if updating the engine failed and none of the policies were deployed. But there could be cases, say I deployed 5 policies, and only 1 of them failed. In this case, the engine is updated with 4 out of 5 policies, and I don\u0027t want to throw an exception here.",
+      "parentUuid": "682de3a5_dbbf2708",
+      "range": {
+        "startLine": 253,
+        "startChar": 12,
+        "endLine": 253,
+        "endChar": 66
+      },
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
