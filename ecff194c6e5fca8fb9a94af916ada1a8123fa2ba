@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "682de3a5_dbbf2708",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-02-10T13:37:39Z",
+      "side": 1,
+      "message": "Should you bother with this check? Maybe thrown the exception no matter what. Not sure if equality would be the best check also",
+      "range": {
+        "startLine": 253,
+        "startChar": 12,
+        "endLine": 253,
+        "endChar": 66
+      },
+      "revId": "ecff194c6e5fca8fb9a94af916ada1a8123fa2ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

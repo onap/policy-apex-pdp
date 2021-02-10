@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b0d8889_ac1d6968",
+        "filename": "examples/examples-servlet/src/main/java/org/onap/policy/apex/examples/servlet/ApexServletListener.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-02-10T13:37:39Z",
+      "side": 0,
+      "message": "sure you wanted this removed?",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 70
+      },
+      "revId": "8f25e72bd3cef408f78037f6c85c264aa9899cf1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
