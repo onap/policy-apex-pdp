@@ -7403,7 +7403,7 @@
                   "parameters": {
                     "initialContextFactory": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
-                    "providerURL": "remote://localhost:5445",
+                    "providerUrl": "remote://localhost:4447",
                     "securityPrincipal": "guest",
                     "securityCredentials": "IAmAGuest",
                     "producerTopic": "jms/topic/apexOut",
@@ -7424,7 +7424,7 @@
                   "parameters": {
                     "initialContextFactory": "org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestInitialContextFactory",
                     "connectionFactory": "ConnectionFactory",
-                    "providerURL": "remote://localhost:5445",
+                    "providerUrl": "remote://localhost:4447",
                     "securityPrincipal": "guest",
                     "securityCredentials": "IAmAGuest",
                     "consumerTopic": "jms/topic/apexIn"
