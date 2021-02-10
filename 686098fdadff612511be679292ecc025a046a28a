@@ -16,6 +16,24 @@
       "revId": "686098fdadff612511be679292ecc025a046a28a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbc8e9d5_28241f92",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestRest2File.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-02-10T17:58:49Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t matter. But, I have removed it anyway now. The test case failed since the time wasn\u0027t enough for the file to be generated. Have to wait until the file is generated in this case.",
+      "parentUuid": "a748e859_ffc64230",
+      "revId": "686098fdadff612511be679292ecc025a046a28a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
