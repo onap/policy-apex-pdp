@@ -84,8 +84,8 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
     // Default parameter values
     private static final String  DEFAULT_CONNECTION_FACTORY    = "jms/RemoteConnectionFactory";
     private static final String  DEFAULT_INITIAL_CTXT_FACTORY  = "org.jboss.naming.remote.client.InitialContextFactory";
-    private static final String  DEFAULT_PROVIDER_URL          = "remote://localhost:4447";
-    private static final String  DEFAULT_SECURITY_PRINCIPAL    = "userid";
+    private static final String  DEFAULT_PROVIDER_URL          = null;
+    private static final String  DEFAULT_SECURITY_PRINCIPAL    = null;
     private static final String  DEFAULT_SECURITY_CREDENTIALS  = null;
     private static final String  DEFAULT_CONSUMER_TOPIC        = "apex-in";
     private static final String  DEFAULT_PRODUCER_TOPIC        = "apex-out";
@@ -150,8 +150,14 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         final Properties jmsProperties = new Properties();
 
         jmsProperties.put(PROPERTY_INITIAL_CONTEXT_FACTORY, initialContextFactory);
-        jmsProperties.put(PROPERTY_PROVIDER_URL, providerUrl);
-        jmsProperties.put(PROPERTY_SECURITY_PRINCIPAL, securityPrincipal);
+
+        if (providerUrl != null) {
+            jmsProperties.put(PROPERTY_PROVIDER_URL, providerUrl);
+        }
+
+        if (securityPrincipal != null) {
+            jmsProperties.put(PROPERTY_SECURITY_PRINCIPAL, securityPrincipal);
+        }
 
         if (securityCredentials != null) {
             jmsProperties.put(PROPERTY_SECURITY_CREDENTIALS, securityCredentials);
