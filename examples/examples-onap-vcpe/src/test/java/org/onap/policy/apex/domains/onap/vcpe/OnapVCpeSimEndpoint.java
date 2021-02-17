@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,6 @@ package org.onap.policy.apex.domains.onap.vcpe;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -43,8 +43,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.onap.policy.common.gson.InstantAsMillisTypeAdapter;
 import org.onap.policy.common.utils.resources.TextFileUtils;
-import org.onap.policy.controlloop.util.Serialization;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -66,7 +66,7 @@ public class OnapVCpeSimEndpoint {
     private static final Random randomDelayInc = new Random();
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).setPrettyPrinting().create();
+            .registerTypeAdapter(Instant.class, new InstantAsMillisTypeAdapter()).setPrettyPrinting().create();
 
     private static final AtomicInteger nextVnfId = new AtomicInteger(0);
     private static Boolean nextControlLoopMessageIsOnset = true;
