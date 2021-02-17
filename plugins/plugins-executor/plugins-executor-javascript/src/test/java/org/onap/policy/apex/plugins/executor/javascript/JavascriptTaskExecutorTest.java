@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,8 +118,9 @@ public class JavascriptTaskExecutorTest {
         task.getTaskLogic().setLogic("var x = 5;");
 
         jte.prepare();
+        Properties props = new Properties();
         assertThatThrownBy(() -> {
-            jte.execute(-1, new Properties(), null);
+            jte.execute(-1, props, null);
         }).isInstanceOf(NullPointerException.class);
         jte.cleanUp();
 
@@ -128,7 +130,7 @@ public class JavascriptTaskExecutorTest {
 
         assertThatThrownBy(() -> {
             jte.prepare();
-            jte.execute(-1, new Properties(), incomingParameters);
+            jte.execute(-1, props, incomingParameters);
         }).hasMessage("execute-post: task logic execution failure on task \"TestTask\" in model NULL:0.0.0");
 
         jte.cleanUp();

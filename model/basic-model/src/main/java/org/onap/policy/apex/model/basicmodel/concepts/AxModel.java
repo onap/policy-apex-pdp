@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +31,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -76,8 +76,8 @@ public class AxModel extends AxConcept {
 
     // @formatter:off
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({ @JoinColumn(name = "keyInformationName", referencedColumnName = "name"),
-            @JoinColumn(name = "keyInformationVersion", referencedColumnName = "version") })
+    @JoinColumn(name = "keyInformationName", referencedColumnName = "name")
+    @JoinColumn(name = "keyInformationVersion", referencedColumnName = "version")
     @XmlElement(name = "keyInformation", required = true)
     @XmlJavaTypeAdapter(KeyInfoMarshalFilter.class)
     private AxKeyInformation keyInformation;

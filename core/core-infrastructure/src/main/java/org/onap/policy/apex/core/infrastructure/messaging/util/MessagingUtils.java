@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -218,37 +219,11 @@ public final class MessagingUtils {
     public static byte[] serializeObject(final Object object) {
         LOGGER.entry(object.getClass().getName());
         final ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-        ObjectOutputStream oos = null;
-        try {
-            oos = new ObjectOutputStream(bytesOut);
+        try (ObjectOutputStream oos = new ObjectOutputStream(bytesOut)) {
             oos.writeObject(object);
         } catch (final IOException e) {
             LOGGER.warn("error on object serialization", e);
-        } finally {
-            flushAndClose(oos, bytesOut);
         }
         return bytesOut.toByteArray();
-    }
-
-    /**
-     * Flush and close an object stream and a byte array output stream.
-     *
-     * @param oos the object output stream
-     * @param bytesOut the byte array output stream
-     */
-    private static void flushAndClose(final ObjectOutputStream oos, final ByteArrayOutputStream bytesOut) {
-        try {
-            if (oos != null) {
-                oos.flush();
-                oos.close();
-            }
-            if (bytesOut != null) {
-                bytesOut.close();
-            }
-
-        } catch (final IOException e) {
-            LOGGER.error("Failed to close the Srialization operation");
-            LOGGER.catching(e);
-        }
     }
 }

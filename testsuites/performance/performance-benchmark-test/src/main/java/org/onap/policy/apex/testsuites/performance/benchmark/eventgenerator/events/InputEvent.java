@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +51,11 @@ public class InputEvent {
      * Constructor, assign default values to fields.
      */
     public InputEvent() {
-        final Random rand = new Random();
+        /*
+         * This is not used for encryption/security, thus disabling sonar.
+         */
+        final Random rand = new Random();   // NOSONAR
+
         testMatchCase = rand.nextInt(4);
         name = "Event0" + rand.nextInt(2) + "00";
         testTemperature = rand.nextDouble() * 1000;

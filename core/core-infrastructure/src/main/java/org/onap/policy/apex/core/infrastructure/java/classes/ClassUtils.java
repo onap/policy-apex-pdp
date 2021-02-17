@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -91,33 +93,7 @@ public abstract class ClassUtils {
             URL[] urls = ((URLClassLoader) ClassLoader.getSystemClassLoader()).getURLs();
 
             // Try get the classes in the bootstrap loader
-            try {
-                final Class<?> nullclassloader = Class.forName("sun.misc.Launcher");
-                if (nullclassloader != null) {
-                    Method mmethod = nullclassloader.getMethod("getBootstrapClassPath");
-                    if (mmethod != null) {
-                        final Object cp = mmethod.invoke(null, (Object[]) null);
-                        if (cp != null) {
-                            mmethod = cp.getClass().getMethod("getURLs");
-                            if (mmethod != null) {
-                                final URL[] moreurls = (URL[]) (mmethod.invoke(cp, (Object[]) null));
-                                if (moreurls != null && moreurls.length > 0) {
-                                    if (urls.length == 0) {
-                                        urls = moreurls;
-                                    } else {
-                                        final URL[] result = Arrays.copyOf(urls, urls.length + moreurls.length);
-                                        System.arraycopy(moreurls, 0, result, urls.length, moreurls.length);
-                                        urls = result;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    // end long way!
-                }
-            } catch (final ClassNotFoundException e) {
-                LOGGER.warn("Failed to find default path for JRE libraries", e);
-            }
+            urls = getClassesFromBootstrapLoader(urls);
 
             // Iterate over the class path entries
             for (final URL url : urls) {
@@ -139,6 +115,47 @@ public abstract class ClassUtils {
         }
 
         return classNameSet;
+    }
+
+    private static URL[] getClassesFromBootstrapLoader(URL[] urls)
+                    throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        try {
+            final Class<?> nullclassloader = Class.forName("sun.misc.Launcher");
+            if (nullclassloader == null) {
+                return urls;
+            }
+
+            Method mmethod = nullclassloader.getMethod("getBootstrapClassPath");
+            if (mmethod == null) {
+                return urls;
+            }
+
+            final Object cp = mmethod.invoke(null, (Object[]) null);
+            if (cp == null) {
+                return urls;
+            }
+
+            mmethod = cp.getClass().getMethod("getURLs");
+            if (mmethod == null) {
+                return urls;
+            }
+
+            final URL[] moreurls = (URL[]) (mmethod.invoke(cp, (Object[]) null));
+            if (moreurls == null || moreurls.length == 0) {
+                return urls;
+            }
+
+            if (urls.length == 0) {
+                return moreurls;
+            } else {
+                final URL[] result = Arrays.copyOf(urls, urls.length + moreurls.length);
+                System.arraycopy(moreurls, 0, result, urls.length, moreurls.length);
+                return result;
+            }
+        } catch (final ClassNotFoundException e) {
+            LOGGER.warn("Failed to find default path for JRE libraries", e);
+            return urls;
+        }
     }
 
     /**

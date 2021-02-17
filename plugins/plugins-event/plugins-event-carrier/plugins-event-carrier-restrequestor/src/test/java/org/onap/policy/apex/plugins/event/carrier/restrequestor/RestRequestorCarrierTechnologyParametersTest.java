@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,35 +42,29 @@ public class RestRequestorCarrierTechnologyParametersTest {
 
     @Test
     public void testRestRequestorCarrierTechnologyParametersBadList() {
-        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderBadList.json");
-        arguments.setRelativeFileRoot(".");
-
-        assertThatThrownBy(() -> {
-            new ApexParameterHandler().getParameters(arguments);
-        }).hasMessageContaining("HTTP header array entry is null\n    parameter");
+        verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderBadList.json",
+                        "HTTP header array entry is null\n    parameter");
     }
 
     @Test
     public void testRestRequestorCarrierTechnologyParametersNotKvPairs() {
-        ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNotKvPairs.json");
-        arguments.setRelativeFileRoot(".");
-
-        assertThatThrownBy(() -> {
-            new ApexParameterHandler().getParameters(arguments);
-        }).hasMessageContaining("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]");
+        verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNotKvPairs.json",
+                        "HTTP header array entries must have one key and one value: [aaa, bbb, ccc]");
     }
 
     @Test
     public void testRestRequestorCarrierTechnologyParametersNulls() {
+        verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNulls.json",
+                        "HTTP header key is null or blank: [null, bbb]");
+    }
+
+    private void verifyException(String fileName, String expectedMsg) {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
-        arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNulls.json");
+        arguments.setToscaPolicyFilePath(fileName);
         arguments.setRelativeFileRoot(".");
 
-        assertThatThrownBy(() -> {
-            new ApexParameterHandler().getParameters(arguments);
-        }).hasMessageContaining("HTTP header key is null or blank: [null, bbb]");
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).describedAs(fileName)
+                        .hasMessageContaining(expectedMsg);
     }
 
     @Test

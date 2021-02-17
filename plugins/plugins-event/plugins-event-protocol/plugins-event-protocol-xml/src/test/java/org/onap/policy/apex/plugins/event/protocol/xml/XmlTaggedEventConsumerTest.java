@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,14 +45,7 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testGarbageTextLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream("hello there".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyNull("testGarbageTextLine", "hello there");
     }
 
     /**
@@ -61,15 +55,7 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testPartialEventLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "1469781869268</TestTimestamp></MainTag>".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyNull("testPartialEventLine", "1469781869268</TestTimestamp></MainTag>");
     }
 
     /**
@@ -79,15 +65,8 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>", textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventLine", "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>",
+                        "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>");
     }
 
     /**
@@ -97,14 +76,8 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventGarbageBeforeLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testFullEventGarbageBeforeLine",
+                        "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>");
     }
 
     /**
@@ -114,15 +87,8 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventGarbageBeforeAfterLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish"
-                                        .getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testFullEventGarbageBeforeAfterLine",
+                        "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish");
     }
 
     /**
@@ -132,16 +98,9 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventGarbageAfterLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventGarbageAfterLine",
+                        "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish",
+                        "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>Rubbish");
     }
 
     /**
@@ -151,13 +110,7 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testGarbageTextMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream("hello\nthere".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testGarbageTextMultiLine", "hello\nthere");
     }
 
     /**
@@ -167,14 +120,7 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testPartialEventMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "1469781869268\n</TestTimestamp>\n</MainTag>".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testPartialEventMultiLine", "1469781869268\n</TestTimestamp>\n</MainTag>");
     }
 
     /**
@@ -184,16 +130,9 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventMultiLine",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>");
     }
 
     /**
@@ -203,17 +142,9 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventGarbageBeforeMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n"
-                                        .getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventGarbageBeforeMultiLine",
+                "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n\n",
+                "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>");
     }
 
     /**
@@ -225,15 +156,9 @@ public class XmlTaggedEventConsumerTest {
     public void testFullEventGarbageBeforeAfterMultiLine() throws IOException {
         String garbageString = "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>"
                         + "\n</MainTag>\nRubbish\n\n";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventsGarbageAfterLine", garbageString,
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish");
     }
 
     /**
@@ -243,17 +168,9 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventGarbageAfterMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish"
-                                        .getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventGarbageAfterMultiLine",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish");
     }
 
     /**
@@ -263,15 +180,8 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testPartialEventsLine() throws IOException {
-        String garbageString = "1469781869268</TestTimestamp></MainTag><?xml><MainTag>"
-                        + "<TestTimestamp>1469781869268</TestTimestamp>";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testPartialEventsLine", "1469781869268</TestTimestamp></MainTag><?xml><MainTag>"
+                        + "<TestTimestamp>1469781869268</TestTimestamp>");
     }
 
     /**
@@ -281,15 +191,9 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventsGarbageBeforeLine() throws IOException {
-        String garbageString = "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>"
-                        + "<?xml><MainTag><TestTimestamp>";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testPartialEventsLine",
+                        "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp></MainTag>"
+                                        + "<?xml><MainTag><TestTimestamp>");
     }
 
     /**
@@ -299,15 +203,8 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventsGarbageBeforeAfterLine() throws IOException {
-        String garbageString = "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp>"
-                        + "</MainTag>Rubbish<?xml><MainTag><TestTimestamp>\nRefuse";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertTrue(textBlock.isEndOfText());
+        verifyEnd("testFullEventGarbageBeforeLine", "Garbage<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp>"
+                        + "</MainTag>Rubbish<?xml><MainTag><TestTimestamp>\nRefuse");
     }
 
     /**
@@ -319,14 +216,8 @@ public class XmlTaggedEventConsumerTest {
     public void testFullEventsGarbageAfterLine() throws IOException {
         String garbageString = "<?xml><MainTag><TestTimestamp>1469781869268</TestTimestamp>"
                         + "</MainTag>Rubbish<?xml><MainTag><TestTimestamp>Refuse";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals(textBlock.getText(), garbageString);
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testFullEventsGarbageAfterLine", garbageString, garbageString);
     }
 
     /**
@@ -336,15 +227,9 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testPartialEventsMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "1469781869268\n</TestTimestamp>\n</MainTag>\n<?xml>\n<MainTag>\n<TestTimestamp>".getBytes());
-
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>", textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLine("testPartialEventsMultiLine",
+                        "1469781869268\n</TestTimestamp>\n</MainTag>\n<?xml>\n<MainTag>\n<TestTimestamp>",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>");
     }
 
     /**
@@ -356,20 +241,10 @@ public class XmlTaggedEventConsumerTest {
     public void testFullEventsMultiLine() throws IOException {
         String garbageString = "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n"
                         + "</MainTag>\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
-                        textBlock.getText());
-        assertFalse(textBlock.isEndOfText());
-
-        textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLines("testFullEventsMultiLine", garbageString,
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>");
     }
 
     /**
@@ -381,20 +256,10 @@ public class XmlTaggedEventConsumerTest {
     public void testFullEventsGarbageBeforeMultiLine() throws IOException {
         String garbageString = "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n"
                         + "</MainTag>\n\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\n";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
-                        textBlock.getText());
-        assertFalse(textBlock.isEndOfText());
-
-        textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLines("testFullEventsGarbageBeforeMultiLine", garbageString,
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>");
     }
 
     /**
@@ -407,20 +272,10 @@ public class XmlTaggedEventConsumerTest {
         String garbageString = "Garbage\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n"
                         + "</MainTag>\nRubbish\n<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n"
                         + "</MainTag>\nRefuse\n";
-        final InputStream xmlInputStream = new ByteArrayInputStream(garbageString.getBytes());
 
-        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
-        xmlTaggedReader.init(xmlInputStream);
-
-        TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
-                        textBlock.getText());
-        assertFalse(textBlock.isEndOfText());
-
-        textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRefuse",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyLines("testFullEventsGarbageBeforeAfterMultiLine", garbageString,
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRefuse");
     }
 
     /**
@@ -430,16 +285,55 @@ public class XmlTaggedEventConsumerTest {
      */
     @Test
     public void testFullEventsGarbageAfterMultiLine() throws IOException {
-        final InputStream xmlInputStream = new ByteArrayInputStream(
-                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish"
-                                        .getBytes());
+        verifyLine("testFullEventsGarbageAfterMultiLine",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
+                        "<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish");
+    }
+
+    private void verifyNull(String testName, String xml) throws IOException {
+        final InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
 
         final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
         xmlTaggedReader.init(xmlInputStream);
 
         final TextBlock textBlock = xmlTaggedReader.readTextBlock();
-        assertEquals("<?xml>\n<MainTag>\n<TestTimestamp>1469781869268</TestTimestamp>\n</MainTag>\nRubbish",
-                        textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        assertNull(testName, textBlock.getText());
+        assertTrue(testName, textBlock.isEndOfText());
+    }
+
+    private void verifyLine(String testName, String xml, String expected) throws IOException {
+        final InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
+
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
+        xmlTaggedReader.init(xmlInputStream);
+
+        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
+        assertEquals(testName, expected, textBlock.getText());
+        assertTrue(testName, textBlock.isEndOfText());
+    }
+
+    private void verifyLines(String testName, String xml, String expected, String expected2) throws IOException {
+        final InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
+
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
+        xmlTaggedReader.init(xmlInputStream);
+
+        TextBlock textBlock = xmlTaggedReader.readTextBlock();
+        assertEquals(testName, expected, textBlock.getText());
+        assertFalse(testName, textBlock.isEndOfText());
+
+        textBlock = xmlTaggedReader.readTextBlock();
+        assertEquals(testName, expected2, textBlock.getText());
+        assertTrue(testName, textBlock.isEndOfText());
+    }
+
+    private void verifyEnd(String testName, String xml) throws IOException {
+        final InputStream xmlInputStream = new ByteArrayInputStream(xml.getBytes());
+
+        final HeaderDelimitedTextBlockReader xmlTaggedReader = new HeaderDelimitedTextBlockReader("<?xml", null, true);
+        xmlTaggedReader.init(xmlInputStream);
+
+        final TextBlock textBlock = xmlTaggedReader.readTextBlock();
+        assertTrue(testName, textBlock.isEndOfText());
     }
 }
