@@ -25,7 +25,7 @@
                         "jsonAdapters": {
                             "Instant": {
                                 "adaptedClass": "java.time.Instant",
-                                "adaptorClass": "org.onap.policy.controlloop.util.Serialization$GsonInstantAdapter"
+                                "adaptorClass": "org.onap.policy.common.gson.InstantAsMillisTypeAdapter"
                             },
                             "APPC_LCM_REQUEST": {
                                 "adaptedClass": "org.onap.policy.appclcm.LcmRequest",

@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,6 +23,7 @@ package org.onap.policy.apex.context.impl.schema.java;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;
+import com.google.gson.TypeAdapter;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -37,7 +39,7 @@ import org.slf4j.ext.XLoggerFactory;
  * <li>adaptedClass: The name of the class being adapted.
  * <li>adapterClass: the JSON adapter class to use for the adapted class.
  * </ol>
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 //@formatter:on
@@ -85,7 +87,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
         if (adaptedClass == null) {
             return null;
         }
-        
+
         try {
             return Class.forName(adaptedClass);
         } catch (final ClassNotFoundException e) {
@@ -121,7 +123,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
         if (adaptorClass == null) {
             return null;
         }
-        
+
         try {
             return Class.forName(adaptorClass);
         } catch (final ClassNotFoundException e) {
@@ -147,15 +149,20 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
         final GroupValidationResult result = new GroupValidationResult(this);
 
         getClass(ADAPTED_CLASS, adaptedClass, result);
-        
+
         Class<?> adaptorClazz = getClass(ADAPTOR_CLASS, adaptorClass, result);
+
         if (adaptorClazz != null) {
             String errorMessage = null;
-            
+
+            if (TypeAdapter.class.isAssignableFrom(adaptorClazz)) {
+                return result;
+            }
+
             if (!JsonSerializer.class.isAssignableFrom(adaptorClazz)) {
                 errorMessage = "class is not a JsonSerializer";
             }
-            
+
             if (!JsonDeserializer.class.isAssignableFrom(adaptorClazz)) {
                 if (errorMessage == null) {
                     errorMessage = "class is not a JsonDeserializer";
@@ -174,9 +181,9 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
 
     /**
      * Check a class exists.
-     * 
-     * @param parameterName the parameter name of the class to check for existence 
-     * @param classToCheck the class to check for existence 
+     *
+     * @param parameterName the parameter name of the class to check for existence
+     * @param classToCheck the class to check for existence
      * @param result the result of the check
      */
     private Class<?> getClass(String parameterName, String classToCheck, final GroupValidationResult result) {
@@ -184,7 +191,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
             result.setResult(parameterName, ValidationStatus.INVALID, "parameter is null or blank");
             return null;
         }
-        
+
         // Get the class for the event protocol
         try {
             return Class.forName(classToCheck);
