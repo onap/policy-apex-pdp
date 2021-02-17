@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.tools.model.generator.model2cli;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertTrue;
 
@@ -52,29 +54,17 @@ public class Model2CliTest {
 
     @Test
     public void testModel2CliBadOptions() {
-        final String[] cliArgs = {"-zabbu"};
-
-        final String outputString = runModel2Cli(cliArgs);
-
-        assertTrue(outputString.contains("usage: gen-model2cli"));
+        assertThat(runModel2Cli(new String[] {"-zabbu"})).contains("usage: gen-model2cli");
     }
 
     @Test
     public void testModel2CliHelp() {
-        final String[] cliArgs = {"-h"};
-
-        final String outputString = runModel2Cli(cliArgs);
-
-        assertTrue(outputString.contains("usage: gen-model2cli"));
+        assertThat(runModel2Cli(new String[] {"-h"})).contains("usage: gen-model2cli");
     }
 
     @Test
     public void testModel2CliVersion() {
-        final String[] cliArgs = {"-v"};
-
-        final String outputString = runModel2Cli(cliArgs);
-
-        assertTrue(outputString.contains("gen-model2cli"));
+        assertThat(runModel2Cli(new String[] {"-v"})).contains("gen-model2cli").doesNotContain("usage:");
     }
 
     @Test

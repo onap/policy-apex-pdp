@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,6 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.Marshaller;
@@ -120,33 +120,33 @@ public class AxPolicyModel extends AxModel {
 
     // @formatter:off
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "policiesName", referencedColumnName = "name"),
-            @JoinColumn(name = "policiesVersion", referencedColumnName = "version")})
+    @JoinColumn(name = "policiesName", referencedColumnName = "name")
+    @JoinColumn(name = "policiesVersion", referencedColumnName = "version")
     @XmlElement(name = "policies", required = true)
     private AxPolicies policies;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "tasksName", referencedColumnName = "name"),
-            @JoinColumn(name = "tasksVersion", referencedColumnName = "version")})
+    @JoinColumn(name = "tasksName", referencedColumnName = "name")
+    @JoinColumn(name = "tasksVersion", referencedColumnName = "version")
     @XmlElement(name = "tasks", required = true)
     private AxTasks tasks;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "eventsName", referencedColumnName = "name"),
-            @JoinColumn(name = "eventsVersion", referencedColumnName = "version")})
+    @JoinColumn(name = "eventsName", referencedColumnName = "name")
+    @JoinColumn(name = "eventsVersion", referencedColumnName = "version")
     @XmlElement(name = "events", required = true)
     private AxEvents events;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "albumsName", referencedColumnName = "name"),
-            @JoinColumn(name = "albumsVersion", referencedColumnName = "version")})
+    @JoinColumn(name = "albumsName", referencedColumnName = "name")
+    @JoinColumn(name = "albumsVersion", referencedColumnName = "version")
     @XmlElement(name = "albums", required = false)
     @XmlJavaTypeAdapter(EmptyAlbumsAdapter.class)
     private AxContextAlbums albums;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "schemasName", referencedColumnName = "name"),
-            @JoinColumn(name = "schemasVersion", referencedColumnName = "version")})
+    @JoinColumn(name = "schemasName", referencedColumnName = "name")
+    @JoinColumn(name = "schemasVersion", referencedColumnName = "version")
     @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
     // @formatter:on

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,7 @@ import org.junit.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.common.parameters.ParameterService;
 import org.stringtemplate.v4.STGroupFile;
@@ -81,36 +83,15 @@ public class Model2EventSchemaTest {
     }
 
     @Test
-    public void testEventSchemaStimuli() {
+    public void testEventSchemaStimuli() throws ApexException {
         modelFile = "src/test/resources/SmallModel.json";
-        type = "stimuli";
-        Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
-        assertThatCode(() -> {
-            int ret = app.runApp();
-            assertEquals(0, ret);
-        }).doesNotThrowAnyException();
-    }
 
-    @Test
-    public void testEventSchemaResponse() {
-        modelFile = "src/test/resources/SmallModel.json";
-        type = "response";
-        Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
-        assertThatCode(() -> {
-            int ret = app.runApp();
-            assertEquals(0, ret);
-        }).doesNotThrowAnyException();
-    }
-
-    @Test
-    public void testEventSchemaInternal() {
-        modelFile = "src/test/resources/SmallModel.json";
-        type = "internal";
-        Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
-        assertThatCode(() -> {
-            int ret = app.runApp();
-            assertEquals(0, ret);
-        }).doesNotThrowAnyException();
+        String[] types = {"stimuli", "response", "internal"};
+        for (String type2: types) {
+            type = type2;
+            Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
+            assertEquals(type, 0, app.runApp());
+        }
     }
 
     @Test

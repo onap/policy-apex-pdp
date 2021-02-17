@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +22,8 @@
 
 package org.onap.policy.apex.tools.simple.wsclient;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -44,108 +45,59 @@ public class WsClientTest {
 
     @Test
     public void testWsClientNoOptions() {
-        final String[] EventArgs = new String[]
-            {};
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("ws-client: starting simple event echo"));
+        assertThat(runWsClient(new String[] {})).contains("ws-client: starting simple event echo");
     }
 
     @Test
     public void testWsClientBadOptions() {
-        final String[] EventArgs =
-            { "-zabbu" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("usage: ws-client"));
+        assertThat(runWsClient(new String[] {"-zabbu"})).contains("usage: ws-client");
     }
 
     @Test
     public void testWsClientHelp() {
-        final String[] EventArgs =
-            { "-h" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("usage: ws-client"));
+        assertThat(runWsClient(new String[] {"-h"})).contains("usage: ws-client");
     }
 
     @Test
     public void testWsClientVersion() {
-        final String[] EventArgs =
-            { "-v" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("ws-client"));
+        assertThat(runWsClient(new String[] {"-v"})).contains("ws-client").doesNotContain("usage:");
     }
 
     @Test
     public void testWsClientNoServerArg() {
-        final String[] EventArgs =
-            { "-s" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("ws-client"));
+        assertThat(runWsClient(new String[] {"-s"})).contains("ws-client");
     }
 
     @Test
     public void testWsClientNoPortArg() {
-        final String[] EventArgs =
-            { "-p" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("ws-client"));
+        assertThat(runWsClient(new String[] {"-p"})).contains("usage: ws-client");
     }
 
     @Test
     public void testWsClientBadPortArg() {
-        final String[] EventArgs =
-            { "-p", "hello" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("ws-client"));
+        assertThat(runWsClient(new String[] {"-p", "hello"})).contains("ws-client");
     }
 
     @Test
     public void testWsClientBadServerArg() {
-        final String[] EventArgs =
-            { "-s", "asdsadadasd:asdasdsadasd@@" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("ws-client"));
+        assertThat(runWsClient(new String[] {"-s", "asdsadadasd:asdasdsadasd"})).contains("ws-client");
     }
 
     @Test
     public void testWsClientConsole() {
-        final String[] EventArgs =
-            { "-c", "-s", "AServerThatDoesntExist", "-p", "99999999" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains("terminate the application typing"));
+        assertThat(runWsClient(new String[] {"-c", "-s", "AServerThatDoesntExist", "-p", "99999999"}))
+                        .contains("terminate the application typing");
     }
 
     @Test
     public void testWsClientEcho() {
-        final String[] EventArgs =
-            { "-s", "AServerThatDoesntExist", "-p", "99999999" };
-
-        final String outputString = runWsClient(EventArgs);
-
-        assertTrue(outputString.contains(
-                        "Once started, the application will simply print out all received events to standard out"));
+        assertThat(runWsClient(new String[] {"-s", "AServerThatDoesntExist", "-p", "99999999"})).contains(
+                        "Once started, the application will simply print out all received events to standard out");
     }
 
     /**
      * Run the application.
-     * 
+     *
      * @param eventArgs the command arguments
      * @return a string containing the command output
      */

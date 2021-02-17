@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +28,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -77,18 +77,14 @@ public class AxEngineModel extends AxContextModel {
     @XmlElement(required = true)
     private AxEngineState state;
 
-    // @formatter:off
-    @JoinColumns({
-            @JoinColumn(name = "statsParentKeyName", referencedColumnName = "parentKeyName", updatable = false,
-                    insertable = false),
-            @JoinColumn(name = "statsParentKeyVersion", referencedColumnName = "parentKeyVersion", updatable = false,
-                    insertable = false),
-            @JoinColumn(name = "statsParentLocalName ", referencedColumnName = "parentLocalName", updatable = false,
-                    insertable = false),
-            @JoinColumn(name = "statsLocalName", referencedColumnName = "localName", updatable = false,
-                    insertable = false)})
+    @JoinColumn(name = "statsParentKeyName", referencedColumnName = "parentKeyName", updatable = false,
+                    insertable = false)
+    @JoinColumn(name = "statsParentKeyVersion", referencedColumnName = "parentKeyVersion", updatable = false,
+                    insertable = false)
+    @JoinColumn(name = "statsParentLocalName ", referencedColumnName = "parentLocalName", updatable = false,
+                    insertable = false)
+    @JoinColumn(name = "statsLocalName", referencedColumnName = "localName", updatable = false, insertable = false)
     private AxEngineStats stats;
-    // @formatter:on
 
     /**
      * The Default Constructor creates an engine model with a null key and all its fields undefined.

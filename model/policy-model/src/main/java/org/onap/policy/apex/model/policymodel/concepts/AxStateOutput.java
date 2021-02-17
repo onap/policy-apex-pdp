@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
@@ -79,17 +79,17 @@ public class AxStateOutput extends AxConcept {
 
     // @formatter:off
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "name", column = @Column(name = "outgoingEventName")),
-            @AttributeOverride(name = "version", column = @Column(name = "outgoingEventVersion"))})
+    @AttributeOverride(name = "name", column = @Column(name = "outgoingEventName"))
+    @AttributeOverride(name = "version", column = @Column(name = "outgoingEventVersion"))
     @Column(name = "outgoingEvent")
     @XmlElement(required = true)
     private AxArtifactKey outgoingEvent;
 
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "parentKeyName", column = @Column(name = "nextStateParentKeyName")),
-            @AttributeOverride(name = "parentKeyVersion", column = @Column(name = "nextStateParentKeyVersion")),
-            @AttributeOverride(name = "parentLocalName", column = @Column(name = "nextStateParentLocalName")),
-            @AttributeOverride(name = "localName", column = @Column(name = "nextStateLocalName"))})
+    @AttributeOverride(name = "parentKeyName", column = @Column(name = "nextStateParentKeyName"))
+    @AttributeOverride(name = "parentKeyVersion", column = @Column(name = "nextStateParentKeyVersion"))
+    @AttributeOverride(name = "parentLocalName", column = @Column(name = "nextStateParentLocalName"))
+    @AttributeOverride(name = "localName", column = @Column(name = "nextStateLocalName"))
     @Column(name = "nextState")
     @XmlElement(required = true)
     private AxReferenceKey nextState;

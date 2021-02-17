@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +69,10 @@ public class EnEvent extends HashMap<String, Object> {
     @Setter
     private AxConcept[] userArtifactStack;
 
-    private static Random rand = new Random(System.nanoTime());
+    /*
+     * This is not used for encryption/security, thus disabling sonar.
+     */
+    private static Random rand = new Random(System.nanoTime());     // NOSONAR
 
     // An identifier for the current event execution. The default value here will always be a random
     // number, and should
