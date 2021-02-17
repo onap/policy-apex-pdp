@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ package org.onap.policy.apex.tools.common;
 ////// end::**
 ////
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -111,7 +113,8 @@ public class CliParser {
     @SuppressWarnings("resource")
     // tag::cliParserVersion[]
     public String getAppVersion() {
-        return new Scanner(CliParser.class.getResourceAsStream("/app-version.txt"), "UTF-8").useDelimiter("\\A").next();
+        return new Scanner(CliParser.class.getResourceAsStream("/app-version.txt"), StandardCharsets.UTF_8)
+                        .useDelimiter("\\A").next();
     }
     // end::cliParserVersion[]
 }

@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -40,91 +41,60 @@ public class JsonTaggedEventConsumerTest {
 
     @Test
     public void testGarbageText() throws IOException {
-        final InputStream jsonInputStream = new ByteArrayInputStream("hello there".getBytes());
-
-        final CharacterDelimitedTextBlockReader taggedReader = new CharacterDelimitedTextBlockReader('{', '}');
-        taggedReader.init(jsonInputStream);
-
-        final TextBlock textBlock = taggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        verifyNoEvent("testGarbageText", "hello there");
     }
 
     @Test
     public void testPartialEvent() throws IOException {
-        final InputStream jsonInputStream = new ByteArrayInputStream("\"TestTimestamp\": 1469781869268}".getBytes());
+        verifyNoEvent("testGarbageText", "\"TestTimestamp\": 1469781869268}");
+    }
+
+    @Test
+    public void testFullEvent() throws IOException {
+        verifyMulti("testFullEvent", "{TestTimestamp\": 1469781869268}", "{TestTimestamp\": 1469781869268}");
+    }
+
+    @Test
+    public void testFullEventGarbageBefore() throws IOException {
+        verifyMulti("testFullEventGarbageBefore", "Garbage{TestTimestamp\": 1469781869268}",
+                        "{TestTimestamp\": 1469781869268}");
+    }
+
+    @Test
+    public void testFullEventGarbageBeforeAfter() throws IOException {
+        verifyMulti("testFullEventGarbageBeforeAfter", "Garbage{TestTimestamp\": 1469781869268}Rubbish",
+                        "{TestTimestamp\": 1469781869268}");
+    }
+
+    @Test
+    public void testFullEventGarbageAfter() throws IOException {
+        verifyMulti("testFullEventGarbageAfter", "{TestTimestamp\": 1469781869268}Rubbish",
+                        "{TestTimestamp\": 1469781869268}");
+    }
+
+    private void verifyNoEvent(String testName, String input) throws IOException {
+        final InputStream jsonInputStream = new ByteArrayInputStream(input.getBytes());
 
         final CharacterDelimitedTextBlockReader taggedReader = new CharacterDelimitedTextBlockReader('{', '}');
         taggedReader.init(jsonInputStream);
 
         final TextBlock textBlock = taggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        assertNull(testName, textBlock.getText());
+        assertTrue(testName, textBlock.isEndOfText());
     }
 
-    @Test
-    public void testFullEvent() throws IOException {
-        final InputStream jsonInputStream = new ByteArrayInputStream("{TestTimestamp\": 1469781869268}".getBytes());
+    private void verifyMulti(String testName, String input, String expected) throws IOException {
+        final InputStream jsonInputStream = new ByteArrayInputStream(input.getBytes());
 
         final CharacterDelimitedTextBlockReader taggedReader = new CharacterDelimitedTextBlockReader('{', '}');
         taggedReader.init(jsonInputStream);
 
         TextBlock textBlock = taggedReader.readTextBlock();
-        assertEquals("{TestTimestamp\": 1469781869268}", textBlock.getText());
+        assertEquals(testName, expected, textBlock.getText());
+        assertFalse(testName, textBlock.isEndOfText());
 
         textBlock = taggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
-    }
-
-    @Test
-    public void testFullEventGarbageBefore() throws IOException {
-        final InputStream jsonInputStream =
-                new ByteArrayInputStream("Garbage{TestTimestamp\": 1469781869268}".getBytes());
-
-        final CharacterDelimitedTextBlockReader taggedReader = new CharacterDelimitedTextBlockReader('{', '}');
-        taggedReader.init(jsonInputStream);
-
-        TextBlock textBlock = taggedReader.readTextBlock();
-        assertEquals("{TestTimestamp\": 1469781869268}", textBlock.getText());
-        assertFalse(textBlock.isEndOfText());
-
-        textBlock = taggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
-    }
-
-    @Test
-    public void testFullEventGarbageBeforeAfter() throws IOException {
-        final InputStream jsonInputStream =
-                new ByteArrayInputStream("Garbage{TestTimestamp\": 1469781869268}Rubbish".getBytes());
-
-        final CharacterDelimitedTextBlockReader taggedReader = new CharacterDelimitedTextBlockReader('{', '}');
-        taggedReader.init(jsonInputStream);
-
-        TextBlock textBlock = taggedReader.readTextBlock();
-        assertEquals("{TestTimestamp\": 1469781869268}", textBlock.getText());
-        assertFalse(textBlock.isEndOfText());
-
-        textBlock = taggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
-    }
-
-    @Test
-    public void testFullEventGarbageAfter() throws IOException {
-        final InputStream jsonInputStream =
-                new ByteArrayInputStream("{TestTimestamp\": 1469781869268}Rubbish".getBytes());
-
-        final CharacterDelimitedTextBlockReader taggedReader = new CharacterDelimitedTextBlockReader('{', '}');
-        taggedReader.init(jsonInputStream);
-
-        TextBlock textBlock = taggedReader.readTextBlock();
-        assertEquals("{TestTimestamp\": 1469781869268}", textBlock.getText());
-        assertFalse(textBlock.isEndOfText());
-
-        textBlock = taggedReader.readTextBlock();
-        assertNull(textBlock.getText());
-        assertTrue(textBlock.isEndOfText());
+        assertNull(testName, textBlock.getText());
+        assertTrue(testName, textBlock.isEndOfText());
     }
 }

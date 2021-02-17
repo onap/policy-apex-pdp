@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +36,12 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 @Getter
 public class AbstractExecutionContext {
     /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
-    public final Boolean isTrue = true;
+    public static final Boolean IS_TRUE = true;
 
     /**
      * A constant <code>boolean false</code> value available for reuse e.g., for the return value
      */
-    public final Boolean isFalse = false;
+    public static final Boolean IS_FALSE = false;
 
     /** the execution ID for the current APEX policy execution instance. */
     public final Long executionId;

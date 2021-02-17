@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +56,7 @@ public abstract class Message implements Serializable {
      * @param action the action or message type of the message
      * @param targetKey the artifact key of the artifact to which this message relates
      */
-    public Message(final Action action, final AxArtifactKey targetKey) {
+    protected Message(final Action action, final AxArtifactKey targetKey) {
         this(action, targetKey, null);
     }
 
@@ -66,7 +67,7 @@ public abstract class Message implements Serializable {
      * @param targetKey the artifact key of the artifact to which this message relates
      * @param messageData the message data to deliver
      */
-    public Message(final Action action, final AxArtifactKey targetKey, final String messageData) {
+    protected Message(final Action action, final AxArtifactKey targetKey, final String messageData) {
         this.action = action;
         this.targetKey = targetKey;
         this.messageData = messageData;

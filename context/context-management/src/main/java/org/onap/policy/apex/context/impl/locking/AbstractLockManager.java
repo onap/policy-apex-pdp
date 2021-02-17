@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -166,14 +167,12 @@ public abstract class AbstractLockManager implements LockManager {
      */
     private ReadWriteLock getLock(final String lockTypeKey, final String lockKey, final boolean createMode)
                     throws ContextException {
-        // Check if we have a lock type map for this lock type yet
-        if (!lockMaps.containsKey(lockTypeKey)) {
-            // Create a lock type map for the lock type
-            lockMaps.put(lockTypeKey, Collections.synchronizedMap(new HashMap<String, ReadWriteLock>()));
-        }
+        // Find or create a map for the lock type
+        Map<String, ReadWriteLock> lockTypeMap = lockMaps.computeIfAbsent(lockTypeKey,
+                        unusedKey -> Collections.synchronizedMap(new HashMap<String, ReadWriteLock>()));
 
         // Find or create a lock in the lock map
-        ReadWriteLock lock = lockMaps.get(lockTypeKey).get(lockKey);
+        ReadWriteLock lock = lockTypeMap.get(lockKey);
         if (lock != null) {
             return lock;
         }
@@ -191,7 +190,7 @@ public abstract class AbstractLockManager implements LockManager {
             lock = getReentrantReadWriteLock(lockTypeKey + "_" + lockKey);
 
             // Add the lock to the lock map
-            lockMaps.get(lockTypeKey).put(lockKey, lock);
+            lockTypeMap.put(lockKey, lock);
 
             if (LOGGER.isTraceEnabled()) {
                 LOGGER.trace("created lock {}_{}", lockTypeKey, lockKey);

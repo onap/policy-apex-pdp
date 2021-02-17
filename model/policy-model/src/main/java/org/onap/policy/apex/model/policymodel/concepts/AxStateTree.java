@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +23,12 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import lombok.EqualsAndHashCode;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -38,6 +41,7 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation checks for recursive state use, in other words validation forbids the use of a given
  * state more than once in a state tree.
  */
+@EqualsAndHashCode
 public class AxStateTree implements Comparable<AxStateTree> {
     private final AxState thisState;
     private final Set<AxStateTree> nextStates;
@@ -144,12 +148,26 @@ public class AxStateTree implements Comparable<AxStateTree> {
         }
 
         final AxStateTree other = otherObj;
-        if (!thisState.equals(other.thisState)) {
-            return thisState.compareTo(other.thisState);
+        int result = thisState.compareTo(other.thisState);
+        if(result != 0) {
+            return result;
         }
-        if (!nextStates.equals(other.nextStates)) {
-            return (nextStates.hashCode() - other.nextStates.hashCode());
+
+        result = Integer.compare(nextStates.size(), other.nextStates.size());
+        if(result != 0) {
+            return result;
         }
+
+        Iterator<AxStateTree> iter1 = nextStates.iterator();
+        Iterator<AxStateTree> iter2 = other.nextStates.iterator();
+
+        while(iter1.hasNext()) {
+            result = iter1.next().compareTo(iter2.next());
+            if(result != 0) {
+                return result;
+            }
+        }
+
         return 0;
     }
 }

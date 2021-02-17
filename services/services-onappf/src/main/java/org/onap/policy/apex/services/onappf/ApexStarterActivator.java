@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,7 +128,7 @@ public class ApexStarterActivator {
                     () -> Registry.register(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER,
                                 new PdpStatusPublisher(topicSinks,
                                         apexStarterParameterGroup.getPdpStatusParameters().getTimeIntervalMs())),
-                    () -> stopAndRemovePdpStatusPublisher())
+                    this::stopAndRemovePdpStatusPublisher)
                 .addAction("Register pdp update listener",
                     () -> msgDispatcher.register(PdpMessageType.PDP_UPDATE.name(), pdpUpdateListener),
                     () -> msgDispatcher.unregister(PdpMessageType.PDP_UPDATE.name()))
@@ -136,8 +136,8 @@ public class ApexStarterActivator {
                     () -> msgDispatcher.register(PdpMessageType.PDP_STATE_CHANGE.name(), pdpStateChangeListener),
                     () -> msgDispatcher.unregister(PdpMessageType.PDP_STATE_CHANGE.name()))
                 .addAction("Message Dispatcher",
-                    () -> registerMsgDispatcher(),
-                    () -> unregisterMsgDispatcher())
+                    this::registerMsgDispatcher,
+                    this::unregisterMsgDispatcher)
                 .addAction("Create REST server",
                     () -> restServer =
                                     new ApexStarterRestServer(apexStarterParameterGroup.getRestServerParameters()),

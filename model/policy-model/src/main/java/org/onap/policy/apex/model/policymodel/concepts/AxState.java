@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2018 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +30,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -140,8 +140,8 @@ public class AxState extends AxConcept {
 
     // @formatter:off
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "name", column = @Column(name = "inTriggerName")),
-            @AttributeOverride(name = "version", column = @Column(name = "inTriggerVersion"))})
+    @AttributeOverride(name = "name", column = @Column(name = "inTriggerName"))
+    @AttributeOverride(name = "version", column = @Column(name = "inTriggerVersion"))
     @Column(name = "trigger")
     @XmlElement(required = true)
     private AxArtifactKey trigger;
@@ -195,8 +195,8 @@ public class AxState extends AxConcept {
     private Map<String, AxStateFinalizerLogic> stateFinalizerLogicMap;
 
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "name", column = @Column(name = "defaultTaskName")),
-            @AttributeOverride(name = "version", column = @Column(name = "defaultTaskVersion"))})
+    @AttributeOverride(name = "name", column = @Column(name = "defaultTaskName"))
+    @AttributeOverride(name = "version", column = @Column(name = "defaultTaskVersion"))
     @Column(name = "defaultTask")
     @XmlElement(required = true)
     private AxArtifactKey defaultTask;
