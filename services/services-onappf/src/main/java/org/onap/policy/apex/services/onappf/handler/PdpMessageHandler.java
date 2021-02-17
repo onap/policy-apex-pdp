@@ -20,8 +20,8 @@
 
 package org.onap.policy.apex.services.onappf.handler;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import lombok.NonNull;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
@@ -130,7 +130,7 @@ public class PdpMessageHandler {
     private PdpStatistics getStatistics(final PdpStatus pdpStatusContext, final ApexEngineHandler apexEngineHandler) {
         PdpStatistics pdpStatistics = new PdpStatistics();
         pdpStatistics.setPdpInstanceId(pdpStatusContext.getName());
-        pdpStatistics.setTimeStamp(new Date());
+        pdpStatistics.setTimeStamp(Instant.now());
         pdpStatistics.setPdpGroupName(pdpStatusContext.getPdpGroup());
         pdpStatistics.setPdpSubGroupName(pdpStatusContext.getPdpSubgroup());
         if (apexEngineHandler != null) {
