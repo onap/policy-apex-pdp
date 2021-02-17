@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +32,7 @@ import org.onap.policy.appclcm.AppcLcmBody;
 import org.onap.policy.appclcm.AppcLcmDmaapWrapper;
 import org.onap.policy.appclcm.AppcLcmInput;
 import org.onap.policy.appclcm.AppcLcmOutput;
-import org.onap.policy.controlloop.util.Serialization;
+import org.onap.policy.common.gson.InstantAsMillisTypeAdapter;
 
 /**
  * Respond to an APPC request with a given delay.
@@ -47,7 +48,7 @@ public class AppcResponseCreator {
     private final Timer appcTimer;
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Instant.class, new Serialization.GsonInstantAdapter()).setPrettyPrinting().create();
+            .registerTypeAdapter(Instant.class, new InstantAsMillisTypeAdapter()).setPrettyPrinting().create();
 
     private static Integer nextResponseCode = 400;
 
