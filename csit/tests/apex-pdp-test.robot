@@ -48,7 +48,7 @@ DeployPolicy
      ${resp}=   Post Request   policy  /policy/pap/v1/pdps/deployments/batch  data=${postjson}   headers=${headers}
      Log    Received response from policy5 ${resp.text}
      ${postjsonobject}   To Json    ${postjson}
-     Should Be Equal As Strings    ${resp.status_code}     200
+     Should Be Equal As Strings    ${resp.status_code}     202
 
 RunEventOnApexEngine
     Create Session   apexSession  http://${APEX_IP}:23324   max_retries=1
