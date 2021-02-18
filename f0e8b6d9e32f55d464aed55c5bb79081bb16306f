@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a663cdc_53e7d450",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-02-18T19:25:53Z",
+      "side": 0,
+      "message": "if this is used by non-java code, then I should probably rename it from \"IS_TRUE\" back to \"isTrue\"\n\nsame comment for isFalse",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "f0e8b6d9e32f55d464aed55c5bb79081bb16306f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ffe36f_da9cc8e5",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-02-18T19:25:53Z",
+      "side": 0,
+      "message": "this assertion has no effect on the test since it\u0027s inside Thread.run, thus removed it",
+      "revId": "f0e8b6d9e32f55d464aed55c5bb79081bb16306f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
