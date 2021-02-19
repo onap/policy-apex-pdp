@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f4bc404_9db24a24",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/AbstractExecutionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-02-19T10:42:41Z",
+      "side": 0,
+      "message": "It\u0027s OK, In the change from nashorn to rhino, I think we didn\u0027t need to have these constants for Javascript anymore.",
+      "parentUuid": "3a663cdc_53e7d450",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "f0e8b6d9e32f55d464aed55c5bb79081bb16306f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8ffe36f_da9cc8e5",
         "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "f0e8b6d9e32f55d464aed55c5bb79081bb16306f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279796a7_7c530dc4",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-02-19T10:42:41Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "d8ffe36f_da9cc8e5",
+      "revId": "f0e8b6d9e32f55d464aed55c5bb79081bb16306f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }

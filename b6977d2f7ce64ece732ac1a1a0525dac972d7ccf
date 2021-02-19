@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5124dd8c_24e24c66",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-02-19T10:42:41Z",
+      "side": 1,
+      "message": "Most of the basicmodel module in APEX could be replaced by the policy-models classes. We have a SONAR issue on this.",
+      "revId": "b6977d2f7ce64ece732ac1a1a0525dac972d7ccf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
