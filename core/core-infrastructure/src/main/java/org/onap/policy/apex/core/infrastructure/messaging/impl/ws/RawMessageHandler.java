@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,29 +159,16 @@ public class RawMessageHandler<M> implements WebSocketMessageListener<M>, Runnab
                 while ((messageBlock = messageBlockQueue.poll(1, TimeUnit.MILLISECONDS)) != null) {
                     dataHandler.post(messageBlock);
                 }
-            } catch (final InterruptedException e) {
-                // restore the interrupt status
-                Thread.currentThread().interrupt();
-                LOGGER.debug(RAW_MESSAGE_LISTENING_INTERRUPTED);
-                break;
-            }
 
-            try {
                 // Read string messages from the queue and pass it to the data handler
                 String stringMessage = null;
                 while ((stringMessage = stringMessageQueue.poll(1, TimeUnit.MILLISECONDS)) != null) {
                     dataHandler.post(stringMessage);
                 }
-            } catch (final InterruptedException e) {
-                // restore the interrupt status
-                Thread.currentThread().interrupt();
-                LOGGER.debug(RAW_MESSAGE_LISTENING_INTERRUPTED);
-                break;
-            }
 
-            // Wait for new messages
-            try {
+                // Wait for new messages
                 Thread.sleep(QUEUE_POLL_TIMEOUT);
+
             } catch (final InterruptedException e) {
                 // restore the interrupt status
                 Thread.currentThread().interrupt();

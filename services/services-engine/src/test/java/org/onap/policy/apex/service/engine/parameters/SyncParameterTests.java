@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,53 +192,32 @@ public class SyncParameterTests {
 
     @Test
     public void testSyncGoodSyncGoodTimeoutProducer() throws ParameterException {
-        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParamsProducerTimeout.json"};
-        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
-
-        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-        assertEquals(12345, parameters.getEventInputParameters().get("SyncConsumer0")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(1, parameters.getEventInputParameters().get("SyncConsumer1")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(12345, parameters.getEventOutputParameters().get("SyncProducer0")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(1, parameters.getEventOutputParameters().get("SyncProducer1")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-
+        verifySyncGoodSyncGoodTimeout("src/test/resources/parameters/syncGoodParamsProducerTimeout.json");
     }
 
     @Test
     public void testSyncGoodSyncGoodTimeoutConsumer() throws ParameterException {
-        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParamsConsumerTimeout.json"};
-        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
-
-        final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-        assertEquals(12345, parameters.getEventInputParameters().get("SyncConsumer0")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(1, parameters.getEventInputParameters().get("SyncConsumer1")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(12345, parameters.getEventOutputParameters().get("SyncProducer0")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(1, parameters.getEventOutputParameters().get("SyncProducer1")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-
+        verifySyncGoodSyncGoodTimeout("src/test/resources/parameters/syncGoodParamsConsumerTimeout.json");
     }
 
     @Test
     public void testSyncGoodSyncGoodTimeoutBoth() throws ParameterException {
-        final String[] args = {"-p", "src/test/resources/parameters/syncGoodParamsBothTimeout.json"};
+        verifySyncGoodSyncGoodTimeout("src/test/resources/parameters/syncGoodParamsBothTimeout.json");
+    }
+
+    private void verifySyncGoodSyncGoodTimeout(String fileName) throws ParameterException {
+        final String[] args = {"-p", fileName};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-        assertEquals(12345, parameters.getEventInputParameters().get("SyncConsumer0")
+        assertEquals(fileName, 12345, parameters.getEventInputParameters().get("SyncConsumer0")
                 .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(1, parameters.getEventInputParameters().get("SyncConsumer1")
+        assertEquals(fileName, 1, parameters.getEventInputParameters().get("SyncConsumer1")
                 .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(12345, parameters.getEventOutputParameters().get("SyncProducer0")
+        assertEquals(fileName, 12345, parameters.getEventOutputParameters().get("SyncProducer0")
                 .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(1, parameters.getEventOutputParameters().get("SyncProducer1")
+        assertEquals(fileName, 1, parameters.getEventOutputParameters().get("SyncProducer1")
                 .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-
     }
 
     @Test

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,12 +48,18 @@ import org.slf4j.ext.XLoggerFactory;
 public class DefaultApexDao implements ApexDao {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(DefaultApexDao.class);
 
+    private static final String COL_LOCALNAME = "local_name";
+    private static final String COL_PARENT_VERSION = "parent_version";
+    private static final String COL_PARENT_NAME = "parent_name";
+    private static final String COL_VERSION = "key_version";
+    private static final String COL_NAME = "key_name";
+
     private static final String SELECT_C_FROM = "SELECT c FROM ";
-    private static final String AND_C_KEY_LOCAL_NAME = "' AND c.key.localName='";
-    private static final String AND_C_KEY_PARENT_KEY_VERSION = "' AND c.key.parentKeyVersion='";
-    private static final String C_WHERE_C_KEY_PARENT_KEY_NAME = " c WHERE c.key.parentKeyName='";
-    private static final String AND_C_KEY_VERSION = "' AND c.key.version='";
-    private static final String C_WHERE_C_KEY_NAME = " c WHERE c.key.name='";
+    private static final String AND_C_KEY_LOCAL_NAME = " AND c.key.localName=:" + COL_LOCALNAME;
+    private static final String AND_C_KEY_PARENT_KEY_VERSION = " AND c.key.parentKeyVersion=:" + COL_PARENT_VERSION;
+    private static final String C_WHERE_C_KEY_PARENT_KEY_NAME = " c WHERE c.key.parentKeyName=:" + COL_PARENT_NAME;
+    private static final String AND_C_KEY_VERSION = " AND c.key.version=:" + COL_VERSION;
+    private static final String C_WHERE_C_KEY_NAME = " c WHERE c.key.name=:" + COL_NAME;
     private static final String DELETE_FROM = "DELETE FROM ";
 
     // Entity manager for JPA
@@ -151,8 +158,10 @@ public class DefaultApexDao implements ApexDao {
         final EntityManager mg = getEntityManager();
         try {
             mg.getTransaction().begin();
-            mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
-                    + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
+            mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + AND_C_KEY_VERSION, someClass)
+                .setParameter(COL_NAME, key.getName())
+                .setParameter(COL_VERSION, key.getVersion())
+                .executeUpdate();
             mg.getTransaction().commit();
         } finally {
             mg.close();
@@ -171,8 +180,12 @@ public class DefaultApexDao implements ApexDao {
         try {
             mg.getTransaction().begin();
             mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                    + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
-                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).executeUpdate();
+                    + AND_C_KEY_PARENT_KEY_VERSION
+                    + AND_C_KEY_LOCAL_NAME, someClass)
+                .setParameter(COL_PARENT_NAME, key.getParentKeyName())
+                .setParameter(COL_PARENT_VERSION, key.getParentKeyVersion())
+                .setParameter(COL_LOCALNAME, key.getLocalName())
+                .executeUpdate();
             mg.getTransaction().commit();
         } finally {
             mg.close();
@@ -234,7 +247,10 @@ public class DefaultApexDao implements ApexDao {
             mg.getTransaction().begin();
             for (final AxArtifactKey key : keys) {
                 deletedCount += mg.createQuery(DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME
-                        + key.getName() + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).executeUpdate();
+                        + AND_C_KEY_VERSION, someClass)
+                    .setParameter(COL_NAME, key.getName())
+                    .setParameter(COL_VERSION, key.getVersion())
+                    .executeUpdate();
             }
             mg.getTransaction().commit();
         } finally {
@@ -260,9 +276,11 @@ public class DefaultApexDao implements ApexDao {
                 deletedCount +=
                         mg.createQuery(
                                 DELETE_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                                        + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION
-                                        + key.getParentKeyVersion() + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'",
-                                someClass).executeUpdate();
+                                        + AND_C_KEY_PARENT_KEY_VERSION + AND_C_KEY_LOCAL_NAME, someClass)
+                            .setParameter(COL_PARENT_NAME, key.getParentKeyName())
+                            .setParameter(COL_PARENT_VERSION, key.getParentKeyVersion())
+                            .setParameter(COL_LOCALNAME, key.getLocalName())
+                            .executeUpdate();
             }
             mg.getTransaction().commit();
         } finally {
@@ -372,8 +390,9 @@ public class DefaultApexDao implements ApexDao {
             return mg
                     .createQuery(
                             SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                                    + parentKey.getName() + AND_C_KEY_PARENT_KEY_VERSION + parentKey.getVersion() + "'",
-                            someClass)
+                                    + AND_C_KEY_PARENT_KEY_VERSION, someClass)
+                    .setParameter(COL_PARENT_NAME, parentKey.getName())
+                    .setParameter(COL_PARENT_VERSION, parentKey.getVersion())
                     .getResultList();
         } finally {
             mg.close();
@@ -391,8 +410,11 @@ public class DefaultApexDao implements ApexDao {
         final EntityManager mg = getEntityManager();
         List<T> ret;
         try {
-            ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME + key.getName()
-                    + AND_C_KEY_VERSION + key.getVersion() + "'", someClass).getResultList();
+            ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_NAME
+                        + AND_C_KEY_VERSION, someClass)
+                    .setParameter(COL_NAME, key.getName())
+                    .setParameter(COL_VERSION, key.getVersion())
+                    .getResultList();
         } finally {
             mg.close();
         }
@@ -418,8 +440,11 @@ public class DefaultApexDao implements ApexDao {
         List<T> ret;
         try {
             ret = mg.createQuery(SELECT_C_FROM + someClass.getSimpleName() + C_WHERE_C_KEY_PARENT_KEY_NAME
-                    + key.getParentKeyName() + AND_C_KEY_PARENT_KEY_VERSION + key.getParentKeyVersion()
-                    + AND_C_KEY_LOCAL_NAME + key.getLocalName() + "'", someClass).getResultList();
+                        + AND_C_KEY_PARENT_KEY_VERSION + AND_C_KEY_LOCAL_NAME, someClass)
+                    .setParameter(COL_PARENT_NAME, key.getParentKeyName())
+                    .setParameter(COL_PARENT_VERSION, key.getParentKeyVersion())
+                    .setParameter(COL_LOCALNAME, key.getLocalName())
+                    .getResultList();
         } finally {
             mg.close();
         }

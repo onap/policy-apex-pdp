@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +42,7 @@ public class SimpleConsole extends WebSocketClient {
 
     /** Application name, used as prompt. */
     private final String appName;
-    
+
     // Output and error streams
     private PrintStream outStream;
     private PrintStream errStream;
@@ -131,9 +132,9 @@ public class SimpleConsole extends WebSocketClient {
         };
         thread.setName("ClientThread");
         thread.start();
-        
+
         final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String event = "";
+        StringBuilder event = new StringBuilder();
         String line;
         while ((line = in.readLine()) != null) {
             if ("exit".equals(line)) {
@@ -142,10 +143,10 @@ public class SimpleConsole extends WebSocketClient {
 
             final String current = line.trim();
             if ("".equals(current)) {
-                this.send(event);
-                event = "";
+                this.send(event.toString());
+                event = new StringBuilder();
             } else {
-                event += current;
+                event.append(current);
             }
         }
 

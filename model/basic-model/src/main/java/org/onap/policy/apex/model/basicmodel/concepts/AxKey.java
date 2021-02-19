@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +68,7 @@ public abstract class AxKey extends AxConcept {
     /**
      * Default constructor.
      */
-    public AxKey() {
+    protected AxKey() {
         super();
     }
 
@@ -76,7 +77,7 @@ public abstract class AxKey extends AxConcept {
      *
      * @param copyConcept the concept to copy from
      */
-    public AxKey(final AxKey copyConcept) {
+    protected AxKey(final AxKey copyConcept) {
         super(copyConcept);
     }
 

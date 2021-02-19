@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +64,10 @@ public class AxKeyInfo extends AxConcept {
     private static final int MAX_DESCRIPTION_LENGTH_8192 = 8192;
     private static final int UUID_BYTE_LENGTH_16 = 16;
 
-    private static final Random sharedRandom = new Random();
+    /*
+     * This is not used for encryption/security, thus disabling sonar.
+     */
+    private static final Random sharedRandom = new Random();    // NOSONAR
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
@@ -334,7 +338,10 @@ public class AxKeyInfo extends AxConcept {
     public static UUID generateReproducibleUuid(final String seed) {
         Random random = sharedRandom;
         if (!StringUtils.isEmpty(seed)) {
-            random = new Random(seed.hashCode());
+            /*
+             * This is not used for encryption/security, thus disabling sonar.
+             */
+            random = new Random(seed.hashCode());   // NOSONAR
         }
         final byte[] array = new byte[UUID_BYTE_LENGTH_16];
         random.nextBytes(array);

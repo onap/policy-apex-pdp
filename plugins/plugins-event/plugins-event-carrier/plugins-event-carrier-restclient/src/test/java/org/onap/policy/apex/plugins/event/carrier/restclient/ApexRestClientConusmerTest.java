@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +37,11 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
@@ -47,6 +50,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  * This class tests the ApexRestClientConusmer class.
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ApexRestClientConusmerTest {
     private final PrintStream stdout = System.out;
 
