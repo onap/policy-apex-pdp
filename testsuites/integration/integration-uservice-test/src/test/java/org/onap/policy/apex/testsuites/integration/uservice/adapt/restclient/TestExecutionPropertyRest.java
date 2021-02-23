@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,23 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.concurrent.TimeUnit;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
-import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
 import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
@@ -57,6 +61,8 @@ public class TestExecutionPropertyRest {
 
     private final PrintStream stdout = System.out;
     private final PrintStream stderr = System.err;
+
+    private ApexMain apexMain;
 
     /**
      * Sets the up.
@@ -96,11 +102,26 @@ public class TestExecutionPropertyRest {
     }
 
     /**
-     * Clear relative file root environment variable.
+     * Before test.
      */
     @Before
-    public void clearRelativeFileRoot() {
+    public void beforeTest() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    /**
+     * After test.
+     * @throws ApexException the exception.
+     */
+    @After
+    public void afterTest() throws ApexException {
+        if (null != apexMain) {
+            apexMain.shutdown();
+        }
+        System.setOut(stdout);
+        System.setErr(stderr);
     }
 
     /**
@@ -132,23 +153,13 @@ public class TestExecutionPropertyRest {
         };
         // @formatter:on
 
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-
-        final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(500);
-
-        apexMain.shutdown();
+        apexMain = new ApexMain(args);
 
         final String outString = outContent.toString();
 
-        System.setOut(stdout);
-        System.setErr(stderr);
-
         LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
-        assertTrue(outString.contains("invalid URL http://localhost:32801/TestExecutionRest/apex/event/tagId}"
-            + " has been set for event sending on RESTCLIENT"));
+        assertThat(outString).contains("invalid URL http://localhost:32801/TestExecutionRest/apex/event/tagId}"
+            + " has been set for event sending on RESTCLIENT");
     }
 
     /**
@@ -180,23 +191,14 @@ public class TestExecutionPropertyRest {
         };
         // @formatter:on
 
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
+        apexMain = new ApexMain(args);
 
-        final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(2000);
-
-        apexMain.shutdown();
-
-        final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
-        assertTrue(outString.contains("key \"Number\" specified on url \"http://localhost:32801/TestExecutionRest/apex"
-            + "/event/{tagId}/{Number}\" not found in execution properties passed by the current policy"));
+        await().atMost(5, TimeUnit.SECONDS)
+            .until(() -> outContent.toString()
+                .contains("key \"Number\" specified on url \"http://localhost:32801/TestExecutionRest/apex"
+                    + "/event/{tagId}/{Number}\" not found in execution properties passed by the current policy"));
+        assertTrue(apexMain.isAlive());
+        LOGGER.info("testNoValueSetForTagUrl-OUTSTRING=\n" + outContent.toString() + "\nEnd-TagUrl");
     }
 
     /**
@@ -228,22 +230,12 @@ public class TestExecutionPropertyRest {
         };
         // @formatter:on
 
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
+        apexMain = new ApexMain(args);
 
-        final ApexMain apexMain = new ApexMain(args);
-
-        ThreadUtilities.sleep(500);
-
-        apexMain.shutdown();
-
-        final String outString = outContent.toString();
-
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
-        assertTrue(outString.contains("failed with status code 500 and message \"{\"testToRun\": FetchHttpCode}"));
+        await().atMost(5, TimeUnit.SECONDS).until(() -> outContent.toString()
+            .contains("failed with status code 500 and message \"{\"testToRun\": FetchHttpCode}"));
+        assertTrue(apexMain.isAlive());
+        LOGGER.info("testBadCodeFilter-OUTSTRING=\n" + outContent.toString() + "\nEnd-TagUrl");
     }
 
     /**
@@ -275,21 +267,15 @@ public class TestExecutionPropertyRest {
             "target/classes/APEXPolicy.json"
         };
         // @formatter:on
-        final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(1000);
-        apexMain.shutdown();
+        apexMain = new ApexMain(args);
 
-        final String outString = outContent.toString();
-        System.setOut(stdout);
-        System.setErr(stderr);
-
-        Response response = null;
-        response = client.target("http://localhost:32801/TestExecutionRest/apex/event/GetProperUrl")
-            .request("application/json").get();
-
-        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
-        final String responseEntity = response.readEntity(String.class);
-        assertTrue(responseEntity.contains("\"PostProperUrl\": 1"));
+        await().atMost(5, TimeUnit.SECONDS).until(() -> {
+            Response response = client.target("http://localhost:32801/TestExecutionRest/apex/event/GetProperUrl")
+                .request("application/json").get();
+            return response.readEntity(String.class).contains("\"PostProperUrl\": 1");
+        });
+        assertTrue(apexMain.isAlive());
+        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outContent.toString() + "\nEnd-TagUrl");
     }
 
     /**
@@ -321,18 +307,15 @@ public class TestExecutionPropertyRest {
             "target/classes/APEXPolicy.json"
         };
         // @formatter:on
-        final ApexMain apexMain = new ApexMain(args);
-        ThreadUtilities.sleep(1500);
-        apexMain.shutdown();
+        apexMain = new ApexMain(args);
 
-        System.setOut(stdout);
-        System.setErr(stderr);
-        Response response = null;
-        response = client.target("http://localhost:32801/TestExecutionRest/apex/event/GetProperUrl")
-            .request("application/json").get();
-        final String responseEntity = response.readEntity(String.class);
-        LOGGER.info("testReplaceUrlMultiTag-OUTSTRING=\n" + responseEntity + "\nEnd-MultiTagUrl");
-        assertTrue(responseEntity.contains("\"PostProperUrl\": 3"));
+        await().atMost(5, TimeUnit.SECONDS).until(() -> {
+            Response response = client.target("http://localhost:32801/TestExecutionRest/apex/event/GetProperUrl")
+                .request("application/json").get();
+            return response.readEntity(String.class).contains("\"PostProperUrl\": 3");
+        });
+        assertTrue(apexMain.isAlive());
+        LOGGER.info("testReplaceUrlMultiTag-OUTSTRING=\n" + outContent.toString() + "\nEnd-MultiTagUrl");
     }
 
 }
