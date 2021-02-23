@@ -2,6 +2,7 @@
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2020 Nordix Foundation.
 #  Modification Copyright (C) 2020 AT&T Foundation.
+#  Modifications Copyright (C) 2021 Bell Canada.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@
 #
 # Docker file to build an image that runs APEX on Java 11 or better in alpine
 #
-FROM onap/policy-jre-alpine:2.2.0
+FROM onap/policy-jre-alpine:2.2.1
 
 LABEL maintainer="Policy Team"
 
