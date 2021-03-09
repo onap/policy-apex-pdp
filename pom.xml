@@ -46,7 +46,7 @@
         <version.kafka>2.3.0</version.kafka>
         <version.hibernate>5.3.7.Final</version.hibernate>
         <version.policy.common>1.8.0</version.policy.common>
-        <version.policy.models>2.4.0</version.policy.models>
+        <version.policy.models>2.4.1</version.policy.models>
         <version.jgroups>4.1.5.Final</version.jgroups>
         <version.commons-codec>20041127.091804</version.commons-codec>
         <version.caffeine>2.8.0</version.caffeine>
