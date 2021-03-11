@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,14 @@
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 import java.lang.reflect.Field;
+import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +49,7 @@ public class ApexRestServerProducerTest {
     ApexRestServerConsumer apexRestServerConsumer = null;
     RestServerCarrierTechnologyParameters restServerCarrierTechnologyParameters = null;
     SynchronousEventCache synchronousEventCache = null;
+    Random random = new Random();
 
     /**
      * Set up testing.
@@ -117,5 +122,47 @@ public class ApexRestServerProducerTest {
         apexRestServerProducer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR,
                 peeredReference);
         assertNotNull(apexRestServerProducer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
+    }
+
+    @Test
+    public void testSendEventNotExistingEventToApex() {
+        final long executionId = random.nextLong();
+        final String eventName = RandomStringUtils.randomAlphabetic(7);
+        final Object event = new Object();
+        final ApexRestServerConsumer consumer = new ApexRestServerConsumer();
+        final SynchronousEventCache cache =
+            new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, apexRestServerProducer,
+                random.nextInt(1000));
+
+        this.apexRestServerProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
+
+        // test
+        this.apexRestServerProducer.sendEvent(executionId, null, eventName, event);
+
+        assertFalse(cache.existsEventFromApex(executionId));
+    }
+
+    @Test
+    public void testSendEvent() {
+        final long executionId = random.nextLong();
+        final String eventName = RandomStringUtils.randomAlphabetic(7);
+        final Object expected = new Object();
+
+        final ApexRestServerConsumer consumer = new ApexRestServerConsumer();
+        final SynchronousEventCache cache = new SynchronousEventCache(
+            EventHandlerPeeredMode.SYNCHRONOUS,
+            consumer,
+            apexRestServerProducer,
+            10000);
+
+        // Set EventToApex on cache object
+        cache.cacheSynchronizedEventToApex(executionId, new Object());
+
+        this.apexRestServerProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
+
+        this.apexRestServerProducer.sendEvent(executionId, null, eventName, expected);
+        final Object actual = cache.removeCachedEventFromApexIfExists(executionId);
+
+        assertSame(expected, actual);
     }
 }

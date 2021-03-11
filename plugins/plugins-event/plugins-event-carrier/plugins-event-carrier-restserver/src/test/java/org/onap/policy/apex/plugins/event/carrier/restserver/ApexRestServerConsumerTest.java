@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,12 @@
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import javax.ws.rs.core.Response;
 import org.junit.After;
@@ -38,6 +41,8 @@ import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.utils.network.NetworkUtil;
 
 public class ApexRestServerConsumerTest {
 
@@ -118,6 +123,38 @@ public class ApexRestServerConsumerTest {
     }
 
     @Test
+    public void testInitAndStop() throws IllegalAccessException, NoSuchFieldException, ApexEventException, IOException {
+        restServerCarrierTechnologyParameters = new RestServerCarrierTechnologyParameters();
+
+        Field field = RestServerCarrierTechnologyParameters.class.getDeclaredField("standalone");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, true);
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("host");
+        field.setAccessible(true);
+        field.set(restServerCarrierTechnologyParameters, "localhost");
+        field = RestServerCarrierTechnologyParameters.class.getDeclaredField("port");
+        field.setAccessible(true);
+        // get any available port
+        final int availableTcpPort = NetworkUtil.allocPort();
+        field.set(restServerCarrierTechnologyParameters, availableTcpPort);
+
+        consumerParameters.setCarrierTechnologyParameters(restServerCarrierTechnologyParameters);
+        consumerParameters.setPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS, true);
+        apexRestServerConsumer.init("TestApexRestServerConsumer", consumerParameters,
+            incomingEventReceiver);
+        Field serverField = ApexRestServerConsumer.class.getDeclaredField("server");
+        serverField.setAccessible(true);
+        HttpServletServer server = (HttpServletServer) serverField.get(apexRestServerConsumer);
+
+        // check if server is alive
+        assertTrue(server.isAlive());
+
+        apexRestServerConsumer.stop();
+        // check if server is stopped
+        assertFalse(server.isAlive());
+    }
+
+    @Test
     public void testGetName() {
         assertNull(apexRestServerConsumer.getName());
     }
@@ -164,6 +201,4 @@ public class ApexRestServerConsumerTest {
         apexRestServerConsumer.receiveEvent("TestApexRestServerConsumer");
 
     }
-
-
 }
