@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,13 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
+import org.onap.policy.apex.service.engine.event.ApexEventException;
+import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -42,6 +46,44 @@ import org.slf4j.ext.XLoggerFactory;
  */
 public class XmlEventHandlerTest {
     private static final XLogger logger = XLoggerFactory.getXLogger(XmlEventHandlerTest.class);
+
+    /**
+     * Test XML to apex event. Null value is passed as parameter.
+     *
+     * @throws ApexException on Apex event handling errors
+     */
+    @Test(expected = ApexException.class)
+    public void testApexEventToApexNullObject() throws ApexException {
+        final Apex2XmlEventConverter xmlEventConverter = new Apex2XmlEventConverter();
+        // This is only for code coverage stats. This method does nothing
+        xmlEventConverter.init(null);
+
+        xmlEventConverter.toApexEvent("XMLEventName", null);
+    }
+
+    /**
+     * Test XML to apex event. There is no string passed as parameter.
+     *
+     * @throws ApexException on Apex event handling errors
+     */
+    @Test(expected = ApexEventRuntimeException.class)
+    public void testApexEventToApexNotString() throws ApexException {
+        final Apex2XmlEventConverter xmlEventConverter = new Apex2XmlEventConverter();
+
+        xmlEventConverter.toApexEvent("XMLEventName", new Random().nextInt());
+    }
+
+    /**
+     * Test not valid XML to apex event.
+     *
+     * @throws ApexException on Apex event handling errors
+     */
+    @Test(expected = ApexException.class)
+    public void testApexEventToApexNotXml() throws ApexException {
+        final Apex2XmlEventConverter xmlEventConverter = new Apex2XmlEventConverter();
+
+        xmlEventConverter.toApexEvent("XMLEventName", RandomStringUtils.randomAlphabetic(25));
+    }
 
     /**
      * Test XML to apex event.
@@ -80,6 +122,17 @@ public class XmlEventHandlerTest {
     }
 
     /**
+     * Test null as apex event to xml.
+     *
+     * @throws ApexEventException on Apex event handling errors
+     */
+    @Test(expected = ApexEventException.class)
+    public void testApexEventToXmlNullEvent() throws ApexEventException {
+        final Apex2XmlEventConverter xmlEventConverter = new Apex2XmlEventConverter();
+        xmlEventConverter.fromApexEvent(null);
+    }
+
+    /**
      * Test apex event to xml.
      *
      * @throws ApexException on Apex event handling errors
@@ -96,6 +149,7 @@ public class XmlEventHandlerTest {
             event0000DataMap.put("TestMatchCase", 12345);
             event0000DataMap.put("TestTimestamp", event0000StartTime.getTime());
             event0000DataMap.put("TestTemperature", 34.5445667);
+            event0000DataMap.put("NullValue", null);
 
             final ApexEvent apexEvent0000 =
                     new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.sample.events", "test", "apex");
@@ -109,6 +163,7 @@ public class XmlEventHandlerTest {
             assertTrue(apexEvent0000XmlString.contains("<version>0.0.1</version>"));
             assertTrue(apexEvent0000XmlString.contains("<value>This is a test slogan</value>"));
             assertTrue(apexEvent0000XmlString.contains("<value>12345</value>"));
+            assertTrue(apexEvent0000XmlString.contains("<value></value>"));
             assertTrue(apexEvent0000XmlString.contains("<value>" + event0000StartTime.getTime() + "</value>"));
             assertTrue(apexEvent0000XmlString.contains("<value>34.5445667</value>"));
 
