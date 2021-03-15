@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbb21592_b3219c8c",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-03-15T14:42:50Z",
+      "side": 1,
+      "message": "Question: wondering if there\u0027s a simpler way to test it rather than relying heavily in reflection, which may be a little brittle, perhaps creating another instance of ApexRestServerConsumer with its own configuration.",
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
