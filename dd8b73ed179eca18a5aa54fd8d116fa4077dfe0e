@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9027e0c3_5d5ee173",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/AccessControlFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-15T15:22:08Z",
+      "side": 1,
+      "message": "depending on which version of mockito being used, this has been deprecated and replaced by openMocks()",
+      "range": {
+        "startLine": 49,
+        "startChar": 27,
+        "endLine": 49,
+        "endChar": 36
+      },
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbb21592_b3219c8c",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
         "patchSetId": 1
@@ -13,6 +36,64 @@
       "writtenOn": "2021-03-15T14:42:50Z",
       "side": 1,
       "message": "Question: wondering if there\u0027s a simpler way to test it rather than relying heavily in reflection, which may be a little brittle, perhaps creating another instance of ApexRestServerConsumer with its own configuration.",
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f0128f_5825df6d",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-15T15:22:08Z",
+      "side": 1,
+      "message": "or add a protected getServer() method",
+      "parentUuid": "dbb21592_b3219c8c",
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8a39ef_34c8891a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/resources/logback-test.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-15T15:22:08Z",
+      "side": 1,
+      "message": "As this is for junits, I typically use something much shorter, such as:\n\n  %d %level  %msg%n\n\nHowever, if you find all of the extra info useful for debugging, then it\u0027s fine as is.",
+      "range": {
+        "startLine": 40,
+        "startChar": 21,
+        "endLine": 40,
+        "endChar": 69
+      },
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df98504_294c9e07",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/resources/logback-test.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-15T15:22:08Z",
+      "side": 1,
+      "message": "is this useful during debugging?  if not, it should be deleted",
       "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
