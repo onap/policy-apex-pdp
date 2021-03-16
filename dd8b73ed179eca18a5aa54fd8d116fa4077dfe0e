@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "96d06310_c6591400",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7662
+      },
+      "writtenOn": "2021-03-16T11:32:33Z",
+      "side": 1,
+      "message": "I think, that changing access modifier is best way to deal with that type of testing. I just didn\u0027t want to change the code at the stage of just writing the tests, especially when other tests in that file already uses the reflection. I would prefer, to have separate commit to make the change, (fix this issue here and in the code), but I can also do it within this change.",
+      "parentUuid": "72f0128f_5825df6d",
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc8a39ef_34c8891a",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/resources/logback-test.xml",
         "patchSetId": 1
