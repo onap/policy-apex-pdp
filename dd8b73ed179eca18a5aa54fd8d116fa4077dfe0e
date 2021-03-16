@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2c633b3c_347b541c",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/AccessControlFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-16T11:42:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfdabacb_1f7177e9",
+      "range": {
+        "startLine": 49,
+        "startChar": 27,
+        "endLine": 49,
+        "endChar": 36
+      },
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbb21592_b3219c8c",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
         "patchSetId": 1
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "I think, that changing access modifier is best way to deal with that type of testing. I just didn\u0027t want to change the code at the stage of just writing the tests, especially when other tests in that file already uses the reflection. I would prefer, to have separate commit to make the change, (fix this issue here and in the code), but I can also do it within this change.",
       "parentUuid": "72f0128f_5825df6d",
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72699a50_0545cbee",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-16T11:42:00Z",
+      "side": 1,
+      "message": "Please go ahead and change the code - adding an accessor shouldn\u0027t change any runtime behavior.  In addition, we\u0027ve already branched, so it\u0027s OK to make code changes for Istanbul.",
+      "parentUuid": "96d06310_c6591400",
       "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
