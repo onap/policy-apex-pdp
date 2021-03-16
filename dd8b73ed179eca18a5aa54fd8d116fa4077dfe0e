@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dfdabacb_1f7177e9",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/AccessControlFilterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7662
+      },
+      "writtenOn": "2021-03-16T11:37:54Z",
+      "side": 1,
+      "message": "openMocks() was introduced in 3.4, and I have only 3.3 on the path",
+      "parentUuid": "9027e0c3_5d5ee173",
+      "range": {
+        "startLine": 49,
+        "startChar": 27,
+        "endLine": 49,
+        "endChar": 36
+      },
+      "revId": "dd8b73ed179eca18a5aa54fd8d116fa4077dfe0e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dbb21592_b3219c8c",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restserver/src/test/java/org/onap/policy/apex/plugins/event/carrier/restserver/ApexRestServerConsumerTest.java",
         "patchSetId": 1
