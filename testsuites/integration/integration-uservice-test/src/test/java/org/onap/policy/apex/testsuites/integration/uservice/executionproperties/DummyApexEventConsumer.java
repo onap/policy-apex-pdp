@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,7 +125,7 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
             RunTestEvent event = new RunTestEvent();
             event.setTestToRun(dummyConsumerProperties.getTestToRun());
             try {
-                eventReceiver.receiveEvent(executionProperties, event.toJson());
+                eventReceiver.receiveEvent(1, executionProperties, event.toJson());
             } catch (Exception e) {
                 String message = "event processing for executor properties testing failed: " + e.getMessage();
                 LOGGER.warn(message, e);

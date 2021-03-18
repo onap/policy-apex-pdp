@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +23,7 @@ executor.logger.debug(executor.getSubject().getId());
 
 executor.logger.debug("executionProperties: " + executor.getExecutionProperties());
 
-if (executor.getExecutionProperties().get("HTTP_CODE_STATUS") == "500")
-    executor.outFields.put("testToRun", "CodeFilterSet");
-else
-    executor.outFields.put("testToRun", "CodeFilterDefault");
-
+executor.outFields.put("testToRun", "CodeFilterSet");
 executor.logger.debug("testToRun: " + executor.outFields.get("testToRun"));
 
 true;
