@@ -230,8 +230,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
             if (!generateExecutionId) {
                 apexEvent.setExecutionId(executionId);
             }
-
-            apexEvent.setExecutionProperties(executionProperties);
+            apexEvent.setExecutionProperties(new Properties(executionProperties));
 
             // Cache synchronized events that are sent
             if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {

@@ -99,8 +99,6 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
     // The number of the next request runner thread
     private static long nextRequestRunnerThreadNo = 0;
 
-    private String untaggedUrl = null;
-
     // The pattern for filtering status code
     private Pattern httpCodeFilterPattern = null;
 
@@ -207,22 +205,6 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                     continue;
                 }
 
-                Properties inputExecutionProperties = restRequest.getExecutionProperties();
-                untaggedUrl = restConsumerProperties.getUrl();
-                if (inputExecutionProperties != null) {
-                    Set<String> names = restConsumerProperties.getKeysFromUrl();
-                    Set<String> inputProperty = inputExecutionProperties.stringPropertyNames();
-
-                    names.stream().map(Optional::of)
-                        .forEach(op -> op.filter(inputProperty::contains)
-                            .orElseThrow(() -> new ApexEventRuntimeException(
-                                "key\"" + op.get() + "\"specified on url \"" + restConsumerProperties.getUrl()
-                                    + "\"not found in execution properties passed by the current policy")));
-
-                    untaggedUrl = names.stream().reduce(untaggedUrl,
-                        (acc, str) -> acc.replace("{" + str + "}", (String) inputExecutionProperties.get(str)));
-                }
-
                 // Set the time stamp of the REST request
                 restRequest.setTimestamp(System.currentTimeMillis());
 
@@ -311,18 +293,31 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
         public void run() {
             // Get the thread for the request
             restRequestThread = Thread.currentThread();
+            Properties inputExecutionProperties = request.getExecutionProperties();
+            String url = null;
+            if (inputExecutionProperties != null) {
+                Set<String> names = restConsumerProperties.getKeysFromUrl();
+                Set<String> inputProperty = inputExecutionProperties.stringPropertyNames();
 
+                names.stream().map(Optional::of)
+                    .forEach(op -> op.filter(inputProperty::contains)
+                        .orElseThrow(() -> new ApexEventRuntimeException(
+                            "key\"" + op.get() + "\"specified on url \"" + restConsumerProperties.getUrl()
+                                + "\"not found in execution properties passed by the current policy")));
+
+                url = names.stream().reduce(restConsumerProperties.getUrl(),
+                    (acc, str) -> acc.replace("{" + str + "}", (String) inputExecutionProperties.get(str)));
+            }
             try {
                 if (restConsumerProperties.getHttpMethod().equals(HttpMethod.PUT)
                     || restConsumerProperties.getHttpMethod().equals(HttpMethod.POST)) {
-                    NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, untaggedUrl,
-                        request.getEvent().toString());
+                    NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, url, request.getEvent().toString());
                 }
                 // Execute the REST request
-                final Response response = sendEventAsRestRequest(untaggedUrl);
+                final Response response = sendEventAsRestRequest(url);
                 // Get the event we received
                 final String eventJsonString = response.readEntity(String.class);
-                NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, untaggedUrl, eventJsonString);
+                NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, url, eventJsonString);
                 // Match the return code
                 Matcher isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
 
@@ -336,7 +331,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                 // Check there is content
                 if (StringUtils.isBlank(eventJsonString)) {
                     final String errorMessage =
-                        "received an empty response to \"" + request + "\" from URL \"" + untaggedUrl + "\"";
+                        "received an empty response to \"" + request + "\" from URL \"" + url + "\"";
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
@@ -371,8 +366,8 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
          *
          * @return the response to the REST request
          */
-        public Response sendEventAsRestRequest(String untaggedUrl) {
-            Builder headers = client.target(untaggedUrl).request(APPLICATION_JSON)
+        public Response sendEventAsRestRequest(String url) {
+            Builder headers = client.target(url).request(APPLICATION_JSON)
                 .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap());
             switch (restConsumerProperties.getHttpMethod()) {
                 case GET:
