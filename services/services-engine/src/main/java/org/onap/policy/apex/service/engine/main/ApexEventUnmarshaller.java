@@ -226,13 +226,13 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 // Ignore this event
                 continue;
             }
-
             if (!generateExecutionId) {
                 apexEvent.setExecutionId(executionId);
+                apexEvent.setExecutionProperties(executionProperties);
+            } else {
+                // Clean up executionProperties in case if it is not a response event to a request made from APEX
+                apexEvent.setExecutionProperties(new Properties(executionProperties));
             }
-
-            apexEvent.setExecutionProperties(executionProperties);
-
             // Cache synchronized events that are sent
             if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
                 final SynchronousEventCache synchronousEventCache =
