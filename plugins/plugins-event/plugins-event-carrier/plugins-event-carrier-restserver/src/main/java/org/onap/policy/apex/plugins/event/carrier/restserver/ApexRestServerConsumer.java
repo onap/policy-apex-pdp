@@ -24,6 +24,9 @@ package org.onap.policy.apex.plugins.event.carrier.restserver;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.ws.rs.core.Response;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
@@ -50,9 +53,11 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
     private static final long REST_SERVER_CONSUMER_WAIT_SLEEP_TIME = 50;
 
     // The event receiver that will receive events from this consumer
+    @Setter(AccessLevel.PACKAGE)
     private ApexEventReceiver eventReceiver;
 
     // The local HTTP server to use for REST call reception if we are running a local Grizzly server
+    @Getter(AccessLevel.PACKAGE)
     private HttpServletServer server;
 
     // Holds the next identifier for event execution.

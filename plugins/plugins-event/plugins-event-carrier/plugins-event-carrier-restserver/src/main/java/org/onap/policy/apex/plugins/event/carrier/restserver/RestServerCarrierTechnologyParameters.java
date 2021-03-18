@@ -21,7 +21,9 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -58,8 +60,11 @@ public class RestServerCarrierTechnologyParameters extends CarrierTechnologyPara
     public static final String RESTSERVER_EVENT_CONSUMER_PLUGIN_CLASS = ApexRestServerConsumer.class.getName();
 
     // REST server parameters
+    @Setter(AccessLevel.PACKAGE)
     private boolean standalone = false;
+    @Setter(AccessLevel.PACKAGE)
     private String  host       = null;
+    @Setter(AccessLevel.PACKAGE)
     private int     port       = -1;
     private String userName;
     private String password;
