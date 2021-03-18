@@ -239,46 +239,6 @@ public class TestExecutionPropertyRest {
     }
 
     /**
-     * Test Http code filter set and tag Url are transformed correctly.
-     */
-    @Test
-    public void testReplaceUrlTag() throws Exception {
-        final Client client = ClientBuilder.newClient();
-        // @formatter:off
-        final String[] cliArgs = new String[] {
-            "-c",
-            "src/test/resources/policies/executionproperties/policy/ExecutionPropertiesRestTestPolicyModel.apex",
-            "-o",
-            "target/ExecutionPropertiesRestTestPolicyModel.json",
-            "-ac",
-            "src/test/resources/testdata/executionproperties/RESTHttpCodeFilterSetToTagUrlOK.json",
-            "-t",
-            "src/test/resources/tosca/ToscaTemplate.json",
-            "-ot",
-            "target/classes/APEXPolicy.json"
-        };
-        // @formatter:on
-
-        new ApexCliToscaEditorMain(cliArgs);
-
-        // @formatter:off
-        final String[] args = {
-            "-p",
-            "target/classes/APEXPolicy.json"
-        };
-        // @formatter:on
-        apexMain = new ApexMain(args);
-
-        await().atMost(5, TimeUnit.SECONDS).until(() -> {
-            Response response = client.target("http://localhost:32801/TestExecutionRest/apex/event/GetProperUrl")
-                .request("application/json").get();
-            return response.readEntity(String.class).contains("\"PostProperUrl\": 1");
-        });
-        assertTrue(apexMain.isAlive());
-        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outContent.toString() + "\nEnd-TagUrl");
-    }
-
-    /**
      * Test Http code filter set and multi-tag Url are transformed correctly.
      */
     @Test
