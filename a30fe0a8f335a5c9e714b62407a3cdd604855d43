@@ -93,6 +93,30 @@
       "revId": "a30fe0a8f335a5c9e714b62407a3cdd604855d43",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da489909_fdd47f8f",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-19T18:49:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4186469f_c7883893",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 0
+      },
+      "revId": "a30fe0a8f335a5c9e714b62407a3cdd604855d43",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }

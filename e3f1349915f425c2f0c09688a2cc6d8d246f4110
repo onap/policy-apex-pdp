@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e7d8e0e_5e3b481f",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-19T18:49:54Z",
+      "side": 1,
+      "message": "thought I made a comment here before, but guess not.\n\nseems like handleAxConceptsRemoval() could be changed into a common method that can then be invoked once with each map.  That would avoid the need to pass a bunch of maps to it AND make what it does a little more obvious.  For that matter, the same could probably be done with handleParametersRemoval(), and potentially even updateModelAndParameterServices().",
+      "revId": "e3f1349915f425c2f0c09688a2cc6d8d246f4110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
