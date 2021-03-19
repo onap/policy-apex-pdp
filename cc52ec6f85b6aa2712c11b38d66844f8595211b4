@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81c1f638_362389ae",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-03-19T18:22:32Z",
+      "side": 0,
+      "message": "Are these tests gone are are they moved somewhere else?",
+      "revId": "cc52ec6f85b6aa2712c11b38d66844f8595211b4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
