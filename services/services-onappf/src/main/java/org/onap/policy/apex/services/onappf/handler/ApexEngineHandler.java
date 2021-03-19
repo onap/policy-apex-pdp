@@ -24,6 +24,7 @@ package org.onap.policy.apex.services.onappf.handler;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -133,12 +134,12 @@ public class ApexEngineHandler {
         List<String> executorParamKeysToRetain = new ArrayList<>();
         List<String> schemaParamKeysToRetain = new ArrayList<>();
 
-        List<AxArtifactKey> keyInfoKeystoRetain = new ArrayList<>();
-        List<AxArtifactKey> schemaKeystoRetain = new ArrayList<>();
-        List<AxArtifactKey> eventKeystoRetain = new ArrayList<>();
-        List<AxArtifactKey> albumKeystoRetain = new ArrayList<>();
-        List<AxArtifactKey> taskKeystoRetain = new ArrayList<>();
-        List<AxArtifactKey> policyKeystoRetain = new ArrayList<>();
+        Map<AxArtifactKey, AxKeyInfo> keyInfoMapToRetain = new HashMap<>();
+        Map<AxArtifactKey, AxContextSchema> schemaMapToRetain = new HashMap<>();
+        Map<AxArtifactKey, AxEvent> eventMapToRetain = new HashMap<>();
+        Map<AxArtifactKey, AxContextAlbum> albumMapToRetain = new HashMap<>();
+        Map<AxArtifactKey, AxTask> taskMapToRetain = new HashMap<>();
+        Map<AxArtifactKey, AxPolicy> policyMapToRetain = new HashMap<>();
 
         apexMainMap.values().forEach(main -> {
             inputParamKeysToRetain.addAll(main.getApexParameters().getEventInputParameters().keySet());
@@ -150,21 +151,21 @@ public class ApexEngineHandler {
             schemaParamKeysToRetain.addAll(main.getApexParameters().getEngineServiceParameters().getEngineParameters()
                 .getContextParameters().getSchemaParameters().getSchemaHelperParameterMap().keySet());
 
-            keyInfoKeystoRetain
-                .addAll(main.getActivator().getPolicyModel().getKeyInformation().getKeyInfoMap().keySet());
-            schemaKeystoRetain.addAll(main.getActivator().getPolicyModel().getSchemas().getSchemasMap().keySet());
-            eventKeystoRetain.addAll(main.getActivator().getPolicyModel().getEvents().getEventMap().keySet());
-            albumKeystoRetain.addAll(main.getActivator().getPolicyModel().getAlbums().getAlbumsMap().keySet());
-            taskKeystoRetain.addAll(main.getActivator().getPolicyModel().getTasks().getTaskMap().keySet());
-            policyKeystoRetain.addAll(main.getActivator().getPolicyModel().getPolicies().getPolicyMap().keySet());
+            AxPolicyModel policyModel = main.getActivator().getPolicyModel();
+            keyInfoMapToRetain.putAll(policyModel.getKeyInformation().getKeyInfoMap());
+            schemaMapToRetain.putAll(policyModel.getSchemas().getSchemasMap());
+            eventMapToRetain.putAll(policyModel.getEvents().getEventMap());
+            albumMapToRetain.putAll(policyModel.getAlbums().getAlbumsMap());
+            taskMapToRetain.putAll(policyModel.getTasks().getTaskMap());
+            policyMapToRetain.putAll(policyModel.getPolicies().getPolicyMap());
         });
         for (ApexMain main : undeployedPoliciesMainMap.values()) {
             handleParametersRemoval(inputParamKeysToRetain, outputParamKeysToRetain, taskParametersToRetain,
                 executorParamKeysToRetain, schemaParamKeysToRetain, main);
 
             if (null != main.getActivator() && null != main.getActivator().getPolicyModel()) {
-                handleAxConceptsRemoval(keyInfoKeystoRetain, schemaKeystoRetain, eventKeystoRetain, albumKeystoRetain,
-                    taskKeystoRetain, policyKeystoRetain, main);
+                handleAxConceptsRemoval(keyInfoMapToRetain, schemaMapToRetain, eventMapToRetain, albumMapToRetain,
+                    taskMapToRetain, policyMapToRetain, main);
             }
         }
     }
@@ -195,23 +196,23 @@ public class ApexEngineHandler {
             .getSchemaHelperParameterMap()::remove);
     }
 
-    private void handleAxConceptsRemoval(List<AxArtifactKey> keyInfoKeystoRetain,
-        List<AxArtifactKey> schemaKeystoRetain, List<AxArtifactKey> eventKeystoRetain,
-        List<AxArtifactKey> albumKeystoRetain, List<AxArtifactKey> taskKeystoRetain,
-        List<AxArtifactKey> policyKeystoRetain, ApexMain main) {
+    private void handleAxConceptsRemoval(Map<AxArtifactKey, AxKeyInfo> keyInfoMapToRetain,
+        Map<AxArtifactKey, AxContextSchema> schemaMapToRetain, Map<AxArtifactKey, AxEvent> eventMapToRetain,
+        Map<AxArtifactKey, AxContextAlbum> albumMapToRetain, Map<AxArtifactKey, AxTask> taskMapToRetain,
+        Map<AxArtifactKey, AxPolicy> policyMapToRetain, ApexMain main) {
         final AxPolicyModel policyModel = main.getActivator().getPolicyModel();
         final List<AxArtifactKey> keyInfoKeystoRemove = policyModel.getKeyInformation().getKeyInfoMap().keySet()
-            .stream().filter(key -> !keyInfoKeystoRetain.contains(key)).collect(Collectors.toList());
+            .stream().filter(key -> !keyInfoMapToRetain.containsKey(key)).collect(Collectors.toList());
         final List<AxArtifactKey> schemaKeystoRemove = policyModel.getSchemas().getSchemasMap().keySet().stream()
-            .filter(key -> !schemaKeystoRetain.contains(key)).collect(Collectors.toList());
+            .filter(key -> !schemaMapToRetain.containsKey(key)).collect(Collectors.toList());
         final List<AxArtifactKey> eventKeystoRemove = policyModel.getEvents().getEventMap().keySet().stream()
-            .filter(key -> !eventKeystoRetain.contains(key)).collect(Collectors.toList());
+            .filter(key -> !eventMapToRetain.containsKey(key)).collect(Collectors.toList());
         final List<AxArtifactKey> albumKeystoRemove = policyModel.getAlbums().getAlbumsMap().keySet().stream()
-            .filter(key -> !albumKeystoRetain.contains(key)).collect(Collectors.toList());
+            .filter(key -> !albumMapToRetain.containsKey(key)).collect(Collectors.toList());
         final List<AxArtifactKey> taskKeystoRemove = policyModel.getTasks().getTaskMap().keySet().stream()
-            .filter(key -> !taskKeystoRetain.contains(key)).collect(Collectors.toList());
+            .filter(key -> !taskMapToRetain.containsKey(key)).collect(Collectors.toList());
         final List<AxArtifactKey> policyKeystoRemove = policyModel.getPolicies().getPolicyMap().keySet().stream()
-            .filter(key -> !policyKeystoRetain.contains(key)).collect(Collectors.toList());
+            .filter(key -> !policyMapToRetain.containsKey(key)).collect(Collectors.toList());
 
         final Map<AxArtifactKey, AxKeyInfo> keyInfoMap = ModelService.getModel(AxKeyInformation.class).getKeyInfoMap();
         final Map<AxArtifactKey, AxContextSchema> schemasMap =
@@ -221,6 +222,15 @@ public class ApexEngineHandler {
             ModelService.getModel(AxContextAlbums.class).getAlbumsMap();
         final Map<AxArtifactKey, AxTask> taskMap = ModelService.getModel(AxTasks.class).getTaskMap();
         final Map<AxArtifactKey, AxPolicy> policyMap = ModelService.getModel(AxPolicies.class).getPolicyMap();
+
+        // replace the ModelService with the right concept definition
+        // this can get corrupted in case of deploying policies with duplicate concept keys
+        keyInfoMap.putAll(keyInfoMapToRetain);
+        schemasMap.putAll(schemaMapToRetain);
+        eventMap.putAll(eventMapToRetain);
+        albumsMap.putAll(albumMapToRetain);
+        taskMap.putAll(taskMapToRetain);
+        policyMap.putAll(policyMapToRetain);
 
         keyInfoKeystoRemove.forEach(keyInfoMap::remove);
         schemaKeystoRemove.forEach(schemasMap::remove);
