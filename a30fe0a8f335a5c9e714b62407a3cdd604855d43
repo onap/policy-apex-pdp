@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8b547d26_90df7772",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-03-19T18:17:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3ea99e1_faf4dcd5",
+      "range": {
+        "startLine": 155,
+        "startChar": 24,
+        "endLine": 155,
+        "endChar": 60
+      },
+      "revId": "a30fe0a8f335a5c9e714b62407a3cdd604855d43",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed00a093_4fe3715c",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2021-03-19T18:05:46Z",
       "side": 1,
       "message": "should this be done here?  or should it be done AFTER the removes?",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 234,
+        "endChar": 0
+      },
+      "revId": "a30fe0a8f335a5c9e714b62407a3cdd604855d43",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4186469f_c7883893",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-03-19T18:17:16Z",
+      "side": 1,
+      "message": "It doesn\u0027t matter, because any item in *ToRetain will never come in *toRemove",
+      "parentUuid": "ed00a093_4fe3715c",
       "range": {
         "startLine": 228,
         "startChar": 8,
