@@ -16,6 +16,24 @@
       "revId": "cc52ec6f85b6aa2712c11b38d66844f8595211b4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eb767ee_528696a5",
+        "filename": "testsuites/integration/integration-uservice-test/src/test/java/org/onap/policy/apex/testsuites/integration/uservice/adapt/restclient/TestExecutionPropertyRest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-03-19T18:40:19Z",
+      "side": 0,
+      "message": "It is removed, because testing url replacement with multiple tag is being tested in another test case below anyway, which is covering what is done in this test case(replacing single tag).\nFor this testcase, there were conditions here https://gerrit.onap.org/r/c/policy/apex-pdp/+/119500/7/testsuites/integration/integration-uservice-test/src/test/resources/policies/executionproperties/logic/TaskFetchHttpCode.js#b25 to check for a particular field in executionProperties. This doesn\u0027t make sense, because for a new request(in this case RestClient is used to read a new request), the executionproperties has to be empty.\nAt the same time, in case of a RestRequestor(or similar) where the event is coming as a response to some request made from APEX, at this point any properties that were set as part of the request will be retained and is available as part of the response event too.",
+      "parentUuid": "81c1f638_362389ae",
+      "revId": "cc52ec6f85b6aa2712c11b38d66844f8595211b4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
