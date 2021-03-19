@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +51,7 @@ import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.common.utils.network.NetworkUtil;
+import org.onap.policy.common.utils.security.SelfSignedKeyStore;
 import org.onap.policy.common.utils.services.Registry;
 import org.powermock.reflect.Whitebox;
 import org.slf4j.Logger;
@@ -63,8 +65,6 @@ import org.slf4j.LoggerFactory;
 public class CommonApexStarterRestServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonApexStarterRestServer.class);
-
-    private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     private static Coder coder = new StandardCoder();
 
@@ -180,8 +180,8 @@ public class CommonApexStarterRestServer {
         }
 
         final Properties systemProps = System.getProperties();
-        systemProps.put("javax.net.ssl.keyStore", KEYSTORE);
-        systemProps.put("javax.net.ssl.keyStorePassword", "Pol1cy_0nap");
+        systemProps.put("javax.net.ssl.keyStore", new SelfSignedKeyStore().getKeystoreName());
+        systemProps.put("javax.net.ssl.keyStorePassword", SelfSignedKeyStore.KEYSTORE_PASSWORD);
         System.setProperties(systemProps);
 
         final String[] apexStarterConfigParameters = { "-c", "src/test/resources/TestConfigParams.json" };
