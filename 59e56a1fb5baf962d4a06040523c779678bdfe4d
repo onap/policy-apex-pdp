@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "48a1f485_f5060861",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-03-19T11:04:50Z",
+      "side": 1,
+      "message": "That is correct. Every new request has it\u0027s own copy of properties.",
+      "parentUuid": "f125f14a_3314248a",
+      "revId": "59e56a1fb5baf962d4a06040523c779678bdfe4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d867ad46_3c453eaf",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "59e56a1fb5baf962d4a06040523c779678bdfe4d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a676ef6e_9efeb9d6",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restrequestor/src/main/java/org/onap/policy/apex/plugins/event/carrier/restrequestor/ApexRestRequestorConsumer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-03-19T11:04:50Z",
+      "side": 1,
+      "message": "restConsumerProperties.getUrl() can never become null. inputExecutionProperties actually never becomes null and is empty atleast. So, url is always populated here.\nBut agree with you. Better to assign the url outside and improve the condition statement.\nDone.",
+      "parentUuid": "d867ad46_3c453eaf",
+      "revId": "59e56a1fb5baf962d4a06040523c779678bdfe4d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
