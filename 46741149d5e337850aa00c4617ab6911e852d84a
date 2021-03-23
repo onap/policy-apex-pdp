@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8448a3f9_e35431af",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-23T18:58:32Z",
+      "side": 1,
+      "message": "this will require an update to the yaml in docker/csit.  Any reason this can\u0027t be done using compose file or CLI?",
+      "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
