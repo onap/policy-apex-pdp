@@ -16,6 +16,24 @@
       "revId": "e3f1349915f425c2f0c09688a2cc6d8d246f4110",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8cbc31_fb5d1a7a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-03-23T10:37:29Z",
+      "side": 1,
+      "message": "Agreed. Should this be done now as part of this review? This entire code for handling parameters and concepts in the service will be removed with this https://jira.onap.org/browse/POLICY-3018",
+      "parentUuid": "5e7d8e0e_5e3b481f",
+      "revId": "e3f1349915f425c2f0c09688a2cc6d8d246f4110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
