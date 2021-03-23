@@ -52,6 +52,24 @@
       "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5158a2_5e08196e",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-23T19:20:33Z",
+      "side": 1,
+      "message": "I think entrypoint takes precedence, so this would probably break OOM.\n\nAnd I was mistaken about docker/csit - it uses entrypoint so CSIT should still be OK, as it would override the above.",
+      "parentUuid": "4487c587_c6eaa814",
+      "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
