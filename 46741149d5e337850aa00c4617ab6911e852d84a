@@ -70,6 +70,24 @@
       "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32f4f74_410b42ef",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-23T19:30:59Z",
+      "side": 1,
+      "message": "I see what you\u0027re saying about PAP, so \"command\" in OOM must override \"entrypoint\" in the Dockerfile.",
+      "parentUuid": "4e5158a2_5e08196e",
+      "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
