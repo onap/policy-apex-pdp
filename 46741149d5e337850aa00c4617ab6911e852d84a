@@ -34,6 +34,24 @@
       "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "104b009b_593bd71e",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-03-23T19:20:10Z",
+      "side": 1,
+      "message": "I think we are already overriding the entrypoint in csit yaml file. Also, in oom charts.\nFor standalone installation, can be done through CLI while creating docker container but we need to always pass the \"/bin/ash\" as part of the arguments. Which folks generally tend to forget and raise issues.\n\nAgree about \"sh\".\nI checked PAP and we have entrypoint (in dockerfile) + cmd (sh in oom charts) combination. So I think it will work.",
+      "parentUuid": "8448a3f9_e35431af",
+      "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
