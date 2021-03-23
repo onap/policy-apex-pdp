@@ -16,6 +16,24 @@
       "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4487c587_c6eaa814",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-03-23T19:08:42Z",
+      "side": 1,
+      "message": "apex in oom has \"cmd\" entries, will it work ok there, with the entrypoint + cmd combination?\nIn any case, it\u0027s better to use sh, than ash, more powerful shell.",
+      "parentUuid": "8448a3f9_e35431af",
+      "revId": "46741149d5e337850aa00c4617ab6911e852d84a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
