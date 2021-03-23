@@ -34,6 +34,24 @@
       "revId": "e3f1349915f425c2f0c09688a2cc6d8d246f4110",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "120b0a89_b6e735c6",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-23T15:04:28Z",
+      "side": 1,
+      "message": "if we\u0027ll be removing this code, then no need to refactor it at this point",
+      "parentUuid": "3b8cbc31_fb5d1a7a",
+      "revId": "e3f1349915f425c2f0c09688a2cc6d8d246f4110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
