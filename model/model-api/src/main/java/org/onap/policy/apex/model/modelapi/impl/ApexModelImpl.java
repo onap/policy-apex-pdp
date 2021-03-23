@@ -87,7 +87,7 @@ public final class ApexModelImpl implements ApexModel {
      * {@inheritDoc}.
      */
     @Override
-    public ApexModel clone() {
+    public ApexModel getCopy() {
         ApexModelImpl ret = new ApexModelImpl();
         // @formatter:off
         ret.policyModel          = new AxPolicyModel(policyModel);

@@ -239,7 +239,7 @@ public class ApexModelApiTest {
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         assertNotEquals(0, apexModelImpl.hashCode());
-        assertNotNull(apexModelImpl.clone());
+        assertNotNull(apexModelImpl.getCopy());
         assertNotNull(apexModelImpl.build());
     }
 }

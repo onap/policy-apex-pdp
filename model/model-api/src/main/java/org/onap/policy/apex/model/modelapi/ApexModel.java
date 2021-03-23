@@ -34,7 +34,7 @@ public interface ApexModel extends ApexEditorApi {
      *
      * @return the result of the operation
      */
-    ApexModel clone();
+    ApexModel getCopy();
 
     /**
      * Load an Apex model from a string.
