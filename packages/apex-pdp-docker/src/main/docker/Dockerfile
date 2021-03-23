@@ -54,3 +54,4 @@ RUN tar xvfz /packages/apex-pdp-package-full.tar.gz --directory $POLICY_HOME \
 USER apexuser
 ENV PATH $POLICY_HOME/bin:$PATH
 WORKDIR /home/apexuser
+ENTRYPOINT [ "/bin/sh" ]
