@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +51,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
 
     // Indicates that text block processing starts at the first block of text
     private final boolean delimiterAtStart;
-    private boolean blockEndTokenUsed = false;
+    private boolean blockEndTokenUsed;
 
     // The thread used to read the text from the stream
     private Thread textConsumputionThread;
@@ -170,9 +171,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
      */
     @Override
     public void run() {
-        final BufferedReader textReader = new BufferedReader(new InputStreamReader(inputStream));
-
-        try {
+        try (BufferedReader textReader = new BufferedReader(new InputStreamReader(inputStream))) {
             // Read the input line by line until we see end of file on the stream
             String line;
             while ((line = textReader.readLine()) != null) {
