@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +26,7 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Test;
 
-public class SyncEventSisoTest extends BaseEventTest {
+public class SyncEventSisoTest extends TestEventBase {
     private final String[] outFilePaths = {
         "target/examples/events/SampleDomain/EventsOutSingle.json"
     };
