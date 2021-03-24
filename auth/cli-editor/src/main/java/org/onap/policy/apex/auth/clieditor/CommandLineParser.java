@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ public class CommandLineParser {
     private ArrayList<String> mergeQuotes(final ArrayList<String> wordsSplitOnQuotes) {
         final ArrayList<String> wordsWithQuotesMerged = new ArrayList<>();
 
-        int loopWordIndex = 0;
+        int loopWordIndex;
         for (int wordIndex = 0; wordIndex < wordsSplitOnQuotes.size(); wordIndex = loopWordIndex) {
             loopWordIndex = mergeQuote(wordsSplitOnQuotes, wordsWithQuotesMerged, wordIndex);
         }
@@ -140,9 +140,7 @@ public class CommandLineParser {
 
             // Split on equals character
             final ArrayList<String> splitWords = splitOnChar(word, '=');
-            for (final String splitWord : splitWords) {
-                wordsSplitOnEquals.add(splitWord);
-            }
+            wordsSplitOnEquals.addAll(splitWords);
         }
 
         return wordsSplitOnEquals;
@@ -158,7 +156,7 @@ public class CommandLineParser {
     private ArrayList<String> mergeEquals(final ArrayList<String> wordsSplitOnEquals) {
         final ArrayList<String> wordsWithEqualsMerged = new ArrayList<>();
 
-        int loopWordIndex = 0;
+        int loopWordIndex;
         for (int wordIndex = 0; wordIndex < wordsSplitOnEquals.size(); wordIndex = loopWordIndex) {
             loopWordIndex = wordIndex;
 
@@ -315,39 +313,30 @@ public class CommandLineParser {
         // The first word must be alphanumeric, that is a command
         if (!commandWords.get(0).matches("^[a-zA-Z0-9]*$")) {
             throw new CommandLineException(
-                            "first command word is not alphanumeric or is not a command: " + commandWords.get(0));
+                    "first command word is not alphanumeric or is not a command: " + commandWords.get(0));
         }
 
         // Now check that we have a sequence of commands at the beginning
         int currentWordPos = 0;
-        while (currentWordPos < commandWords.size()) {
-            if (commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]*$")) {
-                currentWordPos++;
-            } else {
+        for (; currentWordPos < commandWords.size(); currentWordPos++) {
+            if (!commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]*$")) {
                 break;
             }
         }
 
-        while (currentWordPos < commandWords.size()) {
-            // From now on we should have a sequence of parameters with arguments delimited by a
-            // single '=' character
-            if (currentWordPos < commandWords.size() - 1 || logicBlock == null) {
-                // No logic block
-                if (commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]+=[a-zA-Z0-9/\"].*$")) {
-                    currentWordPos++;
-                } else {
-                    throw new CommandLineException(
-                                    "command argument is not properly formed: " + commandWords.get(currentWordPos));
-                }
-            } else {
-                // Logic block
+        for (; currentWordPos < commandWords.size(); ++currentWordPos) {
+            if (currentWordPos == commandWords.size() - 1 && logicBlock != null) {
+                // for the last command, if the command ends with = and there is a Logic block
                 if (commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]+=")) {
                     commandWords.set(currentWordPos, commandWords.get(currentWordPos) + logicBlock);
-                    currentWordPos++;
                 } else {
                     throw new CommandLineException(
-                                    "command argument is not properly formed: " + commandWords.get(currentWordPos));
+                            "command argument is not properly formed: " + commandWords.get(currentWordPos));
                 }
+            } else if (!commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]+=[a-zA-Z0-9/\"].*$")) {
+                // Not a last command, or the last command, but there is no logic block - wrong pattern
+                throw new CommandLineException(
+                        "command argument is not properly formed: " + commandWords.get(currentWordPos));
             }
         }
 
