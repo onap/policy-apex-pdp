@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "412fb6cd_40b04336",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-03-26T13:50:27Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "9b54a22b_43089123",
+      "range": {
+        "startLine": 340,
+        "startChar": 12,
+        "endLine": 340,
+        "endChar": 15
+      },
+      "revId": "c6fe7906e13a7bf4464044421413f70ac4bbb3d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b61a181_4b130a04",
         "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/HeaderDelimitedTextBlockReader.java",
         "patchSetId": 1
