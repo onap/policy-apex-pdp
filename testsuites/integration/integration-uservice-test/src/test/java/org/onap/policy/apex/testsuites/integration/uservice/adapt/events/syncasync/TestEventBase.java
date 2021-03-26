@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class BaseEventTest {
+public class TestEventBase {
     private static final long TIME_OUT_IN_MS = 10000;
 
     private void waitForOutFiles(final String[] expectedFileNames, final long expectedFileSize) throws IOException {
