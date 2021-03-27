@@ -92,6 +92,29 @@
       "revId": "c6fe7906e13a7bf4464044421413f70ac4bbb3d7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45d9f1b1_ecc4754b",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/HeaderDelimitedTextBlockReader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-03-27T12:43:37Z",
+      "side": 1,
+      "message": "another trailing space - good to help clean these out when we come across them!",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "c6fe7906e13a7bf4464044421413f70ac4bbb3d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
