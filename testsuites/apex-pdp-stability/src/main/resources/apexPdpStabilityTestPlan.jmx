@@ -3,7 +3,7 @@
   ============LICENSE_START=======================================================
   ONAP Apex-PDP
   ================================================================================
-  Copyright (C) 2020 Nordix Foundation.All rights reserved.
+  Copyright (C) 2020-2021 Nordix Foundation.All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -2391,7 +2391,7 @@
                                     &quot;carrierTechnology&quot;: &quot;RESTCLIENT&quot;,&#xd;
                                     &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters&quot;,&#xd;
                                     &quot;parameters&quot;: {&#xd;
-                                        &quot;url&quot;: &quot;https://message-router:3905/events/POLICY_CL_MGT&quot;&#xd;
+                                        &quot;url&quot;: &quot;https://message-router:3905/events/POLICY-PDP-PAP&quot;&#xd;
                                     }&#xd;
                                 },&#xd;
                                 &quot;eventProtocolParameters&quot;: {&#xd;
@@ -2524,7 +2524,7 @@
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
+              <stringProp name="49588">202</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
@@ -2660,7 +2660,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             </elementProp>
             <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
             <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">/events/unauthenticated.DCAE_CL_OUTPUT</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
@@ -2697,9 +2697,9 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             </elementProp>
             <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
             <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/events/POLICY_CL_MGT/cg1/c1?timeout=30000</stringProp>
+            <stringProp name="HTTPSampler.path">/events/POLICY-PDP-PAP/cg1/c1?timeout=30000</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -2803,7 +2803,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="49586">200</stringProp>
+              <stringProp name="49588">202</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
