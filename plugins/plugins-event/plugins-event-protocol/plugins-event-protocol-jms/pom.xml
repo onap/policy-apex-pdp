@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2021 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,16 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>5.16.1</version>
+        </dependency>
+    </dependencies>
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
         <artifactId>plugins-event-protocol</artifactId>
@@ -27,5 +36,6 @@
 
     <artifactId>plugins-event-protocol-jms</artifactId>
     <name>${project.artifactId}</name>
-    <description>[${project.parent.artifactId}] Plugins for handling events that are being transported as JMS messages</description>
+    <description>[${project.parent.artifactId}] Plugins for handling events that are being transported as JMS messages
+    </description>
 </project>
