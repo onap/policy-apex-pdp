@@ -1,9 +1,9 @@
-#!/usr/bin/env ash
+#!/usr/bin/env sh
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2018 Ericsson. All rights reserved.
-#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
+#  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -53,11 +53,11 @@ fi
 rm -fr examples/benchmark/Bm$1$2.json
 
 # Start the event generator
-/bin/ash bin/apexApps.sh event-gen -c examples/benchmark/EventGeneratorConfig.json -o examples/benchmark/Bm$1$2.json > examples/benchmark/Bm$1$2_gen.log 2>&1 &
+/bin/sh bin/apexApps.sh event-gen -c examples/benchmark/EventGeneratorConfig.json -o examples/benchmark/Bm$1$2.json > examples/benchmark/Bm$1$2_gen.log 2>&1 &
 
 # Start Apex
 sleep 2
-/bin/ash bin/apexApps.sh engine -c examples/benchmark/$1$2.json > examples/benchmark/Bm$1$2_apex.log 2>&1 &
+/bin/sh bin/apexApps.sh engine -c examples/benchmark/$1$2.json > examples/benchmark/Bm$1$2_apex.log 2>&1 &
 apex_pid=`ps -A -o pid,cmd | grep ApexMain | grep -v grep | head -n 1 | awk '{print $1}'`
 
 echo "running benchmark test for executor $1 with $2 threads" 

@@ -1,10 +1,10 @@
-#!/usr/bin/env ash
+#!/usr/bin/env sh
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
 #  Modifications Copyright (C) 2019-2020 Nordix Foundation.
-#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
+#  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,15 +23,11 @@
 #-------------------------------------------------------------------------------
 ##
 ## Script to run APEX Applications, call with '-h' for help
-## - requires BASH with associative arrays, bash of at least version 4
-## - for BASH examples with arrays see for instance: http://www.artificialworlds.net/blog/2012/10/17/bash-associative-array-examples/
 ## - adding a new app means to add a command to APEX_APP_MAP and a description to APEX_APP_DESCR_MAP using same/unique key
 ##
 ## @package    org.onap.policy.apex
 ## @author     Sven van der Meer <sven.van.der.meer@ericsson.com>
 ## @version    v2.0.0
-##
-## convert to ash shell script 12/1/2020
 ##
 ##set -x
 ##
@@ -72,7 +68,7 @@ _jmxconfig="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9
 _version=$(cat $APEX_HOME/etc/app-version.txt)
 
 ## system to get CygWin paths                                                     
-## NOTE: CygWin can not be tested with ash, due to lack of env setup
+## NOTE: CygWin can not be tested with sh, due to lack of env setup
 system=$(uname -s | cut -c1-6)
 cpsep=":"
 if [ "$system" = "CYGWIN" ] ; then
