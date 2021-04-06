@@ -141,4 +141,13 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
         // Return the single object from the Apex event message
         return apexEvent.values().iterator().next();
     }
+
+    /**
+     * Returns eventProtocolParameters field. Getter used only for testing
+     *
+     * @return eventProtocolParameters
+     */
+    JmsObjectEventProtocolParameters getEventProtocolParameters() {
+        return eventProtocolParameters;
+    }
 }
