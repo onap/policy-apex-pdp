@@ -1,22 +1,22 @@
-#!/usr/bin/env ash
+#!/usr/bin/env sh
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2018 Ericsson. All rights reserved.
-#  Modifications Copyright (C) 2020 AT&T Intellectual Property.
+#  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
@@ -43,24 +43,24 @@ if [ "$1" != "Javascript" ] && [ "$1" != "Jython" ] && [ "$1" != "JRuby" ] && [ 
    echo "executor-type must be a member of the set [Javascript|Jython|JRuby|Mvel|Java]"
    exit 1
 fi
-    
+
 if [ "$2" != "01" ] && [ "$2" != "02" ] && [ "$2" != "04" ] && [ "$2" != "08" ] && [ "$2" != "16" ] && [ "$2" != "32" ] && [ "$2" != "64" ]; then
     echo "thread-count must be a member of the set [01|02|04|08|16|32|64]"
    exit 1
 fi
-    
+
 # Remove the old benchmark test result file if it exists
 rm -fr examples/benchmark/Bm$1$2.json
 
 # Start the event generator
-/bin/ash bin/apexApps.sh event-gen -c examples/benchmark/EventGeneratorConfig.json -o examples/benchmark/Bm$1$2.json > examples/benchmark/Bm$1$2_gen.log 2>&1 &
+/bin/sh bin/apexApps.sh event-gen -c examples/benchmark/EventGeneratorConfig.json -o examples/benchmark/Bm$1$2.json > examples/benchmark/Bm$1$2_gen.log 2>&1 &
 
 # Start Apex
 sleep 2
-/bin/ash bin/apexApps.sh engine -c examples/benchmark/$1$2.json > examples/benchmark/Bm$1$2_apex.log 2>&1 &
+/bin/sh bin/apexApps.sh engine -c examples/benchmark/$1$2.json > examples/benchmark/Bm$1$2_apex.log 2>&1 &
 apex_pid=`ps -A -o pid,cmd | grep ApexMain | grep -v grep | head -n 1 | awk '{print $1}'`
 
-echo "running benchmark test for executor $1 with $2 threads" 
+echo "running benchmark test for executor $1 with $2 threads"
 
 # Loop until result file exists
 while [ ! -f examples/benchmark/Bm$1$2.json ]
