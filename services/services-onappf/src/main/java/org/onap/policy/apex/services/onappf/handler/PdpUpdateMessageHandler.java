@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,7 +98,8 @@ public class PdpUpdateMessageHandler {
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
             pdpResponseDetails = startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler);
 
-            ApexEngineHandler apexEngineHandler = Registry.get(ApexStarterConstants.REG_APEX_ENGINE_HANDLER);
+            ApexEngineHandler apexEngineHandler =
+                Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
             // in hearbeat while in active state, only the policies which are running should be there.
             // if some policy fails, that shouldn't go in the heartbeat.
             // If no policies are running, then the policy list in the heartbeat can be empty

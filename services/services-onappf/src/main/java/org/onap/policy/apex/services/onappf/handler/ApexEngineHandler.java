@@ -160,9 +160,10 @@ public class ApexEngineHandler {
             policyMapToRetain.putAll(policyModel.getPolicies().getPolicyMap());
         });
         for (ApexMain main : undeployedPoliciesMainMap.values()) {
-            handleParametersRemoval(inputParamKeysToRetain, outputParamKeysToRetain, taskParametersToRetain,
-                executorParamKeysToRetain, schemaParamKeysToRetain, main);
-
+            if (null != main.getApexParameters()) {
+                handleParametersRemoval(inputParamKeysToRetain, outputParamKeysToRetain, taskParametersToRetain,
+                    executorParamKeysToRetain, schemaParamKeysToRetain, main);
+            }
             if (null != main.getActivator() && null != main.getActivator().getPolicyModel()) {
                 handleAxConceptsRemoval(keyInfoMapToRetain, schemaMapToRetain, eventMapToRetain, albumMapToRetain,
                     taskMapToRetain, policyMapToRetain, main);
