@@ -21,18 +21,33 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.Random;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexEventProducer;
-import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
@@ -42,40 +57,200 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 
 public class ApexJmsProducerTest {
 
-    ApexJmsConsumer apexJmsConsumer = null;
-    EventHandlerParameters producerParameters = null;
-    ApexEventReceiver incomingEventReceiver = null;
-    ApexEventProducer apexJmsProducer = null;
-    Session jmsSession = null;
-    JmsCarrierTechnologyParameters jmsCarrierTechnologyParameters = null;
-    SynchronousEventCache synchronousEventCache = null;
+    private ApexJmsConsumer apexJmsConsumer;
+    private EventHandlerParameters producerParameters;
+    private ApexJmsProducer apexJmsProducer;
+    private JmsCarrierTechnologyParameters jmsCarrierTechnologyParameters;
     private static final long DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT = 1000;
+    private final Random random = new Random();
+    private final PrintStream out = System.out;
 
     /**
      * Set up testing.
      *
-     * @throws Exception on test set up errors.
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         apexJmsConsumer = new ApexJmsConsumer();
         producerParameters = new EventHandlerParameters();
-        apexJmsProducer = new ApexJmsProducer();
+        apexJmsProducer = Mockito.spy(new ApexJmsProducer());
+    }
+
+    @After
+    public void tearDown() {
+        // restore system.out
+        System.setOut(out);
     }
 
     @Test
     public void testInitWithNonJmsCarrierTechnologyParameters() {
-        producerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {});
+        producerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {
+        });
         assertThatThrownBy(() -> apexJmsProducer.init("TestApexJmsProducer", producerParameters))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInitWithJmsCarrierTechnologyParameters() throws ApexEventException {
+    public void testInitWithJmsCarrierTechnologyParameters() {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
         assertThatThrownBy(() -> apexJmsProducer.init("TestApexJmsProducer", producerParameters))
             .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInitWithoutConnectionFactory() throws NamingException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        InitialContext context = Mockito.mock(InitialContext.class);
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(null).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+
+        assertThatThrownBy(() -> apexJmsProducer.init(producerName, producerParameters))
+            .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInitWithoutTopic() throws NamingException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(null).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+
+        assertThatThrownBy(() -> apexJmsProducer.init(producerName, producerParameters))
+            .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInitConnectionCreateError() throws NamingException, JMSException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doThrow(JMSException.class).when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+
+        assertThatThrownBy(() -> apexJmsProducer.init(producerName, producerParameters))
+            .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInitConnectionStartError() throws NamingException, JMSException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doThrow(JMSException.class).when(connection).start();
+
+        assertThatThrownBy(() -> apexJmsProducer.init(producerName, producerParameters))
+            .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInitSessionCreateError() throws NamingException, JMSException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doThrow(JMSException.class).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        assertThatThrownBy(() -> apexJmsProducer.init(producerName, producerParameters))
+            .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInitProducerCreateError() throws NamingException, JMSException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doThrow(JMSException.class).when(session).createProducer(topic);
+        assertThatThrownBy(() -> apexJmsProducer.init(producerName, producerParameters))
+            .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void testInit() throws NamingException, JMSException {
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+        final String producerName = RandomStringUtils.randomAlphabetic(5);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        assertThatCode(() -> apexJmsProducer.init(producerName, producerParameters))
+            .doesNotThrowAnyException();
     }
 
     @Test
@@ -91,40 +266,444 @@ public class ApexJmsProducerTest {
     @Test
     public void testSetPeeredReference() {
         PeeredReference peeredReference = new PeeredReference(EventHandlerPeeredMode.REQUESTOR,
-                apexJmsConsumer, apexJmsProducer);
+            apexJmsConsumer, apexJmsProducer);
         apexJmsProducer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR, peeredReference);
-        assertNotNull(apexJmsProducer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
+        final PeeredReference actual = apexJmsProducer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR);
+        assertSame(peeredReference, actual);
     }
 
     @Test
-    public void testSendEvent() throws ApexEventException {
-        producerParameters.setCarrierTechnologyParameters(new JmsCarrierTechnologyParameters() {});
-        synchronousEventCache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS,
-                apexJmsConsumer, apexJmsProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
-        apexJmsProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
-                synchronousEventCache);
-        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-                "testSource", "testTarget");
-        assertThatThrownBy(() -> apexJmsProducer.sendEvent(1000L, null, "TestApexJmsProducer", apexEvent))
-            .isInstanceOf(NullPointerException.class);
-    }
-
-    @Test
-    public void testSendEventWithNonSerializableObject() throws ApexEventException {
-        producerParameters.setCarrierTechnologyParameters(new JmsCarrierTechnologyParameters() {});
-        synchronousEventCache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS,
-                apexJmsConsumer, apexJmsProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
-        apexJmsProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
-                synchronousEventCache);
-
-        ApexJmsProducerTest producerTest = new ApexJmsProducerTest();
-
-        assertThatThrownBy(() -> apexJmsProducer.sendEvent(-1L, null, "TestApexJmsProducer", producerTest))
+    public void testSendEventNotSerializable() {
+        producerParameters.setCarrierTechnologyParameters(new JmsCarrierTechnologyParameters());
+        Object object = new Object();
+        final long executionId = random.nextLong();
+        assertThatThrownBy(() -> apexJmsProducer.sendEvent(executionId, null, "TestApexJmsProducer", object))
             .isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
-    public void testStop() {
+    public void testSendEventRemoveCache() {
+        producerParameters.setCarrierTechnologyParameters(new JmsCarrierTechnologyParameters());
+        final SynchronousEventCache synchronousEventCache =
+            Mockito.spy(new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS,
+                apexJmsConsumer, apexJmsProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT));
+        apexJmsProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
+            synchronousEventCache);
+
+        Object object = new Object();
+        final long executionId = random.nextLong();
+
+        assertThatThrownBy(() -> apexJmsProducer.sendEvent(executionId, null, "TestApexJmsProducer", object))
+            .isInstanceOf(ApexEventRuntimeException.class);
+        Mockito.verify(synchronousEventCache, Mockito.times(1)).removeCachedEventToApexIfExists(executionId);
+    }
+
+    @Test
+    public void testSendEventCreateObjectMessageError() throws ApexEventException, NamingException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare sendEvent
+
+        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
+            "testSource", "testTarget");
+        Mockito.doThrow(JMSException.class).when(session).createObjectMessage(apexEvent);
+
+        final long executionId = random.nextLong();
+
+
+        assertThatThrownBy(() -> apexJmsProducer.sendEvent(executionId, null, "TestApexJmsProducer", apexEvent))
+            .isInstanceOf(ApexEventRuntimeException.class);
+    }
+
+    @Test
+    public void testSendEventCreateObjectMessageSendError() throws ApexEventException, NamingException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare sendEvent
+        final Message message = Mockito.mock(ObjectMessage.class);
+        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
+            "testSource", "testTarget");
+        Mockito.doReturn(message).when(session).createObjectMessage(apexEvent);
+        Mockito.doThrow(JMSException.class).when(messageProducer).send(message);
+
+        final long executionId = random.nextLong();
+
+
+        assertThatThrownBy(
+            () -> apexJmsProducer
+                .sendEvent(executionId, null, "TestApexJmsProducer", apexEvent)
+        )
+            .isInstanceOf(ApexEventRuntimeException.class);
+    }
+
+    @Test
+    public void testSendEventCreateObjectMessageSend() throws ApexEventException, NamingException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare sendEvent
+        final Message message = Mockito.mock(ObjectMessage.class);
+        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
+            "testSource", "testTarget");
+        Mockito.doReturn(message).when(session).createObjectMessage(apexEvent);
+        Mockito.doNothing().when(messageProducer).send(message);
+
+        final long executionId = random.nextLong();
+
+
+        assertThatCode(
+            () -> apexJmsProducer
+                .sendEvent(executionId, null, "TestApexJmsProducer", apexEvent)
+        )
+            .doesNotThrowAnyException();
+    }
+
+    @Test
+    public void testSendEventCreateTextMessageError() throws ApexEventException, NamingException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare sendEvent
+        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
+            "testSource", "testTarget");
+
+        Mockito.doThrow(JMSException.class).when(session).createTextMessage(apexEvent.toString());
+
+        final long executionId = random.nextLong();
+
+        assertThatThrownBy(
+            () -> apexJmsProducer
+                .sendEvent(executionId, null, "TestApexJmsProducer", apexEvent)
+        )
+            .isInstanceOf(ApexEventRuntimeException.class);
+    }
+
+    @Test
+    public void testSendEventCreateTextMessageSendError() throws ApexEventException, NamingException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare sendEvent
+        final Message message = Mockito.mock(TextMessage.class);
+        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
+            "testSource", "testTarget");
+        Mockito.doReturn(message).when(session).createTextMessage(apexEvent.toString());
+        Mockito.doThrow(JMSException.class).when(messageProducer).send(message);
+
+        final long executionId = random.nextLong();
+
+
+        assertThatThrownBy(
+            () -> apexJmsProducer
+                .sendEvent(executionId, null, "TestApexJmsProducer", apexEvent)
+        )
+            .isInstanceOf(ApexEventRuntimeException.class);
+    }
+
+    @Test
+    public void testSendEventCreateTextMessageSend() throws ApexEventException, NamingException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare sendEvent
+        final Message message = Mockito.mock(TextMessage.class);
+        ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
+            "testSource", "testTarget");
+        Mockito.doReturn(message).when(session).createTextMessage(apexEvent.toString());
+        Mockito.doNothing().when(messageProducer).send(message);
+
+        final long executionId = random.nextLong();
+
+
+        assertThatCode(
+            () -> apexJmsProducer.sendEvent(executionId, null, "TestApexJmsProducer", apexEvent)
+        )
+            .doesNotThrowAnyException();
+    }
+
+    @Test
+    public void testStopProducerException() throws NamingException, ApexEventException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare stop mock
+        Mockito.doThrow(JMSException.class).when(messageProducer).close();
+
+        // Prepare system.out
+        final ByteArrayOutputStream testBuffer = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testBuffer));
+
+        // do the test
+        assertThatCode(apexJmsProducer::stop).doesNotThrowAnyException();
+        assertThat(testBuffer.toString()).contains("failed to close JMS message producer");
+    }
+
+    @Test
+    public void testStopCloseSessionException() throws NamingException, ApexEventException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare stop mocks
+        Mockito.doNothing().when(messageProducer).close();
+        Mockito.doThrow(JMSException.class).when(session).close();
+
+        // Prepare system.out
+        final ByteArrayOutputStream testBuffer = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testBuffer));
+
+        // do the test
+        assertThatCode(apexJmsProducer::stop).doesNotThrowAnyException();
+        assertThat(testBuffer.toString()).contains("failed to close the JMS session");
+    }
+
+    @Test
+    public void testStopCloseConnectionException() throws NamingException, ApexEventException, JMSException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare stop mocks
+        Mockito.doNothing().when(messageProducer).close();
+        Mockito.doNothing().when(session).close();
+        Mockito.doThrow(JMSException.class).when(connection).close();
+
+        // Prepare system.out
+        final ByteArrayOutputStream testBuffer = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testBuffer));
+
+        // do the test
+        assertThatCode(apexJmsProducer::stop).doesNotThrowAnyException();
+        assertThat(testBuffer.toString()).contains("close of connection");
+    }
+
+    @Test
+    public void testStop() throws NamingException, JMSException, ApexEventException {
+        // Prepare ApexJmsProducer
+        jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
+        jmsCarrierTechnologyParameters.setObjectMessageSending(false);
+        producerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
+
+        final InitialContext context = Mockito.mock(InitialContext.class);
+        final ConnectionFactory connectionFactory = Mockito.mock(ConnectionFactory.class);
+        final Topic topic = Mockito.mock(Topic.class);
+        final Connection connection = Mockito.mock(Connection.class);
+        final Session session = Mockito.mock(Session.class);
+        final MessageProducer messageProducer = Mockito.mock(MessageProducer.class);
+
+        Mockito.doReturn(context).when(apexJmsProducer).getInitialContext();
+        Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
+        Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getProducerTopic());
+        Mockito.doReturn(connection)
+            .when(connectionFactory)
+            .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
+                jmsCarrierTechnologyParameters.getSecurityCredentials());
+        Mockito.doNothing().when(connection).start();
+        Mockito.doReturn(session).when(connection).createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Mockito.doReturn(messageProducer).when(session).createProducer(topic);
+
+        apexJmsProducer.init(RandomStringUtils.random(5), producerParameters);
+
+        // Prepare stop mocks
+        Mockito.doNothing().when(messageProducer).close();
+        Mockito.doNothing().when(session).close();
+        Mockito.doNothing().when(connection).close();
+
+        // do the test
         assertThatCode(apexJmsProducer::stop).doesNotThrowAnyException();
     }
 }
