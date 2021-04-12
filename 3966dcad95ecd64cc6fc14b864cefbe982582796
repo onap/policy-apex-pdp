@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03418241_a4029a0e",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/apexprotocolplugin/Apex2ApexEventConverterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-12T10:50:29Z",
+      "side": 1,
+      "message": "Can use assertThat(result).isEmpty()",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "3966dcad95ecd64cc6fc14b864cefbe982582796",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73c2517_04fb9313",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/TextBlockReaderFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-12T10:50:29Z",
+      "side": 1,
+      "message": "can use assertThat..isNotInstanceOf..",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 70
+      },
+      "revId": "3966dcad95ecd64cc6fc14b864cefbe982582796",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0366c81b_42885e8f",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/TextBlockReaderFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-12T10:50:29Z",
+      "side": 1,
+      "message": "can use assertThat..isInstanceOf..\nsame comment in other places.",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 69
+      },
+      "revId": "3966dcad95ecd64cc6fc14b864cefbe982582796",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
