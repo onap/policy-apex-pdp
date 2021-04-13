@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modification Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,6 +38,7 @@ import org.onap.policy.apex.service.parameters.ApexParameters;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -110,8 +111,8 @@ public class ApexMain {
             }
 
             // Validate that the arguments are sane
-            arguments.validate();
-        } catch (final ApexException e) {
+            arguments.validateInputFiles();
+        } catch (final ApexException | CommandLineException e) {
             LOGGER.error("Arguments validation failed.", e);
             throw new ApexException("Arguments validation failed.", e);
         }

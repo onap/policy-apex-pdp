@@ -89,7 +89,7 @@ public class ApexMainTest {
 
         apexMain1 = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("invalid command line arguments specified : Unrecognized option: -whee"));
+                .contains("invalid command line arguments specified"));
         assertNotNull(apexMain1);
     }
 
