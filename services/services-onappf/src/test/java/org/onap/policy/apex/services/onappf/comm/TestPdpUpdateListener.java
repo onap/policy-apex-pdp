@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
@@ -44,6 +44,7 @@ import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
 import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.models.pdp.concepts.PdpStateChange;
@@ -72,9 +73,10 @@ public class TestPdpUpdateListener {
      * @throws ApexStarterException if some error occurs while starting up the apex starter
      * @throws FileNotFoundException if the file is missing
      * @throws IOException if IO exception occurs
+     * @throws CommandLineException if any parsing of args has errors
      */
     @Before
-    public void setUp() throws ApexStarterException, FileNotFoundException, IOException {
+    public void setUp() throws ApexStarterException, FileNotFoundException, IOException, CommandLineException {
         Registry.newRegistry();
         final String[] apexStarterConfigParameters = {"-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();

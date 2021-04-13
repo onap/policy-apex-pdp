@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
@@ -28,6 +28,7 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
+import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.common.utils.services.Registry;
 import org.slf4j.Logger;
@@ -77,7 +78,7 @@ public class ApexStarterMain {
 
             // Start the activator
             activator.initialize();
-        } catch (final ApexStarterException e) {
+        } catch (final ApexStarterException | CommandLineException e) {
             if (null != activator) {
                 Registry.unregister(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR);
             }
