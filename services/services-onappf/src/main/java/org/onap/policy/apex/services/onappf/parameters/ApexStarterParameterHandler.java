@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,13 +61,6 @@ public class ApexStarterParameterHandler {
             final String errorMessage = "error reading parameters from \"" + arguments.getConfigurationFilePath()
                     + "\"\n" + "(" + e.getClass().getSimpleName() + "):" + e.getMessage();
             throw new ApexStarterException(errorMessage, e);
-        }
-
-        // The JSON processing returns null if there is an empty file
-        if (apexStarterParameterGroup == null) {
-            final String errorMessage = "no parameters found in \"" + arguments.getConfigurationFilePath() + "\"";
-            LOGGER.error(errorMessage);
-            throw new ApexStarterException(errorMessage);
         }
 
         // validate the parameters

@@ -58,7 +58,7 @@ public class TestApexStarterParameterHandler {
         noArguments.parse(noArgumentString);
 
         assertThatThrownBy(() -> new ApexStarterParameterHandler().getParameters(noArguments))
-            .hasMessageContaining("no parameters found");
+            .hasMessageContaining("source is empty");
     }
 
     @Test
