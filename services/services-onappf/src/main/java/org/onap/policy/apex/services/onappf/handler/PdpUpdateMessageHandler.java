@@ -24,6 +24,7 @@ package org.onap.policy.apex.services.onappf.handler;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
@@ -36,6 +37,7 @@ import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,9 +94,12 @@ public class PdpUpdateMessageHandler {
         }
         pdpStatusContext.setPdpGroup(pdpUpdateMsg.getPdpGroup());
         pdpStatusContext.setPdpSubgroup(pdpUpdateMsg.getPdpSubgroup());
-        pdpStatusContext
-                .setPolicies(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()));
-        Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST, pdpUpdateMsg.getPolicies());
+        List<ToscaConceptIdentifier> policiesToUpdate = pdpUpdateMsg.getPoliciesToBeUndeployed();
+        policiesToUpdate.addAll(pdpUpdateMsg.getPoliciesToBeDeployed().stream().map(ToscaPolicy::getIdentifier)
+            .collect(Collectors.toList()));
+        pdpStatusContext.setPolicies(policiesToUpdate);
+        Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
+                pdpUpdateMsg.getPoliciesToBeDeployed());
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
             pdpResponseDetails = startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler);
 
@@ -135,7 +140,8 @@ public class PdpUpdateMessageHandler {
         } catch (final IllegalArgumentException e) {
             LOGGER.debug("ApenEngineHandler not in registry.", e);
         }
-        if (pdpUpdateMsg.getPolicies().isEmpty()) {
+        if (pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()
+                && pdpUpdateMsg.getPoliciesToBeUndeployed().isEmpty()) {
             pdpResponseDetails = stopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
         } else {
             pdpResponseDetails = startApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
@@ -166,15 +172,17 @@ public class PdpUpdateMessageHandler {
 
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-                apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPolicies());
+                apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPoliciesToBeDeployed(),
+                        pdpUpdateMsg.getPoliciesToBeUndeployed());
             } else {
-                apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPolicies());
+                apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPoliciesToBeDeployed());
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             }
             if (apexEngineHandler.isApexEngineRunning()) {
                 List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
                 if (new HashSet<>(runningPolicies)
-                    .equals(new HashSet<>(pdpMessageHandler.getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies())))) {
+                    .containsAll(new HashSet<>(pdpMessageHandler.getToscaPolicyIdentifiers(
+                            pdpUpdateMsg.getPoliciesToBeDeployed())))) {
                     pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");
                 } else {
@@ -217,8 +225,10 @@ public class PdpUpdateMessageHandler {
                 && pdpStatusContext.getPdpGroup().equals(pdpUpdateMsg.getPdpGroup())
                 && null != pdpStatusContext.getPdpSubgroup()
                 && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())
-                && null != pdpStatusContext.getPolicies() && new PdpMessageHandler()
-                        .getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()).equals(pdpStatusContext.getPolicies());
+                && null != pdpStatusContext.getPolicies()
+                && new PdpMessageHandler().getToscaPolicyIdentifiers(
+                        pdpUpdateMsg.getPoliciesToBeDeployed()).equals(pdpStatusContext.getPolicies())
+                && pdpUpdateMsg.getPoliciesToBeUndeployed().equals(pdpStatusContext.getPolicies());
     }
 
     /**
