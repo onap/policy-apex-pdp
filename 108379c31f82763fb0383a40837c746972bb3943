@@ -120,6 +120,23 @@
     },
     {
       "key": {
+        "uuid": "cc1875d6_fb0f1144",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src/main/test/org/onap/policy/apex/plugins/event/protocol/jms/Apex2JmsObjectEventConverterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-14T09:15:10Z",
+      "side": 1,
+      "message": "License missing. Same comment in other files",
+      "revId": "108379c31f82763fb0383a40837c746972bb3943",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7981b28_b61417e8",
         "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src/main/test/org/onap/policy/apex/plugins/event/protocol/jms/Apex2JmsObjectEventConverterTest.java",
         "patchSetId": 1
@@ -159,6 +176,29 @@
         "startChar": 4,
         "endLine": 59,
         "endChar": 53
+      },
+      "revId": "108379c31f82763fb0383a40837c746972bb3943",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd00004f_6c612080",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/src/main/test/org/onap/policy/apex/plugins/event/protocol/jms/JmsObjectEventProtocolParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-14T09:15:10Z",
+      "side": 1,
+      "message": "Seems like the length is longer than 120! Please check.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 121
       },
       "revId": "108379c31f82763fb0383a40837c746972bb3943",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
