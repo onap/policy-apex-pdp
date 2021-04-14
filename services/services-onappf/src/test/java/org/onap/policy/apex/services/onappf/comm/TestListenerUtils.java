@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import org.onap.policy.models.pdp.concepts.PdpStateChange;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.onap.policy.models.pdp.enums.PdpState;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 public class TestListenerUtils {
@@ -39,18 +40,21 @@ public class TestListenerUtils {
      * Method to create PdpUpdate message from the arguments passed.
      *
      * @param pdpStatus pdp status
-     * @param toscaPolicies list of tosca policies
+     * @param toscaPoliciesToBeDeployed list of tosca policies to deploy
+     * @param toscaPoliciesToBeUnDeployed list of tosca policies to undeploy
      *
      * @return PdpUpdate message
      */
-    public static PdpUpdate createPdpUpdateMsg(final PdpStatus pdpStatus, List<ToscaPolicy> toscaPolicies) {
+    public static PdpUpdate createPdpUpdateMsg(final PdpStatus pdpStatus, List<ToscaPolicy> toscaPoliciesToBeDeployed,
+            List<ToscaConceptIdentifier> toscaPoliciesToBeUnDeployed) {
         final PdpUpdate pdpUpdateMsg = new PdpUpdate();
         pdpUpdateMsg.setDescription("dummy pdp status for test");
         pdpUpdateMsg.setPdpGroup("pdpGroup");
         pdpUpdateMsg.setPdpSubgroup("pdpSubgroup");
         pdpUpdateMsg.setName(pdpStatus.getName());
         pdpUpdateMsg.setPdpHeartbeatIntervalMs(Long.valueOf(3000));
-        pdpUpdateMsg.setPolicies(toscaPolicies);
+        pdpUpdateMsg.setPoliciesToBeDeployed(toscaPoliciesToBeDeployed);
+        pdpUpdateMsg.setPoliciesToBeUndeployed(toscaPoliciesToBeUnDeployed);
         return pdpUpdateMsg;
     }
 
