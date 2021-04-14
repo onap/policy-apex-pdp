@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "587b54c0_f5b51ba9",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-14T16:52:21Z",
+      "side": 1,
+      "message": "hmm, lost the scope",
+      "revId": "5f584d182d8166fcdc050f42beba9ab751777a35",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
