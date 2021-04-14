@@ -89,16 +89,14 @@ public class ApexEngineHandler {
     /**
      * Updates the Apex Engine with the policy model created from new list of policies.
      *
-     * @param policies the list of policies
+     * @param polsToDeploy list of policies to deploy
+     * @param polsToUndeploy list of policies to undeploy
      * @throws ApexStarterException if the apex engine instantiation failed using the policies passed
      */
-    public void updateApexEngine(List<ToscaPolicy> policies) throws ApexStarterException {
-        List<ToscaConceptIdentifier> runningPolicies = getRunningPolicies();
-        List<ToscaPolicy> policiesToDeploy = policies.stream()
-            .filter(policy -> !runningPolicies.contains(policy.getIdentifier())).collect(Collectors.toList());
-        List<ToscaConceptIdentifier> policiesToUnDeploy = runningPolicies.stream()
-            .filter(polId -> policies.stream().noneMatch(policy -> policy.getIdentifier().equals(polId)))
-            .collect(Collectors.toList());
+    public void updateApexEngine(List<ToscaPolicy> polsToDeploy, List<ToscaConceptIdentifier> polsToUndeploy)
+            throws ApexStarterException {
+        List<ToscaPolicy> policiesToDeploy = polsToDeploy;
+        List<ToscaConceptIdentifier> policiesToUnDeploy = polsToUndeploy;
         Map<ToscaConceptIdentifier, ApexMain> undeployedPoliciesMainMap = new LinkedHashMap<>();
         policiesToUnDeploy.forEach(policyId -> {
             ApexMain apexMain = apexMainMap.get(policyId);

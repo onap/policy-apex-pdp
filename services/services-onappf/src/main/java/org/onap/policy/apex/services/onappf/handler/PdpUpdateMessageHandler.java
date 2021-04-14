@@ -24,6 +24,7 @@ package org.onap.policy.apex.services.onappf.handler;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
@@ -36,6 +37,7 @@ import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,9 +94,12 @@ public class PdpUpdateMessageHandler {
         }
         pdpStatusContext.setPdpGroup(pdpUpdateMsg.getPdpGroup());
         pdpStatusContext.setPdpSubgroup(pdpUpdateMsg.getPdpSubgroup());
-        pdpStatusContext
-                .setPolicies(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPolicies()));
-        Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST, pdpUpdateMsg.getPolicies());
+        List<ToscaConceptIdentifier> policiesToUpdate = pdpUpdateMsg.getPoliciesToBeUndeployed();
+        policiesToUpdate.addAll(pdpUpdateMsg.getPoliciesToBeDeployed().stream().map(ToscaPolicy::getIdentifier)
+            .collect(Collectors.toList()));
+        pdpStatusContext.setPolicies(policiesToUpdate);
+        Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
+                pdpUpdateMsg.getPoliciesToBeDeployed());
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
             pdpResponseDetails = startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler);
 
@@ -166,7 +171,8 @@ public class PdpUpdateMessageHandler {
 
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-                apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPolicies());
+                apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPoliciesToBeDeployed(),
+                        pdpUpdateMsg.getPoliciesToBeUndeployed());
             } else {
                 apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPolicies());
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
