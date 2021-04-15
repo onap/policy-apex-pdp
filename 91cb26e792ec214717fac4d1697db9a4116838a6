@@ -224,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "316246b3_30b35102",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T15:32:24Z",
+      "side": 1,
+      "message": "Oh yes, when you mentioned complete list, I thought deployed+undeployed list.\nAgreed, this should be what is already there in the registry+policiesToBeDeployed received in the current PDPUPDATE",
+      "parentUuid": "0cb8a032_7dcc53cb",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf75a181_96d491b2",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 2
