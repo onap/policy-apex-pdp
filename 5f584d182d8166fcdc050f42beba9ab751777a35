@@ -16,6 +16,24 @@
       "revId": "5f584d182d8166fcdc050f42beba9ab751777a35",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e80992e1_5a351ea2",
+        "filename": "plugins/plugins-event/plugins-event-protocol/plugins-event-protocol-jms/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T09:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "587b54c0_f5b51ba9",
+      "revId": "5f584d182d8166fcdc050f42beba9ab751777a35",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
