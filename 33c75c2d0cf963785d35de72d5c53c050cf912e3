@@ -46,6 +46,30 @@
       "revId": "33c75c2d0cf963785d35de72d5c53c050cf912e3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b694403_b04a632b",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/apexprotocolplugin/Apex2ApexEventConverterTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T09:29:53Z",
+      "side": 1,
+      "message": "@Arkadiusz Planning to make changes here?",
+      "parentUuid": "bbb52efb_f3d89d35",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "33c75c2d0cf963785d35de72d5c53c050cf912e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
