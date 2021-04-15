@@ -106,6 +106,29 @@
     },
     {
       "key": {
+        "uuid": "4edbe89c_c064b223",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T13:33:38Z",
+      "side": 1,
+      "message": "This particular setting will in effect have the list of policies going back in the heartbeat and in response (when the state is PASSIVE).\nSo, keeping this single list having both policies to be deployed+undeployed doesn\u0027t make sense.\nEither separate lists should be sent to PAP(maybe sensible only when sending a response PDPStatus), or only the deployed ones(maybe sensible in case of heartbeats) should be sent.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 55
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9cffc158_e48eceb2",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 2
@@ -122,6 +145,29 @@
         "startChar": 16,
         "endLine": 102,
         "endChar": 54
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf75a181_96d491b2",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T13:33:38Z",
+      "side": 1,
+      "message": "this is wrong. say for e.g. already 3 policies are running, and in the PDPUPdate msg, all 3 are in policiesToBeUndeployed list, then this if statement should essentially be true.",
+      "range": {
+        "startLine": 143,
+        "startChar": 12,
+        "endLine": 144,
+        "endChar": 69
       },
       "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -152,6 +198,29 @@
     },
     {
       "key": {
+        "uuid": "66b451fa_a0fda706",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T13:33:38Z",
+      "side": 1,
+      "message": "this will not be sufficient anymore for this condition, as there could be only some undeployments that failed and that will have to be captured in the message.",
+      "range": {
+        "startLine": 183,
+        "startChar": 16,
+        "endLine": 185,
+        "endChar": 72
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8958aa07_d8ef43eb",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 2
@@ -166,6 +235,29 @@
       "range": {
         "startLine": 229,
         "startChar": 16,
+        "endLine": 231,
+        "endChar": 99
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6d45840_2c0af45d",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T13:33:38Z",
+      "side": 1,
+      "message": "this is not correct as well. the request is already handled only if the policiesToBedeployed are already deployed in the engine \u0026\u0026 policiesToBeUndeployed are not deployed in the engine",
+      "range": {
+        "startLine": 229,
+        "startChar": 19,
         "endLine": 231,
         "endChar": 99
       },
