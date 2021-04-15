@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "14435e68_8ba5ae55",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "should remove those that are already \"running\"",
+      "range": {
+        "startLine": 98,
+        "startChar": 45,
+        "endLine": 98,
+        "endChar": 57
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a51968b_9ef362d1",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
         "patchSetId": 2
@@ -31,6 +54,144 @@
       "side": 1,
       "message": "That\u0027s correct. \n\nPAP now does the filtering of the policies to eliminate the need for the PDPs to do this any longer. PDPs now just know about the policies to either deploy or undeploy. \n\nSo yes - if a policy is not on either of the deploy or undeploy lists it will remain deployed and untouched.",
       "parentUuid": "6a51968b_9ef362d1",
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d07edea_9ecfcd91",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "should remove those that are not \"running\", or add a null check after line 102",
+      "range": {
+        "startLine": 99,
+        "startChar": 58,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "709cc253_bdfc323c",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "we have a design decision to make here - do we return:\n1) the policies that were touched (i.e., both deployed and undeployed); or\n2) the complete list of running policies; or\n3) just those that are being deployed\n#1 and #3 result in shorter response messages and are sufficient for PAP to determine if the PDP did what was requested.  However, it would be insufficient for PAP to address any inconsistencies until the next heartbeat is sent.  This might also be an issue if we support multiple PAPs.\nNote: the current PAP code expects #2",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 53
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cffc158_e48eceb2",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "doesn\u0027t this registry entry need to be the complete list of policies?",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f6e206c_6fa715b1",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "I assume it\u0027s ok to invoke this, even if it\u0027s already running.",
+      "range": {
+        "startLine": 147,
+        "startChar": 33,
+        "endLine": 147,
+        "endChar": 63
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8958aa07_d8ef43eb",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "this logic doesn\u0027t seem quite right - seems like the context won\u0027t necessarily be equal to both the deployed and the undeployed list",
+      "range": {
+        "startLine": 229,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 99
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47449ee4_9fad3d62",
+        "filename": "services/services-onappf/src/test/java/org/onap/policy/apex/services/onappf/comm/TestPdpStateChangeListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-15T13:15:43Z",
+      "side": 1,
+      "message": "will it compile if \"\u003c\u003e\" is used on lines 127 \u0026 128?\n\nsame question for cases below",
+      "range": {
+        "startLine": 127,
+        "startChar": 74,
+        "endLine": 127,
+        "endChar": 85
+      },
       "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
