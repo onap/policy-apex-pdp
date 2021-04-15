@@ -176,6 +176,30 @@
     },
     {
       "key": {
+        "uuid": "44a53d7c_b0134643",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T14:27:29Z",
+      "side": 1,
+      "message": "When there are policies that are to be deployed in APEX-PDP, and the state is now changing from PASSIVE to ACTIVE, then this list is used, so this should be okay.",
+      "parentUuid": "9cffc158_e48eceb2",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf75a181_96d491b2",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 2
