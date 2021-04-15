@@ -16,6 +16,24 @@
       "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "550e0cc2_51cfa64e",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2021-04-15T12:30:38Z",
+      "side": 1,
+      "message": "That\u0027s correct. \n\nPAP now does the filtering of the policies to eliminate the need for the PDPs to do this any longer. PDPs now just know about the policies to either deploy or undeploy. \n\nSo yes - if a policy is not on either of the deploy or undeploy lists it will remain deployed and untouched.",
+      "parentUuid": "6a51968b_9ef362d1",
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
