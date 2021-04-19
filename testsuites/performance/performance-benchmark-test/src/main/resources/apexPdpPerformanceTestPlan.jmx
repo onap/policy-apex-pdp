@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ============LICENSE_START=======================================================
-  ONAP Apex-PDP
-  ================================================================================
-  Copyright (C) 2020-2021 Nordix Foundation.All rights reserved.
-  ================================================================================
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  ============LICENSE_END=========================================================
-  -->
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APEX PDP STABILITY TEST PLAN" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -62,7 +43,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="threads" elementType="Argument">
             <stringProp name="Argument.name">threads</stringProp>
-            <stringProp name="Argument.value">${__P(threads,5)}</stringProp>
+            <stringProp name="Argument.value">${__P(threads,20)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="threadsTimeOutInMs" elementType="Argument">
@@ -2534,7 +2515,7 @@
         <stringProp name="ThreadGroup.num_threads">${threads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">259200</stringProp>
+        <stringProp name="ThreadGroup.duration">5400</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
@@ -2903,7 +2884,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/adityap/apex_stability/resultTree.log</stringProp>
+        <stringProp name="filename">/mnt/c/Users/arek/Desktop/s3p_results/performance/6/testresults_1.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
