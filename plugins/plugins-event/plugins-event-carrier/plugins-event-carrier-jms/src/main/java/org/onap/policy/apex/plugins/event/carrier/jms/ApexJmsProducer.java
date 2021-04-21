@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
@@ -72,7 +73,8 @@ public class ApexJmsProducer implements ApexEventProducer {
     private String name = null;
 
     // The peer references for this event handler
-    private Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap = new EnumMap<>(EventHandlerPeeredMode.class);
+    private final Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap =
+        new EnumMap<>(EventHandlerPeeredMode.class);
 
     /**
      * {@inheritDoc}.
@@ -91,10 +93,10 @@ public class ApexJmsProducer implements ApexEventProducer {
         jmsProducerProperties = (JmsCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
         // Look up the JMS connection factory
-        InitialContext jmsContext = null;
-        ConnectionFactory connectionFactory = null;
+        InitialContext jmsContext;
+        ConnectionFactory connectionFactory;
         try {
-            jmsContext = new InitialContext(jmsProducerProperties.getJmsProducerProperties());
+            jmsContext = getInitialContext();
             connectionFactory = (ConnectionFactory) jmsContext.lookup(jmsProducerProperties.getConnectionFactory());
 
             // Check if we actually got a connection factory
@@ -159,6 +161,17 @@ public class ApexJmsProducer implements ApexEventProducer {
     }
 
     /**
+     * Construct InitialContext. This function should not be run directly.
+     * Package-private access is set for testing purposes only.
+     *
+     * @return InitialContext
+     * @throws NamingException if a naming exception is encountered
+     */
+    public InitialContext getInitialContext() throws NamingException {
+        return new InitialContext(jmsProducerProperties.getJmsProducerProperties());
+    }
+
+    /**
      * {@inheritDoc}.
      */
     @Override
@@ -204,7 +217,7 @@ public class ApexJmsProducer implements ApexEventProducer {
         }
 
         // The JMS message to send is constructed using the JMS session
-        Message jmsMessage = null;
+        Message jmsMessage;
 
         // Check the type of JMS message to send
         if (jmsProducerProperties.isObjectMessageSending()) {

@@ -30,6 +30,7 @@ import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
@@ -77,10 +78,10 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
         jmsConsumerProperties = (JmsCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Look up the JMS connection factory
-        InitialContext jmsContext = null;
-        ConnectionFactory connectionFactory = null;
+        InitialContext jmsContext;
+        ConnectionFactory connectionFactory;
         try {
-            jmsContext = new InitialContext(jmsConsumerProperties.getJmsConsumerProperties());
+            jmsContext = getInitialContext();
             connectionFactory = (ConnectionFactory) jmsContext.lookup(jmsConsumerProperties.getConnectionFactory());
 
             // Check if we actually got a connection factory
@@ -121,6 +122,17 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
                     + jmsConsumerProperties.getJmsConsumerProperties() + "\"";
             throw new ApexEventException(errorMessage, e);
         }
+    }
+
+    /**
+     * Construct InitialContext. This function should not be run directly.
+     * Package-private access is set for testing purposes only.
+     *
+     * @return InitialContext
+     * @throws NamingException if a naming exception is encountered
+     */
+    InitialContext getInitialContext() throws NamingException {
+        return new InitialContext(jmsConsumerProperties.getJmsConsumerProperties());
     }
 
     /**
