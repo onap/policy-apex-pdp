@@ -16,6 +16,24 @@
       "revId": "fedd051f78d59205820399e8af19e2257818958b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e750c1e_70d8cba0",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/META-INF/persistence.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7668
+      },
+      "writtenOn": "2021-04-21T17:47:48Z",
+      "side": 1,
+      "message": "I just replaced what was there with the mariadb option.\nWe don\u0027t use it in some of the other persistence.xml files so I assume we can do without it.\nI think it helps to optimize queries for a particular database.\nIf you are using a lot of native queries it may be desirable to leave it in.",
+      "parentUuid": "753767d0_7b3225d8",
+      "revId": "fedd051f78d59205820399e8af19e2257818958b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
