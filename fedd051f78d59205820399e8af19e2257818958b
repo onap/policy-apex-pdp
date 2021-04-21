@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "753767d0_7b3225d8",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/META-INF/persistence.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-21T12:52:32Z",
+      "side": 1,
+      "message": "is dialect needed here and on line 186, below?",
+      "revId": "fedd051f78d59205820399e8af19e2257818958b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
