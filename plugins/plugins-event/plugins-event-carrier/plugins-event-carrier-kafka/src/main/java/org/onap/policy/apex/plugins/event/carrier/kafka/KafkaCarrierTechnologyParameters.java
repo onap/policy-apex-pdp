@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -281,9 +282,10 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
                         ENTRY + i + " invalid, key is null or blank");
             }
 
-            if (StringUtils.isBlank(kafkaProperties[i][1])) {
+            // the value of a property has to be specified as empty in some cases, but should never be null.
+            if (null == kafkaProperties[i][1]) {
                 result.setResult(KAFKA_PROPERTIES, ValidationStatus.INVALID,
-                        ENTRY + i + " invalid, value is null or blank");
+                        ENTRY + i + " invalid, value is null");
             }
         }
     }
