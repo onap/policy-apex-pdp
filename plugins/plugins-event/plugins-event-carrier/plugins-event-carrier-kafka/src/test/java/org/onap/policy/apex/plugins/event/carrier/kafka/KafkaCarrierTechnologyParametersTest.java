@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -275,6 +276,18 @@ public class KafkaCarrierTechnologyParametersTest {
 
         kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaProperties2);
         assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
+
+        // @formatter:off
+        String[][] kafkaPropertiesWithEmptyValue = {
+            {
+                "Property1", ""
+            }
+        };
+        // @formatter:on
+
+        kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaPropertiesWithEmptyValue);
+        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
+
         kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
         assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
 
