@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modification Copyright (C) 2020 Nordix Foundation.
+ *  Modification Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,21 +22,19 @@
 package org.onap.policy.apex.service.engine.main;
 
 import java.io.File;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URL;
 import java.util.Arrays;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
-import org.onap.policy.common.utils.resources.ResourceUtils;
+import org.onap.policy.common.utils.cmd.CommandLineArgumentsHandler;
+import org.onap.policy.common.utils.cmd.CommandLineException;
+import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 
 /**
@@ -45,30 +43,34 @@ import org.onap.policy.common.utils.validation.ParameterValidationUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexCommandLineArguments {
+public class ApexCommandLineArguments extends CommandLineArgumentsHandler {
     // A system property holding the root directory for relative paths in the
     // configuration file
     public static final String APEX_RELATIVE_FILE_ROOT = "APEX_RELATIVE_FILE_ROOT";
-
-    // Recurring string constants
-    private static final String FILE_PREAMBLE = " file \"";
     private static final String RELATIVE_FILE_ROOT = "relative file root \"";
-    private static final int HELP_LINE_LENGTH = 120;
-
-    // Apache Commons CLI options
-    private final Options options;
 
     @Getter
     @Setter
     private String toscaPolicyFilePath = null;
+
+    @Getter
     private String relativeFileRoot = null;
+
+    private CommandLine cmd = null;
 
     /**
      * Construct the options for the CLI editor.
      */
     public ApexCommandLineArguments() {
+        super(ApexMain.class.getName(), MessageConstants.POLICY_APEX_PDP, apexCustomOptions());
+    }
+
+    /**
+     * Builds Apex custom options.
+     */
+    private static Options apexCustomOptions() {
         //@formatter:off
-        options = new Options();
+        Options options = new Options();
         options.addOption(Option.builder("h")
                 .longOpt("help")
                 .desc("outputs the usage of this command")
@@ -76,25 +78,26 @@ public class ApexCommandLineArguments {
                 .type(Boolean.class)
                 .build());
         options.addOption(Option.builder("v")
-                        .longOpt("version")
-                        .desc("outputs the version of Apex")
-                        .required(false)
-                        .type(Boolean.class)
-                        .build());
+                .longOpt("version")
+                .desc("outputs the version of Apex")
+                .required(false)
+                .type(Boolean.class)
+                .build());
         options.addOption(Option.builder("rfr")
-                        .longOpt("relative-file-root")
-                        .desc("the root file path for relative file paths specified in the Apex configuration file, "
-                                        + "defaults to the current directory from where Apex is executed")
-                        .hasArg()
-                        .argName(APEX_RELATIVE_FILE_ROOT)
-                        .required(false)
-                        .type(String.class)
-                        .build());
+                .longOpt("relative-file-root")
+                .desc("the root file path for relative file paths specified in the Apex configuration file, "
+                        + "defaults to the current directory from where Apex is executed")
+                .hasArg()
+                .argName(APEX_RELATIVE_FILE_ROOT)
+                .required(false)
+                .type(String.class)
+                .build());
         options.addOption(Option.builder("p").longOpt("tosca-policy-file")
             .desc("the full path to the ToscaPolicy file to use.").hasArg().argName("TOSCA_POLICY_FILE")
             .required(false)
             .type(String.class).build());
         //@formatter:on
+        return options;
     }
 
     /**
@@ -109,58 +112,55 @@ public class ApexCommandLineArguments {
         // Parse the arguments
         try {
             parse(args);
-        } catch (final ApexException e) {
+        } catch (final CommandLineException e) {
             throw new ApexRuntimeException("parse error on Apex parameters", e);
         }
     }
 
-    /**
-     * Parse the command line options.
-     *
-     * @param args The command line arguments
-     * @return a string with a message for help and version, or null if there is no
-     *         message
-     * @throws ApexException on command argument errors
-     */
-    public String parse(final String[] args) throws ApexException {
+    @Override
+    public String parse(final String[] args) throws CommandLineException {
         // Clear all our arguments
         setToscaPolicyFilePath(null);
-        CommandLine commandLine = null;
+        setRelativeFileRoot(null);
+
         try {
-            commandLine = new DefaultParser().parse(options, args);
+            cmd = new DefaultParser().parse(apexCustomOptions(), args);
         } catch (final ParseException e) {
-            throw new ApexException("invalid command line arguments specified : " + e.getMessage());
+            throw new CommandLineException("invalid command line arguments specified", e);
         }
 
         // Arguments left over after Commons CLI does its stuff
-        final String[] remainingArgs = commandLine.getArgs();
+        final String[] remainingArgs = cmd.getArgs();
 
-        if (remainingArgs.length > 0 && commandLine.hasOption('p') || remainingArgs.length > 1) {
-            throw new ApexException("too many command line arguments specified : " + Arrays.toString(args));
+        if (remainingArgs.length > 0 && cmd.hasOption('p') || remainingArgs.length > 1) {
+            throw new CommandLineException("too many command line arguments specified: " + Arrays.toString(args));
         }
 
         if (remainingArgs.length == 1) {
             toscaPolicyFilePath = remainingArgs[0];
         }
 
-        if (commandLine.hasOption('h')) {
-            return help(ApexMain.class.getName());
+        if (cmd.hasOption('h')) {
+            return help();
         }
 
-        if (commandLine.hasOption('v')) {
+        if (cmd.hasOption('v')) {
             return version();
         }
 
-        if (commandLine.hasOption("rfr")) {
-            setRelativeFileRoot(commandLine.getOptionValue("rfr"));
-        } else {
-            setRelativeFileRoot(null);
+        if (cmd.hasOption("rfr")) {
+            setRelativeFileRoot(cmd.getOptionValue("rfr"));
         }
 
-        if (commandLine.hasOption('p')) {
-            toscaPolicyFilePath = commandLine.getOptionValue('p');
+        if (cmd.hasOption('p')) {
+            setToscaPolicyFilePath(cmd.getOptionValue('p'));
         }
         return null;
+    }
+
+    @Override
+    public CommandLine getCommandLine() {
+        return this.cmd;
     }
 
     /**
@@ -168,45 +168,14 @@ public class ApexCommandLineArguments {
      *
      * @throws ApexException on command argument validation errors
      */
-    public void validate() throws ApexException {
-        validateReadableFile("Tosca Policy", toscaPolicyFilePath);
+    public void validateInputFiles() throws ApexException {
+        try {
+            validateReadableFile("Tosca Policy", toscaPolicyFilePath);
+        } catch (CommandLineException e) {
+            throw new ApexException(e.getMessage());
+        }
         validateRelativeFileRoot();
     }
-
-    /**
-     * Print version information for Apex.
-     *
-     * @return the version string
-     */
-    public String version() {
-        return ResourceUtils.getResourceAsString("version.txt");
-    }
-
-    /**
-     * Print help information for Apex.
-     *
-     * @param mainClassName the main class name
-     * @return the help string
-     */
-    public String help(final String mainClassName) {
-        final StringWriter stringWriter = new StringWriter();
-        final PrintWriter stringPrintWriter = new PrintWriter(stringWriter);
-
-        new HelpFormatter().printHelp(stringPrintWriter, HELP_LINE_LENGTH, mainClassName + " [options...]", "options",
-            options, 0, 0, "");
-
-        return stringWriter.toString();
-    }
-
-    /**
-     * Gets the root file path for relative file paths in the configuration file.
-     *
-     * @return the root file path
-     */
-    public String getRelativeFileRoot() {
-        return relativeFileRoot;
-    }
-
 
     /**
      * Sets the root file path for relative file paths in the configuration file.
@@ -228,37 +197,6 @@ public class ApexCommandLineArguments {
 
         this.relativeFileRoot = relativeFileRootValue;
         System.setProperty(APEX_RELATIVE_FILE_ROOT, relativeFileRootValue);
-    }
-
-    /**
-     * Validate readable file.
-     *
-     * @param fileTag  the file tag
-     * @param fileName the file name
-     * @throws ApexException the apex exception
-     */
-    private void validateReadableFile(final String fileTag, final String fileName) throws ApexException {
-        if (fileName == null || fileName.length() == 0) {
-            throw new ApexException(fileTag + " file was not specified as an argument");
-        }
-
-        // The file name can refer to a resource on the local file system or on the
-        // class path
-        final URL fileUrl = ResourceUtils.getUrl4Resource(fileName);
-        if (fileUrl == null) {
-            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" does not exist");
-        }
-
-        final File theFile = new File(fileUrl.getPath());
-        if (!theFile.exists()) {
-            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" does not exist");
-        }
-        if (!theFile.isFile()) {
-            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" is not a normal file");
-        }
-        if (!theFile.canRead()) {
-            throw new ApexException(fileTag + FILE_PREAMBLE + fileName + "\" is ureadable");
-        }
     }
 
     /**
