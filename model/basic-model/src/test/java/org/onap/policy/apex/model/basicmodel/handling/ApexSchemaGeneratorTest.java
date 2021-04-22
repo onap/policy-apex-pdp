@@ -28,9 +28,16 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import org.junit.After;
 import org.junit.Test;
 
 public class ApexSchemaGeneratorTest {
+    private final PrintStream stdout = System.out;
+
+    @After
+    public void tearDown() throws Exception {
+        System.setOut(stdout);
+    }
 
     @Test
     public void test() throws IOException {
@@ -83,7 +90,6 @@ public class ApexSchemaGeneratorTest {
 
         ApexSchemaGenerator.main(args5);
         assertTrue(tempFile.length() > 100);
-        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
         tempFile.delete();
     }
 }
