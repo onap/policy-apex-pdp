@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a008607_7ff7f7c5",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "maybe add a comment on lines 93 \u0026 94 indicating that these list will be modified in place",
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d892f065_cac7ec78",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "can\u0027t remember: does this need to be synchronized?  Or does the invoker take care of that?",
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63c1ab90_23af67e5",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "policy.getIdentifier()",
+      "range": {
+        "startLine": 108,
+        "startChar": 42,
+        "endLine": 108,
+        "endChar": 48
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd92a4a_c914149a",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "could make this a new ArrayList() and then replace lines 102-106 with just line 105",
+      "range": {
+        "startLine": 101,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebc9ccb2_f02bbaa9",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be containsAny() (if there is such a method)?",
+      "range": {
+        "startLine": 150,
+        "startChar": 56,
+        "endLine": 150,
+        "endChar": 67
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d92130_9dbfaa90",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "if these lists are empty, is there any need to call stop()?",
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3021d8c0_cfd41ac9",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "is this condition needed?",
+      "range": {
+        "startLine": 194,
+        "startChar": 24,
+        "endLine": 194,
+        "endChar": 78
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a75725c8_601367ad",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "is this condition needed?",
+      "range": {
+        "startLine": 195,
+        "startChar": 24,
+        "endLine": 195,
+        "endChar": 96
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5098e761_a792c322",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "containsAny()",
+      "range": {
+        "startLine": 241,
+        "startChar": 51,
+        "endLine": 241,
+        "endChar": 62
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

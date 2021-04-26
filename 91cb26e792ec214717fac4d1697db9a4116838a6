@@ -267,6 +267,30 @@
     },
     {
       "key": {
+        "uuid": "f54a84c2_2fae8ad9",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-26T13:37:10Z",
+      "side": 1,
+      "message": "right now, #3 would require a minor change to PAP to have it compare the returned list against the delta deployment list instead of against the full list (which is what it does now).  However, the PDPs would have to send back ALL of the  policy deployments that were requested (i.e., without removing those that are already deployed).\nwhen we decide how to support multiple PAPs, we may opt for option #2, but changes related to that could wait until then.",
+      "parentUuid": "94fdd747_63cb516b",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 53
+      },
+      "revId": "91cb26e792ec214717fac4d1697db9a4116838a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cffc158_e48eceb2",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 2
