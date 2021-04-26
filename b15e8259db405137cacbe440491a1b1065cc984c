@@ -59,6 +59,29 @@
     },
     {
       "key": {
+        "uuid": "2f616647_d796ba68",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-26T14:25:37Z",
+      "side": 1,
+      "message": "As I mentioned earlier, this cannot be simply updated with the new list to be deployed. Already deployed ones also should be there. Otherwise heartbeats will not have the right information with all the policies running in the engine..",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 36
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1dd92a4a_c914149a",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 3
@@ -105,6 +128,30 @@
     },
     {
       "key": {
+        "uuid": "e9cf9531_26cfd7d6",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-26T14:25:37Z",
+      "side": 1,
+      "message": "This condition is okay, because stopping the core engine completely can be done only when there are no policies to run.So, all runningPolicies should be in the undeployed list to stop the engine.",
+      "parentUuid": "ebc9ccb2_f02bbaa9",
+      "range": {
+        "startLine": 150,
+        "startChar": 56,
+        "endLine": 150,
+        "endChar": 67
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59d92130_9dbfaa90",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 3
@@ -116,6 +163,29 @@
       "writtenOn": "2021-04-26T13:37:10Z",
       "side": 1,
       "message": "if these lists are empty, is there any need to call stop()?",
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202b774a_3b63b6b0",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-26T14:25:37Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a condition for stopping the engine. What if already some policies are running, and PAP sends a PDP_UPDATE message with both lists empty? In this case, it shouldn\u0027t affect the current policies.\nAgree with Jim.",
+      "range": {
+        "startLine": 152,
+        "startChar": 19,
+        "endLine": 153,
+        "endChar": 69
+      },
       "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -161,6 +231,53 @@
         "startChar": 24,
         "endLine": 195,
         "endChar": 96
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666f8456_6fa42cd3",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-26T14:25:37Z",
+      "side": 1,
+      "message": "The condition to check if \u0027no policiesToBeUndeployed are still running\u0027 need to be here to capture any undeployment failures. But this condition doesn\u0027t seem right to me. need something like containsAny",
+      "parentUuid": "a75725c8_601367ad",
+      "range": {
+        "startLine": 195,
+        "startChar": 24,
+        "endLine": 195,
+        "endChar": 96
+      },
+      "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2a5efb0_9471d1f8",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-26T14:25:37Z",
+      "side": 1,
+      "message": "This one may need improvement, as these messages covers only deployment failures. But if it is complicated, then maybe I am okay to leave it as it is, because undeployment failures rarely happen.",
+      "range": {
+        "startLine": 198,
+        "startChar": 24,
+        "endLine": 206,
+        "endChar": 71
       },
       "revId": "b15e8259db405137cacbe440491a1b1065cc984c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
