@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffe2d81b_fb1afe39",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-27T12:12:29Z",
+      "side": 1,
+      "message": "This seems to be unused.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 58
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "799d156e_e3f0bc1f",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/ApexEngineHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-27T12:12:29Z",
+      "side": 1,
+      "message": "This will cause ConcurrentModificationException. Use removeIf instead.",
+      "range": {
+        "startLine": 101,
+        "startChar": 7,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26822070_4bbf21bf",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-27T12:12:29Z",
+      "side": 1,
+      "message": "Probably this needs an extra condition to check if policiesToBeDeployed list is empty too. Otherwise they will be ignored",
+      "range": {
+        "startLine": 147,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 106
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86cb9385_7dbaa314",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-27T12:12:29Z",
+      "side": 1,
+      "message": "white space.",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 252,
+        "endChar": 7
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
