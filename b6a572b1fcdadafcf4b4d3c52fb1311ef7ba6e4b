@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ab2a3b5d_0e407d99",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7662
+      },
+      "writtenOn": "2021-04-27T15:20:15Z",
+      "side": 1,
+      "message": "I have still getters and setters on that class",
+      "parentUuid": "d9c759c4_d95c2fdd",
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07c80905_f7a24cfc",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
         "patchSetId": 1
@@ -76,6 +94,30 @@
       "writtenOn": "2021-04-27T12:19:53Z",
       "side": 1,
       "message": "why not just use -1 ?",
+      "range": {
+        "startLine": 219,
+        "startChar": 27,
+        "endLine": 219,
+        "endChar": 48
+      },
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc5c251_9523008f",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 7662
+      },
+      "writtenOn": "2021-04-27T15:20:15Z",
+      "side": 1,
+      "message": "I prefer to avoid hard coded values",
+      "parentUuid": "d46ad323_f17af0c1",
       "range": {
         "startLine": 219,
         "startChar": 27,
