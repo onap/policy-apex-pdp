@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07c80905_f7a24cfc",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-27T10:24:46Z",
+      "side": 1,
+      "message": "This can be moved to a constant.",
+      "range": {
+        "startLine": 58,
+        "startChar": 32,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
