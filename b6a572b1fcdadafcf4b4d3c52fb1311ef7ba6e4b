@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9c759c4_d95c2fdd",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T12:19:53Z",
+      "side": 1,
+      "message": "hmmm.  if lombok Getter/Setter annotation is used in FileCarrierTechnologyParameters, then tests for getXxx() and setXxx() should not be needed (provided lombok.addLombokGeneratedAnnotation\u003dtrue appears in the lombok.config file)",
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07c80905_f7a24cfc",
         "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
         "patchSetId": 1
@@ -18,6 +35,92 @@
         "startChar": 32,
         "endLine": 58,
         "endChar": 56
+      },
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e944cbc_bd3e6ee3",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T12:19:53Z",
+      "side": 1,
+      "message": "change this to plain ValidationResult - that will help when GroupValidationResult is deleted (coming soon, probably)\n\nsame comment through-out",
+      "range": {
+        "startLine": 147,
+        "startChar": 14,
+        "endLine": 147,
+        "endChar": 36
+      },
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d46ad323_f17af0c1",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/FileCarrierTechnologyParametersTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T12:19:53Z",
+      "side": 1,
+      "message": "why not just use -1 ?",
+      "range": {
+        "startLine": 219,
+        "startChar": 27,
+        "endLine": 219,
+        "endChar": 48
+      },
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2acd5fcc_124297c6",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T12:19:53Z",
+      "side": 1,
+      "message": "looks like still need a test case where the last argument to init() is not null",
+      "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096161fb_febb57a3",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/HeaderDelimitedTextBlockReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T12:19:53Z",
+      "side": 1,
+      "message": "the method name implies that the input stream will contain the endToken, but it doesn\u0027t appear to",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 42
       },
       "revId": "b6a572b1fcdadafcf4b4d3c52fb1311ef7ba6e4b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
