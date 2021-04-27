@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "fb6d7a75_af05dfd1",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-27T13:10:09Z",
+      "side": 1,
+      "message": "No Jim. The runningPolicies in apexEngineHandler gets updated after line 150 is called.",
+      "parentUuid": "c3306168_f998d58f",
+      "range": {
+        "startLine": 147,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 106
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abe85a2c_44855ba4",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 4
