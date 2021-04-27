@@ -143,6 +143,53 @@
     },
     {
       "key": {
+        "uuid": "c3306168_f998d58f",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T13:01:00Z",
+      "side": 1,
+      "message": "question: by this point, won\u0027t the list of running policies have been updated?  If so, we could simply check if that list is empty and, if so, stop the engine",
+      "parentUuid": "a3cfce8c_71b5d444",
+      "range": {
+        "startLine": 147,
+        "startChar": 15,
+        "endLine": 147,
+        "endChar": 106
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abe85a2c_44855ba4",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-04-27T13:01:00Z",
+      "side": 1,
+      "message": "\"Checks\"",
+      "range": {
+        "startLine": 251,
+        "startChar": 7,
+        "endLine": 251,
+        "endChar": 21
+      },
+      "revId": "5ff621ab6932ebb969f062b7aba20a8ea612d43a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86cb9385_7dbaa314",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 4
