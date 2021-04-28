@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,13 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.Max;
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * This class defines the parameters for event generation.
@@ -36,11 +41,18 @@ public class EventGeneratorParameters implements ParameterGroup {
     private static final int    DEFAULT_BATCH_SIZE            = 1;
     private static final long   DEFAULT_DELAY_BETWEEN_BATCHES = 2000;
 
+    @NotNull @NotBlank
     private String name                = DEFAULT_NAME;
+    @NotNull @NotBlank
     private String host                = DEFAULT_HOST;
+    @Min(1024)
+    @Max(65535)
     private int    port                = DEFAULT_PORT;
+    @Min(0)
     private int    batchCount          = DEFAULT_BATCH_COUNT;
+    @Min(1)
     private int    batchSize           = DEFAULT_BATCH_SIZE;
+    @Min(0)
     private long   delayBetweenBatches = DEFAULT_DELAY_BETWEEN_BATCHES;
     private String outFile             = null;
     // @formatter:on
@@ -114,43 +126,8 @@ public class EventGeneratorParameters implements ParameterGroup {
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        GroupValidationResult validationResult = new GroupValidationResult(this);
-
-        if (isNullOrBlank(name)) {
-            validationResult.setResult("name", ValidationStatus.INVALID, "name must be a non-blank string");
-        }
-
-        if (isNullOrBlank(host)) {
-            validationResult.setResult("host", ValidationStatus.INVALID, "host must be a non-blank string");
-        }
-
-        if (port < 1024 || port > 65535) {
-            validationResult.setResult("port", ValidationStatus.INVALID,
-                            "port must be an integer between 1024 and 65535 inclusive");
-        }
-
-        if (batchCount < 0) {
-            validationResult.setResult("batchCount", ValidationStatus.INVALID,
-                            "batchCount must be an integer with a value of zero or more, "
-                                            + "zero means generate batches forever");
-        }
-
-        if (batchSize < 1) {
-            validationResult.setResult("batchSize", ValidationStatus.INVALID,
-                            "batchSize must be an integer greater than zero");
-        }
-
-        if (delayBetweenBatches < 0) {
-            validationResult.setResult("batchSize", ValidationStatus.INVALID,
-                            "batchSize must be an integer with a value of zero or more");
-        }
-
-        return validationResult;
-    }
-
-    private boolean isNullOrBlank(final String stringValue) {
-        return stringValue == null || stringValue.trim().length() == 0;
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 
 }

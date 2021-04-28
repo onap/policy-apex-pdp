@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +23,9 @@ package org.onap.policy.apex.context.impl.schema.java;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 /**
  * The Schema helper parameter class for the Java schema helper is an empty parameter class that acts as a placeholder.
@@ -33,7 +34,7 @@ import org.onap.policy.common.parameters.GroupValidationResult;
  */
 public class JavaSchemaHelperParameters extends SchemaHelperParameters {
     // Map of specific type adapters for this event
-    private Map<String, JavaSchemaHelperJsonAdapterParameters> jsonAdapters = new LinkedHashMap<>();
+    private Map<String, @NotNull @Valid JavaSchemaHelperJsonAdapterParameters> jsonAdapters = new LinkedHashMap<>();
 
     /**
      * Constructor for Java schema helper parameters.
@@ -59,19 +60,6 @@ public class JavaSchemaHelperParameters extends SchemaHelperParameters {
      */
     public void setJsonAdapters(Map<String, JavaSchemaHelperJsonAdapterParameters> jsonAdapters) {
         this.jsonAdapters = jsonAdapters;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
-
-        for (Entry<String, JavaSchemaHelperJsonAdapterParameters> typeAdapterEntry : jsonAdapters.entrySet()) {
-            result.setResult("jsonAdapters", typeAdapterEntry.getKey(), typeAdapterEntry.getValue().validate());
-        }
-        return result;
     }
 
 }

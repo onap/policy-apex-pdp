@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +22,11 @@
 package org.onap.policy.apex.context.parameters;
 
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * An empty distributor parameter class that may be specialized by context distributor plugins that
@@ -31,12 +35,13 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NotNull
 public class DistributorParameters implements ParameterGroup {
     /** The default distributor makes context albums available to all threads in a single JVM. */
     public static final String DEFAULT_DISTRIBUTOR_PLUGIN_CLASS = JvmLocalDistributor.class.getName();
 
     private String name;
-    private String pluginClass = DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;
+    private @ClassName String pluginClass = DEFAULT_DISTRIBUTOR_PLUGIN_CLASS;
 
     /**
      * Constructor to create a distributor parameters instance and register the instance with the
@@ -44,7 +49,7 @@ public class DistributorParameters implements ParameterGroup {
      */
     public DistributorParameters() {
         super();
-        
+
         // Set the name for the parameters
         this.name = ContextParameterConstants.DISTRIBUTOR_GROUP_NAME;
     }
@@ -83,7 +88,7 @@ public class DistributorParameters implements ParameterGroup {
     }
 
     @Override
-    public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

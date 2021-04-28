@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,10 +32,13 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.ObjectValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.parameters.annotations.Min;
 import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.models.base.Validated;
 
 /**
  * Apex parameters for Kafka as an event carrier technology.
@@ -226,68 +230,76 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = super.validate();
 
-        validateConsumerTopicList(result);
+        result.addResult(validateConsumerTopicList());
 
-        validateKafkaProperties(result);
+        result.addResult(validateKafkaProperties());
 
         return result;
     }
 
     /**
      * Validate the consumer topic list.
-     *
-     * @param result the result of the validation.
      */
-    private void validateConsumerTopicList(final GroupValidationResult result) {
+    private ValidationResult validateConsumerTopicList() {
         if (consumerTopicList == null || consumerTopicList.length == 0) {
-            result.setResult("consumerTopicList", ValidationStatus.INVALID,
+            return new ObjectValidationResult("consumerTopicList", consumerTopicList, ValidationStatus.INVALID,
                     "not specified, must be specified as a list of strings");
-            return;
         }
 
-        StringBuilder consumerTopicStringBuilder = new StringBuilder();
+        BeanValidationResult result = new BeanValidationResult("consumerTopicList", consumerTopicList);
+        int item = 0;
         for (final String consumerTopic : consumerTopicList) {
             if (StringUtils.isBlank(consumerTopic)) {
-                consumerTopicStringBuilder.append(consumerTopic + "/");
+                result.addResult(ENTRY + item, consumerTopic, ValidationStatus.INVALID, Validated.IS_BLANK);
             }
+
+            ++item;
         }
-        if (consumerTopicStringBuilder.length() > 0) {
-            result.setResult("consumerTopicList", ValidationStatus.INVALID,
-                    "invalid consumer topic list entries found: /" + consumerTopicStringBuilder.toString());
-        }
+
+        return result;
     }
 
     /**
      * Validate the kafka properties.
-     *
-     * @param result the result of the validation.
      */
-    private void validateKafkaProperties(final GroupValidationResult result) {
+    private ValidationResult validateKafkaProperties() {
         // Kafka properties are optional
         if (kafkaProperties == null || kafkaProperties.length == 0) {
-            return;
+            return null;
         }
 
+        BeanValidationResult result = new BeanValidationResult(KAFKA_PROPERTIES, kafkaProperties);
+
         for (int i = 0; i < kafkaProperties.length; i++) {
+            final String label = ENTRY + i;
+
             if (kafkaProperties[i].length != 2) {
-                result.setResult(KAFKA_PROPERTIES, ValidationStatus.INVALID,
-                        ENTRY + i + " invalid, kafka properties must be name-value pairs");
+                result.addResult(label, kafkaProperties[i], ValidationStatus.INVALID,
+                        "kafka properties must be name-value pairs");
             }
 
+            if (kafkaProperties[i].length < 2) {
+                continue;
+            }
+
+            BeanValidationResult result2 = new BeanValidationResult(label, kafkaProperties[i]);
+
             if (StringUtils.isBlank(kafkaProperties[i][0])) {
-                result.setResult(KAFKA_PROPERTIES, ValidationStatus.INVALID,
-                        ENTRY + i + " invalid, key is null or blank");
+                result2.addResult("key", kafkaProperties[i][0], ValidationStatus.INVALID, Validated.IS_BLANK);
             }
 
             // the value of a property has to be specified as empty in some cases, but should never be null.
             if (null == kafkaProperties[i][1]) {
-                result.setResult(KAFKA_PROPERTIES, ValidationStatus.INVALID,
-                        ENTRY + i + " invalid, value is null");
+                result2.addResult("value", kafkaProperties[i][1], ValidationStatus.INVALID, Validated.IS_NULL);
             }
+
+            result.addResult(result2);
         }
+
+        return result;
     }
 
     /**

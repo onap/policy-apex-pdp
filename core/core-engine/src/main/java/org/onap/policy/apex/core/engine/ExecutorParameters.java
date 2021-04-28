@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,10 @@
 
 package org.onap.policy.apex.core.engine;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * This class provides the executors for a logic flavour. Plugin classes for execution of task
@@ -34,6 +37,7 @@ import org.onap.policy.common.parameters.ParameterGroup;
  */
 public class ExecutorParameters implements ParameterGroup {
     // Parameter group name
+    @NotNull
     private String name;
 
     // Executor Plugin classes for executors
@@ -126,7 +130,7 @@ public class ExecutorParameters implements ParameterGroup {
     }
 
     @Override
-    public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

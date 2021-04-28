@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,11 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * A persistor parameter class that may be specialized by context persistor plugins that require
@@ -36,6 +40,7 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NotNull
 public class PersistorParameters implements ParameterGroup {
     /** The default persistor is a dummy persistor that stubs the Persistor interface. */
     public static final String DEFAULT_PERSISTOR_PLUGIN_CLASS =
@@ -45,7 +50,7 @@ public class PersistorParameters implements ParameterGroup {
     public static final long DEFAULT_FLUSH_PERIOD = 300000;
 
     private String name;
-    private String pluginClass = DEFAULT_PERSISTOR_PLUGIN_CLASS;
+    private @ClassName String pluginClass = DEFAULT_PERSISTOR_PLUGIN_CLASS;
 
     // Parameters for flushing
     private long flushPeriod = DEFAULT_FLUSH_PERIOD;
@@ -118,7 +123,7 @@ public class PersistorParameters implements ParameterGroup {
     }
 
     @Override
-    public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

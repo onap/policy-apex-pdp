@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,11 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * An empty schema helper parameter class that may be specialized by context schema helper plugins that require plugin
@@ -29,9 +33,10 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NotNull
 public class SchemaHelperParameters implements ParameterGroup {
     private String name;
-    private String schemaHelperPluginClass;
+    private @ClassName String schemaHelperPluginClass;
 
     /**
      * Constructor to create a schema helper parameters instance and register the instance with the parameter service.
@@ -57,7 +62,7 @@ public class SchemaHelperParameters implements ParameterGroup {
     public void setSchemaHelperPluginClass(final String pluginClass) {
         schemaHelperPluginClass = pluginClass;
     }
-    
+
     @Override
     public String toString() {
         return "SchemaHelperParameters [name=" + name + ", schemaHelperPluginClass=" + schemaHelperPluginClass + "]";
@@ -74,7 +79,7 @@ public class SchemaHelperParameters implements ParameterGroup {
     }
 
     @Override
-    public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

@@ -3,6 +3,7 @@
  * Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,15 +73,11 @@ public class ParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/noParams.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group \"UNDEFINED\" INVALID, "
-                + "engine service parameters are not specified\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "at least one event output must be specified\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "at least one event input must be specified\n");
+            .hasMessageContaining("src/test/resources/parameters/noParams.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"engineServiceParameters\" value \"null\" INVALID, is null")
+            .hasMessageContaining("\"eventOutputParameters\" value \"{}\" INVALID, minimum number of elements: 1")
+            .hasMessageContaining("\"eventInputParameters\" value \"{}\" INVALID, minimum number of elements: 1");
     }
 
     @Test
@@ -89,19 +86,13 @@ public class ParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/blankParams.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group \"ENGINE_SERVICE_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
-                + "INVALID, parameter group has status INVALID\n"
-                + "    field \"id\" type \"int\" value \"-1\" INVALID, "
-                + "id not specified or specified value [-1] invalid, must be specified as id >= 0\n"
-                + "    field \"policyModel\" type \"java.lang.String\" value \"null\" INVALID, must be specified\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "at least one event output must be specified\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "at least one event input must be specified\n");
+            .hasMessageContaining("src/test/resources/parameters/blankParams.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("EngineServiceParameters")
+            .hasMessageContaining("\"id\" value \"-1\" INVALID, is below the minimum")
+            .hasMessageContaining("\"policyModel\" value \"null\" INVALID, is null")
+            .hasMessageContaining("\"eventOutputParameters\" value \"{}\" INVALID, minimum number of elements")
+            .hasMessageContaining("\"eventInputParameters\" value \"{}\" INVALID, minimum number of elements");
     }
 
     @Test
@@ -110,38 +101,19 @@ public class ParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/badParams.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group \"hello there\" type "
-                + "\"org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters\" "
-                + "INVALID, parameter group has status INVALID\n"
-                + "    field \"name\" type \"java.lang.String\" value \"hello there\" INVALID, "
-                + "name is invalid, it must match regular expression[A-Za-z0-9\\-_\\.]+\n"
-                + "    field \"id\" type \"int\" value \"-45\" INVALID, id not specified or "
-                + "specified value [-45] invalid, must be specified as id >= 0\n"
-                + "    field \"instanceCount\" type \"int\" value \"-345\" INVALID, "
-                + "instanceCount [-345] invalid, must be specified as instanceCount >= 1\n"
-                + "    field \"deploymentPort\" type \"int\" value \"65536\" INVALID, "
-                + "deploymentPort [65536] invalid, must be specified as 1024 <= port <= 65535\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"FirstProducer\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
-                + "\"org.onap.policy.apex.service.engine.event.impl."
-                + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                + "\"null\" invalid, must be specified as a non-empty string\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"TheFileConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
-                + "\"org.onap.policy.apex.service.engine.event.impl."
-                + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                + "\"null\" invalid, must be specified as a non-empty string\n");
+            .hasMessageContaining("src/test/resources/parameters/badParams.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("EngineServiceParameters")
+            .hasMessageContaining("\"name\" value \"hello there\" INVALID, does not match")
+            .hasMessageContaining("\"id\" value \"-45\" INVALID, is below the minimum")
+            .hasMessageContaining("\"instanceCount\" value \"-345\" INVALID, is below the minimum")
+            .hasMessageContaining("\"deploymentPort\" value \"65536\" INVALID, exceeds the maximum")
+            .hasMessageContaining("eventOutputParameters", "FirstProducer", "EventHandlerParameters",
+                                    "FileCarrierTechnologyParameters")
+            .hasMessageContaining("\"fileName\" value \"null\" INVALID, is blank")
+            .hasMessageContaining("eventInputParameters", "TheFileConsumer1", "EventHandlerParameters",
+                                    "FileCarrierTechnologyParameters")
+            .hasMessageContaining("\"fileName\" value \"null\" INVALID, is blank");
     }
 
     @Test

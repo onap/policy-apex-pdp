@@ -21,10 +21,13 @@
 
 package org.onap.policy.apex.service.parameters.carriertechnology;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
-import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * The default carrier technology parameter class that may be specialized by carrier technology plugins that require
@@ -37,6 +40,8 @@ import org.onap.policy.common.parameters.ValidationStatus;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NotNull
+@NotBlank
 public abstract class CarrierTechnologyParameters implements ParameterGroup {
 
     // The carrier technology label
@@ -44,8 +49,8 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
 
     // Producer and Consumer plugin classes for the event producer and consumer for this carrier
     // technology
-    private String eventProducerPluginClass = null;
-    private String eventConsumerPluginClass = null;
+    private @ClassName String eventProducerPluginClass = null;
+    private @ClassName String eventConsumerPluginClass = null;
 
     /**
      * Constructor to create a carrier technology parameters instance with the name of a sub class of this class and
@@ -134,24 +139,8 @@ public abstract class CarrierTechnologyParameters implements ParameterGroup {
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
-
-        if (label == null || label.length() == 0) {
-            result.setResult("label", ValidationStatus.INVALID, "carrier technology label not specified or is blank");
-        }
-
-        if (eventProducerPluginClass == null || eventProducerPluginClass.length() == 0) {
-            result.setResult("eventProducerPluginClass", ValidationStatus.INVALID,
-                            "carrier technology eventProducerPluginClass not specified or is blank");
-        }
-
-        if (eventConsumerPluginClass == null || eventConsumerPluginClass.length() == 0) {
-            result.setResult("eventConsumerPluginClass", ValidationStatus.INVALID,
-                            "carrier technology eventConsumerPluginClass not specified or is blank");
-        }
-
-        return result;
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 
     @Override

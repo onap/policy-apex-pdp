@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,11 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 // @formatter:off
 /**
@@ -42,15 +46,14 @@ import org.onap.policy.common.parameters.ParameterGroup;
  * being used for context album persistence
  * </ol>
  */
-// @formatter:on
+@NotNull
 public class ContextParameters implements ParameterGroup {
-    // @formatter:off
     // Plugin Parameters
     private String                name;
-    private DistributorParameters distributorParameters = new DistributorParameters();
-    private SchemaParameters      schemaParameters      = new SchemaParameters();
-    private LockManagerParameters lockManagerParameters = new LockManagerParameters();
-    private PersistorParameters   persistorParameters   = new PersistorParameters();
+    private @Valid DistributorParameters distributorParameters = new DistributorParameters();
+    private @Valid SchemaParameters      schemaParameters      = new SchemaParameters();
+    private @Valid LockManagerParameters lockManagerParameters = new LockManagerParameters();
+    private @Valid PersistorParameters   persistorParameters   = new PersistorParameters();
     // @formatter:on
 
     /**
@@ -153,16 +156,7 @@ public class ContextParameters implements ParameterGroup {
     }
 
     @Override
-    public GroupValidationResult validate() {
-        GroupValidationResult result = new GroupValidationResult(this);
-
-        // @formatter:off
-        result.setResult("distributorParameters", distributorParameters.validate());
-        result.setResult("schemaParameters",      schemaParameters.validate());
-        result.setResult("lockManagerParameters", lockManagerParameters.validate());
-        result.setResult("persistorParameters",   persistorParameters.validate());
-        // @formatter:on
-
-        return result;
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

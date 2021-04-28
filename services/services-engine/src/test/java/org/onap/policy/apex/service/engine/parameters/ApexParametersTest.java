@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,10 +71,11 @@ public class ApexParametersTest {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessageContaining("java properties array entries must have one key and one value")
-            .hasMessageContaining("java properties key is null or blank")
-            .hasMessageContaining("java properties value is null or blank")
-            .hasMessageContaining("java properties array entry is null");
+            .hasMessageContaining("\"javaProperties\"")
+            .hasMessageContaining("entry 0", "entry 1", "entry 2", "entry 3", "entry 4", "entry 5")
+            .hasMessageContaining("must have one key and one value")
+            .hasMessageContaining("\"key\" value \"null\" INVALID, is blank")
+            .hasMessageContaining("\"value\" value \"null\" INVALID, is blank");
     }
 
     @Test

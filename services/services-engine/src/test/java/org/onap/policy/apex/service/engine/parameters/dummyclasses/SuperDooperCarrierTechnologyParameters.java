@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +24,14 @@ package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.models.base.Validated;
 
 /**
  * Apex parameters for SuperDooper as an event carrier technology.
@@ -69,22 +75,37 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
     private static final String PROPERTY_VALUE_DESERIALIZER = "value.deserializer";
 
     // superDooper carrier parameters
+    @NotNull @NotBlank
     private String bootstrapServers = DEFAULT_BOOTSTRAP_SERVERS;
+    @NotNull @NotBlank
     private String acks = DEFAULT_ACKS;
+    @Min(0)
     private int retries = DEFAULT_RETRIES;
+    @Min(0)
     private int batchSize = DEFAULT_BATCH_SIZE;
+    @Min(0)
     private int lingerTime = DEFAULT_LINGER_TIME;
+    @Min(0)
     private long bufferMemory = DEFAULT_BUFFER_MEMORY;
+    @NotNull @NotBlank
     private String groupId = DEFAULT_GROUP_ID;
     private boolean enableAutoCommit = DEFAULT_ENABLE_AUTO_COMMIT;
+    @Min(0)
     private int autoCommitTime = DEFAULT_AUTO_COMMIT_TIME;
+    @Min(0)
     private int sessionTimeout = DEFAULT_SESSION_TIMEOUT;
+    @NotNull @NotBlank
     private String producerTopic = DEFAULT_PRODUCER_TOPIC;
+    @Min(0)
     private int consumerPollTime = DEFAULT_CONSUMER_POLL_TIME;
     private String[] consumerTopicList = DEFAULT_CONSUMER_TOPIC_LIST;
+    @NotNull @NotBlank
     private String keySerializer = DEFAULT_KEYSERZER;
+    @NotNull @NotBlank
     private String valueSerializer = DEFAULT_VALSERZER;
+    @NotNull @NotBlank
     private String keyDeserializer = DEFAULT_KEYDESZER;
+    @NotNull @NotBlank
     private String valueDeserializer = DEFAULT_VALDESZER;
 
     /**
@@ -459,98 +480,25 @@ public class SuperDooperCarrierTechnologyParameters extends CarrierTechnologyPar
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
-
-        if (bootstrapServers == null || bootstrapServers.trim().length() == 0) {
-            result.setResult("bootstrapServers", ValidationStatus.INVALID,
-                    "bootstrapServers not specified, must be specified as a string of form host:port");
-        }
-
-        if (acks == null || acks.trim().length() == 0) {
-            result.setResult("acks", ValidationStatus.INVALID,
-                    "acks not specified, must be specified as a string with values [0|1|all]");
-        }
-
-        if (retries < 0) {
-            result.setResult("retries", ValidationStatus.INVALID,
-                    "[" + retries + "] invalid, must be specified as retries >= 0");
-        }
-
-        if (batchSize < 0) {
-            result.setResult("batchSize", ValidationStatus.INVALID,
-                    "[" + batchSize + "] invalid, must be specified as batchSize >= 0");
-        }
-
-        if (lingerTime < 0) {
-            result.setResult("lingerTime", ValidationStatus.INVALID,
-                    "[" + lingerTime + "] invalid, must be specified as lingerTime >= 0");
-        }
-
-        if (bufferMemory < 0) {
-            result.setResult("bufferMemory", ValidationStatus.INVALID,
-                    "[" + bufferMemory + "] invalid, must be specified as bufferMemory >= 0");
-        }
-
-        if (groupId == null || groupId.trim().length() == 0) {
-            result.setResult("groupId", ValidationStatus.INVALID, "not specified, must be specified as a string");
-        }
-
-        if (autoCommitTime < 0) {
-            result.setResult("autoCommitTime", ValidationStatus.INVALID,
-                    "[" + autoCommitTime + "] invalid, must be specified as autoCommitTime >= 0");
-        }
-
-        if (sessionTimeout < 0) {
-            result.setResult("sessionTimeout", ValidationStatus.INVALID,
-                    "sessionTimeout [" + sessionTimeout + "] invalid, must be specified as sessionTimeout >= 0");
-        }
-
-        if (producerTopic == null || producerTopic.trim().length() == 0) {
-            result.setResult("producerTopic", ValidationStatus.INVALID,
-                    "producerTopic not specified, must be specified as a string");
-        }
-
-        if (consumerPollTime < 0) {
-            result.setResult("consumerPollTime", ValidationStatus.INVALID,
-                    "[" + consumerPollTime + "] invalid, must be specified as consumerPollTime >= 0");
-        }
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = super.validate();
 
         if (consumerTopicList == null || consumerTopicList.length == 0) {
-            result.setResult("consumerTopicList", ValidationStatus.INVALID,
+            result.addResult("consumerTopicList", consumerTopicList, ValidationStatus.INVALID,
                     "not specified, must be specified as a list of strings");
         }
 
-        StringBuilder consumerTopicMessageBuilder = new StringBuilder();
+        BeanValidationResult result2 = new BeanValidationResult("consumerTopicList", consumerTopicList);
+        int item = 0;
         for (final String consumerTopic : consumerTopicList) {
-            if (consumerTopic == null || consumerTopic.trim().length() == 0) {
-                consumerTopicMessageBuilder.append("  invalid consumer topic \"" + consumerTopic
-                        + "\" specified on consumerTopicList, consumer topics must be specified as strings");
+            if (StringUtils.isBlank(consumerTopic)) {
+                result2.addResult("entry " + item, consumerTopic, ValidationStatus.INVALID, Validated.IS_BLANK);
             }
+
+            ++item;
         }
 
-        if (consumerTopicMessageBuilder.length() > 0) {
-            result.setResult("consumerTopicList", ValidationStatus.INVALID, consumerTopicMessageBuilder.toString());
-        }
-
-        if (keySerializer == null || keySerializer.trim().length() == 0) {
-            result.setResult("keySerializer", ValidationStatus.INVALID, "not specified, must be specified as a string");
-        }
-
-        if (valueSerializer == null || valueSerializer.trim().length() == 0) {
-            result.setResult("valueSerializer", ValidationStatus.INVALID,
-                    "not specified, must be specified as a string");
-        }
-
-        if (keyDeserializer == null || keyDeserializer.trim().length() == 0) {
-            result.setResult("keyDeserializer", ValidationStatus.INVALID,
-                    "not specified, must be specified as a string");
-        }
-
-        if (valueDeserializer == null || valueDeserializer.trim().length() == 0) {
-            result.setResult("valueDeserializer", ValidationStatus.INVALID,
-                    "not specified, must be specified as a string");
-        }
+        result.addResult(result2);
 
         return result;
     }
