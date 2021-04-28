@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -30,14 +31,21 @@ import java.util.Set;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Size;
+import org.onap.policy.common.parameters.annotations.Valid;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.models.base.Validated;
 
 /**
  * The main container parameter class for an Apex service.
- * 
+ *
  * <p>The following parameters are defined: <ol> <li>engineServiceParameters: The parameters for the Apex engine service
  * itself, such as the number of engine threads to run and the deployment port number to use. <li>eventOutputParameters:
  * A map of parameters for event outputs that Apex will use to emit events. Apex emits events on all outputs
@@ -61,13 +69,17 @@ public class ApexParameters implements ParameterGroup {
     private String[][] javaProperties = null;
 
     // Parameters for the engine service and the engine threads in the engine service
-    private EngineServiceParameters engineServiceParameters;
+    private @NotNull @Valid EngineServiceParameters engineServiceParameters;
 
     // Parameters for the event outputs that Apex will use to send events on its outputs
-    private Map<String, EventHandlerParameters> eventOutputParameters = new LinkedHashMap<>();
+    @Size(min = 1)
+    private Map<@NotNull @NotBlank String, @NotNull @Valid EventHandlerParameters> eventOutputParameters =
+                    new LinkedHashMap<>();
 
     // Parameters for the event inputs that Apex will use to receive events on its inputs
-    private Map<String, EventHandlerParameters> eventInputParameters = new LinkedHashMap<>();
+    @Size(min = 1)
+    private Map<@NotNull @NotBlank String, @NotNull @Valid EventHandlerParameters> eventInputParameters =
+                    new LinkedHashMap<>();
 
     /**
      * Constructor to create an apex parameters instance and register the instance with the parameter service.
@@ -162,28 +174,10 @@ public class ApexParameters implements ParameterGroup {
     }
 
     @Override
-    public GroupValidationResult validate() {
-        GroupValidationResult result = new GroupValidationResult(this);
+    public BeanValidationResult validate() {
+        BeanValidationResult result = new BeanValidator().validateTop(getClass().getSimpleName(), this);
 
-        validateJavaProperties(result);
-
-        if (engineServiceParameters == null) {
-            result.setResult("engineServiceParameters", ValidationStatus.INVALID,
-                "engine service parameters are not specified");
-        } else {
-            result.setResult("engineServiceParameters", engineServiceParameters.validate());
-        }
-
-        // Sanity check, we must have an entry in both output and input maps
-        if (eventInputParameters.isEmpty()) {
-            result.setResult(EVENT_INPUT_PARAMETERS_STRING, ValidationStatus.INVALID,
-                "at least one event input must be specified");
-        }
-
-        if (eventOutputParameters.isEmpty()) {
-            result.setResult(EVENT_OUTPUT_PARAMETERS_STRING, ValidationStatus.INVALID,
-                "at least one event output must be specified");
-        }
+        result.addResult(validateJavaProperties());
 
         // Validate that the values of all parameters are ok
         validateEventHandlerMap(EVENT_INPUT_PARAMETERS_STRING, result, eventInputParameters);
@@ -201,56 +195,47 @@ public class ApexParameters implements ParameterGroup {
 
     /**
      * This method validates the java properties variable if it is present.
-     *
-     * @param result the result of the validation
      */
-    private void validateJavaProperties(GroupValidationResult result) {
+    private ValidationResult validateJavaProperties() {
         if (javaProperties == null) {
-            return;
+            return null;
         }
 
-        StringBuilder errorMessageBuilder = new StringBuilder();
+        BeanValidationResult result = new BeanValidationResult(JAVA_PROPERTIES, javaProperties);
+        int item = 0;
         for (String[] javaProperty : javaProperties) {
+            final String label = "entry " + (item++);
+            BeanValidationResult result2 = new BeanValidationResult(label, "array");
+
             if (javaProperty == null) {
-                errorMessageBuilder.append("java properties array entry is null\n");
+                // note: add to result, not result2
+                result.addResult(label, null, ValidationStatus.INVALID, Validated.IS_NULL);
             } else if (javaProperty.length != 2) {
-                errorMessageBuilder.append("java properties array entries must have one key and one value: "
-                    + Arrays.deepToString(javaProperty) + "\n");
+                // note: add to result, not result2
+                result.addResult(label, Arrays.asList(javaProperty), ValidationStatus.INVALID,
+                                "must have one key and one value");
             } else if (!ParameterValidationUtils.validateStringParameter(javaProperty[0])) {
-                errorMessageBuilder
-                    .append("java properties key is null or blank: " + Arrays.deepToString(javaProperty) + "\n");
+                result2.addResult("key", javaProperty[0], ValidationStatus.INVALID, Validated.IS_BLANK);
             } else if (!ParameterValidationUtils.validateStringParameter(javaProperty[1])) {
-                errorMessageBuilder
-                    .append("java properties value is null or blank: " + Arrays.deepToString(javaProperty) + "\n");
+                result2.addResult("value", javaProperty[1], ValidationStatus.INVALID, Validated.IS_BLANK);
             }
+
+            result.addResult(result2);
         }
 
-        if (errorMessageBuilder.length() > 0) {
-            result.setResult(JAVA_PROPERTIES, ValidationStatus.INVALID, errorMessageBuilder.toString());
-        }
+        return result;
     }
 
     /**
      * This method validates the parameters in an event handler map.
-     * 
+     *
      * @param eventHandlerType the type of the event handler to use on error messages
      * @param result the result object to use to return validation messages
      * @param parsForValidation The event handler parameters to validate (input or output)
      */
-    private void validateEventHandlerMap(final String eventHandlerType, final GroupValidationResult result,
+    private void validateEventHandlerMap(final String eventHandlerType, final BeanValidationResult result,
         final Map<String, EventHandlerParameters> parsForValidation) {
         for (final Entry<String, EventHandlerParameters> parameterEntry : parsForValidation.entrySet()) {
-            if (parameterEntry.getKey() == null || parameterEntry.getKey().trim().isEmpty()) {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID,
-                    "invalid " + eventHandlerType + " name \"" + parameterEntry.getKey() + "\"");
-            } else if (parameterEntry.getValue() == null) {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID,
-                    "invalid/Null event input prameters specified for " + eventHandlerType + " name \""
-                        + parameterEntry.getKey() + "\" ");
-            } else {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), parameterEntry.getValue().validate());
-            }
-
             parameterEntry.getValue().setName(parameterEntry.getKey());
 
             // Validate parameters for peered mode settings
@@ -262,46 +247,46 @@ public class ApexParameters implements ParameterGroup {
 
     /**
      * Validate parameter values for event handlers in a peered mode.
-     * 
+     *
      * @param eventHandlerType The event handler type we are checking
      * @param result The result object to which to append any error messages
      * @param parameterEntry The entry to check the peered mode on
      * @param peeredMode The mode to check
      */
-    private void validatePeeredModeParameters(final String eventHandlerType, final GroupValidationResult result,
+    private void validatePeeredModeParameters(final String eventHandlerType, final BeanValidationResult result,
         final Entry<String, EventHandlerParameters> parameterEntry, final EventHandlerPeeredMode peeredMode) {
         final String messagePreamble = "specified peered mode \"" + peeredMode + "\"";
         final String peer = parameterEntry.getValue().getPeer(peeredMode);
 
         if (parameterEntry.getValue().isPeeredMode(peeredMode)) {
             if (peer == null || peer.trim().isEmpty()) {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID,
+                result.addResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID,
                     messagePreamble + " mandatory parameter not specified or is null");
             }
             if (parameterEntry.getValue().getPeerTimeout(peeredMode) < 0) {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID,
+                result.addResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID,
                     messagePreamble + " timeout value \"" + parameterEntry.getValue().getPeerTimeout(peeredMode)
                         + "\" is illegal, specify a non-negative timeout value in milliseconds");
             }
         } else {
             if (peer != null) {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID, messagePreamble
-                    + " peer is illegal on " + eventHandlerType + " \"" + parameterEntry.getKey() + "\" ");
+                result.addResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID, messagePreamble
+                    + " peer is illegal");
             }
             if (parameterEntry.getValue().getPeerTimeout(peeredMode) != 0) {
-                result.setResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID, messagePreamble
-                    + " timeout is illegal on " + eventHandlerType + " \"" + parameterEntry.getKey() + "\"");
+                result.addResult(eventHandlerType, parameterEntry.getKey(), ValidationStatus.INVALID, messagePreamble
+                    + " timeout is illegal");
             }
         }
     }
 
     /**
      * This method validates that the settings are valid for the given peered mode.
-     * 
+     *
      * @param result The result object to which to append any error messages
      * @param peeredMode The peered mode to check
      */
-    private void validatePeeredMode(final GroupValidationResult result, final EventHandlerPeeredMode peeredMode) {
+    private void validatePeeredMode(final BeanValidationResult result, final EventHandlerPeeredMode peeredMode) {
         // Find the input and output event handlers that use this peered mode
         final Map<String, EventHandlerParameters> inputParametersUsingMode = new HashMap<>();
         final Map<String, EventHandlerParameters> outputParametersUsingMode = new HashMap<>();
@@ -327,13 +312,13 @@ public class ApexParameters implements ParameterGroup {
 
     /**
      * This method validates that the settings are valid for the event handlers on one.
-     * 
+     *
      * @param handlerMapVariableName the variable name of the map on which the paired parameters are being checked
      * @param result The result object to which to append any error messages
      * @param leftModeParameters The mode parameters being checked
      * @param rightModeParameters The mode parameters being referenced by the checked parameters
      */
-    private void validatePeeredModePeers(final String handlerMapVariableName, final GroupValidationResult result,
+    private void validatePeeredModePeers(final String handlerMapVariableName, final BeanValidationResult result,
         final EventHandlerPeeredMode peeredMode, final Map<String, EventHandlerParameters> leftModeParameterMap,
         final Map<String, EventHandlerParameters> rightModeParameterMap) {
 
@@ -351,7 +336,7 @@ public class ApexParameters implements ParameterGroup {
 
             // Check that the peer reference is OK
             if (rightModeParameters == null) {
-                result.setResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
+                result.addResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
                     PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING + peeredMode
                         + " does not exist or is not defined with the same peered mode");
                 continue;
@@ -360,20 +345,20 @@ public class ApexParameters implements ParameterGroup {
             // Now check that the right side peer is the left side event handler
             final String rightSidePeer = rightModeParameters.getPeer(peeredMode);
             if (!rightSidePeer.equals(leftModeParameterEntry.getKey())) {
-                result.setResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
-                    PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING + peeredMode
-                        + ", value \"" + rightSidePeer + "\" on peer \"" + leftSidePeer
-                        + "\" does not equal event handler \"" + leftModeParameterEntry.getKey() + "\"");
+                result.addResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
+                                PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + '"'
+                                                + FOR_PEERED_MODE_STRING + peeredMode + ", value \"" + rightSidePeer
+                                                + "\" on peer does not equal event handler");
             } else {
                 // Check for duplicates
                 if (!leftCheckDuplicateSet.add(leftSidePeer)) {
-                    result.setResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
+                    result.addResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
                         PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING + peeredMode
                             + ", peer value \"" + leftSidePeer + "\" on event handler \""
                             + leftModeParameterEntry.getKey() + "\" is used more than once");
                 }
                 if (!rightCheckDuplicateSet.add(rightSidePeer)) {
-                    result.setResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
+                    result.addResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
                         PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING + peeredMode
                             + ", peer value \"" + rightSidePeer + "\" on peer \"" + leftSidePeer
                             + "\" on event handler \"" + leftModeParameterEntry.getKey() + "\" is used more than once");
@@ -381,12 +366,12 @@ public class ApexParameters implements ParameterGroup {
             }
 
             if (!crossCheckPeeredTimeoutValues(leftModeParameters, rightModeParameters, peeredMode)) {
-                result.setResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
-                    PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + FOR_PEERED_MODE_STRING + peeredMode
-                        + " timeout " + leftModeParameters.getPeerTimeout(peeredMode) + " on event handler \""
-                        + leftModeParameters.getName() + "\" does not equal timeout "
-                        + rightModeParameters.getPeerTimeout(peeredMode) + " on event handler \""
-                        + rightModeParameters.getName() + "\"");
+                result.addResult(handlerMapVariableName, leftModeParameterEntry.getKey(), ValidationStatus.INVALID,
+                                PEER_STRING + '"' + leftModeParameters.getPeer(peeredMode) + '"'
+                                                + FOR_PEERED_MODE_STRING + peeredMode + " timeout "
+                                                + leftModeParameters.getPeerTimeout(peeredMode)
+                                                + " does not equal peer timeout "
+                                                + rightModeParameters.getPeerTimeout(peeredMode));
 
             }
         }
@@ -394,7 +379,7 @@ public class ApexParameters implements ParameterGroup {
 
     /**
      * Validate the timeout values on two peers.
-     * 
+     *
      * @param leftModeParameters The parameters of the left hand peer
      * @param peeredMode The peered mode being checked
      * @return true if the timeout values are cross checked as being OK

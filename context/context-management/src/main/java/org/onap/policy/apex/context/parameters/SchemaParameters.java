@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +22,11 @@
 package org.onap.policy.apex.context.parameters;
 
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 /**
  * Bean class holding schema parameters for schemas and their helpers. As more than one schema can be used in Apex
@@ -37,23 +38,20 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class SchemaParameters implements ParameterGroup {
+@NotNull
+public class SchemaParameters extends ParameterGroupImpl {
     /** The Java schema flavour is always available for use. */
     public static final String DEFAULT_SCHEMA_FLAVOUR = "Java";
 
-    private String name;
 
     // A map of parameters for executors of various logic types
-    private Map<String, SchemaHelperParameters> schemaHelperParameterMap;
+    private Map<String, @NotNull @Valid SchemaHelperParameters> schemaHelperParameterMap;
 
     /**
      * Constructor to create a distributor parameters instance and register the instance with the parameter service.
      */
     public SchemaParameters() {
-        super();
-
-        // Set the name for the parameters
-        this.name = ContextParameterConstants.SCHEMA_GROUP_NAME;
+        super(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
         schemaHelperParameterMap = new TreeMap<>();
 
@@ -87,26 +85,5 @@ public class SchemaParameters implements ParameterGroup {
      */
     public SchemaHelperParameters getSchemaHelperParameters(final String schemaFlavour) {
         return schemaHelperParameterMap.get(schemaFlavour);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
-
-        for (Entry<String, SchemaHelperParameters> schemaHelperEntry : schemaHelperParameterMap.entrySet()) {
-            result.setResult("schemaHelperParameterMap", schemaHelperEntry.getKey(),
-                            schemaHelperEntry.getValue().validate());
-        }
-        return result;
     }
 }
