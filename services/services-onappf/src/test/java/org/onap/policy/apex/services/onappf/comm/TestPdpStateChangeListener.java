@@ -22,6 +22,7 @@
 
 package org.onap.policy.apex.services.onappf.comm;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -125,7 +126,8 @@ public class TestPdpStateChangeListener {
     public void testPdpStateChangeMessageListener_passivetopassive() {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
-            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<ToscaPolicy>()));
+            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<>(),
+                    new ArrayList<>()));
         PdpStateChange pdpStateChangeMsg =
             TestListenerUtils.createPdpStateChangeMsg(PdpState.PASSIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
         pdpStateChangeListener.onTopicEvent(INFRA, TOPIC, null, pdpStateChangeMsg);
@@ -137,7 +139,8 @@ public class TestPdpStateChangeListener {
     public void testPdpStateChangeMessageListener_activetoactive() {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
-            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<ToscaPolicy>()));
+            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<>(),
+                    new ArrayList<>()));
         pdpStatus.setState(PdpState.ACTIVE);
         PdpStateChange pdpStateChangeMsg =
             TestListenerUtils.createPdpStateChangeMsg(PdpState.ACTIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
@@ -152,7 +155,8 @@ public class TestPdpStateChangeListener {
         System.setOut(new PrintStream(outContent));
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
-            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<ToscaPolicy>()));
+            TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<>(),
+                    new ArrayList<>()));
         PdpStateChange pdpStateChangeMsg =
             TestListenerUtils.createPdpStateChangeMsg(PdpState.ACTIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
         pdpStateChangeListener.onTopicEvent(INFRA, TOPIC, null, pdpStateChangeMsg);
@@ -162,9 +166,10 @@ public class TestPdpStateChangeListener {
             TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
-        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies,
+                new ArrayList<>());
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
-        assertTrue(outContent.toString().contains("Apex engine started and policies are running."));
+        assertThat(outContent.toString()).contains("Apex engine started and policies are running.");
         assertEquals(PdpState.ACTIVE, pdpStatus.getState());
 
         final ApexPolicyStatisticsManager policyCounterManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
@@ -185,7 +190,8 @@ public class TestPdpStateChangeListener {
             TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");
         final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
         toscaPolicies.add(toscaPolicy);
-        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies,
+                new ArrayList<>());
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
         PdpStateChange pdpStateChangeMsg =
             TestListenerUtils.createPdpStateChangeMsg(PdpState.ACTIVE, "pdpGroup", "pdpSubgroup", pdpStatus.getName());
