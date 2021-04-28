@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +21,13 @@
 
 package org.onap.policy.apex.plugins.event.carrier.websocket;
 
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.Max;
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.models.base.Validated;
 
 /**
  * Apex parameters for Kafka as an event carrier technology.
@@ -50,6 +55,8 @@ public class WebSocketCarrierTechnologyParameters extends CarrierTechnologyParam
     // Web socket parameters
     private boolean wsClient = true;
     private String  host     = DEFAULT_HOST;
+    @Min(MIN_USER_PORT)
+    @Max(MAX_USER_PORT)
     private int     port     = DEFAULT_PORT;
     // @formatter:on
 
@@ -97,16 +104,11 @@ public class WebSocketCarrierTechnologyParameters extends CarrierTechnologyParam
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = super.validate();
 
-        if (wsClient && (host == null || host.trim().length() == 0)) {
-            result.setResult("host", ValidationStatus.INVALID, "host not specified, must be host as a string");
-        }
-
-        if (port < MIN_USER_PORT || port > MAX_USER_PORT) {
-            result.setResult("port", ValidationStatus.INVALID,
-                            "[" + port + "] invalid, must be specified as 1024 <= port <= 65535");
+        if (wsClient && StringUtils.isBlank(host)) {
+            result.addResult("host", host, ValidationStatus.INVALID, Validated.IS_BLANK);
         }
 
         return result;

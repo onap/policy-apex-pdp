@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,9 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * A persistor parameter class that may be specialized by context persistor plugins that require
@@ -36,7 +38,8 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class PersistorParameters implements ParameterGroup {
+@NotNull
+public class PersistorParameters extends ParameterGroupImpl {
     /** The default persistor is a dummy persistor that stubs the Persistor interface. */
     public static final String DEFAULT_PERSISTOR_PLUGIN_CLASS =
             "org.onap.policy.apex.context.impl.persistence.ephemeral.EphemeralPersistor";
@@ -44,8 +47,7 @@ public class PersistorParameters implements ParameterGroup {
     /** Default periodic flushing interval, 5 minutes in milliseconds. */
     public static final long DEFAULT_FLUSH_PERIOD = 300000;
 
-    private String name;
-    private String pluginClass = DEFAULT_PERSISTOR_PLUGIN_CLASS;
+    private @ClassName String pluginClass = DEFAULT_PERSISTOR_PLUGIN_CLASS;
 
     // Parameters for flushing
     private long flushPeriod = DEFAULT_FLUSH_PERIOD;
@@ -55,10 +57,7 @@ public class PersistorParameters implements ParameterGroup {
      * parameter service.
      */
     public PersistorParameters() {
-        super();
-
-        // Set the name for the parameters
-        this.name = ContextParameterConstants.PERSISTENCE_GROUP_NAME;
+        super(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
     }
 
     /**
@@ -103,22 +102,7 @@ public class PersistorParameters implements ParameterGroup {
 
     @Override
     public String toString() {
-        return "PersistorParameters [name=" + name + ", pluginClass=" + pluginClass + ", flushPeriod=" + flushPeriod
-                        + "]";
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    @Override
-    public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+        return "PersistorParameters [name=" + getName() + ", pluginClass=" + pluginClass + ", flushPeriod="
+                        + flushPeriod + "]";
     }
 }

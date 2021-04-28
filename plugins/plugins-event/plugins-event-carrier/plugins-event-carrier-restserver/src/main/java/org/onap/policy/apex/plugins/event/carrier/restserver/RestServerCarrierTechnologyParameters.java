@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +25,11 @@ package org.onap.policy.apex.plugins.event.carrier.restserver;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.models.base.Validated;
 
 /**
  * Apex parameters for REST as an event carrier technology with Apex as a REST client.
@@ -89,27 +92,25 @@ public class RestServerCarrierTechnologyParameters extends CarrierTechnologyPara
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = super.validate();
 
         // Check if host is defined, it is only defined on REST server consumers
         if (standalone) {
-            if (host != null && host.trim().length() == 0) {
-                result.setResult("host", ValidationStatus.INVALID,
-                                "host not specified, host must be specified as a string");
+            if (StringUtils.isBlank(host)) {
+                result.addResult("host", host, ValidationStatus.INVALID, Validated.IS_BLANK);
             }
 
             // Check if port is defined, it is only defined on REST server consumers
             if (port != -1 && port < MIN_USER_PORT || port > MAX_USER_PORT) {
-                result.setResult("port", ValidationStatus.INVALID,
-                                "[" + port + "] invalid, must be specified as 1024 <= port <= 65535");
+                result.addResult("port", port, ValidationStatus.INVALID, "must be between 1024 and 65535");
             }
         } else {
             if (host != null) {
-                result.setResult("host", ValidationStatus.INVALID, "host is specified only in standalone mode");
+                result.addResult("host", host, ValidationStatus.INVALID, "should be specified only in standalone mode");
             }
             if (port != -1) {
-                result.setResult("port", ValidationStatus.INVALID, "port is specified only in standalone mode");
+                result.addResult("port", port, ValidationStatus.INVALID, "should be specified only in standalone mode");
             }
         }
 

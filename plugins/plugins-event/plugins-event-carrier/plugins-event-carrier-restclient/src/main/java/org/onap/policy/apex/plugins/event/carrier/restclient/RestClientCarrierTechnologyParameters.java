@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,8 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ObjectValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 
 // @formatter:off
@@ -66,14 +68,13 @@ public class RestClientCarrierTechnologyParameters extends RestPluginCarrierTech
      * {@inheritDoc}
      */
     @Override
-    public GroupValidationResult validateUrl(final GroupValidationResult result) {
+    public ValidationResult validateUrl() {
         // Check if the URL has been set for event output
-        final String urlNullMessage = "no URL has been set for event sending on " + getLabel();
         if (getUrl() == null) {
-            result.setResult("url", ValidationStatus.INVALID, urlNullMessage);
-            return result;
+            final String urlNullMessage = "no URL has been set for event sending on " + getLabel();
+            return new ObjectValidationResult("url", null, ValidationStatus.INVALID, urlNullMessage);
         }
 
-        return super.validateUrl(result);
+        return super.validateUrl();
     }
 }

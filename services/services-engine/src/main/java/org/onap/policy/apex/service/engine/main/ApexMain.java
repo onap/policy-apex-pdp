@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,14 +107,12 @@ public class ApexMain {
             // The arguments return a string if there is a message to print and we should exit
             final String argumentMessage = arguments.parse(args);
             if (argumentMessage != null) {
-                LOGGER.info(argumentMessage);
                 throw new ApexException(argumentMessage);
             }
 
             // Validate that the arguments are sane
             arguments.validateInputFiles();
         } catch (final ApexException | CommandLineException e) {
-            LOGGER.error("Arguments validation failed.", e);
             throw new ApexException("Arguments validation failed.", e);
         }
 
@@ -122,7 +121,6 @@ public class ApexMain {
         try {
             axParameters = apexParameterHandler.getParameters(arguments);
         } catch (final Exception e) {
-            LOGGER.error("Cannot create APEX Parameters from the arguments provided.", e);
             throw new ApexException("Cannot create APEX Parameters from the arguments provided.", e);
         }
 

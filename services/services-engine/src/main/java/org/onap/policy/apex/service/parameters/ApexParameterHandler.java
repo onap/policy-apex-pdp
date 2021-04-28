@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,9 +39,9 @@ import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnolo
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParametersJsonAdapter;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParametersJsonAdapter;
-import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterException;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.slf4j.ext.XLogger;
@@ -107,7 +108,7 @@ public class ApexParameterHandler {
         }
 
         // Validate the parameters
-        final GroupValidationResult validationResult = parameters.validate();
+        final ValidationResult validationResult = parameters.validate();
         if (!validationResult.isValid()) {
             String returnMessage = "validation error(s) on parameters from \"" + toscaPolicyFilePath + "\"\n";
             returnMessage += validationResult.getResult();

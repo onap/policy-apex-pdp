@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019,2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +24,10 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import java.util.Properties;
 import javax.naming.Context;
-import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * Apex parameters for JMS as an event carrier technology.
@@ -100,12 +101,19 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
 
     // JMS carrier parameters
     private String  connectionFactory     = DEFAULT_CONNECTION_FACTORY;
+    @NotNull @NotBlank
     private String  initialContextFactory = DEFAULT_INITIAL_CTXT_FACTORY;
+    @NotNull @NotBlank
     private String  providerUrl           = DEFAULT_PROVIDER_URL;
+    @NotNull @NotBlank
     private String  securityPrincipal     = DEFAULT_SECURITY_PRINCIPAL;
+    @NotNull @NotBlank
     private String  securityCredentials   = DEFAULT_SECURITY_CREDENTIALS;
+    @NotNull @NotBlank
     private String  producerTopic         = DEFAULT_PRODUCER_TOPIC;
+    @NotNull @NotBlank
     private String  consumerTopic         = DEFAULT_CONSUMER_TOPIC;
+    @Min(0)
     private int     consumerWaitTime      = DEFAULT_CONSUMER_WAIT_TIME;
     private boolean objectMessageSending  = DEFAULT_TO_OBJECT_MSG_SENDING;
     // @formatter:on
@@ -326,57 +334,5 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
      */
     public void setObjectMessageSending(final boolean objectMessageSending) {
         this.objectMessageSending = objectMessageSending;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
-
-        if (StringUtils.isBlank(initialContextFactory)) {
-            result.setResult("initialContextFactory", ValidationStatus.INVALID,
-                            "initialContextFactory must be specified as a string that is a class that implements the "
-                                            + "interface org.jboss.naming.remote.client.InitialContextFactory");
-        }
-
-        if (StringUtils.isBlank(providerUrl)) {
-            result.setResult("providerUrl", ValidationStatus.INVALID,
-                            "providerUrl must be specified as a URL string that specifies the location of "
-                                            + "configuration information for the service provider to use "
-                                            + "such as remote://localhost:4447");
-        }
-
-        if (StringUtils.isBlank(securityPrincipal)) {
-            result.setResult("securityPrincipal", ValidationStatus.INVALID,
-                            "securityPrincipal must be specified the identity of the principal for authenticating "
-                                            + "the caller to the service");
-        }
-
-        if (StringUtils.isBlank(securityCredentials)) {
-            result.setResult("securityCredentials", ValidationStatus.INVALID,
-                            "  securityCredentials must be specified as the credentials of the "
-                                            + "principal for authenticating the caller to the service");
-        }
-
-        if (StringUtils.isBlank(producerTopic)) {
-            result.setResult("producerTopic", ValidationStatus.INVALID,
-                            "  producerTopic must be a string that identifies the JMS topic "
-                                            + "on which Apex will send events");
-        }
-
-        if (StringUtils.isBlank(consumerTopic)) {
-            result.setResult("consumerTopic", ValidationStatus.INVALID,
-                            "  consumerTopic must be a string that identifies the JMS topic "
-                                            + "on which Apex will recieve events");
-        }
-
-        if (consumerWaitTime < 0) {
-            result.setResult("consumerWaitTime", ValidationStatus.INVALID,
-                            "[" + consumerWaitTime + "] invalid, must be specified as consumerWaitTime >= 0");
-        }
-
-        return result;
     }
 }

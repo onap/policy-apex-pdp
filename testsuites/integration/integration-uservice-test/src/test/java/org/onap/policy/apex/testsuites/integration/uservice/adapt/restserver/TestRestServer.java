@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -316,8 +317,7 @@ public class TestRestServer {
 
         final String outString = outContent.toString();
 
-        assertThat(outString)
-            .contains("the parameters \"host\", \"port\", and \"standalone\" are illegal on REST Server producer");
+        assertThat(outString).contains("\"host\" value \"null\" INVALID, is blank");
         LOGGER.debug("testRestServerProducerStandalone end");
     }
 
@@ -341,7 +341,7 @@ public class TestRestServer {
         await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
-        assertThat(outString).contains(" host is specified only in standalone mode");
+        assertThat(outString).contains("\"host\"", "should be specified only in standalone mode");
         LOGGER.debug("testRestServerProducerHost end");
     }
 
@@ -365,7 +365,7 @@ public class TestRestServer {
         await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
-        assertThat(outString).contains(" port is specified only in standalone mode");
+        assertThat(outString).contains("\"port\"", "should be specified only in standalone mode");
         LOGGER.debug("testRestServerProducerPort end");
     }
 
@@ -387,8 +387,7 @@ public class TestRestServer {
         await().atMost(10L, TimeUnit.SECONDS).until(() -> !apexMain.isAlive());
 
         final String outString = outContent.toString();
-        assertThat(outString).contains("the parameters \"host\" and \"port\" must be defined for REST Server consumer "
-            + "(FirstConsumer) in standalone mode");
+        assertThat(outString).contains("\"host\" value \"null\" INVALID, is blank");
         LOGGER.debug("testRestServerConsumerStandaloneNoHost end");
     }
 

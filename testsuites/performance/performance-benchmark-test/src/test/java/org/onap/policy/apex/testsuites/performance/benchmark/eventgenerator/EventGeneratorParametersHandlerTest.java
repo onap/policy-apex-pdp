@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,12 +83,8 @@ public class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bc", "-1" };
             handler.parse(arguments);
-        }).hasMessage("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
-                            + "type \"org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator."
-                            + "EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
-                            + "  field \"batchCount\" type \"int\" value \"-1\" INVALID, "
-                            + "batchCount must be an integer with a value of zero or more, "
-                            + "zero means generate batches forever\n");
+        }).hasMessageContaining("specified parameters are not valid", "EventGeneratorParameters",
+                "\"batchCount\" value \"-1\" INVALID, is below the minimum");
         args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bs", "12345" };
         parameters = handler.parse(args);
         assertEquals(12345, parameters.getBatchSize());
@@ -95,11 +92,8 @@ public class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bs", "0" };
             handler.parse(arguments);
-        }).hasMessage("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
-                            + "type \"org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator."
-                            + "EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
-                            + "  field \"batchSize\" type \"int\" value \"0\" INVALID, "
-                            + "batchSize must be an integer greater than zero\n");
+        }).hasMessageContaining("specified parameters are not valid", "EventGeneratorParameters",
+                "\"batchSize\" value \"0\" INVALID, is below the minimum");
         args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bd", "1000" };
         parameters = handler.parse(args);
         assertEquals(1000, parameters.getDelayBetweenBatches());
@@ -107,11 +101,8 @@ public class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-bd", "-1" };
             handler.parse(arguments);
-        }).hasMessage("specified parameters are not valid: parameter group \"EventGeneratorParameters\" "
-                            + "type \"org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator."
-                            + "EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
-                            + "  field \"batchSize\" type \"int\" value \"1\" INVALID, "
-                            + "batchSize must be an integer with a value of zero or more\n");
+        }).hasMessageContaining("specified parameters are not valid", "EventGeneratorParameters",
+                "\"batchSize\" value \"1\" INVALID, is below the minimum");
 
         args = new String[] { "-c", "src/test/resources/parameters/unit/Default.json", "-o", "Zooby" };
         parameters = handler.parse(args);
@@ -181,19 +172,13 @@ public class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] { "-c", "src/test/resources/parameters/unit/NullHost.json" };
             handler.parse(arguments);
-        }).hasMessage("specified parameters are not valid: parameter group \"ValidPars\" "
-                            + "type \"org.onap.policy.apex.testsuites.performance."
-                            + "benchmark.eventgenerator.EventGeneratorParameters\" INVALID, "
-                            + "parameter group has status INVALID\n" + "  field \"host\" type \"java.lang.String\" "
-                            + "value \"null\" INVALID, host must be a non-blank string\n");
+        }).hasMessageContaining("specified parameters are not valid", "EventGeneratorParameters",
+                        "\"host\" value \"null\" INVALID, is null");
 
         assertThatThrownBy(() -> {
             String[] arguments = new String[] { "-p", "1023" };
             handler.parse(arguments);
-        }).hasMessage("specified parameters are not valid: parameter group \""
-                            + "EventGeneratorParameters\" type \"org.onap.policy.apex.testsuites.performance.benchmark."
-                            + "eventgenerator.EventGeneratorParameters\" INVALID, parameter group has status INVALID\n"
-                            + "  field \"port\" type \"int\" value \"1023\" INVALID, "
-                            + "port must be an integer between 1024 and 65535 inclusive\n" + "");
+        }).hasMessageContaining("specified parameters are not valid", "EventGeneratorParameters",
+                        "\"port\" value \"1023\" INVALID, is below the minimum");
     }
 }

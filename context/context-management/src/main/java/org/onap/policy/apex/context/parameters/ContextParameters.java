@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,9 @@
 
 package org.onap.policy.apex.context.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 // @formatter:off
 /**
@@ -42,25 +44,19 @@ import org.onap.policy.common.parameters.ParameterGroup;
  * being used for context album persistence
  * </ol>
  */
-// @formatter:on
-public class ContextParameters implements ParameterGroup {
-    // @formatter:off
-    // Plugin Parameters
-    private String                name;
-    private DistributorParameters distributorParameters = new DistributorParameters();
-    private SchemaParameters      schemaParameters      = new SchemaParameters();
-    private LockManagerParameters lockManagerParameters = new LockManagerParameters();
-    private PersistorParameters   persistorParameters   = new PersistorParameters();
+@NotNull
+public class ContextParameters extends ParameterGroupImpl {
+    private @Valid DistributorParameters distributorParameters = new DistributorParameters();
+    private @Valid SchemaParameters      schemaParameters      = new SchemaParameters();
+    private @Valid LockManagerParameters lockManagerParameters = new LockManagerParameters();
+    private @Valid PersistorParameters   persistorParameters   = new PersistorParameters();
     // @formatter:on
 
     /**
      * Constructor to create a context parameters instance and register the instance with the parameter service.
      */
     public ContextParameters() {
-        super();
-
-        // Set the name for the parameters
-        this.name = ContextParameterConstants.MAIN_GROUP_NAME;
+        super(ContextParameterConstants.MAIN_GROUP_NAME);
     }
 
     /**
@@ -137,32 +133,8 @@ public class ContextParameters implements ParameterGroup {
 
     @Override
     public String toString() {
-        return "ContextParameters [name=" + name + ", distributorParameters=" + distributorParameters
+        return "ContextParameters [name=" + getName() + ", distributorParameters=" + distributorParameters
                         + ", schemaParameters=" + schemaParameters + ", lockManagerParameters=" + lockManagerParameters
                         + ", persistorParameters=" + persistorParameters + "]";
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    @Override
-    public GroupValidationResult validate() {
-        GroupValidationResult result = new GroupValidationResult(this);
-
-        // @formatter:off
-        result.setResult("distributorParameters", distributorParameters.validate());
-        result.setResult("schemaParameters",      schemaParameters.validate());
-        result.setResult("lockManagerParameters", lockManagerParameters.validate());
-        result.setResult("persistorParameters",   persistorParameters.validate());
-        // @formatter:on
-
-        return result;
     }
 }
