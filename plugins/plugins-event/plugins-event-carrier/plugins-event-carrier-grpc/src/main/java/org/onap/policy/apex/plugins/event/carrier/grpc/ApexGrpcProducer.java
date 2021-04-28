@@ -128,10 +128,10 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
             LOGGER.error("Sending event \"{}\" by {} to CDS failed.", eventName, this.name);
         }
 
-        consumeEvent(executionId, cdsResponse.get());
+        consumeEvent(executionId, executionProperties, cdsResponse.get());
     }
 
-    private void consumeEvent(long executionId, ExecutionServiceOutput event) {
+    private void consumeEvent(long executionId, Properties executionProperties, ExecutionServiceOutput event) {
         // Find the peered consumer for this producer
         final PeeredReference peeredRequestorReference = peerReferenceMap.get(EventHandlerPeeredMode.REQUESTOR);
         if (peeredRequestorReference == null) {
@@ -148,7 +148,7 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         // Use the consumer to consume this response event in APEX
         final ApexGrpcConsumer grpcConsumer = (ApexGrpcConsumer) consumer;
         try {
-            grpcConsumer.getEventReceiver().receiveEvent(executionId, new Properties(),
+            grpcConsumer.getEventReceiver().receiveEvent(executionId, executionProperties,
                 JsonFormat.printer().print(event));
         } catch (ApexEventException | InvalidProtocolBufferException e) {
             throw new ApexEventRuntimeException("Consuming gRPC response failed.", e);
