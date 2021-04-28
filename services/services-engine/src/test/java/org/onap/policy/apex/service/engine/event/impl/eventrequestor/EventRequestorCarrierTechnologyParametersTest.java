@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021  Nordix Foundation
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 
 public class EventRequestorCarrierTechnologyParametersTest {
 
@@ -37,7 +38,7 @@ public class EventRequestorCarrierTechnologyParametersTest {
     @Test
     public void validate() {
         final EventRequestorCarrierTechnologyParameters parameters = new EventRequestorCarrierTechnologyParameters();
-        final GroupValidationResult actual = parameters.validate();
+        final ValidationResult actual = parameters.validate();
         assertNotNull(actual);
     }
 }
