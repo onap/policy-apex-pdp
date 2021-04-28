@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,7 @@ import org.onap.policy.common.endpoints.parameters.TopicParameterGroup;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 /**
  * Class to hold all parameters needed for apex starter component.
@@ -36,9 +38,9 @@ import org.onap.policy.common.parameters.annotations.NotNull;
 @NotBlank
 @Getter
 public class ApexStarterParameterGroup extends ParameterGroupImpl {
-    private RestServerParameters restServerParameters;
-    private PdpStatusParameters pdpStatusParameters;
-    private TopicParameterGroup topicParameterGroup;
+    private @Valid RestServerParameters restServerParameters;
+    private @Valid PdpStatusParameters pdpStatusParameters;
+    private @Valid TopicParameterGroup topicParameterGroup;
 
     /**
      * Create the apex starter parameter group.

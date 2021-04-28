@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +49,7 @@ import org.onap.policy.apex.service.engine.runtime.ApexEventListener;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -138,7 +139,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             throw new ApexException("engine service configuration parameters are null");
         }
 
-        final GroupValidationResult validation = config.validate();
+        final ValidationResult validation = config.validate();
         if (!validation.isValid()) {
             LOGGER.warn("Invalid engine service configuration parameters: {}" + validation.getResult());
             throw new ApexException("Invalid engine service configuration parameters: " + validation);
