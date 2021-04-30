@@ -71,9 +71,6 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
     // stopped
     private static final long REST_REQUESTOR_WAIT_SLEEP_TIME = 50;
 
-    // The Key for property
-    private static final String HTTP_CODE_STATUS = "HTTP_CODE_STATUS";
-
     // The REST parameters read from the parameter service
     private RestRequestorCarrierTechnologyParameters restConsumerProperties;
 
@@ -335,12 +332,8 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
-                // build a key and value property in excutionProperties
-                Properties executionProperties = new Properties();
-                executionProperties.put(HTTP_CODE_STATUS, response.getStatus());
-
                 // Send the event into Apex
-                eventReceiver.receiveEvent(request.getExecutionId(), executionProperties, eventJsonString);
+                eventReceiver.receiveEvent(request.getExecutionId(), inputExecutionProperties, eventJsonString);
 
                 synchronized (eventsReceivedLock) {
                     eventsReceived++;
