@@ -16,6 +16,24 @@
       "revId": "cb09008c4d252dbc9a62f3a1d0b463a74380aa77",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f788e7b2_24f02492",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientConsumer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-30T13:44:41Z",
+      "side": 0,
+      "message": "Correct, this property is not getting used anywhere.",
+      "parentUuid": "7a1ce031_78ac87b9",
+      "revId": "cb09008c4d252dbc9a62f3a1d0b463a74380aa77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
