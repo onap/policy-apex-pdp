@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +48,10 @@ public class RestClientCarrierTechnologyParametersTest {
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessageContaining("HTTP header array entry is null\n    parameter");
+            .hasMessageContaining("httpHeaders")
+            .hasMessageContaining("item \"entry 0\" value \"null\" INVALID, is null")
+            .hasMessageContaining("item \"entry 1\" value \"null\" INVALID, is null")
+            .hasMessageContaining("item \"entry 2\" value \"null\" INVALID, is null");
     }
 
     @Test
@@ -57,8 +61,9 @@ public class RestClientCarrierTechnologyParametersTest {
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessageContaining("HTTP header array entries must have one key and one value: [aaa, bbb, ccc]")
-            .hasMessageEndingWith("HTTP header array entries must have one key and one value: [aaa]\n");
+            .hasMessageContaining("httpHeaders")
+            .hasMessageContaining("\"entry 0\" value \"[aaa, bbb, ccc]\" INVALID, must have one key and one value")
+            .hasMessageContaining("\"entry 0\" value \"[aaa]\" INVALID, must have one key and one value");
     }
 
     @Test
@@ -68,8 +73,9 @@ public class RestClientCarrierTechnologyParametersTest {
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessageContaining("HTTP header key is null or blank: [null, bbb]")
-            .hasMessageEndingWith("HTTP header value is null or blank: [ccc, null]\n");
+            .hasMessageContaining("httpHeaders", "entry 0", "entry 1")
+            .hasMessageContaining("item \"key\" value \"null\" INVALID, is blank")
+            .hasMessageContaining("item \"value\" value \"null\" INVALID, is blank");
     }
 
     @Test

@@ -21,10 +21,11 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
-import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * A default event protocol parameter class that may be specialized by event protocol plugins that require plugin
@@ -39,12 +40,14 @@ import org.onap.policy.common.parameters.ValidationStatus;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class EventProtocolParameters implements ParameterGroup {
+@NotNull
+@NotBlank
+public abstract class EventProtocolParameters extends ParameterGroupImpl {
     // The event protocol label
     private String label = null;
 
     // Event protocol converter plugin class for this event protocol
-    private String eventProtocolPluginClass;
+    private @ClassName String eventProtocolPluginClass;
 
     /**
      * Constructor to create an event protocol parameters instance with the name of a sub class of this class and
@@ -97,25 +100,6 @@ public abstract class EventProtocolParameters implements ParameterGroup {
     public String toString() {
         return "CarrierTechnologyParameters [label=" + label + ", EventProtocolPluginClass=" + eventProtocolPluginClass
                         + "]";
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
-
-        if (label == null || label.length() == 0) {
-            result.setResult("label", ValidationStatus.INVALID, "event protocol label not specified or is blank");
-        }
-
-        if (eventProtocolPluginClass == null || eventProtocolPluginClass.length() == 0) {
-            result.setResult("eventProtocolPluginClass", ValidationStatus.INVALID,
-                            "event protocol eventProtocolPluginClass not specified or is blank");
-        }
-
-        return result;
     }
 
     @Override

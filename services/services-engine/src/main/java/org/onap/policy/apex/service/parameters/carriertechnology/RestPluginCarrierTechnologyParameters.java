@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.service.parameters.carriertechnology;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,9 +34,12 @@ import javax.ws.rs.core.MultivaluedMap;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.ObjectValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.models.base.Validated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,42 +160,42 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        GroupValidationResult result = super.validate();
+    public BeanValidationResult validate() {
+        BeanValidationResult result = super.validate();
 
-        validateUrl(result);
-        validateHttpHeaders(result);
+        result.addResult(validateUrl());
+        result.addResult(validateHttpHeaders());
+        result.addResult(validateHttpCodeFilter());
 
-        return validateHttpCodeFilter(result);
+        return result;
     }
 
     // @formatter:off
     /**
      * Validate the URL.
      *
-     * <p>Checks:
-     * http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
-     * http://www.blah.com/{par1/{some}thingelse (Nested tag) use {[^}]*{
-     * http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
-     * http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
-     * http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
-     * @param result the result of the validation
+     * <p/>Checks:
+     * <br/>http://www.blah.com/{par1/somethingelse (Missing end tag) use  {[^\\{}]*$
+     * <br/>http://www.blah.com/{par1/{some}thingelse (Nested tag) use {[^}]*{
+     * <br/>http://www.blah.com/{par1}/some}thingelse (Missing start tag1) use }[^{}]*.}
+     * <br/>http://www.blah.com/par1}/somethingelse (Missing start tag2) use }[^{}]*}
+     * <br/>http://www.blah.com/{}/somethingelse (Empty tag) use {[\s]*}
      */
     // @formatter:on
-    public GroupValidationResult validateUrl(final GroupValidationResult result) {
+    public ValidationResult validateUrl() {
         // The URL may be optional so existence must be checked in the plugin code
-        if (getUrl() == null) {
-            return result;
+        String url2 = getUrl();
+        if (url2 == null) {
+            return null;
         }
 
-        Matcher matcher = patternErrorKey.matcher(getUrl());
+        Matcher matcher = patternErrorKey.matcher(url2);
         if (matcher.find()) {
-            final String urlInvalidMessage = "invalid URL " + getUrl() + " has been set for event sending on "
-                + getLabel();
-            result.setResult("url", ValidationStatus.INVALID, urlInvalidMessage);
+            final String urlInvalidMessage = "invalid URL has been set for event sending on " + getLabel();
+            return new ObjectValidationResult("url", url2, ValidationStatus.INVALID, urlInvalidMessage);
         }
 
-        return result;
+        return null;
     }
 
     /**
@@ -198,24 +203,35 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
      *
      * @param result the result of the validation
      */
-    private GroupValidationResult validateHttpHeaders(final GroupValidationResult result) {
+    private ValidationResult validateHttpHeaders() {
         if (httpHeaders == null) {
-            return result;
+            return null;
         }
 
+        BeanValidationResult result = new BeanValidationResult(HTTP_HEADERS, httpHeaders);
+
+        int item = 0;
         for (String[] httpHeader : httpHeaders) {
+            final String label = "entry " + (item++);
+            final List<String> value = (httpHeader == null ? null : Arrays.asList(httpHeader));
+            BeanValidationResult result2 = new BeanValidationResult(label, value);
+
             if (httpHeader == null) {
-                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID, "HTTP header array entry is null");
+                // note: add to result, not result2
+                result.addResult(label, null, ValidationStatus.INVALID, Validated.IS_NULL);
+
             } else if (httpHeader.length != 2) {
-                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                    "HTTP header array entries must have one key and one value: " + Arrays.deepToString(httpHeader));
+                // note: add to result, not result2
+                result.addResult(label, value, ValidationStatus.INVALID, "must have one key and one value");
+
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[0])) {
-                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                    "HTTP header key is null or blank: " + Arrays.deepToString(httpHeader));
+                result2.addResult("key", httpHeader[0], ValidationStatus.INVALID, Validated.IS_BLANK);
+
             } else if (!ParameterValidationUtils.validateStringParameter(httpHeader[1])) {
-                result.setResult(HTTP_HEADERS, ValidationStatus.INVALID,
-                    "HTTP header value is null or blank: " + Arrays.deepToString(httpHeader));
+                result2.addResult("value", httpHeader[1], ValidationStatus.INVALID, Validated.IS_BLANK);
             }
+
+            result.addResult(result2);
         }
 
         return result;
@@ -223,28 +239,27 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
 
     /**
      * Validate the HTTP code filter.
-     *
-     * @param result the result of the validation
      */
-    public GroupValidationResult validateHttpCodeFilter(final GroupValidationResult result) {
+    public ValidationResult validateHttpCodeFilter() {
         if (httpCodeFilter == null) {
             httpCodeFilter = DEFAULT_HTTP_CODE_FILTER;
 
         } else if (StringUtils.isBlank(httpCodeFilter)) {
-            result.setResult(HTTP_CODE_FILTER, ValidationStatus.INVALID,
-                "HTTP code filter must be specified as a three digit regular expression");
+            return new ObjectValidationResult(HTTP_CODE_FILTER, httpCodeFilter, ValidationStatus.INVALID,
+                "must be a three digit regular expression");
         } else {
             try {
                 Pattern.compile(httpCodeFilter);
             } catch (PatternSyntaxException pse) {
+                LOGGER.debug("Invalid HTTP code filter", pse);
                 String message = "Invalid HTTP code filter, the filter must be specified as a three digit "
                     + "regular expression: " + pse.getMessage();
-                result.setResult(HTTP_CODE_FILTER, ValidationStatus.INVALID, message);
-                LOGGER.debug(message, pse);
+                return new ObjectValidationResult(HTTP_CODE_FILTER, httpCodeFilter, ValidationStatus.INVALID,
+                                message);
             }
         }
 
-        return result;
+        return null;
     }
 
     /**

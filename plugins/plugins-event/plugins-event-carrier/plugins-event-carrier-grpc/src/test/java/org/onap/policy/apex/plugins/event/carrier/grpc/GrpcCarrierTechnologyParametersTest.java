@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 
 public class GrpcCarrierTechnologyParametersTest {
 
@@ -45,7 +46,7 @@ public class GrpcCarrierTechnologyParametersTest {
 
     @Test
     public void testGrpcCarrierTechnologyParameters_invalid_producer_params() throws ApexEventException {
-        GroupValidationResult result = params.validate();
+        ValidationResult result = params.validate();
         assertTrue(result.isValid());
         assertThatThrownBy(() -> params.validateGrpcParameters(true))
             .hasMessage("Issues in specifying gRPC Producer parameters:\ntimeout should have a positive value.\n"
@@ -64,7 +65,7 @@ public class GrpcCarrierTechnologyParametersTest {
         params.setPort(2233);
         params.setTimeout(1000);
         params.setUsername(USERNAME);
-        GroupValidationResult result = params.validate();
+        ValidationResult result = params.validate();
         assertTrue(result.isValid());
         Assertions.assertThatCode(() -> params.validateGrpcParameters(true)).doesNotThrowAnyException();
     }
@@ -77,7 +78,7 @@ public class GrpcCarrierTechnologyParametersTest {
         params.setUsername(USERNAME);
 
         params.setPort(23); // invalid value
-        GroupValidationResult result = params.validate();
+        ValidationResult result = params.validate();
         assertTrue(result.isValid());
         assertThatThrownBy(() -> params.validateGrpcParameters(true))
             .hasMessageContaining("port range should be between 1024 and 65535");

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +23,9 @@ package org.onap.policy.apex.testsuites.integration.uservice.executionproperties
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * Dummy carrier technology parameters.
@@ -48,8 +48,8 @@ public class DummyCarrierTechnologyParameters extends CarrierTechnologyParameter
     /** The consumer plugin class for the dummy carrier technology. */
     public static final String DUMMY_EVENT_CONSUMER_PLUGIN_CLASS = DummyApexEventConsumer.class.getName();
 
-    private String testToRun = null;
-    private String propertyFileName = null;
+    private @NotNull @NotBlank String testToRun = null;
+    private @NotNull @NotBlank String propertyFileName = null;
 
     /**
      * Constructor to create a dummy carrier technology parameters instance and register the instance with the parameter
@@ -63,25 +63,5 @@ public class DummyCarrierTechnologyParameters extends CarrierTechnologyParameter
         this.setEventProducerPluginClass(DUMMY_EVENT_PRODUCER_PLUGIN_CLASS);
         this.setEventConsumerPluginClass(DUMMY_EVENT_CONSUMER_PLUGIN_CLASS);
 
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
-
-        if (StringUtils.isEmpty(testToRun)) {
-            result.setResult("testToRun", ValidationStatus.INVALID,
-                    "no test has been specified on the dummy carrier technology plugin");
-        }
-
-        if (StringUtils.isEmpty(propertyFileName)) {
-            result.setResult("propertyFileName", ValidationStatus.INVALID,
-                    "no propertyFileName has been specified on the dummy carrier technology plugin");
-        }
-
-        return result;
     }
 }

@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -25,18 +26,21 @@ import java.util.regex.PatternSyntaxException;
 import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * The parameters for a single event producer, event consumer or synchronous event handler.
- * 
+ *
  * <p>Event producers, consumers, and synchronous event handlers all use a carrier technology and an event protocol so
  * the actual parameters for each one are the same. Therefore, we use the same class for the parameters of each one.
- * 
+ *
  * <p>The following parameters are defined: <ol> <li>carrierTechnologyParameters: The carrier technology is the type of
  * messaging infrastructure used to carry events. Examples are File, Kafka or REST. <li>eventProtocolParameters: The
  * format that the events are in when being carried. Examples are JSON, XML, or Java Beans. carrier technology
@@ -56,8 +60,8 @@ public class EventHandlerParameters implements ParameterGroup {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventHandlerParameters.class);
 
     private String name = null;
-    private CarrierTechnologyParameters carrierTechnologyParameters = null;
-    private EventProtocolParameters eventProtocolParameters = null;
+    private @NotNull @Valid CarrierTechnologyParameters carrierTechnologyParameters = null;
+    private @NotNull @Valid EventProtocolParameters eventProtocolParameters = null;
     private boolean synchronousMode = false;
     private String synchronousPeer = null;
     private long synchronousTimeout = 0;
@@ -97,7 +101,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Checks if the name of the event handler is set.
-     * 
+     *
      * @return true if the name is set
      */
     public boolean checkSetName() {
@@ -214,7 +218,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Get the timeout value for the event handler in peered mode.
-     * 
+     *
      * @param peeredMode the peered mode to get the timeout for
      * @return the timeout value
      */
@@ -231,7 +235,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Set the timeout value for the event handler in peered mode.
-     * 
+     *
      * @param peeredMode the peered mode to set the timeout for
      * @param timeout the timeout value
      */
@@ -306,22 +310,8 @@ public class EventHandlerParameters implements ParameterGroup {
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
-
-        if (eventProtocolParameters == null) {
-            result.setResult("eventProtocolParameters", ValidationStatus.INVALID,
-                            "event handler eventProtocolParameters not specified or blank");
-        } else {
-            result.setResult("eventProtocolParameters", eventProtocolParameters.validate());
-        }
-
-        if (carrierTechnologyParameters == null) {
-            result.setResult("carrierTechnologyParameters", ValidationStatus.INVALID,
-                            "event handler carrierTechnologyParameters not specified or blank");
-        } else {
-            result.setResult("carrierTechnologyParameters", carrierTechnologyParameters.validate());
-        }
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = new BeanValidator().validateTop(getClass().getSimpleName(), this);
 
         if (eventNameFilter != null) {
             try {
@@ -329,7 +319,7 @@ public class EventHandlerParameters implements ParameterGroup {
             } catch (final PatternSyntaxException pse) {
                 String message = "event handler eventNameFilter is not a valid regular expression: " + pse.getMessage();
                 LOGGER.trace(message, pse);
-                result.setResult("eventNameFilter", ValidationStatus.INVALID, message);
+                result.addResult("eventNameFilter", eventNameFilter, ValidationStatus.INVALID, message);
             }
         }
 
@@ -338,7 +328,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Check if we're using synchronous mode.
-     * 
+     *
      * @return true if if we're using synchronous mode
      */
     public boolean isSynchronousMode() {
@@ -347,7 +337,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * The synchronous peer for this event handler.
-     * 
+     *
      * @return the synchronous peer for this event handler
      */
     public String getSynchronousPeer() {
@@ -356,7 +346,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Get the timeout for synchronous operations.
-     * 
+     *
      * @return the timeout for synchronous operations
      */
     public long getSynchronousTimeout() {
@@ -365,7 +355,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Check if this event handler will use requestor mode.
-     * 
+     *
      * @return true if this event handler will use requestor mode
      */
     public boolean isRequestorMode() {
@@ -374,7 +364,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * The requestor peer for this event handler.
-     * 
+     *
      * @return the requestor peer for this event handler
      */
     public String getRequestorPeer() {
@@ -383,7 +373,7 @@ public class EventHandlerParameters implements ParameterGroup {
 
     /**
      * Get the requestor timeout.
-     * 
+     *
      * @return the requestorTimeout.
      */
     public long getRequestorTimeout() {

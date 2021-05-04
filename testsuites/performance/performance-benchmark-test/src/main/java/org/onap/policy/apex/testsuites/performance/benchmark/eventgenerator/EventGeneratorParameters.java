@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +21,20 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
+import lombok.Getter;
+import lombok.Setter;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.Max;
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * This class defines the parameters for event generation.
  */
-public class EventGeneratorParameters implements ParameterGroup {
+@Getter
+@Setter
+public class EventGeneratorParameters extends ParameterGroupImpl {
     // @formatter:off
     private static final String DEFAULT_NAME                  = EventGeneratorParameters.class.getSimpleName();
     private static final String DEFAULT_HOST                  = "localhost";
@@ -36,11 +43,16 @@ public class EventGeneratorParameters implements ParameterGroup {
     private static final int    DEFAULT_BATCH_SIZE            = 1;
     private static final long   DEFAULT_DELAY_BETWEEN_BATCHES = 2000;
 
-    private String name                = DEFAULT_NAME;
+    @NotNull @NotBlank
     private String host                = DEFAULT_HOST;
+    @Min(1024)
+    @Max(65535)
     private int    port                = DEFAULT_PORT;
+    @Min(0)
     private int    batchCount          = DEFAULT_BATCH_COUNT;
+    @Min(1)
     private int    batchSize           = DEFAULT_BATCH_SIZE;
+    @Min(0)
     private long   delayBetweenBatches = DEFAULT_DELAY_BETWEEN_BATCHES;
     private String outFile             = null;
     // @formatter:on
@@ -49,108 +61,6 @@ public class EventGeneratorParameters implements ParameterGroup {
      * Create default parameters.
      */
     public EventGeneratorParameters() {
-        // Default parameters are generated
+        super(DEFAULT_NAME);
     }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public int getBatchCount() {
-        return batchCount;
-    }
-
-    public void setBatchCount(int batchCount) {
-        this.batchCount = batchCount;
-    }
-
-    public int getBatchSize() {
-        return batchSize;
-    }
-
-    public void setBatchSize(int batchSize) {
-        this.batchSize = batchSize;
-    }
-
-    public long getDelayBetweenBatches() {
-        return delayBetweenBatches;
-    }
-
-    public void setDelayBetweenBatches(long delayBetweenBatches) {
-        this.delayBetweenBatches = delayBetweenBatches;
-    }
-
-    public String getOutFile() {
-        return outFile;
-    }
-
-    public void setOutFile(String outFile) {
-        this.outFile = outFile;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public GroupValidationResult validate() {
-        GroupValidationResult validationResult = new GroupValidationResult(this);
-
-        if (isNullOrBlank(name)) {
-            validationResult.setResult("name", ValidationStatus.INVALID, "name must be a non-blank string");
-        }
-
-        if (isNullOrBlank(host)) {
-            validationResult.setResult("host", ValidationStatus.INVALID, "host must be a non-blank string");
-        }
-
-        if (port < 1024 || port > 65535) {
-            validationResult.setResult("port", ValidationStatus.INVALID,
-                            "port must be an integer between 1024 and 65535 inclusive");
-        }
-
-        if (batchCount < 0) {
-            validationResult.setResult("batchCount", ValidationStatus.INVALID,
-                            "batchCount must be an integer with a value of zero or more, "
-                                            + "zero means generate batches forever");
-        }
-
-        if (batchSize < 1) {
-            validationResult.setResult("batchSize", ValidationStatus.INVALID,
-                            "batchSize must be an integer greater than zero");
-        }
-
-        if (delayBetweenBatches < 0) {
-            validationResult.setResult("batchSize", ValidationStatus.INVALID,
-                            "batchSize must be an integer with a value of zero or more");
-        }
-
-        return validationResult;
-    }
-
-    private boolean isNullOrBlank(final String stringValue) {
-        return stringValue == null || stringValue.trim().length() == 0;
-    }
-
 }

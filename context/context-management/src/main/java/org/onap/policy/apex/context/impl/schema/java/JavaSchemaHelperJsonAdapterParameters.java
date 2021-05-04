@@ -24,7 +24,9 @@ package org.onap.policy.apex.context.impl.schema.java;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;
 import com.google.gson.TypeAdapter;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.apache.commons.lang3.StringUtils;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.slf4j.ext.XLogger;
@@ -145,8 +147,8 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = new BeanValidator().validateTop(getClass().getSimpleName(), this);
 
         getClass(ADAPTED_CLASS, adaptedClass, result);
 
@@ -172,7 +174,7 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
             }
 
             if (errorMessage != null) {
-                result.setResult(ADAPTOR_CLASS, ValidationStatus.INVALID, errorMessage);
+                result.addResult(ADAPTOR_CLASS, adaptorClazz, ValidationStatus.INVALID, errorMessage);
             }
         }
 
@@ -186,9 +188,9 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
      * @param classToCheck the class to check for existence
      * @param result the result of the check
      */
-    private Class<?> getClass(String parameterName, String classToCheck, final GroupValidationResult result) {
-        if (classToCheck == null || classToCheck.trim().length() == 0) {
-            result.setResult(parameterName, ValidationStatus.INVALID, "parameter is null or blank");
+    private Class<?> getClass(String parameterName, String classToCheck, final BeanValidationResult result) {
+        if (StringUtils.isBlank(classToCheck)) {
+            result.addResult(parameterName, classToCheck, ValidationStatus.INVALID, "parameter is null or blank");
             return null;
         }
 
@@ -196,7 +198,8 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
         try {
             return Class.forName(classToCheck);
         } catch (final ClassNotFoundException e) {
-            result.setResult(parameterName, ValidationStatus.INVALID, "class not found: " + e.getMessage());
+            result.addResult(parameterName, classToCheck, ValidationStatus.INVALID,
+                            "class not found: " + e.getMessage());
             LOGGER.warn("class not found: ", e);
             return null;
         }

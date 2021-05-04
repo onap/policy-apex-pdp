@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -28,12 +30,12 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Test;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 
 public class RestServerCarrierTechnologyParametersTest {
 
     RestServerCarrierTechnologyParameters restServerCarrierTechnologyParameters = null;
-    GroupValidationResult result = null;
+    ValidationResult result = null;
 
     /**
      * Set up testing.
@@ -144,7 +146,6 @@ public class RestServerCarrierTechnologyParametersTest {
         result = restServerCarrierTechnologyParameters.validate();
         assertNotNull(result);
         assertFalse(result.isValid());
-        assertTrue(result.getResult().contains("host is specified only in standalone mode"));
-        assertTrue(result.getResult().contains("port is specified only in standalone mode"));
+        assertThat(result.getResult()).contains("host", "port", "should be specified only in standalone mode");
     }
 }

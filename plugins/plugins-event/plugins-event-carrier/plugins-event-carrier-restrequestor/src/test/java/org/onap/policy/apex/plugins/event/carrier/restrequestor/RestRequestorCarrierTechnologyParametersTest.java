@@ -43,19 +43,19 @@ public class RestRequestorCarrierTechnologyParametersTest {
     @Test
     public void testRestRequestorCarrierTechnologyParametersBadList() {
         verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderBadList.json",
-                        "HTTP header array entry is null\n    parameter");
+                        "item \"entry 2\" value \"null\" INVALID, is null");
     }
 
     @Test
     public void testRestRequestorCarrierTechnologyParametersNotKvPairs() {
         verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNotKvPairs.json",
-                        "HTTP header array entries must have one key and one value: [aaa, bbb, ccc]");
+                        "item \"entry 0\" value \"[aaa, bbb, ccc]\" INVALID, must have one key");
     }
 
     @Test
     public void testRestRequestorCarrierTechnologyParametersNulls() {
         verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNulls.json",
-                        "HTTP header key is null or blank: [null, bbb]");
+                        "\"key\"");
     }
 
     private void verifyException(String fileName, String expectedMsg) {

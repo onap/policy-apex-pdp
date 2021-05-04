@@ -21,7 +21,7 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
@@ -97,16 +97,16 @@ public abstract class EventProtocolTextCharDelimitedParameters extends EventProt
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = super.validate();
+    public BeanValidationResult validate() {
+        final BeanValidationResult result = super.validate();
 
         if (startChar == '\0') {
-            result.setResult("startChar", ValidationStatus.INVALID,
+            result.addResult("startChar", null, ValidationStatus.INVALID,
                             "text character delimited start character has not been specified");
         }
 
         if (endChar == '\0') {
-            result.setResult("endChar", ValidationStatus.INVALID,
+            result.addResult("endChar", null, ValidationStatus.INVALID,
                             "text character delimited end character has not been specified\n");
         }
 

@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,14 +76,11 @@ public class ProducerConsumerTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/prodConsNoCT.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"aConsumer\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
-                + " parameter group has status INVALID\n" + "      parameter group \"UNDEFINED\" INVALID, "
-                + "event handler carrierTechnologyParameters not specified or blank\n");
+            .hasMessageContaining("src/test/resources/parameters/prodConsNoCT.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("eventInputParameters", "aConsumer", "EventHandlerParameters",
+                            "carrierTechnologyParameters")
+            .hasMessageContaining("is null");
     }
 
     @Test
@@ -91,23 +89,14 @@ public class ProducerConsumerTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from \"src/test/resources/parameters/prodConsNoEP.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"aProducer\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", parameter group has status INVALID\n" + "      parameter group \"UNDEFINED\" INVALID, "
-                + "event handler eventProtocolParameters not specified or blank\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"aConsumer\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
-                + "\"org.onap.policy.apex.service.engine.event.impl."
-                + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "        field \"fileName\" type \"java.lang.String\" value \"null\" INVALID, "
-                + "\"null\" invalid, must be specified as a non-empty string\n");
+            .hasMessageContaining("src/test/resources/parameters/prodConsNoEP.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("eventOutputParameters", "aProducer", "EventHandlerParameters",
+                            "eventProtocolParameters")
+            .hasMessageContaining("eventInputParameters", "aConsumer", "EventHandlerParameters",
+                            "FileCarrierTechnologyParameters", "fileName")
+            .hasMessageContaining("is null")
+            .hasMessageContaining("is blank");
     }
 
     @Test
@@ -170,19 +159,12 @@ public class ProducerConsumerTests {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsBadFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
-            "validation error(s) on parameters from " + "\"src/test/resources/parameters/prodConsBadFileName.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"aProducer\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
-                + "INVALID, parameter group has status INVALID\n" + "      parameter group \"FILE\" type "
-                + "\"org.onap.policy.apex.service.engine.event.impl."
-                + "filecarrierplugin.FileCarrierTechnologyParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "        field \"fileName\" type "
-                + "\"java.lang.String\" value \"null\" INVALID, "
-                + "\"null\" invalid, must be specified as a non-empty string\n");
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("src/test/resources/parameters/prodConsBadFileName.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("eventOutputParameters", "aProducer", "EventHandlerParameters",
+                            "FileCarrierTechnologyParameters", "fileName")
+            .hasMessageContaining("is blank");
     }
 
     @Test

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +22,9 @@
 package org.onap.policy.apex.context.parameters;
 
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * An empty lock manager parameter class that may be specialized by context lock manager plugins
@@ -31,24 +33,21 @@ import org.onap.policy.common.parameters.ParameterGroup;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class LockManagerParameters implements ParameterGroup {
+@NotNull
+public class LockManagerParameters extends ParameterGroupImpl {
     /**
      * The default lock manager can lock context album instance across all threads in a single JVM.
      */
     public static final String DEFAULT_LOCK_MANAGER_PLUGIN_CLASS = JvmLocalLockManager.class.getName();
 
-    private String name;
-    private String pluginClass = DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;
+    private @ClassName String pluginClass = DEFAULT_LOCK_MANAGER_PLUGIN_CLASS;
 
     /**
      * Constructor to create a lock manager parameters instance and register the instance with the
      * parameter service.
      */
     public LockManagerParameters() {
-        super();
-
-        // Set the name for the parameters
-        this.name = ContextParameterConstants.LOCKING_GROUP_NAME;
+        super(ContextParameterConstants.LOCKING_GROUP_NAME);
     }
 
     /**
@@ -68,24 +67,9 @@ public class LockManagerParameters implements ParameterGroup {
     public void setPluginClass(final String pluginClass) {
         this.pluginClass = pluginClass;
     }
-    
+
     @Override
     public String toString() {
-        return "LockManagerParameters [name=" + name + ", pluginClass=" + pluginClass + "]";
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    @Override
-    public GroupValidationResult validate() {
-        return new GroupValidationResult(this);
+        return "LockManagerParameters [name=" + getName() + ", pluginClass=" + pluginClass + "]";
     }
 }

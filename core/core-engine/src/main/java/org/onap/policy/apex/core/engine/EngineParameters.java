@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +25,13 @@ package org.onap.policy.apex.core.engine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.context.parameters.ContextParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationResult;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 /**
  * This class holds the parameters for a single Apex engine. This parameter class holds parameters for context schemas
@@ -51,44 +51,21 @@ import org.onap.policy.common.parameters.ValidationResult;
  */
 @Getter
 @Setter
-public class EngineParameters implements ParameterGroup {
-    private ContextParameters contextParameters = new ContextParameters();
+@NotNull
+public class EngineParameters extends ParameterGroupImpl {
+    private @Valid ContextParameters contextParameters = new ContextParameters();
 
-    // Parameter group name
-    private String name;
 
     // A map of parameters for executors of various logic types
-    private Map<String, ExecutorParameters> executorParameterMap = new TreeMap<>();
+    private Map<String, @NotNull @Valid ExecutorParameters> executorParameterMap = new TreeMap<>();
 
     // A list of parameters to be passed to the task, so that they can be used in the logic
-    private List<TaskParameters> taskParameters = new ArrayList<>();
+    private List<@NotNull @Valid TaskParameters> taskParameters = new ArrayList<>();
 
     /**
      * Constructor to create an engine parameters instance and register the instance with the parameter service.
      */
     public EngineParameters() {
-        super();
-
-        // Set the name for the parameters
-        this.name = EngineParameterConstants.MAIN_GROUP_NAME;
+        super(EngineParameterConstants.MAIN_GROUP_NAME);
     }
-
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult result = new GroupValidationResult(this);
-
-        result.setResult("contextParameters", contextParameters.validate());
-
-        for (Entry<String, ExecutorParameters> executorParEntry : executorParameterMap.entrySet()) {
-            result.setResult("executorParameterMap", executorParEntry.getKey(), executorParEntry.getValue().validate());
-        }
-        for (TaskParameters taskParam : taskParameters) {
-            ValidationResult taskParamValidationResult = taskParam.validate("taskParameters");
-            result.setResult(taskParamValidationResult.getName(), taskParamValidationResult.getStatus(),
-                taskParamValidationResult.getResult());
-        }
-        return result;
-    }
-
-
 }

@@ -51,16 +51,10 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", specified peered mode \"SYNCHRONOUS\" "
-                + "peer is illegal on eventOutputParameters \"SyncProducer0\" \n");
+            .hasMessageContaining("src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID")
+            .hasMessageContaining("peer is illegal");
     }
 
     @Test
@@ -69,16 +63,10 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", specified peered mode \"SYNCHRONOUS\" peer is illegal "
-                + "on eventOutputParameters \"SyncProducer0\" \n");
+            .hasMessageContaining("src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID")
+            .hasMessageContaining("peer is illegal");
     }
 
     @Test
@@ -87,27 +75,13 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncBadParamsBadPeers.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer1 for peered mode SYNCHRONOUS does not exist "
-                + "or is not defined with the same peered mode\n" + "    parameter group \"SyncProducer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer0 for peered mode SYNCHRONOUS does not exist "
-                + "or is not defined with the same peered mode\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncConsumer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer1 for peered mode SYNCHRONOUS does not exist "
-                + "or is not defined with the same peered mode\n" + "    parameter group \"SyncConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer0 for peered mode SYNCHRONOUS does not exist "
-                + "or is not defined with the same peered mode\n");
+            .hasMessageContaining("src/test/resources/parameters/syncBadParamsBadPeers.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer1\" INVALID")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer0\" INVALID")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer1\" INVALID")
+            .hasMessageContaining("does not exist or is not defined");
     }
 
     @Test
@@ -116,29 +90,16 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncBadParamsInvalidTimeout.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
-                + " specified peered mode \"SYNCHRONOUS\" timeout value \"-10\" is illegal, "
-                + "specify a non-negative timeout value in milliseconds\n"
-                + "    parameter group \"SyncProducer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
-                + "INVALID, specified peered mode \"SYNCHRONOUS\" timeout value \"-3\" is illegal, "
-                + "specify a non-negative timeout value in milliseconds\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncConsumer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
-                + "INVALID, specified peered mode \"SYNCHRONOUS\" timeout value \"-1\" is illegal, "
-                + "specify a non-negative timeout value in milliseconds\n"
-                + "    parameter group \"SyncConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
-                + " specified peered mode \"SYNCHRONOUS\" timeout value \"-99999999\" is illegal, "
-                + "specify a non-negative timeout value in milliseconds\n");
+            .hasMessageContaining("src/test/resources/parameters/syncBadParamsInvalidTimeout.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer1\" INVALID")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer0\" INVALID")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer1\" INVALID")
+            .hasMessageContaining("timeout value \"-10\" is illegal")
+            .hasMessageContaining("timeout value \"-3\" is illegal")
+            .hasMessageContaining("timeout value \"-1\" is illegal")
+            .hasMessageContaining("timeout value \"-99999999\" is illegal");
     }
 
     @Test
@@ -147,16 +108,10 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncBadParamsBadTimeout.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" "
-                + "INVALID, parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"MyOtherProducer\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
-                + "INVALID, specified peered mode \"SYNCHRONOUS\" "
-                + "timeout is illegal on eventOutputParameters \"MyOtherProducer\"\n");
+            .hasMessageContaining("src/test/resources/parameters/syncBadParamsBadTimeout.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"MyOtherProducer\" INVALID, "
+                + "specified peered mode \"SYNCHRONOUS\" timeout is illegal");
     }
 
     @Test
@@ -165,29 +120,16 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncBadParamsUnpairedTimeout.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer0 for peered mode SYNCHRONOUS timeout 10 on event handler "
-                + "\"SyncProducer0\" does not equal timeout 1 on event handler \"SyncConsumer0\"\n"
-                + "    parameter group \"SyncProducer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer1 for peered mode SYNCHRONOUS timeout 3 on event handler "
-                + "\"SyncProducer1\" does not equal timeout 99999999 on event handler \"SyncConsumer1\"\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncConsumer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer0 for peered mode SYNCHRONOUS timeout 1 on event handler "
-                + "\"SyncConsumer0\" does not equal timeout 10 on event handler \"SyncProducer0\"\n"
-                + "    parameter group \"SyncConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer1 for peered mode SYNCHRONOUS timeout 99999999 on event handler "
-                + "\"SyncConsumer1\" does not equal timeout 3 on event handler \"SyncProducer1\"\n" + "");
+            .hasMessageContaining("src/test/resources/parameters/syncBadParamsUnpairedTimeout.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID, peer \"SyncConsumer0\"")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer1\" INVALID, peer \"SyncConsumer1\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer0\" INVALID, peer \"SyncProducer0\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer1\" INVALID, peer \"SyncProducer1\"")
+            .hasMessageContaining("timeout 10 does not equal peer timeout 1")
+            .hasMessageContaining("timeout 3 does not equal peer timeout 99999999")
+            .hasMessageContaining("timeout 1 does not equal peer timeout 10")
+            .hasMessageContaining("timeout 99999999 does not equal peer timeout 3");
     }
 
     @Test
@@ -226,23 +168,12 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncUnusedConsumerPeers.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
-                + "INVALID, peer \"SyncConsumer0 for peered mode SYNCHRONOUS, "
-                + "value \"SyncProducer0\" on peer \"SyncConsumer0\" "
-                + "does not equal event handler \"SyncProducer1\"\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" "
-                + "INVALID, peer \"SyncProducer1 for peered mode SYNCHRONOUS, "
-                + "value \"SyncConsumer0\" on peer \"SyncProducer1\" "
-                + "does not equal event handler \"SyncConsumer1\"\n");
+            .hasMessageContaining("src/test/resources/parameters/syncUnusedConsumerPeers.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer1\" INVALID, peer \"SyncConsumer0\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer1\" INVALID, peer \"SyncProducer1\"")
+            .hasMessageContaining("value \"SyncProducer0\" on peer does not equal event handler")
+            .hasMessageContaining("value \"SyncConsumer0\" on peer does not equal event handler");
     }
 
     @Test
@@ -251,29 +182,16 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncMismatchedPeers.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer1 for peered mode SYNCHRONOUS, value \"SyncProducer1\" "
-                + "on peer \"SyncConsumer1\" does not equal event handler \"SyncProducer0\"\n"
-                + "    parameter group \"SyncProducer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer0 for peered mode SYNCHRONOUS, value \"SyncProducer0\" "
-                + "on peer \"SyncConsumer0\" does not equal event handler \"SyncProducer1\"\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncConsumer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer0 for peered mode SYNCHRONOUS, value \"SyncConsumer1\" "
-                + "on peer \"SyncProducer0\" does not equal event handler \"SyncConsumer0\"\n"
-                + "    parameter group \"SyncConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer1 for peered mode SYNCHRONOUS, value \"SyncConsumer0\" "
-                + "on peer \"SyncProducer1\" does not equal event handler \"SyncConsumer1\"\n");
+            .hasMessageContaining("src/test/resources/parameters/syncMismatchedPeers.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID, peer \"SyncConsumer1\"")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer1\" INVALID, peer \"SyncConsumer0\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer0\" INVALID, peer \"SyncProducer0\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer1\" INVALID, peer \"SyncProducer1\"")
+            .hasMessageContaining("value \"SyncProducer1\" on peer does not equal event handler")
+            .hasMessageContaining("value \"SyncProducer0\" on peer does not equal event handler")
+            .hasMessageContaining("value \"SyncConsumer1\" on peer does not equal event handler")
+            .hasMessageContaining("value \"SyncConsumer0\" on peer does not equal event handler");
     }
 
     @Test
@@ -282,21 +200,12 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncUnusedProducerPeers.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n"
-                + "  parameter group map \"eventOutputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncProducer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncConsumer0 for peered mode SYNCHRONOUS, value \"SyncProducer1\" on peer "
-                + "\"SyncConsumer0\" does not equal event handler \"SyncProducer0\"\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, parameter group map has status "
-                + "INVALID\n    parameter group \"SyncConsumer0\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID"
-                + ", peer \"SyncProducer1 for peered mode SYNCHRONOUS, value \"SyncConsumer1\" on peer "
-                + "\"SyncProducer1\" does not equal event handler \"SyncConsumer0\"\n");
+            .hasMessageContaining("src/test/resources/parameters/syncUnusedProducerPeers.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer0\" INVALID, peer \"SyncConsumer0\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer0\" INVALID, peer \"SyncProducer1\"")
+            .hasMessageContaining("value \"SyncProducer1\" on peer does not equal event handler")
+            .hasMessageContaining("value \"SyncConsumer1\" on peer does not equal event handler");
     }
 
     @Test
@@ -305,23 +214,12 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("validation error(s) on parameters from "
-                + "\"src/test/resources/parameters/syncMismatchedTimeout.json\"\n"
-                + "parameter group \"APEX_PARAMETERS\" type "
-                + "\"org.onap.policy.apex.service.parameters.ApexParameters\" INVALID, "
-                + "parameter group has status INVALID\n" + "  parameter group map \"eventOutputParameters\" "
-                + "INVALID, parameter group map has status INVALID\n"
-                + "    parameter group \"SyncProducer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
-                + " peer \"SyncConsumer1 for peered mode SYNCHRONOUS timeout 456 "
-                + "on event handler \"SyncProducer1\" does not equal timeout 123 "
-                + "on event handler \"SyncConsumer1\"\n"
-                + "  parameter group map \"eventInputParameters\" INVALID, "
-                + "parameter group map has status INVALID\n" + "    parameter group \"SyncConsumer1\" type "
-                + "\"org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters\" INVALID,"
-                + " peer \"SyncProducer1 for peered mode SYNCHRONOUS timeout 123 "
-                + "on event handler \"SyncConsumer1\" does not equal timeout 456 "
-                + "on event handler \"SyncProducer1\"\n");
+            .hasMessageContaining("src/test/resources/parameters/syncMismatchedTimeout.json")
+            .hasMessageContaining("ApexParameters")
+            .hasMessageContaining("\"eventOutputParameters\" value \"SyncProducer1\" INVALID, peer \"SyncConsumer1\"")
+            .hasMessageContaining("\"eventInputParameters\" value \"SyncConsumer1\" INVALID, peer \"SyncProducer1\"")
+            .hasMessageContaining("timeout 123 does not equal peer timeout 456")
+            .hasMessageContaining("timeout 456 does not equal peer timeout 123");
     }
 
     @Test

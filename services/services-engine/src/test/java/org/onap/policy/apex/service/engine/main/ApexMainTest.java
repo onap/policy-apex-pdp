@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,7 +110,7 @@ public class ApexMainTest {
 
         apexMain1 = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("parameter group has status INVALID"));
+                .contains("item has status INVALID"));
         assertNotNull(apexMain1);
     }
 
