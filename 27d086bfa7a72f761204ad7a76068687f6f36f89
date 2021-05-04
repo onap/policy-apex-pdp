@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5beb8da0_4bc67c95",
+        "filename": "csit/tests/apex-pdp-test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-04T21:36:21Z",
+      "side": 1,
+      "message": "thanks for cleaning up these warnings about deprecated actions!",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 30
+      },
+      "revId": "27d086bfa7a72f761204ad7a76068687f6f36f89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
