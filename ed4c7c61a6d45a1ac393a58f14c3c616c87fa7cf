@@ -16,6 +16,24 @@
       "revId": "ed4c7c61a6d45a1ac393a58f14c3c616c87fa7cf",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c7c6534_cb290429",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexSchemaGeneratorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7662
+      },
+      "writtenOn": "2021-05-07T14:23:38Z",
+      "side": 1,
+      "message": "No problem at all. I haven\u0027t refactor this test at all. \nI just fixed the way someone clean up after test (in place the test was cleaned :) ). \nFor some reason creating new buffer connected to standard output instead of restoring old one was breaking randomly our pipeline.",
+      "parentUuid": "c0ff20c1_6b547961",
+      "revId": "ed4c7c61a6d45a1ac393a58f14c3c616c87fa7cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
