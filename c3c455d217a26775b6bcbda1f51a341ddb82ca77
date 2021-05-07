@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7acf80c8_8ff998c6",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexSchemaGeneratorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-07T12:23:10Z",
+      "side": 1,
+      "message": "this should be outside of the method",
+      "revId": "c3c455d217a26775b6bcbda1f51a341ddb82ca77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a41a641_66f53c0d",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexSchemaGeneratorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-07T12:23:10Z",
+      "side": 1,
+      "message": "this should be done in an @After method, so that it\u0027s done even if the test method aborts",
+      "revId": "c3c455d217a26775b6bcbda1f51a341ddb82ca77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76905a87_e5f6546c",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-07T12:23:10Z",
+      "side": 1,
+      "message": "add this to ensure it\u0027s deleted when the tests are done:\n\n  tempFile.deleteOnExit()",
+      "revId": "c3c455d217a26775b6bcbda1f51a341ddb82ca77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
