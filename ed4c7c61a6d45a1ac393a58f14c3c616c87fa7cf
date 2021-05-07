@@ -34,6 +34,24 @@
       "revId": "ed4c7c61a6d45a1ac393a58f14c3c616c87fa7cf",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d543bb5_c4406746",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexSchemaGeneratorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-07T14:47:50Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "5c7c6534_cb290429",
+      "revId": "ed4c7c61a6d45a1ac393a58f14c3c616c87fa7cf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
