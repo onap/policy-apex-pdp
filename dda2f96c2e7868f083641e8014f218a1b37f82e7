@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50b033d5_7f58baaf",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-05-07T17:15:08Z",
+      "side": 1,
+      "message": "For future reference, for what I saw in Jim\u0027s sonar reviews, sonar requires these variables and assignment using var instead of declaring the type explicitly, for example in this line, the sonar compliant one would be:\n\nvar handlerParameters \u003d new EventHandlerParameters();",
+      "revId": "dda2f96c2e7868f083641e8014f218a1b37f82e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
