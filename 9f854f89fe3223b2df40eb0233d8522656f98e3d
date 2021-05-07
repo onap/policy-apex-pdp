@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c200f3_59b8c6f9",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/ApexPeriodicEventGeneratorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-07T10:39:10Z",
+      "side": 1,
+      "message": "newline",
+      "revId": "9f854f89fe3223b2df40eb0233d8522656f98e3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
