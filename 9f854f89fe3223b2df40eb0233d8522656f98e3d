@@ -16,6 +16,24 @@
       "revId": "9f854f89fe3223b2df40eb0233d8522656f98e3d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58679157_04790e3b",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/ApexPeriodicEventGeneratorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-07T15:33:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c200f3_59b8c6f9",
+      "revId": "9f854f89fe3223b2df40eb0233d8522656f98e3d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
