@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "ecc5002d_a76d198a",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaKeyTranslationUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5519
+      },
+      "writtenOn": "2021-05-10T22:28:47Z",
+      "side": 1,
+      "message": "Additional tests added",
+      "parentUuid": "37f51148_cc3c802c",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ed51060_66debcc9",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
         "patchSetId": 1
