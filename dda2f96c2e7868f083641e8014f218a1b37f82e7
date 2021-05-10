@@ -16,6 +16,24 @@
       "revId": "dda2f96c2e7868f083641e8014f218a1b37f82e7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd605daa_abc04c4e",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7662
+      },
+      "writtenOn": "2021-05-10T08:30:41Z",
+      "side": 1,
+      "message": "Yes, I can confirm that there is currently an error in the Sonarqube configuration. We have to wait for the Sonarqube team to fix the bug in their analytical engine.",
+      "parentUuid": "50b033d5_7f58baaf",
+      "revId": "dda2f96c2e7868f083641e8014f218a1b37f82e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
