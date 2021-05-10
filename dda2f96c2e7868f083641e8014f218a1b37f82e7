@@ -34,6 +34,24 @@
       "revId": "dda2f96c2e7868f083641e8014f218a1b37f82e7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5885569_91880c4f",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/event/impl/filecarrierplugin/consumer/ApexFileEventConsumerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-10T12:16:39Z",
+      "side": 1,
+      "message": "where do you see that?  I\u0027ve been on sonarsource and found nothing to that effect, though I did report one case where it\u0027s erroneously reporting.",
+      "parentUuid": "dd605daa_abc04c4e",
+      "revId": "dda2f96c2e7868f083641e8014f218a1b37f82e7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
