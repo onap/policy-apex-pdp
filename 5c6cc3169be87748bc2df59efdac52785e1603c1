@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "597aa6de_824c5cc1",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaKeyTranslationUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-10T15:47:09Z",
+      "side": 1,
+      "message": "and that test explicitly tests all three of these cases (i.e., _Dot_, _Dash_, and _Colon_)?",
+      "parentUuid": "f05fc576_6ead38f0",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ed51060_66debcc9",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
         "patchSetId": 1
