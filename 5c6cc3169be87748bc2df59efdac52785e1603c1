@@ -87,6 +87,24 @@
       "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb1e3698_ad45e343",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-10T15:57:46Z",
+      "side": 1,
+      "message": "according to gerrit, this file does not end with a newline, thus a newline should be added",
+      "parentUuid": "de691a61_d8b1199d",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
