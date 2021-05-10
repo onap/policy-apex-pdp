@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d4f2873_abd7c06b",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaKeyTranslationUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-10T13:29:15Z",
+      "side": 1,
+      "message": "are there junits to test all three substitutions in both branches?",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed51060_66debcc9",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-10T13:29:15Z",
+      "side": 1,
+      "message": "newline",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
