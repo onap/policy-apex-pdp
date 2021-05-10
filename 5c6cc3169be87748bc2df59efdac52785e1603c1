@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "37f51148_cc3c802c",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaKeyTranslationUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-10T18:27:47Z",
+      "side": 1,
+      "message": "The reason that I keep asking this is that it clearly passed the junits before this change was added.  So why is the change needed?  If the change is needed, then there should be a junit that will FAIL it.  If there is no such junit, then one should be added to verify that this change does what it\u0027s intended to do.",
+      "parentUuid": "3cb95bd1_9826a7b0",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ed51060_66debcc9",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
         "patchSetId": 1
