@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f05fc576_6ead38f0",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/main/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaKeyTranslationUtilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5519
+      },
+      "writtenOn": "2021-05-10T15:38:45Z",
+      "side": 1,
+      "message": "Yes. \nThe schema-compliant marshaling and unmarshaling functions are tested in \norg.onap.policy.apex.plugins.context.schema.avro.AvroSchemaMapTest#testAddressMapUnmarshalMarshalInvalidFields\n\nCurrent test in Master branch only. \nHopefully fix can be cherrypicked back to Honolulu for Maintenance Release.",
+      "parentUuid": "2d4f2873_abd7c06b",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ed51060_66debcc9",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2021-05-10T13:29:15Z",
       "side": 1,
       "message": "newline",
+      "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de691a61_d8b1199d",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/resources/data/MapExampleAddressInvalidFields.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5519
+      },
+      "writtenOn": "2021-05-10T15:38:45Z",
+      "side": 1,
+      "message": "Please clarify.",
+      "parentUuid": "4ed51060_66debcc9",
       "revId": "5c6cc3169be87748bc2df59efdac52785e1603c1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
