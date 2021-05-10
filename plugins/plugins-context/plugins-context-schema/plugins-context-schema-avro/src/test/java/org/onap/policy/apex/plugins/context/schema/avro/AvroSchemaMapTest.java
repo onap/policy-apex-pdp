@@ -22,6 +22,9 @@
 package org.onap.policy.apex.plugins.context.schema.avro;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +34,7 @@ import org.apache.avro.util.Utf8;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -80,7 +84,6 @@ public class AvroSchemaMapTest {
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
         ParameterService.register(schemaParameters);
-
     }
 
     /**
@@ -89,6 +92,100 @@ public class AvroSchemaMapTest {
     @After
     public void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
+    }
+
+    /**
+     * Test valid schemas with substitutions.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testValidSubstitutions() throws IOException {
+        final String subst1 = "{\"type\":\"record\",\"name\":\"Subst1\","
+                + "\"fields\":[{\"name\": \"A_DasH_B\",\"type\":\"string\"}]}";
+        final AxContextSchema avroSubstSchema1 = new AxContextSchema(
+                new AxArtifactKey("AvroSubst1", "0.0.1"), "AVRO", subst1);
+        schemas.getSchemasMap().put(avroSubstSchema1.getKey(), avroSubstSchema1);
+
+        SchemaHelper schemaHelperSubst1 = new SchemaHelperFactory()
+                .createSchemaHelper(testKey, avroSubstSchema1.getKey());
+        final GenericRecord subst1A = (GenericRecord) schemaHelperSubst1.unmarshal("{\"A-B\":\"foo\"}");
+        assertEquals(new Utf8("foo"), subst1A.get("A_DasH_B"));
+        assertNull(subst1A.get("A-B"));
+        final Throwable exception1 = assertThrows(ContextRuntimeException.class,
+                () -> schemaHelperSubst1.unmarshal("{\"A-B\":123}"));
+        assertNotNull(exception1.getCause());
+        assertEquals("Expected string. Got VALUE_NUMBER_INT", exception1.getCause().getMessage());
+
+        final String subst2 = "{\"type\":\"record\",\"name\":\"Subst2\","
+                + "\"fields\":[{\"name\": \"C_DoT_D\",\"type\":\"int\"}]}";
+        final AxContextSchema avroSubstSchema2 = new AxContextSchema(
+                new AxArtifactKey("AvroSubst2", "0.0.1"), "AVRO", subst2);
+        schemas.getSchemasMap().put(avroSubstSchema2.getKey(), avroSubstSchema2);
+
+        final SchemaHelper schemaHelperSubst2 = new SchemaHelperFactory()
+                .createSchemaHelper(testKey, avroSubstSchema2.getKey());
+        final GenericRecord subst2A = (GenericRecord) schemaHelperSubst2.unmarshal("{\"C.D\":123}");
+        assertEquals(123, subst2A.get("C_DoT_D"));
+        assertNull(subst2A.get("C.D"));
+        final Throwable exception2 = assertThrows(ContextRuntimeException.class,
+                () -> schemaHelperSubst2.unmarshal("{\"C_DoT_D\":\"bar\"}"));
+        assertNotNull(exception2.getCause());
+        assertEquals("Expected int. Got VALUE_STRING", exception2.getCause().getMessage());
+
+        final String subst3 = "{\"type\":\"record\",\"name\":\"Subst3\","
+                + "\"fields\":[{\"name\": \"E_ColoN_F\",\"type\":\"boolean\"}]}";
+        final AxContextSchema avroSubstSchema3 = new AxContextSchema(
+                new AxArtifactKey("AvroSubst3", "0.0.1"), "AVRO", subst3);
+        schemas.getSchemasMap().put(avroSubstSchema3.getKey(), avroSubstSchema3);
+
+        final SchemaHelper schemaHelperSubst3 = new SchemaHelperFactory()
+                .createSchemaHelper(testKey, avroSubstSchema3.getKey());
+        final GenericRecord subst3A = (GenericRecord) schemaHelperSubst3.unmarshal("{\"E:F\":true}");
+        assertEquals(true, subst3A.get("E_ColoN_F"));
+        assertNull(subst3A.get("E:F"));
+        final Throwable exception3 = assertThrows(ContextRuntimeException.class,
+                () -> schemaHelperSubst3.unmarshal("{\"E_ColoN_F\":\"gaz\"}"));
+        assertNotNull(exception3.getCause());
+        assertEquals("Expected boolean. Got VALUE_STRING", exception3.getCause().getMessage());
+    }
+
+    /**
+     * Test invalid schemas without substitutions.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    public void testInValidSubstitutions() throws IOException {
+        final String fail1 = "{\"type\":\"record\",\"name\":\"Fail1\","
+                + "\"fields\":[{\"name\": \"A-B\",\"type\":\"string\"}]}";
+        final AxContextSchema avroFailSchema1 = new AxContextSchema(
+                new AxArtifactKey("AvroFail1", "0.0.1"), "AVRO", fail1);
+        schemas.getSchemasMap().put(avroFailSchema1.getKey(), avroFailSchema1);
+        final Throwable exception1 = assertThrows(ContextRuntimeException.class,
+                () -> new SchemaHelperFactory().createSchemaHelper(testKey, avroFailSchema1.getKey()));
+        assertNotNull(exception1.getCause());
+        assertEquals("Illegal character in: A-B", exception1.getCause().getMessage());
+
+        final String fail2 = "{\"type\":\"record\",\"name\":\"Fail2\","
+                + "\"fields\":[{\"name\": \"C.D\",\"type\":\"int\"}]}";
+        final AxContextSchema avroFailSchema2 = new AxContextSchema(
+                new AxArtifactKey("AvroFail2", "0.0.1"), "AVRO", fail2);
+        schemas.getSchemasMap().put(avroFailSchema2.getKey(), avroFailSchema2);
+        final Throwable exception2 = assertThrows(ContextRuntimeException.class,
+                () -> new SchemaHelperFactory().createSchemaHelper(testKey, avroFailSchema2.getKey()));
+        assertNotNull(exception2.getCause());
+        assertEquals("Illegal character in: C.D", exception2.getCause().getMessage());
+
+        final String fail3 = "{\"type\":\"record\",\"name\":\"Fail3\","
+                + "\"fields\":[{\"name\": \"E:F\",\"type\":\"boolean\"}]}";
+        final AxContextSchema avroFailSchema3 = new AxContextSchema(
+                new AxArtifactKey("AvroFail3", "0.0.1"), "AVRO", fail3);
+        schemas.getSchemasMap().put(avroFailSchema3.getKey(), avroFailSchema3);
+        final Throwable exception3 = assertThrows(ContextRuntimeException.class,
+                () -> new SchemaHelperFactory().createSchemaHelper(testKey, avroFailSchema3.getKey()));
+        assertNotNull(exception3.getCause());
+        assertEquals("Illegal character in: E:F", exception3.getCause().getMessage());
     }
 
     /**
@@ -162,7 +259,7 @@ public class AvroSchemaMapTest {
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
         GenericRecord subRecord = (GenericRecord) schemaHelper.createNewSubInstance("AddressUSRecord");
-        assertEquals(null, subRecord.get("streetAddress"));
+        assertNull(subRecord.get("streetAddress"));
     }
 
     /**
@@ -179,6 +276,12 @@ public class AvroSchemaMapTest {
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
         testUnmarshalMarshal(schemaHelper, "src/test/resources/data/MapExampleAddressInvalidFields.json");
+
+        String vals = TextFileUtils.getTextFileAsString("src/test/resources/data/MapExampleAddressInvalidFields.json");
+        final HashMap<?, ?> newMapFull = (HashMap<?, ?>) schemaHelper.createNewInstance(vals);
+        final String expect = "{\"street_DasH_address\": \"Wayne Manor\", \"the_DoT_city\": \"Gotham City\", "
+                + "\"the_ColoN_code\": \"BatCave7\"}";
+        assertEquals(expect, newMapFull.get(new Utf8("address_DoT_3")).toString());
     }
 
     /**

@@ -38,6 +38,8 @@ public final class AvroSchemaKeyTranslationUtilities {
     private static final String DOT_STRING_REPLACEMENT = "_DoT_";
     private static final String DASH_STRING = "-";
     private static final String DASH_STRING_REPLACEMENT = "_DasH_";
+    private static final String COLON_STRING = ":";
+    private static final String COLON_STRING_REPLACEMENT = "_ColoN_";
 
     /**
      * Default constructor to avoid subclassing.
@@ -134,9 +136,13 @@ public final class AvroSchemaKeyTranslationUtilities {
      */
     private static String translateIllegalKey(final String key, final boolean revert) {
         if (revert) {
-            return key.replace(DOT_STRING_REPLACEMENT, DOT_STRING).replace(DASH_STRING_REPLACEMENT, DASH_STRING);
+            return key.replace(DOT_STRING_REPLACEMENT, DOT_STRING)
+                    .replace(DASH_STRING_REPLACEMENT, DASH_STRING)
+                    .replace(COLON_STRING_REPLACEMENT, COLON_STRING);
         } else {
-            return key.replace(DOT_STRING, DOT_STRING_REPLACEMENT).replace(DASH_STRING, DASH_STRING_REPLACEMENT);
+            return key.replace(DOT_STRING, DOT_STRING_REPLACEMENT)
+                    .replace(DASH_STRING, DASH_STRING_REPLACEMENT)
+                    .replace(COLON_STRING, COLON_STRING_REPLACEMENT);
         }
     }
 }
