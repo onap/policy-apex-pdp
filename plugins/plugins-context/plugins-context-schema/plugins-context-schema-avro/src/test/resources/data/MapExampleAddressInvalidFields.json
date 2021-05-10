@@ -1,18 +1,22 @@
 {
     "address.0" : {
         "street-address" : "1600 Pennsylvania Avenue",
-        "the.city" : "Washington DC"
+        "the.city" : "Washington DC",
+        "the:code" : "12345"
     },
     "address.1" : {
         "street-address" : "Somewhere",
-        "the.city" : "Over the rainbow"
+        "the.city" : "Over the rainbow",
+        "the:code" : "BlueBird"
     },
     "address.2" : {
         "street-address" : "221 B Baker St.",
-        "the.city" : "London"
+        "the.city" : "London",
+        "the:code" : "NW1"
     },
     "address.3" : {
         "street-address" : "Wayne Manor",
-        "the.city" : "Gotham City"
+        "the.city" : "Gotham City",
+        "the:code" : "BatCave7"
     }
 }
