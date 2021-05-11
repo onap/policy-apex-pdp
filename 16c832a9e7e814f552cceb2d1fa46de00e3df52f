@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc48ecf_bfa04cb5",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-05-11T14:07:28Z",
+      "side": 1,
+      "message": "Do you need these changes in OOM, since the logback is externalized?",
+      "revId": "16c832a9e7e814f552cceb2d1fa46de00e3df52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
