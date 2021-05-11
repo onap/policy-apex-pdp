@@ -46,6 +46,30 @@
       "revId": "fe40844bba4a94e26efc0f1c57d62c97e35bfc79",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b8fc0ef_bbd96eea",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaMapTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-11T13:35:42Z",
+      "side": 1,
+      "message": "I\u0027d switch it to assertThatThrownBy().  Once you\u0027ve done that, you have a couple of options:\n1) can use isCauseInstanceOf() and hasCauseMessage() (can\u0027t remember the exact names)\n2) invoke getCause() which gives back an assertion wrapper on which you can then invoke isInstanceOf() and hasMessage():\n\n  assertThatThrownBy(xxx).getCause().isInstanceOf(yyy).hasMessage(zzz)\n\ndon\u0027t have to worry if the cause is null as the wrapper will handle that aspect for you",
+      "parentUuid": "8a307e22_ac80878f",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "fe40844bba4a94e26efc0f1c57d62c97e35bfc79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
