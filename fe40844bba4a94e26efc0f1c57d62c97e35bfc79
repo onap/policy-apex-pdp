@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5a83853_a0fb3d28",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaMapTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-05-11T11:50:29Z",
+      "side": 1,
+      "message": "could use assertThatThrownBy(..).isInstanceOf(..).hasMessage(..)",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "fe40844bba4a94e26efc0f1c57d62c97e35bfc79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
