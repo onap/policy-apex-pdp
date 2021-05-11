@@ -16,6 +16,24 @@
       "revId": "16c832a9e7e814f552cceb2d1fa46de00e3df52f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0af7e14_19bdb09d",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/logback.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-05-11T14:13:54Z",
+      "side": 1,
+      "message": "All policy components in OOM already has the changes to log to stdout.\nThis particular change is really needed because, everytime APEX-PDP is run in standalone mode, the logback file with stdout has to be mounted specifically just to see the logs easily(especially when the container terminates with some error).\nWith this change, by default logs will be print to stdout even in standalone mode.",
+      "parentUuid": "0fc48ecf_bfa04cb5",
+      "revId": "16c832a9e7e814f552cceb2d1fa46de00e3df52f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
