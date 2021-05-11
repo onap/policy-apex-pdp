@@ -4,7 +4,8 @@
         "name" : "AddressUSRecord",
         "fields" : [
             {"name": "street_DasH_address", "type": "string"},
-            {"name": "the_DoT_city", "type": "string"}
+            {"name": "the_DoT_city", "type": "string"},
+            {"name": "the_ColoN_code", "type": "string"}
             ]
     }
 }
