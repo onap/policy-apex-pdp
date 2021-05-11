@@ -22,6 +22,30 @@
       "revId": "fe40844bba4a94e26efc0f1c57d62c97e35bfc79",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a307e22_ac80878f",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/src/test/java/org/onap/policy/apex/plugins/context/schema/avro/AvroSchemaMapTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5519
+      },
+      "writtenOn": "2021-05-11T12:37:55Z",
+      "side": 1,
+      "message": "Could probably have been a bit more elegant here ... \nOne main point to note is that the actual parsing error is in the \"Cause\" exception, not in the ContextRuntimeException itself - so not as easy to extract out the message without risking a NullPointerException. \nI think whats there is OK.",
+      "parentUuid": "a5a83853_a0fb3d28",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "fe40844bba4a94e26efc0f1c57d62c97e35bfc79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
