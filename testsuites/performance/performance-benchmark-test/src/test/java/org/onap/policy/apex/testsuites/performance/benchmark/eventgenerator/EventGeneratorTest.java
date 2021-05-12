@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -139,7 +140,7 @@ public class EventGeneratorTest {
     @Test
     public void testEventGeneratorOutfileBad() {
         EventGeneratorParameters pars = new EventGeneratorParameters();
-        pars.setOutFile("/I/Dont/Exist*");
+        pars.setOutFile("/I/Dont/Exist\0");
 
         EventGenerator generator = new EventGenerator(pars);
         assertNotNull(generator);
@@ -150,6 +151,6 @@ public class EventGeneratorTest {
 
         final String outString = outContent.toString();
         System.setOut(stdout);
-        assertTrue(outString.contains("could not output statistics to file \"/I/Dont/Exist*\""));
+        assertThat(outString).contains("could not output statistics to file \"/I/Dont/Exist\0\"");
     }
 }
