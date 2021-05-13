@@ -1,3 +1,0 @@
-# Test suites are relative paths under [policy/apex-pdp.git]/csit/tests/.
-# Place the suites in run order.
-apex-pdp-test.robot
