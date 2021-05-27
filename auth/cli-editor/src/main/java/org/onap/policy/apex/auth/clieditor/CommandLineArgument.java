@@ -98,7 +98,7 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
      * @return the argument help
      */
     public String getHelp() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         builder.append(argumentName);
         builder.append(nullable ? ": (O) " : ": (M) ");
         builder.append(description);
@@ -144,8 +144,8 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + ((argumentName == null) ? 0 : argumentName.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + (nullable ? 1231 : 1237);

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -166,7 +166,7 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
      * @return the help for this command
      */
     public String getHelp() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         for (final String keyword : keywordlist) {
             builder.append(keyword);
             builder.append(' ');
@@ -255,8 +255,8 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + ((apiMethod == null) ? 0 : apiMethod.hashCode());
         result = prime * result + argumentList.hashCode();
         result = prime * result + ((description == null) ? 0 : description.hashCode());

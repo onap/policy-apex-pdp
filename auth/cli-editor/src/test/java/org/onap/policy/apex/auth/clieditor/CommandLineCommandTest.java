@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (c) 2020 Nordix Foundation.
+ *  Copyright (c) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ package org.onap.policy.apex.auth.clieditor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -66,11 +67,11 @@ public class CommandLineCommandTest {
         commandLineCommand.getApiMethodName();
     }
 
-    @Test(expected = CommandLineException.class)
+    @Test()
     public void testInvalidApiMethod() {
         commandLineCommand.setApiMethod("fail.");
         assertEquals("fail.", commandLineCommand.getApiMethod());
-        commandLineCommand.getApiMethodName();
+        assertThrows(CommandLineException.class, () -> commandLineCommand.getApiMethodName());
     }
 
     @Test
