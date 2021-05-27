@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,17 +68,17 @@ public class CliUtils {
      */
     public static void createToscaServiceTemplate(ApexCliToscaParameters parameters, String policyModelFilePath)
             throws IOException, CoderException {
-        final StandardCoder standardCoder = new StandardCoder();
-        String apexConfig = TextFileUtils.getTextFileAsString(parameters.getApexConfigFileName());
+        final var standardCoder = new StandardCoder();
+        var apexConfig = TextFileUtils.getTextFileAsString(parameters.getApexConfigFileName());
         JsonObject apexConfigJson = standardCoder.decode(apexConfig, JsonObject.class);
-        String policyModel = TextFileUtils.getTextFileAsString(policyModelFilePath);
+        var policyModel = TextFileUtils.getTextFileAsString(policyModelFilePath);
         JsonObject policyModelJson = standardCoder.decode(policyModel, JsonObject.class);
-        String toscaTemplate = TextFileUtils.getTextFileAsString(parameters.getInputToscaTemplateFileName());
+        var toscaTemplate = TextFileUtils.getTextFileAsString(parameters.getInputToscaTemplateFileName());
         JsonObject toscaTemplateJson = standardCoder.decode(toscaTemplate, JsonObject.class);
 
-        JsonObject toscaPolicyProperties = toscaTemplateJson.get("topology_template").getAsJsonObject();
-        JsonObject toscaPolicy = toscaPolicyProperties.get("policies").getAsJsonArray().get(0).getAsJsonObject();
-        JsonObject toscaProperties = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString()).getAsJsonObject()
+        var toscaPolicyProperties = toscaTemplateJson.get("topology_template").getAsJsonObject();
+        var toscaPolicy = toscaPolicyProperties.get("policies").getAsJsonArray().get(0).getAsJsonObject();
+        var toscaProperties = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString()).getAsJsonObject()
                 .get("properties").getAsJsonObject();
 
         apexConfigJson.entrySet().forEach(entry -> {
@@ -87,7 +87,7 @@ public class CliUtils {
             }
             toscaProperties.add(entry.getKey(), entry.getValue());
         });
-        final String toscaPolicyString = standardCoder.encode(toscaTemplateJson);
+        final var toscaPolicyString = standardCoder.encode(toscaTemplateJson);
         final String toscaPolicyFileName = parameters.getOutputToscaPolicyFileName();
         if (StringUtils.isNotBlank(toscaPolicyFileName)) {
             TextFileUtils.putStringAsTextFile(toscaPolicyString, toscaPolicyFileName);
@@ -106,7 +106,7 @@ public class CliUtils {
         if (fileName == null) {
             return;
         }
-        final File theFile = new File(fileName);
+        final var theFile = new File(fileName);
         final String prefixExceptionMessage = "File " + fileName + OF_TYPE_TAG + fileTag;
 
         if (!theFile.exists()) {
@@ -130,7 +130,7 @@ public class CliUtils {
         if (fileName == null) {
             return;
         }
-        final File theFile = new File(fileName);
+        final var theFile = new File(fileName);
         final String prefixExceptionMessage = "File " + fileName + OF_TYPE_TAG + fileTag;
         if (theFile.exists()) {
             if (!theFile.isFile()) {
@@ -163,7 +163,7 @@ public class CliUtils {
         if (directoryName == null) {
             return;
         }
-        final File theDirectory = new File(directoryName);
+        final var theDirectory = new File(directoryName);
         final String prefixExceptionMessage = "directory " + directoryName + OF_TYPE_TAG + directoryTag;
 
         if (theDirectory.exists()) {
@@ -187,7 +187,7 @@ public class CliUtils {
      * @param options the options for cli editor
      */
     public static void help(final String mainClassName, Options options) {
-        final HelpFormatter helpFormatter = new HelpFormatter();
+        final var helpFormatter = new HelpFormatter();
         helpFormatter.printHelp(MAX_HELP_LINE_LENGTH, mainClassName + " [options...]", "options", options, "");
     }
 
@@ -212,7 +212,7 @@ public class CliUtils {
                 pd = new PropertyDescriptor(entry.getValue().toString(), class1);
                 getter = pd.getReadMethod();
                 argValue = getter.invoke(parameters);
-                String key = entry.getKey().toString();
+                var key = entry.getKey().toString();
 
                 if (argValue instanceof String && !key.equals("o")) {
                     cliArgsList.add("-" + key);
