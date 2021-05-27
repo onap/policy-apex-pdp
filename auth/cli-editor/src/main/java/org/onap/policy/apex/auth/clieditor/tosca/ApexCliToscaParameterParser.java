@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.auth.clieditor.tosca;
 
-import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.onap.policy.apex.auth.clieditor.CommandLineParameterParser;
 
@@ -54,8 +53,8 @@ public class ApexCliToscaParameterParser extends CommandLineParameterParser {
      */
     @Override
     public ApexCliToscaParameters parse(final String[] args) {
-        CommandLine commandLine = parseDefault(args);
-        final ApexCliToscaParameters parameters = new ApexCliToscaParameters();
+        var commandLine = parseDefault(args);
+        final var parameters = new ApexCliToscaParameters();
         parseSingleLetterOptions(commandLine, parameters);
         parseDoubleLetterOptions(commandLine, parameters);
 

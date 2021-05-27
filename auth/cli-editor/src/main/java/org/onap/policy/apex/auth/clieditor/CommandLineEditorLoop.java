@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,11 +105,11 @@ public class CommandLineEditorLoop {
     public int runLoop(final InputStream inputStream, final OutputStream outputStream,
         final CommandLineParameters parameters) throws IOException {
         // Readers and writers for input and output
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        final PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream));
+        final var reader = new BufferedReader(new InputStreamReader(inputStream));
+        final var writer = new PrintWriter(new OutputStreamWriter(outputStream));
 
         // The parser parses the input lines into commands and arguments
-        final CommandLineParser parser = new CommandLineParser();
+        final var parser = new CommandLineParser();
 
         // The execution status has the result of the latest command and a cumulative error count
         MutablePair<Result, Integer> executionStatus = new MutablePair<>(Result.SUCCESS, 0);
@@ -122,7 +122,7 @@ public class CommandLineEditorLoop {
 
         // Get the output model
         if (!parameters.isSuppressModelOutput()) {
-            final String modelString = modelHandler.writeModelToString(writer);
+            final var modelString = modelHandler.writeModelToString(writer);
 
             if (parameters.checkSetOutputModelFileName()) {
                 TextFileUtils.putStringAsTextFile(modelString, parameters.getOutputModelFileName());
@@ -136,8 +136,8 @@ public class CommandLineEditorLoop {
         if (!System.in.equals(inputStream)) {
             reader.close();
         }
-
-        if (!System.out.equals(outputStream) && !System.err.equals(outputStream)) {
+        // Turning off Sonar because System out and err are used to check a condition and not to log
+        if (!System.out.equals(outputStream) && !System.err.equals(outputStream)) { //NOSONAR
             writer.close();
         }
 
@@ -236,7 +236,7 @@ public class CommandLineEditorLoop {
      */
     private String readLogicBlock(final CommandLineParameters parameters, final BufferedReader reader,
         final PrintWriter writer, MutablePair<Result, Integer> executionStatus) {
-        StringBuilder logicBlock = new StringBuilder();
+        var logicBlock = new StringBuilder();
 
         while (true) {
             try {
@@ -277,7 +277,7 @@ public class CommandLineEditorLoop {
      * @return A string with the prompt
      */
     private String getPrompt() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         final Iterator<KeywordNode> keynodeDequeIter = keywordNodeDeque.descendingIterator();
 
         while (keynodeDequeIter.hasNext()) {
@@ -300,11 +300,11 @@ public class CommandLineEditorLoop {
     private CommandLineCommand findCommand(final List<String> commandWords) {
         CommandLineCommand command = null;
 
-        final KeywordNode startKeywordNode = keywordNodeDeque.peek();
+        final var startKeywordNode = keywordNodeDeque.peek();
 
         // Go down through the keywords searching for the command
-        for (int i = 0; i < commandWords.size(); i++) {
-            final KeywordNode searchKeywordNode = keywordNodeDeque.peek();
+        for (var i = 0; i < commandWords.size(); i++) {
+            final var searchKeywordNode = keywordNodeDeque.peek();
 
             // We have got to the arguments, time to stop looking
             if (commandWords.get(i).indexOf('=') >= 0) {
@@ -330,7 +330,7 @@ public class CommandLineEditorLoop {
             commandWords.set(i, foundNodeEntries.get(0).getKey());
 
             // Check if there is a command
-            final KeywordNode childKeywordNode = foundNodeEntries.get(0).getValue();
+            final var childKeywordNode = foundNodeEntries.get(0).getValue();
             command = childKeywordNode.getCommand();
 
             // If the command is null, we go into a sub mode, otherwise we unwind the stack of
@@ -538,8 +538,8 @@ public class CommandLineEditorLoop {
      * @return the string
      */
     private String stringAL2String(final List<String> stringArrayList) {
-        final StringBuilder builder = new StringBuilder();
-        boolean first = true;
+        final var builder = new StringBuilder();
+        var first = true;
         for (final String word : stringArrayList) {
             if (first) {
                 first = false;
@@ -564,7 +564,7 @@ public class CommandLineEditorLoop {
         final int macroTagPos = line.indexOf(macroFileTag);
 
         // Get the line before and after the macro tag
-        final String lineBeforeMacroTag = line.substring(0, macroTagPos);
+        final var lineBeforeMacroTag = line.substring(0, macroTagPos);
         final String lineAfterMacroTag = line.substring(macroTagPos + macroFileTag.length()).replaceAll("^\\s*", "");
 
         // Get the file name that is the argument of the Macro tag

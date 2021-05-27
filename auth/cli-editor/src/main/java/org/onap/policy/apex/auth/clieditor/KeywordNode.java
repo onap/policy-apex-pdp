@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -172,7 +172,7 @@ public class KeywordNode implements Comparable<KeywordNode> {
             return this.hashCode() - otherKeywordNode.hashCode();
         }
 
-        final KeywordNode other = otherKeywordNode;
+        final var other = otherKeywordNode;
 
         if (!keyword.equals(other.keyword)) {
             return keyword.compareTo(other.keyword);
@@ -185,8 +185,8 @@ public class KeywordNode implements Comparable<KeywordNode> {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + ((children == null) ? 0 : children.hashCode());
         result = prime * result + ((command == null) ? 0 : command.hashCode());
         result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -169,7 +169,7 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testSanity() throws ApexException {
+    public void testSanity() throws ApexException  {
         AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
@@ -196,6 +196,12 @@ public class ApexEngineImplTest {
 
         assertThatThrownBy(() -> engine.removeEventListener(null))
             .hasMessage("removeEventListener()<-Engine:0.0.1,STOPPED, listenerName is null");
+    }
+
+    @Test
+    public void testListener() throws ApexException {
+        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
 
         engine.addEventListener("myListener", new DummyListener());
         engine.removeEventListener("myListener");
@@ -244,6 +250,14 @@ public class ApexEngineImplTest {
         assertEquals(AxEngineState.READY, engine.getState());
 
         assertNull(engine.createEvent(null));
+    }
+
+    @Test
+    public void testEventKey() throws ApexException {
+        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
+        engine.updateModel(policyModel, false);
+        engine.start();
 
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         EnEvent event = engine.createEvent(eventKey);

@@ -80,7 +80,7 @@ public class CommandLineParser {
         final ArrayList<String> wordsWithQuotesMerged = new ArrayList<>();
 
         int loopWordIndex;
-        for (int wordIndex = 0; wordIndex < wordsSplitOnQuotes.size(); wordIndex = loopWordIndex) {
+        for (var wordIndex = 0; wordIndex < wordsSplitOnQuotes.size(); wordIndex = loopWordIndex) {
             loopWordIndex = mergeQuote(wordsSplitOnQuotes, wordsWithQuotesMerged, wordIndex);
         }
 
@@ -99,7 +99,7 @@ public class CommandLineParser {
                     int wordIndex) {
 
         if ("\"".equals(wordsSplitOnQuotes.get(wordIndex))) {
-            StringBuilder quotedWord = new StringBuilder(wordsSplitOnQuotes.get(wordIndex++));
+            var quotedWord = new StringBuilder(wordsSplitOnQuotes.get(wordIndex++));
 
             for (; wordIndex < wordsSplitOnQuotes.size(); wordIndex++) {
                 quotedWord.append(wordsSplitOnQuotes.get(wordIndex));
@@ -108,7 +108,7 @@ public class CommandLineParser {
                     break;
                 }
             }
-            String quotedWordToString = quotedWord.toString();
+            var quotedWordToString = quotedWord.toString();
             if (quotedWordToString.matches("^\".*\"$")) {
                 wordsWithQuotesMerged.add(quotedWordToString);
             } else {
@@ -157,7 +157,7 @@ public class CommandLineParser {
         final ArrayList<String> wordsWithEqualsMerged = new ArrayList<>();
 
         int loopWordIndex;
-        for (int wordIndex = 0; wordIndex < wordsSplitOnEquals.size(); wordIndex = loopWordIndex) {
+        for (var wordIndex = 0; wordIndex < wordsSplitOnEquals.size(); wordIndex = loopWordIndex) {
             loopWordIndex = wordIndex;
 
             // Is this a quoted word ?
@@ -193,7 +193,7 @@ public class CommandLineParser {
     private ArrayList<String> mergeArguments(final ArrayList<String> words) {
         final ArrayList<String> mergedArguments = new ArrayList<>();
 
-        for (int i = 0; i < words.size(); i++) {
+        for (var i = 0; i < words.size(); i++) {
             // Is this a quoted word ?
             if (words.get(i).startsWith("\"")) {
                 mergedArguments.add(words.get(i));
@@ -275,7 +275,7 @@ public class CommandLineParser {
     private ArrayList<String> splitOnChar(final String line, final char splitChar) {
         final ArrayList<String> wordsSplitOnQuotes = new ArrayList<>();
 
-        int currentPos = 0;
+        var currentPos = 0;
         while (currentPos != -1) {
             final int quotePos = line.indexOf(splitChar, currentPos);
             if (quotePos != -1) {
@@ -317,7 +317,7 @@ public class CommandLineParser {
         }
 
         // Now check that we have a sequence of commands at the beginning
-        int currentWordPos = 0;
+        var currentWordPos = 0;
         for (; currentWordPos < commandWords.size(); currentWordPos++) {
             if (!commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]*$")) {
                 break;
