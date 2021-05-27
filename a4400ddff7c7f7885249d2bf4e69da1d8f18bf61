@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "6a0513ce_35af96c6",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-27T17:11:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56857ca8_a4316e29",
+      "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "defbc8d8_d31066b0",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
         "patchSetId": 1
@@ -140,6 +158,24 @@
       "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e21b6f2_699abf27",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-27T17:11:09Z",
+      "side": 1,
+      "message": "the variable, \"loopWordIndex\", is not needed, but \"var\" is (to satisfy sonar)\n\nsame comment below",
+      "parentUuid": "19b88217_43346461",
+      "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     },
     {
       "key": {
