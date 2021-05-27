@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7643e21a_c8919b8a",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorLoop.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-27T14:21:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ac4a5840_dbce2fee",
+      "range": {
+        "startLine": 140,
+        "startChar": 12,
+        "endLine": 140,
+        "endChar": 44
+      },
+      "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34a42209_c0324cde",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParameters.java",
         "patchSetId": 1
