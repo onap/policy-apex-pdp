@@ -112,7 +112,7 @@ public class ApexEngineHandler {
                 LOGGER.error("Shutting down policy {} failed", policyId, e);
             }
         });
-        if (!undeployedPoliciesMainMap.isEmpty()) {
+        if (!undeployedPoliciesMainMap.isEmpty() && !apexMainMap.isEmpty()) {
             updateModelAndParameterServices(undeployedPoliciesMainMap);
         }
         if (!policiesToDeploy.isEmpty()) {

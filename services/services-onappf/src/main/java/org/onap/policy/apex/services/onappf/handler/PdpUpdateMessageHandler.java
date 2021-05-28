@@ -99,8 +99,10 @@ public class PdpUpdateMessageHandler {
         List<ToscaPolicy> policies = Registry.getOrDefault(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
                 List.class, new ArrayList<>());
         policies.addAll(pdpUpdateMsg.getPoliciesToBeDeployed());
-        pdpStatusContext.setPolicies(policies.stream().map(ToscaPolicy::getIdentifier)
-                .collect(Collectors.toList()));
+        List<ToscaConceptIdentifier> policiesInDeployment = policies.stream().map(ToscaPolicy::getIdentifier)
+                .collect(Collectors.toList());
+        policiesInDeployment.removeAll(pdpUpdateMsg.getPoliciesToBeUndeployed());
+        pdpStatusContext.setPolicies(policiesInDeployment);
         Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
                 policies);
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
@@ -177,28 +179,14 @@ public class PdpUpdateMessageHandler {
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                 apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPoliciesToBeDeployed(),
-                        pdpUpdateMsg.getPoliciesToBeUndeployed());
+                    pdpUpdateMsg.getPoliciesToBeUndeployed());
             } else {
                 apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPoliciesToBeDeployed());
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             }
             if (apexEngineHandler.isApexEngineRunning()) {
-                List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
-                if (new HashSet<>(runningPolicies).containsAll(new HashSet<>(pdpMessageHandler
-                        .getToscaPolicyIdentifiers(pdpUpdateMsg.getPoliciesToBeDeployed())))
-                        && !containsAny(runningPolicies, pdpUpdateMsg.getPoliciesToBeUndeployed())) {
-                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, "Apex engine started and policies are running.");
-                } else {
-                    StringBuilder message =
-                        new StringBuilder("Apex engine started. But, only the following polices are running - ");
-                    for (ToscaConceptIdentifier policy : runningPolicies) {
-                        message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
-                    }
-                    message.append(". Other policies failed execution. Please see the logs for more details.");
-                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, message.toString());
-                }
+                pdpResponseDetails =
+                    populateResponseForEngineInitiation(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
             } else {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine failed to start.");
@@ -213,6 +201,43 @@ public class PdpUpdateMessageHandler {
         if (apexPolicyStatisticsManager != null) {
             apexPolicyStatisticsManager
                     .updatePolicyDeployCounter(pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+        }
+        return pdpResponseDetails;
+    }
+
+    private PdpResponseDetails populateResponseForEngineInitiation(final PdpUpdate pdpUpdateMsg,
+        final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
+        PdpResponseDetails pdpResponseDetails;
+        List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
+        List<ToscaConceptIdentifier> policiesToBeDeployed =
+            pdpMessageHandler.getToscaPolicyIdentifiers(pdpUpdateMsg.getPoliciesToBeDeployed());
+        List<ToscaConceptIdentifier> policiesToBeUndeployed = pdpUpdateMsg.getPoliciesToBeUndeployed();
+        if (new HashSet<>(runningPolicies).containsAll(new HashSet<>(policiesToBeDeployed))
+            && !containsAny(runningPolicies, policiesToBeUndeployed)) {
+            StringBuilder message = new StringBuilder("Apex engine started. ");
+            if (!policiesToBeDeployed.isEmpty()) {
+                message.append("Deployed policies are: ");
+                for (ToscaConceptIdentifier policy : policiesToBeDeployed) {
+                    message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
+                }
+            }
+            if (!policiesToBeUndeployed.isEmpty()) {
+                message.append("Undeployed policies are: ");
+                for (ToscaConceptIdentifier policy : policiesToBeUndeployed) {
+                    message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
+                }
+            }
+            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                PdpResponseStatus.SUCCESS, message.toString());
+        } else {
+            StringBuilder message =
+                new StringBuilder("Apex engine started. But, only the following polices are running - ");
+            for (ToscaConceptIdentifier policy : runningPolicies) {
+                message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
+            }
+            message.append(". Other policies failed execution. Please see the logs for more details.");
+            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                PdpResponseStatus.SUCCESS, message.toString());
         }
         return pdpResponseDetails;
     }
