@@ -179,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "781356e7_2ea00372",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7629
+      },
+      "writtenOn": "2021-05-28T14:02:02Z",
+      "side": 1,
+      "message": "var wordIndex \u003d 0;\nwhile (wordIndex \u003c wordsSplitOnQuotes.size()){\nwordIndex \u003d mergeQuote(wordsSplitOnQuotes, wordsWithQuotesMerged, wordIndex);\n}\n\nwould this be okay?",
+      "parentUuid": "7e21b6f2_699abf27",
+      "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b49ac304_2066452b",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
         "patchSetId": 1
