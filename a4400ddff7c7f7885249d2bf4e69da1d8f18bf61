@@ -197,6 +197,24 @@
     },
     {
       "key": {
+        "uuid": "2ac95699_74788d50",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-28T14:21:44Z",
+      "side": 1,
+      "message": "yep, that would be fine (and possibly a little clearer)",
+      "parentUuid": "781356e7_2ea00372",
+      "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b49ac304_2066452b",
         "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
         "patchSetId": 1
