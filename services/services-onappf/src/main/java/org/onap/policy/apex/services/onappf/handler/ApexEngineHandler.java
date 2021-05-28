@@ -96,7 +96,7 @@ public class ApexEngineHandler {
      */
     public void updateApexEngine(List<ToscaPolicy> polsToDeploy, List<ToscaConceptIdentifier> polsToUndeploy)
             throws ApexStarterException {
-        List<ToscaConceptIdentifier> runningPolicies = getRunningPolicies();
+        Set<ToscaConceptIdentifier> runningPolicies = new HashSet<>(getRunningPolicies());
         List<ToscaPolicy> policiesToDeploy = polsToDeploy;
         policiesToDeploy.removeIf(p -> runningPolicies.contains(p.getIdentifier()));
         List<ToscaConceptIdentifier> policiesToUnDeploy = polsToUndeploy;
@@ -112,7 +112,7 @@ public class ApexEngineHandler {
                 LOGGER.error("Shutting down policy {} failed", policyId, e);
             }
         });
-        if (!undeployedPoliciesMainMap.isEmpty()) {
+        if (!undeployedPoliciesMainMap.isEmpty() && !apexMainMap.isEmpty()) {
             updateModelAndParameterServices(undeployedPoliciesMainMap);
         }
         if (!policiesToDeploy.isEmpty()) {
