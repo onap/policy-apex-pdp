@@ -286,6 +286,24 @@
     },
     {
       "key": {
+        "uuid": "9841e29c_2cb6de89",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/CommandLineParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7629
+      },
+      "writtenOn": "2021-05-31T15:57:22Z",
+      "side": 1,
+      "message": "Updated in new patch",
+      "parentUuid": "9b3d4695_6d0ef047",
+      "revId": "a4400ddff7c7f7885249d2bf4e69da1d8f18bf61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1a430a3_9bcb888f",
         "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/DummySlowEnEventListener.java",
         "patchSetId": 1
