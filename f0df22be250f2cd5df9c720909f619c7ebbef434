@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "7646450a_fe621f6c",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-05-31T15:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "711c09d7_2eb354b8",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 12
+      },
+      "revId": "f0df22be250f2cd5df9c720909f619c7ebbef434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f8f77b6_31558d9d",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
         "patchSetId": 2
@@ -270,6 +294,30 @@
       "revId": "f0df22be250f2cd5df9c720909f619c7ebbef434",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f876e8e1_94d7badc",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-05-31T15:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36d93aa3_761b14f3",
+      "range": {
+        "startLine": 215,
+        "startChar": 12,
+        "endLine": 215,
+        "endChar": 42
+      },
+      "revId": "f0df22be250f2cd5df9c720909f619c7ebbef434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
