@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,15 +27,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.regex.Pattern;
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
@@ -86,7 +83,7 @@ public class ApexModelReader<C extends AxConcept> {
         this.rootConceptClass = rootConceptClass;
 
         try {
-            final JAXBContext jaxbContext = JAXBContextFactory.createContext(new Class[] {rootConceptClass}, null);
+            final var jaxbContext = JAXBContextFactory.createContext(new Class[] {rootConceptClass}, null);
 
             // Set up the unmarshaller to carry out validation
             unmarshaller = jaxbContext.createUnmarshaller();
@@ -120,8 +117,8 @@ public class ApexModelReader<C extends AxConcept> {
         if (schemaFileName != null) {
             try {
                 // Set the concept schema
-                final URL schemaUrl = ResourceUtils.getUrlResource(schemaFileName);
-                final Schema apexConceptSchema =
+                final var schemaUrl = ResourceUtils.getUrlResource(schemaFileName);
+                final var apexConceptSchema =
                         SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaUrl);
                 unmarshaller.setSchema(apexConceptSchema);
             } catch (final Exception e) {
@@ -182,7 +179,7 @@ public class ApexModelReader<C extends AxConcept> {
 
         LOGGER.entry("reading Apex concept from string . . .");
 
-        final String apexString = apexConceptString.trim();
+        final var apexString = apexConceptString.trim();
 
         // Set the type of input for this stream
         setInputType(apexString);
@@ -193,7 +190,7 @@ public class ApexModelReader<C extends AxConcept> {
         // Use JAXB to read and verify the Apex concept XML file
         try {
             // Load the configuration file
-            final StreamSource source = new StreamSource(new StringReader(apexString));
+            final var source = new StreamSource(new StringReader(apexString));
             final JAXBElement<C> rootElement = unmarshaller.unmarshal(source, rootConceptClass);
             apexConcept = rootElement.getValue();
         } catch (final JAXBException e) {

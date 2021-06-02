@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ public class ApexModelSaver<M extends AxModel> {
         LOGGER.debug("running apexModelWriteXML . . .");
 
         // Write the file to disk
-        final File xmlFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".xml");
+        final var xmlFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".xml");
         new ApexModelFileWriter<M>(true).apexModelWriteXmlFile(model, rootModelClass, xmlFile.getPath());
 
         LOGGER.debug("ran apexModelWriteXML");
@@ -87,7 +87,7 @@ public class ApexModelSaver<M extends AxModel> {
         LOGGER.debug("running apexModelWriteJSON . . .");
 
         // Write the file to disk
-        final File jsonFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".json");
+        final var jsonFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".json");
         new ApexModelFileWriter<M>(true).apexModelWriteJsonFile(model, rootModelClass, jsonFile.getPath());
 
         LOGGER.debug("ran apexModelWriteJSON");
