@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,10 +89,10 @@ public class ApexException extends Exception {
      * @return cascaded message string
      */
     public static String buildCascadedMessage(Throwable throwable) {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         builder.append(throwable.getMessage());
 
-        for (Throwable t = throwable; t != null; t = t.getCause()) {
+        for (var t = throwable; t != null; t = t.getCause()) {
             builder.append("\ncaused by: ");
             builder.append(t.getMessage());
         }
