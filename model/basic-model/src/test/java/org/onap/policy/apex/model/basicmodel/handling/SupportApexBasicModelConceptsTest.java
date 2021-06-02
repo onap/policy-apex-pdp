@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-public class SupportApexBasicModelConceptsTester {
+public class SupportApexBasicModelConceptsTest {
     TestApexModel<AxModel> testApexModel;
 
     @Before
@@ -91,6 +91,12 @@ public class SupportApexBasicModelConceptsTester {
         model.getKeyInformation().generateKeyInfo(model);
         assertNotNull(model.getKeyInformation());
 
+    }
+
+    @Test
+    public void testKeyInformation() {
+
+        final AxModel model = testApexModel.getModel();
         final AxKeyInformation keyI = model.getKeyInformation();
         final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
 
@@ -138,6 +144,14 @@ public class SupportApexBasicModelConceptsTester {
         model.getKeyInformation().getKeyInfoMap().clear();
         model.getKeyInformation().generateKeyInfo(model);
         assertNotNull(model.getKeyInformation());
+    }
+
+    @Test
+    public void testClonedKey() {
+        final AxModel model = testApexModel.getModel();
+        final AxKeyInformation keyI = model.getKeyInformation();
+        final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
+        AxValidationResult result = new AxValidationResult();
 
         clonedKeyI.setKey(AxArtifactKey.getNullKey());
         result = new AxValidationResult();
@@ -190,6 +204,7 @@ public class SupportApexBasicModelConceptsTester {
         result = clonedKeyI.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
+        final AxModel clonedModel = new AxModel(model);
         clonedModel.setKey(AxArtifactKey.getNullKey());
         result = new AxValidationResult();
         result = clonedModel.validate(result);
