@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ public class ApexSchemaGenerator {
         if (args.length == 1) {
             printStream = System.out;
         } else if (args.length == 2) {
-            final File schemaFile = new File(args[1]);
+            final var schemaFile = new File(args[1]);
 
             try {
                 schemaFile.getParentFile().mkdirs();
@@ -94,7 +94,7 @@ public class ApexSchemaGenerator {
             return null;
         }
 
-        final ApexSchemaOutputResolver sor = new ApexSchemaOutputResolver();
+        final var sor = new ApexSchemaOutputResolver();
         try {
             jaxbContext.generateSchema(sor);
         } catch (final IOException e) {
@@ -102,7 +102,7 @@ public class ApexSchemaGenerator {
             return null;
         }
 
-        String schemaString = sor.getSchema();
+        var schemaString = sor.getSchema();
         schemaString = fixForUnqualifiedBug(schemaString);
 
         return schemaString;
@@ -118,7 +118,7 @@ public class ApexSchemaGenerator {
      */
     private String fixForUnqualifiedBug(final String schemaString) {
         // Fix the "entry" element
-        String newSchemaString = schemaString.replace(
+        var newSchemaString = schemaString.replace(
                         "<xs:element name=\"entry\" minOccurs=\"0\" maxOccurs=\"unbounded\">",
                         "<xs:element name=\"entry\" minOccurs=\"0\" maxOccurs=\"unbounded\" form=\"unqualified\">");
 
@@ -144,7 +144,7 @@ public class ApexSchemaGenerator {
          */
         @Override
         public Result createOutput(final String namespaceUri, final String suggestedFileName) throws IOException {
-            final StreamResult result = new StreamResult(stringWriter);
+            final var result = new StreamResult(stringWriter);
             result.setSystemId(suggestedFileName);
             return result;
         }

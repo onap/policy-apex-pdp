@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix-2020 Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,6 +70,21 @@ public class AxKeyInfoTest {
 
         assertEquals(0, testKeyInfo.compareTo(testKeyInfo));
         assertEquals(0, testKeyInfo.compareTo(clonedReferenceKey));
+
+
+    }
+
+    @Test
+    public void testAxKeyValidation() {
+        AxKeyInfo testKeyInfo = new AxKeyInfo();
+
+        AxArtifactKey key = new AxArtifactKey("key", "0.0.1");
+        testKeyInfo.setKey(key);
+
+        UUID uuid = UUID.randomUUID();
+        testKeyInfo.setUuid(uuid);
+        testKeyInfo.setDescription("Key Description");
+
         assertNotEquals(0, testKeyInfo.compareTo(null));
         assertNotEquals(0, testKeyInfo.compareTo(new AxArtifactKey()));
         assertNotEquals(0, testKeyInfo.compareTo(new AxKeyInfo(new AxArtifactKey())));
