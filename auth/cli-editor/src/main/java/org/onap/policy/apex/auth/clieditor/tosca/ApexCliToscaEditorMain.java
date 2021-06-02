@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,10 +52,10 @@ public class ApexCliToscaEditorMain {
      * @param args the command line arguments
      */
     public ApexCliToscaEditorMain(final String[] args) {
-        final String argumentString = Arrays.toString(args);
+        final var argumentString = Arrays.toString(args);
         LOGGER.info("Starting Apex CLI Tosca editor with arguments - {}", argumentString);
 
-        final ApexCliToscaParameterParser parser = new ApexCliToscaParameterParser();
+        final var parser = new ApexCliToscaParameterParser();
         parameters = parser.parse(args);
         if (parameters.isHelpSet()) {
             CliUtils.help(ApexCliToscaEditorMain.class.getName(), parser.getOptions());
@@ -65,7 +65,7 @@ public class ApexCliToscaEditorMain {
 
         String policyModelFilePath = null;
         try {
-            final File tempModelFile = File.createTempFile("policyModel", ".json");
+            final var tempModelFile = File.createTempFile("policyModel", ".json");
             policyModelFilePath = tempModelFile.getAbsolutePath();
         } catch (IOException e) {
             LOGGER.error("Cannot create the policy model temp file.", e);

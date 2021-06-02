@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,6 +101,15 @@ public class EnEventTest {
             .hasMessage("null keys are illegal on method parameter \"key\"");
         assertThatThrownBy(() -> event.put("NonField", null))
             .hasMessage("parameter with key \"NonField\" not defined on event \"Event\"");
+    }
+
+    @Test
+    public void testAxEvent() {
+        AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
+        AxEvent axEvent = new AxEvent(eventKey, "a.name.space", "some source", "some target");
+        ModelService.getModel(AxEvents.class).getEventMap().put(eventKey, axEvent);
+        EnEvent event = new EnEvent(eventKey);
+
         AxReferenceKey fieldKey = new AxReferenceKey("Parent", "0.0.1", "MyParent", "MyField");
         AxArtifactKey fieldSchemaKey = new AxArtifactKey("FieldSchema:0.0.1");
         AxField axField = new AxField(fieldKey, fieldSchemaKey);

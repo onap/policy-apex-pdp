@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -172,7 +172,7 @@ public class CodeGeneratorCliEditor {
      */
     public void addSchemaDeclaration(final String name, final String version, final String uuid,
             final String description, final String flavour, final String schema) {
-        final ST st = stg.getInstanceOf("schemaDecl");
+        final var st = stg.getInstanceOf("schemaDecl");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(UUID, uuid);
@@ -188,7 +188,7 @@ public class CodeGeneratorCliEditor {
      * @param codeGenCliEditorBuilder The parameters for the context album
      */
     public void addContextAlbumDeclaration(CodeGenCliEditorBuilder codeGenCliEditorBuilder) {
-        final ST st = stg.getInstanceOf("ctxAlbumDecl");
+        final var st = stg.getInstanceOf("ctxAlbumDecl");
         st.add(NAME, codeGenCliEditorBuilder.getName());
         st.add(VERSION, codeGenCliEditorBuilder.getVersion());
         st.add(UUID, codeGenCliEditorBuilder.getUuid());
@@ -213,7 +213,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createEventFieldDefinition(final String eventName, final String version, final String fieldName,
             final String fieldSchema, final String fieldSchemaVersion, final boolean optional) {
-        final ST st = stg.getInstanceOf("eventDefField");
+        final var st = stg.getInstanceOf("eventDefField");
         st.add(EVENT_NAME, eventName);
         st.add(VERSION, version);
         st.add(FIELD_NAME, fieldName);
@@ -234,7 +234,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createTaskDefLogic(final String taskName, final String version, final String flavour,
             final String logic) {
-        final ST st = stg.getInstanceOf("taskDefLogic");
+        final var st = stg.getInstanceOf("taskDefLogic");
         st.add(TASK_NAME, taskName);
         st.add(VERSION, version);
         st.add(FLAVOUR, flavour);
@@ -248,7 +248,7 @@ public class CodeGeneratorCliEditor {
      * @param eventDeclarationBuilder param object for event declaration
      */
     public void addEventDeclaration(EventDeclarationBuilder eventDeclarationBuilder) {
-        final ST st = stg.getInstanceOf("eventDecl");
+        final var st = stg.getInstanceOf("eventDecl");
         st.add(NAME, eventDeclarationBuilder.getName());
         st.add(VERSION, eventDeclarationBuilder.getVersion());
         st.add(UUID, eventDeclarationBuilder.getUuid());
@@ -272,7 +272,7 @@ public class CodeGeneratorCliEditor {
      * @param taskDeclarationBuilder builder for the task declaration parameters
      */
     public void addTaskDeclaration(TaskDeclarationBuilder taskDeclarationBuilder) {
-        final ST st = stg.getInstanceOf("taskDecl");
+        final var st = stg.getInstanceOf("taskDecl");
         st.add(NAME, taskDeclarationBuilder.getName());
         st.add(VERSION, taskDeclarationBuilder.getVersion());
         st.add(UUID, taskDeclarationBuilder.getUuid());
@@ -298,7 +298,7 @@ public class CodeGeneratorCliEditor {
      */
     public void addPolicyDefinition(final String name, final String version, final String uuid,
             final String description, final String template, final String firstState, final List<ST> states) {
-        final ST st = stg.getInstanceOf("policyDef");
+        final var st = stg.getInstanceOf("policyDef");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(UUID, uuid);
@@ -321,7 +321,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createTaskDefinitionInfields(final String taskName, final String version, final String fieldName,
             final String fieldSchema, final String fieldSchemaVersion) {
-        final ST st = stg.getInstanceOf("taskDefInputFields");
+        final var st = stg.getInstanceOf("taskDefInputFields");
         st.add(TASK_NAME, taskName);
         st.add(VERSION, version);
         st.add(FIELD_NAME, fieldName);
@@ -342,7 +342,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createTaskDefinitionOutfields(final String taskName, final String version, final String fieldName,
             final String fieldSchema, final String fieldSchemaVersion) {
-        final ST st = stg.getInstanceOf("taskDefOutputFields");
+        final var st = stg.getInstanceOf("taskDefOutputFields");
         st.add(TASK_NAME, taskName);
         st.add(VERSION, version);
         st.add(FIELD_NAME, fieldName);
@@ -362,7 +362,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createTaskDefinitionParameters(final String name, final String version, final String parName,
             final String defaultValue) {
-        final ST st = stg.getInstanceOf("taskDefParameter");
+        final var st = stg.getInstanceOf("taskDefParameter");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(PAR_NAME, parName);
@@ -381,7 +381,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createTaskDefinitionContextRef(final String name, final String version, final String albumName,
             final String albumVersion) {
-        final ST st = stg.getInstanceOf("taskDefCtxRef");
+        final var st = stg.getInstanceOf("taskDefCtxRef");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(ALBUM_NAME, albumName);
@@ -396,7 +396,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a policy state task definition
      */
     public ST createPolicyStateTask(PolicyStateTaskBuilder policyStateTaskBuilder) {
-        final ST st = stg.getInstanceOf("policyStateTask");
+        final var st = stg.getInstanceOf("policyStateTask");
         st.add(POLICY_NAME, policyStateTaskBuilder.getPolicyName());
         st.add(VERSION, policyStateTaskBuilder.getVersion());
         st.add(STATE_NAME, policyStateTaskBuilder.getStateName());
@@ -423,7 +423,7 @@ public class CodeGeneratorCliEditor {
     public ST createPolicyStateOutput(final String policyName, final String version, final String stateName,
             final String outputName, final String eventName, final String eventVersion,
             final String nextState) {
-        final ST st = stg.getInstanceOf("policyStateOutput");
+        final var st = stg.getInstanceOf("policyStateOutput");
         st.add(POLICY_NAME, policyName);
         st.add(VERSION, version);
         st.add(STATE_NAME, stateName);
@@ -441,7 +441,7 @@ public class CodeGeneratorCliEditor {
      * @return a CLI command for a policy state definition
      */
     public ST createPolicyStateDef(PolicyStateDefBuilder policyStateDefBuilder) {
-        final ST st = stg.getInstanceOf("policyStateDef");
+        final var st = stg.getInstanceOf("policyStateDef");
         st.add(POLICY_NAME, policyStateDefBuilder.getPolicyName());
         st.add(VERSION, policyStateDefBuilder.getVersion());
         st.add(STATE_NAME, policyStateDefBuilder.getStateName());
@@ -469,7 +469,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createPolicyStateDefTaskSelLogic(final String name, final String version, final String stateName,
             final String logicFlavour, final String logic) {
-        final ST st = stg.getInstanceOf("policyStateTaskSelectionLogic");
+        final var st = stg.getInstanceOf("policyStateTaskSelectionLogic");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(STATE_NAME, stateName);
@@ -491,7 +491,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createPolicyStateDefFinalizerLogic(final String name, final String version, final String stateName,
             final String finalizerLogicName, final String logicFlavour, final String logic) {
-        final ST st = stg.getInstanceOf("policyStateFinalizerLogic");
+        final var st = stg.getInstanceOf("policyStateFinalizerLogic");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(STATE_NAME, stateName);
@@ -513,7 +513,7 @@ public class CodeGeneratorCliEditor {
      */
     public ST createPolicyStateDefContextRef(final String name, final String version, final String stateName,
             final String albumName, final String albumVersion) {
-        final ST st = stg.getInstanceOf("policyStateContextRef");
+        final var st = stg.getInstanceOf("policyStateContextRef");
         st.add(NAME, name);
         st.add(VERSION, version);
         st.add(STATE_NAME, stateName);

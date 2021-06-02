@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,8 +96,8 @@ public class CommandLineParameterParser {
      * @return the CLI parameters
      */
     public CommandLineParameters parse(final String[] args) {
-        CommandLine commandLine = parseDefault(args);
-        final CommandLineParameters parameters = new CommandLineParameters();
+        var commandLine = parseDefault(args);
+        final var parameters = new CommandLineParameters();
         parseSingleLetterOptions(commandLine, parameters);
         parseDoubleLetterOptions(commandLine, parameters);
 
