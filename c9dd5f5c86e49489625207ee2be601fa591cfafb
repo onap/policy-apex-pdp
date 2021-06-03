@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9850ac6c_72b41b8a",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelFileWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7629
+      },
+      "writtenOn": "2021-06-03T14:44:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2585bc5_8bde56d4",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 73
+      },
+      "revId": "c9dd5f5c86e49489625207ee2be601fa591cfafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5de1806f_d4a85ee6",
         "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelStringWriter.java",
         "patchSetId": 1
@@ -62,6 +86,24 @@
       "revId": "c9dd5f5c86e49489625207ee2be601fa591cfafb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "589db348_c3ccc05b",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportConceptGetterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7629
+      },
+      "writtenOn": "2021-06-03T14:44:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "49211c84_4ef69a8f",
+      "revId": "c9dd5f5c86e49489625207ee2be601fa591cfafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
