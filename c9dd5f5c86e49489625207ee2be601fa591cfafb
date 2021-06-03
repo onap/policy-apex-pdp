@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2585bc5_8bde56d4",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelFileWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-03T14:08:38Z",
+      "side": 1,
+      "message": "this should use try-with-resources, then line 133 could be deleted",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 73
+      },
+      "revId": "c9dd5f5c86e49489625207ee2be601fa591cfafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49211c84_4ef69a8f",
+        "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportConceptGetterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-03T14:08:38Z",
+      "side": 1,
+      "message": "maybe make all of these \"private static final\"",
+      "revId": "c9dd5f5c86e49489625207ee2be601fa591cfafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
