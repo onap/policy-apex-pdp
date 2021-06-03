@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "5de1806f_d4a85ee6",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelStringWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-06-03T14:30:22Z",
+      "side": 1,
+      "message": "This could also be try-with-resource, although the close() has no affect on it. At least doing that would remove line 120. No big deal either way.",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 35
+      },
+      "revId": "c9dd5f5c86e49489625207ee2be601fa591cfafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "49211c84_4ef69a8f",
         "filename": "model/basic-model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/SupportConceptGetterTest.java",
         "patchSetId": 1
