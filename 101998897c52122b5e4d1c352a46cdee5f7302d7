@@ -94,6 +94,30 @@
       "revId": "101998897c52122b5e4d1c352a46cdee5f7302d7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98014efc_370def63",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelStringWriter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-06-07T14:04:43Z",
+      "side": 1,
+      "message": "I think Pam proposal is a little better and it would be ok to move the return statement within the try-with-resources block.   The logging statement in line 97 could be discarded, as there\u0027s no much value on it after moving the return statement within this block.  \nOne caveat though is that the bytearrayoutputstream don\u0027t need to be explicitly closed, this is different than other output streams if I remember correctly.   Pam\u0027s proposal will make it a more standard treatment of output streams, even though this works ok, and make the code a couple lines shorter.",
+      "parentUuid": "069fe848_dcfe276e",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "101998897c52122b5e4d1c352a46cdee5f7302d7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
