@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,71 +29,58 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Field;
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey.Compatibility;
 
 public class AxKeyTest {
+
+    private static AxArtifactKey someKey0;
+    private static AxArtifactKey someKey1;
+    private static AxArtifactKey someKey2;
+    private static AxArtifactKey someKey3;
+    private static AxArtifactKey someKey4;
+    private static AxArtifactKey someKey5;
+    private static AxArtifactKey someKey6;
+
+    /**
+     * Sets data in Keys for the tests.
+     */
+    @Before
+    public void setKeys() {
+        someKey0 = new AxArtifactKey();
+        someKey1 = new AxArtifactKey("name", "0.0.1");
+        someKey2 = new AxArtifactKey(someKey1);
+        someKey3 = new AxArtifactKey(someKey1.getId());
+        someKey4 = new AxArtifactKey(someKey1);
+        someKey5 = new AxArtifactKey(someKey1);
+        someKey6 = new AxArtifactKey(someKey1);
+    }
+
+    private void setKeyValues() {
+        someKey0.setName("zero");
+        someKey0.setVersion("0.0.2");
+        someKey3.setVersion("0.0.2");
+        someKey4.setVersion("0.1.2");
+        someKey5.setVersion("1.2.2");
+        someKey6.setVersion("3");
+    }
 
     @Test
     public void testArtifactKey() {
         assertThatThrownBy(() -> new AxArtifactKey("some bad key id"))
             .hasMessage("parameter \"id\": value \"some bad key id\", "
                             + "does not match regular expression \"[A-Za-z0-9\\-_\\.]+:[0-9].[0-9].[0-9]\"");
-        AxArtifactKey someKey0 = new AxArtifactKey();
+
         assertEquals(AxArtifactKey.getNullKey(), someKey0);
 
-        AxArtifactKey someKey1 = new AxArtifactKey("name", "0.0.1");
-        AxArtifactKey someKey2 = new AxArtifactKey(someKey1);
-        AxArtifactKey someKey3 = new AxArtifactKey(someKey1.getId());
         assertEquals(someKey1, someKey2);
         assertEquals(someKey1, someKey3);
 
         assertEquals(someKey2, someKey1.getKey());
         assertEquals(1, someKey1.getKeys().size());
 
-        someKey0.setName("zero");
-        someKey0.setVersion("0.0.2");
-
-        someKey3.setVersion("0.0.2");
-
-        AxArtifactKey someKey4 = new AxArtifactKey(someKey1);
-        someKey4.setVersion("0.1.2");
-
-        AxArtifactKey someKey5 = new AxArtifactKey(someKey1);
-        someKey5.setVersion("1.2.2");
-
-        AxArtifactKey someKey6 = new AxArtifactKey(someKey1);
-        someKey6.setVersion("3");
-
-        assertEquals(Compatibility.DIFFERENT, someKey0.getCompatibility(new AxReferenceKey()));
-        assertEquals(Compatibility.DIFFERENT, someKey0.getCompatibility(someKey1));
-        assertEquals(Compatibility.IDENTICAL, someKey2.getCompatibility(someKey1));
-        assertEquals(Compatibility.PATCH, someKey3.getCompatibility(someKey1));
-        assertEquals(Compatibility.MINOR, someKey4.getCompatibility(someKey1));
-        assertEquals(Compatibility.MAJOR, someKey5.getCompatibility(someKey1));
-        assertEquals(Compatibility.MAJOR, someKey6.getCompatibility(someKey1));
-
-        assertTrue(someKey1.isCompatible(someKey2));
-        assertTrue(someKey1.isCompatible(someKey3));
-        assertTrue(someKey1.isCompatible(someKey4));
-        assertFalse(someKey1.isCompatible(someKey0));
-        assertFalse(someKey1.isCompatible(someKey5));
-        assertFalse(someKey1.isCompatible(new AxReferenceKey()));
-
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey0.validate(new AxValidationResult()).getValidationResult());
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey1.validate(new AxValidationResult()).getValidationResult());
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey2.validate(new AxValidationResult()).getValidationResult());
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey3.validate(new AxValidationResult()).getValidationResult());
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey4.validate(new AxValidationResult()).getValidationResult());
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey5.validate(new AxValidationResult()).getValidationResult());
-        assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey6.validate(new AxValidationResult()).getValidationResult());
+        setKeyValues();
 
         someKey0.clean();
         assertNotNull(someKey0.toString());
@@ -112,6 +99,51 @@ public class AxKeyTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(someKey0, someKey0); // NOSONAR
         assertNotEquals(someKey0, (Object) new AxReferenceKey());
+    }
+
+    @Test
+    public void testAxCompatibility() {
+        setKeyValues();
+
+        assertEquals(Compatibility.DIFFERENT, someKey0.getCompatibility(new AxReferenceKey()));
+        assertEquals(Compatibility.DIFFERENT, someKey0.getCompatibility(someKey1));
+        assertEquals(Compatibility.IDENTICAL, someKey2.getCompatibility(someKey1));
+        assertEquals(Compatibility.PATCH, someKey3.getCompatibility(someKey1));
+        assertEquals(Compatibility.MINOR, someKey4.getCompatibility(someKey1));
+        assertEquals(Compatibility.MAJOR, someKey5.getCompatibility(someKey1));
+        assertEquals(Compatibility.MAJOR, someKey6.getCompatibility(someKey1));
+
+        assertTrue(someKey1.isCompatible(someKey2));
+        assertTrue(someKey1.isCompatible(someKey3));
+        assertTrue(someKey1.isCompatible(someKey4));
+        assertFalse(someKey1.isCompatible(someKey0));
+        assertFalse(someKey1.isCompatible(someKey5));
+        assertFalse(someKey1.isCompatible(new AxReferenceKey()));
+    }
+
+    @Test
+    public void testAxValidation() {
+        setKeyValues();
+
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey0.validate(new AxValidationResult()).getValidationResult());
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey1.validate(new AxValidationResult()).getValidationResult());
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey2.validate(new AxValidationResult()).getValidationResult());
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey3.validate(new AxValidationResult()).getValidationResult());
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey4.validate(new AxValidationResult()).getValidationResult());
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey5.validate(new AxValidationResult()).getValidationResult());
+        assertEquals(AxValidationResult.ValidationResult.VALID,
+                        someKey6.validate(new AxValidationResult()).getValidationResult());
+    }
+
+    @Test
+    public void testNullKey() {
+        setKeyValues();
 
         AxArtifactKey nullKey0 = AxArtifactKey.getNullKey();
         assertTrue(nullKey0.isNullKey());
@@ -121,7 +153,6 @@ public class AxKeyTest {
         assertTrue(nullKey2.isNullKey());
         AxArtifactKey notnullKey = new AxArtifactKey("Blah", AxKey.NULL_KEY_VERSION);
         assertFalse(notnullKey.isNullKey());
-
     }
 
 

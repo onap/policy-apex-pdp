@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -205,7 +205,7 @@ public class AxReferenceKey extends AxKey {
      *        the key ID in a format that respects the KEY_ID_REGEXP
      */
     public AxReferenceKey(final String id) {
-        final String conditionedId = Assertions.validateStringParameter("id", id, REFERENCE_KEY_ID_REGEXP);
+        final var conditionedId = Assertions.validateStringParameter("id", id, REFERENCE_KEY_ID_REGEXP);
 
         // Split on colon, if the id passes the regular expression test above
         // it'll have just three colons separating the parent name,
@@ -415,28 +415,28 @@ public class AxReferenceKey extends AxKey {
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
-        final String parentNameValidationErrorMessage = Assertions.getStringParameterValidationMessage(PARENT_KEY_NAME,
+        final var parentNameValidationErrorMessage = Assertions.getStringParameterValidationMessage(PARENT_KEY_NAME,
                         parentKeyName, NAME_REGEXP);
         if (parentNameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
                             "parentKeyName invalid-" + parentNameValidationErrorMessage));
         }
 
-        final String parentKeyVersionValidationErrorMessage = Assertions
+        final var parentKeyVersionValidationErrorMessage = Assertions
                         .getStringParameterValidationMessage(PARENT_KEY_VERSION, parentKeyVersion, VERSION_REGEXP);
         if (parentKeyVersionValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
                             "parentKeyVersion invalid-" + parentKeyVersionValidationErrorMessage));
         }
 
-        final String parentLocalNameValidationErrorMessage = Assertions
+        final var parentLocalNameValidationErrorMessage = Assertions
                         .getStringParameterValidationMessage(PARENT_LOCAL_NAME, parentLocalName, LOCAL_NAME_REGEXP);
         if (parentLocalNameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
                             "parentLocalName invalid-" + parentLocalNameValidationErrorMessage));
         }
 
-        final String localNameValidationErrorMessage = Assertions.getStringParameterValidationMessage(LOCAL_NAME,
+        final var localNameValidationErrorMessage = Assertions.getStringParameterValidationMessage(LOCAL_NAME,
                         localName, LOCAL_NAME_REGEXP);
         if (localNameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
@@ -462,7 +462,7 @@ public class AxReferenceKey extends AxKey {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         builder.append(this.getClass().getSimpleName());
         builder.append(":(");
         builder.append("parentKeyName=");
@@ -501,8 +501,8 @@ public class AxReferenceKey extends AxKey {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + parentKeyName.hashCode();
         result = prime * result + parentKeyVersion.hashCode();
         result = prime * result + parentLocalName.hashCode();

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -235,7 +235,7 @@ public class AxArtifactKey extends AxKey {
         }
         final AxArtifactKey otherArtifactKey = (AxArtifactKey) otherKey;
 
-        final Compatibility compatibility = this.getCompatibility(otherArtifactKey);
+        final var compatibility = this.getCompatibility(otherArtifactKey);
 
         return !(compatibility == Compatibility.DIFFERENT || compatibility == Compatibility.MAJOR);
     }
@@ -245,14 +245,14 @@ public class AxArtifactKey extends AxKey {
      */
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
-        final String nameValidationErrorMessage = Assertions.getStringParameterValidationMessage(NAME_TOKEN, name,
+        final var nameValidationErrorMessage = Assertions.getStringParameterValidationMessage(NAME_TOKEN, name,
                         NAME_REGEXP);
         if (nameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
                             "name invalid-" + nameValidationErrorMessage));
         }
 
-        final String versionValidationErrorMessage = Assertions.getStringParameterValidationMessage(VERSION_TOKEN,
+        final var versionValidationErrorMessage = Assertions.getStringParameterValidationMessage(VERSION_TOKEN,
                         version, VERSION_REGEXP);
         if (versionValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
@@ -276,7 +276,7 @@ public class AxArtifactKey extends AxKey {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         builder.append(this.getClass().getSimpleName());
         builder.append(":(");
         builder.append("name=");
@@ -309,8 +309,8 @@ public class AxArtifactKey extends AxKey {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + name.hashCode();
         result = prime * result + version.hashCode();
         return result;
