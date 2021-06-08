@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -151,7 +151,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
             final AxArtifactKey artifactKey = (AxArtifactKey) axKey;
 
             keyInfoMap.computeIfAbsent(artifactKey, unusedKey -> {
-                final AxKeyInfo keyInfo = new AxKeyInfo(artifactKey);
+                final var keyInfo = new AxKeyInfo(artifactKey);
                 // generate a reproducible UUID
                 keyInfo.setUuid(AxKeyInfo.generateReproducibleUuid(keyInfo.getId() + keyInfo.getDescription()));
                 return keyInfo;
@@ -290,7 +290,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         builder.append(this.getClass().getSimpleName());
         builder.append(":(");
         builder.append("key=");
@@ -327,8 +327,8 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + key.hashCode();
         result = prime * result + keyInfoMap.hashCode();
         return result;
