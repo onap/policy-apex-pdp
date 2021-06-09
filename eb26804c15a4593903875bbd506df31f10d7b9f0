@@ -16,6 +16,24 @@
       "revId": "eb26804c15a4593903875bbd506df31f10d7b9f0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0555741a_c4e7de68",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxArtifactKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7629
+      },
+      "writtenOn": "2021-06-09T14:11:19Z",
+      "side": 1,
+      "message": "Will update it in the next patch",
+      "parentUuid": "b3e1d319_a90d80a6",
+      "revId": "eb26804c15a4593903875bbd506df31f10d7b9f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
