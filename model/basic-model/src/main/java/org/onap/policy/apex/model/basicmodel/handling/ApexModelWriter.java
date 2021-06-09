@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import java.io.Writer;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,7 +46,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-import org.w3c.dom.Document;
 
 /**
  * This class writes an Apex concept to an XML file or JSON file from a Java Apex Concept.
@@ -87,7 +85,7 @@ public class ApexModelWriter<C extends AxConcept> {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
 
         try {
-            final JAXBContext jaxbContext = JAXBContextFactory.createContext(new Class[]{rootConceptClass}, null);
+            final var jaxbContext = JAXBContextFactory.createContext(new Class[]{rootConceptClass}, null);
 
             // Set up the unmarshaller to carry out validation
             marshaller = jaxbContext.createMarshaller();
@@ -201,17 +199,17 @@ public class ApexModelWriter<C extends AxConcept> {
         try {
             // Write the concept into a DOM document, then transform to add CDATA fields and pretty
             // print, then write out the result
-            final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            final var docBuilderFactory = DocumentBuilderFactory.newInstance();
             docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             docBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            final Document document = docBuilderFactory.newDocumentBuilder().newDocument();
+            final var document = docBuilderFactory.newDocumentBuilder().newDocument();
 
             // Marshal the concept into the empty document.
             marshaller.marshal(concept, document);
 
-            final Transformer domTransformer = getTransformer();
+            final var domTransformer = getTransformer();
 
             // Convert the cDataFieldSet into a space delimited string
             domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS,
@@ -225,11 +223,11 @@ public class ApexModelWriter<C extends AxConcept> {
 
     private Transformer getTransformer() throws TransformerConfigurationException {
         // Transform the DOM to the output stream
-        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        final var transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 
-        final Transformer domTransformer = transformerFactory.newTransformer();
+        final var domTransformer = transformerFactory.newTransformer();
 
         // Pretty print
         try {
