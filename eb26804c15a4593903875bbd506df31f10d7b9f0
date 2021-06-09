@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3e1d319_a90d80a6",
+        "filename": "model/basic-model/src/main/java/org/onap/policy/apex/model/basicmodel/concepts/AxArtifactKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-09T12:40:37Z",
+      "side": 1,
+      "message": "missing newline at end of file",
+      "revId": "eb26804c15a4593903875bbd506df31f10d7b9f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
