@@ -80,27 +80,6 @@ public class AxKeyInfoTest {
     @Test
     public void testAxKeyValidation() {
         AxKeyInfo testKeyInfo = new AxKeyInfo();
-
-        AxArtifactKey key = new AxArtifactKey("key", "0.0.1");
-        testKeyInfo.setKey(key);
-
-        UUID uuid = UUID.randomUUID();
-        testKeyInfo.setUuid(uuid);
-        testKeyInfo.setDescription("Key Description");
-
-        assertNotEquals(0, testKeyInfo.compareTo(null));
-        assertNotEquals(0, testKeyInfo.compareTo(new AxArtifactKey()));
-        assertNotEquals(0, testKeyInfo.compareTo(new AxKeyInfo(new AxArtifactKey())));
-        assertNotEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, UUID.randomUUID(), "Some Description")));
-        assertNotEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, uuid, "Some Description")));
-        assertEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, uuid, "Key Description")));
-
-        assertNotNull(testKeyInfo.getKeys());
-    }
-
-    @Test
-    public void testAxKeyValidation() {
-        AxKeyInfo testKeyInfo = new AxKeyInfo();
         testKeyInfo.setKey((new AxArtifactKey("PN", "0.0.1")));
 
         AxValidationResult result = new AxValidationResult();
