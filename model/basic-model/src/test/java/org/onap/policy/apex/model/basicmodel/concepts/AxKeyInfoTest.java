@@ -33,11 +33,14 @@ import org.junit.Test;
 public class AxKeyInfoTest {
 
     @Test
-    public void testAxKeyInfo() {
+    public void testNullAxKeyInfo() {
         assertNotNull(new AxKeyInfo());
         assertNotNull(new AxKeyInfo(new AxArtifactKey()));
         assertNotNull(new AxKeyInfo(new AxArtifactKey(), UUID.randomUUID(), "Key description"));
+    }
 
+    @Test
+    public void testAxKeyInfo() {
         AxKeyInfo testKeyInfo = new AxKeyInfo();
         testKeyInfo.setKey((new AxArtifactKey("PN", "0.0.1")));
         assertEquals("PN:0.0.1", testKeyInfo.getKey().getId());
@@ -93,6 +96,12 @@ public class AxKeyInfoTest {
         assertEquals(0, testKeyInfo.compareTo(new AxKeyInfo(key, uuid, "Key Description")));
 
         assertNotNull(testKeyInfo.getKeys());
+    }
+
+    @Test
+    public void testAxKeyValidation() {
+        AxKeyInfo testKeyInfo = new AxKeyInfo();
+        testKeyInfo.setKey((new AxArtifactKey("PN", "0.0.1")));
 
         AxValidationResult result = new AxValidationResult();
         result = testKeyInfo.validate(result);
