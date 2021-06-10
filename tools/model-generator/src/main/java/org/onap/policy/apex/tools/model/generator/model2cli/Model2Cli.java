@@ -490,7 +490,7 @@ public class Model2Cli {
             final AxReferenceKey outkey = out.getKey();
 
             final ST val = cg.createPolicyStateOutput(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                    kig.getLName(outkey), kig.getName(out.getOutgingEvent()), kig.getVersion(out.getOutgingEvent()),
+                    kig.getLName(outkey), kig.getName(out.getOutgoingEvent()), kig.getVersion(out.getOutgoingEvent()),
                     kig.getLName(out.getNextState()));
 
             ret.add(val);

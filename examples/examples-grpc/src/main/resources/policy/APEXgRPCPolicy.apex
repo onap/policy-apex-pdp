@@ -111,69 +111,45 @@ event parameter create name=CDSResponseEvent parName=payload schemaName=CDSRespo
 event create name=CDSResponseStatusEvent nameSpace=org.onap.policy.apex.onap.pmcontrol source=APEX target=DCAE
 event parameter create name=CDSResponseStatusEvent parName=status schemaName=SubscriptionStatusType
 
+event create name=CDSResponseStatusEvent2 nameSpace=org.onap.policy.apex.onap.pmcontrol source=APEX target=DCAE
+event parameter create name=CDSResponseStatusEvent2 parName=test schemaName=SimpleStringType
+
 ##
 ## TASKS
 ##
 
 
 task create name=ReceivePMSubscriptionTask
-task inputfield create name=ReceivePMSubscriptionTask fieldName=subscription schemaName=SubscriptionType
-task inputfield create name=ReceivePMSubscriptionTask fieldName=nfName schemaName=SimpleStringType
-task inputfield create name=ReceivePMSubscriptionTask fieldName=policyName schemaName=SimpleStringType
-task inputfield create name=ReceivePMSubscriptionTask fieldName=changeType schemaName=SimpleStringType
-task inputfield create name=ReceivePMSubscriptionTask fieldName=closedLoopControlName schemaName=SimpleStringType
-task outputfield create name=ReceivePMSubscriptionTask fieldName=albumID schemaName=UUIDType
 task contextref create name=ReceivePMSubscriptionTask albumName=PMSubscriptionAlbum
 task logic create name=ReceivePMSubscriptionTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/ReceivePMSubscriptionTask.js"
 LE
 
 task create name=CreateSubscriptionPayloadTask
-task inputfield create name=CreateSubscriptionPayloadTask fieldName=albumID schemaName=UUIDType
-task outputfield create name=CreateSubscriptionPayloadTask fieldName=payload schemaName=CDSCreateSubscriptionPayloadType
-task outputfield create name=CreateSubscriptionPayloadTask fieldName=albumID schemaName=UUIDType
 task contextref create name=CreateSubscriptionPayloadTask albumName=PMSubscriptionAlbum
 task logic create name=CreateSubscriptionPayloadTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/CreateSubscriptionPayloadTask.js"
 LE
 
 task create name=DeleteSubscriptionPayloadTask
-task inputfield create name=DeleteSubscriptionPayloadTask fieldName=albumID schemaName=UUIDType
-task outputfield create name=DeleteSubscriptionPayloadTask fieldName=payload schemaName=CDSDeleteSubscriptionPayloadType
-task outputfield create name=DeleteSubscriptionPayloadTask fieldName=albumID schemaName=UUIDType
 task contextref create name=DeleteSubscriptionPayloadTask albumName=PMSubscriptionAlbum
 task logic create name=DeleteSubscriptionPayloadTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/DeleteSubscriptionPayloadTask.js"
 LE
 
 task create name=CreateSubscriptionRequestTask
-task inputfield create name=CreateSubscriptionRequestTask fieldName=albumID schemaName=UUIDType
-task inputfield create name=CreateSubscriptionRequestTask fieldName=payload schemaName=CDSCreateSubscriptionPayloadType
-task outputfield create name=CreateSubscriptionRequestTask fieldName=commonHeader schemaName=CDSRequestCommonHeaderType
-task outputfield create name=CreateSubscriptionRequestTask fieldName=actionIdentifiers schemaName=CDSActionIdentifiersType
-task outputfield create name=CreateSubscriptionRequestTask fieldName=payload schemaName=CDSCreateSubscriptionPayloadType
 task contextref create name=CreateSubscriptionRequestTask albumName=PMSubscriptionAlbum
 task logic create name=CreateSubscriptionRequestTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/CreateSubscriptionRequestTask.js"
 LE
 
 task create name=DeleteSubscriptionRequestTask
-task inputfield create name=DeleteSubscriptionRequestTask fieldName=albumID schemaName=UUIDType
-task inputfield create name=DeleteSubscriptionRequestTask fieldName=payload schemaName=CDSDeleteSubscriptionPayloadType
-task outputfield create name=DeleteSubscriptionRequestTask fieldName=commonHeader schemaName=CDSRequestCommonHeaderType
-task outputfield create name=DeleteSubscriptionRequestTask fieldName=actionIdentifiers schemaName=CDSActionIdentifiersType
-task outputfield create name=DeleteSubscriptionRequestTask fieldName=payload schemaName=CDSDeleteSubscriptionPayloadType
 task contextref create name=DeleteSubscriptionRequestTask albumName=PMSubscriptionAlbum
 task logic create name=DeleteSubscriptionRequestTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/DeleteSubscriptionRequestTask.js"
 LE
 
 task create name=CDSResponseTask
-task inputfield create name=CDSResponseTask fieldName=commonHeader schemaName=CDSResponseCommonHeaderType
-task inputfield create name=CDSResponseTask fieldName=actionIdentifiers schemaName=CDSActionIdentifiersType
-task inputfield create name=CDSResponseTask fieldName=status schemaName=CDSResponseStatusType
-task inputfield create name=CDSResponseTask fieldName=payload schemaName=CDSResponsePayloadType
-task outputfield create name=CDSResponseTask fieldName=status schemaName=SubscriptionStatusType
 task contextref create name=CDSResponseTask albumName=PMSubscriptionAlbum
 task logic create name=CDSResponseTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/main/resources/logic/ResponseTask.js"
@@ -227,6 +203,7 @@ policy create name=CDSResponsePolicy template=Freestyle firstState=CDSResponseSt
 # State CDSResponseState
 policy state create name=CDSResponsePolicy stateName=CDSResponseState triggerName=CDSResponseEvent defaultTaskName=CDSResponseTask
 policy state output create name=CDSResponsePolicy stateName=CDSResponseState outputName=ResponseOutput eventName=CDSResponseStatusEvent
+policy state output create name=CDSResponsePolicy stateName=CDSResponseState outputName=ResponseOutput eventName=CDSResponseStatusEvent2
 policy state taskref create name=CDSResponsePolicy stateName=CDSResponseState taskName=CDSResponseTask outputType=DIRECT outputName=ResponseOutput
 
 validate

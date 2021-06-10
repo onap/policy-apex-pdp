@@ -30,19 +30,11 @@ event parameter create name=Event0201 parName=testToRun schemaName=SimpleStringT
 
 
 task create name=TaskFetchHttpCode
-
-task inputfield create name=TaskFetchHttpCode fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=TaskFetchHttpCode fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=TaskFetchHttpCode logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/TaskFetchHttpCode.js"
 LE
 
 task create name=TaskTagUrl
-
-task inputfield create name=TaskTagUrl fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=TaskTagUrl fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=TaskTagUrl logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/TaskTagUrl.js"
 LE

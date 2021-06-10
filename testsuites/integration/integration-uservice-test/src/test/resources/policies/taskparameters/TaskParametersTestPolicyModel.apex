@@ -32,19 +32,11 @@ event create name=CLOutputEvent nameSpace=org.onap.policy.apex.domains.test sour
 event parameter create name=CLOutputEvent parName=status schemaName=SimpleStringType
 
 task create name=SetServiceIdForTest version=1.0.0
-
-task inputfield create name=SetServiceIdForTest fieldName=event schemaName=SimpleStringType
-task outputfield create name=SetServiceIdForTest fieldName=serviceDetails schemaName=SimpleStringType
-
 task logic create name=SetServiceIdForTest logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/taskparameters/SetServiceIdForTest.js"
 LE
 
 task create name=SetControlLoopNameForTest version=1.0.0
-
-task inputfield create name=SetControlLoopNameForTest fieldName=serviceDetails schemaName=SimpleStringType
-task outputfield create name=SetControlLoopNameForTest fieldName=status schemaName=SimpleStringType
-
 task logic create name=SetControlLoopNameForTest logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/taskparameters/SetControlLoopNameForTest.js"
 LE

@@ -42,6 +42,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -50,7 +52,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.eventmodel.concepts.AxField;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.common.utils.validation.Assertions;
@@ -91,8 +93,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTask", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxTask", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "inputFields", "outputFields", "taskParameters", "contextAlbumReferenceSet", "taskLogic"})
-
+        propOrder = {"key", "inputEvent", "outputEvents", "taskParameters", "contextAlbumReferenceSet", "taskLogic"})
+@Getter
+@Setter
 public class AxTask extends AxConcept {
     private static final String DOES_NOT_EQUAL_TASK_KEY = " does not equal task key";
 
@@ -102,13 +105,13 @@ public class AxTask extends AxConcept {
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @XmlElement(name = "inputFields", required = true)
-    private Map<String, AxInputField> inputFields;
+    @OneToOne(cascade = CascadeType.ALL)
+    @XmlElement(name = "inputEvent", required = true)
+    private AxEvent inputEvent;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @XmlElement(name = "outputFields", required = true)
-    private Map<String, AxOutputField> outputFields;
+    @XmlElement(name = "outputEvents", required = true)
+    private Map<String, AxEvent> outputEvents;
 
     @OneToMany(cascade = CascadeType.ALL)
     @XmlElement(name = "taskParameters", required = true)
@@ -152,8 +155,6 @@ public class AxTask extends AxConcept {
      */
     public AxTask(final AxArtifactKey key) {
         this(key, // Task Key
-                new TreeMap<>(), // Input fields
-                new TreeMap<>(), // Output Fields
                 new TreeMap<>(), // Task Parameters
                 new TreeSet<>(), // Context Album References
                 new AxTaskLogic(new AxReferenceKey(key)) // Task Logic
@@ -164,27 +165,20 @@ public class AxTask extends AxConcept {
      * This Constructor defines all the fields of the task.
      *
      * @param key the key of the task
-     * @param inputFields the input fields that the task expects
-     * @param outputFields the output fields that the task emits
      * @param taskParameters the task parameters that are used to initialize tasks of this type
      * @param contextAlbumReferenceSet the context album reference set defines the context that may
      *        be used by Task Logic in the state
      * @param taskLogic the task logic that performs the domain specific work of the task
      */
-    public AxTask(final AxArtifactKey key, final Map<String, AxInputField> inputFields,
-            final Map<String, AxOutputField> outputFields, final Map<String, AxTaskParameter> taskParameters,
+    public AxTask(final AxArtifactKey key, final Map<String, AxTaskParameter> taskParameters,
             final Set<AxArtifactKey> contextAlbumReferenceSet, final AxTaskLogic taskLogic) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
-        Assertions.argumentNotNull(inputFields, "inputFields may not be null");
-        Assertions.argumentNotNull(outputFields, "outputFields may not be null");
         Assertions.argumentNotNull(taskParameters, "taskParameters may not be null");
         Assertions.argumentNotNull(contextAlbumReferenceSet, "contextAlbumReferenceSet may not be null");
         Assertions.argumentNotNull(taskLogic, "taskLogic may not be null");
 
         this.key = key;
-        this.inputFields = inputFields;
-        this.outputFields = outputFields;
         this.taskParameters = taskParameters;
         this.contextAlbumReferenceSet = contextAlbumReferenceSet;
         this.taskLogic = taskLogic;
@@ -202,14 +196,6 @@ public class AxTask extends AxConcept {
     public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
         taskLogic.getKey().setParentArtifactKey(key);
 
-        for (final AxInputField inputField : inputFields.values()) {
-            inputField.getKey().setParentArtifactKey(key);
-            inputField.getKey().setParentLocalName("InField");
-        }
-        for (final AxOutputField outputField : outputFields.values()) {
-            outputField.getKey().setParentArtifactKey(key);
-            outputField.getKey().setParentLocalName("OutField");
-        }
         for (final AxTaskParameter parameter : taskParameters.values()) {
             parameter.getKey().setParentArtifactKey(key);
         }
@@ -229,12 +215,6 @@ public class AxTask extends AxConcept {
     @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
-        for (final AxInputField inputField : inputFields.values()) {
-            keyList.addAll(inputField.getKeys());
-        }
-        for (final AxOutputField outputField : outputFields.values()) {
-            keyList.addAll(outputField.getKeys());
-        }
         for (final AxTaskParameter taskParameter : taskParameters.values()) {
             keyList.addAll(taskParameter.getKeys());
         }
@@ -253,122 +233,6 @@ public class AxTask extends AxConcept {
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the input fields that the task expects.
-     *
-     * @return the input fields that the task expects
-     */
-    public Map<String, AxInputField> getInputFields() {
-        return inputFields;
-    }
-
-    /**
-     * Gets the raw input fields that the task expects as a tree map.
-     *
-     * @return the raw input fields that the task expects
-     */
-    public Map<String, AxField> getRawInputFields() {
-        return new TreeMap<>(inputFields);
-    }
-
-    /**
-     * Convenience method to get the input fields as a set.
-     *
-     * @return the input fields as a set
-     */
-    public Set<AxField> getInputFieldSet() {
-        final Set<AxField> inputFieldSet = new TreeSet<>();
-        for (final AxInputField field : inputFields.values()) {
-            inputFieldSet.add(field);
-        }
-        return inputFieldSet;
-    }
-
-    /**
-     * Sets the input fields that the task expects.
-     *
-     * @param inputFields the input fields that the task expects
-     */
-    public void setInputFields(final Map<String, AxInputField> inputFields) {
-        Assertions.argumentNotNull(inputFields, "inputFields may not be null");
-        this.inputFields = inputFields;
-    }
-
-    /**
-     * Copy the input fields from the given map into the task. This method is used to get a copy of
-     * the input fields, which can be useful for unit testing of policies and tasks.
-     *
-     * @param fields the fields to copy into the task
-     */
-    public void duplicateInputFields(final Map<String, AxField> fields) {
-        Assertions.argumentNotNull(fields, "fields may not be null");
-
-        for (final AxField field : fields.values()) {
-            final AxReferenceKey fieldKey = new AxReferenceKey(this.getKey().getName(), this.getKey().getVersion(),
-                    "inputFields", field.getKey().getLocalName());
-            final AxInputField inputField = new AxInputField(fieldKey, field.getSchema());
-            inputFields.put(inputField.getKey().getLocalName(), inputField);
-        }
-    }
-
-    /**
-     * Gets the output fields that the task emits.
-     *
-     * @return the output fields that the task emits
-     */
-    public Map<String, AxOutputField> getOutputFields() {
-        return outputFields;
-    }
-
-    /**
-     * Gets the raw output fields that the task emits as a tree map.
-     *
-     * @return the raw output fields as a tree map
-     */
-    public Map<String, AxField> getRawOutputFields() {
-        return new TreeMap<>(outputFields);
-    }
-
-    /**
-     * Gets the output fields that the task emits as a set.
-     *
-     * @return the output fields as a set
-     */
-    public Set<AxField> getOutputFieldSet() {
-        final Set<AxField> outputFieldSet = new TreeSet<>();
-        for (final AxOutputField field : outputFields.values()) {
-            outputFieldSet.add(field);
-        }
-        return outputFieldSet;
-    }
-
-    /**
-     * Sets the output fields that the task emits.
-     *
-     * @param outputFields the output fields that the task emits
-     */
-    public void setOutputFields(final Map<String, AxOutputField> outputFields) {
-        Assertions.argumentNotNull(outputFields, "outputFields may not be null");
-        this.outputFields = outputFields;
-    }
-
-    /**
-     * Copy the output fields from the given map into the task. This method is used to get a copy of
-     * the output fields, which can be useful for unit testing of policies and tasks.
-     *
-     * @param fields the fields to copy into the task
-     */
-    public void duplicateOutputFields(final Map<String, AxField> fields) {
-        Assertions.argumentNotNull(fields, "fields may not be null");
-
-        for (final AxField field : fields.values()) {
-            final AxReferenceKey fieldKey = new AxReferenceKey(this.getKey().getName(), this.getKey().getVersion(),
-                    "outputFields", field.getKey().getLocalName());
-            final AxOutputField outputField = new AxOutputField(fieldKey, field.getSchema());
-            outputFields.put(outputField.getKey().getLocalName(), outputField);
-        }
     }
 
     /**
@@ -446,24 +310,6 @@ public class AxTask extends AxConcept {
 
         result = key.validate(result);
 
-        if (inputFields.size() == 0) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "inputFields may not be empty"));
-        } else {
-            for (final Entry<String, AxInputField> inputFieldEntry : inputFields.entrySet()) {
-                result = validateField(inputFieldEntry.getKey(), inputFieldEntry.getValue(), "input", result);
-            }
-        }
-
-        if (outputFields.size() == 0) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "outputFields may not be empty"));
-        } else {
-            for (final Entry<String, AxOutputField> outputFieldEntry : outputFields.entrySet()) {
-                result = validateField(outputFieldEntry.getKey(), outputFieldEntry.getValue(), "input", result);
-            }
-        }
-
         for (final Entry<String, AxTaskParameter> taskParameterEntry : taskParameters.entrySet()) {
             result = vaildateTaskParameterEntry(taskParameterEntry, result);
         }
@@ -478,32 +324,6 @@ public class AxTask extends AxConcept {
         }
 
         return taskLogic.validate(result);
-    }
-
-    /**
-     * Validate a field.
-     *
-     * @param key the key of the field to validate
-     * @param field the field to validate
-     * @param direction The direction of the field
-     * @param result The validation result to append to
-     * @return The result of the validation
-     */
-    private AxValidationResult validateField(final String fieldKey, final AxField field, final String direction,
-            AxValidationResult result) {
-        if (field == null) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "null " + direction + " field value found on " + direction + " field " + fieldKey));
-        } else {
-            if (!field.getKey().getParentArtifactKey().equals(key)) {
-                result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "parent key on " + direction + " field " + fieldKey + DOES_NOT_EQUAL_TASK_KEY));
-            }
-
-            result = field.validate(result);
-        }
-
-        return result;
     }
 
     /**
@@ -554,12 +374,6 @@ public class AxTask extends AxConcept {
     @Override
     public void clean() {
         key.clean();
-        for (final AxInputField inputField : inputFields.values()) {
-            inputField.clean();
-        }
-        for (final AxOutputField outputField : outputFields.values()) {
-            outputField.clean();
-        }
         for (final AxTaskParameter parameter : taskParameters.values()) {
             parameter.clean();
         }
@@ -579,10 +393,6 @@ public class AxTask extends AxConcept {
         builder.append(":(");
         builder.append("key=");
         builder.append(key);
-        builder.append(",inputFields=");
-        builder.append(inputFields);
-        builder.append(",outputFields=");
-        builder.append(outputFields);
         builder.append(",taskParameters=");
         builder.append(taskParameters);
         builder.append(",contextAlbumReferenceSet=");
@@ -605,18 +415,6 @@ public class AxTask extends AxConcept {
 
         final AxTask copy = ((AxTask) copyObject);
         copy.setKey(key);
-
-        final Map<String, AxInputField> newInputFields = new TreeMap<>();
-        for (final Entry<String, AxInputField> inputFieldEntry : inputFields.entrySet()) {
-            newInputFields.put(inputFieldEntry.getKey(), new AxInputField(inputFieldEntry.getValue()));
-        }
-        copy.setInputFields(newInputFields);
-
-        final Map<String, AxOutputField> newOutputFields = new TreeMap<>();
-        for (final Entry<String, AxOutputField> outputFieldEntry : outputFields.entrySet()) {
-            newOutputFields.put(outputFieldEntry.getKey(), new AxOutputField(outputFieldEntry.getValue()));
-        }
-        copy.setOutputFields(newOutputFields);
 
         final Map<String, AxTaskParameter> newTaskParameter = new TreeMap<>();
         for (final Entry<String, AxTaskParameter> taskParameterEntry : taskParameters.entrySet()) {
@@ -643,8 +441,6 @@ public class AxTask extends AxConcept {
         final int prime = 31;
         int result = 1;
         result = prime * result + key.hashCode();
-        result = prime * result + inputFields.hashCode();
-        result = prime * result + outputFields.hashCode();
         result = prime * result + taskParameters.hashCode();
         result = prime * result + contextAlbumReferenceSet.hashCode();
         result = prime * result + taskLogic.hashCode();
@@ -669,12 +465,6 @@ public class AxTask extends AxConcept {
 
         final AxTask other = (AxTask) obj;
         if (!key.equals(other.key)) {
-            return false;
-        }
-        if (!inputFields.equals(other.inputFields)) {
-            return false;
-        }
-        if (!outputFields.equals(other.outputFields)) {
             return false;
         }
         if (!taskParameters.equals(other.taskParameters)) {
@@ -704,12 +494,6 @@ public class AxTask extends AxConcept {
         final AxTask other = (AxTask) otherObj;
         if (!key.equals(other.key)) {
             return key.compareTo(other.key);
-        }
-        if (!inputFields.equals(other.inputFields)) {
-            return (inputFields.hashCode() - other.inputFields.hashCode());
-        }
-        if (!outputFields.equals(other.outputFields)) {
-            return (outputFields.hashCode() - other.outputFields.hashCode());
         }
         if (!taskParameters.equals(other.taskParameters)) {
             return (taskParameters.hashCode() - other.taskParameters.hashCode());

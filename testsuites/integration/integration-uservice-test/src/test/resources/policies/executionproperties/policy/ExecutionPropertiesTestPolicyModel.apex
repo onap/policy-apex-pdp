@@ -27,55 +27,31 @@ event create name=RunTestEvent nameSpace=org.onap.policy.apex.domains.test sourc
 event parameter create name=RunTestEvent parName=testToRun schemaName=SimpleStringType
 
 task create name=ReadOnlyTask
-
-task inputfield create name=ReadOnlyTask fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=ReadOnlyTask fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=ReadOnlyTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/ReadOnlyTask.js"
 LE
 
 task create name=EmptyToEmptyTask
-
-task inputfield create name=EmptyToEmptyTask fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=EmptyToEmptyTask fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=EmptyToEmptyTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/EmptyToEmptyTask.js"
 LE
 
 task create name=EmptyToDefinedTask
-
-task inputfield create name=EmptyToDefinedTask fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=EmptyToDefinedTask fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=EmptyToDefinedTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/EmptyToDefinedTask.js"
 LE
 
 task create name=DefinedToEmptyTask
-
-task inputfield create name=DefinedToEmptyTask fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=DefinedToEmptyTask fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=DefinedToEmptyTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/DefinedToEmptyTask.js"
 LE
 
 task create name=AddPropertyTask
-
-task inputfield create name=AddPropertyTask fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=AddPropertyTask fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=AddPropertyTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/AddPropertyTask.js"
 LE
 
 task create name=RemovePropertyTask
-
-task inputfield create name=RemovePropertyTask fieldName=testToRun schemaName=SimpleStringType
-task outputfield create name=RemovePropertyTask fieldName=testToRun schemaName=SimpleStringType
-
 task logic create name=RemovePropertyTask logicFlavour=JAVASCRIPT logic=LS
 #MACROFILE:"src/test/resources/policies/executionproperties/logic/RemovePropertyTask.js"
 LE

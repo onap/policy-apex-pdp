@@ -23,17 +23,23 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.AttributeOverride;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -68,8 +74,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexStateOutput", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxStateOutput", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "outgoingEvent", "nextState"})
-
+        propOrder = {"key", "outgoingEvent", "outgoingEventSet", "nextState"})
+@Getter
+@Setter
 public class AxStateOutput extends AxConcept {
     private static final long serialVersionUID = 8041771382337655535L;
 
@@ -84,6 +91,12 @@ public class AxStateOutput extends AxConcept {
     @Column(name = "outgoingEvent")
     @XmlElement(required = true)
     private AxArtifactKey outgoingEvent;
+
+    @ElementCollection
+    @CollectionTable(joinColumns = {@JoinColumn(name = "outgoingEventName", referencedColumnName = "name"),
+            @JoinColumn(name = "outgoingEventVersion", referencedColumnName = "version")})
+    @XmlElement(name = "outgoingEventReference")
+    private Set<AxArtifactKey> outgoingEventSet;
 
     @Embedded
     @AttributeOverride(name = "parentKeyName", column = @Column(name = "nextStateParentKeyName"))
@@ -198,7 +211,7 @@ public class AxStateOutput extends AxConcept {
      *
      * @return the outgoing event emitted on use of this state output
      */
-    public AxArtifactKey getOutgingEvent() {
+    public AxArtifactKey getOutgoingEvent() {
         return outgoingEvent;
     }
 

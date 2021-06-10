@@ -25,7 +25,7 @@ var albumID = uuidType.fromString("d0050623-18e5-46c9-9298-9a567990cd7c");
 
 var pmSubscriptionInfo = executor.getContextAlbum("PMSubscriptionAlbum").get(albumID.toString());
 
-var responseStatus = executor.subject.getOutFieldSchemaHelper("status").createNewInstance();
+var responseStatus = executor.subject.getOutFieldSchemaHelper("CDSResponseStatusEvent", "status").createNewInstance();
 
 responseStatus.put("subscriptionName", pmSubscriptionInfo.get("subscription").get("subscriptionName"))
 responseStatus.put("nfName", pmSubscriptionInfo.get("nfName"))
@@ -40,5 +40,12 @@ if ("failure".equals(response.get("create_DasH_subscription_DasH_response").get(
 }
 
 executor.outFields.put("status", responseStatus)
-
+//var test = executor.subject.getOutFieldSchemaHelper("CDSResponseStatusEvent2", "test").createNewInstance();
+var map = java.util.HashMap();
+map.put("test", "val1");
+executor.logger.info("+++++++++++++++++"+executor.outFieldsList)
+// executor.logger.info("+++++++++++++++++"+typeof executor.outFieldsList)
+// executor.logger.info("+++++++++++++++++"+map)
+executor.addFieldsToOutputList(map);
+executor.logger.info("+++++++++++++++++"+executor.outFieldsList)
 true;

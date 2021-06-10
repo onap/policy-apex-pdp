@@ -66,7 +66,7 @@ public class JavascriptTaskExecutor extends TaskExecutor {
      * @throws ContextException on context errors
      */
     @Override
-    public Map<String, Object> execute(final long executionId, final Properties executionProperties,
+    public Map<String, Map<String, Object>> execute(final long executionId, final Properties executionProperties,
             final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         executePre(executionId, executionProperties, incomingFields);
         boolean result = javascriptExecutor.execute(getExecutionContext());

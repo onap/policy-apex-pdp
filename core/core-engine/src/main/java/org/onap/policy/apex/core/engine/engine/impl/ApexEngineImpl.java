@@ -23,9 +23,11 @@ package org.onap.policy.apex.core.engine.engine.impl;
 
 import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -307,17 +309,17 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.debug(message);
 
         // By default we return a null event on errors
-        EnEvent outgoingEvent = null;
+        Collection<EnEvent> outgoingEvents = null;
         try {
             engineStats.executionEnter(incomingEvent.getKey());
-            outgoingEvent = stateMachineHandler.execute(incomingEvent);
+            outgoingEvents = stateMachineHandler.execute(incomingEvent);
             engineStats.executionExit();
             ret = true;
         } catch (final StateMachineException e) {
             LOGGER.warn("handleEvent()<-{},{}, engine execution error: ", key.getId(), state, e);
 
             // Create an exception return event
-            outgoingEvent = createExceptionEvent(incomingEvent, e);
+            outgoingEvents = createExceptionEvent(incomingEvent, e);
         }
 
         // Publish the outgoing event
@@ -325,10 +327,12 @@ public class ApexEngineImpl implements ApexEngine {
             synchronized (eventListeners) {
                 if (eventListeners.isEmpty()) {
                     LOGGER.debug("handleEvent()<-{},{}, There is no listener registered to recieve outgoing event: {}",
-                        key.getId(), state, outgoingEvent);
+                        key.getId(), state, outgoingEvents);
                 }
                 for (final EnEventListener axEventListener : eventListeners.values()) {
-                    axEventListener.onEnEvent(outgoingEvent);
+                    for (var outgoingEvent : outgoingEvents) {
+                        axEventListener.onEnEvent(outgoingEvent);
+                    }
                 }
             }
         } catch (final ApexException e) {
@@ -440,7 +444,7 @@ public class ApexEngineImpl implements ApexEngine {
      * @param eventException The exception that was thrown
      * @return the exception event
      */
-    private EnEvent createExceptionEvent(final EnEvent incomingEvent, final Exception eventException) {
+    private Set<EnEvent> createExceptionEvent(final EnEvent incomingEvent, final Exception eventException) {
         // The exception event is a clone of the incoming event with the exception suffix added to
         // its name and an extra
         // field "ExceptionMessage" added
@@ -460,6 +464,6 @@ public class ApexEngineImpl implements ApexEngine {
         // Set the exception message on the event
         exceptionEvent.setExceptionMessage(exceptionMessageStringBuilder.toString());
 
-        return exceptionEvent;
+        return Set.of(exceptionEvent);
     }
 }

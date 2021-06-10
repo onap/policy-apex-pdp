@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -306,6 +307,9 @@ public class PolicyFacade {
                         CONCEPT + defaultTaskName + ':' + defaltTaskVersion + DOES_NOT_EXIST);
             }
 
+            // Input event for a task is populated from the state definition
+            defaultTask.setInputEvent(triggerEvent);
+
             final AxState state = new AxState(refKey);
             state.setTrigger(triggerEvent.getKey());
             state.setDefaultTask(defaultTask.getKey());
@@ -347,9 +351,9 @@ public class PolicyFacade {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         CONCEPT + policy.getKey().getId() + ':' + stateName + DOES_NOT_EXIST);
             }
-
+            AxEvent triggerEvent = null;
             if (triggerName != null) {
-                final AxEvent triggerEvent = apexModel.getPolicyModel().getEvents().get(triggerName, triggerVersion);
+                triggerEvent = apexModel.getPolicyModel().getEvents().get(triggerName, triggerVersion);
                 if (triggerEvent == null) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + triggerName + ':' + triggerVersion + DOES_NOT_EXIST);
@@ -364,6 +368,8 @@ public class PolicyFacade {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                             CONCEPT + defaultTaskName + ':' + defaltTaskVersion + DOES_NOT_EXIST);
                 }
+                // Input event for a task is populated from the state definition
+                // defaultTask.setInputEvent(triggerEvent);
                 state.setDefaultTask(defaultTask.getKey());
             }
 
@@ -655,32 +661,48 @@ public class PolicyFacade {
             }
 
             final AxReferenceKey refKey = new AxReferenceKey(state.getKey(), outputName);
-            if (state.getStateOutputs().containsKey(refKey.getLocalName())) {
+            if (nextState != null && !AxReferenceKey.getNullKey().getLocalName().equals(nextState)
+                && state.getStateOutputs().containsKey(refKey.getLocalName())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        "Output concept " + refKey.getId() + ALREADY_EXISTS);
+                    "Output concept " + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(eventName, eventVersion);
             if (event == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        "Event concept " + eventName + ':' + eventVersion + DOES_NOT_EXIST);
+                    "Event concept " + eventName + ':' + eventVersion + DOES_NOT_EXIST);
             }
-
             AxReferenceKey nextStateKey = AxReferenceKey.getNullKey();
             if (nextState != null && !(AxReferenceKey.getNullKey().getLocalName().equals(nextState))) {
                 if (state.getKey().getLocalName().equals(nextState)) {
                     return new ApexApiResult(ApexApiResult.Result.FAILED,
-                            "next state " + nextState + " of a state cannot be the state itself");
+                        "next state " + nextState + " of a state cannot be the state itself");
                 }
                 nextStateKey = new AxReferenceKey(state.getKey().getParentArtifactKey(), nextState);
-
                 if (!policy.getStateMap().containsKey(nextState)) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            "Next state concept " + nextStateKey.getId() + DOES_NOT_EXIST);
+                        "Next state concept " + nextStateKey.getId() + DOES_NOT_EXIST);
                 }
             }
+            // nextState is null. There could be multiple events coming out of the state
+            if ((nextState == null || AxReferenceKey.getNullKey().getLocalName().equals(nextState))
+                && state.getStateOutputs().containsKey(refKey.getLocalName())) {
+                AxStateOutput existingStateOutput = state.getStateOutputs().get(refKey.getLocalName());
+                if (null == existingStateOutput.getOutgoingEventSet()
+                    || existingStateOutput.getOutgoingEventSet().isEmpty()) {
+                    Set<AxArtifactKey> eventSet = new TreeSet<>();
+                    eventSet.add(existingStateOutput.getOutgoingEvent());
+                    existingStateOutput.setOutgoingEventSet(eventSet);
+                }
+                existingStateOutput.getOutgoingEventSet().add(event.getKey());
+            } else {
+                AxStateOutput axStateOutput = new AxStateOutput(refKey, event.getKey(), nextStateKey);
+                Set<AxArtifactKey> eventSet = new TreeSet<>();
+                eventSet.add(axStateOutput.getOutgoingEvent());
+                axStateOutput.setOutgoingEventSet(eventSet);
+                state.getStateOutputs().put(refKey.getLocalName(), axStateOutput);
+            }
 
-            state.getStateOutputs().put(refKey.getLocalName(), new AxStateOutput(refKey, event.getKey(), nextStateKey));
             return new ApexApiResult();
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
@@ -1079,15 +1101,32 @@ public class PolicyFacade {
                 if (!state.getStateFinalizerLogicMap().containsKey(outputRefKey.getLocalName())) {
                     return new ApexApiResult(
                             ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            "state finalizer logic concept " + outputRefKey.getId() + DOES_NOT_EXIST);
+                        "state finalizer logic concept " + outputRefKey.getId() + DOES_NOT_EXIST);
                 }
             } else {
-                return new ApexApiResult(
-                        ApexApiResult.Result.FAILED, "output type " + builder.getOutputType() + " invalid");
+                return new ApexApiResult(ApexApiResult.Result.FAILED,
+                    "output type " + builder.getOutputType() + " invalid");
             }
 
-            state
-                .getTaskReferences()
+            // add input and output events to the task
+            //apexModel.getPolicyModel().getTasks().get("CreateSubscriptionRequestTask",null);
+           // apexModel.getPolicyModel().getTasks().get("DeleteSubscriptionRequestTask",null);
+            AxEvent triggerEvent = apexModel.getPolicyModel().getEvents().get(state.getTrigger());
+            task.setInputEvent(triggerEvent);
+            Map<String, AxEvent> outputEvents = new TreeMap<>();
+            if (state.getNextStateSet().isEmpty()
+                || state.getNextStateSet().contains(AxReferenceKey.getNullKey().getLocalName())) {
+                state.getStateOutputs().get(outputRefKey.getLocalName()).getOutgoingEventSet()
+                    .forEach(outgoingEventKey -> outputEvents.put(outgoingEventKey.getName(),
+                        apexModel.getPolicyModel().getEvents().get(outgoingEventKey)));
+            } else {
+                AxArtifactKey outgoingEventKey =
+                    state.getStateOutputs().get(outputRefKey.getLocalName()).getOutgoingEvent();
+                outputEvents.put(outgoingEventKey.getName(),
+                    apexModel.getPolicyModel().getEvents().get(outgoingEventKey));
+            }
+            task.setOutputEvents(outputEvents);
+            state.getTaskReferences()
                 .put(task.getKey(), new AxStateTaskReference(refKey, stateTaskOutputType, outputRefKey));
             return new ApexApiResult();
         } catch (final Exception e) {

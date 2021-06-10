@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.core.engine.executor;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -41,7 +42,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> {
+public class StateMachineExecutor implements Executor<EnEvent, Collection<EnEvent>, AxPolicy, ApexInternalContext> {
     // The Apex Policy and context for this state machine
     private AxPolicy axPolicy = null;
     private Executor<?, ?, ?, ?> parent = null;
@@ -54,7 +55,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
     private StateExecutor firstExecutor = null;
 
     // The next state machine executor
-    private Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> nextExecutor = null;
+    private Executor<EnEvent, Collection<EnEvent>, AxPolicy, ApexInternalContext> nextExecutor = null;
 
     // The executor factory
     private ExecutorFactory executorFactory = null;
@@ -120,7 +121,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * {@inheritDoc}.
      */
     @Override
-    public EnEvent execute(final long executionId, final Properties executionProperties, final EnEvent incomingEvent)
+    public Collection<EnEvent> execute(final long executionId, final Properties executionProperties, final EnEvent incomingEvent)
             throws StateMachineException, ContextException {
         // Check if there are any states on the state machine
         if (stateExecutorMap.size() == 0) {
@@ -140,7 +141,10 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
 
         while (true) {
             // Execute the state, it returns an output or throws an exception
-            stateOutput = stateExecutor.execute(executionId, executionProperties, stateOutput.getOutputEvent());
+            // OutputEventSet in a stateoutput can contain multiple events only when it is of the final state
+            // otherwise, there can be only 1 item in outputEventSet
+            stateOutput = stateExecutor.execute(executionId, executionProperties,
+                stateOutput.getOutputEvents().values().iterator().next());
 
             // Use the next state of the state output to find if all the states have executed
             if (stateOutput.getNextState().equals(AxReferenceKey.getNullKey())) {
@@ -155,7 +159,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
             }
         }
 
-        return stateOutput.getOutputEvent();
+        return stateOutput.getOutputEvents().values();
     }
 
     /**
@@ -229,7 +233,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * {@inheritDoc}.
      */
     @Override
-    public final EnEvent getOutgoing() {
+    public final Collection<EnEvent> getOutgoing() {
         return null;
     }
 
@@ -237,7 +241,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * {@inheritDoc}.
      */
     @Override
-    public final void setNext(final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> newNextExecutor) {
+    public final void setNext(final Executor<EnEvent, Collection<EnEvent>, AxPolicy, ApexInternalContext> newNextExecutor) {
         this.nextExecutor = newNextExecutor;
     }
 
@@ -245,7 +249,7 @@ public class StateMachineExecutor implements Executor<EnEvent, EnEvent, AxPolicy
      * {@inheritDoc}.
      */
     @Override
-    public final Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> getNext() {
+    public final Executor<EnEvent, Collection<EnEvent>, AxPolicy, ApexInternalContext> getNext() {
         return nextExecutor;
     }
 

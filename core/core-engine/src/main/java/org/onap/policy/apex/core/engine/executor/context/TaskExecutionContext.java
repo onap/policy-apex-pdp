@@ -23,6 +23,7 @@
 package org.onap.policy.apex.core.engine.executor.context;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +74,12 @@ public class TaskExecutionContext extends AbstractExecutionContext {
     public final Map<String, Object> outFields;
 
     /**
+     * The outgoing fields from the task. The task logic can access and set these fields with its logic. A task outputs
+     * its result using these fields.
+     */
+    public final Collection<Map<String, Object>> outFieldsList;
+
+    /**
      * Logger for task execution, task logic can use this field to access and log to Apex logging.
      */
     public final XLogger logger = EXECUTION_LOGGER;
@@ -97,12 +104,12 @@ public class TaskExecutionContext extends AbstractExecutionContext {
      * @param executionProperties the execution properties for task execution
      * @param axTask the task definition that is the subject of execution
      * @param inFields the in fields
-     * @param outFields the out fields
+     * @param collection the out fields
      * @param internalContext the execution context of the Apex engine in which the task is being executed
      */
     public TaskExecutionContext(final TaskExecutor taskExecutor, final long executionId,
             final Properties executionProperties, final AxTask axTask, final Map<String, Object> inFields,
-            final Map<String, Object> outFields, final ApexInternalContext internalContext) {
+            final Collection<Map<String, Object>> outFieldsList, final ApexInternalContext internalContext) {
         super(executionId, executionProperties);
 
         // The subject is the task definition
@@ -113,8 +120,9 @@ public class TaskExecutionContext extends AbstractExecutionContext {
 
         // The input and output fields
         this.inFields = Collections.unmodifiableMap(inFields);
-        this.outFields = outFields;
-
+        this.outFieldsList = outFieldsList;
+        // if only a single output event needs to fired from a task, the outFields alone can be used too
+        this.outFields = outFieldsList.iterator().next();
         // Set up the context albums for this task
         context = new TreeMap<>();
         for (final AxArtifactKey mapKey : subject.task.getContextAlbumReferences()) {
@@ -163,7 +171,15 @@ public class TaskExecutionContext extends AbstractExecutionContext {
             return foundContextAlbum;
         } else {
             throw new ContextRuntimeException("cannot find definition of context album \"" + contextAlbumName
-                    + "\" on task \"" + subject.getId() + "\"");
+                + "\" on task \"" + subject.getId() + "\"");
+        }
+    }
+
+    public void addFieldsToOutputList(Map<String, Object> fields) {
+        for (Map<String, Object> oFields : outFieldsList) {
+            if (oFields.keySet().containsAll(fields.keySet())) {
+                oFields.replaceAll((name, value) -> fields.get(name));
+            }
         }
     }
 }

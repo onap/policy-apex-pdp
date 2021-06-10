@@ -20,7 +20,9 @@
 
 package org.onap.policy.apex.core.engine.engine.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.ExecutorFactory;
@@ -138,7 +140,7 @@ public class StateMachineHandler {
      * @return The result of the state machine execution run
      * @throws StateMachineException On execution errors in a state machine
      */
-    protected EnEvent execute(final EnEvent event) throws StateMachineException {
+    protected Collection<EnEvent> execute(final EnEvent event) throws StateMachineException {
         LOGGER.entry("execute()->" + event.getName());
 
         // Try to execute the state machine for the trigger
@@ -149,17 +151,17 @@ public class StateMachineHandler {
             LOGGER.warn(exceptionMessage);
 
             event.setExceptionMessage(exceptionMessage);
-            return event;
+            return Set.of(event);
         }
 
         // Run the state machine
         try {
             LOGGER.debug("execute(): state machine \"{}\" execution starting  . . .", stateMachineExecutor);
-            final EnEvent outputObject =
+            final Collection<EnEvent> outputEvents =
                     stateMachineExecutor.execute(event.getExecutionId(), event.getExecutionProperties(), event);
 
             LOGGER.debug("execute()<-: state machine \"{}\" execution completed", stateMachineExecutor);
-            return outputObject;
+            return outputEvents;
         } catch (final Exception e) {
             LOGGER.warn("execute()<-: state machine \"" + stateMachineExecutor + "\" execution failed", e);
             throw new StateMachineException("execute()<-: execution failed on state machine " + stateMachineExecutor,

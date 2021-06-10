@@ -306,7 +306,7 @@ public class Model2JsonEventSchema {
         for (final AxState state : policy.getStateMap().values()) {
             if ("NULL".equals(state.getNextStateSet().iterator().next())) {
                 for (final AxStateOutput output : state.getStateOutputs().values()) {
-                    eventKeys.add(output.getOutgingEvent());
+                    eventKeys.add(output.getOutgoingEvent());
                 }
             }
         }
@@ -339,7 +339,7 @@ public class Model2JsonEventSchema {
             return;
         }
         for (final AxStateOutput output : state.getStateOutputs().values()) {
-            eventKeys.add(output.getOutgingEvent());
+            eventKeys.add(output.getOutgoingEvent());
         }
     }
 
