@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,11 +40,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 public class ContextAlbumsTest {
 
     @Test
-    public void testContextAlbums() {
+    public void testNewAxContectAlbum() {
         assertNotNull(new AxContextAlbum());
         assertNotNull(new AxContextAlbum(new AxArtifactKey()));
         assertNotNull(new AxContextAlbum(new AxArtifactKey(), "AlbumScope", false, new AxArtifactKey()));
+    }
 
+    @Test
+    public void testContextAlbums() {
         final AxArtifactKey albumKey = new AxArtifactKey("AlbumName", "0.0.1");
         final AxArtifactKey albumSchemaKey = new AxArtifactKey("AlbumSchemaName", "0.0.1");
 
@@ -72,7 +75,23 @@ public class ContextAlbumsTest {
         album.setItemSchema(newSchemaKey);
         assertEquals("NewAlbumSchemaName:0.0.1", album.getItemSchema().getId());
         album.setItemSchema(albumSchemaKey);
+    }
 
+    private AxContextAlbum setTestAlbum() {
+        final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
+        final AxArtifactKey newSchemaKey = new AxArtifactKey("NewAlbumSchemaName", "0.0.1");
+
+        final AxContextAlbum album = new AxContextAlbum(newKey, "AlbumScope", false, newSchemaKey);
+
+        album.setScope("NewAlbumScope");
+        album.setWritable(true);
+
+        return album;
+    }
+
+    @Test
+    public void testAxvalidationAlbum() {
+        final AxContextAlbum album = setTestAlbum();
         AxValidationResult result = new AxValidationResult();
         result = album.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
@@ -82,6 +101,7 @@ public class ContextAlbumsTest {
         result = album.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
+        final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
         album.setKey(newKey);
         result = new AxValidationResult();
         result = album.validate(result);
@@ -102,12 +122,20 @@ public class ContextAlbumsTest {
         result = album.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
+        final AxArtifactKey albumSchemaKey = new AxArtifactKey("AlbumSchemaName", "0.0.1");
         album.setItemSchema(albumSchemaKey);
         result = new AxValidationResult();
         result = album.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        album.clean();
+    }
+
+    @Test
+    public void testEqualsAlbum() {
+        final AxContextAlbum album = setTestAlbum();
+        final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
+        final AxArtifactKey albumSchemaKey = new AxArtifactKey("AlbumSchemaName", "0.0.1");
+        album.setItemSchema(albumSchemaKey);
 
         final AxContextAlbum clonedAlbum = new AxContextAlbum(album);
         assertEquals("AxContextAlbum:(key=AxArtifactKey:(name=NewAlbumName,version=0.0.1),"
@@ -138,9 +166,14 @@ public class ContextAlbumsTest {
         assertNotEquals(0,
                         album.compareTo(new AxContextAlbum(newKey, "NewAlbumScope", true, AxArtifactKey.getNullKey())));
         assertEquals(0, album.compareTo(new AxContextAlbum(newKey, "NewAlbumScope", true, albumSchemaKey)));
+    }
 
+    @Test
+    public void testMultipleAlbums() {
         final AxContextAlbums albums = new AxContextAlbums();
-        result = new AxValidationResult();
+        final AxContextAlbum album = setTestAlbum();
+        final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
+        AxValidationResult result = new AxValidationResult();
         result = albums.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
@@ -175,6 +208,15 @@ public class ContextAlbumsTest {
         result = albums.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
+    }
+
+    @Test
+    public void testClonedAlbums() {
+        final AxContextAlbums albums = new AxContextAlbums();
+        final AxContextAlbum album = setTestAlbum();
+        final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
+        albums.setKey(new AxArtifactKey("AlbumsKey", "0.0.1"));
+        albums.getAlbumsMap().put(newKey, album);
         albums.clean();
 
         final AxContextAlbums clonedAlbums = new AxContextAlbums(albums);

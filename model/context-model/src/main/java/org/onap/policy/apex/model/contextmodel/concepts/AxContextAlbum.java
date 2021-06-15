@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -264,7 +264,7 @@ public class AxContextAlbum extends AxConcept {
                             "scope is not defined"));
         }
 
-        String stringCheckResult = Assertions.getStringParameterValidationMessage(SCOPE_STRING, scope, SCOPE_REGEXP);
+        var stringCheckResult = Assertions.getStringParameterValidationMessage(SCOPE_STRING, scope, SCOPE_REGEXP);
         if (stringCheckResult != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
                             "scope invalid-" + stringCheckResult));
@@ -294,7 +294,7 @@ public class AxContextAlbum extends AxConcept {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
         builder.append(this.getClass().getSimpleName());
         builder.append(":(");
         builder.append("key=");
@@ -333,8 +333,8 @@ public class AxContextAlbum extends AxConcept {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        final var prime = 31;
+        var result = 1;
         result = prime * result + key.hashCode();
         result = prime * result + scope.hashCode();
         result = prime * result + (isWritable ? HASH_PRIME_0 : HASH_PRIME_1);

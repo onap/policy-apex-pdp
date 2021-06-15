@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,10 +38,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 public class ContextSchemasTest {
 
     @Test
-    public void testContextSchemas() {
+    public void testNewAxContextSchema() {
         assertNotNull(new AxContextSchema());
         assertNotNull(new AxContextSchema(new AxArtifactKey(), "SchemaFlavour", "SchemaDefinition"));
 
+    }
+
+    @Test
+    public void testContextSchemas() {
         final AxContextSchema schema = new AxContextSchema(new AxArtifactKey("SchemaName", "0.0.1"), "SchemaFlavour",
                         "SchemaDefinition");
         assertNotNull(schema);
@@ -59,7 +63,22 @@ public class ContextSchemasTest {
 
         schema.setSchema("NewSchemaDefinition");
         assertEquals("NewSchemaDefinition", schema.getSchema());
+    }
 
+    private AxContextSchema setTestSchema() {
+        final AxContextSchema schema = new AxContextSchema(new AxArtifactKey("SchemaName", "0.0.1"), "SchemaFlavour",
+                "SchemaDefinition");
+        final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
+        schema.setKey(newKey);
+        schema.setSchemaFlavour("NewSchemaFlavour");
+        schema.setSchema("NewSchemaDefinition");
+
+        return schema;
+    }
+
+    @Test
+    public void testAxvalidationSchema() {
+        AxContextSchema schema = setTestSchema();
         AxValidationResult result = new AxValidationResult();
         result = schema.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
@@ -69,6 +88,7 @@ public class ContextSchemasTest {
         result = schema.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
+        final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
         schema.setKey(newKey);
         result = new AxValidationResult();
         result = schema.validate(result);
@@ -93,7 +113,11 @@ public class ContextSchemasTest {
         result = new AxValidationResult();
         result = schema.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
+    }
 
+    @Test
+    public void testEqualsSchema() {
+        AxContextSchema schema = setTestSchema();
         schema.clean();
 
         final AxContextSchema clonedSchema = new AxContextSchema(schema);
@@ -109,6 +133,8 @@ public class ContextSchemasTest {
         assertNotNull(schema);
         assertNotEquals(schema, (Object) "Hello");
         assertNotEquals(schema, new AxContextSchema(new AxArtifactKey(), "Flavour", "Def"));
+
+        final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
         assertNotEquals(schema, new AxContextSchema(newKey, "Flavour", "Def"));
         assertNotEquals(schema, new AxContextSchema(newKey, "NewSchemaFlavour", "Def"));
         assertEquals(schema, new AxContextSchema(newKey, "NewSchemaFlavour", "NewSchemaDefinition"));
@@ -121,9 +147,12 @@ public class ContextSchemasTest {
         assertNotEquals(0, schema.compareTo(new AxContextSchema(newKey, "Flavour", "Def")));
         assertNotEquals(0, schema.compareTo(new AxContextSchema(newKey, "NewSchemaFlavour", "Def")));
         assertEquals(0, schema.compareTo(new AxContextSchema(newKey, "NewSchemaFlavour", "NewSchemaDefinition")));
+    }
 
+    @Test
+    public void testMultipleSchemas() {
         final AxContextSchemas schemas = new AxContextSchemas();
-        result = new AxValidationResult();
+        AxValidationResult result = new AxValidationResult();
         result = schemas.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
@@ -133,6 +162,8 @@ public class ContextSchemasTest {
         result = schemas.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
+        AxContextSchema schema = setTestSchema();
+        final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
         schemas.getSchemasMap().put(newKey, schema);
         result = new AxValidationResult();
         result = schemas.validate(result);
@@ -158,6 +189,15 @@ public class ContextSchemasTest {
         result = schemas.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
+    }
+
+    @Test
+    public void testClonedSchemas() {
+        final AxContextSchemas schemas = new AxContextSchemas();
+        AxContextSchema schema = setTestSchema();
+        final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
+        schemas.setKey(new AxArtifactKey("SchemasKey", "0.0.1"));
+        schemas.getSchemasMap().put(newKey, schema);
         schemas.clean();
 
         final AxContextSchemas clonedSchemas = new AxContextSchemas(schemas);
