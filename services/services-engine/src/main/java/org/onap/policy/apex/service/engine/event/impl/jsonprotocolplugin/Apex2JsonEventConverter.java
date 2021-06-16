@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,6 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
@@ -67,7 +66,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     public void init(final EventProtocolParameters parameters) {
         // Check and get the JSON parameters
         if (!(parameters instanceof JsonEventProtocolParameters)) {
-            final String errorMessage = "specified consumer properties are not applicable to the JSON event protocol";
+            final var errorMessage = "specified consumer properties are not applicable to the JSON event protocol";
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -99,7 +98,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
         try {
             // We may have a single JSON object with a single event or an array of JSON objects
-            final Object decodedJsonObject = new GsonBuilder().serializeNulls().create().fromJson(jsonEventString,
+            final var decodedJsonObject = new GsonBuilder().serializeNulls().create().fromJson(jsonEventString,
                             Object.class);
 
             // Check if we have a list of objects
@@ -181,8 +180,8 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                         apexEvent.getVersion());
 
         // Use a GSON Json object to marshal the Apex event to JSON
-        final Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
-        final JsonObject jsonObject = new JsonObject();
+        final var gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        final var jsonObject = new JsonObject();
 
         jsonObject.addProperty(ApexEvent.NAME_HEADER_FIELD, apexEvent.getName());
         jsonObject.addProperty(ApexEvent.VERSION_HEADER_FIELD, apexEvent.getVersion());
@@ -209,7 +208,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             final Object fieldValue = apexEvent.get(fieldName);
 
             // Get the schema helper
-            final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory().createSchemaHelper(eventField.getKey(),
+            final var fieldSchemaHelper = new SchemaHelperFactory().createSchemaHelper(eventField.getKey(),
                             eventField.getSchema());
             jsonObject.add(fieldName, (JsonElement) fieldSchemaHelper.marshal2Object(fieldValue));
         }
@@ -254,7 +253,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         final Object fieldValue = apexEvent.get(jsonPars.getPojoField());
 
         // Get the schema helper
-        final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory()
+        final var fieldSchemaHelper = new SchemaHelperFactory()
                         .createSchemaHelper(pojoFieldDefinition.getKey(), pojoFieldDefinition.getSchema());
 
         return fieldSchemaHelper.marshal2String(fieldValue);
@@ -271,7 +270,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     private ApexEvent jsonStringApexEvent(final String eventName, final String jsonEventString)
                     throws ApexEventException {
         // Use GSON to read the event string
-        final JsonObject jsonObject = new GsonBuilder().serializeNulls().create().fromJson(jsonEventString,
+        final var jsonObject = new GsonBuilder().serializeNulls().create().fromJson(jsonEventString,
                         JsonObject.class);
 
         if (jsonObject == null || !jsonObject.isJsonObject()) {
@@ -293,7 +292,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
     private ApexEvent jsonObject2ApexEvent(final String eventName, final JsonObject jsonObject)
                     throws ApexEventException {
         // Process the mandatory Apex header
-        final ApexEvent apexEvent = processApexEventHeader(eventName, jsonObject);
+        final var apexEvent = processApexEventHeader(eventName, jsonObject);
 
         // Get the event definition for the event from the model service
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(apexEvent.getName(),
@@ -334,7 +333,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
 
             if (fieldValue != null && !fieldValue.isJsonNull()) {
                 // Get the schema helper
-                final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory().createSchemaHelper(eventField.getKey(),
+                final var fieldSchemaHelper = new SchemaHelperFactory().createSchemaHelper(eventField.getKey(),
                                 eventField.getSchema());
                 apexEvent.put(fieldName, fieldSchemaHelper.createNewInstance(fieldValue));
             } else {
@@ -376,7 +375,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         }
 
         // Get the schema helper
-        final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory()
+        final var fieldSchemaHelper = new SchemaHelperFactory()
                         .createSchemaHelper(pojoFieldDefinition.getKey(), pojoFieldDefinition.getSchema());
         apexEvent.put(jsonPars.getPojoField(), fieldSchemaHelper.createNewInstance(jsonObject));
     }
@@ -429,7 +428,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
      * @return the event name to use on the event header
      */
     private String getHeaderName(final JsonObject jsonObject, final String parameterEventName) {
-        final String jsonEventName = getJsonStringField(jsonObject, ApexEvent.NAME_HEADER_FIELD,
+        final var jsonEventName = getJsonStringField(jsonObject, ApexEvent.NAME_HEADER_FIELD,
                         jsonPars.getNameAlias(), ApexEvent.NAME_REGEXP, false);
 
         // Check that an event name has been specified
@@ -473,7 +472,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
      */
     private String getHeaderNamespace(final JsonObject jsonObject, final String name, final AxEvent eventDefinition) {
         // Check the name space is OK if it is defined, if not, use the name space from the model
-        String namespace = getJsonStringField(jsonObject, ApexEvent.NAMESPACE_HEADER_FIELD,
+        var namespace = getJsonStringField(jsonObject, ApexEvent.NAMESPACE_HEADER_FIELD,
                         jsonPars.getNameSpaceAlias(), ApexEvent.NAMESPACE_REGEXP, false);
         if (namespace != null) {
             if (!namespace.equals(eventDefinition.getNameSpace())) {
@@ -496,7 +495,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
      */
     private String getHeaderSource(final JsonObject jsonObject, final AxEvent eventDefinition) {
         // For source, use the defined source only if the source is not found on the incoming event
-        String source = getJsonStringField(jsonObject, ApexEvent.SOURCE_HEADER_FIELD, jsonPars.getSourceAlias(),
+        var source = getJsonStringField(jsonObject, ApexEvent.SOURCE_HEADER_FIELD, jsonPars.getSourceAlias(),
                         ApexEvent.SOURCE_REGEXP, false);
         if (source == null) {
             source = eventDefinition.getSource();
@@ -513,7 +512,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
      */
     private String getHeaderTarget(final JsonObject jsonObject, final AxEvent eventDefinition) {
         // For target, use the defined source only if the source is not found on the incoming event
-        String target = getJsonStringField(jsonObject, ApexEvent.TARGET_HEADER_FIELD, jsonPars.getTargetAlias(),
+        var target = getJsonStringField(jsonObject, ApexEvent.TARGET_HEADER_FIELD, jsonPars.getTargetAlias(),
                         ApexEvent.TARGET_REGEXP, false);
         if (target == null) {
             target = eventDefinition.getTarget();

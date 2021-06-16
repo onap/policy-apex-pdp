@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- * Copyright (C) 2020 Nordix Foundation.
+ * Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public abstract class ApexPluginsEventProducer implements ApexEventProducer {
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventName,
             final Object event) {
         // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache =
+        final var synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);

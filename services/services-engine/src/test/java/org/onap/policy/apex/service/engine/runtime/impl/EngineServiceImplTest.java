@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -142,20 +142,27 @@ public class EngineServiceImplTest {
         ModelService.clear();
     }
 
-    @Test
-    public void testEngineServiceImplSanity() throws ApexException {
-        assertThatThrownBy(() -> EngineServiceImpl.create(null)).isInstanceOf(ApexException.class)
-            .hasMessage("engine service configuration parameters are null");
+    private EngineServiceParameters makeConfig() {
         EngineServiceParameters config = new EngineServiceParameters();
         config.setInstanceCount(0);
-        assertThatThrownBy(() -> EngineServiceImpl.create(config)).isInstanceOf(ApexException.class)
-            .hasMessageContaining("Invalid engine service configuration parameters");
-
         config.setId(123);
         config.setEngineKey(new AxArtifactKey("Engine", "0.0.1"));
         config.setInstanceCount(1);
         config.setPolicyModel("policyModelContent");
+        return config;
+    }
 
+    @Test
+    public void testEngineServiceImplSanity() throws ApexException {
+        assertThatThrownBy(() -> EngineServiceImpl.create(null)).isInstanceOf(ApexException.class)
+            .hasMessage("engine service configuration parameters are null");
+
+        EngineServiceParameters invalidConfig = new EngineServiceParameters();
+        invalidConfig.setInstanceCount(0);
+        assertThatThrownBy(() -> EngineServiceImpl.create(invalidConfig)).isInstanceOf(ApexException.class)
+            .hasMessageContaining("Invalid engine service configuration parameters");
+
+        EngineServiceParameters config = makeConfig();
         EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertEquals("Engine:0.0.1", esImpl.getKey().getId());
 
@@ -201,7 +208,12 @@ public class EngineServiceImplTest {
         assertTrue(esImpl.isStopped(null));
         assertTrue(esImpl.isStopped(new AxArtifactKey("DummyKey", "0.0.1")));
         assertTrue(esImpl.isStopped(esImpl.getEngineKeys().iterator().next()));
+    }
 
+    @Test
+    public void testEngineServiceExceptions() throws ApexException {
+        EngineServiceParameters config = makeConfig();
+        EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertThatThrownBy(() -> esImpl.start(null)).isInstanceOf(ApexException.class)
             .hasMessage("engine key must be specified and may not be null");
 
@@ -284,11 +296,7 @@ public class EngineServiceImplTest {
 
     @Test
     public void testApexImplModelWIthModel() throws ApexException {
-        EngineServiceParameters config = new EngineServiceParameters();
-        config.setId(123);
-        config.setEngineKey(new AxArtifactKey("Engine", "0.0.1"));
-        config.setInstanceCount(1);
-        config.setPolicyModel("policyModelContent");
+        EngineServiceParameters config = makeConfig();
         EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertEquals("Engine:0.0.1", esImpl.getKey().getId());
 

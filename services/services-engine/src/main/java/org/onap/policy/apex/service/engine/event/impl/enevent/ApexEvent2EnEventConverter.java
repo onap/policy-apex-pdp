@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,8 +76,8 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         }
 
         // Create the Apex event
-        final AxEvent axEvent = enEvent.getAxEvent();
-        final ApexEvent apexEvent = new ApexEvent(axEvent.getKey().getName(), axEvent.getKey().getVersion(),
+        final var axEvent = enEvent.getAxEvent();
+        final var apexEvent = new ApexEvent(axEvent.getKey().getName(), axEvent.getKey().getVersion(),
                 axEvent.getNameSpace(), axEvent.getSource(), axEvent.getTarget());
 
         apexEvent.setExecutionId(enEvent.getExecutionId());
@@ -114,7 +115,7 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         }
 
         // Create the internal engine event
-        final EnEvent enEvent = apexEngine.createEvent(eventDefinition.getKey());
+        final var enEvent = apexEngine.createEvent(eventDefinition.getKey());
 
         // Set the data on the engine event
         enEvent.putAll(apexEvent);

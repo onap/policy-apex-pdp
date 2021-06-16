@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -213,7 +213,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         final boolean generateExecutionId) throws ApexEventException {
         // Push the event onto the queue
         if (LOGGER.isTraceEnabled()) {
-            String eventString = "onMessage(): event received: " + event.toString();
+            var eventString = "onMessage(): event received: " + event.toString();
             LOGGER.trace(eventString);
         }
 
@@ -235,7 +235,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
             }
             // Cache synchronized events that are sent
             if (consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
-                final SynchronousEventCache synchronousEventCache =
+                final var synchronousEventCache =
                     (SynchronousEventCache) consumer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS);
                 synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
             }
@@ -303,13 +303,13 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         while (unmarshallerThread.isAlive() && !stopOrderedFlag) {
             try {
                 // Take the next event from the queue
-                final ApexEvent apexEvent = queue.poll(EVENT_QUEUE_POLL_INTERVAL, TimeUnit.MILLISECONDS);
+                final var apexEvent = queue.poll(EVENT_QUEUE_POLL_INTERVAL, TimeUnit.MILLISECONDS);
                 if (apexEvent == null) {
                     continue;
                 }
 
                 if (LOGGER.isTraceEnabled()) {
-                    String message = apexEvent.toString();
+                    var message = apexEvent.toString();
                     LOGGER.trace("event received {}", message);
                 }
 
