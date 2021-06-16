@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -112,8 +112,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         this.periodicEventPeriod = periodicEventPeriod;
 
         // Start engine workers
-        for (int engineCounter = 0; engineCounter < threadCount; engineCounter++) {
-            final AxArtifactKey engineWorkerKey = new AxArtifactKey(engineServiceKey.getName() + '-' + engineCounter,
+        for (var engineCounter = 0; engineCounter < threadCount; engineCounter++) {
+            final var engineWorkerKey = new AxArtifactKey(engineServiceKey.getName() + '-' + engineCounter,
                             engineServiceKey.getVersion());
             engineWorkerMap.put(engineWorkerKey, new EngineWorker(engineWorkerKey, queue, atFactory));
             LOGGER.info("Created apex engine {} .", engineWorkerKey.getId());
@@ -159,13 +159,13 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         LOGGER.entry(apexEventListener);
 
         if (listenerName == null) {
-            String message = "listener name must be specified and may not be null";
+            var message = "listener name must be specified and may not be null";
             LOGGER.warn(message);
             return;
         }
 
         if (apexEventListener == null) {
-            String message = "apex event listener must be specified and may not be null";
+            var message = "apex event listener must be specified and may not be null";
             LOGGER.warn(message);
             return;
         }
@@ -346,10 +346,10 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
         }
 
         // Update the engines
-        boolean isSubsequentInstance = false;
+        var isSubsequentInstance = false;
         for (final Entry<AxArtifactKey, EngineWorker> engineWorkerEntry : engineWorkerMap.entrySet()) {
             LOGGER.info("Registering apex model on engine {}", engineWorkerEntry.getKey().getId());
-            EngineWorker engineWorker = engineWorkerEntry.getValue();
+            var engineWorker = engineWorkerEntry.getValue();
             if (isSubsequentInstance) {
                 // set subsequentInstance flag as true if the current engine worker instance is not the first one
                 // first engine instance will have this flag as false
@@ -366,7 +366,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
         }
         // Check if all engines are running
-        final StringBuilder notRunningEngineIdBuilder = new StringBuilder();
+        final var notRunningEngineIdBuilder = new StringBuilder();
         for (final Entry<AxArtifactKey, EngineWorker> engineWorkerEntry : engineWorkerMap.entrySet()) {
             if (engineWorkerEntry.getValue().getState() != AxEngineState.READY
                             && engineWorkerEntry.getValue().getState() != AxEngineState.EXECUTING) {
@@ -377,7 +377,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             }
         }
         if (notRunningEngineIdBuilder.length() > 0) {
-            final String errorString = "engine start error on model update on engine service with key "
+            final var errorString = "engine start error on model update on engine service with key "
                             + incomingEngineServiceKey.getId() + ", engines not running are: "
                             + notRunningEngineIdBuilder.toString().trim();
             LOGGER.warn(errorString);
@@ -398,7 +398,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             ThreadUtilities.sleep(ENGINE_SERVICE_STOP_START_WAIT_INTERVAL);
         }
         // Check if all engines are stopped
-        final StringBuilder notStoppedEngineIdBuilder = new StringBuilder();
+        final var notStoppedEngineIdBuilder = new StringBuilder();
         for (final Entry<AxArtifactKey, EngineWorker> engineWorkerEntry : engineWorkerMap.entrySet()) {
             if (engineWorkerEntry.getValue().getState() != AxEngineState.STOPPED) {
                 notStoppedEngineIdBuilder.append(engineWorkerEntry.getKey().getId());
@@ -408,7 +408,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
             }
         }
         if (notStoppedEngineIdBuilder.length() > 0) {
-            final String errorString = "cannot update model on engine service with key "
+            final var errorString = "cannot update model on engine service with key "
                             + incomingEngineServiceKey.getId() + ", engines not stopped after " + MAX_STOP_WAIT_TIME
                             + "ms are: " + notStoppedEngineIdBuilder.toString().trim();
             LOGGER.warn(errorString);

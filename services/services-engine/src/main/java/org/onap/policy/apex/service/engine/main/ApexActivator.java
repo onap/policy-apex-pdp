@@ -144,7 +144,7 @@ public class ApexActivator {
     private void setUpModelMarshallerAndUnmarshaller(ApexParameters apexParameters) throws ApexException {
         AxPolicyModel model;
         try {
-            final String policyModelString = apexParameters.getEngineServiceParameters().getPolicyModel();
+            final var policyModelString = apexParameters.getEngineServiceParameters().getPolicyModel();
             model = EngineServiceImpl.createModel(apexParameters.getEngineServiceParameters().getEngineKey(),
                 policyModelString);
         } catch (ApexException e) {
@@ -206,11 +206,11 @@ public class ApexActivator {
         AxContextAlbums existingAlbums, AxTasks existingTasks,
         AxPolicies existingPolicies) throws ApexModelException {
 
-        AxContextSchemas axContextSchemas = ModelService.getModel(AxContextSchemas.class);
-        AxEvents axEvents = ModelService.getModel(AxEvents.class);
-        AxContextAlbums axContextAlbums = ModelService.getModel(AxContextAlbums.class);
-        AxTasks axTasks = ModelService.getModel(AxTasks.class);
-        AxPolicies axPolicies = ModelService.getModel(AxPolicies.class);
+        var axContextSchemas = ModelService.getModel(AxContextSchemas.class);
+        var axEvents = ModelService.getModel(AxEvents.class);
+        var axContextAlbums = ModelService.getModel(AxContextAlbums.class);
+        var axTasks = ModelService.getModel(AxTasks.class);
+        var axPolicies = ModelService.getModel(AxPolicies.class);
 
         Map<AxArtifactKey, AxContextSchema> newSchemasMap = axContextSchemas.getSchemasMap();
         Map<AxArtifactKey, AxEvent> newEventsMap = axEvents.getEventMap();
@@ -218,7 +218,7 @@ public class ApexActivator {
         Map<AxArtifactKey, AxTask> newTasksMap = axTasks.getTaskMap();
         Map<AxArtifactKey, AxPolicy> newPoliciesMap = axPolicies.getPolicyMap();
 
-        StringBuilder errorMessage = new StringBuilder();
+        var errorMessage = new StringBuilder();
         PolicyModelMerger.checkForDuplicateItem(existingSchemas.getSchemasMap(), newSchemasMap, errorMessage, "schema");
         PolicyModelMerger.checkForDuplicateItem(existingEvents.getEventMap(), newEventsMap, errorMessage, "event");
         PolicyModelMerger.checkForDuplicateItem(existingAlbums.getAlbumsMap(), newAlbumsMap, errorMessage, "album");
@@ -229,7 +229,7 @@ public class ApexActivator {
             throw new ApexModelException(errorMessage.toString());
         }
 
-        AxKeyInformation axKeyInformation = ModelService.getModel(AxKeyInformation.class);
+        var axKeyInformation = ModelService.getModel(AxKeyInformation.class);
         Map<AxArtifactKey, AxKeyInfo> newKeyInfoMap = axKeyInformation.getKeyInfoMap();
         // Now add all the concepts that must be copied over
         newKeyInfoMap.putAll(existingKeyInformation.getKeyInfoMap());
@@ -248,7 +248,7 @@ public class ApexActivator {
         // Apex are
         // set up and how they are set up
         for (Entry<String, EventHandlerParameters> outputParameters : outputParametersMap.entrySet()) {
-            final ApexEventMarshaller marshaller = new ApexEventMarshaller(outputParameters.getKey(),
+            final var marshaller = new ApexEventMarshaller(outputParameters.getKey(),
                 engineServiceParameters, outputParameters.getValue());
             marshaller.init();
             apexEngineService.registerActionListener(outputParameters.getKey(), marshaller);
@@ -259,7 +259,7 @@ public class ApexActivator {
         // into Apex
         // are set up and how they are set up
         for (final Entry<String, EventHandlerParameters> inputParameters : inputParametersMap.entrySet()) {
-            final ApexEventUnmarshaller unmarshaller = new ApexEventUnmarshaller(inputParameters.getKey(),
+            final var unmarshaller = new ApexEventUnmarshaller(inputParameters.getKey(),
                 engineServiceParameters, inputParameters.getValue());
             unmarshallerMap.put(inputParameters.getKey(), unmarshaller);
             unmarshaller.init(engineServiceHandler);

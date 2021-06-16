@@ -70,7 +70,7 @@ public class ApexCommandLineArguments extends CommandLineArgumentsHandler {
      */
     private static Options apexCustomOptions() {
         //@formatter:off
-        Options options = new Options();
+        var options = new Options();
         options.addOption(Option.builder("h")
                 .longOpt("help")
                 .desc("outputs the usage of this command")
@@ -203,7 +203,7 @@ public class ApexCommandLineArguments extends CommandLineArgumentsHandler {
      * Validate the relative file root.
      */
     private void validateRelativeFileRoot() throws ApexException {
-        File relativeFileRootPath = new File(relativeFileRoot);
+        var relativeFileRootPath = new File(relativeFileRoot);
         if (!relativeFileRootPath.isDirectory()) {
             throw new ApexException(RELATIVE_FILE_ROOT + relativeFileRoot + "\" does not exist or is not a directory");
         }

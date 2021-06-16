@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,12 +141,12 @@ public class ApexParameters implements ParameterGroup {
             return null;
         }
 
-        BeanValidationResult result = new BeanValidationResult(JAVA_PROPERTIES, javaProperties);
-        int item = 0;
+        var result = new BeanValidationResult(JAVA_PROPERTIES, javaProperties);
+        var item = 0;
         for (String[] javaProperty : javaProperties) {
             final String label = "entry " + (item++);
             final List<String> value = (javaProperty == null ? null : Arrays.asList(javaProperty));
-            BeanValidationResult result2 = new BeanValidationResult(label, value);
+            var result2 = new BeanValidationResult(label, value);
 
             if (javaProperty == null) {
                 // note: add to result, not result2

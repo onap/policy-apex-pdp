@@ -101,7 +101,7 @@ public class FileCarrierTechnologyParametersTest {
 
     @Test
     public void getStartDelay() {
-        assertThat(parameters.getStartDelay()).isEqualTo(0L);
+        assertThat(parameters.getStartDelay()).isZero();
     }
 
     @Test

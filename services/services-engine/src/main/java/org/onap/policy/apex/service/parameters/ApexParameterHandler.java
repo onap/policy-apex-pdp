@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -23,7 +23,6 @@
 
 package org.onap.policy.apex.service.parameters;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -81,7 +80,7 @@ public class ApexParameterHandler {
             parseConfigAndModel(toscaPolicyFilePath);
             // Register the adapters for our carrier technologies and event protocols with GSON
             // @formatter:off
-            final Gson gson = new GsonBuilder()
+            final var gson = new GsonBuilder()
                             .registerTypeAdapter(EngineParameters.class,
                                             new EngineServiceParametersJsonAdapter())
                             .registerTypeAdapter(CarrierTechnologyParameters.class,
@@ -148,10 +147,10 @@ public class ApexParameterHandler {
     private void parseConfigAndModel(final String toscaPolicyFilePath) throws ApexException {
         policyModel = null;
         apexConfig = null;
-        final StandardCoder standardCoder = new StandardCoder();
-        JsonObject apexConfigJsonObject = new JsonObject();
+        final var standardCoder = new StandardCoder();
+        var apexConfigJsonObject = new JsonObject();
         try {
-            ToscaServiceTemplate toscaServiceTemplate = standardCoder
+            var toscaServiceTemplate = standardCoder
                 .decode(Files.readString(Paths.get(toscaPolicyFilePath)), ToscaServiceTemplate.class);
             for (Entry<String, Object> property : toscaServiceTemplate.getToscaTopologyTemplate().getPolicies().get(0)
                 .entrySet().iterator().next().getValue().getProperties().entrySet()) {

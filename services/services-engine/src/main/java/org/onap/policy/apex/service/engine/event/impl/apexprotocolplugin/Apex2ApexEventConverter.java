@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +49,7 @@ public class Apex2ApexEventConverter implements ApexEventProtocolConverter {
     public void init(final EventProtocolParameters parameters) {
         // Check and get the APEX parameters
         if (!(parameters instanceof ApexEventProtocolParameters)) {
-            final String errorMessage = "specified consumer properties are not applicable to the APEX event protocol";
+            final var errorMessage = "specified consumer properties are not applicable to the APEX event protocol";
             LOGGER.warn(errorMessage);
             throw new ApexEventRuntimeException(errorMessage);
         }
@@ -77,8 +78,8 @@ public class Apex2ApexEventConverter implements ApexEventProtocolConverter {
 
             // Check whether we have any ApexEventList fields, if so this is an event of events and
             // all fields should be of type ApexEventList
-            boolean foundEventListFields = false;
-            boolean foundOtherFields = false;
+            var foundEventListFields = false;
+            var foundOtherFields = false;
             for (final Object fieldObject : event.values()) {
                 if (fieldObject instanceof ApexEventList) {
                     foundEventListFields = true;
@@ -102,7 +103,7 @@ public class Apex2ApexEventConverter implements ApexEventProtocolConverter {
                 eventList.add(event);
             }
         } catch (final Exception e) {
-            final String errorString = "Failed to unmarshal APEX event, event=" + eventObject;
+            final var errorString = "Failed to unmarshal APEX event, event=" + eventObject;
             throw new ApexEventException(errorString, e);
         }
 

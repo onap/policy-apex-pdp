@@ -30,7 +30,6 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
-import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.service.parameters.ApexParameterConstants;
@@ -102,7 +101,7 @@ public class ApexMain {
 
     private ApexParameters populateApexParameters(String[] args) throws ApexException {
         // Check the arguments
-        final ApexCommandLineArguments arguments = new ApexCommandLineArguments();
+        final var arguments = new ApexCommandLineArguments();
         try {
             // The arguments return a string if there is a message to print and we should exit
             final String argumentMessage = arguments.parse(args);
@@ -163,9 +162,9 @@ public class ApexMain {
         }
         aggregatedParameters.getEventInputParameters().putAll(apexParameters.getEventInputParameters());
         aggregatedParameters.getEventOutputParameters().putAll(apexParameters.getEventOutputParameters());
-        EngineParameters aggregatedEngineParameters =
+        var aggregatedEngineParameters =
             aggregatedParameters.getEngineServiceParameters().getEngineParameters();
-        EngineParameters engineParameters = apexParameters.getEngineServiceParameters().getEngineParameters();
+        var engineParameters = apexParameters.getEngineServiceParameters().getEngineParameters();
         aggregatedEngineParameters.getTaskParameters().addAll(engineParameters.getTaskParameters());
         aggregatedEngineParameters.getExecutorParameterMap().putAll(engineParameters.getExecutorParameterMap());
         aggregatedEngineParameters.getContextParameters().getSchemaParameters().getSchemaHelperParameterMap()
