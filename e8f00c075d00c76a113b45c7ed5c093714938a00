@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a3b00c1_a7804420",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/runtime/impl/EngineServiceImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-17T16:21:28Z",
+      "side": 1,
+      "message": "maybe rename to getConfig?  or makeConfig?",
+      "range": {
+        "startLine": 145,
+        "startChar": 36,
+        "endLine": 145,
+        "endChar": 45
+      },
+      "revId": "e8f00c075d00c76a113b45c7ed5c093714938a00",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
