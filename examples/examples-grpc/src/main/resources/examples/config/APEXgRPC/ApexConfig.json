@@ -106,7 +106,7 @@
       "eventProtocolParameters": {
         "eventProtocol": "JSON"
       },
-      "eventNameFilter": "CDSResponseStatusEvent"
+      "eventNameFilter": "(LogEvent|CDSResponseStatusEvent)"
     }
   }
 }

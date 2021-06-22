@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +28,14 @@ import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 
 /**
  * Dummy task executor for testing.
  */
 public class DummyTaskExecutor extends TaskExecutor {
+    private static final String EVENT_KEY = "Event1:0.0.1";
     private boolean override;
 
     public DummyTaskExecutor() {
@@ -54,14 +57,14 @@ public class DummyTaskExecutor extends TaskExecutor {
      * {@inheritDoc}.
      */
     @Override
-    public Map<String, Object> execute(final long executionId, final Properties executionProperties,
+    public  Map<String, Map<String, Object>> execute(final long executionId, final Properties executionProperties,
             final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
         if (!override) {
             super.execute(executionId, executionProperties, newIncomingFields);
         }
 
-        AxArtifactKey event0Key = new AxArtifactKey("Event0:0.0.1");
-        return new EnEvent(event0Key);
+        AxArtifactKey eventKey = new AxArtifactKey(EVENT_KEY);
+        return Map.of(eventKey.getName(), new EnEvent(eventKey));
     }
 
     /**
@@ -74,7 +77,9 @@ public class DummyTaskExecutor extends TaskExecutor {
         }
 
         AxArtifactKey taskKey = new AxArtifactKey("FirstTask:0.0.1");
-        return new AxTask(taskKey);
+        AxTask task = new AxTask(taskKey);
+        task.setOutputEvents(Map.of("Event1", new AxEvent(new AxArtifactKey(EVENT_KEY))));
+        return task;
     }
 
     /**
