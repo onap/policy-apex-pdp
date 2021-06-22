@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -655,9 +657,11 @@ public class PolicyFacade {
             }
 
             final AxReferenceKey refKey = new AxReferenceKey(state.getKey(), outputName);
-            if (state.getStateOutputs().containsKey(refKey.getLocalName())) {
+            // There can be multipe state outputs only when the current state is the final state
+            if (nextState != null && !AxReferenceKey.getNullKey().getLocalName().equals(nextState)
+                && state.getStateOutputs().containsKey(refKey.getLocalName())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        "Output concept " + refKey.getId() + ALREADY_EXISTS);
+                    "Output concept " + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(eventName, eventVersion);
@@ -680,10 +684,32 @@ public class PolicyFacade {
                 }
             }
 
-            state.getStateOutputs().put(refKey.getLocalName(), new AxStateOutput(refKey, event.getKey(), nextStateKey));
+            populateStateOuputInfo(nextState, state, refKey, event, nextStateKey);
             return new ApexApiResult();
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
+        }
+    }
+
+    private void populateStateOuputInfo(final String nextState, final AxState state, final AxReferenceKey refKey,
+        final AxEvent event, AxReferenceKey nextStateKey) {
+        // nextState is null. There could be multiple events coming out of the state
+        if ((nextState == null || AxReferenceKey.getNullKey().getLocalName().equals(nextState))
+            && state.getStateOutputs().containsKey(refKey.getLocalName())) {
+            AxStateOutput existingStateOutput = state.getStateOutputs().get(refKey.getLocalName());
+            if (null == existingStateOutput.getOutgoingEventSet()
+                || existingStateOutput.getOutgoingEventSet().isEmpty()) {
+                Set<AxArtifactKey> eventSet = new TreeSet<>();
+                eventSet.add(existingStateOutput.getOutgoingEvent());
+                existingStateOutput.setOutgoingEventSet(eventSet);
+            }
+            existingStateOutput.getOutgoingEventSet().add(event.getKey());
+        } else {
+            AxStateOutput axStateOutput = new AxStateOutput(refKey, event.getKey(), nextStateKey);
+            Set<AxArtifactKey> eventSet = new TreeSet<>();
+            eventSet.add(axStateOutput.getOutgoingEvent());
+            axStateOutput.setOutgoingEventSet(eventSet);
+            state.getStateOutputs().put(refKey.getLocalName(), axStateOutput);
         }
     }
 
@@ -1086,13 +1112,34 @@ public class PolicyFacade {
                         ApexApiResult.Result.FAILED, "output type " + builder.getOutputType() + " invalid");
             }
 
-            state
-                .getTaskReferences()
-                .put(task.getKey(), new AxStateTaskReference(refKey, stateTaskOutputType, outputRefKey));
+            // add input and output events to the task based on state definition
+            if (state.getStateOutputs().containsKey(outputRefKey.getLocalName())) {
+                populateIoEventsToTask(state, task, outputRefKey);
+            }
+            state.getTaskReferences().put(task.getKey(),
+                new AxStateTaskReference(refKey, stateTaskOutputType, outputRefKey));
             return new ApexApiResult();
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
+    }
+
+    private void populateIoEventsToTask(final AxState state, final AxTask task, final AxReferenceKey outputRefKey) {
+        AxEvent triggerEvent = apexModel.getPolicyModel().getEvents().get(state.getTrigger());
+        task.setInputEvent(triggerEvent);
+        Map<String, AxEvent> outputEvents = new TreeMap<>();
+        if (state.getNextStateSet().isEmpty()
+            || state.getNextStateSet().contains(AxReferenceKey.getNullKey().getLocalName())) {
+            state.getStateOutputs().get(outputRefKey.getLocalName()).getOutgoingEventSet()
+                .forEach(outgoingEventKey -> outputEvents.put(outgoingEventKey.getName(),
+                    apexModel.getPolicyModel().getEvents().get(outgoingEventKey)));
+        } else {
+            AxArtifactKey outgoingEventKey =
+                state.getStateOutputs().get(outputRefKey.getLocalName()).getOutgoingEvent();
+            outputEvents.put(outgoingEventKey.getName(),
+                apexModel.getPolicyModel().getEvents().get(outgoingEventKey));
+        }
+        task.setOutputEvents(outputEvents);
     }
 
     /**

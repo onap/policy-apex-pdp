@@ -1,13 +1,9 @@
 {
-  "name": "CDSResponseStatusEvent",
+  "name": "LogEvent",
   "version": "0.0.1",
   "nameSpace": "org.onap.policy.apex.onap.pmcontrol",
   "source": "APEX",
   "target": "DCAE",
-  "status": {
-    "subscriptionName": "testPolicyB",
-    "nfName": "pnf300",
-    "changeType": "CREATE",
-    "message": "success"
-  }
+  "final_status": "FINAL_SUCCESS",
+  "message": "Operation successfully completed."
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -44,6 +46,8 @@ import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
+import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
@@ -76,14 +80,16 @@ public class TaskExecutorTest {
     private AxOutputField axMissingOutputFieldMock;
 
     @Mock
-    private Executor<Map<String, Object>, Map<String, Object>, AxTask, ApexInternalContext> nextExecutorMock;
+    private Executor<Map<String, Object>, Map<String, Map<String, Object>>, AxTask,
+        ApexInternalContext> nextExecutorMock;
 
     @Mock
     private AxTaskLogic taskLogicMock;
 
-    private LinkedHashMap<String, Object> inFieldMap;
-    private LinkedHashMap<String, Object> outFieldMap;
+    private Map<String, AxField> inFieldMap;
+    private Map<String, AxField> outFieldMap;
     private List<TaskParameters> taskParametersFromConfig;
+    private Map<String, AxEvent> outEvents = new TreeMap<>();
 
     /**
      * Set up mocking.
@@ -96,13 +102,17 @@ public class TaskExecutorTest {
         Mockito.doReturn(task0Key).when(axTaskMock).getKey();
         Mockito.doReturn(task0Key.getId()).when(axTaskMock).getId();
 
-        inFieldMap = new LinkedHashMap<>();
+        inFieldMap = Map.of("InField0", axInputFieldMock, "InField1", axOptionalInputFieldMock);
         outFieldMap = new LinkedHashMap<>();
 
-        inFieldMap.put("InField0", axInputFieldMock);
-        inFieldMap.put("InField1", axOptionalInputFieldMock);
         outFieldMap.put("OutField0", axOutputFieldMock);
-        outFieldMap.put("OutField0", axOptionalOutputFieldMock);
+        outFieldMap.put("OutField1", axOptionalOutputFieldMock);
+
+        AxEvent inEvent = new AxEvent();
+        inEvent.setParameterMap(inFieldMap);
+        AxEvent outEvent = new AxEvent(new AxArtifactKey("outputEvent:1.0.0"));
+        outEvent.setParameterMap(outFieldMap);
+        outEvents.put(outEvent.getKey().getName(), outEvent);
 
         AxArtifactKey schemaKey = new AxArtifactKey("Schema:0.0.1");
         Mockito.doReturn(schemaKey).when(axInputFieldMock).getSchema();
@@ -118,6 +128,9 @@ public class TaskExecutorTest {
         Mockito.doReturn(inFieldMap).when(axTaskMock).getInputFields();
         Mockito.doReturn(outFieldMap).when(axTaskMock).getOutputFields();
         Mockito.doReturn(taskLogicMock).when(axTaskMock).getTaskLogic();
+
+        Mockito.doReturn(inEvent).when(axTaskMock).getInputEvent();
+        Mockito.doReturn(outEvents).when(axTaskMock).getOutputEvents();
 
         Mockito.doReturn(new AxArtifactKey("Context:0.0.1")).when(internalContextMock).getKey();
 
@@ -162,9 +175,6 @@ public class TaskExecutorTest {
 
         Map<String, Object> incomingFields = new LinkedHashMap<>();
 
-        assertThatThrownBy(() -> executor.executePre(0, new Properties(), incomingFields))
-            .hasMessageContaining("task input fields \"[InField0]\" are missing for task \"Task0:0.0.1\"");
-
         incomingFields.put("InField0", "A Value");
 
         executor.executePre(0, new Properties(), incomingFields);
@@ -184,15 +194,16 @@ public class TaskExecutorTest {
         executor.executePost(true);
 
         outFieldMap.put("MissingField", axMissingOutputFieldMock);
-
-        assertThatThrownBy(() -> executor.executePost(true))
-            .hasMessageContaining("task output fields \"[MissingField]\" are missing for task \"Task0:0.0.1\"");
+        outEvents.get("outputEvent").getParameterMap().put("MissingField", axMissingOutputFieldMock);
+        assertThatThrownBy(() -> executor.executePost(true)).hasMessageContaining(
+            "Fields for task output events \"[outputEvent]\" are missing for task \"Task0:0.0.1\"");
 
         outFieldMap.remove("MissingField");
+        outEvents.get("outputEvent").getParameterMap().remove("MissingField");
         executor.getExecutionContext().outFields.put("BadExtraField", "Howdy!");
 
-        assertThatThrownBy(() -> executor.executePost(true))
-            .hasMessageContaining("task output fields \"[BadExtraField]\" are unwanted for task \"Task0:0.0.1\"");
+        assertThatThrownBy(() -> executor.executePost(true)).hasMessageContaining(
+            "task output event \"[outputEvent]\" contains fields that are unwanted for task \"Task0:0.0.1\"");
 
         executor.getExecutionContext().outFields.remove("BadExtraField");
         outFieldMap.put("InField1", axMissingOutputFieldMock);
@@ -202,6 +213,7 @@ public class TaskExecutorTest {
         executor.executePost(true);
 
         executor.getExecutionContext().outFields.put("InField0", "Output Value");
+        outEvents.get("outputEvent").getParameterMap().put("InField0", axMissingOutputFieldMock);
         executor.executePost(true);
 
         executor.getExecutionContext().outFields.remove("InField0");

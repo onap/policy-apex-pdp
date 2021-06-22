@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import org.junit.Test;
@@ -33,6 +35,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
@@ -91,7 +94,8 @@ public class TasksTest {
         assertEquals(ofMap, task.getOutputFields());
         assertTrue(task.getOutputFieldSet().contains(of0));
         assertTrue(task.getRawOutputFields().keySet().contains(of0.getKey().getLocalName()));
-
+        task.setInputEvent(new AxEvent());
+        task.setOutputEvents(Map.of("Event", new AxEvent()));
         final TreeMap<String, AxField> ifDupMap = new TreeMap<>();
         final TreeMap<String, AxField> ofDupMap = new TreeMap<>();
         ifDupMap.put(if1.getKey().getLocalName(), if1);
@@ -127,46 +131,6 @@ public class TasksTest {
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
 
         task.setKey(taskKey);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        task.setInputFields(ifEmptyMap);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        task.setInputFields(ifMap);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        ifMap.put("NullField", null);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        ifMap.remove("NullField");
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        task.setOutputFields(ofEmptyMap);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        task.setOutputFields(ofMap);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        ofMap.put("NullField", null);
-        result = new AxValidationResult();
-        result = task.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        ofMap.remove("NullField");
         result = new AxValidationResult();
         result = task.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());

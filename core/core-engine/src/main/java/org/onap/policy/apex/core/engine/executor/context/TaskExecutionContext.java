@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@
 package org.onap.policy.apex.core.engine.executor.context;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +75,12 @@ public class TaskExecutionContext extends AbstractExecutionContext {
     public final Map<String, Object> outFields;
 
     /**
+     * The outgoing fields from the task. The task logic can access and set these fields with its logic. A task outputs
+     * its result using these fields.
+     */
+    public final Collection<Map<String, Object>> outFieldsList;
+
+    /**
      * Logger for task execution, task logic can use this field to access and log to Apex logging.
      */
     public final XLogger logger = EXECUTION_LOGGER;
@@ -97,12 +105,12 @@ public class TaskExecutionContext extends AbstractExecutionContext {
      * @param executionProperties the execution properties for task execution
      * @param axTask the task definition that is the subject of execution
      * @param inFields the in fields
-     * @param outFields the out fields
+     * @param outFieldsList collection of the out fields
      * @param internalContext the execution context of the Apex engine in which the task is being executed
      */
     public TaskExecutionContext(final TaskExecutor taskExecutor, final long executionId,
             final Properties executionProperties, final AxTask axTask, final Map<String, Object> inFields,
-            final Map<String, Object> outFields, final ApexInternalContext internalContext) {
+            final Collection<Map<String, Object>> outFieldsList, final ApexInternalContext internalContext) {
         super(executionId, executionProperties);
 
         // The subject is the task definition
@@ -113,7 +121,13 @@ public class TaskExecutionContext extends AbstractExecutionContext {
 
         // The input and output fields
         this.inFields = Collections.unmodifiableMap(inFields);
-        this.outFields = outFields;
+        this.outFieldsList = outFieldsList;
+        // if only a single output event needs to fired from a task, the outFields alone can be used too
+        if (outFieldsList.isEmpty()) {
+            this.outFields = new TreeMap<>();
+        } else {
+            this.outFields = outFieldsList.iterator().next();
+        }
 
         // Set up the context albums for this task
         context = new TreeMap<>();
@@ -156,7 +170,7 @@ public class TaskExecutionContext extends AbstractExecutionContext {
      */
     public ContextAlbum getContextAlbum(final String contextAlbumName) {
         // Find the context album
-        final ContextAlbum foundContextAlbum = context.get(contextAlbumName);
+        final var foundContextAlbum = context.get(contextAlbumName);
 
         // Check if the context album exists
         if (foundContextAlbum != null) {
@@ -164,6 +178,18 @@ public class TaskExecutionContext extends AbstractExecutionContext {
         } else {
             throw new ContextRuntimeException("cannot find definition of context album \"" + contextAlbumName
                     + "\" on task \"" + subject.getId() + "\"");
+        }
+    }
+
+    /**
+     * Method to add fields to the output event list.
+     * @param fields the fields to be added
+     */
+    public void addFieldsToOutput(Map<String, Object> fields) {
+        for (Map<String, Object> outputFields : outFieldsList) {
+            if (outputFields.keySet().containsAll(fields.keySet())) {
+                outputFields.replaceAll((name, value) -> fields.get(name));
+            }
         }
     }
 }

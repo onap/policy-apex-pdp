@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -425,8 +426,8 @@ public class CodeGeneratorCliEditorTest {
             final AxReferenceKey outkey = out.getKey();
 
             final ST val = cg.createPolicyStateOutput(kig.getPName(skey), kig.getPVersion(skey), kig.getLName(skey),
-                            kig.getLName(outkey), kig.getName(out.getOutgingEvent()),
-                            kig.getVersion(out.getOutgingEvent()), kig.getLName(out.getNextState()));
+                kig.getLName(outkey), kig.getName(out.getOutgoingEvent()), kig.getVersion(out.getOutgoingEvent()),
+                kig.getLName(out.getNextState()));
 
             ret.add(val);
         }
