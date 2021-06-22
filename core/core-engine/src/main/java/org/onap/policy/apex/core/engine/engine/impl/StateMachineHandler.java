@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +21,9 @@
 
 package org.onap.policy.apex.core.engine.engine.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.ExecutorFactory;
@@ -79,8 +82,7 @@ public class StateMachineHandler {
         // Iterate over the policies in the policy model and create a state machine for each one
         for (final AxPolicy policy : ModelService.getModel(AxPolicies.class).getPolicyMap().values()) {
             // Create a state machine for this policy
-            final StateMachineExecutor thisStateMachineExecutor =
-                    new StateMachineExecutor(executorFactory, policy.getKey());
+            final var thisStateMachineExecutor = new StateMachineExecutor(executorFactory, policy.getKey());
 
             // This executor is the top executor so has no parent
             thisStateMachineExecutor.setContext(null, policy, internalContext);
@@ -90,8 +92,7 @@ public class StateMachineHandler {
                     .get(policy.getStateMap().get(policy.getFirstState()).getTrigger());
 
             // Put the state machine executor on the map for this trigger
-            final StateMachineExecutor lastStateMachineExecutor =
-                    stateMachineExecutorMap.put(triggerEvent, thisStateMachineExecutor);
+            final var lastStateMachineExecutor = stateMachineExecutorMap.put(triggerEvent, thisStateMachineExecutor);
             if (lastStateMachineExecutor != null
                     && lastStateMachineExecutor.getSubject() != thisStateMachineExecutor.getSubject()) {
                 LOGGER.error("No more than one policy in a model can have the same trigger event. In model "
@@ -138,32 +139,32 @@ public class StateMachineHandler {
      * @return The result of the state machine execution run
      * @throws StateMachineException On execution errors in a state machine
      */
-    protected EnEvent execute(final EnEvent event) throws StateMachineException {
+    protected Collection<EnEvent> execute(final EnEvent event) throws StateMachineException {
         LOGGER.entry("execute()->" + event.getName());
 
         // Try to execute the state machine for the trigger
-        final StateMachineExecutor stateMachineExecutor = stateMachineExecutorMap.get(event.getAxEvent());
+        final var stateMachineExecutor = stateMachineExecutorMap.get(event.getAxEvent());
         if (stateMachineExecutor == null) {
             final String exceptionMessage =
-                    "state machine execution not possible, policy not found for trigger event " + event.getName();
+                "state machine execution not possible, policy not found for trigger event " + event.getName();
             LOGGER.warn(exceptionMessage);
 
             event.setExceptionMessage(exceptionMessage);
-            return event;
+            return Set.of(event);
         }
 
         // Run the state machine
         try {
             LOGGER.debug("execute(): state machine \"{}\" execution starting  . . .", stateMachineExecutor);
-            final EnEvent outputObject =
-                    stateMachineExecutor.execute(event.getExecutionId(), event.getExecutionProperties(), event);
+            final Collection<EnEvent> outputEvents =
+                stateMachineExecutor.execute(event.getExecutionId(), event.getExecutionProperties(), event);
 
             LOGGER.debug("execute()<-: state machine \"{}\" execution completed", stateMachineExecutor);
-            return outputObject;
+            return outputEvents;
         } catch (final Exception e) {
             LOGGER.warn("execute()<-: state machine \"" + stateMachineExecutor + "\" execution failed", e);
             throw new StateMachineException("execute()<-: execution failed on state machine " + stateMachineExecutor,
-                    e);
+                e);
         }
     }
 

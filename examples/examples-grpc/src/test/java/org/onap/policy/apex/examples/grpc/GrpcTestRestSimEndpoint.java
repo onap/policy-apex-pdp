@@ -68,7 +68,7 @@ public class GrpcTestRestSimEndpoint {
     public Response policyLogRequest(final String jsonString) {
         LOGGER.info("\n*** POLICY LOG ENTRY START ***\n {} \n *** POLICY LOG ENTRY END ***", jsonString);
         synchronized (lock) {
-            loggedOutputEvent = jsonString;
+            loggedOutputEvent += jsonString;
         }
         return Response.status(200).build();
     }

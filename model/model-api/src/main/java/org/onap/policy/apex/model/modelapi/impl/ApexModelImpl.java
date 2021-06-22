@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,8 @@ import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is an implementation of a facade on an Apex model for editors of Apex models.
@@ -34,6 +37,13 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public final class ApexModelImpl implements ApexModel {
+
+    private static final String FIELDS_DEPRECATED_WARM_MSG =
+        "inputFields and outputFields are deprecated from Task definition and will be removed. "
+            + "Instead, inputEvent and outputEvents are automatically populated to Tasks based on State definition";
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApexModelImpl.class);
+
     // The policy model being acted upon
     private AxPolicyModel policyModel = new AxPolicyModel();
 
@@ -436,6 +446,7 @@ public final class ApexModelImpl implements ApexModel {
     @Override
     public ApexApiResult createTaskInputField(final String name, final String version, final String fieldName,
             final String dataTypeName, final String dataTypeVersion, final boolean optional) {
+        LOGGER.warn(FIELDS_DEPRECATED_WARM_MSG);
         return taskFacade.createTaskInputField(name, version, fieldName, dataTypeName, dataTypeVersion, optional);
     }
 
@@ -444,6 +455,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     public ApexApiResult listTaskInputField(final String name, final String version, final String fieldName) {
+        LOGGER.warn(FIELDS_DEPRECATED_WARM_MSG);
         return taskFacade.listTaskInputField(name, version, fieldName);
     }
 
@@ -452,6 +464,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     public ApexApiResult deleteTaskInputField(final String name, final String version, final String fieldName) {
+        LOGGER.warn(FIELDS_DEPRECATED_WARM_MSG);
         return taskFacade.deleteTaskInputField(name, version, fieldName);
     }
 
@@ -461,6 +474,7 @@ public final class ApexModelImpl implements ApexModel {
     @Override
     public ApexApiResult createTaskOutputField(final String name, final String version, final String fieldName,
             final String dataTypeName, final String dataTypeVersion, final boolean optional) {
+        LOGGER.warn(FIELDS_DEPRECATED_WARM_MSG);
         return taskFacade.createTaskOutputField(name, version, fieldName, dataTypeName, dataTypeVersion, optional);
     }
 
@@ -469,6 +483,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     public ApexApiResult listTaskOutputField(final String name, final String version, final String fieldName) {
+        LOGGER.warn(FIELDS_DEPRECATED_WARM_MSG);
         return taskFacade.listTaskOutputField(name, version, fieldName);
     }
 
@@ -477,6 +492,7 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     public ApexApiResult deleteTaskOutputField(final String name, final String version, final String fieldName) {
+        LOGGER.warn(FIELDS_DEPRECATED_WARM_MSG);
         return taskFacade.deleteTaskOutputField(name, version, fieldName);
     }
 
