@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,8 @@ import static org.junit.Assert.assertNotNull;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.junit.Before;
@@ -93,10 +96,10 @@ public class TaskExecutionContextTest {
     @Test
     public void test() {
         final Map<String, Object> inFields = new LinkedHashMap<>();
-        final Map<String, Object> outFields = new LinkedHashMap<>();
+        final List<Map<String, Object>> outFieldsList = new LinkedList<>();
 
-        TaskExecutionContext tec = new TaskExecutionContext(taskExecutorMock, 0, null, axTaskMock, inFields, outFields,
-                        internalContextMock);
+        TaskExecutionContext tec = new TaskExecutionContext(taskExecutorMock, 0, null, axTaskMock, inFields,
+            outFieldsList, internalContextMock);
 
         assertNotNull(tec);
         tec.setMessage("TEC Message");
