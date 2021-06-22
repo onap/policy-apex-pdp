@@ -1,25 +1,27 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.handling;
 
+import java.util.Map;
 import java.util.UUID;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
@@ -52,7 +54,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 
 /**
  * Model creator for model tests.
- * 
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPolicyModel> {
@@ -136,6 +138,9 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
             task.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
         }
 
+        task.setInputEvent(inEvent);
+        task.setOutputEvents(Map.of(outEvent0.getId(), outEvent0, outEvent1.getId(), outEvent1));
+
         final AxTaskParameter taskPar0 = new AxTaskParameter(new AxReferenceKey(task.getKey(), "taskParameter0"),
                         "Task parameter 0 value");
         final AxTaskParameter taskPar1 = new AxTaskParameter(new AxReferenceKey(task.getKey(), "taskParameter1"),
@@ -206,7 +211,7 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
 
     /**
      * Gets another policy model.
-     * 
+     *
      * @return the model
      */
     public AxPolicyModel getAnotherModel() {
@@ -286,6 +291,9 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
             final AxOutputField outputField = new AxOutputField(fieldkey, field.getSchema());
             task.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
         }
+
+        task.setInputEvent(inEvent);
+        task.setOutputEvents(Map.of(outEvent0.getId(), outEvent0, outEvent1.getId(), outEvent1));
 
         final AxTaskParameter taskPar0 = new AxTaskParameter(new AxReferenceKey(task.getKey(), "taskParameterA0"),
                         "Task parameter 0 value");
@@ -406,6 +414,8 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
             anotherTask.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
         }
 
+        anotherTask.setInputEvent(inEvent);
+        anotherTask.setOutputEvents(Map.of(outEvent0.getId(), outEvent0));
         final AxTaskParameter taskPar0 = new AxTaskParameter(new AxReferenceKey(anotherTask.getKey(), "taskParameter0"),
                         "Task parameter 0 value");
         final AxTaskParameter taskPar1 = new AxTaskParameter(new AxReferenceKey(anotherTask.getKey(), "taskParameter1"),

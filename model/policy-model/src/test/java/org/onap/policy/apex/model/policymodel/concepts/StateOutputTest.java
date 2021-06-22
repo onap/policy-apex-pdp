@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,20 +54,20 @@ public class StateOutputTest {
         final AxArtifactKey eKey = new AxArtifactKey("EventName", "0.0.1");
 
         assertThatThrownBy(() -> so.setKey(null))
-            .hasMessage("key may not be null");
+            .hasMessage("key is marked non-null but is null");
         so.setKey(soKey);
         assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKey().getId());
         assertEquals("SOStateParent:0.0.1:SOState:SOName", so.getKeys().get(0).getId());
 
         assertThatThrownBy(() -> so.setNextState(null))
-            .hasMessage("nextState may not be null");
+            .hasMessage("nextState is marked non-null but is null");
         so.setNextState(nsKey);
         assertEquals(nsKey, so.getNextState());
 
         assertThatThrownBy(() -> so.setOutgoingEvent(null))
-            .hasMessage("outgoingEvent may not be null");
+            .hasMessage("outgoingEvent is marked non-null but is null");
         so.setOutgoingEvent(eKey);
-        assertEquals(eKey, so.getOutgingEvent());
+        assertEquals(eKey, so.getOutgoingEvent());
 
         AxValidationResult result = new AxValidationResult();
         result = so.validate(result);
