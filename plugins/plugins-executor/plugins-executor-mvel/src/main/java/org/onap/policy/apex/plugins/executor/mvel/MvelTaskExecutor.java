@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +78,7 @@ public class MvelTaskExecutor extends TaskExecutor {
      * @throws ContextException on context errors
      */
     @Override
-    public Map<String, Object> execute(final long executionId, final Properties executionProperties,
+    public Map<String, Map<String, Object>> execute(final long executionId, final Properties executionProperties,
             final Map<String, Object> incomingFields) throws StateMachineException, ContextException {
         // Do execution pre work
         executePre(executionId, executionProperties, incomingFields);

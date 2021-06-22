@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +24,24 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.AttributeOverride;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -68,13 +76,15 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexStateOutput", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxStateOutput", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "outgoingEvent", "nextState"})
-
+        propOrder = {"key", "outgoingEvent", "outgoingEventSet", "nextState"})
+@Getter
+@Setter
 public class AxStateOutput extends AxConcept {
     private static final long serialVersionUID = 8041771382337655535L;
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
+    @NonNull
     private AxReferenceKey key;
 
     // @formatter:off
@@ -83,7 +93,16 @@ public class AxStateOutput extends AxConcept {
     @AttributeOverride(name = "version", column = @Column(name = "outgoingEventVersion"))
     @Column(name = "outgoingEvent")
     @XmlElement(required = true)
+    @NonNull
     private AxArtifactKey outgoingEvent;
+
+    @ElementCollection
+    @CollectionTable(joinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
+            @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+            @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
+            @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
+    @XmlElement(name = "outgoingEventReference", required = false)
+    private Set<AxArtifactKey> outgoingEventSet;
 
     @Embedded
     @AttributeOverride(name = "parentKeyName", column = @Column(name = "nextStateParentKeyName"))
@@ -92,6 +111,7 @@ public class AxStateOutput extends AxConcept {
     @AttributeOverride(name = "localName", column = @Column(name = "nextStateLocalName"))
     @Column(name = "nextState")
     @XmlElement(required = true)
+    @NonNull
     private AxReferenceKey nextState;
     // @formatter:on
 
@@ -164,14 +184,6 @@ public class AxStateOutput extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxReferenceKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
         keyList.add(new AxKeyUse(outgoingEvent));
@@ -181,54 +193,6 @@ public class AxStateOutput extends AxConcept {
         }
 
         return keyList;
-    }
-
-    /**
-     * Sets the reference key for the state output.
-     *
-     * @param key the reference key for the state output
-     */
-    public void setKey(final AxReferenceKey key) {
-        Assertions.argumentNotNull(key, "key may not be null");
-        this.key = key;
-    }
-
-    /**
-     * Gets the outgoing event emitted on use of this state output.
-     *
-     * @return the outgoing event emitted on use of this state output
-     */
-    public AxArtifactKey getOutgingEvent() {
-        return outgoingEvent;
-    }
-
-    /**
-     * Sets the outgoing event emitted on use of this state output.
-     *
-     * @param outgoingEvent the outgoing event emitted on use of this state output
-     */
-    public void setOutgoingEvent(final AxArtifactKey outgoingEvent) {
-        Assertions.argumentNotNull(outgoingEvent, "outgoingEvent may not be null");
-        this.outgoingEvent = outgoingEvent;
-    }
-
-    /**
-     * Gets the next state to which execution will pass on use of this state output.
-     *
-     * @return the next state to which execution will pass on use of this state output
-     */
-    public AxReferenceKey getNextState() {
-        return nextState;
-    }
-
-    /**
-     * Sets the next state to which execution will pass on use of this state output.
-     *
-     * @param nextState the next state to which execution will pass on use of this state output
-     */
-    public void setNextState(final AxReferenceKey nextState) {
-        Assertions.argumentNotNull(nextState, "nextState may not be null");
-        this.nextState = nextState;
     }
 
     /**
