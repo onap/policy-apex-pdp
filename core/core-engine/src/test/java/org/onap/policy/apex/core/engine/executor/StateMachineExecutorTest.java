@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,10 @@ package org.onap.policy.apex.core.engine.executor;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.After;
@@ -65,7 +69,7 @@ public class StateMachineExecutorTest {
     private ApexInternalContext internalContextMock;
 
     @Mock
-    private Executor<EnEvent, EnEvent, AxPolicy, ApexInternalContext> nextExecutorMock;
+    private Executor<EnEvent, Collection<EnEvent>, AxPolicy, ApexInternalContext> nextExecutorMock;
 
     @Mock
     private ExecutorFactory executorFactoryMock;
@@ -191,18 +195,18 @@ public class StateMachineExecutorTest {
             .hasMessage("no states defined on state machine");
         executor.setContext(null, axPolicy, internalContextMock);
         assertEquals("Policy:0.0.1", executor.getKey().getId());
-        assertEquals(null, executor.getParent());
+        assertNull(executor.getParent());
         assertEquals(internalContextMock, executor.getContext());
-        assertEquals(null, executor.getNext());
-        assertEquals(null, executor.getIncoming());
-        assertEquals(null, executor.getOutgoing());
+        assertNull(executor.getNext());
+        assertNull(executor.getIncoming());
+        assertTrue(executor.getOutgoing().isEmpty());
         assertEquals(axPolicy, executor.getSubject());
 
         executor.setParameters(new ExecutorParameters());
         executor.setNext(nextExecutorMock);
         assertEquals(nextExecutorMock, executor.getNext());
         executor.setNext(null);
-        assertEquals(null, executor.getNext());
+        assertNull(executor.getNext());
 
         assertThatThrownBy(() -> executor.executePre(0, null, null))
             .hasMessage("execution pre work not implemented on class");
@@ -294,34 +298,37 @@ public class StateMachineExecutorTest {
 
         assertThatThrownBy(() -> output.setEventFields(null, null))
             .hasMessage("incomingFieldDefinitionMap may not be null");
-        Map<String, AxField> incomingFieldDefinitionMap = new LinkedHashMap<>();
+        Map<String, AxEvent> incomingFieldDefinitionMap = new LinkedHashMap<>();
         assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, null))
-            .hasMessage("eventFieldMap may not be null");
-        Map<String, Object> eventFieldMap = new LinkedHashMap<>();
-        output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
+            .hasMessage("eventFieldMaps may not be null");
+        Map<String, Map<String, Object>> eventFieldMaps = new LinkedHashMap<>();
+        output.setEventFields(incomingFieldDefinitionMap, eventFieldMaps);
+        AxEvent event = new AxEvent(new AxArtifactKey("Event1", "0.0.1"));
+        event.setParameterMap(Map.of("key", new AxField()));
+        incomingFieldDefinitionMap.put("Event1", event);
+        eventFieldMaps.put("Event1", Map.of("key2", "value"));
+        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, eventFieldMaps))
+            .hasMessage("field definitions and values do not match for event Event1:0.0.1\n[key]\n[key2]");
 
-        eventFieldMap.put("key", "Value");
-        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, eventFieldMap))
-            .hasMessage("field definitions and values do not match for event Event1:0.0.1\n[]\n[key]");
-        AxField axBadFieldDefinition = new AxField();
-        incomingFieldDefinitionMap.put("key", axBadFieldDefinition);
-        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, eventFieldMap))
+        eventFieldMaps.put("Event1", Map.of("key", "value"));
+        assertThatThrownBy(() -> output.setEventFields(incomingFieldDefinitionMap, eventFieldMaps))
             .hasMessage("field \"key\" does not exist on event \"Event1:0.0.1\"");
+
         incomingFieldDefinitionMap.clear();
-        eventFieldMap.clear();
+        eventFieldMaps.clear();
         AxArtifactKey stringSchemaKey = new AxArtifactKey("StringSchema:0.0.1");
         AxReferenceKey fieldKey = new AxReferenceKey("Event1:0.0.1:event:Field0");
         AxField event1Field0Definition = new AxField(fieldKey, stringSchemaKey);
-        incomingFieldDefinitionMap.put("Event1Field0", event1Field0Definition);
-        eventFieldMap.put("Event1Field0", "Value");
-        output.setEventFields(incomingFieldDefinitionMap, eventFieldMap);
+        event.setParameterMap(Map.of("Event1Field0", event1Field0Definition));
+        incomingFieldDefinitionMap.put("Event1", event);
+        eventFieldMaps.put("Event1", Map.of("Event1Field0", "Value"));
+        output.setEventFields(incomingFieldDefinitionMap, eventFieldMaps);
 
         StateOutput outputCopy = new StateOutput(axPolicy.getStateMap().get("State0")
                 .getStateOutputs().get("stateOutput0"));
 
         EnEvent incomingEvent = new EnEvent(new AxArtifactKey("Event0:0.0.1"));
         outputCopy.copyUnsetFields(incomingEvent);
-
         incomingEvent.put("Event1Field0", "Hello");
         outputCopy.copyUnsetFields(incomingEvent);
     }

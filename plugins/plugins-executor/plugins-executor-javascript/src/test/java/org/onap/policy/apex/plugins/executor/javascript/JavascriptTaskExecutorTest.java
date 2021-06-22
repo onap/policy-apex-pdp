@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,6 +49,8 @@ import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
+import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.common.parameters.ParameterService;
@@ -123,7 +127,8 @@ public class JavascriptTaskExecutorTest {
             jte.execute(-1, props, null);
         }).isInstanceOf(NullPointerException.class);
         jte.cleanUp();
-
+        task.setInputEvent(new AxEvent());
+        task.setOutputEvents(new TreeMap<>());
         task.getTaskLogic().setLogic("var returnValue = false;\nreturnValue;");
 
         Map<String, Object> incomingParameters = new HashMap<>();
@@ -138,13 +143,14 @@ public class JavascriptTaskExecutorTest {
         task.getTaskLogic().setLogic("var returnValue = true;\nreturnValue;");
 
         jte.prepare();
-        Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
+        Map<String, Map<String, Object>> returnMap = jte.execute(0, new Properties(), incomingParameters);
         assertEquals(0, returnMap.size());
         jte.cleanUp();
     }
 
     @Test
     public void testJavascriptTaskExecutorLogic() throws Exception {
+
         JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
         assertNotNull(jte);
 
@@ -160,16 +166,25 @@ public class JavascriptTaskExecutorTest {
         internalContext.getContextAlbums().put(contextAlbum.getKey(), contextAlbum);
 
         task.getContextAlbumReferences().add(contextAlbum.getKey());
-        task.getOutputFields().put("par0", null);
-        task.getOutputFields().put("par1", null);
+        String parKey0 = "par0";
+        task.getOutputFields().put(parKey0, null);
+        String parKey1 = "par1";
+        task.getOutputFields().put(parKey1, null);
 
         jte.setContext(null, task, internalContext);
 
         Map<String, Object> incomingParameters = new HashMap<>();
-        incomingParameters.put("par0", "value0");
+        incomingParameters.put(parKey0, "value0");
+
+        AxEvent inEvent = new AxEvent();
+        inEvent.setParameterMap(Map.of(parKey0, new AxField()));
+        task.setInputEvent(inEvent);
+        AxEvent outEvent = new AxEvent();
+        outEvent.setParameterMap(Map.of(parKey0, new AxField(), parKey1, new AxField()));
+        final String eventName = "event1";
+        task.setOutputEvents(Map.of(eventName, outEvent));
 
         task.getTaskLogic().setLogic(TextFileUtils.getTextFileAsString("src/test/resources/javascript/TestLogic00.js"));
-
         jte.prepare();
         jte.execute(-1, new Properties(), incomingParameters);
         jte.cleanUp();
@@ -177,11 +192,11 @@ public class JavascriptTaskExecutorTest {
         task.getTaskLogic().setLogic(TextFileUtils.getTextFileAsString("src/test/resources/javascript/TestLogic01.js"));
         jte.prepare();
 
-        Map<String, Object> outcomingParameters = jte.execute(-1, new Properties(), incomingParameters);
+        Map<String, Map<String, Object>> outcomingParameters = jte.execute(-1, new Properties(), incomingParameters);
         jte.cleanUp();
 
-        assertEquals("returnVal0", outcomingParameters.get("par0"));
-        assertEquals("returnVal1", outcomingParameters.get("par1"));
+        assertEquals("returnVal0", outcomingParameters.get(eventName).get(parKey0));
+        assertEquals("returnVal1", outcomingParameters.get(eventName).get(parKey1));
     }
 
     private ContextAlbum createTestContextAlbum() throws ContextException {

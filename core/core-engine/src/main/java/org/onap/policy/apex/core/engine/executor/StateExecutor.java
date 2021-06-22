@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -196,7 +197,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             // Execute the task
             final TreeMap<String, Object> incomingValues = new TreeMap<>();
             incomingValues.putAll(incomingEvent);
-            final Map<String, Object> taskExecutionResultMap =
+            final Map<String, Map<String, Object>> taskExecutionResultMap =
                 taskExecutorMap.get(taskKey).execute(executionId, executionProperties, incomingValues);
             final AxTask task = taskExecutorMap.get(taskKey).getSubject();
 
@@ -215,8 +216,9 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
 
                 // Execute the state finalizer logic to select a state output and to adjust the
                 // taskExecutionResultMap
-                stateOutputName =
-                    finalizerLogicExecutor.execute(executionId, executionProperties, taskExecutionResultMap);
+                // Multiple event outputs are possible only from final state, otherwise there will be only 1 outputevent
+                stateOutputName = finalizerLogicExecutor.execute(executionId, executionProperties,
+                    taskExecutionResultMap.values().iterator().next());
             }
 
             // Now look up the the actual state output
@@ -227,19 +229,19 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
             }
 
             // Create the state output and transfer all the fields across to its event
-            final StateOutput stateOutput = new StateOutput(stateOutputDefinition);
+            final var stateOutput = new StateOutput(stateOutputDefinition);
             this.lastStateOutput = stateOutput;
 
-            stateOutput.setEventFields(task.getRawOutputFields(), taskExecutionResultMap);
+            stateOutput.setEventFields(task.getOutputEvents(), taskExecutionResultMap);
 
             // Copy across fields from the incoming event that are not set on the outgoing event
             stateOutput.copyUnsetFields(incomingEvent);
 
             // Set the ExecutionID for the outgoing event to the value in the incoming event.
-            if (stateOutput.getOutputEvent() != null) {
-                stateOutput.getOutputEvent().setExecutionId(incomingEvent.getExecutionId());
-                stateOutput.getOutputEvent().setExecutionProperties(incomingEvent.getExecutionProperties());
-            }
+            stateOutput.getOutputEvents().values().forEach(outputEvent -> {
+                outputEvent.setExecutionId(incomingEvent.getExecutionId());
+                outputEvent.setExecutionProperties(incomingEvent.getExecutionProperties());
+            });
 
             // That's it, the state execution is complete
             return stateOutput;

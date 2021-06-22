@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +24,15 @@ package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import lombok.Getter;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
@@ -38,11 +46,12 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class StateOutput {
     // The state output has a state and an event
     private final AxStateOutput stateOutputDefinition;
-    private final AxEvent outputEventDef;
-    private final EnEvent outputEvent;
+    private AxEvent outputEventDef;
+    private final Map<AxArtifactKey, EnEvent> outputEvents;
 
     /**
      * Create a new state output from a state output definition.
@@ -50,7 +59,7 @@ public class StateOutput {
      * @param axStateOutput the state output definition
      */
     public StateOutput(final AxStateOutput axStateOutput) {
-        this(axStateOutput, new EnEvent(axStateOutput.getOutgingEvent()));
+        this(axStateOutput, new EnEvent(axStateOutput.getOutgoingEvent()));
     }
 
     /**
@@ -64,8 +73,15 @@ public class StateOutput {
         Assertions.argumentNotNull(outputEvent, "outputEvent may not be null");
 
         this.stateOutputDefinition = stateOutputDefinition;
-        this.outputEvent = outputEvent;
-        outputEventDef = ModelService.getModel(AxEvents.class).get(stateOutputDefinition.getOutgingEvent());
+        this.outputEvents = new TreeMap<>();
+        if (stateOutputDefinition.getOutgoingEventSet() != null
+            && !stateOutputDefinition.getOutgoingEventSet().isEmpty()) {
+            stateOutputDefinition.getOutgoingEventSet()
+                .forEach(outEvent -> outputEvents.put(outEvent, new EnEvent(outEvent)));
+        } else {
+            outputEvents.put(outputEvent.getKey(), outputEvent);
+        }
+        outputEventDef = ModelService.getModel(AxEvents.class).get(stateOutputDefinition.getOutgoingEvent());
     }
 
     /**
@@ -78,52 +94,89 @@ public class StateOutput {
     }
 
     /**
-     * Gets the state output definition.
-     *
-     * @return the state output definition
-     */
-    public AxStateOutput getStateOutputDefinition() {
-        return stateOutputDefinition;
-    }
-
-    /**
-     * Gets the output event.
-     *
-     * @return the output event
-     */
-    public EnEvent getOutputEvent() {
-        return outputEvent;
-    }
-
-    /**
      * Transfer the fields from the incoming field map into the event.
      *
-     * @param incomingFieldDefinitionMap definitions of the incoming fields
-     * @param eventFieldMap the event field map
+     * @param incomingEventDefinitionMap definitions of the incoming fields
+     * @param eventFieldMaps the event field map
      * @throws StateMachineException on errors populating the event fields
      */
-    public void setEventFields(final Map<String, AxField> incomingFieldDefinitionMap,
-                    final Map<String, Object> eventFieldMap) throws StateMachineException {
-        Assertions.argumentNotNull(incomingFieldDefinitionMap, "incomingFieldDefinitionMap may not be null");
-        Assertions.argumentNotNull(eventFieldMap, "eventFieldMap may not be null");
+    public void setEventFields(final Map<String, AxEvent> incomingEventDefinitionMap,
+        final Map<String, Map<String, Object>> eventFieldMaps) throws StateMachineException {
+        Assertions.argumentNotNull(incomingEventDefinitionMap, "incomingFieldDefinitionMap may not be null");
+        Assertions.argumentNotNull(eventFieldMaps, "eventFieldMaps may not be null");
 
-        if (!incomingFieldDefinitionMap.keySet().equals(eventFieldMap.keySet())) {
-            throw new StateMachineException(
-                            "field definitions and values do not match for event " + outputEventDef.getId() + '\n'
-                                            + incomingFieldDefinitionMap.keySet() + '\n' + eventFieldMap.keySet());
-        }
-        for (final Entry<String, Object> incomingFieldEntry : eventFieldMap.entrySet()) {
-            final String fieldName = incomingFieldEntry.getKey();
-            final AxField fieldDef = incomingFieldDefinitionMap.get(fieldName);
-
-            // Check if this field is a field in the event
-            if (!outputEventDef.getFields().contains(fieldDef)) {
-                throw new StateMachineException("field \"" + fieldName + "\" does not exist on event \""
-                                + outputEventDef.getId() + "\"");
+        for (Entry<String, AxEvent> incomingEventDefinitionEntry : incomingEventDefinitionMap.entrySet()) {
+            String eventName = incomingEventDefinitionEntry.getKey();
+            AxEvent eventDef = incomingEventDefinitionEntry.getValue();
+            if (!eventDef.getParameterMap().keySet().equals(eventFieldMaps.get(eventName).keySet())) {
+                throw new StateMachineException(
+                    "field definitions and values do not match for event " + eventDef.getId() + '\n'
+                        + eventDef.getParameterMap().keySet() + '\n' + eventFieldMaps.get(eventName).keySet());
             }
+        }
+        var updateOnceFlag = false;
+        if (!outputEvents.keySet().stream().map(AxArtifactKey::getName).collect(Collectors.toSet())
+            .equals(eventFieldMaps.keySet())) {
+            // when same task is used by multiple policies with different eventName but same fields,
+            // state outputs and task output events may be different
+            // in this case, update the output fields in the state output only once to avoid overwriting.
+            updateOnceFlag = true;
+        }
+        for (Entry<String, Map<String, Object>> eventFieldMapEntry : eventFieldMaps.entrySet()) {
+            String eventName = eventFieldMapEntry.getKey();
+            Map<String, Object> outputEventFields = eventFieldMapEntry.getValue();
+            AxEvent taskOutputEvent = incomingEventDefinitionMap.get(eventName);
+            EnEvent outputEventToUpdate = outputEvents.get(taskOutputEvent.getKey());
 
-            // Set the value in the output event
-            outputEvent.put(fieldName, incomingFieldEntry.getValue());
+            if (null == outputEventToUpdate) {
+                // happens only when same task is used by multiple policies with different eventName but same fields
+                // in this case, just match the fields and get the event in the stateOutput
+                Set<String> outputEventFieldNames = outputEventFields.keySet();
+                Optional<EnEvent> outputEventOpt = outputEvents.values().stream().filter(outputEvent -> outputEvent
+                    .getAxEvent().getParameterMap().keySet().equals(outputEventFieldNames)).findFirst();
+                if (outputEventOpt.isEmpty()) {
+                    throw new StateMachineException(
+                        "Task output event field definition and state output event field doesn't match");
+                } else {
+                    outputEventToUpdate = outputEventOpt.get();
+                }
+            }
+            updateOutputEventFields(taskOutputEvent, outputEventFields, outputEventToUpdate);
+            if (updateOnceFlag) {
+                break;
+            }
+        }
+    }
+
+    private void updateOutputEventFields(AxEvent taskOutputEvent, Map<String, Object> outputEventFields,
+        EnEvent outputEventToUpdate) throws StateMachineException {
+        for (Entry<String, Object> outputEventFieldEntry : outputEventFields.entrySet()) {
+            String fieldName = outputEventFieldEntry.getKey();
+            Object fieldValue = outputEventFieldEntry.getValue();
+            final AxField fieldDef = taskOutputEvent.getParameterMap().get(fieldName);
+
+            Set<AxArtifactKey> outgoingEventSet = new TreeSet<>();
+            if (null == stateOutputDefinition.getOutgoingEventSet()
+                || stateOutputDefinition.getOutgoingEventSet().isEmpty()) {
+                // if current state is not the final state, then the set could be empty.
+                // Just take the outgoingEvent field in this case
+                outgoingEventSet.add(stateOutputDefinition.getOutgoingEvent());
+            } else {
+                outgoingEventSet.addAll(stateOutputDefinition.getOutgoingEventSet());
+            }
+            // Check if this field is a field in the event
+            for (AxArtifactKey outputEventKey : outgoingEventSet) {
+                if (outputEventKey.equals(taskOutputEvent.getKey())) {
+                    outputEventDef = ModelService.getModel(AxEvents.class).get(outputEventKey);
+                    // Check if this field is a field in the state output event
+                    if (!outputEventDef.getFields().contains(fieldDef)) {
+                        throw new StateMachineException(
+                            "field \"" + fieldName + "\" does not exist on event \"" + outputEventDef.getId() + "\"");
+                    }
+                }
+            }
+            // Set the value in the correct output event
+            outputEventToUpdate.put(fieldName, fieldValue);
         }
     }
 
@@ -135,25 +188,30 @@ public class StateOutput {
      */
     public void copyUnsetFields(final EnEvent incomingEvent) {
         Assertions.argumentNotNull(incomingEvent, "incomingEvent may not be null");
-
-        for (final Entry<String, Object> incomingField : incomingEvent.entrySet()) {
-            final String fieldName = incomingField.getKey();
-
-            // Check if the field exists on the outgoing event
-            if ((!outputEventDef.getParameterMap().containsKey(fieldName))
-
-                            // Check if the field is set on the outgoing event
-                            || (outputEvent.containsKey(fieldName))
-
-                            // Now, check the fields have the same type
-                            || (!incomingEvent.getAxEvent().getParameterMap().get(fieldName)
-                                            .equals(outputEvent.getAxEvent().getParameterMap().get(fieldName)))) {
-                continue;
-            }
-
-            // All checks done, we can copy the value
-            outputEvent.put(fieldName, incomingField.getValue());
+        Set<AxArtifactKey> outgoingEventSet = new TreeSet<>();
+        if (null == stateOutputDefinition.getOutgoingEventSet()
+            || stateOutputDefinition.getOutgoingEventSet().isEmpty()) {
+            // if current state is not the final state, then the set could be empty.
+            // Just take the outgoingEvent field in this case
+            outgoingEventSet.add(stateOutputDefinition.getOutgoingEvent());
+        } else {
+            outgoingEventSet.addAll(stateOutputDefinition.getOutgoingEventSet());
         }
-
+        incomingEvent.forEach((inFieldName, inFieldValue) -> {
+            for (AxArtifactKey outputEventKey : outgoingEventSet) {
+                outputEventDef = ModelService.getModel(AxEvents.class).get(outputEventKey);
+                // Check if the field exists on the outgoing event
+                if (!outputEventDef.getParameterMap().containsKey(inFieldName)
+                    // Check if the field is set in the outgoing event
+                    || outputEvents.get(outputEventKey).containsKey(inFieldName)
+                    // Now, check the fields have the same type
+                    || !incomingEvent.getAxEvent().getParameterMap().get(inFieldName)
+                        .equals(outputEvents.get(outputEventKey).getAxEvent().getParameterMap().get(inFieldName))) {
+                    continue;
+                }
+                // All checks done, we can copy the value
+                outputEvents.get(outputEventKey).put(inFieldName, inFieldValue);
+            }
+        });
     }
 }
