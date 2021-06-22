@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +83,7 @@ public class PolicyModelTest {
         // disabling sonar because this code tests the equals() method
         assertEquals(model, model); // NOSONAR
         assertEquals(model, clonedModel);
-        assertNotEquals(model, (Object) "Hello");
+        assertNotEquals(model, "Hello");
         assertNotEquals(model, new AxPolicyModel(new AxArtifactKey()));
         assertNotEquals(model, new AxPolicyModel(AxArtifactKey.getNullKey(), new AxContextSchemas(schemasKey),
                         new AxKeyInformation(keyInfoKey), new AxEvents(eventsKey), new AxContextAlbums(albumsKey),
@@ -335,7 +336,7 @@ public class PolicyModelTest {
         final AxStateOutput so = model.getPolicies().get("policy").getStateMap().get("state").getStateOutputs()
                         .get(savedStateOutputName);
 
-        final AxArtifactKey savedOutEvent = so.getOutgingEvent();
+        final AxArtifactKey savedOutEvent = so.getOutgoingEvent();
         so.setOutgoingEvent(new AxArtifactKey("NonExistantEvent", "0.0.1"));
         result = new AxValidationResult();
         result = model.validate(result);

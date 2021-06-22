@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,7 @@ import org.onap.policy.apex.context.parameters.LockManagerParameters;
 import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.onap.policy.common.parameters.ParameterService;
@@ -91,7 +93,8 @@ public class JrubyTaskExecutorTest {
         AxTask task = new AxTask();
         ApexInternalContext internalContext = null;
         internalContext = new ApexInternalContext(new AxPolicyModel());
-
+        task.setInputEvent(new AxEvent());
+        task.setOutputEvents(new TreeMap<>());
         jte.setContext(null, task, internalContext);
 
         jte.prepare();
@@ -102,14 +105,13 @@ public class JrubyTaskExecutorTest {
         final String jrubyLogic = "if executor.executionId == -1" + "\n return false" + "\n else " + "\n return true"
                         + "\n end";
         task.getTaskLogic().setLogic(jrubyLogic);
-
         jte.prepare();
-        Map<String, Object> returnMap = jte.execute(0, new Properties(), incomingParameters);
+        Map<String, Map<String, Object>> returnMap = jte.execute(0, new Properties(), incomingParameters);
         assertEquals(0, returnMap.size());
         jte.cleanUp();
 
         jte.prepare();
-        Map<String, Object> returnMap1 = jte.execute(0, new Properties(), incomingParameters);
+        Map<String, Map<String, Object>> returnMap1 = jte.execute(0, new Properties(), incomingParameters);
         assertEquals(0, returnMap1.size());
         jte.cleanUp();
     }

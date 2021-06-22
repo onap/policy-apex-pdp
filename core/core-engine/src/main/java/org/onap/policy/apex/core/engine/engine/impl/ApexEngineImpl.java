@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +24,13 @@ package org.onap.policy.apex.core.engine.engine.impl;
 
 import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -41,7 +46,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineStats;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.apex.model.policymodel.concepts.AxState;
+import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
+import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
+import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -122,6 +132,8 @@ public class ApexEngineImpl implements ApexEngine {
             }
         }
 
+        populateIoEventsToTask(apexModel);
+
         // Create new internal context or update the existing one
         try {
             if (internalContext == null) {
@@ -147,6 +159,47 @@ public class ApexEngineImpl implements ApexEngine {
         }
 
         LOGGER.exit(UPDATE_MODEL + key.getId());
+    }
+
+
+    private void populateIoEventsToTask(AxPolicyModel apexPolicyModel) {
+        Set<AxArtifactKey> updatedTasks = new TreeSet<>();
+        apexPolicyModel.getPolicies().getPolicyMap().values()
+            .forEach(axPolicy -> axPolicy.getStateMap().values().forEach(axState -> {
+                AxEvent triggerEvent = apexPolicyModel.getEvents().get(axState.getTrigger());
+                axState.getTaskReferences().forEach((taskKey, taskRef) -> {
+                    AxTask task = apexPolicyModel.getTasks().getTaskMap().get(taskKey);
+                    task.setInputEvent(triggerEvent);
+                    updateTaskBasedOnStateOutput(apexPolicyModel, updatedTasks, axState, taskKey, taskRef, task);
+                    updatedTasks.add(taskKey);
+                });
+            }));
+    }
+
+    private void updateTaskBasedOnStateOutput(AxPolicyModel apexPolicyModel, Set<AxArtifactKey> updatedTasks,
+        AxState state, AxArtifactKey taskKey, AxStateTaskReference taskRef, AxTask task) {
+        Map<String, AxEvent> outputEvents = new TreeMap<>();
+        AxStateOutput stateOutput = state.getStateOutputs().get(taskRef.getOutput().getLocalName());
+        if (null == stateOutput.getOutgoingEventSet() || stateOutput.getOutgoingEventSet().isEmpty()) {
+            Set<AxArtifactKey> outEventSet = new TreeSet<>();
+            outEventSet.add(stateOutput.getOutgoingEvent());
+            stateOutput.setOutgoingEventSet(outEventSet);
+        }
+        if (state.getNextStateSet().isEmpty()
+            || state.getNextStateSet().contains(AxReferenceKey.getNullKey().getLocalName())) {
+            stateOutput.getOutgoingEventSet().forEach(outgoingEventKey -> outputEvents
+                .put(outgoingEventKey.getName(), apexPolicyModel.getEvents().get(outgoingEventKey)));
+        } else {
+            AxArtifactKey outgoingEventKey = stateOutput.getOutgoingEvent();
+            outputEvents.put(outgoingEventKey.getName(), apexPolicyModel.getEvents().get(outgoingEventKey));
+        }
+        if (updatedTasks.contains(taskKey)) {
+            // this happens only when same task is used by multiple policies
+            // with different eventName but same fields
+            task.getOutputEvents().putAll(outputEvents);
+        } else {
+            task.setOutputEvents(outputEvents);
+        }
     }
 
     /**
@@ -288,7 +341,7 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public boolean handleEvent(final EnEvent incomingEvent) {
-        boolean ret = false;
+        var ret = false;
         if (incomingEvent == null) {
             LOGGER.warn("handleEvent()<-{},{}, cannot run engine, incoming event is null", key.getId(), state);
             return ret;
@@ -307,17 +360,17 @@ public class ApexEngineImpl implements ApexEngine {
         LOGGER.debug(message);
 
         // By default we return a null event on errors
-        EnEvent outgoingEvent = null;
+        Collection<EnEvent> outgoingEvents = null;
         try {
             engineStats.executionEnter(incomingEvent.getKey());
-            outgoingEvent = stateMachineHandler.execute(incomingEvent);
+            outgoingEvents = stateMachineHandler.execute(incomingEvent);
             engineStats.executionExit();
             ret = true;
         } catch (final StateMachineException e) {
             LOGGER.warn("handleEvent()<-{},{}, engine execution error: ", key.getId(), state, e);
 
             // Create an exception return event
-            outgoingEvent = createExceptionEvent(incomingEvent, e);
+            outgoingEvents = createExceptionEvent(incomingEvent, e);
         }
 
         // Publish the outgoing event
@@ -325,10 +378,12 @@ public class ApexEngineImpl implements ApexEngine {
             synchronized (eventListeners) {
                 if (eventListeners.isEmpty()) {
                     LOGGER.debug("handleEvent()<-{},{}, There is no listener registered to recieve outgoing event: {}",
-                        key.getId(), state, outgoingEvent);
+                        key.getId(), state, outgoingEvents);
                 }
                 for (final EnEventListener axEventListener : eventListeners.values()) {
-                    axEventListener.onEnEvent(outgoingEvent);
+                    for (var outgoingEvent : outgoingEvents) {
+                        axEventListener.onEnEvent(outgoingEvent);
+                    }
                 }
             }
         } catch (final ApexException e) {
@@ -398,7 +453,7 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public AxEngineModel getEngineStatus() {
-        final AxEngineModel engineModel = new AxEngineModel(key);
+        final var engineModel = new AxEngineModel(key);
         engineModel.setTimestamp(System.currentTimeMillis());
         engineModel.setState(state);
         engineModel.setStats(engineStats);
@@ -440,14 +495,14 @@ public class ApexEngineImpl implements ApexEngine {
      * @param eventException The exception that was thrown
      * @return the exception event
      */
-    private EnEvent createExceptionEvent(final EnEvent incomingEvent, final Exception eventException) {
+    private Set<EnEvent> createExceptionEvent(final EnEvent incomingEvent, final Exception eventException) {
         // The exception event is a clone of the incoming event with the exception suffix added to
         // its name and an extra
         // field "ExceptionMessage" added
         final EnEvent exceptionEvent = (EnEvent) incomingEvent.clone();
 
         // Create the cascaded message string
-        final StringBuilder exceptionMessageStringBuilder = new StringBuilder();
+        final var exceptionMessageStringBuilder = new StringBuilder();
         exceptionMessageStringBuilder.append(eventException.getMessage());
 
         Throwable subException = eventException.getCause();
@@ -460,6 +515,6 @@ public class ApexEngineImpl implements ApexEngine {
         // Set the exception message on the event
         exceptionEvent.setExceptionMessage(exceptionMessageStringBuilder.toString());
 
-        return exceptionEvent;
+        return Set.of(exceptionEvent);
     }
 }

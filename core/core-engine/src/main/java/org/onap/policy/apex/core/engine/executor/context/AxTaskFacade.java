@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,6 +77,7 @@ public class AxTaskFacade {
         return task.getId();
     }
 
+
     /**
      * Creates a schema helper for an incoming field of this task.
      *
@@ -84,18 +86,33 @@ public class AxTaskFacade {
      */
     public SchemaHelper getInFieldSchemaHelper(final String fieldName) {
         // Find the field for the field name
-        return getFieldSchemaHelper(fieldName, task.getInputFields().get(fieldName), "incoming");
+        return getFieldSchemaHelper(fieldName, task.getInputEvent().getParameterMap().get(fieldName), "incoming");
     }
 
     /**
      * Creates a schema helper for an outgoing field of this task.
+     * This method can be used only when there is a single event output as part of a task
      *
      * @param fieldName The name of the field to get a schema helper for
      * @return the schema helper for this field
      */
     public SchemaHelper getOutFieldSchemaHelper(final String fieldName) {
         // Find the field for the field name
-        return getFieldSchemaHelper(fieldName, task.getOutputFields().get(fieldName), "outgoing");
+        return getFieldSchemaHelper(fieldName,
+            task.getOutputEvents().values().iterator().next().getParameterMap().get(fieldName), "outgoing");
+    }
+
+    /**
+     * Creates a schema helper for an outgoing field of this task.
+     * This method can be used only when there is a single event output as part of a task
+     *
+     * @param fieldName The name of the field to get a schema helper for
+     * @return the schema helper for this field
+     */
+    public SchemaHelper getOutFieldSchemaHelper(final String eventName, final String fieldName) {
+        // Find the field for the field name
+        return getFieldSchemaHelper(fieldName, task.getOutputEvents().get(eventName).getParameterMap().get(fieldName),
+            "outgoing");
     }
 
     /**

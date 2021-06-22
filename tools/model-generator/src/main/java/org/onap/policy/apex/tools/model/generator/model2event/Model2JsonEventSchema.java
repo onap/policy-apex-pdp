@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +105,7 @@ public class Model2JsonEventSchema {
             ret.add("type", schema.getType());
             return ret;
         }
-        
+
         switch (schema.getType()) {
             case ARRAY:
                 ret = stg.getInstanceOf("fieldTypeArray");
@@ -136,7 +137,7 @@ public class Model2JsonEventSchema {
 
     /**
      * Check if a schema is a simple type.
-     * 
+     *
      * @param schemaType the type of the schema
      * @return true if the schema is a simple type
      */
@@ -151,7 +152,7 @@ public class Model2JsonEventSchema {
             case LONG:
             case STRING:
                 return true;
-            
+
             default:
                 return false;
         }
@@ -234,7 +235,7 @@ public class Model2JsonEventSchema {
 
     /**
      * Render the events.
-     * 
+     *
      * @param stg the string template
      * @param stEvents the event template
      * @param events the events to render
@@ -306,7 +307,7 @@ public class Model2JsonEventSchema {
         for (final AxState state : policy.getStateMap().values()) {
             if ("NULL".equals(state.getNextStateSet().iterator().next())) {
                 for (final AxStateOutput output : state.getStateOutputs().values()) {
-                    eventKeys.add(output.getOutgingEvent());
+                    eventKeys.add(output.getOutgoingEvent());
                 }
             }
         }
@@ -339,7 +340,7 @@ public class Model2JsonEventSchema {
             return;
         }
         for (final AxStateOutput output : state.getStateOutputs().values()) {
-            eventKeys.add(output.getOutgingEvent());
+            eventKeys.add(output.getOutgoingEvent());
         }
     }
 

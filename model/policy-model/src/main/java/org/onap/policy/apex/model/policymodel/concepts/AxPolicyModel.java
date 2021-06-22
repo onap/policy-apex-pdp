@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -502,9 +503,9 @@ public class AxPolicyModel extends AxModel {
         }
 
         for (final AxStateOutput stateOutput : state.getStateOutputs().values()) {
-            if (events.getEventMap().get(stateOutput.getOutgingEvent()) == null) {
+            if (events.getEventMap().get(stateOutput.getOutgoingEvent()) == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
+                    ValidationResult.INVALID, "output event " + stateOutput.getOutgoingEvent().getId()
                         + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
         }
@@ -555,10 +556,10 @@ public class AxPolicyModel extends AxModel {
                 ValidationResult.INVALID, "state output on task reference for task " + task.getId() + " is null"));
 
         } else {
-            final AxEvent usedEvent = events.getEventMap().get(stateOutput.getOutgingEvent());
+            final AxEvent usedEvent = events.getEventMap().get(stateOutput.getOutgoingEvent());
             if (usedEvent == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
-                    ValidationResult.INVALID, "output event " + stateOutput.getOutgingEvent().getId()
+                    ValidationResult.INVALID, "output event " + stateOutput.getOutgoingEvent().getId()
                         + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
 
