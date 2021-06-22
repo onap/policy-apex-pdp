@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,10 +62,10 @@ public final class AvroSchemaKeyTranslationUtilities {
         }
 
         // Create a JSON element for the incoming JSON string
-        final JsonElement jsonElement = new GsonBuilder().serializeNulls().create().fromJson(jsonString,
+        final var jsonElement = new GsonBuilder().serializeNulls().create().fromJson(jsonString,
                 JsonElement.class);
 
-        final JsonElement translatedJsonElement = translateIllegalKeys(jsonElement, revert);
+        final var translatedJsonElement = translateIllegalKeys(jsonElement, revert);
 
         return new GsonBuilder().serializeNulls().create().toJson(translatedJsonElement);
     }
@@ -98,7 +98,7 @@ public final class AvroSchemaKeyTranslationUtilities {
      * @return the translated JSON element
      */
     public static JsonElement translateIllegalKeys(final JsonObject jsonObject, final boolean revert) {
-        final JsonObject newJsonObject = new JsonObject();
+        final var newJsonObject = new JsonObject();
 
         for (final Entry<String, JsonElement> jsonObjectEntry : jsonObject.entrySet()) {
             newJsonObject.add(translateIllegalKey(jsonObjectEntry.getKey(), revert),
@@ -117,9 +117,9 @@ public final class AvroSchemaKeyTranslationUtilities {
      * @return the translated JSON element
      */
     public static JsonElement translateIllegalKeys(final JsonArray jsonArray, final boolean revert) {
-        final JsonArray newJsonArray = new JsonArray();
+        final var newJsonArray = new JsonArray();
 
-        for (int i = 0; i < jsonArray.size(); i++) {
+        for (var i = 0; i < jsonArray.size(); i++) {
             newJsonArray.add(translateIllegalKeys(jsonArray.get(i), revert));
         }
 

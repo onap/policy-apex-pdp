@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ public class AvroDirectObjectMapper implements AvroObjectMapper {
         // It is legal for the schema class to be null, if the Avro schema has a "null" type then
         // the decoded object is always returned as a null
         if (!schemaClass.isAssignableFrom(avroObject.getClass())) {
-            final String returnString = userKey.getId() + ": object \"" + avroObject + "\" of class \""
+            final var returnString = userKey.getId() + ": object \"" + avroObject + "\" of class \""
                             + avroObject.getClass() + "\" cannot be decoded to an object of class \""
                             + schemaClass.getName() + "\"";
             LOGGER.warn(returnString);
@@ -134,7 +134,7 @@ public class AvroDirectObjectMapper implements AvroObjectMapper {
     public Object mapToAvro(final Object object) {
         // Null values are only allowed if the schema class is null
         if (object == null && schemaClass != null) {
-            final String returnString = userKey.getId() + ": cannot encode a null object of class \""
+            final var returnString = userKey.getId() + ": cannot encode a null object of class \""
                             + schemaClass.getName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
     public Object mapFromAvro(final Object avroObject) {
         // The Avro object should be a Utf8 object
         if (!(avroObject instanceof ByteBuffer)) {
-            final String returnString = userKey.getId() + ": object \"" + avroObject + "\" of class \""
+            final var returnString = userKey.getId() + ": object \"" + avroObject + "\" of class \""
                             + avroObject.getClass() + "\" cannot be decoded to an object of class \""
                             + schemaClass.getName() + "\"";
             LOGGER.warn(returnString);
@@ -95,10 +95,10 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
         }
 
         // Cast the byte buffer object so we get access to its methods
-        final ByteBuffer byteBufferAvroObject = (ByteBuffer) avroObject;
+        final var byteBufferAvroObject = (ByteBuffer) avroObject;
 
         // read the byte buffer into a byte array
-        final byte[] byteArray = new byte[byteBufferAvroObject.remaining()];
+        final var byteArray = new byte[byteBufferAvroObject.remaining()];
         byteBufferAvroObject.get(byteArray);
 
         return byteArray;
@@ -110,7 +110,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
     @Override
     public Object mapToAvro(final Object object) {
         if (object == null) {
-            final String returnString = userKey.getId() + ": cannot encode a null object of class \""
+            final var returnString = userKey.getId() + ": cannot encode a null object of class \""
                             + schemaClass.getName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -118,7 +118,7 @@ public class AvroBytesObjectMapper implements AvroObjectMapper {
 
         // The incoming object should be a byte array
         if (!(object instanceof byte[])) {
-            final String returnString = userKey.getId() + ": object \"" + object + "\" of class \"" + object.getClass()
+            final var returnString = userKey.getId() + ": object \"" + object + "\" of class \"" + object.getClass()
                             + "\" cannot be decoded to an object of class \"" + schemaClass.getName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);

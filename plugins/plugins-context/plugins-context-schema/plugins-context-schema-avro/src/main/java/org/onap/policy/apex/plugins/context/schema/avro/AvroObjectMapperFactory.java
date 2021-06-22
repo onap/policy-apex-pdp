@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,14 +70,14 @@ public class AvroObjectMapperFactory {
      * @return the avro object mapper
      */
     public AvroObjectMapper get(final AxKey userKey, final Schema incomingSchema) {
-        Schema schema = incomingSchema;
-        boolean isnullable = false;
+        var schema = incomingSchema;
+        var isnullable = false;
         if (Schema.Type.UNION.equals(schema.getType())) {
 
             final List<Schema> types = schema.getTypes();
 
             // currently only support unions with 2 types, one of which is NULL
-            final Schema nullschema = Schema.create(Schema.Type.NULL);
+            final var nullschema = Schema.create(Schema.Type.NULL);
             if (types.size() != 2 || !types.contains(nullschema)) {
                 final String resultSting = userKey.getId()
                         + ": Apex currently only supports UNION schemas with 2 options, one must be NULL";
@@ -99,7 +99,7 @@ public class AvroObjectMapperFactory {
             }
         }
 
-        final Schema.Type avroType = schema.getType();
+        final var avroType = schema.getType();
 
         // Check that there is a definition for the mapper for this type
         if (!AVRO_OBJECT_MAPPER_MAP.containsKey(avroType) || AVRO_OBJECT_MAPPER_MAP.get(avroType) == null) {

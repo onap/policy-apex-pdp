@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ public class AvroSchemaMapTest {
         assertEquals(new Utf8("foo"), subst1A.get("A_DasH_B"));
         assertNull(subst1A.get("A-B"));
         final Throwable exception1 = assertThrows(ContextRuntimeException.class,
-                () -> schemaHelperSubst1.unmarshal("{\"A-B\":123}"));
+            () -> schemaHelperSubst1.unmarshal("{\"A-B\":123}"));
         assertNotNull(exception1.getCause());
         assertEquals("Expected string. Got VALUE_NUMBER_INT", exception1.getCause().getMessage());
 
@@ -129,7 +129,7 @@ public class AvroSchemaMapTest {
         assertEquals(123, subst2A.get("C_DoT_D"));
         assertNull(subst2A.get("C.D"));
         final Throwable exception2 = assertThrows(ContextRuntimeException.class,
-                () -> schemaHelperSubst2.unmarshal("{\"C_DoT_D\":\"bar\"}"));
+            () -> schemaHelperSubst2.unmarshal("{\"C_DoT_D\":\"bar\"}"));
         assertNotNull(exception2.getCause());
         assertEquals("Expected int. Got VALUE_STRING", exception2.getCause().getMessage());
 
@@ -145,7 +145,7 @@ public class AvroSchemaMapTest {
         assertEquals(true, subst3A.get("E_ColoN_F"));
         assertNull(subst3A.get("E:F"));
         final Throwable exception3 = assertThrows(ContextRuntimeException.class,
-                () -> schemaHelperSubst3.unmarshal("{\"E_ColoN_F\":\"gaz\"}"));
+            () -> schemaHelperSubst3.unmarshal("{\"E_ColoN_F\":\"gaz\"}"));
         assertNotNull(exception3.getCause());
         assertEquals("Expected boolean. Got VALUE_STRING", exception3.getCause().getMessage());
     }
@@ -162,8 +162,11 @@ public class AvroSchemaMapTest {
         final AxContextSchema avroFailSchema1 = new AxContextSchema(
                 new AxArtifactKey("AvroFail1", "0.0.1"), "AVRO", fail1);
         schemas.getSchemasMap().put(avroFailSchema1.getKey(), avroFailSchema1);
+
+        SchemaHelperFactory sh = new SchemaHelperFactory();
+        AxArtifactKey ak = avroFailSchema1.getKey();
         final Throwable exception1 = assertThrows(ContextRuntimeException.class,
-                () -> new SchemaHelperFactory().createSchemaHelper(testKey, avroFailSchema1.getKey()));
+            () -> sh.createSchemaHelper(testKey, ak));
         assertNotNull(exception1.getCause());
         assertEquals("Illegal character in: A-B", exception1.getCause().getMessage());
 
@@ -172,8 +175,10 @@ public class AvroSchemaMapTest {
         final AxContextSchema avroFailSchema2 = new AxContextSchema(
                 new AxArtifactKey("AvroFail2", "0.0.1"), "AVRO", fail2);
         schemas.getSchemasMap().put(avroFailSchema2.getKey(), avroFailSchema2);
+
+        AxArtifactKey ak2 = avroFailSchema2.getKey();
         final Throwable exception2 = assertThrows(ContextRuntimeException.class,
-                () -> new SchemaHelperFactory().createSchemaHelper(testKey, avroFailSchema2.getKey()));
+            () -> sh.createSchemaHelper(testKey, ak2));
         assertNotNull(exception2.getCause());
         assertEquals("Illegal character in: C.D", exception2.getCause().getMessage());
 
@@ -182,8 +187,9 @@ public class AvroSchemaMapTest {
         final AxContextSchema avroFailSchema3 = new AxContextSchema(
                 new AxArtifactKey("AvroFail3", "0.0.1"), "AVRO", fail3);
         schemas.getSchemasMap().put(avroFailSchema3.getKey(), avroFailSchema3);
+        AxArtifactKey ak3 = avroFailSchema3.getKey();
         final Throwable exception3 = assertThrows(ContextRuntimeException.class,
-                () -> new SchemaHelperFactory().createSchemaHelper(testKey, avroFailSchema3.getKey()));
+            () -> sh.createSchemaHelper(testKey, ak3));
         assertNotNull(exception3.getCause());
         assertEquals("Illegal character in: E:F", exception3.getCause().getMessage());
     }

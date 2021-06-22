@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,8 +37,6 @@ import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.io.DecoderFactory;
 import org.apache.avro.io.EncoderFactory;
-import org.apache.avro.io.JsonDecoder;
-import org.apache.avro.io.JsonEncoder;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -100,7 +98,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     @Override
     public Object createNewInstance() {
         // Create a new instance using the Avro object mapper
-        final Object newInstance = avroObjectMapper.createNewInstance(avroSchema);
+        final var newInstance = avroObjectMapper.createNewInstance(avroSchema);
 
         // If no new instance is created, use default schema handler behaviour
         if (newInstance != null) {
@@ -118,12 +116,12 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     @Override
     public Object createNewInstance(final Object incomingObject) {
         if (incomingObject instanceof JsonElement) {
-            final Gson gson = new GsonBuilder().serializeNulls().create();
-            final String elementJsonString = gson.toJson((JsonElement) incomingObject);
+            final var gson = new GsonBuilder().serializeNulls().create();
+            final var elementJsonString = gson.toJson((JsonElement) incomingObject);
 
             return createNewInstance(elementJsonString);
         } else {
-            final String returnString =
+            final var returnString =
                     getUserKey().getId() + ": the object \"" + incomingObject + "\" is not an instance of JsonObject";
             throw new ContextRuntimeException(returnString);
         }
@@ -138,7 +136,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         if (subInstance != null) {
             return subInstance;
         } else {
-            final String returnString = getUserKey().getId() + ": the schema \"" + avroSchema.getName()
+            final var returnString = getUserKey().getId() + ": the schema \"" + avroSchema.getName()
                     + "\" does not have a subtype of type \"" + subInstanceType + "\"";
             throw new ContextRuntimeException(returnString);
         }
@@ -216,7 +214,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
             return object;
         }
 
-        String objectString = getStringObject(object);
+        var objectString = getStringObject(object);
 
         // Translate illegal characters in incoming JSON keys to legal Avro values
         objectString = AvroSchemaKeyTranslationUtilities.translateIllegalKeys(objectString, false);
@@ -224,10 +222,10 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         // Decode the object
         Object decodedObject;
         try {
-            final JsonDecoder jsonDecoder = DecoderFactory.get().jsonDecoder(avroSchema, objectString);
+            final var jsonDecoder = DecoderFactory.get().jsonDecoder(avroSchema, objectString);
             decodedObject = new GenericDatumReader<GenericRecord>(avroSchema).read(null, jsonDecoder);
         } catch (final Exception e) {
-            final String returnString =
+            final var returnString =
                 getUserKey().getId() + OBJECT_TAG + objectString + "\" Avro unmarshalling failed.";
             throw new ContextRuntimeException(returnString, e);
         }
@@ -250,7 +248,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
                 return (String) object;
             }
         } catch (final ClassCastException e) {
-            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
+            final var returnString = getUserKey().getId() + OBJECT_TAG + object + "\" of type \""
                     + (object != null ? object.getClass().getName() : "null") + "\" must be assignable to \""
                     + getSchemaClass().getName() + "\" or be a Json string representation of it for Avro unmarshalling";
             throw new ContextRuntimeException(returnString, e);
@@ -264,7 +262,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
      * @return the string
      */
     private String getObjectString(final Object object) {
-        String objectString = object.toString().trim();
+        var objectString = object.toString().trim();
         if (objectString.length() == 0) {
             return "\"\"";
         } else if (objectString.length() == 1) {
@@ -288,23 +286,23 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     @Override
     public String marshal2String(final Object object) {
         // Condition the object for Avro encoding
-        final Object conditionedObject = avroObjectMapper.mapToAvro(object);
+        final var conditionedObject = avroObjectMapper.mapToAvro(object);
 
-        final String jsonString = getJsonString(object, conditionedObject);
+        final var jsonString = getJsonString(object, conditionedObject);
 
         return AvroSchemaKeyTranslationUtilities.translateIllegalKeys(jsonString, true);
     }
 
     private String getJsonString(final Object object, final Object conditionedObject) {
 
-        try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+        try (final var output = new ByteArrayOutputStream()) {
             final DatumWriter<Object> writer = new GenericDatumWriter<>(avroSchema);
-            final JsonEncoder jsonEncoder = EncoderFactory.get().jsonEncoder(avroSchema, output, true);
+            final var jsonEncoder = EncoderFactory.get().jsonEncoder(avroSchema, output, true);
             writer.write(conditionedObject, jsonEncoder);
             jsonEncoder.flush();
             return new String(output.toByteArray());
         } catch (final Exception e) {
-            final String returnString = getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed.";
+            final var returnString = getUserKey().getId() + OBJECT_TAG + object + "\" Avro marshalling failed.";
             throw new ContextRuntimeException(returnString, e);
         }
     }
@@ -312,13 +310,13 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     @Override
     public JsonElement marshal2Object(final Object schemaObject) {
         // Get the object as a Json string
-        final String schemaObjectAsString = marshal2String(schemaObject);
+        final var schemaObjectAsString = marshal2String(schemaObject);
 
         // Get a Gson instance to convert the Json string to an object created by Json
-        final Gson gson = new Gson();
+        final var gson = new Gson();
 
         // Convert the Json string into an object
-        final Object schemaObjectAsObject = gson.fromJson(schemaObjectAsString, Object.class);
+        final var schemaObjectAsObject = gson.fromJson(schemaObjectAsString, Object.class);
 
         return gson.toJsonTree(schemaObjectAsObject);
     }
