@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d255372a_8cba9284",
+        "filename": "releases/2.5.3.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-23T22:03:28Z",
+      "side": 1,
+      "message": "missing newline",
+      "revId": "52d8d77fc61f122fe29cf150f5cfacc9dec7bf95",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
