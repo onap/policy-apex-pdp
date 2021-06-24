@@ -189,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2f1f4c64_1351ac29",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "472740e2_1626ad86",
+      "range": {
+        "startLine": 171,
+        "startChar": 74,
+        "endLine": 171,
+        "endChar": 86
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbe31e4e_dcac816a",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 3
@@ -221,6 +245,24 @@
       "revId": "55c00f9d77a919886976f35d84e028b986968f90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2459c26_639bc6a1",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5ed074df_41ab6246",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -271,6 +313,30 @@
     },
     {
       "key": {
+        "uuid": "dccc4537_76f98f71",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3985878d_b36edb03",
+      "range": {
+        "startLine": 191,
+        "startChar": 77,
+        "endLine": 191,
+        "endChar": 98
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a7ad139_8e357e74",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
         "patchSetId": 3
@@ -315,6 +381,30 @@
       "revId": "55c00f9d77a919886976f35d84e028b986968f90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d65b9379_1282b607",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "58d6c3e3_f6a5489b",
+      "range": {
+        "startLine": 111,
+        "startChar": 75,
+        "endLine": 111,
+        "endChar": 89
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -412,6 +502,30 @@
     },
     {
       "key": {
+        "uuid": "d3ae7c91_cab651db",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "06550b52_a8ae0d51",
+      "range": {
+        "startLine": 169,
+        "startChar": 75,
+        "endLine": 169,
+        "endChar": 94
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b786d35_3763f9ca",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
         "patchSetId": 3
@@ -479,6 +593,24 @@
       "revId": "55c00f9d77a919886976f35d84e028b986968f90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "976d7ed1_94dff095",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d772aa1_f23581c8",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -573,6 +705,30 @@
       "revId": "55c00f9d77a919886976f35d84e028b986968f90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda5ebab_c70b903b",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T18:54:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b6f0148e_437f16f4",
+      "range": {
+        "startLine": 191,
+        "startChar": 57,
+        "endLine": 191,
+        "endChar": 73
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
