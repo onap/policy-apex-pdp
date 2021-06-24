@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7777e78d_fb7d3df4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "line too long",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8c79ed_1ffb52c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "line too long",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332b985a_0b83a1e9",
+        "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "missing newline at the end of the file",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f3fc69e_8f8c6fe9",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "I think I prefer normal \"for\" loops when the body is complex/lengthy",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a328cc0_27ec4bf3",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "will this always be found?",
+      "range": {
+        "startLine": 171,
+        "startChar": 74,
+        "endLine": 171,
+        "endChar": 86
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbe31e4e_dcac816a",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "don\u0027t need an \"else\" to add the outgoing event to an existing set?",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e61b1990_aa30fa56",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "will this always be found?  or does it even matter?\n\nsame questions below",
+      "range": {
+        "startLine": 191,
+        "startChar": 77,
+        "endLine": 191,
+        "endChar": 98
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a7ad139_8e357e74",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "can this be null?",
+      "range": {
+        "startLine": 111,
+        "startChar": 75,
+        "endLine": 111,
+        "endChar": 89
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36e07cf_2383e9fc",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "not sure of the cost of invoking keySet() - may need to cache this in a variable?",
+      "range": {
+        "startLine": 135,
+        "startChar": 68,
+        "endLine": 135,
+        "endChar": 94
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3185f4d6_cb317e35",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "can this return null?",
+      "range": {
+        "startLine": 169,
+        "startChar": 75,
+        "endLine": 169,
+        "endChar": 94
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b786d35_3763f9ca",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "use normal \"for\" loop?",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d1b78ce_030c97fe",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "does this need to be a mutable TreeMap?  If not, could use stream().toMap() instead of forEach()",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "612f37a6_4b13492c",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "don\u0027t need this condition",
+      "range": {
+        "startLine": 222,
+        "startChar": 12,
+        "endLine": 222,
+        "endChar": 49
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91934efb_a5b71c42",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-24T13:47:01Z",
+      "side": 1,
+      "message": "if a name doesn\u0027t appear within \"fields\", then this could return null",
+      "range": {
+        "startLine": 191,
+        "startChar": 57,
+        "endLine": 191,
+        "endChar": 73
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
