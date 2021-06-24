@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96aa81dc_53009183",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7777e78d_fb7d3df4",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c8c79ed_1ffb52c8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "55c00f9d77a919886976f35d84e028b986968f90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f11fa5a_d2ff8b3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c8c79ed_1ffb52c8",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "85cf6b90_f902d5eb",
+        "filename": "auth/cli-editor/src/test/resources/tosca/PolicyModel.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "332b985a_0b83a1e9",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f3fc69e_8f8c6fe9",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "1e88fa6d_9bcb175c",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f3fc69e_8f8c6fe9",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a328cc0_27ec4bf3",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 3
@@ -81,6 +153,30 @@
       "writtenOn": "2021-06-24T13:47:01Z",
       "side": 1,
       "message": "will this always be found?",
+      "range": {
+        "startLine": 171,
+        "startChar": 74,
+        "endLine": 171,
+        "endChar": 86
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "472740e2_1626ad86",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Yes it should. Because, mapping of relations between states-tasks-events etc happens during the model creation time itself, and there are validations for the same.\nSay for e.g., before a task reference is added to a state, first it is checked if the task is existing. Similar is the case with all related concepts.",
+      "parentUuid": "1a328cc0_27ec4bf3",
       "range": {
         "startLine": 171,
         "startChar": 74,
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "5ed074df_41ab6246",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "This really is here to make it backward compatible. outgoingEventSet is a newly introduced field. Even for already created policy models, this will pick up the outgoingEvent and add it to the set. If outgoingEventSet is already populated, then everything is perfect.",
+      "parentUuid": "cbe31e4e_dcac816a",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e61b1990_aa30fa56",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 3
@@ -121,6 +235,30 @@
       "writtenOn": "2021-06-24T13:47:01Z",
       "side": 1,
       "message": "will this always be found?  or does it even matter?\n\nsame questions below",
+      "range": {
+        "startLine": 191,
+        "startChar": 77,
+        "endLine": 191,
+        "endChar": 98
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3985878d_b36edb03",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "It will always be found. As mentioned in earlier comment, only a valid event can be added to stateOutput during its creation.",
+      "parentUuid": "e61b1990_aa30fa56",
       "range": {
         "startLine": 191,
         "startChar": 77,
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "58d6c3e3_f6a5489b",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "No, It shouldn\u0027t be null. Again, same comment as earlier. \nevents assigned to a task, events assigned to a state, all are linked together and they coexist in the model.\nSo, in this case, the eventName as per the taskDefinition will always be available as a key in the eventFieldMaps.",
+      "parentUuid": "8a7ad139_8e357e74",
+      "range": {
+        "startLine": 111,
+        "startChar": 75,
+        "endLine": 111,
+        "endChar": 89
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a36e07cf_2383e9fc",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
         "patchSetId": 3
@@ -179,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "3366f3bc_985697e1",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a36e07cf_2383e9fc",
+      "range": {
+        "startLine": 135,
+        "startChar": 68,
+        "endLine": 135,
+        "endChar": 94
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3185f4d6_cb317e35",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
         "patchSetId": 3
@@ -190,6 +376,30 @@
       "writtenOn": "2021-06-24T13:47:01Z",
       "side": 1,
       "message": "can this return null?",
+      "range": {
+        "startLine": 169,
+        "startChar": 75,
+        "endLine": 169,
+        "endChar": 94
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06550b52_a8ae0d51",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/StateOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Same comment. It can\u0027t be null. Referenced events should always be there in the model.",
+      "parentUuid": "3185f4d6_cb317e35",
       "range": {
         "startLine": 169,
         "startChar": 75,
@@ -219,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "1a4bd1d8_16327870",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b786d35_3763f9ca",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d1b78ce_030c97fe",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
         "patchSetId": 3
@@ -230,6 +458,24 @@
       "writtenOn": "2021-06-24T13:47:01Z",
       "side": 1,
       "message": "does this need to be a mutable TreeMap?  If not, could use stream().toMap() instead of forEach()",
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d772aa1_f23581c8",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "I prefer to keep it mutable, because this outgoingFields are the ones being manipulated in the task logic itself.",
+      "parentUuid": "7d1b78ce_030c97fe",
       "revId": "55c00f9d77a919886976f35d84e028b986968f90",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -259,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "937ebe57_987ba1ce",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/TaskExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "612f37a6_4b13492c",
+      "range": {
+        "startLine": 222,
+        "startChar": 12,
+        "endLine": 222,
+        "endChar": 49
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91934efb_a5b71c42",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
         "patchSetId": 3
@@ -270,6 +540,30 @@
       "writtenOn": "2021-06-24T13:47:01Z",
       "side": 1,
       "message": "if a name doesn\u0027t appear within \"fields\", then this could return null",
+      "range": {
+        "startLine": 191,
+        "startChar": 57,
+        "endLine": 191,
+        "endChar": 73
+      },
+      "revId": "55c00f9d77a919886976f35d84e028b986968f90",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f0148e_437f16f4",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-06-24T16:31:34Z",
+      "side": 1,
+      "message": "That is the expectation. Whatever value is set to a field, that needs to be updated as the outputField value. If the field is not set at all, then that is fine too, null will be set.",
+      "parentUuid": "91934efb_a5b71c42",
       "range": {
         "startLine": 191,
         "startChar": 57,
