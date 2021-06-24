@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,7 +85,7 @@ public class TestFile2File {
     /**
      * Strip variable length text from file string.
      *
-     * @param textFileAsString the file to read and strip
+     * @param outFile the file to read and strip
      * @return the stripped string
      * @throws IOException on out file read exceptions
      */

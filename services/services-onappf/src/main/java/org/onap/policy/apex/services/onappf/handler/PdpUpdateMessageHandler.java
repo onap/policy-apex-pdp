@@ -134,7 +134,6 @@ public class PdpUpdateMessageHandler {
      *
      * @param pdpUpdateMsg the pdp update message from pap
      * @param pdpMessageHandler pdp message handler
-     * @param pdpStatusContext the pdp status object in memory
      * @return pdpResponseDetails the pdp response
      */
     private PdpResponseDetails startOrStopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,

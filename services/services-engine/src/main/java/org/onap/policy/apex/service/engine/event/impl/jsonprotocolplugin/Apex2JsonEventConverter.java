@@ -466,7 +466,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
      * Determine the name space field of the event header.
      *
      * @param jsonObject the event in JSON format
-     * @param eventName the name of the event
+     * @param name the name of the event
      * @param eventDefinition the definition of the event structure
      * @return the event version
      */

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -483,7 +483,7 @@ public class AxTask extends AxConcept {
     /**
      * Validate a field.
      *
-     * @param key the key of the field to validate
+     * @param fieldKey the key of the field to validate
      * @param field the field to validate
      * @param direction The direction of the field
      * @param result The validation result to append to
@@ -533,7 +533,7 @@ public class AxTask extends AxConcept {
     /**
      * Validate a context album reference entry.
      *
-     * @param taskParameterEntry the context album reference entry to validate
+     * @param contextAlbumReference the context album reference entry to validate
      * @param result The validation result to append to
      * @return The result of the validation
      */
