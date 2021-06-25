@@ -16,6 +16,24 @@
       "revId": "dd8e5557999fc0267f8cd4d090a2be31ca250b54",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bacc93c5_7b256bba",
+        "filename": "releases/2.5.3-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-06-25T15:38:31Z",
+      "side": 1,
+      "message": "I picked the one from stage-release using which the maven artifacts were released to keep them in sync. I will leave it as is then.",
+      "parentUuid": "2c5ae0a6_32894ecd",
+      "revId": "dd8e5557999fc0267f8cd4d090a2be31ca250b54",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
