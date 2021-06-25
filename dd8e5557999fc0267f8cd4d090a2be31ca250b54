@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c5ae0a6_32894ecd",
+        "filename": "releases/2.5.3-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-06-25T14:55:29Z",
+      "side": 1,
+      "message": "this isn\u0027t the latest, but I assume that\u0027s OK.  (same comment on line 8)",
+      "revId": "dd8e5557999fc0267f8cd4d090a2be31ca250b54",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
