@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
@@ -61,7 +60,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
     public void init(final EventProtocolParameters parameters) {
         // Check and get the YAML parameters
         if (!(parameters instanceof YamlEventProtocolParameters)) {
-            final String errorMessage = "specified consumer properties are not applicable to the YAML event protocol";
+            final var errorMessage = "specified consumer properties are not applicable to the YAML event protocol";
             throw new ApexEventRuntimeException(errorMessage);
         }
 
@@ -85,13 +84,13 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
             throw new ApexEventException(errorMessage);
         }
 
-        final String yamlEventString = (String) eventObject;
+        final var yamlEventString = (String) eventObject;
 
         // The list of events we will return
         final List<ApexEvent> eventList = new ArrayList<>();
 
         // Convert the YAML document string into an object
-        Object yamlObject = new Yaml().load(yamlEventString);
+        var yamlObject = new Yaml().load(yamlEventString);
 
         // If the incoming YAML did not create a map it is a primitive type or a collection so we
         // convert it into a map for processing
@@ -161,7 +160,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
         }
 
         // Use Snake YAML to convert the APEX event to YAML
-        Yaml yaml = new Yaml();
+        var yaml = new Yaml();
         return yaml.dumpAs(yamlMap, null, FlowStyle.BLOCK);
     }
 
@@ -175,7 +174,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      */
     private ApexEvent yamlMap2ApexEvent(final String eventName, final Map<?, ?> yamlMap) throws ApexEventException {
         // Process the mandatory Apex header
-        final ApexEvent apexEvent = processApexEventHeader(eventName, yamlMap);
+        final var apexEvent = processApexEventHeader(eventName, yamlMap);
 
         // Get the event definition for the event from the model service
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(apexEvent.getName(),
@@ -197,7 +196,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
 
             if (fieldValue != null) {
                 // Get the schema helper
-                final SchemaHelper fieldSchemaHelper = new SchemaHelperFactory().createSchemaHelper(eventField.getKey(),
+                final var fieldSchemaHelper = new SchemaHelperFactory().createSchemaHelper(eventField.getKey(),
                                 eventField.getSchema());
                 apexEvent.put(fieldName, fieldSchemaHelper.createNewInstance(fieldValue));
             } else {
@@ -219,7 +218,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      */
     private ApexEvent processApexEventHeader(final String eventName, final Map<?, ?> yamlMap)
                     throws ApexEventException {
-        String name = getYamlStringField(yamlMap, ApexEvent.NAME_HEADER_FIELD, yamlPars.getNameAlias(),
+        var name = getYamlStringField(yamlMap, ApexEvent.NAME_HEADER_FIELD, yamlPars.getNameAlias(),
                         ApexEvent.NAME_REGEXP, false);
 
         // Check that an event name has been specified
@@ -239,7 +238,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
 
         // Now, find the event definition in the model service. If version is null, the newest event
         // definition in the model service is used
-        String version = getYamlStringField(yamlMap, ApexEvent.VERSION_HEADER_FIELD, yamlPars.getVersionAlias(),
+        var version = getYamlStringField(yamlMap, ApexEvent.VERSION_HEADER_FIELD, yamlPars.getVersionAlias(),
                         ApexEvent.VERSION_REGEXP, false);
         final AxEvent eventDefinition = ModelService.getModel(AxEvents.class).get(name, version);
         if (eventDefinition == null) {
@@ -270,7 +269,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      */
     private String getEventHeaderNamespace(final Map<?, ?> yamlMap, String name, final AxEvent eventDefinition) {
         // Check the name space is OK if it is defined, if not, use the name space from the model
-        String namespace = getYamlStringField(yamlMap, ApexEvent.NAMESPACE_HEADER_FIELD, yamlPars.getNameSpaceAlias(),
+        var namespace = getYamlStringField(yamlMap, ApexEvent.NAMESPACE_HEADER_FIELD, yamlPars.getNameSpaceAlias(),
                         ApexEvent.NAMESPACE_REGEXP, false);
         if (namespace != null) {
             if (!namespace.equals(eventDefinition.getNameSpace())) {
@@ -293,7 +292,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      */
     private String getEventHeaderSource(final Map<?, ?> yamlMap, final AxEvent eventDefinition) {
         // For source, use the defined source only if the source is not found on the incoming event
-        String source = getYamlStringField(yamlMap, ApexEvent.SOURCE_HEADER_FIELD, yamlPars.getSourceAlias(),
+        var source = getYamlStringField(yamlMap, ApexEvent.SOURCE_HEADER_FIELD, yamlPars.getSourceAlias(),
                         ApexEvent.SOURCE_REGEXP, false);
         if (source == null) {
             source = eventDefinition.getSource();
@@ -310,7 +309,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
      */
     private String getHeaderTarget(final Map<?, ?> yamlMap, final AxEvent eventDefinition) {
         // For target, use the defined source only if the source is not found on the incoming event
-        String target = getYamlStringField(yamlMap, ApexEvent.TARGET_HEADER_FIELD, yamlPars.getTargetAlias(),
+        var target = getYamlStringField(yamlMap, ApexEvent.TARGET_HEADER_FIELD, yamlPars.getTargetAlias(),
                         ApexEvent.TARGET_REGEXP, false);
         if (target == null) {
             target = eventDefinition.getTarget();
@@ -345,7 +344,7 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
                             + yamlField.getClass().getName() + "\" is not a string value");
         }
 
-        final String fieldValueString = (String) yamlField;
+        final var fieldValueString = (String) yamlField;
 
         // Is regular expression checking required
         if (fieldRegexp == null) {
