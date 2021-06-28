@@ -80,6 +80,9 @@ public class ApexStarterActivator {
     @Getter
     private List<ToscaConceptIdentifier> supportedPolicyTypes;
 
+    @Getter
+    private final String instanceId;
+
     /**
      * Instantiate the activator for onappf PDP-A.
      *
@@ -93,7 +96,7 @@ public class ApexStarterActivator {
         topicSources = TopicEndpointManager.getManager()
                         .addTopicSources(apexStarterParameterGroup.getTopicParameterGroup().getTopicSources());
 
-        final String instanceId = NetworkUtil.getHostname();
+        instanceId = NetworkUtil.genUniqueName("apex");
         LOGGER.debug("ApexStarterActivator initializing with instance id: {}", instanceId);
         try {
             this.apexStarterParameterGroup = apexStarterParameterGroup;
