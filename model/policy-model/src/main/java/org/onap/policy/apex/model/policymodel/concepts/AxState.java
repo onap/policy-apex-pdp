@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2018 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -937,7 +937,7 @@ public class AxState extends AxConcept {
     /**
      * Compare the object fields on this state to another state.
      *
-     * @param the other state to compare with
+     * @param other the other state to compare with
      * @return the result of the comparison
      */
     private int compareObjectFields(final AxState other) {

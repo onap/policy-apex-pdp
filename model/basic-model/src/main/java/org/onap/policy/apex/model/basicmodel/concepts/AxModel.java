@@ -279,7 +279,7 @@ public class AxModel extends AxConcept {
     /**
      * Check for consistent usage of a reference key in the model.
      *
-     * @param artifactKey The reference key to check
+     * @param referenceKey The reference key to check
      * @param referenceKeySet The set of reference keys encountered so far, this key is appended to the set
      * @param result The validation result to append to
      * @return the result of the validation

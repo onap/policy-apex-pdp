@@ -258,8 +258,8 @@ public class ApexParameters implements ParameterGroup {
      *
      * @param handlerMapVariableName the variable name of the map on which the paired parameters are being checked
      * @param result The result object to which to append any error messages
-     * @param leftModeParameters The mode parameters being checked
-     * @param rightModeParameters The mode parameters being referenced by the checked parameters
+     * @param leftModeParameterMap The mode parameters being checked
+     * @param rightModeParameterMap The mode parameters being referenced by the checked parameters
      */
     private void validatePeeredModePeers(final String handlerMapVariableName, final BeanValidationResult result,
         final EventHandlerPeeredMode peeredMode, final Map<String, EventHandlerParameters> leftModeParameterMap,
