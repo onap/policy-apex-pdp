@@ -77,9 +77,9 @@ public class AxPolicies extends AxConcept implements AxConceptGetter<AxPolicy> {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "policyMapName", referencedColumnName = "name"),
-                    @JoinColumn(name = "policyMapVersion", referencedColumnName = "version")},
+                @JoinColumn(name = "policyMapVersion", referencedColumnName = "version")},
             inverseJoinColumns = {@JoinColumn(name = "policyName", referencedColumnName = "name"),
-                    @JoinColumn(name = "policyVersion", referencedColumnName = "version")})
+                @JoinColumn(name = "policyVersion", referencedColumnName = "version")})
     @XmlElement(required = true)
     private Map<AxArtifactKey, AxPolicy> policyMap;
     // @formatter:on

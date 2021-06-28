@@ -117,7 +117,7 @@ public class AxTask extends AxConcept {
     // @formatter:off
     @ElementCollection
     @CollectionTable(joinColumns = {@JoinColumn(name = "contextAlbumName", referencedColumnName = "name"),
-            @JoinColumn(name = "contextAlbumVersion", referencedColumnName = "version")})
+        @JoinColumn(name = "contextAlbumVersion", referencedColumnName = "version")})
     @XmlElement(name = "contextAlbumReference")
     private Set<AxArtifactKey> contextAlbumReferenceSet;
     // @formatter:on

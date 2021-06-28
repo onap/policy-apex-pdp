@@ -77,7 +77,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     // @formatter:off
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = {@JoinColumn(name = "contextName", referencedColumnName = "name"),
-            @JoinColumn(name = "contextVersion", referencedColumnName = "version")})
+        @JoinColumn(name = "contextVersion", referencedColumnName = "version")})
     @XmlElement(name = "albums", required = true)
     private Map<AxArtifactKey, AxContextAlbum> albums;
     // @formatter:on

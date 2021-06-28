@@ -54,7 +54,7 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "parentKeyName",
-                "parentKeyVersion", "parentLocalName", "localName" })
+    "parentKeyVersion", "parentLocalName", "localName" })
 
 public class AxReferenceKey extends AxKey {
     private static final String PARENT_KEY_NAME = "parentKeyName";
