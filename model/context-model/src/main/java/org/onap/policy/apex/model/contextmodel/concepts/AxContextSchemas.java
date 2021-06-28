@@ -77,9 +77,9 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "contextSchemasName", referencedColumnName = "name"),
-                    @JoinColumn(name = "contextSchemasVersion", referencedColumnName = "version")},
+                @JoinColumn(name = "contextSchemasVersion", referencedColumnName = "version")},
             inverseJoinColumns = {@JoinColumn(name = "contextSchemaName", referencedColumnName = "name"),
-                    @JoinColumn(name = "contextSchemaVersion", referencedColumnName = "version")})
+                @JoinColumn(name = "contextSchemaVersion", referencedColumnName = "version")})
     @XmlElement(name = "schemas", required = true)
     private Map<AxArtifactKey, AxContextSchema> schemas;
     // @formatter:on

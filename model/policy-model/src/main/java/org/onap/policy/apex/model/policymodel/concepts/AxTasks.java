@@ -75,9 +75,9 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "taskMapName", referencedColumnName = "name"),
-                    @JoinColumn(name = "taskMapVersion", referencedColumnName = "version")},
+                @JoinColumn(name = "taskMapVersion", referencedColumnName = "version")},
             inverseJoinColumns = {@JoinColumn(name = "taskName", referencedColumnName = "name"),
-                    @JoinColumn(name = "taskVersion", referencedColumnName = "version")})
+                @JoinColumn(name = "taskVersion", referencedColumnName = "version")})
     @XmlElement(required = true)
     private Map<AxArtifactKey, AxTask> taskMap;
     // @formatter:on

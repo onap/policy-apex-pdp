@@ -77,9 +77,9 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = { @JoinColumn(name = "eventMapName", referencedColumnName = "name"),
-                    @JoinColumn(name = "eventMapVersion", referencedColumnName = "version") },
+                @JoinColumn(name = "eventMapVersion", referencedColumnName = "version") },
             inverseJoinColumns = { @JoinColumn(name = "eventName", referencedColumnName = "name"),
-                    @JoinColumn(name = "eventVersion", referencedColumnName = "version") })
+                @JoinColumn(name = "eventVersion", referencedColumnName = "version") })
     @XmlElement(required = true)
     private Map<AxArtifactKey, AxEvent> eventMap;
     // @formatter:on

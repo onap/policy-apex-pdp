@@ -73,9 +73,9 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = { @JoinColumn(name = "keyInfoMapName", referencedColumnName = "name"),
-                    @JoinColumn(name = "keyInfoMapVersion", referencedColumnName = "version"), },
+                @JoinColumn(name = "keyInfoMapVersion", referencedColumnName = "version"), },
             inverseJoinColumns = { @JoinColumn(name = "keyInfoName", referencedColumnName = "name"),
-                    @JoinColumn(name = "keyInfoVersion", referencedColumnName = "version") })
+                @JoinColumn(name = "keyInfoVersion", referencedColumnName = "version") })
     private Map<AxArtifactKey, AxKeyInfo> keyInfoMap;
     // @formatter:on
 
