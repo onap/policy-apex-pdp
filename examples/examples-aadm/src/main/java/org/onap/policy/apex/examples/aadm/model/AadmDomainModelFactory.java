@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -366,94 +367,64 @@ public class AadmDomainModelFactory {
                         .setLogicPackage(this.getClass().getPackage().getName()).setDefaultLogic(null);
 
         final AxTask aadmMatchTask = new AxTask(new AxArtifactKey("AADMMatchTask", DEFAULT_VERSION));
-        aadmMatchTask.duplicateInputFields(aadmEvent.getParameterMap());
-        aadmMatchTask.duplicateOutputFields(aadmEvent.getParameterMap());
         aadmMatchTask.getContextAlbumReferences().add(eNodeBStatusAlbum.getKey());
         aadmMatchTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         aadmMatchTask.getContextAlbumReferences().add(ipAddressStatusAlbum.getKey());
         aadmMatchTask.setTaskLogic(new AxTaskLogic(aadmMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask aadmEstablishTask = new AxTask(new AxArtifactKey("AADMEstablishTask", DEFAULT_VERSION));
-        aadmEstablishTask.duplicateInputFields(aadmEvent.getParameterMap());
-        aadmEstablishTask.duplicateOutputFields(aadmEvent.getParameterMap());
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
         aadmEstablishTask.setTaskLogic(new AxTaskLogic(aadmEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask aadmDecideTask = new AxTask(new AxArtifactKey("AADMDecideTask", DEFAULT_VERSION));
-        aadmDecideTask.duplicateInputFields(aadmEvent.getParameterMap());
-        aadmDecideTask.duplicateOutputFields(aadmEvent.getParameterMap());
         aadmDecideTask.setTaskLogic(new AxTaskLogic(aadmDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         logicReader.setDefaultLogic(null);
 
         final AxTask aadmDoSSuggestionActTask = new AxTask(
                         new AxArtifactKey("AADMDoSSuggestionActTask", DEFAULT_VERSION));
-        aadmDoSSuggestionActTask.duplicateInputFields(aadmEvent.getParameterMap());
-        aadmDoSSuggestionActTask.duplicateOutputFields(aadmXStreamActEvent.getParameterMap());
         aadmDoSSuggestionActTask.getContextAlbumReferences().add(eNodeBStatusAlbum.getKey());
         aadmDoSSuggestionActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         aadmDoSSuggestionActTask.setTaskLogic(
                         new AxTaskLogic(aadmDoSSuggestionActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask aadmNoActTask = new AxTask(new AxArtifactKey("AADMNoActTask", DEFAULT_VERSION));
-        aadmNoActTask.duplicateInputFields(aadmEvent.getParameterMap());
-        aadmNoActTask.duplicateOutputFields(aadmXStreamActEvent.getParameterMap());
         aadmNoActTask.setTaskLogic(new AxTaskLogic(aadmNoActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask aadmDoSProvenActTask = new AxTask(new AxArtifactKey("AADMDoSProvenActTask", DEFAULT_VERSION));
-        aadmDoSProvenActTask.duplicateInputFields(aadmEvent.getParameterMap());
-        aadmDoSProvenActTask.duplicateOutputFields(aadmXStreamActEvent.getParameterMap());
         aadmDoSProvenActTask.getContextAlbumReferences().add(eNodeBStatusAlbum.getKey());
         aadmDoSProvenActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         aadmDoSProvenActTask
                         .setTaskLogic(new AxTaskLogic(aadmDoSProvenActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask vMmeMatchTask = new AxTask(new AxArtifactKey("VMMEMatchTask", DEFAULT_VERSION));
-        vMmeMatchTask.duplicateInputFields(vMmeEvent.getParameterMap());
-        vMmeMatchTask.duplicateOutputFields(vMmeEvent.getParameterMap());
         vMmeMatchTask.setTaskLogic(new AxTaskLogic(vMmeMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask vMmeEstablishTask = new AxTask(new AxArtifactKey("VMMEEstablishTask", DEFAULT_VERSION));
-        vMmeEstablishTask.duplicateInputFields(vMmeEvent.getParameterMap());
-        vMmeEstablishTask.duplicateOutputFields(vMmeEvent.getParameterMap());
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
         vMmeEstablishTask.setTaskLogic(new AxTaskLogic(vMmeEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask vMmeDecideTask = new AxTask(new AxArtifactKey("VMMEDecideTask", DEFAULT_VERSION));
-        vMmeDecideTask.duplicateInputFields(vMmeEvent.getParameterMap());
-        vMmeDecideTask.duplicateOutputFields(vMmeEvent.getParameterMap());
         vMmeDecideTask.setTaskLogic(new AxTaskLogic(vMmeDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask vMmeNoActTask = new AxTask(new AxArtifactKey("VMMENoActTask", DEFAULT_VERSION));
-        vMmeNoActTask.duplicateInputFields(vMmeEvent.getParameterMap());
-        vMmeNoActTask.duplicateOutputFields(vMmeEvent.getParameterMap());
         vMmeNoActTask.setTaskLogic(new AxTaskLogic(vMmeNoActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask vMmeActTask = new AxTask(new AxArtifactKey("VMMEActTask", DEFAULT_VERSION));
-        vMmeActTask.duplicateInputFields(vMmeEvent.getParameterMap());
-        vMmeActTask.duplicateOutputFields(vMmeEvent.getParameterMap());
         logicReader.setDefaultLogic(null);
         vMmeActTask.setTaskLogic(new AxTaskLogic(vMmeActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask sapcMatchTask = new AxTask(new AxArtifactKey("SAPCMatchTask", DEFAULT_VERSION));
-        sapcMatchTask.duplicateInputFields(sapcEvent.getParameterMap());
-        sapcMatchTask.duplicateOutputFields(sapcBlacklistSubscriberEvent.getParameterMap());
         sapcMatchTask.setTaskLogic(new AxTaskLogic(sapcMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask sapcEstablishTask = new AxTask(new AxArtifactKey("SAPCEstablishTask", DEFAULT_VERSION));
-        sapcEstablishTask.duplicateInputFields(sapcEvent.getParameterMap());
-        sapcEstablishTask.duplicateOutputFields(sapcBlacklistSubscriberEvent.getParameterMap());
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
         sapcEstablishTask.setTaskLogic(new AxTaskLogic(sapcEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask sapcDecideTask = new AxTask(new AxArtifactKey("SAPCDecideTask", DEFAULT_VERSION));
-        sapcDecideTask.duplicateInputFields(sapcEvent.getParameterMap());
-        sapcDecideTask.duplicateOutputFields(sapcBlacklistSubscriberEvent.getParameterMap());
         sapcDecideTask.setTaskLogic(new AxTaskLogic(sapcDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask sapcActTask = new AxTask(new AxArtifactKey("SAPCActTask", DEFAULT_VERSION));
-        sapcActTask.duplicateInputFields(sapcEvent.getParameterMap());
-        sapcActTask.duplicateOutputFields(sapcBlacklistSubscriberEvent.getParameterMap());
         sapcActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         logicReader.setDefaultLogic(null);
         sapcActTask.setTaskLogic(new AxTaskLogic(sapcActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
@@ -461,24 +432,16 @@ public class AadmDomainModelFactory {
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
 
         final AxTask periodicMatchTask = new AxTask(new AxArtifactKey("PeriodicMatchTask", DEFAULT_VERSION));
-        periodicMatchTask.duplicateInputFields(periodicEvent.getParameterMap());
-        periodicMatchTask.duplicateOutputFields(periodicEvent.getParameterMap());
         periodicMatchTask.setTaskLogic(new AxTaskLogic(periodicMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask periodicEstablishTask = new AxTask(new AxArtifactKey("PeriodicEstablishTask", DEFAULT_VERSION));
-        periodicEstablishTask.duplicateInputFields(periodicEvent.getParameterMap());
-        periodicEstablishTask.duplicateOutputFields(periodicEvent.getParameterMap());
         periodicEstablishTask.setTaskLogic(
                         new AxTaskLogic(periodicEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask periodicDecideTask = new AxTask(new AxArtifactKey("PeriodicDecideTask", DEFAULT_VERSION));
-        periodicDecideTask.duplicateInputFields(periodicEvent.getParameterMap());
-        periodicDecideTask.duplicateOutputFields(periodicEvent.getParameterMap());
         periodicDecideTask.setTaskLogic(new AxTaskLogic(periodicDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask periodicActTask = new AxTask(new AxArtifactKey("PeriodicActTask", DEFAULT_VERSION));
-        periodicActTask.duplicateInputFields(periodicEvent.getParameterMap());
-        periodicActTask.duplicateOutputFields(sapcBlacklistSubscriberEvent.getParameterMap());
         periodicActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         logicReader.setDefaultLogic(null);
         periodicActTask.setTaskLogic(new AxTaskLogic(periodicActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
