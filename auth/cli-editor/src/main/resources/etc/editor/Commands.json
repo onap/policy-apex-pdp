@@ -1154,7 +1154,7 @@
 					"description": "indicates if the field is optional, if omitted, the field is mandatory"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskInputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskField",
 			"description": "Create a task input field."
 		},
 		{
@@ -1181,7 +1181,7 @@
 					"description": "field name of the input field, omit to list all input fields of the task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskInputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.handleTaskField",
 			"description": "List task input fields."
 		},
 		{
@@ -1208,7 +1208,7 @@
 					"description": "of the input field, omit to delete all input fields"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskInputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.handleTaskField",
 			"description": "Delete a task input field."
 		},
 		{
@@ -1250,7 +1250,7 @@
 					"description": "indicates if the field is optional, if omitted, the field is mandatory"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskOutputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createTaskField",
 			"description": "Create a task output field."
 		},
 		{
@@ -1277,7 +1277,7 @@
 					"description": "field name of the output field, omit to list all output fields of the task"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.listTaskOutputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.handleTaskField",
 			"description": "List task output fields."
 		},
 		{
@@ -1304,7 +1304,7 @@
 					"description": "of the output field, omit to delete all output fields"
 				}
 			],
-			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.deleteTaskOutputField",
+			"apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.handleTaskField",
 			"description": "Delete a task output field."
 		},
 		{

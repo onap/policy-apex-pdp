@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ package org.onap.policy.apex.model.modelapi;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
 
 /**
  * Test tasks for API tests.
@@ -214,124 +216,12 @@ public class ApexEditorApiTaskTest {
         result = apexModel.deleteTaskLogic("MyTask002", "0.0.2");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
-        result = apexModel.createTaskInputField("MyTask123", null, "NewField00", null, null, false);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskInputField("MyTask002", "4.5.6", "NewField00", null, null, true);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskInputField("MyTask002", "0.1.4", "NewField00", null, null, false);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskInputField("MyTask002", "0.0.2", "NewField00", null, null, true);
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-
-        result = apexModel.createTaskInputField("MyTask002", "0.0.2", "NewField00", "eventContextItem0", null, false);
+        result = apexModel.createTaskField("MyTask002", "0.0.2", "NewField00", "eventContextItem0", null, false);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createTaskInputField("MyTask002", "0.0.2", "NewField00", "eventContextItem0", null, true);
-        assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
-        result = apexModel.createTaskInputField("MyTask002", "0.0.2", "NewField01", "eventContextItem0", "0.0.1",
-                false);
+        assertEquals(ApexModelImpl.FIELDS_DEPRECATED_WARN_MSG, result.getMessage().trim());
+        result = apexModel.handleTaskField("MyTask002", "0.0.2", "NewField01");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createTaskInputField("MyTask002", "0.0.2", "NewField02", "eventContextItem0", "0.0.2", true);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.createTaskInputField("MyTask002", null, "NewField02", "eventContextItem0", null, false);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createTaskInputField("MyTask002", null, "NewField03", "eventContextItem0", null, true);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-
-        result = apexModel.listTaskInputField("@£$%", null, null);
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", "0.0.1", null);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", "0.0.2", null);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", "0.0.2", "NewField01");
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", "0.0.2", "NewField02");
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.deleteTaskInputField("@£$%", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-        result = apexModel.deleteTaskInputField("NonExistantTask", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        assertEquals(4, apexModel.listTaskInputField("MyTask002", null, null).getMessages().size());
-        result = apexModel.deleteTaskInputField("MyTask002", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        assertEquals(4, apexModel.listTaskInputField("MyTask002", null, null).getMessages().size());
-        result = apexModel.deleteTaskInputField("MyTask002", null, "NewField02");
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        assertEquals(3, apexModel.listTaskInputField("MyTask002", null, null).getMessages().size());
-        result = apexModel.deleteTaskInputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskInputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.deleteTaskInputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskOutputField("MyTask123", null, "NewField00", null, null, false);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskOutputField("MyTask002", "4.5.6", "NewField00", null, null, false);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskOutputField("MyTask002", "0.1.4", "NewField00", null, null, false);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.createTaskOutputField("MyTask002", "0.0.2", "NewField00", null, null, false);
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-
-        result = apexModel.createTaskOutputField("MyTask002", "0.0.2", "NewField00", "eventContextItem0", null, false);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createTaskOutputField("MyTask002", "0.0.2", "NewField00", "eventContextItem0", null, false);
-        assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
-        result = apexModel.createTaskOutputField("MyTask002", "0.0.2", "NewField01", "eventContextItem0", "0.0.1",
-                false);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createTaskOutputField("MyTask002", "0.0.2", "NewField02", "eventContextItem0", "0.0.2",
-                false);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.createTaskOutputField("MyTask002", null, "NewField02", "eventContextItem0", null, false);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createTaskOutputField("MyTask002", null, "NewField03", "eventContextItem0", null, false);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-
-        result = apexModel.listTaskOutputField("@£$%", null, null);
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", "0.0.1", null);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", "0.0.2", null);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", "0.0.2", "NewField01");
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", "0.0.2", "NewField02");
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-
-        result = apexModel.deleteTaskOutputField("@£$%", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-        result = apexModel.deleteTaskOutputField("NonExistantTask", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        assertEquals(4, apexModel.listTaskOutputField("MyTask002", null, null).getMessages().size());
-        result = apexModel.deleteTaskOutputField("MyTask002", "0.0.2", "NewField04");
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        assertEquals(4, apexModel.listTaskOutputField("MyTask002", null, null).getMessages().size());
-        result = apexModel.deleteTaskOutputField("MyTask002", null, "NewField02");
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        assertEquals(3, apexModel.listTaskOutputField("MyTask002", null, null).getMessages().size());
-        result = apexModel.deleteTaskOutputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.listTaskOutputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.deleteTaskOutputField("MyTask002", null, null);
-        assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
+        assertEquals(ApexModelImpl.FIELDS_DEPRECATED_WARN_MSG, result.getMessage().trim());
 
         result = apexModel.createTaskParameter("MyTask123", null, "NewPar00", null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
