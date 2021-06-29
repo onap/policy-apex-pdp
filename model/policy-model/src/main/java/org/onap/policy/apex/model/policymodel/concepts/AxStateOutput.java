@@ -98,9 +98,9 @@ public class AxStateOutput extends AxConcept {
 
     @ElementCollection
     @CollectionTable(joinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-            @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-            @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-            @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
+        @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+        @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
+        @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "outgoingEventReference", required = false)
     private Set<AxArtifactKey> outgoingEventSet;
 
