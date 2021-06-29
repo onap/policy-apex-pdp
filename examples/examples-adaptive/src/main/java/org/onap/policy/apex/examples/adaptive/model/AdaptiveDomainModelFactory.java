@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (c) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,17 +74,17 @@ public class AdaptiveDomainModelFactory {
     public AxPolicyModel getAnomalyDetectionPolicyModel() {
         // CHECKSTYLE:ON: checkstyle:maximumMethodLength
         // Data types for event parameters
-        final AxContextSchema monitoredValue = new AxContextSchema(new AxArtifactKey(MONITORED_VALUE, DEFAULT_VERSION),
+        final var monitoredValue = new AxContextSchema(new AxArtifactKey(MONITORED_VALUE, DEFAULT_VERSION),
                         "Java", "java.lang.Double");
-        final AxContextSchema iteration = new AxContextSchema(new AxArtifactKey(ITERATION2, DEFAULT_VERSION), "Java",
+        final var iteration = new AxContextSchema(new AxArtifactKey(ITERATION2, DEFAULT_VERSION), "Java",
                         "java.lang.Integer");
 
-        final AxContextSchemas adContextSchemas = new AxContextSchemas(
+        final var adContextSchemas = new AxContextSchemas(
                         new AxArtifactKey("AADMDatatypes", DEFAULT_VERSION));
         adContextSchemas.getSchemasMap().put(monitoredValue.getKey(), monitoredValue);
         adContextSchemas.getSchemasMap().put(iteration.getKey(), iteration);
 
-        final AxEvent anomalyDetectionTriggerEvent = new AxEvent(
+        final var anomalyDetectionTriggerEvent = new AxEvent(
                         new AxArtifactKey("AnomalyDetectionTriggerEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         anomalyDetectionTriggerEvent.setSource(EXTERNAL);
@@ -94,7 +95,7 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionTriggerEvent.getParameterMap().put(ITERATION2, new AxField(
                         new AxReferenceKey(anomalyDetectionTriggerEvent.getKey(), ITERATION2), iteration.getKey()));
 
-        final AxEvent anomalyDetectionMatchEvent = new AxEvent(
+        final var anomalyDetectionMatchEvent = new AxEvent(
                         new AxArtifactKey("AnomalyDetectionMatchEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         anomalyDetectionMatchEvent.setSource(MATCH);
@@ -105,7 +106,7 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionMatchEvent.getParameterMap().put(ITERATION2, new AxField(
                         new AxReferenceKey(anomalyDetectionMatchEvent.getKey(), ITERATION2), iteration.getKey()));
 
-        final AxEvent anomalyDetectionEstablishEvent = new AxEvent(
+        final var anomalyDetectionEstablishEvent = new AxEvent(
                         new AxArtifactKey("AnomalyDetectionEstablishEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         anomalyDetectionEstablishEvent.setSource(ESTABLISH);
@@ -116,7 +117,7 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionEstablishEvent.getParameterMap().put(ITERATION2, new AxField(
                         new AxReferenceKey(anomalyDetectionEstablishEvent.getKey(), ITERATION2), iteration.getKey()));
 
-        final AxEvent anomalyDetectionDecideEvent = new AxEvent(
+        final var anomalyDetectionDecideEvent = new AxEvent(
                         new AxArtifactKey("AnomalyDetectionDecideEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         anomalyDetectionDecideEvent.setSource(DECIDE);
@@ -127,7 +128,7 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionDecideEvent.getParameterMap().put(ITERATION2, new AxField(
                         new AxReferenceKey(anomalyDetectionDecideEvent.getKey(), ITERATION2), iteration.getKey()));
 
-        final AxEvent anomalyDetectionActEvent = new AxEvent(
+        final var anomalyDetectionActEvent = new AxEvent(
                         new AxArtifactKey("AnomalyDetectionActEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         anomalyDetectionActEvent.setSource("Act");
@@ -138,7 +139,7 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionActEvent.getParameterMap().put(ITERATION2, new AxField(
                         new AxReferenceKey(anomalyDetectionActEvent.getKey(), ITERATION2), iteration.getKey()));
 
-        final AxEvents anomalyDetectionEvents = new AxEvents(
+        final var anomalyDetectionEvents = new AxEvents(
                         new AxArtifactKey("AnomalyDetectionEvents", DEFAULT_VERSION));
         anomalyDetectionEvents.getEventMap().put(anomalyDetectionTriggerEvent.getKey(), anomalyDetectionTriggerEvent);
         anomalyDetectionEvents.getEventMap().put(anomalyDetectionMatchEvent.getKey(), anomalyDetectionMatchEvent);
@@ -148,16 +149,16 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionEvents.getEventMap().put(anomalyDetectionActEvent.getKey(), anomalyDetectionActEvent);
 
         // Data types for context
-        final AxContextSchema anomalyDetection = new AxContextSchema(
+        final var anomalyDetection = new AxContextSchema(
                         new AxArtifactKey("AnomalyDetection", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.examples.adaptive.concepts.AnomalyDetection");
         adContextSchemas.getSchemasMap().put(anomalyDetection.getKey(), anomalyDetection);
 
         // One context map
-        final AxContextAlbum anomalyDetectionAlbum = new AxContextAlbum(
+        final var anomalyDetectionAlbum = new AxContextAlbum(
                         new AxArtifactKey("AnomalyDetectionAlbum", DEFAULT_VERSION), "APPLICATION", true,
                         anomalyDetection.getKey());
-        final AxContextAlbums anomalyDetectionAlbums = new AxContextAlbums(
+        final var anomalyDetectionAlbums = new AxContextAlbums(
                         new AxArtifactKey("AnomalyDetectionAlbums", DEFAULT_VERSION));
         anomalyDetectionAlbums.getAlbumsMap().put(anomalyDetectionAlbum.getKey(), anomalyDetectionAlbum);
 
@@ -166,49 +167,49 @@ public class AdaptiveDomainModelFactory {
                         .setLogicPackage(this.getClass().getPackage().getName())
                         .setDefaultLogic("DefaultAnomalyDetectionTask_Logic");
 
-        final AxTask anomalyDetectionMatchTask = new AxTask(
+        final var anomalyDetectionMatchTask = new AxTask(
                         new AxArtifactKey("AnomalyDetectionMatchTask", DEFAULT_VERSION));
         anomalyDetectionMatchTask.duplicateInputFields(anomalyDetectionTriggerEvent.getParameterMap());
         anomalyDetectionMatchTask.duplicateOutputFields(anomalyDetectionMatchEvent.getParameterMap());
         anomalyDetectionMatchTask.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask anomalyDetectionEstablishTask = new AxTask(
+        final var anomalyDetectionEstablishTask = new AxTask(
                         new AxArtifactKey("AnomalyDetectionEstablishTask", DEFAULT_VERSION));
         anomalyDetectionEstablishTask.duplicateInputFields(anomalyDetectionMatchEvent.getParameterMap());
         anomalyDetectionEstablishTask.duplicateOutputFields(anomalyDetectionEstablishEvent.getParameterMap());
         anomalyDetectionEstablishTask.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask anomalyDetectionDecideTask0 = new AxTask(
+        final var anomalyDetectionDecideTask0 = new AxTask(
                         new AxArtifactKey("AnomalyDetectionDecideTask0", DEFAULT_VERSION));
         anomalyDetectionDecideTask0.duplicateInputFields(anomalyDetectionEstablishEvent.getParameterMap());
         anomalyDetectionDecideTask0.duplicateOutputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionDecideTask0.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionDecideTask0.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask anomalyDetectionDecideTask1 = new AxTask(
+        final var anomalyDetectionDecideTask1 = new AxTask(
                         new AxArtifactKey("AnomalyDetectionDecideTask1", DEFAULT_VERSION));
         anomalyDetectionDecideTask1.duplicateInputFields(anomalyDetectionEstablishEvent.getParameterMap());
         anomalyDetectionDecideTask1.duplicateOutputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionDecideTask1.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionDecideTask1.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask anomalyDetectionDecideTask2 = new AxTask(
+        final var anomalyDetectionDecideTask2 = new AxTask(
                         new AxArtifactKey("AnomalyDetectionDecideTask2", DEFAULT_VERSION));
         anomalyDetectionDecideTask2.duplicateInputFields(anomalyDetectionEstablishEvent.getParameterMap());
         anomalyDetectionDecideTask2.duplicateOutputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionDecideTask2.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionDecideTask2.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask anomalyDetectionActTask = new AxTask(
+        final var anomalyDetectionActTask = new AxTask(
                         new AxArtifactKey("AnomalyDetectionActTask", DEFAULT_VERSION));
         anomalyDetectionActTask.duplicateInputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionActTask.duplicateOutputFields(anomalyDetectionActEvent.getParameterMap());
         anomalyDetectionActTask.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTasks anomalyDetectionTasks = new AxTasks(new AxArtifactKey("AnomalyDetectionTasks", DEFAULT_VERSION));
+        final var anomalyDetectionTasks = new AxTasks(new AxArtifactKey("AnomalyDetectionTasks", DEFAULT_VERSION));
         anomalyDetectionTasks.getTaskMap().put(anomalyDetectionMatchTask.getKey(), anomalyDetectionMatchTask);
         anomalyDetectionTasks.getTaskMap().put(anomalyDetectionEstablishTask.getKey(), anomalyDetectionEstablishTask);
         anomalyDetectionTasks.getTaskMap().put(anomalyDetectionDecideTask0.getKey(), anomalyDetectionDecideTask0);
@@ -219,14 +220,14 @@ public class AdaptiveDomainModelFactory {
         // Policies
         logicReader.setDefaultLogic(DEFAULT_STATE_LOGIC);
 
-        final AxPolicy anomalyDetectionPolicy = new AxPolicy(
+        final var anomalyDetectionPolicy = new AxPolicy(
                         new AxArtifactKey("AnomalyDetectionPolicy", DEFAULT_VERSION));
         anomalyDetectionPolicy.setTemplate("MEDA");
 
-        final AxState anomalyDetectionActState = new AxState(
+        final var anomalyDetectionActState = new AxState(
                         new AxReferenceKey(anomalyDetectionPolicy.getKey(), "Act"));
         anomalyDetectionActState.setTrigger(anomalyDetectionDecideEvent.getKey());
-        final AxStateOutput adAct2Out = new AxStateOutput(anomalyDetectionActState.getKey(),
+        final var adAct2Out = new AxStateOutput(anomalyDetectionActState.getKey(),
                         AxReferenceKey.getNullKey(), anomalyDetectionActEvent.getKey());
         anomalyDetectionActState.getStateOutputs().put(adAct2Out.getKey().getLocalName(), adAct2Out);
         anomalyDetectionActState.setTaskSelectionLogic(new AxTaskSelectionLogic(anomalyDetectionActState.getKey(),
@@ -238,10 +239,10 @@ public class AdaptiveDomainModelFactory {
 
         logicReader.setDefaultLogic(null);
 
-        final AxState anomalyDetectionDecideState = new AxState(
+        final var anomalyDetectionDecideState = new AxState(
                         new AxReferenceKey(anomalyDetectionPolicy.getKey(), DECIDE));
         anomalyDetectionDecideState.setTrigger(anomalyDetectionEstablishEvent.getKey());
-        final AxStateOutput adDec2Act = new AxStateOutput(anomalyDetectionDecideState.getKey(),
+        final var adDec2Act = new AxStateOutput(anomalyDetectionDecideState.getKey(),
                         anomalyDetectionActState.getKey(), anomalyDetectionDecideEvent.getKey());
         anomalyDetectionDecideState.getStateOutputs().put(adDec2Act.getKey().getLocalName(), adDec2Act);
         anomalyDetectionDecideState.setTaskSelectionLogic(new AxTaskSelectionLogic(anomalyDetectionDecideState.getKey(),
@@ -263,10 +264,10 @@ public class AdaptiveDomainModelFactory {
 
         logicReader.setDefaultLogic(DEFAULT_STATE_LOGIC);
 
-        final AxState anomalyDetectionEstablishState = new AxState(
+        final var anomalyDetectionEstablishState = new AxState(
                         new AxReferenceKey(anomalyDetectionPolicy.getKey(), ESTABLISH));
         anomalyDetectionEstablishState.setTrigger(anomalyDetectionMatchEvent.getKey());
-        final AxStateOutput adEst2Dec = new AxStateOutput(anomalyDetectionEstablishState.getKey(),
+        final var adEst2Dec = new AxStateOutput(anomalyDetectionEstablishState.getKey(),
                         anomalyDetectionDecideState.getKey(), anomalyDetectionEstablishEvent.getKey());
         anomalyDetectionEstablishState.getStateOutputs().put(adEst2Dec.getKey().getLocalName(), adEst2Dec);
         anomalyDetectionEstablishState.setTaskSelectionLogic(new AxTaskSelectionLogic(
@@ -277,10 +278,10 @@ public class AdaptiveDomainModelFactory {
                                         anomalyDetectionEstablishTask.getKey(), AxStateTaskOutputType.DIRECT,
                                         adEst2Dec.getKey()));
 
-        final AxState anomalyDetectionMatchState = new AxState(
+        final var anomalyDetectionMatchState = new AxState(
                         new AxReferenceKey(anomalyDetectionPolicy.getKey(), MATCH));
         anomalyDetectionMatchState.setTrigger(anomalyDetectionTriggerEvent.getKey());
-        final AxStateOutput adMat2Est = new AxStateOutput(anomalyDetectionMatchState.getKey(),
+        final var adMat2Est = new AxStateOutput(anomalyDetectionMatchState.getKey(),
                         anomalyDetectionEstablishState.getKey(), anomalyDetectionMatchEvent.getKey());
         anomalyDetectionMatchState.getStateOutputs().put(adMat2Est.getKey().getLocalName(), adMat2Est);
         anomalyDetectionMatchState.setTaskSelectionLogic(new AxTaskSelectionLogic(anomalyDetectionMatchState.getKey(),
@@ -301,13 +302,13 @@ public class AdaptiveDomainModelFactory {
         anomalyDetectionPolicy.getStateMap().put(anomalyDetectionActState.getKey().getLocalName(),
                         anomalyDetectionActState);
 
-        final AxPolicies anomalyDetectionPolicies = new AxPolicies(
+        final var anomalyDetectionPolicies = new AxPolicies(
                         new AxArtifactKey("AnomalyDetectionPolicies", DEFAULT_VERSION));
         anomalyDetectionPolicies.getPolicyMap().put(anomalyDetectionPolicy.getKey(), anomalyDetectionPolicy);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(
+        final var keyInformation = new AxKeyInformation(
                         new AxArtifactKey("AnomalyDetectionKeyInformation", DEFAULT_VERSION));
-        final AxPolicyModel anomalyDetectionPolicyModel = new AxPolicyModel(
+        final var anomalyDetectionPolicyModel = new AxPolicyModel(
                         new AxArtifactKey("AnomalyDetectionPolicyModel", DEFAULT_VERSION));
         anomalyDetectionPolicyModel.setPolicies(anomalyDetectionPolicies);
         anomalyDetectionPolicyModel.setEvents(anomalyDetectionEvents);
@@ -333,14 +334,14 @@ public class AdaptiveDomainModelFactory {
     public AxPolicyModel getAutoLearnPolicyModel() {
         // CHECKSTYLE:ON: checkstyle:maximumMethodLength
         // Data types for event parameters
-        final AxContextSchema monitoredValue = new AxContextSchema(new AxArtifactKey(MONITORED_VALUE, DEFAULT_VERSION),
+        final var monitoredValue = new AxContextSchema(new AxArtifactKey(MONITORED_VALUE, DEFAULT_VERSION),
                         "Java", "java.lang.Double");
 
-        final AxContextSchemas alContextSchemas = new AxContextSchemas(
+        final var alContextSchemas = new AxContextSchemas(
                         new AxArtifactKey("ALDatatypes", DEFAULT_VERSION));
         alContextSchemas.getSchemasMap().put(monitoredValue.getKey(), monitoredValue);
 
-        final AxEvent autoLearnTriggerEvent = new AxEvent(new AxArtifactKey("AutoLearnTriggerEvent", DEFAULT_VERSION),
+        final var autoLearnTriggerEvent = new AxEvent(new AxArtifactKey("AutoLearnTriggerEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         autoLearnTriggerEvent.setSource(EXTERNAL);
         autoLearnTriggerEvent.setTarget(MATCH);
@@ -350,7 +351,7 @@ public class AdaptiveDomainModelFactory {
                         new AxField(new AxReferenceKey(autoLearnTriggerEvent.getKey(), LAST_MONITORED_VALUE),
                                         monitoredValue.getKey()));
 
-        final AxEvent autoLearnMatchEvent = new AxEvent(new AxArtifactKey("AutoLearnMatchEvent", DEFAULT_VERSION),
+        final var autoLearnMatchEvent = new AxEvent(new AxArtifactKey("AutoLearnMatchEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         autoLearnMatchEvent.setSource(MATCH);
         autoLearnMatchEvent.setTarget(ESTABLISH);
@@ -360,7 +361,7 @@ public class AdaptiveDomainModelFactory {
                         new AxField(new AxReferenceKey(autoLearnMatchEvent.getKey(), LAST_MONITORED_VALUE),
                                         monitoredValue.getKey()));
 
-        final AxEvent autoLearnEstablishEvent = new AxEvent(
+        final var autoLearnEstablishEvent = new AxEvent(
                         new AxArtifactKey("AutoLearnEstablishEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         autoLearnEstablishEvent.setSource(ESTABLISH);
@@ -372,7 +373,7 @@ public class AdaptiveDomainModelFactory {
                         new AxField(new AxReferenceKey(autoLearnEstablishEvent.getKey(), LAST_MONITORED_VALUE),
                                         monitoredValue.getKey()));
 
-        final AxEvent autoLearnDecideEvent = new AxEvent(new AxArtifactKey("AutoLearnDecideEvent", DEFAULT_VERSION),
+        final var autoLearnDecideEvent = new AxEvent(new AxArtifactKey("AutoLearnDecideEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         autoLearnDecideEvent.setSource(DECIDE);
         autoLearnDecideEvent.setTarget("Act");
@@ -382,7 +383,7 @@ public class AdaptiveDomainModelFactory {
                         new AxField(new AxReferenceKey(autoLearnDecideEvent.getKey(), LAST_MONITORED_VALUE),
                                         monitoredValue.getKey()));
 
-        final AxEvent autoLearnActEvent = new AxEvent(new AxArtifactKey("AutoLearnActEvent", DEFAULT_VERSION),
+        final var autoLearnActEvent = new AxEvent(new AxArtifactKey("AutoLearnActEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         autoLearnActEvent.setSource("Act");
         autoLearnActEvent.setTarget(EXTERNAL);
@@ -391,7 +392,7 @@ public class AdaptiveDomainModelFactory {
         autoLearnActEvent.getParameterMap().put(LAST_MONITORED_VALUE, new AxField(
                         new AxReferenceKey(autoLearnActEvent.getKey(), LAST_MONITORED_VALUE), monitoredValue.getKey()));
 
-        final AxEvents autoLearnEvents = new AxEvents(new AxArtifactKey("AutoLearnEvents", DEFAULT_VERSION));
+        final var autoLearnEvents = new AxEvents(new AxArtifactKey("AutoLearnEvents", DEFAULT_VERSION));
         autoLearnEvents.getEventMap().put(autoLearnTriggerEvent.getKey(), autoLearnTriggerEvent);
         autoLearnEvents.getEventMap().put(autoLearnMatchEvent.getKey(), autoLearnMatchEvent);
         autoLearnEvents.getEventMap().put(autoLearnEstablishEvent.getKey(), autoLearnEstablishEvent);
@@ -399,15 +400,15 @@ public class AdaptiveDomainModelFactory {
         autoLearnEvents.getEventMap().put(autoLearnActEvent.getKey(), autoLearnActEvent);
 
         // Data types for context
-        final AxContextSchema autoLearn = new AxContextSchema(new AxArtifactKey("AutoLearn", DEFAULT_VERSION), "Java",
+        final var autoLearn = new AxContextSchema(new AxArtifactKey("AutoLearn", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.examples.adaptive.concepts.AutoLearn");
         alContextSchemas.getSchemasMap().put(autoLearn.getKey(), autoLearn);
 
         // One context map
-        final AxContextAlbum autoLearnAlbum = new AxContextAlbum(new AxArtifactKey("AutoLearnAlbum", DEFAULT_VERSION),
+        final var autoLearnAlbum = new AxContextAlbum(new AxArtifactKey("AutoLearnAlbum", DEFAULT_VERSION),
                         "APPLICATION", true, autoLearn.getKey());
 
-        final AxContextAlbums autoLearnAlbums = new AxContextAlbums(
+        final var autoLearnAlbums = new AxContextAlbums(
                         new AxArtifactKey("AutoLearnContext", DEFAULT_VERSION));
         autoLearnAlbums.getAlbumsMap().put(autoLearnAlbum.getKey(), autoLearnAlbum);
 
@@ -416,12 +417,12 @@ public class AdaptiveDomainModelFactory {
                         .setLogicPackage(this.getClass().getPackage().getName())
                         .setDefaultLogic("DefaultAutoLearnTask_Logic");
 
-        final AxTask autoLearnMatchTask = new AxTask(new AxArtifactKey("AutoLearnMatchTask", DEFAULT_VERSION));
+        final var autoLearnMatchTask = new AxTask(new AxArtifactKey("AutoLearnMatchTask", DEFAULT_VERSION));
         autoLearnMatchTask.duplicateInputFields(autoLearnTriggerEvent.getParameterMap());
         autoLearnMatchTask.duplicateOutputFields(autoLearnMatchEvent.getParameterMap());
         autoLearnMatchTask.setTaskLogic(new AxTaskLogic(autoLearnMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnEstablishTask = new AxTask(new AxArtifactKey("AutoLearnEstablishTask", DEFAULT_VERSION));
+        final var autoLearnEstablishTask = new AxTask(new AxArtifactKey("AutoLearnEstablishTask", DEFAULT_VERSION));
         autoLearnEstablishTask.duplicateInputFields(autoLearnMatchEvent.getParameterMap());
         autoLearnEstablishTask.duplicateOutputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnEstablishTask.setTaskLogic(
@@ -429,43 +430,43 @@ public class AdaptiveDomainModelFactory {
 
         logicReader.setDefaultLogic(null);
 
-        final AxTask autoLearnDecideTask0 = new AxTask(new AxArtifactKey("AutoLearnDecideTask0", DEFAULT_VERSION));
+        final var autoLearnDecideTask0 = new AxTask(new AxArtifactKey("AutoLearnDecideTask0", DEFAULT_VERSION));
         autoLearnDecideTask0.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask0.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask0
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask0.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnDecideTask1 = new AxTask(new AxArtifactKey("AutoLearnDecideTask1", DEFAULT_VERSION));
+        final var autoLearnDecideTask1 = new AxTask(new AxArtifactKey("AutoLearnDecideTask1", DEFAULT_VERSION));
         autoLearnDecideTask1.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask1.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask1
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask1.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnDecideTask2 = new AxTask(new AxArtifactKey("AutoLearnDecideTask2", DEFAULT_VERSION));
+        final var autoLearnDecideTask2 = new AxTask(new AxArtifactKey("AutoLearnDecideTask2", DEFAULT_VERSION));
         autoLearnDecideTask2.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask2.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask2
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask2.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnDecideTask3 = new AxTask(new AxArtifactKey("AutoLearnDecideTask3", DEFAULT_VERSION));
+        final var autoLearnDecideTask3 = new AxTask(new AxArtifactKey("AutoLearnDecideTask3", DEFAULT_VERSION));
         autoLearnDecideTask3.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask3.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask3
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask3.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnDecideTask4 = new AxTask(new AxArtifactKey("AutoLearnDecideTask4", DEFAULT_VERSION));
+        final var autoLearnDecideTask4 = new AxTask(new AxArtifactKey("AutoLearnDecideTask4", DEFAULT_VERSION));
         autoLearnDecideTask4.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask4.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask4
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask4.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnDecideTask5 = new AxTask(new AxArtifactKey("AutoLearnDecideTask5", DEFAULT_VERSION));
+        final var autoLearnDecideTask5 = new AxTask(new AxArtifactKey("AutoLearnDecideTask5", DEFAULT_VERSION));
         autoLearnDecideTask5.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask5.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask5
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask5.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask autoLearnDecideTask6 = new AxTask(new AxArtifactKey("AutoLearnDecideTask6", DEFAULT_VERSION));
+        final var autoLearnDecideTask6 = new AxTask(new AxArtifactKey("AutoLearnDecideTask6", DEFAULT_VERSION));
         autoLearnDecideTask6.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnDecideTask6.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask6
@@ -473,12 +474,12 @@ public class AdaptiveDomainModelFactory {
 
         logicReader.setDefaultLogic("DefaultAutoLearnTask_Logic");
 
-        final AxTask autoLearnActTask = new AxTask(new AxArtifactKey("AutoLearnActTask", DEFAULT_VERSION));
+        final var autoLearnActTask = new AxTask(new AxArtifactKey("AutoLearnActTask", DEFAULT_VERSION));
         autoLearnActTask.duplicateInputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnActTask.duplicateOutputFields(autoLearnActEvent.getParameterMap());
         autoLearnActTask.setTaskLogic(new AxTaskLogic(autoLearnActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTasks autoLearnTasks = new AxTasks(new AxArtifactKey("AutoLearnTasks", DEFAULT_VERSION));
+        final var autoLearnTasks = new AxTasks(new AxArtifactKey("AutoLearnTasks", DEFAULT_VERSION));
         autoLearnTasks.getTaskMap().put(autoLearnMatchTask.getKey(), autoLearnMatchTask);
         autoLearnTasks.getTaskMap().put(autoLearnEstablishTask.getKey(), autoLearnEstablishTask);
         autoLearnTasks.getTaskMap().put(autoLearnDecideTask0.getKey(), autoLearnDecideTask0);
@@ -493,12 +494,12 @@ public class AdaptiveDomainModelFactory {
         // Policies
         logicReader.setDefaultLogic(DEFAULT_STATE_LOGIC);
 
-        final AxPolicy autoLearnPolicy = new AxPolicy(new AxArtifactKey("AutoLearnPolicy", DEFAULT_VERSION));
+        final var autoLearnPolicy = new AxPolicy(new AxArtifactKey("AutoLearnPolicy", DEFAULT_VERSION));
         autoLearnPolicy.setTemplate("MEDA");
 
-        final AxState autoLearnActState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), "Act"));
+        final var autoLearnActState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), "Act"));
         autoLearnActState.setTrigger(autoLearnDecideEvent.getKey());
-        final AxStateOutput alAct2Out = new AxStateOutput(autoLearnActState.getKey(), AxReferenceKey.getNullKey(),
+        final var alAct2Out = new AxStateOutput(autoLearnActState.getKey(), AxReferenceKey.getNullKey(),
                         autoLearnActEvent.getKey());
         autoLearnActState.getStateOutputs().put(alAct2Out.getKey().getLocalName(), alAct2Out);
         autoLearnActState.setTaskSelectionLogic(new AxTaskSelectionLogic(autoLearnActState.getKey(),
@@ -510,9 +511,9 @@ public class AdaptiveDomainModelFactory {
 
         logicReader.setDefaultLogic(null);
 
-        final AxState autoLearnDecideState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), DECIDE));
+        final var autoLearnDecideState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), DECIDE));
         autoLearnDecideState.setTrigger(autoLearnEstablishEvent.getKey());
-        final AxStateOutput alDec2Act = new AxStateOutput(autoLearnDecideState.getKey(), autoLearnActState.getKey(),
+        final var alDec2Act = new AxStateOutput(autoLearnDecideState.getKey(), autoLearnActState.getKey(),
                         autoLearnDecideEvent.getKey());
         autoLearnDecideState.getStateOutputs().put(alDec2Act.getKey().getLocalName(), alDec2Act);
         autoLearnDecideState.getContextAlbumReferences().add(autoLearnAlbum.getKey());
@@ -543,9 +544,9 @@ public class AdaptiveDomainModelFactory {
 
         logicReader.setDefaultLogic(DEFAULT_STATE_LOGIC);
 
-        final AxState autoLearnEstablishState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), ESTABLISH));
+        final var autoLearnEstablishState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), ESTABLISH));
         autoLearnEstablishState.setTrigger(autoLearnMatchEvent.getKey());
-        final AxStateOutput alEst2Dec = new AxStateOutput(autoLearnEstablishState.getKey(),
+        final var alEst2Dec = new AxStateOutput(autoLearnEstablishState.getKey(),
                         autoLearnDecideState.getKey(), autoLearnEstablishEvent.getKey());
         autoLearnEstablishState.getStateOutputs().put(alEst2Dec.getKey().getLocalName(), alEst2Dec);
         autoLearnEstablishState.setTaskSelectionLogic(new AxTaskSelectionLogic(autoLearnEstablishState.getKey(),
@@ -555,9 +556,9 @@ public class AdaptiveDomainModelFactory {
                         new AxStateTaskReference(autoLearnEstablishState.getKey(), autoLearnEstablishTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, alEst2Dec.getKey()));
 
-        final AxState autoLearnMatchState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), MATCH));
+        final var autoLearnMatchState = new AxState(new AxReferenceKey(autoLearnPolicy.getKey(), MATCH));
         autoLearnMatchState.setTrigger(autoLearnTriggerEvent.getKey());
-        final AxStateOutput alMat2Est = new AxStateOutput(autoLearnMatchState.getKey(),
+        final var alMat2Est = new AxStateOutput(autoLearnMatchState.getKey(),
                         autoLearnEstablishState.getKey(), autoLearnMatchEvent.getKey());
         autoLearnMatchState.getStateOutputs().put(alMat2Est.getKey().getLocalName(), alMat2Est);
         autoLearnMatchState.setTaskSelectionLogic(new AxTaskSelectionLogic(autoLearnMatchState.getKey(),
@@ -573,12 +574,12 @@ public class AdaptiveDomainModelFactory {
         autoLearnPolicy.getStateMap().put(autoLearnDecideState.getKey().getLocalName(), autoLearnDecideState);
         autoLearnPolicy.getStateMap().put(autoLearnActState.getKey().getLocalName(), autoLearnActState);
 
-        final AxPolicies autoLearnPolicies = new AxPolicies(new AxArtifactKey("AutoLearnPolicies", DEFAULT_VERSION));
+        final var autoLearnPolicies = new AxPolicies(new AxArtifactKey("AutoLearnPolicies", DEFAULT_VERSION));
         autoLearnPolicies.getPolicyMap().put(autoLearnPolicy.getKey(), autoLearnPolicy);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(
+        final var keyInformation = new AxKeyInformation(
                         new AxArtifactKey("AutoLearnKeyInformation", DEFAULT_VERSION));
-        final AxPolicyModel autoLearnPolicyModel = new AxPolicyModel(
+        final var autoLearnPolicyModel = new AxPolicyModel(
                         new AxArtifactKey("AutoLearnPolicyModel", DEFAULT_VERSION));
         autoLearnPolicyModel.setPolicies(autoLearnPolicies);
         autoLearnPolicyModel.setEvents(autoLearnEvents);

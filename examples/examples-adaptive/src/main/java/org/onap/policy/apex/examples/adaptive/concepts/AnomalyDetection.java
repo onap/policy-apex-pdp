@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (c) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +66,7 @@ public class AnomalyDetection implements Serializable {
      */
     public void init(final int incomingFrequency) {
         frequencyForecasted = new ArrayList<>(incomingFrequency);
-        for (int i = 0; i < incomingFrequency; i++) {
+        for (var i = 0; i < incomingFrequency; i++) {
             frequencyForecasted.add(null);
         }
     }
@@ -189,7 +190,7 @@ public class AnomalyDetection implements Serializable {
     @Override
     public int hashCode() {
         final int prime = HASH_PRIME_1;
-        int result = 1;
+        var result = 1;
         result = prime * result + ((anomalyScores == null) ? 0 : anomalyScores.hashCode());
         result = prime * result + (firstRound ? HASH_PRIME_2 : HASH_PRIME_3);
         result = prime * result + frequency;
