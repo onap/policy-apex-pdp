@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,66 +98,66 @@ public class SampleDomainModelFactory {
      */
     // CHECKSTYLE:OFF: checkstyle:maximumMethodLength
     public AxPolicyModel getSamplePolicyModel(final String axLogicExecutorType) {
-        AxContextSchema testSlogan = new AxContextSchema(new AxArtifactKey(TEST_SLOGAN, DEFAULT_VERSION), "Java",
+        var testSlogan = new AxContextSchema(new AxArtifactKey(TEST_SLOGAN, DEFAULT_VERSION), "Java",
                         "java.lang.String");
-        AxContextSchema testCase = new AxContextSchema(new AxArtifactKey("TestCase", DEFAULT_VERSION), "Java",
+        var testCase = new AxContextSchema(new AxArtifactKey("TestCase", DEFAULT_VERSION), "Java",
                         "java.lang.Byte");
-        AxContextSchema testTimestamp = new AxContextSchema(new AxArtifactKey(TEST_TIMESTAMP, DEFAULT_VERSION), "Java",
+        var testTimestamp = new AxContextSchema(new AxArtifactKey(TEST_TIMESTAMP, DEFAULT_VERSION), "Java",
                         "java.lang.Long");
-        AxContextSchema testTemperature = new AxContextSchema(new AxArtifactKey(TEST_TEMPERATURE, DEFAULT_VERSION),
+        var testTemperature = new AxContextSchema(new AxArtifactKey(TEST_TEMPERATURE, DEFAULT_VERSION),
                         "Java", "java.lang.Double");
 
-        AxContextSchema testContextItem000 = new AxContextSchema(
+        var testContextItem000 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem000", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem000");
-        AxContextSchema testContextItem001 = new AxContextSchema(
+        var testContextItem001 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem001", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem001");
-        AxContextSchema testContextItem002 = new AxContextSchema(
+        var testContextItem002 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem002", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem002");
-        AxContextSchema testContextItem003 = new AxContextSchema(
+        var testContextItem003 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem003", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem003");
-        AxContextSchema testContextItem004 = new AxContextSchema(
+        var testContextItem004 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem004", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem004");
-        AxContextSchema testContextItem005 = new AxContextSchema(
+        var testContextItem005 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem005", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem005");
-        AxContextSchema testContextItem006 = new AxContextSchema(
+        var testContextItem006 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem006", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem006");
-        AxContextSchema testContextItem007 = new AxContextSchema(
+        var testContextItem007 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem007", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem007");
-        AxContextSchema testContextItem008 = new AxContextSchema(
+        var testContextItem008 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem008", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem008");
-        AxContextSchema testContextItem009 = new AxContextSchema(
+        var testContextItem009 = new AxContextSchema(
                         new AxArtifactKey("TestContextItem009", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem009");
-        AxContextSchema testContextItem00A = new AxContextSchema(
+        var testContextItem00A = new AxContextSchema(
                         new AxArtifactKey("TestContextItem00A", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem00A");
-        AxContextSchema testContextItem00B = new AxContextSchema(
+        var testContextItem00B = new AxContextSchema(
                         new AxArtifactKey("TestContextItem00B", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem00B");
-        AxContextSchema testContextItem00C = new AxContextSchema(
+        var testContextItem00C = new AxContextSchema(
                         new AxArtifactKey("TestContextItem00C", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestContextItem00C");
 
-        AxContextSchema testPolicyContextItem = new AxContextSchema(
+        var testPolicyContextItem = new AxContextSchema(
                         new AxArtifactKey("TestPolicyContextItem", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestPolicyContextItem");
-        AxContextSchema testGlobalContextItem = new AxContextSchema(
+        var testGlobalContextItem = new AxContextSchema(
                         new AxArtifactKey("TestGlobalContextItem", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestGlobalContextItem");
-        AxContextSchema testExternalContextItem = new AxContextSchema(
+        var testExternalContextItem = new AxContextSchema(
                         new AxArtifactKey("TestExternalContextItem", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.context.test.concepts.TestExternalContextItem");
 
-        AxContextSchemas axContextSchemas = new AxContextSchemas(new AxArtifactKey("TestDatatypes", DEFAULT_VERSION));
+        var axContextSchemas = new AxContextSchemas(new AxArtifactKey("TestDatatypes", DEFAULT_VERSION));
         axContextSchemas.getSchemasMap().put(testSlogan.getKey(), testSlogan);
         axContextSchemas.getSchemasMap().put(testCase.getKey(), testCase);
         axContextSchemas.getSchemasMap().put(testTimestamp.getKey(), testTimestamp);
@@ -181,7 +181,7 @@ public class SampleDomainModelFactory {
         axContextSchemas.getSchemasMap().put(testGlobalContextItem.getKey(), testGlobalContextItem);
         axContextSchemas.getSchemasMap().put(testExternalContextItem.getKey(), testExternalContextItem);
 
-        AxEvent event0000 = new AxEvent(new AxArtifactKey("Event0000", DEFAULT_VERSION),
+        var event0000 = new AxEvent(new AxArtifactKey("Event0000", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0000.setSource(DEFAULT_SOURCE);
         event0000.setTarget(MATCH);
@@ -194,7 +194,7 @@ public class SampleDomainModelFactory {
         event0000.getParameterMap().put(TEST_TEMPERATURE, new AxField(
                         new AxReferenceKey(event0000.getKey(), TEST_TEMPERATURE), testTemperature.getKey()));
 
-        AxEvent event0001 = new AxEvent(new AxArtifactKey("Event0001", DEFAULT_VERSION),
+        var event0001 = new AxEvent(new AxArtifactKey("Event0001", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0001.setSource(MATCH);
         event0001.setTarget(ESTABLISH);
@@ -211,7 +211,7 @@ public class SampleDomainModelFactory {
         event0001.getParameterMap().put(TEST_MATCH_STATE_TIME, new AxField(
                         new AxReferenceKey(event0001.getKey(), TEST_MATCH_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0002 = new AxEvent(new AxArtifactKey("Event0002", DEFAULT_VERSION),
+        var event0002 = new AxEvent(new AxArtifactKey("Event0002", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0002.setSource(ESTABLISH);
         event0002.setTarget(DECIDE);
@@ -232,7 +232,7 @@ public class SampleDomainModelFactory {
         event0002.getParameterMap().put(TEST_ESTABLISH_STATE_TIME, new AxField(
                         new AxReferenceKey(event0002.getKey(), TEST_ESTABLISH_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0003 = new AxEvent(new AxArtifactKey("Event0003", DEFAULT_VERSION),
+        var event0003 = new AxEvent(new AxArtifactKey("Event0003", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0003.setSource(DECIDE);
         event0003.setTarget("Act");
@@ -257,7 +257,7 @@ public class SampleDomainModelFactory {
         event0003.getParameterMap().put(TEST_DECIDE_STATE_TIME, new AxField(
                         new AxReferenceKey(event0003.getKey(), TEST_DECIDE_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0004 = new AxEvent(new AxArtifactKey("Event0004", DEFAULT_VERSION),
+        var event0004 = new AxEvent(new AxArtifactKey("Event0004", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0004.setSource("Act");
         event0004.setTarget(DEFAULT_SOURCE);
@@ -286,7 +286,7 @@ public class SampleDomainModelFactory {
         event0004.getParameterMap().put(TEST_ACT_STATE_TIME, new AxField(
                         new AxReferenceKey(event0004.getKey(), TEST_ACT_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0100 = new AxEvent(new AxArtifactKey("Event0100", DEFAULT_VERSION),
+        var event0100 = new AxEvent(new AxArtifactKey("Event0100", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0100.setSource(DEFAULT_SOURCE);
         event0100.setTarget(MATCH);
@@ -299,7 +299,7 @@ public class SampleDomainModelFactory {
         event0100.getParameterMap().put(TEST_TEMPERATURE, new AxField(
                         new AxReferenceKey(event0100.getKey(), TEST_TEMPERATURE), testTemperature.getKey()));
 
-        AxEvent event0101 = new AxEvent(new AxArtifactKey("Event0101", DEFAULT_VERSION),
+        var event0101 = new AxEvent(new AxArtifactKey("Event0101", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0101.setSource(MATCH);
         event0101.setTarget(ESTABLISH);
@@ -316,7 +316,7 @@ public class SampleDomainModelFactory {
         event0101.getParameterMap().put(TEST_MATCH_STATE_TIME, new AxField(
                         new AxReferenceKey(event0101.getKey(), TEST_MATCH_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0102 = new AxEvent(new AxArtifactKey("Event0102", DEFAULT_VERSION),
+        var event0102 = new AxEvent(new AxArtifactKey("Event0102", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0102.setSource(ESTABLISH);
         event0102.setTarget(DECIDE);
@@ -337,7 +337,7 @@ public class SampleDomainModelFactory {
         event0102.getParameterMap().put(TEST_ESTABLISH_STATE_TIME, new AxField(
                         new AxReferenceKey(event0102.getKey(), TEST_ESTABLISH_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0103 = new AxEvent(new AxArtifactKey("Event0103", DEFAULT_VERSION),
+        var event0103 = new AxEvent(new AxArtifactKey("Event0103", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0103.setSource(DECIDE);
         event0103.setTarget("Act");
@@ -362,7 +362,7 @@ public class SampleDomainModelFactory {
         event0103.getParameterMap().put(TEST_DECIDE_STATE_TIME, new AxField(
                         new AxReferenceKey(event0103.getKey(), TEST_DECIDE_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvent event0104 = new AxEvent(new AxArtifactKey("Event0104", DEFAULT_VERSION),
+        var event0104 = new AxEvent(new AxArtifactKey("Event0104", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         event0104.setSource("Act");
         event0104.setTarget(DEFAULT_SOURCE);
@@ -391,7 +391,7 @@ public class SampleDomainModelFactory {
         event0104.getParameterMap().put(TEST_ACT_STATE_TIME, new AxField(
                         new AxReferenceKey(event0104.getKey(), TEST_ACT_STATE_TIME), testTimestamp.getKey()));
 
-        AxEvents events = new AxEvents(new AxArtifactKey("Events", DEFAULT_VERSION));
+        var events = new AxEvents(new AxArtifactKey("Events", DEFAULT_VERSION));
         events.getEventMap().put(event0000.getKey(), event0000);
         events.getEventMap().put(event0001.getKey(), event0001);
         events.getEventMap().put(event0002.getKey(), event0002);
@@ -403,19 +403,19 @@ public class SampleDomainModelFactory {
         events.getEventMap().put(event0103.getKey(), event0103);
         events.getEventMap().put(event0104.getKey(), event0104);
 
-        AxContextAlbum externalContextAlbum = new AxContextAlbum(
+        var externalContextAlbum = new AxContextAlbum(
                         new AxArtifactKey("ExternalContextAlbum", DEFAULT_VERSION), "EXTERNAL", false,
                         testExternalContextItem.getKey());
-        AxContextAlbum globalContextAlbum = new AxContextAlbum(new AxArtifactKey("GlobalContextAlbum", DEFAULT_VERSION),
+        var globalContextAlbum = new AxContextAlbum(new AxArtifactKey("GlobalContextAlbum", DEFAULT_VERSION),
                         "GLOBAL", true, testGlobalContextItem.getKey());
-        AxContextAlbum policy0ContextAlbum = new AxContextAlbum(
+        var policy0ContextAlbum = new AxContextAlbum(
                         new AxArtifactKey("Policy0ContextAlbum", DEFAULT_VERSION), "APPLICATION", true,
                         testPolicyContextItem.getKey());
-        AxContextAlbum policy1ContextAlbum = new AxContextAlbum(
+        var policy1ContextAlbum = new AxContextAlbum(
                         new AxArtifactKey("Policy1ContextAlbum", DEFAULT_VERSION), "APPLICATION", true,
                         testPolicyContextItem.getKey());
 
-        AxContextAlbums albums = new AxContextAlbums(new AxArtifactKey("Context", DEFAULT_VERSION));
+        var albums = new AxContextAlbums(new AxArtifactKey("Context", DEFAULT_VERSION));
         albums.getAlbumsMap().put(externalContextAlbum.getKey(), externalContextAlbum);
         albums.getAlbumsMap().put(globalContextAlbum.getKey(), globalContextAlbum);
         albums.getAlbumsMap().put(policy0ContextAlbum.getKey(), policy0ContextAlbum);
@@ -445,7 +445,7 @@ public class SampleDomainModelFactory {
         referenceKeySetList.add(referenceKeySet2);
         referenceKeySetList.add(referenceKeySet3);
 
-        AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
+        var tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
         tasks.getTaskMap().putAll(getTaskMap(MATCH, event0000.getParameterMap(), event0001.getParameterMap(),
                         referenceKeySetList, axLogicExecutorType));
         tasks.getTaskMap().putAll(getTaskMap(ESTABLISH, event0001.getParameterMap(), event0002.getParameterMap(),
@@ -538,7 +538,7 @@ public class SampleDomainModelFactory {
         p0ReferenceKeySetList.add(p0ReferenceKeySet2);
         p0ReferenceKeySetList.add(p0ReferenceKeySet3);
 
-        AxPolicy policy0 = new AxPolicy(new AxArtifactKey("Policy0", DEFAULT_VERSION));
+        var policy0 = new AxPolicy(new AxArtifactKey("Policy0", DEFAULT_VERSION));
         policy0.setTemplate("MEDA");
         policy0.setStateMap(getStateMap(policy0.getKey(), p0InEventList, p0OutEventList, p0ReferenceKeySetList,
                         axLogicExecutorType, p0defaultTaskList, taskReferenceList));
@@ -568,18 +568,18 @@ public class SampleDomainModelFactory {
         p1ReferenceKeySetList.add(p1ReferenceKeySet2);
         p1ReferenceKeySetList.add(p1ReferenceKeySet3);
 
-        AxPolicy policy1 = new AxPolicy(new AxArtifactKey("Policy1", DEFAULT_VERSION));
+        var policy1 = new AxPolicy(new AxArtifactKey("Policy1", DEFAULT_VERSION));
         policy1.setTemplate("MEDA");
         policy1.setStateMap(getStateMap(policy1.getKey(), p1InEventList, p1OutEventList, p1ReferenceKeySetList,
                         axLogicExecutorType, p1defaultTaskList, taskReferenceList));
         policy1.setFirstState(policy1.getStateMap().get(MATCH).getKey().getLocalName());
 
-        AxPolicies policies = new AxPolicies(new AxArtifactKey("Policies", DEFAULT_VERSION));
+        var policies = new AxPolicies(new AxArtifactKey("Policies", DEFAULT_VERSION));
         policies.getPolicyMap().put(policy0.getKey(), policy0);
         policies.getPolicyMap().put(policy1.getKey(), policy1);
 
-        AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey("KeyInformation", DEFAULT_VERSION));
-        AxPolicyModel policyModel = new AxPolicyModel(
+        var keyInformation = new AxKeyInformation(new AxArtifactKey("KeyInformation", DEFAULT_VERSION));
+        var policyModel = new AxPolicyModel(
                         new AxArtifactKey("SamplePolicyModel" + axLogicExecutorType, DEFAULT_VERSION));
         policyModel.setKeyInformation(keyInformation);
         policyModel.setPolicies(policies);
@@ -613,9 +613,9 @@ public class SampleDomainModelFactory {
                     final String axLogicExecutorType, final List<AxArtifactKey> defaultTaskList,
                     final List<Set<AxArtifactKey>> taskKeySetList) {
 
-        AxState actState = new AxState(new AxReferenceKey(policyKey, "Act"));
+        var actState = new AxState(new AxReferenceKey(policyKey, "Act"));
         actState.setTrigger(inEventKeyList.get(3));
-        AxStateOutput act2Out = new AxStateOutput(actState.getKey(), AxReferenceKey.getNullKey(),
+        var act2Out = new AxStateOutput(actState.getKey(), AxReferenceKey.getNullKey(),
                         outEventKeyList.get(3));
         actState.getStateOutputs().put(act2Out.getKey().getLocalName(), act2Out);
         actState.setContextAlbumReferences(referenceKeySetList.get(3));
@@ -630,9 +630,9 @@ public class SampleDomainModelFactory {
                             AxStateTaskOutputType.DIRECT, act2Out.getKey()));
         }
 
-        AxState decideState = new AxState(new AxReferenceKey(policyKey, DECIDE));
+        var decideState = new AxState(new AxReferenceKey(policyKey, DECIDE));
         decideState.setTrigger(inEventKeyList.get(2));
-        AxStateOutput decide2Act = new AxStateOutput(decideState.getKey(), actState.getKey(), outEventKeyList.get(2));
+        var decide2Act = new AxStateOutput(decideState.getKey(), actState.getKey(), outEventKeyList.get(2));
         decideState.getStateOutputs().put(decide2Act.getKey().getLocalName(), decide2Act);
         decideState.setContextAlbumReferences(referenceKeySetList.get(2));
         decideState.setTaskSelectionLogic(new AxTaskSelectionLogic(decideState.getKey(), TASK_SELECTION_LIGIC,
@@ -643,9 +643,9 @@ public class SampleDomainModelFactory {
                             AxStateTaskOutputType.DIRECT, decide2Act.getKey()));
         }
 
-        AxState establishState = new AxState(new AxReferenceKey(policyKey, ESTABLISH));
+        var establishState = new AxState(new AxReferenceKey(policyKey, ESTABLISH));
         establishState.setTrigger(inEventKeyList.get(1));
-        AxStateOutput establish2Decide = new AxStateOutput(establishState.getKey(), decideState.getKey(),
+        var establish2Decide = new AxStateOutput(establishState.getKey(), decideState.getKey(),
                         outEventKeyList.get(1));
         establishState.getStateOutputs().put(establish2Decide.getKey().getLocalName(), establish2Decide);
         establishState.setContextAlbumReferences(referenceKeySetList.get(1));
@@ -657,9 +657,9 @@ public class SampleDomainModelFactory {
                             AxStateTaskOutputType.DIRECT, establish2Decide.getKey()));
         }
 
-        AxState matchState = new AxState(new AxReferenceKey(policyKey, MATCH));
+        var matchState = new AxState(new AxReferenceKey(policyKey, MATCH));
         matchState.setTrigger(inEventKeyList.get(0));
-        AxStateOutput match2Establish = new AxStateOutput(matchState.getKey(), establishState.getKey(),
+        var match2Establish = new AxStateOutput(matchState.getKey(), establishState.getKey(),
                         outEventKeyList.get(0));
         matchState.getStateOutputs().put(match2Establish.getKey().getLocalName(), match2Establish);
         matchState.setContextAlbumReferences(referenceKeySetList.get(0));
@@ -695,14 +695,14 @@ public class SampleDomainModelFactory {
                     final Map<String, AxField> outputFields, final List<Set<AxArtifactKey>> referenceKeySetList,
                     final String axLogicExecutorType) {
 
-        AxTask testTask0 = new AxTask(new AxArtifactKey(TASK + state + "0", DEFAULT_VERSION));
+        var testTask0 = new AxTask(new AxArtifactKey(TASK + state + "0", DEFAULT_VERSION));
         testTask0.duplicateInputFields(inputFields);
         testTask0.duplicateOutputFields(outputFields);
-        AxTaskParameter parameter00 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER0),
+        var parameter00 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
-        AxTaskParameter parameter01 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER1),
+        var parameter01 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER1),
                         DEFAULT_VALUE1);
-        AxTaskParameter parameter02 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER2),
+        var parameter02 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER2),
                         DEFAULT_VALUE2);
         testTask0.getTaskParameters().put(parameter00.getKey().getLocalName(), parameter00);
         testTask0.getTaskParameters().put(parameter01.getKey().getLocalName(), parameter01);
@@ -713,31 +713,31 @@ public class SampleDomainModelFactory {
                         .setDefaultLogic("DefaultTaskLogic");
         testTask0.setTaskLogic(getTaskLogic(testTask0, logicReader, axLogicExecutorType, state, "2"));
 
-        AxTask testTask1 = new AxTask(new AxArtifactKey(TASK + state + "1", DEFAULT_VERSION));
+        var testTask1 = new AxTask(new AxArtifactKey(TASK + state + "1", DEFAULT_VERSION));
         testTask1.duplicateInputFields(inputFields);
         testTask1.duplicateOutputFields(outputFields);
-        AxTaskParameter parameter10 = new AxTaskParameter(new AxReferenceKey(testTask1.getKey(), PARAMETER0),
+        var parameter10 = new AxTaskParameter(new AxReferenceKey(testTask1.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
-        AxTaskParameter parameter11 = new AxTaskParameter(new AxReferenceKey(testTask1.getKey(), PARAMETER1),
+        var parameter11 = new AxTaskParameter(new AxReferenceKey(testTask1.getKey(), PARAMETER1),
                         DEFAULT_VALUE1);
         testTask1.getTaskParameters().put(parameter10.getKey().getLocalName(), parameter10);
         testTask1.getTaskParameters().put(parameter11.getKey().getLocalName(), parameter11);
         testTask1.setContextAlbumReferences(referenceKeySetList.get(1));
         testTask1.setTaskLogic(getTaskLogic(testTask1, logicReader, axLogicExecutorType, state, "3"));
 
-        AxTask testTask2 = new AxTask(new AxArtifactKey(TASK + state + "2", DEFAULT_VERSION));
+        var testTask2 = new AxTask(new AxArtifactKey(TASK + state + "2", DEFAULT_VERSION));
         testTask2.duplicateInputFields(inputFields);
         testTask2.duplicateOutputFields(outputFields);
-        AxTaskParameter parameter20 = new AxTaskParameter(new AxReferenceKey(testTask2.getKey(), PARAMETER0),
+        var parameter20 = new AxTaskParameter(new AxReferenceKey(testTask2.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
         testTask2.getTaskParameters().put(parameter20.getKey().getLocalName(), parameter20);
         testTask2.setContextAlbumReferences(referenceKeySetList.get(2));
         testTask2.setTaskLogic(getTaskLogic(testTask2, logicReader, axLogicExecutorType, state, "0"));
 
-        AxTask testTask3 = new AxTask(new AxArtifactKey(TASK + state + "3", DEFAULT_VERSION));
+        var testTask3 = new AxTask(new AxArtifactKey(TASK + state + "3", DEFAULT_VERSION));
         testTask3.duplicateInputFields(inputFields);
         testTask3.duplicateOutputFields(outputFields);
-        AxTaskParameter parameter30 = new AxTaskParameter(new AxReferenceKey(testTask3.getKey(), PARAMETER0),
+        var parameter30 = new AxTaskParameter(new AxReferenceKey(testTask3.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
         testTask3.getTaskParameters().put(parameter30.getKey().getLocalName(), parameter30);
         testTask3.setContextAlbumReferences(referenceKeySetList.get(THIRD_ENTRY));
@@ -764,7 +764,7 @@ public class SampleDomainModelFactory {
      */
     private AxTaskLogic getTaskLogic(final AxTask task, final AxLogicReader logicReader, final String logicFlavour,
                     final String stateName, final String caseToUse) {
-        AxTaskLogic axLogic = new AxTaskLogic(new AxReferenceKey(task.getKey(), "_TaskLogic"), logicFlavour,
+        var axLogic = new AxTaskLogic(new AxReferenceKey(task.getKey(), "_TaskLogic"), logicFlavour,
                         logicReader);
 
         axLogic.setLogic(axLogic.getLogic().replace("<STATE_NAME>", stateName)

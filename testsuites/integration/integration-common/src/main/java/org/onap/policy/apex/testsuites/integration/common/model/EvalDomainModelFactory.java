@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -211,42 +211,42 @@ public class EvalDomainModelFactory {
      * @return the sample policy model
      */
     public AxPolicyModel getOodaPolicyModel() {
-        final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
+        final var tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
 
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalTaskLogic");
 
-        final AxTask obTask = new AxTask(new AxArtifactKey("Task_Observe_0", DEFAULT_VERSION));
+        final var obTask = new AxTask(new AxArtifactKey("Task_Observe_0", DEFAULT_VERSION));
         obTask.duplicateInputFields(event0000.getParameterMap());
         obTask.duplicateOutputFields(event0001.getParameterMap());
-        final AxTaskLogic obAxLogic = new AxTaskLogic(obTask.getKey(), TASK_LOGIC,
+        final var obAxLogic = new AxTaskLogic(obTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         obAxLogic.setLogic(obAxLogic.getLogic().replace(STATE_NAME, OBSERVE)
                         .replace(TASK_NAME, obTask.getKey().getName()).replace(STATE_NUMBER, "1"));
         obTask.setTaskLogic(obAxLogic);
 
-        final AxTask orTask = new AxTask(new AxArtifactKey("Task_Orient_0", DEFAULT_VERSION));
+        final var orTask = new AxTask(new AxArtifactKey("Task_Orient_0", DEFAULT_VERSION));
         orTask.duplicateInputFields(event0001.getParameterMap());
         orTask.duplicateOutputFields(event0002.getParameterMap());
-        final AxTaskLogic orAxLogic = new AxTaskLogic(orTask.getKey(), TASK_LOGIC,
+        final var orAxLogic = new AxTaskLogic(orTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         orAxLogic.setLogic(orAxLogic.getLogic().replace(STATE_NAME, ORIENT)
                         .replace(TASK_NAME, orTask.getKey().getName()).replace(STATE_NUMBER, "2"));
         orTask.setTaskLogic(orAxLogic);
 
-        final AxTask dTask = new AxTask(new AxArtifactKey("Task_Decide_0", DEFAULT_VERSION));
+        final var dTask = new AxTask(new AxArtifactKey("Task_Decide_0", DEFAULT_VERSION));
         dTask.duplicateInputFields(event0002.getParameterMap());
         dTask.duplicateOutputFields(event0003.getParameterMap());
-        final AxTaskLogic dAxLogic = new AxTaskLogic(dTask.getKey(), TASK_LOGIC,
+        final var dAxLogic = new AxTaskLogic(dTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? MVEL : justOneLang), logicReader);
         dAxLogic.setLogic(dAxLogic.getLogic().replace(STATE_NAME, ORIENT)
                         .replace(TASK_NAME, dTask.getKey().getName()).replace(STATE_NUMBER, "3"));
         dTask.setTaskLogic(dAxLogic);
 
-        final AxTask aTask = new AxTask(new AxArtifactKey("Task_Act_0", DEFAULT_VERSION));
+        final var aTask = new AxTask(new AxArtifactKey("Task_Act_0", DEFAULT_VERSION));
         aTask.duplicateInputFields(event0003.getParameterMap());
         aTask.duplicateOutputFields(event0004.getParameterMap());
-        final AxTaskLogic aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
+        final var aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? "JAVA" : justOneLang), logicReader);
         aAxLogic.setLogic(aAxLogic.getLogic().replace(STATE_NAME, "Act")
                         .replace(TASK_NAME, aTask.getKey().getName()).replace(STATE_NUMBER, "4"));
@@ -288,19 +288,19 @@ public class EvalDomainModelFactory {
         p0defaultTaskList.add(tasks.get("Task_Decide_0").getKey());
         p0defaultTaskList.add(tasks.get("Task_Act_0").getKey());
 
-        final AxPolicy policy0 = new AxPolicy(new AxArtifactKey("OODAPolicy_0", DEFAULT_VERSION));
+        final var policy0 = new AxPolicy(new AxArtifactKey("OODAPolicy_0", DEFAULT_VERSION));
         final List<String> axLogicExecutorTypeList = initAxLogicExecutorTypeList(justOneLang);
 
         policy0.setStateMap(getOodaStateMap(policy0.getKey(), p0InEventList, p0OutEventList, axLogicExecutorTypeList,
                         p0defaultTaskList, taskReferenceList));
         policy0.setFirstState(policy0.getStateMap().get(OBSERVE).getKey().getLocalName());
 
-        final AxPolicies policies = new AxPolicies(new AxArtifactKey("OODAPolicies", DEFAULT_VERSION));
+        final var policies = new AxPolicies(new AxArtifactKey("OODAPolicies", DEFAULT_VERSION));
         policies.getPolicyMap().put(policy0.getKey(), policy0);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(
+        final var keyInformation = new AxKeyInformation(
                         new AxArtifactKey("KeyInformation", DEFAULT_VERSION));
-        final AxPolicyModel policyModel = new AxPolicyModel(
+        final var policyModel = new AxPolicyModel(
                         new AxArtifactKey("EvaluationPolicyModel_OODA", DEFAULT_VERSION));
         policyModel.setPolicies(policies);
         policyModel.setEvents(events);
@@ -382,9 +382,9 @@ public class EvalDomainModelFactory {
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalStateLogic");
 
-        final AxState actState = new AxState(new AxReferenceKey(policyKey, "Act"));
+        final var actState = new AxState(new AxReferenceKey(policyKey, "Act"));
         actState.setTrigger(inEventKeyList.get(THIRD_MEMBER));
-        final AxStateOutput act2Out = new AxStateOutput(new AxReferenceKey(actState.getKey(), "Act2Out"),
+        final var act2Out = new AxStateOutput(new AxReferenceKey(actState.getKey(), "Act2Out"),
                         outEventKeyList.get(THIRD_MEMBER), AxReferenceKey.getNullKey());
         actState.getStateOutputs().put(act2Out.getKey().getLocalName(), act2Out);
         actState.setTaskSelectionLogic(new AxTaskSelectionLogic(actState.getKey(), TASK_SELECTION_LOGIC,
@@ -396,9 +396,9 @@ public class EvalDomainModelFactory {
                                             AxStateTaskOutputType.DIRECT, act2Out.getKey()));
         }
 
-        final AxState decState = new AxState(new AxReferenceKey(policyKey, "Decide"));
+        final var decState = new AxState(new AxReferenceKey(policyKey, "Decide"));
         decState.setTrigger(inEventKeyList.get(2));
-        final AxStateOutput dec2Act = new AxStateOutput(new AxReferenceKey(decState.getKey(), "Dec2Act"),
+        final var dec2Act = new AxStateOutput(new AxReferenceKey(decState.getKey(), "Dec2Act"),
                         outEventKeyList.get(2), actState.getKey());
         decState.getStateOutputs().put(dec2Act.getKey().getLocalName(), dec2Act);
         decState.setTaskSelectionLogic(new AxTaskSelectionLogic(decState.getKey(), TASK_SELECTION_LOGIC,
@@ -410,9 +410,9 @@ public class EvalDomainModelFactory {
                                             AxStateTaskOutputType.DIRECT, dec2Act.getKey()));
         }
 
-        final AxState orState = new AxState(new AxReferenceKey(policyKey, ORIENT));
+        final var orState = new AxState(new AxReferenceKey(policyKey, ORIENT));
         orState.setTrigger(inEventKeyList.get(1));
-        final AxStateOutput or2Dec = new AxStateOutput(new AxReferenceKey(orState.getKey(), "Or2Dec"),
+        final var or2Dec = new AxStateOutput(new AxReferenceKey(orState.getKey(), "Or2Dec"),
                         outEventKeyList.get(1), decState.getKey());
         orState.getStateOutputs().put(or2Dec.getKey().getLocalName(), or2Dec);
         orState.setTaskSelectionLogic(new AxTaskSelectionLogic(orState.getKey(), TASK_SELECTION_LOGIC,
@@ -424,9 +424,9 @@ public class EvalDomainModelFactory {
                                             AxStateTaskOutputType.DIRECT, or2Dec.getKey()));
         }
 
-        final AxState obState = new AxState(new AxReferenceKey(policyKey, OBSERVE));
+        final var obState = new AxState(new AxReferenceKey(policyKey, OBSERVE));
         obState.setTrigger(inEventKeyList.get(0));
-        final AxStateOutput ob2Or = new AxStateOutput(new AxReferenceKey(obState.getKey(), "Ob2Or"),
+        final var ob2Or = new AxStateOutput(new AxReferenceKey(obState.getKey(), "Ob2Or"),
                         outEventKeyList.get(0), orState.getKey());
         obState.getStateOutputs().put(ob2Or.getKey().getLocalName(), ob2Or);
         obState.setTaskSelectionLogic(new AxTaskSelectionLogic(obState.getKey(), TASK_SELECTION_LOGIC,
@@ -454,33 +454,33 @@ public class EvalDomainModelFactory {
      */
     public AxPolicyModel getEcaPolicyModel() {
 
-        final AxTasks tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
+        final var tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
 
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalTaskLogic");
 
-        final AxTask eTask = new AxTask(new AxArtifactKey("Task_Event_0", DEFAULT_VERSION));
+        final var eTask = new AxTask(new AxArtifactKey("Task_Event_0", DEFAULT_VERSION));
         eTask.duplicateInputFields(event0000.getParameterMap());
         eTask.duplicateOutputFields(event0001.getParameterMap());
-        final AxTaskLogic eAxLogic = new AxTaskLogic(eTask.getKey(), TASK_LOGIC,
+        final var eAxLogic = new AxTaskLogic(eTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JYTHON : justOneLang), logicReader);
         eAxLogic.setLogic(eAxLogic.getLogic().replace(STATE_NAME, EVENT)
                         .replace(TASK_NAME, eTask.getKey().getName()).replace(STATE_NUMBER, "1"));
         eTask.setTaskLogic(eAxLogic);
 
-        final AxTask cTask = new AxTask(new AxArtifactKey("Task_Condition_0", DEFAULT_VERSION));
+        final var cTask = new AxTask(new AxArtifactKey("Task_Condition_0", DEFAULT_VERSION));
         cTask.duplicateInputFields(event0001.getParameterMap());
         cTask.duplicateOutputFields(event0002.getParameterMap());
-        final AxTaskLogic cAxLogic = new AxTaskLogic(cTask.getKey(), TASK_LOGIC,
+        final var cAxLogic = new AxTaskLogic(cTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         cAxLogic.setLogic(cAxLogic.getLogic().replace(STATE_NAME, CONDITION)
                         .replace(TASK_NAME, cTask.getKey().getName()).replace(STATE_NUMBER, "2"));
         cTask.setTaskLogic(cAxLogic);
 
-        final AxTask aTask = new AxTask(new AxArtifactKey("Task_Action_0", DEFAULT_VERSION));
+        final var aTask = new AxTask(new AxArtifactKey("Task_Action_0", DEFAULT_VERSION));
         aTask.duplicateInputFields(event0002.getParameterMap());
         aTask.duplicateOutputFields(event0003.getParameterMap());
-        final AxTaskLogic aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
+        final var aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? "JAVA" : justOneLang), logicReader);
         aAxLogic.setLogic(aAxLogic.getLogic().replace(STATE_NAME, ACTION)
                         .replace(TASK_NAME, aTask.getKey().getName()).replace(STATE_NUMBER, "3"));
@@ -515,19 +515,19 @@ public class EvalDomainModelFactory {
         p0defaultTaskList.add(tasks.get("Task_Condition_0").getKey());
         p0defaultTaskList.add(tasks.get("Task_Action_0").getKey());
 
-        final AxPolicy policy0 = new AxPolicy(new AxArtifactKey("ECAPolicy_0", DEFAULT_VERSION));
+        final var policy0 = new AxPolicy(new AxArtifactKey("ECAPolicy_0", DEFAULT_VERSION));
         final List<String> axLogicExecutorTypeList = Arrays.asList((justOneLang == null ? JAVASCRIPT : justOneLang),
                         (justOneLang == null ? MVEL : justOneLang), (justOneLang == null ? JYTHON : justOneLang));
         policy0.setStateMap(getEcaStateMap(policy0.getKey(), p0InEventList, p0OutEventList, axLogicExecutorTypeList,
                         p0defaultTaskList, taskReferenceList));
         policy0.setFirstState(policy0.getStateMap().get(EVENT).getKey().getLocalName());
 
-        final AxPolicies policies = new AxPolicies(new AxArtifactKey("ECAPolicies", DEFAULT_VERSION));
+        final var policies = new AxPolicies(new AxArtifactKey("ECAPolicies", DEFAULT_VERSION));
         policies.getPolicyMap().put(policy0.getKey(), policy0);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(
+        final var keyInformation = new AxKeyInformation(
                         new AxArtifactKey("KeyInformation", DEFAULT_VERSION));
-        final AxPolicyModel policyModel = new AxPolicyModel(
+        final var policyModel = new AxPolicyModel(
                         new AxArtifactKey("EvaluationPolicyModel_ECA", DEFAULT_VERSION));
         policyModel.setPolicies(policies);
         policyModel.setEvents(events);
@@ -584,9 +584,9 @@ public class EvalDomainModelFactory {
         final AxLogicReader logicReader = new PolicyLogicReader().setLogicPackage(PACKAGE)
                         .setDefaultLogic("EvalStateLogic");
 
-        final AxState actionState = new AxState(new AxReferenceKey(policyKey, ACTION));
+        final var actionState = new AxState(new AxReferenceKey(policyKey, ACTION));
         actionState.setTrigger(inEventKeyList.get(2));
-        final AxStateOutput action2Out = new AxStateOutput(actionState.getKey(), AxReferenceKey.getNullKey(),
+        final var action2Out = new AxStateOutput(actionState.getKey(), AxReferenceKey.getNullKey(),
                         outEventKeyList.get(2));
         actionState.getStateOutputs().put(action2Out.getKey().getLocalName(), action2Out);
         actionState.setTaskSelectionLogic(new AxTaskSelectionLogic(actionState.getKey(), TASK_SELECTION_LOGIC,
@@ -598,9 +598,9 @@ public class EvalDomainModelFactory {
                                             AxStateTaskOutputType.DIRECT, action2Out.getKey()));
         }
 
-        final AxState conditionState = new AxState(new AxReferenceKey(policyKey, CONDITION));
+        final var conditionState = new AxState(new AxReferenceKey(policyKey, CONDITION));
         conditionState.setTrigger(inEventKeyList.get(1));
-        final AxStateOutput condition2Action = new AxStateOutput(conditionState.getKey(), actionState.getKey(),
+        final var condition2Action = new AxStateOutput(conditionState.getKey(), actionState.getKey(),
                         outEventKeyList.get(1));
         conditionState.getStateOutputs().put(condition2Action.getKey().getLocalName(), condition2Action);
         conditionState.setTaskSelectionLogic(new AxTaskSelectionLogic(conditionState.getKey(), TASK_SELECTION_LOGIC,
@@ -612,9 +612,9 @@ public class EvalDomainModelFactory {
                                             AxStateTaskOutputType.DIRECT, condition2Action.getKey()));
         }
 
-        final AxState eventState = new AxState(new AxReferenceKey(policyKey, EVENT));
+        final var eventState = new AxState(new AxReferenceKey(policyKey, EVENT));
         eventState.setTrigger(inEventKeyList.get(0));
-        final AxStateOutput event2Condition = new AxStateOutput(eventState.getKey(), conditionState.getKey(),
+        final var event2Condition = new AxStateOutput(eventState.getKey(), conditionState.getKey(),
                         outEventKeyList.get(0));
         eventState.getStateOutputs().put(event2Condition.getKey().getLocalName(), event2Condition);
         eventState.setTaskSelectionLogic(new AxTaskSelectionLogic(eventState.getKey(), TASK_SELECTION_LOGIC,

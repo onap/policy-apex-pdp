@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,13 +43,13 @@ public class DefaultTaskLogic {
      * @return the event
      */
     public boolean getEvent(final TaskExecutionContext executor) {
-        String idString = executor.subject.getId();
+        var idString = executor.subject.getId();
         executor.logger.debug(idString);
 
-        String albumNameString = executor.getContextAlbum("GlobalContextAlbum").getName();
+        var albumNameString = executor.getContextAlbum("GlobalContextAlbum").getName();
         executor.logger.debug(albumNameString);
 
-        String inFieldsString = executor.inFields.toString();
+        var inFieldsString = executor.inFields.toString();
         executor.logger.debug(inFieldsString);
         if (executor.inFields.containsKey("TestDecideCaseSelected")) {
             executor.outFields.put("TestActCaseSelected", (byte) rand.nextInt(BOUND_FOR_RANDOM_INT));
