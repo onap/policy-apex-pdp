@@ -37,8 +37,6 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.apex.model.policymodel.handling.SupportApexPolicyModelCreator;
 
 /**
@@ -183,32 +181,6 @@ public class PolicyModelTest {
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
-        final AxInputField badInField = new AxInputField(
-                        new AxReferenceKey(model.getTasks().get("task").getKey(), "BadInField"),
-                        new AxArtifactKey("NonExistantSchema", "0.0.1"));
-        model.getTasks().get("task").getInputFields().put(badInField.getKey().getLocalName(), badInField);
-        result = new AxValidationResult();
-        result = model.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        model.getTasks().get("task").getInputFields().remove(badInField.getKey().getLocalName());
-        result = new AxValidationResult();
-        result = model.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        final AxOutputField badOutField = new AxOutputField(
-                        new AxReferenceKey(model.getTasks().get("task").getKey(), "BadOutField"),
-                        new AxArtifactKey("NonExistantSchema", "0.0.1"));
-        model.getTasks().get("task").getOutputFields().put(badOutField.getKey().getLocalName(), badOutField);
-        result = new AxValidationResult();
-        result = model.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        model.getTasks().get("task").getOutputFields().remove(badOutField.getKey().getLocalName());
-        result = new AxValidationResult();
-        result = model.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
         model.getTasks().get("task").getContextAlbumReferences()
                         .add(new AxArtifactKey("NonExistantContextAlbum", "0.0.1"));
         result = new AxValidationResult();
@@ -263,16 +235,6 @@ public class PolicyModelTest {
                         .get("state").getTaskSelectionLogic();
         model.getPolicies().get("policy").getStateMap().get("state")
                         .setTaskSelectionLogic(new AxTaskSelectionLogic(AxReferenceKey.getNullKey()));
-        result = new AxValidationResult();
-        result = model.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        model.getTasks().get("task").getInputFields().put(badInField.getKey().getLocalName(), badInField);
-        result = new AxValidationResult();
-        result = model.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        model.getTasks().get("task").getInputFields().remove(badInField.getKey().getLocalName());
         result = new AxValidationResult();
         result = model.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
