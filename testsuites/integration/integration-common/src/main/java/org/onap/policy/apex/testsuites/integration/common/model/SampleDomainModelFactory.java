@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -446,14 +447,10 @@ public class SampleDomainModelFactory {
         referenceKeySetList.add(referenceKeySet3);
 
         var tasks = new AxTasks(new AxArtifactKey("Tasks", DEFAULT_VERSION));
-        tasks.getTaskMap().putAll(getTaskMap(MATCH, event0000.getParameterMap(), event0001.getParameterMap(),
-                        referenceKeySetList, axLogicExecutorType));
-        tasks.getTaskMap().putAll(getTaskMap(ESTABLISH, event0001.getParameterMap(), event0002.getParameterMap(),
-                        referenceKeySetList, axLogicExecutorType));
-        tasks.getTaskMap().putAll(getTaskMap(DECIDE, event0002.getParameterMap(), event0003.getParameterMap(),
-                        referenceKeySetList, axLogicExecutorType));
-        tasks.getTaskMap().putAll(getTaskMap("Act", event0003.getParameterMap(), event0004.getParameterMap(),
-                        referenceKeySetList, axLogicExecutorType));
+        tasks.getTaskMap().putAll(getTaskMap(MATCH, referenceKeySetList, axLogicExecutorType));
+        tasks.getTaskMap().putAll(getTaskMap(ESTABLISH, referenceKeySetList, axLogicExecutorType));
+        tasks.getTaskMap().putAll(getTaskMap(DECIDE, referenceKeySetList, axLogicExecutorType));
+        tasks.getTaskMap().putAll(getTaskMap("Act", referenceKeySetList, axLogicExecutorType));
 
         Set<AxArtifactKey> matchTasks = new TreeSet<>();
         Set<AxArtifactKey> establishTasks = new TreeSet<>();
@@ -685,25 +682,17 @@ public class SampleDomainModelFactory {
      * Gets the task map.
      *
      * @param state the state
-     * @param inputFields the input fields
-     * @param outputFields the output fields
      * @param referenceKeySetList the reference key set list
      * @param axLogicExecutorType the ax logic executor type
      * @return the task map
      */
-    private Map<AxArtifactKey, AxTask> getTaskMap(final String state, final Map<String, AxField> inputFields,
-                    final Map<String, AxField> outputFields, final List<Set<AxArtifactKey>> referenceKeySetList,
-                    final String axLogicExecutorType) {
+    private Map<AxArtifactKey, AxTask> getTaskMap(final String state,
+        final List<Set<AxArtifactKey>> referenceKeySetList, final String axLogicExecutorType) {
 
         var testTask0 = new AxTask(new AxArtifactKey(TASK + state + "0", DEFAULT_VERSION));
-        testTask0.duplicateInputFields(inputFields);
-        testTask0.duplicateOutputFields(outputFields);
-        var parameter00 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER0),
-                        DEFAULT_VALUE0);
-        var parameter01 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER1),
-                        DEFAULT_VALUE1);
-        var parameter02 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER2),
-                        DEFAULT_VALUE2);
+        var parameter00 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER0), DEFAULT_VALUE0);
+        var parameter01 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER1), DEFAULT_VALUE1);
+        var parameter02 = new AxTaskParameter(new AxReferenceKey(testTask0.getKey(), PARAMETER2), DEFAULT_VALUE2);
         testTask0.getTaskParameters().put(parameter00.getKey().getLocalName(), parameter00);
         testTask0.getTaskParameters().put(parameter01.getKey().getLocalName(), parameter01);
         testTask0.getTaskParameters().put(parameter02.getKey().getLocalName(), parameter02);
@@ -714,8 +703,6 @@ public class SampleDomainModelFactory {
         testTask0.setTaskLogic(getTaskLogic(testTask0, logicReader, axLogicExecutorType, state, "2"));
 
         var testTask1 = new AxTask(new AxArtifactKey(TASK + state + "1", DEFAULT_VERSION));
-        testTask1.duplicateInputFields(inputFields);
-        testTask1.duplicateOutputFields(outputFields);
         var parameter10 = new AxTaskParameter(new AxReferenceKey(testTask1.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
         var parameter11 = new AxTaskParameter(new AxReferenceKey(testTask1.getKey(), PARAMETER1),
@@ -726,8 +713,6 @@ public class SampleDomainModelFactory {
         testTask1.setTaskLogic(getTaskLogic(testTask1, logicReader, axLogicExecutorType, state, "3"));
 
         var testTask2 = new AxTask(new AxArtifactKey(TASK + state + "2", DEFAULT_VERSION));
-        testTask2.duplicateInputFields(inputFields);
-        testTask2.duplicateOutputFields(outputFields);
         var parameter20 = new AxTaskParameter(new AxReferenceKey(testTask2.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
         testTask2.getTaskParameters().put(parameter20.getKey().getLocalName(), parameter20);
@@ -735,8 +720,6 @@ public class SampleDomainModelFactory {
         testTask2.setTaskLogic(getTaskLogic(testTask2, logicReader, axLogicExecutorType, state, "0"));
 
         var testTask3 = new AxTask(new AxArtifactKey(TASK + state + "3", DEFAULT_VERSION));
-        testTask3.duplicateInputFields(inputFields);
-        testTask3.duplicateOutputFields(outputFields);
         var parameter30 = new AxTaskParameter(new AxReferenceKey(testTask3.getKey(), PARAMETER0),
                         DEFAULT_VALUE0);
         testTask3.getTaskParameters().put(parameter30.getKey().getLocalName(), parameter30);

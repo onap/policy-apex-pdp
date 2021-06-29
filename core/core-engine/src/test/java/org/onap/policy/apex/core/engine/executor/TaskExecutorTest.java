@@ -125,8 +125,6 @@ public class TaskExecutorTest {
         Mockito.doReturn(true).when(axOptionalOutputFieldMock).getOptional();
         Mockito.doReturn(false).when(axMissingOutputFieldMock).getOptional();
 
-        Mockito.doReturn(inFieldMap).when(axTaskMock).getInputFields();
-        Mockito.doReturn(outFieldMap).when(axTaskMock).getOutputFields();
         Mockito.doReturn(taskLogicMock).when(axTaskMock).getTaskLogic();
 
         Mockito.doReturn(inEvent).when(axTaskMock).getInputEvent();

@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -456,7 +457,7 @@ public interface ApexEditorApi {
     ApexApiResult deleteTaskLogic(final String name, final String version);
 
     /**
-     * Create a task input field.
+     * Create a task field.
      *
      * @param name name of the task
      * @param version version of the task, set to null to use the latest version
@@ -467,11 +468,11 @@ public interface ApexEditorApi {
      * @param optional true if the task field is optional, false otherwise
      * @return result of the operation
      */
-    ApexApiResult createTaskInputField(final String name, final String version, final String fieldName,
+    ApexApiResult createTaskField(final String name, final String version, final String fieldName,
             final String contextSchemaName, final String contextSchemaVersion, boolean optional);
 
     /**
-     * List task input fields.
+     * Handle a task field.
      *
      * @param name name of the task
      * @param version version of the task, set to null to use the latest version
@@ -479,53 +480,7 @@ public interface ApexEditorApi {
      *        task
      * @return result of the operation
      */
-    ApexApiResult listTaskInputField(final String name, final String version, final String fieldName);
-
-    /**
-     * Delete a task input field.
-     *
-     * @param name name of the task
-     * @param version version of the task, set to null to use the latest version
-     * @param fieldName of the input field, set to null to delete all input fields
-     * @return result of the operation
-     */
-    ApexApiResult deleteTaskInputField(final String name, final String version, final String fieldName);
-
-    /**
-     * Create a task output field.
-     *
-     * @param name name of the task
-     * @param version version of the task, set to null to use the latest version
-     * @param fieldName of the output field
-     * @param contextSchemaName name of the output field context schema
-     * @param contextSchemaVersion version of the output field context schema, set to null to use
-     *        the latest version
-     * @param optional true if the task field is optional, false otherwise
-     * @return result of the operation
-     */
-    ApexApiResult createTaskOutputField(final String name, final String version, final String fieldName,
-            final String contextSchemaName, final String contextSchemaVersion, boolean optional);
-
-    /**
-     * List task output fields.
-     *
-     * @param name name of the task
-     * @param version version of the task, set to null to use the latest version
-     * @param fieldName field name of the output field, set to null to list all output fields of the
-     *        task
-     * @return result of the operation
-     */
-    ApexApiResult listTaskOutputField(final String name, final String version, final String fieldName);
-
-    /**
-     * Delete a task output field.
-     *
-     * @param name name of the task
-     * @param version version of the task, set to null to use the latest version
-     * @param fieldName of the output field, set to null to delete all output fields
-     * @return result of the operation
-     */
-    ApexApiResult deleteTaskOutputField(final String name, final String version, final String fieldName);
+    ApexApiResult handleTaskField(final String name, final String version, final String fieldName);
 
     /**
      * Create a task parameter.
