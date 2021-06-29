@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (c) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +25,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 
 /**
  * The Class AnomalyDetection is used as a Java context for Adaptive anomaly detection in the adaptive domain.
  */
+@EqualsAndHashCode
 public class AnomalyDetection implements Serializable {
     private static final long serialVersionUID = -823013127095523727L;
-
-    private static final int HASH_PRIME_1 = 31;
-    private static final int HASH_PRIME_2 = 1231;
-    private static final int HASH_PRIME_3 = 1237;
 
     private boolean firstRound = true;
     private int frequency = 0;
@@ -65,7 +64,7 @@ public class AnomalyDetection implements Serializable {
      */
     public void init(final int incomingFrequency) {
         frequencyForecasted = new ArrayList<>(incomingFrequency);
-        for (int i = 0; i < incomingFrequency; i++) {
+        for (var i = 0; i < incomingFrequency; i++) {
             frequencyForecasted.add(null);
         }
     }
@@ -181,57 +180,5 @@ public class AnomalyDetection implements Serializable {
     public String toString() {
         return "AnomalyDetection [firstRound=" + firstRound + ", frequency=" + frequency + ", anomalyScores="
                 + anomalyScores + ", frequencyForecasted=" + frequencyForecasted + "]";
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME_1;
-        int result = 1;
-        result = prime * result + ((anomalyScores == null) ? 0 : anomalyScores.hashCode());
-        result = prime * result + (firstRound ? HASH_PRIME_2 : HASH_PRIME_3);
-        result = prime * result + frequency;
-        result = prime * result + ((frequencyForecasted == null) ? 0 : frequencyForecasted.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AnomalyDetection other = (AnomalyDetection) obj;
-        if (anomalyScores == null) {
-            if (other.anomalyScores != null) {
-                return false;
-            }
-        } else if (!anomalyScores.equals(other.anomalyScores)) {
-            return false;
-        }
-        if (firstRound != other.firstRound) {
-            return false;
-        }
-        if (frequency != other.frequency) {
-            return false;
-        }
-        if (frequencyForecasted == null) {
-            if (other.frequencyForecasted != null) {
-                return false;
-            }
-        } else if (!frequencyForecasted.equals(other.frequencyForecasted)) {
-            return false;
-        }
-        return true;
     }
 }

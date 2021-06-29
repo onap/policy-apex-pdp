@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (c) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,10 +52,10 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
      * @return the task
      */
     public boolean getTask(final TaskSelectionExecutionContext executor) {
-        String idString = executor.subject.getId();
+        var idString = executor.subject.getId();
         executor.logger.debug(idString);
 
-        String inFieldsString = executor.inFields.toString();
+        var inFieldsString = executor.inFields.toString();
         executor.logger.debug(inFieldsString);
 
         final List<String> tasks = executor.subject.getTaskNames();
@@ -68,7 +69,7 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
         }
 
         // Get the context object
-        AutoLearn autoLearn = (AutoLearn) executor.getContextAlbum(AUTO_LEARN_ALBUM).get(AUTO_LEARN);
+        var autoLearn = (AutoLearn) executor.getContextAlbum(AUTO_LEARN_ALBUM).get(AUTO_LEARN);
         if (autoLearn == null) {
             autoLearn = new AutoLearn();
         }
@@ -105,12 +106,12 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
      */
     private int getOption(final double diff, final AutoLearn autoLearn) {
         final Double[] avdiffs = autoLearn.getAvDiffs().toArray(new Double[autoLearn.getAvDiffs().size()]);
-        final int r = RAND.nextInt(size);
+        final var r = RAND.nextInt(size);
         int closestupi = -1;
         int closestdowni = -1;
         double closestup = Double.MAX_VALUE;
         double closestdown = Double.MIN_VALUE;
-        for (int i = 0; i < size; i++) {
+        for (var i = 0; i < size; i++) {
             if (Double.isNaN(avdiffs[i])) {
                 return r;
             }
