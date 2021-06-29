@@ -29,8 +29,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
@@ -162,14 +160,6 @@ public class PolicyAnalyser {
         // Task Context Usage
         for (final AxArtifactKey contextAlbumKey : task.getContextAlbumReferences()) {
             result.getContextAlbumUsage().get(contextAlbumKey).add(task.getKey());
-        }
-
-        // Task data type usage
-        for (final AxInputField inputField : task.getInputFields().values()) {
-            result.getContextSchemaUsage().get(inputField.getSchema()).add(task.getKey());
-        }
-        for (final AxOutputField outputField : task.getOutputFields().values()) {
-            result.getContextSchemaUsage().get(outputField.getSchema()).add(task.getKey());
         }
     }
 

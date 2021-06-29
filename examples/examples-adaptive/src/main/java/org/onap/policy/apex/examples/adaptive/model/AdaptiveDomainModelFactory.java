@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -168,43 +169,31 @@ public class AdaptiveDomainModelFactory {
 
         final AxTask anomalyDetectionMatchTask = new AxTask(
                         new AxArtifactKey("AnomalyDetectionMatchTask", DEFAULT_VERSION));
-        anomalyDetectionMatchTask.duplicateInputFields(anomalyDetectionTriggerEvent.getParameterMap());
-        anomalyDetectionMatchTask.duplicateOutputFields(anomalyDetectionMatchEvent.getParameterMap());
         anomalyDetectionMatchTask.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask anomalyDetectionEstablishTask = new AxTask(
                         new AxArtifactKey("AnomalyDetectionEstablishTask", DEFAULT_VERSION));
-        anomalyDetectionEstablishTask.duplicateInputFields(anomalyDetectionMatchEvent.getParameterMap());
-        anomalyDetectionEstablishTask.duplicateOutputFields(anomalyDetectionEstablishEvent.getParameterMap());
         anomalyDetectionEstablishTask.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask anomalyDetectionDecideTask0 = new AxTask(
                         new AxArtifactKey("AnomalyDetectionDecideTask0", DEFAULT_VERSION));
-        anomalyDetectionDecideTask0.duplicateInputFields(anomalyDetectionEstablishEvent.getParameterMap());
-        anomalyDetectionDecideTask0.duplicateOutputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionDecideTask0.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionDecideTask0.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask anomalyDetectionDecideTask1 = new AxTask(
                         new AxArtifactKey("AnomalyDetectionDecideTask1", DEFAULT_VERSION));
-        anomalyDetectionDecideTask1.duplicateInputFields(anomalyDetectionEstablishEvent.getParameterMap());
-        anomalyDetectionDecideTask1.duplicateOutputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionDecideTask1.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionDecideTask1.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask anomalyDetectionDecideTask2 = new AxTask(
                         new AxArtifactKey("AnomalyDetectionDecideTask2", DEFAULT_VERSION));
-        anomalyDetectionDecideTask2.duplicateInputFields(anomalyDetectionEstablishEvent.getParameterMap());
-        anomalyDetectionDecideTask2.duplicateOutputFields(anomalyDetectionDecideEvent.getParameterMap());
         anomalyDetectionDecideTask2.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionDecideTask2.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask anomalyDetectionActTask = new AxTask(
                         new AxArtifactKey("AnomalyDetectionActTask", DEFAULT_VERSION));
-        anomalyDetectionActTask.duplicateInputFields(anomalyDetectionDecideEvent.getParameterMap());
-        anomalyDetectionActTask.duplicateOutputFields(anomalyDetectionActEvent.getParameterMap());
         anomalyDetectionActTask.setTaskLogic(
                         new AxTaskLogic(anomalyDetectionActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
@@ -417,65 +406,45 @@ public class AdaptiveDomainModelFactory {
                         .setDefaultLogic("DefaultAutoLearnTask_Logic");
 
         final AxTask autoLearnMatchTask = new AxTask(new AxArtifactKey("AutoLearnMatchTask", DEFAULT_VERSION));
-        autoLearnMatchTask.duplicateInputFields(autoLearnTriggerEvent.getParameterMap());
-        autoLearnMatchTask.duplicateOutputFields(autoLearnMatchEvent.getParameterMap());
         autoLearnMatchTask.setTaskLogic(new AxTaskLogic(autoLearnMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnEstablishTask = new AxTask(new AxArtifactKey("AutoLearnEstablishTask", DEFAULT_VERSION));
-        autoLearnEstablishTask.duplicateInputFields(autoLearnMatchEvent.getParameterMap());
-        autoLearnEstablishTask.duplicateOutputFields(autoLearnEstablishEvent.getParameterMap());
         autoLearnEstablishTask.setTaskLogic(
                         new AxTaskLogic(autoLearnEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         logicReader.setDefaultLogic(null);
 
         final AxTask autoLearnDecideTask0 = new AxTask(new AxArtifactKey("AutoLearnDecideTask0", DEFAULT_VERSION));
-        autoLearnDecideTask0.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask0.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask0
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask0.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnDecideTask1 = new AxTask(new AxArtifactKey("AutoLearnDecideTask1", DEFAULT_VERSION));
-        autoLearnDecideTask1.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask1.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask1
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask1.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnDecideTask2 = new AxTask(new AxArtifactKey("AutoLearnDecideTask2", DEFAULT_VERSION));
-        autoLearnDecideTask2.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask2.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask2
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask2.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnDecideTask3 = new AxTask(new AxArtifactKey("AutoLearnDecideTask3", DEFAULT_VERSION));
-        autoLearnDecideTask3.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask3.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask3
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask3.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnDecideTask4 = new AxTask(new AxArtifactKey("AutoLearnDecideTask4", DEFAULT_VERSION));
-        autoLearnDecideTask4.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask4.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask4
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask4.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnDecideTask5 = new AxTask(new AxArtifactKey("AutoLearnDecideTask5", DEFAULT_VERSION));
-        autoLearnDecideTask5.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask5.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask5
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask5.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTask autoLearnDecideTask6 = new AxTask(new AxArtifactKey("AutoLearnDecideTask6", DEFAULT_VERSION));
-        autoLearnDecideTask6.duplicateInputFields(autoLearnEstablishEvent.getParameterMap());
-        autoLearnDecideTask6.duplicateOutputFields(autoLearnDecideEvent.getParameterMap());
         autoLearnDecideTask6
                         .setTaskLogic(new AxTaskLogic(autoLearnDecideTask6.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         logicReader.setDefaultLogic("DefaultAutoLearnTask_Logic");
 
         final AxTask autoLearnActTask = new AxTask(new AxArtifactKey("AutoLearnActTask", DEFAULT_VERSION));
-        autoLearnActTask.duplicateInputFields(autoLearnDecideEvent.getParameterMap());
-        autoLearnActTask.duplicateOutputFields(autoLearnActEvent.getParameterMap());
         autoLearnActTask.setTaskLogic(new AxTaskLogic(autoLearnActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         final AxTasks autoLearnTasks = new AxTasks(new AxArtifactKey("AutoLearnTasks", DEFAULT_VERSION));

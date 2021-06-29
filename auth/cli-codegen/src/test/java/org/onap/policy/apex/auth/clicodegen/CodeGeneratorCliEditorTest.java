@@ -107,17 +107,13 @@ public class CodeGeneratorCliEditorTest {
         // 2: tasks
         for (final AxTask t : policyModel.getTasks().getTaskMap().values()) {
             final AxArtifactKey key = t.getKey();
-            final List<ST> infields = getInfieldsForTask(codeGen, t);
-            final List<ST> outfields = getOutfieldsForTask(codeGen, t);
             final ST logic = getLogicForTask(codeGen, t);
             final List<ST> parameters = getParametersForTask(codeGen, t);
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
-            codeGen.addTaskDeclaration(
-                    new TaskDeclarationBuilder().setName(kig.getName(key)).setVersion(kig.getVersion(key))
-                            .setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key)).setInfields(infields)
-                            .setOutfields(outfields).setLogic(logic).setParameters(parameters)
-                            .setContextRefs(contextRefs));
+            codeGen.addTaskDeclaration(new TaskDeclarationBuilder().setName(kig.getName(key))
+                .setVersion(kig.getVersion(key)).setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key))
+                .setLogic(logic).setParameters(parameters).setContextRefs(contextRefs));
         }
 
         // 3: events
@@ -245,48 +241,6 @@ public class CodeGeneratorCliEditorTest {
         final AxTaskLogic tl = task.getTaskLogic();
 
         return cg.createTaskDefLogic(kig.getName(tkey), kig.getVersion(tkey), tl.getLogicFlavour(), tl.getLogic());
-    }
-
-    /**
-     * Gets the output fields for task.
-     *
-     * @param cg the code generator
-     * @param task the task
-     * @return the output fields for task
-     */
-    private List<ST> getOutfieldsForTask(final CodeGeneratorCliEditor cg, final AxTask task) {
-        final Collection<? extends AxField> fields = task.getOutputFields().values();
-        final List<ST> ret = new ArrayList<>(fields.size());
-        for (final AxField f : fields) {
-            final AxReferenceKey fkey = f.getKey();
-
-            final ST val = cg.createTaskDefinitionOutfields(kig.getPName(fkey), kig.getPVersion(fkey),
-                            kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
-
-            ret.add(val);
-        }
-        return ret;
-    }
-
-    /**
-     * Gets the input fields for task.
-     *
-     * @param cg the code generator
-     * @param task the task
-     * @return the input fields for task
-     */
-    private List<ST> getInfieldsForTask(final CodeGeneratorCliEditor cg, final AxTask task) {
-        final Collection<? extends AxField> fields = task.getInputFields().values();
-        final List<ST> ret = new ArrayList<>(fields.size());
-        for (final AxField f : fields) {
-            final AxReferenceKey fkey = f.getKey();
-
-            final ST val = cg.createTaskDefinitionInfields(kig.getPName(fkey), kig.getPVersion(fkey),
-                            kig.getLName(fkey), kig.getName(f.getSchema()), kig.getVersion(f.getSchema()));
-
-            ret.add(val);
-        }
-        return ret;
     }
 
     /**

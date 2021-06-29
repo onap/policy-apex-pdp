@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -217,8 +218,6 @@ public class EvalDomainModelFactory {
                         .setDefaultLogic("EvalTaskLogic");
 
         final var obTask = new AxTask(new AxArtifactKey("Task_Observe_0", DEFAULT_VERSION));
-        obTask.duplicateInputFields(event0000.getParameterMap());
-        obTask.duplicateOutputFields(event0001.getParameterMap());
         final var obAxLogic = new AxTaskLogic(obTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         obAxLogic.setLogic(obAxLogic.getLogic().replace(STATE_NAME, OBSERVE)
@@ -226,8 +225,6 @@ public class EvalDomainModelFactory {
         obTask.setTaskLogic(obAxLogic);
 
         final var orTask = new AxTask(new AxArtifactKey("Task_Orient_0", DEFAULT_VERSION));
-        orTask.duplicateInputFields(event0001.getParameterMap());
-        orTask.duplicateOutputFields(event0002.getParameterMap());
         final var orAxLogic = new AxTaskLogic(orTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         orAxLogic.setLogic(orAxLogic.getLogic().replace(STATE_NAME, ORIENT)
@@ -235,8 +232,6 @@ public class EvalDomainModelFactory {
         orTask.setTaskLogic(orAxLogic);
 
         final var dTask = new AxTask(new AxArtifactKey("Task_Decide_0", DEFAULT_VERSION));
-        dTask.duplicateInputFields(event0002.getParameterMap());
-        dTask.duplicateOutputFields(event0003.getParameterMap());
         final var dAxLogic = new AxTaskLogic(dTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? MVEL : justOneLang), logicReader);
         dAxLogic.setLogic(dAxLogic.getLogic().replace(STATE_NAME, ORIENT)
@@ -244,8 +239,6 @@ public class EvalDomainModelFactory {
         dTask.setTaskLogic(dAxLogic);
 
         final var aTask = new AxTask(new AxArtifactKey("Task_Act_0", DEFAULT_VERSION));
-        aTask.duplicateInputFields(event0003.getParameterMap());
-        aTask.duplicateOutputFields(event0004.getParameterMap());
         final var aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? "JAVA" : justOneLang), logicReader);
         aAxLogic.setLogic(aAxLogic.getLogic().replace(STATE_NAME, "Act")
@@ -460,8 +453,6 @@ public class EvalDomainModelFactory {
                         .setDefaultLogic("EvalTaskLogic");
 
         final var eTask = new AxTask(new AxArtifactKey("Task_Event_0", DEFAULT_VERSION));
-        eTask.duplicateInputFields(event0000.getParameterMap());
-        eTask.duplicateOutputFields(event0001.getParameterMap());
         final var eAxLogic = new AxTaskLogic(eTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JYTHON : justOneLang), logicReader);
         eAxLogic.setLogic(eAxLogic.getLogic().replace(STATE_NAME, EVENT)
@@ -469,8 +460,6 @@ public class EvalDomainModelFactory {
         eTask.setTaskLogic(eAxLogic);
 
         final var cTask = new AxTask(new AxArtifactKey("Task_Condition_0", DEFAULT_VERSION));
-        cTask.duplicateInputFields(event0001.getParameterMap());
-        cTask.duplicateOutputFields(event0002.getParameterMap());
         final var cAxLogic = new AxTaskLogic(cTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? JAVASCRIPT : justOneLang), logicReader);
         cAxLogic.setLogic(cAxLogic.getLogic().replace(STATE_NAME, CONDITION)
@@ -478,8 +467,6 @@ public class EvalDomainModelFactory {
         cTask.setTaskLogic(cAxLogic);
 
         final var aTask = new AxTask(new AxArtifactKey("Task_Action_0", DEFAULT_VERSION));
-        aTask.duplicateInputFields(event0002.getParameterMap());
-        aTask.duplicateOutputFields(event0003.getParameterMap());
         final var aAxLogic = new AxTaskLogic(aTask.getKey(), TASK_LOGIC,
                         (justOneLang == null ? "JAVA" : justOneLang), logicReader);
         aAxLogic.setLogic(aAxLogic.getLogic().replace(STATE_NAME, ACTION)
