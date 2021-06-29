@@ -26,6 +26,7 @@ package org.onap.policy.apex.model.modelapi.impl;
 import java.util.Properties;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
+import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.modelapi.ApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class ApexModelImpl implements ApexModel {
 
-    private static final String FIELDS_DEPRECATED_WARN_MSG =
+    public static final String FIELDS_DEPRECATED_WARN_MSG =
         "inputFields and outputFields are deprecated from Task definition and will be removed. "
             + "Instead, inputEvent and outputEvents are automatically populated to Tasks based on State definition";
 
@@ -444,56 +445,19 @@ public final class ApexModelImpl implements ApexModel {
      * {@inheritDoc}.
      */
     @Override
-    public ApexApiResult createTaskInputField(final String name, final String version, final String fieldName,
+    public ApexApiResult createTaskField(final String name, final String version, final String fieldName,
             final String dataTypeName, final String dataTypeVersion, final boolean optional) {
         LOGGER.warn(FIELDS_DEPRECATED_WARN_MSG);
-        return taskFacade.createTaskInputField(name, version, fieldName, dataTypeName, dataTypeVersion, optional);
+        return new ApexApiResult(Result.SUCCESS, FIELDS_DEPRECATED_WARN_MSG);
     }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public ApexApiResult listTaskInputField(final String name, final String version, final String fieldName) {
+    public ApexApiResult handleTaskField(final String name, final String version, final String fieldName) {
         LOGGER.warn(FIELDS_DEPRECATED_WARN_MSG);
-        return taskFacade.listTaskInputField(name, version, fieldName);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public ApexApiResult deleteTaskInputField(final String name, final String version, final String fieldName) {
-        LOGGER.warn(FIELDS_DEPRECATED_WARN_MSG);
-        return taskFacade.deleteTaskInputField(name, version, fieldName);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public ApexApiResult createTaskOutputField(final String name, final String version, final String fieldName,
-            final String dataTypeName, final String dataTypeVersion, final boolean optional) {
-        LOGGER.warn(FIELDS_DEPRECATED_WARN_MSG);
-        return taskFacade.createTaskOutputField(name, version, fieldName, dataTypeName, dataTypeVersion, optional);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public ApexApiResult listTaskOutputField(final String name, final String version, final String fieldName) {
-        LOGGER.warn(FIELDS_DEPRECATED_WARN_MSG);
-        return taskFacade.listTaskOutputField(name, version, fieldName);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public ApexApiResult deleteTaskOutputField(final String name, final String version, final String fieldName) {
-        LOGGER.warn(FIELDS_DEPRECATED_WARN_MSG);
-        return taskFacade.deleteTaskOutputField(name, version, fieldName);
+        return new ApexApiResult(Result.SUCCESS, FIELDS_DEPRECATED_WARN_MSG);
     }
 
     /**

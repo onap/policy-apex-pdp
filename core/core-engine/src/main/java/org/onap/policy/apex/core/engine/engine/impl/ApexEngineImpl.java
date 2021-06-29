@@ -50,6 +50,7 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
+import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 import org.slf4j.ext.XLogger;
@@ -180,26 +181,34 @@ public class ApexEngineImpl implements ApexEngine {
     private void updateTaskBasedOnStateOutput(AxPolicyModel apexPolicyModel, Set<AxArtifactKey> updatedTasks,
         AxState state, AxArtifactKey taskKey, AxStateTaskReference taskRef, AxTask task) {
         Map<String, AxEvent> outputEvents = new TreeMap<>();
-        AxStateOutput stateOutput = state.getStateOutputs().get(taskRef.getOutput().getLocalName());
-        if (null == stateOutput.getOutgoingEventSet() || stateOutput.getOutgoingEventSet().isEmpty()) {
-            Set<AxArtifactKey> outEventSet = new TreeSet<>();
-            outEventSet.add(stateOutput.getOutgoingEvent());
-            stateOutput.setOutgoingEventSet(outEventSet);
-        }
-        if (state.getNextStateSet().isEmpty()
-            || state.getNextStateSet().contains(AxReferenceKey.getNullKey().getLocalName())) {
-            stateOutput.getOutgoingEventSet().forEach(outgoingEventKey -> outputEvents.put(outgoingEventKey.getName(),
-                apexPolicyModel.getEvents().get(outgoingEventKey)));
+        AxStateOutput stateOutput = null;
+        if (taskRef.getStateTaskOutputType().equals(AxStateTaskOutputType.LOGIC)) {
+            // in case of SFL, outgoing event will be same for all state outputs that are part of SFL.So, take any entry
+            stateOutput = state.getStateOutputs().values().iterator().next();
         } else {
-            AxArtifactKey outgoingEventKey = stateOutput.getOutgoingEvent();
-            outputEvents.put(outgoingEventKey.getName(), apexPolicyModel.getEvents().get(outgoingEventKey));
+            stateOutput = state.getStateOutputs().get(taskRef.getOutput().getLocalName());
         }
-        if (updatedTasks.contains(taskKey)) {
-            // this happens only when same task is used by multiple policies
-            // with different eventName but same fields
-            task.getOutputEvents().putAll(outputEvents);
-        } else {
-            task.setOutputEvents(outputEvents);
+        if (null != stateOutput) {
+            if (null == stateOutput.getOutgoingEventSet() || stateOutput.getOutgoingEventSet().isEmpty()) {
+                Set<AxArtifactKey> outEventSet = new TreeSet<>();
+                outEventSet.add(stateOutput.getOutgoingEvent());
+                stateOutput.setOutgoingEventSet(outEventSet);
+            }
+            if (state.getNextStateSet().isEmpty()
+                || state.getNextStateSet().contains(AxReferenceKey.getNullKey().getLocalName())) {
+                stateOutput.getOutgoingEventSet().forEach(outgoingEventKey -> outputEvents
+                    .put(outgoingEventKey.getName(), apexPolicyModel.getEvents().get(outgoingEventKey)));
+            } else {
+                AxArtifactKey outgoingEventKey = stateOutput.getOutgoingEvent();
+                outputEvents.put(outgoingEventKey.getName(), apexPolicyModel.getEvents().get(outgoingEventKey));
+            }
+            if (updatedTasks.contains(taskKey)) {
+                // this happens only when same task is used by multiple policies
+                // with different eventName but same fields
+                task.getOutputEvents().putAll(outputEvents);
+            } else {
+                task.setOutputEvents(outputEvents);
+            }
         }
     }
 
