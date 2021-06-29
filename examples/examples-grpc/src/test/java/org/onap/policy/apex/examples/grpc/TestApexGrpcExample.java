@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.examples.grpc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -85,9 +85,12 @@ public class TestApexGrpcExample {
         Response response = client.target(getLoggedEventUrl).request("application/json").get();
         sim.tearDown();
         String responseEntity = response.readEntity(String.class);
-
         String expectedLoggedOutputEvent = Files
             .readString(Paths.get("src/main/resources/examples/events/APEXgRPC/LogEvent.json")).replaceAll("\r", "");
-        assertEquals(expectedLoggedOutputEvent, responseEntity);
+        String expectedStatusEvent =
+            Files.readString(Paths.get("src/main/resources/examples/events/APEXgRPC/CDSResponseStatusEvent.json"))
+                .replaceAll("\r", "");
+        // Both LogEvent and CDSResponseStatusEvent are generated from the final state in the policy
+        assertThat(responseEntity).contains(expectedStatusEvent + expectedLoggedOutputEvent);
     }
 }

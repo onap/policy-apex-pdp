@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -42,6 +44,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -50,6 +55,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
+import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
 import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
@@ -90,9 +96,13 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTask", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxTask", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "inputFields", "outputFields", "taskParameters", "contextAlbumReferenceSet", "taskLogic"})
-
+@XmlType(
+    name = "AxTask",
+    namespace = "http://www.onap.org/policy/apex-pdp",
+    propOrder = {"key", "inputEvent", "outputEvents", "inputFields", "outputFields", "taskParameters",
+        "contextAlbumReferenceSet", "taskLogic"})
+@Getter
+@Setter
 public class AxTask extends AxConcept {
     private static final String DOES_NOT_EQUAL_TASK_KEY = " does not equal task key";
 
@@ -100,7 +110,24 @@ public class AxTask extends AxConcept {
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
+    @NonNull
     private AxArtifactKey key;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "INPUT_EVENT_JT",
+        joinColumns = {@JoinColumn(name = "inEventTaskName", referencedColumnName = "name", updatable = false),
+            @JoinColumn(name = "inEventTaskVersion", referencedColumnName = "version", updatable = false)})
+    @XmlElement(name = "inputEvent", required = false)
+    private AxEvent inputEvent;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "OUTPUT_EVENT_JT",
+        joinColumns = {@JoinColumn(name = "outEventTaskName", referencedColumnName = "name", updatable = false),
+            @JoinColumn(name = "outEventTaskVersion", referencedColumnName = "version", updatable = false)})
+    @XmlElement(name = "outputEvents", required = false)
+    private Map<String, AxEvent> outputEvents;
 
     @OneToMany(cascade = CascadeType.ALL)
     @XmlElement(name = "inputFields", required = true)
@@ -119,11 +146,13 @@ public class AxTask extends AxConcept {
     @CollectionTable(joinColumns = {@JoinColumn(name = "contextAlbumName", referencedColumnName = "name"),
         @JoinColumn(name = "contextAlbumVersion", referencedColumnName = "version")})
     @XmlElement(name = "contextAlbumReference")
+    @NonNull
     private Set<AxArtifactKey> contextAlbumReferenceSet;
     // @formatter:on
 
     @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(required = true)
+    @NonNull
     private AxTaskLogic taskLogic;
 
     /**
@@ -219,14 +248,6 @@ public class AxTask extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
         for (final AxInputField inputField : inputFields.values()) {
@@ -243,25 +264,6 @@ public class AxTask extends AxConcept {
         }
         keyList.addAll(taskLogic.getKeys());
         return keyList;
-    }
-
-    /**
-     * Sets the key of the task.
-     *
-     * @param key the key of the task
-     */
-    public void setKey(final AxArtifactKey key) {
-        Assertions.argumentNotNull(key, "key may not be null");
-        this.key = key;
-    }
-
-    /**
-     * Gets the input fields that the task expects.
-     *
-     * @return the input fields that the task expects
-     */
-    public Map<String, AxInputField> getInputFields() {
-        return inputFields;
     }
 
     /**
@@ -287,16 +289,6 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Sets the input fields that the task expects.
-     *
-     * @param inputFields the input fields that the task expects
-     */
-    public void setInputFields(final Map<String, AxInputField> inputFields) {
-        Assertions.argumentNotNull(inputFields, "inputFields may not be null");
-        this.inputFields = inputFields;
-    }
-
-    /**
      * Copy the input fields from the given map into the task. This method is used to get a copy of
      * the input fields, which can be useful for unit testing of policies and tasks.
      *
@@ -311,15 +303,6 @@ public class AxTask extends AxConcept {
             final AxInputField inputField = new AxInputField(fieldKey, field.getSchema());
             inputFields.put(inputField.getKey().getLocalName(), inputField);
         }
-    }
-
-    /**
-     * Gets the output fields that the task emits.
-     *
-     * @return the output fields that the task emits
-     */
-    public Map<String, AxOutputField> getOutputFields() {
-        return outputFields;
     }
 
     /**
@@ -345,16 +328,6 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Sets the output fields that the task emits.
-     *
-     * @param outputFields the output fields that the task emits
-     */
-    public void setOutputFields(final Map<String, AxOutputField> outputFields) {
-        Assertions.argumentNotNull(outputFields, "outputFields may not be null");
-        this.outputFields = outputFields;
-    }
-
-    /**
      * Copy the output fields from the given map into the task. This method is used to get a copy of
      * the output fields, which can be useful for unit testing of policies and tasks.
      *
@@ -371,24 +344,6 @@ public class AxTask extends AxConcept {
         }
     }
 
-    /**
-     * Gets the task parameters that are used to initialize tasks of this type.
-     *
-     * @return the task parameters that are used to initialize tasks of this type
-     */
-    public Map<String, AxTaskParameter> getTaskParameters() {
-        return taskParameters;
-    }
-
-    /**
-     * Sets the task parameters that are used to initialize tasks of this type.
-     *
-     * @param taskParameters the task parameters that are used to initialize tasks of this type
-     */
-    public void setTaskParameters(final Map<String, AxTaskParameter> taskParameters) {
-        Assertions.argumentNotNull(taskParameters, "taskParameters may not be null");
-        this.taskParameters = taskParameters;
-    }
 
     /**
      * Gets the context album reference set defines the context that may be used by Task Logic in
@@ -414,25 +369,6 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Gets the task logic that performs the domain specific work of the task.
-     *
-     * @return the task logic that performs the domain specific work of the task
-     */
-    public AxTaskLogic getTaskLogic() {
-        return taskLogic;
-    }
-
-    /**
-     * Sets the task logic that performs the domain specific work of the task.
-     *
-     * @param taskLogic the task logic that performs the domain specific work of the task
-     */
-    public void setTaskLogic(final AxTaskLogic taskLogic) {
-        Assertions.argumentNotNull(taskLogic, "taskLogic may not be null");
-        this.taskLogic = taskLogic;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -446,30 +382,12 @@ public class AxTask extends AxConcept {
 
         result = key.validate(result);
 
-        if (inputFields.size() == 0) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "inputFields may not be empty"));
-        } else {
-            for (final Entry<String, AxInputField> inputFieldEntry : inputFields.entrySet()) {
-                result = validateField(inputFieldEntry.getKey(), inputFieldEntry.getValue(), "input", result);
-            }
-        }
-
-        if (outputFields.size() == 0) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "outputFields may not be empty"));
-        } else {
-            for (final Entry<String, AxOutputField> outputFieldEntry : outputFields.entrySet()) {
-                result = validateField(outputFieldEntry.getKey(), outputFieldEntry.getValue(), "input", result);
-            }
-        }
-
         for (final Entry<String, AxTaskParameter> taskParameterEntry : taskParameters.entrySet()) {
-            result = vaildateTaskParameterEntry(taskParameterEntry, result);
+            result = validateTaskParameterEntry(taskParameterEntry, result);
         }
 
         for (final AxArtifactKey contextAlbumReference : contextAlbumReferenceSet) {
-            result = vaildateContextAlbumReference(contextAlbumReference, result);
+            result = validateContextAlbumReference(contextAlbumReference, result);
         }
 
         if (!taskLogic.getKey().getParentArtifactKey().equals(key)) {
@@ -481,39 +399,13 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * Validate a field.
-     *
-     * @param fieldKey the key of the field to validate
-     * @param field the field to validate
-     * @param direction The direction of the field
-     * @param result The validation result to append to
-     * @return The result of the validation
-     */
-    private AxValidationResult validateField(final String fieldKey, final AxField field, final String direction,
-            AxValidationResult result) {
-        if (field == null) {
-            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "null " + direction + " field value found on " + direction + " field " + fieldKey));
-        } else {
-            if (!field.getKey().getParentArtifactKey().equals(key)) {
-                result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                        "parent key on " + direction + " field " + fieldKey + DOES_NOT_EQUAL_TASK_KEY));
-            }
-
-            result = field.validate(result);
-        }
-
-        return result;
-    }
-
-    /**
      * Validate a task parameter entry.
      *
      * @param taskParameterEntry the task parameter entry to validate
      * @param result The validation result to append to
      * @return The result of the validation
      */
-    private AxValidationResult vaildateTaskParameterEntry(final Entry<String, AxTaskParameter> taskParameterEntry,
+    private AxValidationResult validateTaskParameterEntry(final Entry<String, AxTaskParameter> taskParameterEntry,
             AxValidationResult result) {
         if (taskParameterEntry.getValue() == null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
@@ -537,7 +429,7 @@ public class AxTask extends AxConcept {
      * @param result The validation result to append to
      * @return The result of the validation
      */
-    private AxValidationResult vaildateContextAlbumReference(final AxArtifactKey contextAlbumReference,
+    private AxValidationResult validateContextAlbumReference(final AxArtifactKey contextAlbumReference,
             AxValidationResult result) {
         if (contextAlbumReference.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
