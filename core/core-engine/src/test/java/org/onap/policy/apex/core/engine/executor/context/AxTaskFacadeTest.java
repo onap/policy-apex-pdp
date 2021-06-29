@@ -99,9 +99,6 @@ public class AxTaskFacadeTest {
         Mockito.doReturn(inEvent).when(axTaskMock).getInputEvent();
         Mockito.doReturn(outEvents).when(axTaskMock).getOutputEvents();
 
-        Mockito.doReturn(inFieldMap).when(axTaskMock).getInputFields();
-        Mockito.doReturn(outFieldMap).when(axTaskMock).getOutputFields();
-
         Mockito.doReturn(new AxReferenceKey(task0Key, "InField0")).when(axInputFieldMock).getKey();
         Mockito.doReturn(stringTypeKey).when(axInputFieldMock).getSchema();
 

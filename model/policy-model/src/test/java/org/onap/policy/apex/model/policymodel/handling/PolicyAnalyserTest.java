@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +36,9 @@ public class PolicyAnalyserTest {
         final PolicyAnalyser policyAnalyser = new PolicyAnalyser();
         final PolicyAnalysisResult analysisResult = policyAnalyser.analyse(apexModel);
 
+        System.out.println(analysisResult.toString());
+        System.out.println("------------");
+        System.out.println(EXPECTED_ANALYSIS_RESULT);
         assertEquals(EXPECTED_ANALYSIS_RESULT, analysisResult.toString());
 
         assertNotNull(analysisResult.getUsedContextAlbums());
@@ -50,8 +54,8 @@ public class PolicyAnalyserTest {
     private static final String EXPECTED_ANALYSIS_RESULT = "" + "Context Schema usage\n" + " MapType:0.0.1\n"
             + "  contextAlbum0:0.0.1\n" + " StringType:0.0.1\n" + "  contextAlbum1:0.0.1\n"
             + " eventContextItem0:0.0.1\n" + "  inEvent:0.0.1\n" + "  outEvent0:0.0.1\n" + "  outEvent1:0.0.1\n"
-            + "  task:0.0.1\n" + " eventContextItem1:0.0.1\n" + "  inEvent:0.0.1\n" + "  outEvent0:0.0.1\n"
-            + "  outEvent1:0.0.1\n" + "  task:0.0.1\n" + "Context Album usage\n" + " contextAlbum0:0.0.1\n"
+            + " eventContextItem1:0.0.1\n" + "  inEvent:0.0.1\n" + "  outEvent0:0.0.1\n"
+            + "  outEvent1:0.0.1\n" + "Context Album usage\n" + " contextAlbum0:0.0.1\n"
             + "  task:0.0.1\n" + "  policy:0.0.1:NULL:state\n" + " contextAlbum1:0.0.1\n" + "  task:0.0.1\n"
             + "  policy:0.0.1:NULL:state\n" + "Event usage\n" + " inEvent:0.0.1\n" + "  policy:0.0.1:NULL:state\n"
             + " outEvent0:0.0.1\n" + "  policy:0.0.1:NULL:state\n" + " outEvent1:0.0.1 (unused)\n" + "Task usage\n"

@@ -166,19 +166,16 @@ public class JavascriptTaskExecutorTest {
         internalContext.getContextAlbums().put(contextAlbum.getKey(), contextAlbum);
 
         task.getContextAlbumReferences().add(contextAlbum.getKey());
-        String parKey0 = "par0";
-        task.getOutputFields().put(parKey0, null);
-        String parKey1 = "par1";
-        task.getOutputFields().put(parKey1, null);
 
         jte.setContext(null, task, internalContext);
-
+        String parKey0 = "par0";
         Map<String, Object> incomingParameters = new HashMap<>();
         incomingParameters.put(parKey0, "value0");
 
         AxEvent inEvent = new AxEvent();
         inEvent.setParameterMap(Map.of(parKey0, new AxField()));
         task.setInputEvent(inEvent);
+        String parKey1 = "par1";
         AxEvent outEvent = new AxEvent();
         outEvent.setParameterMap(Map.of(parKey0, new AxField(), parKey1, new AxField()));
         final String eventName = "event1";

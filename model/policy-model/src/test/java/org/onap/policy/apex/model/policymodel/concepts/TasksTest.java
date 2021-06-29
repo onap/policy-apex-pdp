@@ -25,7 +25,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -36,9 +35,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
-import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 
 /**
  * Test policy tasks.
@@ -49,19 +45,15 @@ public class TasksTest {
 
     @Test
     public void testTasks() {
-        final TreeMap<String, AxInputField> ifEmptyMap = new TreeMap<>();
-        final TreeMap<String, AxOutputField> ofEmptyMap = new TreeMap<>();
         final TreeMap<String, AxTaskParameter> tpEmptyMap = new TreeMap<>();
         final TreeSet<AxArtifactKey> ctxtEmptySet = new TreeSet<>();
 
-        final TreeMap<String, AxInputField> ifMap = new TreeMap<>();
-        final TreeMap<String, AxOutputField> ofMap = new TreeMap<>();
         final TreeMap<String, AxTaskParameter> tpMap = new TreeMap<>();
         final TreeSet<AxArtifactKey> ctxtSet = new TreeSet<>();
 
         assertNotNull(new AxTask());
         assertNotNull(new AxTask(new AxArtifactKey()));
-        assertNotNull(new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, new AxTaskLogic()));
+        assertNotNull(new AxTask(new AxArtifactKey(), tpMap, ctxtSet, new AxTaskLogic()));
 
         final AxTask task = new AxTask();
 
@@ -70,40 +62,15 @@ public class TasksTest {
         assertEquals("TaskName:0.0.1", task.getKey().getId());
         assertEquals("TaskName:0.0.1", task.getKeys().get(0).getId());
 
-        final AxArtifactKey f0SchemaKey = new AxArtifactKey("FS0", "0.0.1");
-
-        final AxInputField if0 = new AxInputField(new AxReferenceKey(taskKey, "IF0"), f0SchemaKey, false);
-        final AxInputField if1 = new AxInputField(new AxReferenceKey(taskKey, "IF1"), f0SchemaKey, false);
-        final AxOutputField of0 = new AxOutputField(new AxReferenceKey(taskKey, "OF0"), f0SchemaKey, false);
-        final AxOutputField of1 = new AxOutputField(new AxReferenceKey(taskKey, "OF1"), f0SchemaKey, false);
         final AxTaskParameter tp0 = new AxTaskParameter(new AxReferenceKey(taskKey, "TP0"), "DefaultValue");
         final AxArtifactKey cr0 = new AxArtifactKey("ContextReference", "0.0.1");
         final AxTaskLogic tl = new AxTaskLogic(taskKey, "LogicName", "LogicFlavour", "Logic");
 
-        ifMap.put(if0.getKey().getLocalName(), if0);
-        ofMap.put(of0.getKey().getLocalName(), of0);
         tpMap.put(tp0.getKey().getLocalName(), tp0);
         ctxtSet.add(cr0);
 
-        task.setInputFields(ifMap);
-        assertEquals(ifMap, task.getInputFields());
-        assertTrue(task.getInputFieldSet().contains(if0));
-        assertTrue(task.getRawInputFields().keySet().contains(if0.getKey().getLocalName()));
-
-        task.setOutputFields(ofMap);
-        assertEquals(ofMap, task.getOutputFields());
-        assertTrue(task.getOutputFieldSet().contains(of0));
-        assertTrue(task.getRawOutputFields().keySet().contains(of0.getKey().getLocalName()));
         task.setInputEvent(new AxEvent());
         task.setOutputEvents(Map.of("Event", new AxEvent()));
-        final TreeMap<String, AxField> ifDupMap = new TreeMap<>();
-        final TreeMap<String, AxField> ofDupMap = new TreeMap<>();
-        ifDupMap.put(if1.getKey().getLocalName(), if1);
-        ofDupMap.put(of1.getKey().getLocalName(), of1);
-        task.duplicateInputFields(ifDupMap);
-        task.duplicateOutputFields(ofDupMap);
-        assertTrue(ifMap.containsKey("IF1"));
-        assertTrue(ofMap.containsKey("OF1"));
 
         task.setTaskParameters(tpMap);
         assertEquals(tpMap, task.getTaskParameters());
@@ -187,26 +154,24 @@ public class TasksTest {
         assertEquals(task, task); // NOSONAR
         assertEquals(task, clonedTask);
         assertNotNull(task);
-        assertNotEquals(task, (Object) "Hello");
-        assertNotEquals(task, new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl));
-        assertNotEquals(task, new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl));
-        assertNotEquals(task, new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl));
-        assertNotEquals(task, new AxTask(taskKey, ifMap, ofMap, tpEmptyMap, ctxtSet, tl));
-        assertNotEquals(task, new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtEmptySet, tl));
-        assertNotEquals(task, new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, new AxTaskLogic()));
-        assertEquals(task, new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, tl));
+        assertNotEquals(task, "Hello");
+        assertNotEquals(task, new AxTask(new AxArtifactKey(), tpMap, ctxtSet, tl));
+        assertEquals(task, new AxTask(taskKey, tpMap, ctxtSet, tl));
+        assertNotEquals(task, new AxTask(taskKey, tpEmptyMap, ctxtSet, tl));
+        assertNotEquals(task, new AxTask(taskKey, tpMap, ctxtEmptySet, tl));
+        assertNotEquals(task, new AxTask(taskKey, tpMap, ctxtSet, new AxTaskLogic()));
+        assertEquals(task, new AxTask(taskKey, tpMap, ctxtSet, tl));
 
         assertEquals(0, task.compareTo(task));
         assertEquals(0, task.compareTo(clonedTask));
         assertNotEquals(0, task.compareTo(new AxArtifactKey()));
         assertNotEquals(0, task.compareTo(null));
-        assertNotEquals(0, task.compareTo(new AxTask(new AxArtifactKey(), ifMap, ofMap, tpMap, ctxtSet, tl)));
-        assertNotEquals(0, task.compareTo(new AxTask(taskKey, ifEmptyMap, ofMap, tpMap, ctxtSet, tl)));
-        assertNotEquals(0, task.compareTo(new AxTask(taskKey, ifMap, ofEmptyMap, tpMap, ctxtSet, tl)));
-        assertNotEquals(0, task.compareTo(new AxTask(taskKey, ifMap, ofMap, tpEmptyMap, ctxtSet, tl)));
-        assertNotEquals(0, task.compareTo(new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtEmptySet, tl)));
-        assertNotEquals(0, task.compareTo(new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, new AxTaskLogic())));
-        assertEquals(0, task.compareTo(new AxTask(taskKey, ifMap, ofMap, tpMap, ctxtSet, tl)));
+        assertNotEquals(0, task.compareTo(new AxTask(new AxArtifactKey(), tpMap, ctxtSet, tl)));
+        assertEquals(0, task.compareTo(new AxTask(taskKey, tpMap, ctxtSet, tl)));
+        assertNotEquals(0, task.compareTo(new AxTask(taskKey, tpEmptyMap, ctxtSet, tl)));
+        assertNotEquals(0, task.compareTo(new AxTask(taskKey, tpMap, ctxtEmptySet, tl)));
+        assertNotEquals(0, task.compareTo(new AxTask(taskKey, tpMap, ctxtSet, new AxTaskLogic())));
+        assertEquals(0, task.compareTo(new AxTask(taskKey, tpMap, ctxtSet, tl)));
 
         assertNotNull(task.getKeys());
 
@@ -271,7 +236,7 @@ public class TasksTest {
         assertEquals(tasks, tasks); // NOSONAR
         assertEquals(tasks, clonedTasks);
         assertNotNull(tasks);
-        assertNotEquals(tasks, (Object) "Hello");
+        assertNotEquals(tasks, "Hello");
         assertNotEquals(tasks, new AxTasks(new AxArtifactKey()));
 
         assertEquals(0, tasks.compareTo(tasks));
