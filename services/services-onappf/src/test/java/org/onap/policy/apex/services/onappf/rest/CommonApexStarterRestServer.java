@@ -71,7 +71,6 @@ public class CommonApexStarterRestServer {
     public static final String NOT_ALIVE = "not alive";
     public static final String ALIVE = "alive";
     public static final String SELF = "self";
-    public static final String NAME = "Policy PDP-A";
     public static final String ENDPOINT_PREFIX = "policy/apex-pdp/v1/";
 
     private static int port;

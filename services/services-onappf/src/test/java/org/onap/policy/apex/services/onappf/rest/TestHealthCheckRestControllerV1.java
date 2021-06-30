@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.services.onappf.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.client.Invocation;
@@ -44,15 +46,15 @@ public class TestHealthCheckRestControllerV1 extends CommonApexStarterRestServer
     public void testHealthCheckSuccess() throws Exception {
         final Invocation.Builder invocationBuilder = sendRequest(HEALTHCHECK_ENDPOINT);
         final HealthCheckReport report = invocationBuilder.get(HealthCheckReport.class);
-        validateHealthCheckReport(NAME, SELF, true, 200, ALIVE, report);
+        validateHealthCheckReport(SELF, true, 200, ALIVE, report);
 
         // verify it fails when no authorization info is included
         checkUnauthRequest(HEALTHCHECK_ENDPOINT, req -> req.get());
     }
 
-    private void validateHealthCheckReport(final String name, final String url, final boolean healthy, final int code,
+    private void validateHealthCheckReport(final String url, final boolean healthy, final int code,
             final String message, final HealthCheckReport report) {
-        assertEquals(name, report.getName());
+        assertThat(report.getName()).isNotBlank();
         assertEquals(url, report.getUrl());
         assertEquals(healthy, report.isHealthy());
         assertEquals(code, report.getCode());
