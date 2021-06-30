@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,60 +88,60 @@ public class AadmDomainModelFactory {
     public AxPolicyModel getAadmPolicyModel() {
         // CHECKSTYLE:ON: checkstyle
         // Data types for event parameters
-        final AxContextSchema imsi = new AxContextSchema(new AxArtifactKey("IMSI", DEFAULT_VERSION), "Java",
+        final var imsi = new AxContextSchema(new AxArtifactKey("IMSI", DEFAULT_VERSION), "Java",
                         JAVA_LANG_LONG);
-        final AxContextSchema ueIpAddress = new AxContextSchema(new AxArtifactKey("UEIPAddress", DEFAULT_VERSION),
+        final var ueIpAddress = new AxContextSchema(new AxArtifactKey("UEIPAddress", DEFAULT_VERSION),
                         "Java", JAVA_LANG_STRING);
-        final AxContextSchema nwIpAddress = new AxContextSchema(new AxArtifactKey("NWIPAddress", DEFAULT_VERSION),
+        final var nwIpAddress = new AxContextSchema(new AxArtifactKey("NWIPAddress", DEFAULT_VERSION),
                         "Java", JAVA_LANG_STRING);
-        final AxContextSchema dosFlag = new AxContextSchema(new AxArtifactKey("DOSFlag", DEFAULT_VERSION), "Java",
+        final var dosFlag = new AxContextSchema(new AxArtifactKey("DOSFlag", DEFAULT_VERSION), "Java",
                         JAVA_LANG_BOOLEAN);
-        final AxContextSchema roundTripTime = new AxContextSchema(new AxArtifactKey("RoundTripTime", DEFAULT_VERSION),
+        final var roundTripTime = new AxContextSchema(new AxArtifactKey("RoundTripTime", DEFAULT_VERSION),
                         "Java", JAVA_LANG_LONG);
-        final AxContextSchema applicationName = new AxContextSchema(
+        final var applicationName = new AxContextSchema(
                         new AxArtifactKey("ApplicationName", DEFAULT_VERSION), "Java", JAVA_LANG_STRING);
-        final AxContextSchema protocolGroup = new AxContextSchema(new AxArtifactKey("ProtocolGroup", DEFAULT_VERSION),
+        final var protocolGroup = new AxContextSchema(new AxArtifactKey("ProtocolGroup", DEFAULT_VERSION),
                         "Java", JAVA_LANG_STRING);
-        final AxContextSchema eNodeBId = new AxContextSchema(new AxArtifactKey("ENodeBID", DEFAULT_VERSION), "Java",
+        final var eNodeBId = new AxContextSchema(new AxArtifactKey("ENodeBID", DEFAULT_VERSION), "Java",
                         JAVA_LANG_LONG);
-        final AxContextSchema httpHostClass = new AxContextSchema(new AxArtifactKey("HttpHostClass", DEFAULT_VERSION),
+        final var httpHostClass = new AxContextSchema(new AxArtifactKey("HttpHostClass", DEFAULT_VERSION),
                         "Java", JAVA_LANG_STRING);
-        final AxContextSchema tcpOnFlag = new AxContextSchema(new AxArtifactKey("TCPOnFlag", DEFAULT_VERSION), "Java",
+        final var tcpOnFlag = new AxContextSchema(new AxArtifactKey("TCPOnFlag", DEFAULT_VERSION), "Java",
                         JAVA_LANG_BOOLEAN);
-        final AxContextSchema probeOnFlag = new AxContextSchema(new AxArtifactKey("ProbeOnFlag", DEFAULT_VERSION),
+        final var probeOnFlag = new AxContextSchema(new AxArtifactKey("ProbeOnFlag", DEFAULT_VERSION),
                         "Java", JAVA_LANG_BOOLEAN);
-        final AxContextSchema blacklistOnFlag = new AxContextSchema(
+        final var blacklistOnFlag = new AxContextSchema(
                         new AxArtifactKey("BlacklistOnFlag", DEFAULT_VERSION), "Java", JAVA_LANG_BOOLEAN);
-        final AxContextSchema averageThroughput = new AxContextSchema(
+        final var averageThroughput = new AxContextSchema(
                         new AxArtifactKey("AverageThroughput", DEFAULT_VERSION), "Java", JAVA_LANG_DOUBLE);
-        final AxContextSchema serviceRequestCount = new AxContextSchema(
+        final var serviceRequestCount = new AxContextSchema(
                         new AxArtifactKey("ServiceRequestCount", DEFAULT_VERSION), "Java", JAVA_LANG_INTEGER);
-        final AxContextSchema attchCount = new AxContextSchema(new AxArtifactKey("AttachCount", DEFAULT_VERSION),
+        final var attchCount = new AxContextSchema(new AxArtifactKey("AttachCount", DEFAULT_VERSION),
                         "Java", JAVA_LANG_INTEGER);
-        final AxContextSchema subscriberCount = new AxContextSchema(
+        final var subscriberCount = new AxContextSchema(
                         new AxArtifactKey("SubscriberCount", DEFAULT_VERSION), "Java", JAVA_LANG_INTEGER);
-        final AxContextSchema averageServiceRequest = new AxContextSchema(
+        final var averageServiceRequest = new AxContextSchema(
                         new AxArtifactKey("AverageServiceRequest", DEFAULT_VERSION), "Java", JAVA_LANG_DOUBLE);
-        final AxContextSchema averageAttach = new AxContextSchema(new AxArtifactKey("AverageAttach", DEFAULT_VERSION),
+        final var averageAttach = new AxContextSchema(new AxArtifactKey("AverageAttach", DEFAULT_VERSION),
                         "Java", JAVA_LANG_DOUBLE);
-        final AxContextSchema actionTask = new AxContextSchema(new AxArtifactKey("ActionTask", DEFAULT_VERSION), "Java",
+        final var actionTask = new AxContextSchema(new AxArtifactKey("ActionTask", DEFAULT_VERSION), "Java",
                         JAVA_LANG_STRING);
-        final AxContextSchema version = new AxContextSchema(new AxArtifactKey("Version", DEFAULT_VERSION), "Java",
+        final var version = new AxContextSchema(new AxArtifactKey("Version", DEFAULT_VERSION), "Java",
                         JAVA_LANG_STRING);
-        final AxContextSchema profile = new AxContextSchema(new AxArtifactKey("Profile", DEFAULT_VERSION), "Java",
+        final var profile = new AxContextSchema(new AxArtifactKey("Profile", DEFAULT_VERSION), "Java",
                         JAVA_LANG_STRING);
-        final AxContextSchema threshold = new AxContextSchema(new AxArtifactKey("Threshold", DEFAULT_VERSION), "Java",
+        final var threshold = new AxContextSchema(new AxArtifactKey("Threshold", DEFAULT_VERSION), "Java",
                         JAVA_LANG_LONG);
-        final AxContextSchema triggerSpec = new AxContextSchema(new AxArtifactKey("TriggerSpec", DEFAULT_VERSION),
+        final var triggerSpec = new AxContextSchema(new AxArtifactKey("TriggerSpec", DEFAULT_VERSION),
                         "Java", JAVA_LANG_STRING);
-        final AxContextSchema periodicEventCount = new AxContextSchema(
+        final var periodicEventCount = new AxContextSchema(
                         new AxArtifactKey("PeriodicEventCount", DEFAULT_VERSION), "Java", JAVA_LANG_LONG);
-        final AxContextSchema periodicDelay = new AxContextSchema(new AxArtifactKey("PeriodicDelay", DEFAULT_VERSION),
+        final var periodicDelay = new AxContextSchema(new AxArtifactKey("PeriodicDelay", DEFAULT_VERSION),
                         "Java", JAVA_LANG_LONG);
-        final AxContextSchema periodicTime = new AxContextSchema(new AxArtifactKey("PeriodicTime", DEFAULT_VERSION),
+        final var periodicTime = new AxContextSchema(new AxArtifactKey("PeriodicTime", DEFAULT_VERSION),
                         "Java", JAVA_LANG_LONG);
 
-        final AxContextSchemas aadmContextSchemas = new AxContextSchemas(
+        final var aadmContextSchemas = new AxContextSchemas(
                         new AxArtifactKey("AADMDatatypes", DEFAULT_VERSION));
         aadmContextSchemas.getSchemasMap().put(imsi.getKey(), imsi);
         aadmContextSchemas.getSchemasMap().put(ueIpAddress.getKey(), ueIpAddress);
@@ -169,7 +170,7 @@ public class AadmDomainModelFactory {
         aadmContextSchemas.getSchemasMap().put(periodicDelay.getKey(), periodicDelay);
         aadmContextSchemas.getSchemasMap().put(periodicTime.getKey(), periodicTime);
 
-        final AxEvent aadmEvent = new AxEvent(new AxArtifactKey("AADMEvent", DEFAULT_VERSION),
+        final var aadmEvent = new AxEvent(new AxArtifactKey("AADMEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         aadmEvent.setSource(DEFAULT_SOURCE);
         aadmEvent.setTarget("Apex");
@@ -217,7 +218,7 @@ public class AadmDomainModelFactory {
         aadmEvent.getParameterMap().put(ACTTASK,
                         new AxField(new AxReferenceKey(aadmEvent.getKey(), ACTTASK), actionTask.getKey()));
 
-        final AxEvent aadmXStreamActEvent = new AxEvent(new AxArtifactKey("XSTREAM_AADM_ACT_EVENT", DEFAULT_VERSION),
+        final var aadmXStreamActEvent = new AxEvent(new AxArtifactKey("XSTREAM_AADM_ACT_EVENT", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         aadmXStreamActEvent.setSource("Apex");
         aadmXStreamActEvent.setTarget(DEFAULT_SOURCE);
@@ -248,7 +249,7 @@ public class AadmDomainModelFactory {
         aadmXStreamActEvent.getParameterMap().put(THRESHOLD,
                         new AxField(new AxReferenceKey(aadmXStreamActEvent.getKey(), THRESHOLD), threshold.getKey()));
 
-        final AxEvent vMmeEvent = new AxEvent(new AxArtifactKey("VMMEEvent", DEFAULT_VERSION),
+        final var vMmeEvent = new AxEvent(new AxArtifactKey("VMMEEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         vMmeEvent.setSource(DEFAULT_SOURCE);
         vMmeEvent.setTarget("Apex");
@@ -265,7 +266,7 @@ public class AadmDomainModelFactory {
         vMmeEvent.getParameterMap().put(THRESHOLD,
                         new AxField(new AxReferenceKey(vMmeEvent.getKey(), THRESHOLD), threshold.getKey()));
 
-        final AxEvent sapcEvent = new AxEvent(new AxArtifactKey("SAPCEvent", DEFAULT_VERSION),
+        final var sapcEvent = new AxEvent(new AxArtifactKey("SAPCEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         sapcEvent.setSource(DEFAULT_SOURCE);
         sapcEvent.setTarget("Apex");
@@ -290,7 +291,7 @@ public class AadmDomainModelFactory {
         sapcEvent.getParameterMap().put(BLACKLIST_ON,
                         new AxField(new AxReferenceKey(sapcEvent.getKey(), BLACKLIST_ON), blacklistOnFlag.getKey()));
 
-        final AxEvent sapcBlacklistSubscriberEvent = new AxEvent(
+        final var sapcBlacklistSubscriberEvent = new AxEvent(
                         new AxArtifactKey("SAPCBlacklistSubscriberEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         sapcBlacklistSubscriberEvent.setSource("Apex");
@@ -311,7 +312,7 @@ public class AadmDomainModelFactory {
         sapcBlacklistSubscriberEvent.getParameterMap().put(TCP_ON, new AxField(
                         new AxReferenceKey(sapcBlacklistSubscriberEvent.getKey(), TCP_ON), tcpOnFlag.getKey()));
 
-        final AxEvent periodicEvent = new AxEvent(new AxArtifactKey("PeriodicEvent", DEFAULT_VERSION),
+        final var periodicEvent = new AxEvent(new AxArtifactKey("PeriodicEvent", DEFAULT_VERSION),
                         DEFAULT_NAMESPACE);
         periodicEvent.setSource("System");
         periodicEvent.setTarget("Apex");
@@ -327,7 +328,7 @@ public class AadmDomainModelFactory {
         periodicEvent.getParameterMap().put("PERIODIC_LAST_TIME", new AxField(
                         new AxReferenceKey(periodicEvent.getKey(), "PERIODIC_LAST_TIME"), periodicTime.getKey()));
 
-        final AxEvents aadmEvents = new AxEvents(new AxArtifactKey("AADMEvents", DEFAULT_VERSION));
+        final var aadmEvents = new AxEvents(new AxArtifactKey("AADMEvents", DEFAULT_VERSION));
         aadmEvents.getEventMap().put(aadmEvent.getKey(), aadmEvent);
         aadmEvents.getEventMap().put(aadmXStreamActEvent.getKey(), aadmXStreamActEvent);
         aadmEvents.getEventMap().put(vMmeEvent.getKey(), vMmeEvent);
@@ -336,11 +337,11 @@ public class AadmDomainModelFactory {
         aadmEvents.getEventMap().put(periodicEvent.getKey(), periodicEvent);
 
         // Data types for context
-        final AxContextSchema eNodeBStatus = new AxContextSchema(new AxArtifactKey("ENodeBStatus", DEFAULT_VERSION),
+        final var eNodeBStatus = new AxContextSchema(new AxArtifactKey("ENodeBStatus", DEFAULT_VERSION),
                         "Java", "org.onap.policy.apex.examples.aadm.concepts.ENodeBStatus");
-        final AxContextSchema imsiStatus = new AxContextSchema(new AxArtifactKey("IMSIStatus", DEFAULT_VERSION), "Java",
+        final var imsiStatus = new AxContextSchema(new AxArtifactKey("IMSIStatus", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.examples.aadm.concepts.ImsiStatus");
-        final AxContextSchema ipAddressStatus = new AxContextSchema(
+        final var ipAddressStatus = new AxContextSchema(
                         new AxArtifactKey("IPAddressStatus", DEFAULT_VERSION), "Java",
                         "org.onap.policy.apex.examples.aadm.concepts.IpAddressStatus");
         aadmContextSchemas.getSchemasMap().put(eNodeBStatus.getKey(), eNodeBStatus);
@@ -348,16 +349,16 @@ public class AadmDomainModelFactory {
         aadmContextSchemas.getSchemasMap().put(ipAddressStatus.getKey(), ipAddressStatus);
 
         // Three context albums for AADM
-        final AxContextAlbum eNodeBStatusAlbum = new AxContextAlbum(
+        final var eNodeBStatusAlbum = new AxContextAlbum(
                         new AxArtifactKey("ENodeBStatusAlbum", DEFAULT_VERSION), APPLICATION, true,
                         eNodeBStatus.getKey());
-        final AxContextAlbum imsiStatusAlbum = new AxContextAlbum(new AxArtifactKey("IMSIStatusAlbum", DEFAULT_VERSION),
+        final var imsiStatusAlbum = new AxContextAlbum(new AxArtifactKey("IMSIStatusAlbum", DEFAULT_VERSION),
                         APPLICATION, true, imsiStatus.getKey());
-        final AxContextAlbum ipAddressStatusAlbum = new AxContextAlbum(
+        final var ipAddressStatusAlbum = new AxContextAlbum(
                         new AxArtifactKey("IPAddressStatusAlbum", DEFAULT_VERSION), APPLICATION, true,
                         ipAddressStatus.getKey());
 
-        final AxContextAlbums aadmAlbums = new AxContextAlbums(new AxArtifactKey("AADMContext", DEFAULT_VERSION));
+        final var aadmAlbums = new AxContextAlbums(new AxArtifactKey("AADMContext", DEFAULT_VERSION));
         aadmAlbums.getAlbumsMap().put(eNodeBStatusAlbum.getKey(), eNodeBStatusAlbum);
         aadmAlbums.getAlbumsMap().put(imsiStatusAlbum.getKey(), imsiStatusAlbum);
         aadmAlbums.getAlbumsMap().put(ipAddressStatusAlbum.getKey(), ipAddressStatusAlbum);
@@ -366,87 +367,88 @@ public class AadmDomainModelFactory {
         final AxLogicReader logicReader = new PolicyLogicReader()
                         .setLogicPackage(this.getClass().getPackage().getName()).setDefaultLogic(null);
 
-        final AxTask aadmMatchTask = new AxTask(new AxArtifactKey("AADMMatchTask", DEFAULT_VERSION));
+
+        final var aadmMatchTask = new AxTask(new AxArtifactKey("AADMMatchTask", DEFAULT_VERSION));
         aadmMatchTask.getContextAlbumReferences().add(eNodeBStatusAlbum.getKey());
         aadmMatchTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         aadmMatchTask.getContextAlbumReferences().add(ipAddressStatusAlbum.getKey());
         aadmMatchTask.setTaskLogic(new AxTaskLogic(aadmMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask aadmEstablishTask = new AxTask(new AxArtifactKey("AADMEstablishTask", DEFAULT_VERSION));
+        final var aadmEstablishTask = new AxTask(new AxArtifactKey("AADMEstablishTask", DEFAULT_VERSION));
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
         aadmEstablishTask.setTaskLogic(new AxTaskLogic(aadmEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask aadmDecideTask = new AxTask(new AxArtifactKey("AADMDecideTask", DEFAULT_VERSION));
+        final var aadmDecideTask = new AxTask(new AxArtifactKey("AADMDecideTask", DEFAULT_VERSION));
         aadmDecideTask.setTaskLogic(new AxTaskLogic(aadmDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         logicReader.setDefaultLogic(null);
 
-        final AxTask aadmDoSSuggestionActTask = new AxTask(
+        final var aadmDoSSuggestionActTask = new AxTask(
                         new AxArtifactKey("AADMDoSSuggestionActTask", DEFAULT_VERSION));
         aadmDoSSuggestionActTask.getContextAlbumReferences().add(eNodeBStatusAlbum.getKey());
         aadmDoSSuggestionActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         aadmDoSSuggestionActTask.setTaskLogic(
                         new AxTaskLogic(aadmDoSSuggestionActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask aadmNoActTask = new AxTask(new AxArtifactKey("AADMNoActTask", DEFAULT_VERSION));
+        final var aadmNoActTask = new AxTask(new AxArtifactKey("AADMNoActTask", DEFAULT_VERSION));
         aadmNoActTask.setTaskLogic(new AxTaskLogic(aadmNoActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask aadmDoSProvenActTask = new AxTask(new AxArtifactKey("AADMDoSProvenActTask", DEFAULT_VERSION));
+        final var aadmDoSProvenActTask = new AxTask(new AxArtifactKey("AADMDoSProvenActTask", DEFAULT_VERSION));
         aadmDoSProvenActTask.getContextAlbumReferences().add(eNodeBStatusAlbum.getKey());
         aadmDoSProvenActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         aadmDoSProvenActTask
                         .setTaskLogic(new AxTaskLogic(aadmDoSProvenActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask vMmeMatchTask = new AxTask(new AxArtifactKey("VMMEMatchTask", DEFAULT_VERSION));
+        final var vMmeMatchTask = new AxTask(new AxArtifactKey("VMMEMatchTask", DEFAULT_VERSION));
         vMmeMatchTask.setTaskLogic(new AxTaskLogic(vMmeMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask vMmeEstablishTask = new AxTask(new AxArtifactKey("VMMEEstablishTask", DEFAULT_VERSION));
+        final var vMmeEstablishTask = new AxTask(new AxArtifactKey("VMMEEstablishTask", DEFAULT_VERSION));
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
         vMmeEstablishTask.setTaskLogic(new AxTaskLogic(vMmeEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask vMmeDecideTask = new AxTask(new AxArtifactKey("VMMEDecideTask", DEFAULT_VERSION));
+        final var vMmeDecideTask = new AxTask(new AxArtifactKey("VMMEDecideTask", DEFAULT_VERSION));
         vMmeDecideTask.setTaskLogic(new AxTaskLogic(vMmeDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask vMmeNoActTask = new AxTask(new AxArtifactKey("VMMENoActTask", DEFAULT_VERSION));
+        final var vMmeNoActTask = new AxTask(new AxArtifactKey("VMMENoActTask", DEFAULT_VERSION));
         vMmeNoActTask.setTaskLogic(new AxTaskLogic(vMmeNoActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask vMmeActTask = new AxTask(new AxArtifactKey("VMMEActTask", DEFAULT_VERSION));
+        final var vMmeActTask = new AxTask(new AxArtifactKey("VMMEActTask", DEFAULT_VERSION));
         logicReader.setDefaultLogic(null);
         vMmeActTask.setTaskLogic(new AxTaskLogic(vMmeActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask sapcMatchTask = new AxTask(new AxArtifactKey("SAPCMatchTask", DEFAULT_VERSION));
+        final var sapcMatchTask = new AxTask(new AxArtifactKey("SAPCMatchTask", DEFAULT_VERSION));
         sapcMatchTask.setTaskLogic(new AxTaskLogic(sapcMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask sapcEstablishTask = new AxTask(new AxArtifactKey("SAPCEstablishTask", DEFAULT_VERSION));
+        final var sapcEstablishTask = new AxTask(new AxArtifactKey("SAPCEstablishTask", DEFAULT_VERSION));
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
         sapcEstablishTask.setTaskLogic(new AxTaskLogic(sapcEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask sapcDecideTask = new AxTask(new AxArtifactKey("SAPCDecideTask", DEFAULT_VERSION));
+        final var sapcDecideTask = new AxTask(new AxArtifactKey("SAPCDecideTask", DEFAULT_VERSION));
         sapcDecideTask.setTaskLogic(new AxTaskLogic(sapcDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask sapcActTask = new AxTask(new AxArtifactKey("SAPCActTask", DEFAULT_VERSION));
+        final var sapcActTask = new AxTask(new AxArtifactKey("SAPCActTask", DEFAULT_VERSION));
         sapcActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         logicReader.setDefaultLogic(null);
         sapcActTask.setTaskLogic(new AxTaskLogic(sapcActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
         logicReader.setDefaultLogic(DEFAULT_TASK_LOGIC);
 
-        final AxTask periodicMatchTask = new AxTask(new AxArtifactKey("PeriodicMatchTask", DEFAULT_VERSION));
+        final var periodicMatchTask = new AxTask(new AxArtifactKey("PeriodicMatchTask", DEFAULT_VERSION));
         periodicMatchTask.setTaskLogic(new AxTaskLogic(periodicMatchTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask periodicEstablishTask = new AxTask(new AxArtifactKey("PeriodicEstablishTask", DEFAULT_VERSION));
+        final var periodicEstablishTask = new AxTask(new AxArtifactKey("PeriodicEstablishTask", DEFAULT_VERSION));
         periodicEstablishTask.setTaskLogic(
                         new AxTaskLogic(periodicEstablishTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask periodicDecideTask = new AxTask(new AxArtifactKey("PeriodicDecideTask", DEFAULT_VERSION));
+        final var periodicDecideTask = new AxTask(new AxArtifactKey("PeriodicDecideTask", DEFAULT_VERSION));
         periodicDecideTask.setTaskLogic(new AxTaskLogic(periodicDecideTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTask periodicActTask = new AxTask(new AxArtifactKey("PeriodicActTask", DEFAULT_VERSION));
+        final var periodicActTask = new AxTask(new AxArtifactKey("PeriodicActTask", DEFAULT_VERSION));
         periodicActTask.getContextAlbumReferences().add(imsiStatusAlbum.getKey());
         logicReader.setDefaultLogic(null);
         periodicActTask.setTaskLogic(new AxTaskLogic(periodicActTask.getKey(), TASK_LOGIC, "MVEL", logicReader));
 
-        final AxTasks aadmTasks = new AxTasks(new AxArtifactKey("AADMTasks", DEFAULT_VERSION));
+        final var aadmTasks = new AxTasks(new AxArtifactKey("AADMTasks", DEFAULT_VERSION));
         aadmTasks.getTaskMap().put(aadmMatchTask.getKey(), aadmMatchTask);
         aadmTasks.getTaskMap().put(aadmEstablishTask.getKey(), aadmEstablishTask);
         aadmTasks.getTaskMap().put(aadmDecideTask.getKey(), aadmDecideTask);
@@ -470,12 +472,12 @@ public class AadmDomainModelFactory {
         // Policies
         logicReader.setDefaultLogic(null);
 
-        final AxPolicy aadmPolicy = new AxPolicy(new AxArtifactKey("AADMPolicy", DEFAULT_VERSION));
+        final var aadmPolicy = new AxPolicy(new AxArtifactKey("AADMPolicy", DEFAULT_VERSION));
         aadmPolicy.setTemplate("MEDA");
 
-        final AxState aadmActState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), "Act"));
+        final var aadmActState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), "Act"));
         aadmActState.setTrigger(aadmEvent.getKey());
-        final AxStateOutput aadmAct2Out = new AxStateOutput(aadmActState.getKey(), AxReferenceKey.getNullKey(),
+        final var aadmAct2Out = new AxStateOutput(aadmActState.getKey(), AxReferenceKey.getNullKey(),
                         aadmXStreamActEvent.getKey());
         aadmActState.getStateOutputs().put(aadmAct2Out.getKey().getLocalName(), aadmAct2Out);
         aadmActState.getContextAlbumReferences().add(ipAddressStatusAlbum.getKey());
@@ -495,9 +497,9 @@ public class AadmDomainModelFactory {
 
         logicReader.setDefaultLogic("DefaultTaskSelectionLogic");
 
-        final AxState aadmDecideState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), DECIDE));
+        final var aadmDecideState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), DECIDE));
         aadmDecideState.setTrigger(aadmEvent.getKey());
-        final AxStateOutput aadmDec2Act = new AxStateOutput(aadmDecideState.getKey(), aadmActState.getKey(),
+        final var aadmDec2Act = new AxStateOutput(aadmDecideState.getKey(), aadmActState.getKey(),
                         aadmEvent.getKey());
         aadmDecideState.getStateOutputs().put(aadmDec2Act.getKey().getLocalName(), aadmDec2Act);
         aadmDecideState.setTaskSelectionLogic(
@@ -507,9 +509,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(aadmDecideState.getKey(), aadmDecideTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, aadmDec2Act.getKey()));
 
-        final AxState aadmEstablishState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), ESTABLISH));
+        final var aadmEstablishState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), ESTABLISH));
         aadmEstablishState.setTrigger(aadmEvent.getKey());
-        final AxStateOutput aadmEst2Dec = new AxStateOutput(aadmEstablishState.getKey(), aadmDecideState.getKey(),
+        final var aadmEst2Dec = new AxStateOutput(aadmEstablishState.getKey(), aadmDecideState.getKey(),
                         aadmEvent.getKey());
         aadmEstablishState.getStateOutputs().put(aadmEst2Dec.getKey().getLocalName(), aadmEst2Dec);
         aadmEstablishState.setTaskSelectionLogic(new AxTaskSelectionLogic(aadmEstablishState.getKey(),
@@ -519,9 +521,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(aadmEstablishState.getKey(), aadmEstablishTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, aadmEst2Dec.getKey()));
 
-        final AxState aadmMatchState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), MATCH));
+        final var aadmMatchState = new AxState(new AxReferenceKey(aadmPolicy.getKey(), MATCH));
         aadmMatchState.setTrigger(aadmEvent.getKey());
-        final AxStateOutput aadmMat2Est = new AxStateOutput(aadmMatchState.getKey(), aadmEstablishState.getKey(),
+        final var aadmMat2Est = new AxStateOutput(aadmMatchState.getKey(), aadmEstablishState.getKey(),
                         aadmEvent.getKey());
         aadmMatchState.getStateOutputs().put(aadmMat2Est.getKey().getLocalName(), aadmMat2Est);
         aadmMatchState.setTaskSelectionLogic(
@@ -536,12 +538,12 @@ public class AadmDomainModelFactory {
         aadmPolicy.getStateMap().put(aadmDecideState.getKey().getLocalName(), aadmDecideState);
         aadmPolicy.getStateMap().put(aadmActState.getKey().getLocalName(), aadmActState);
 
-        final AxPolicy vMmePolicy = new AxPolicy(new AxArtifactKey("VMMEPolicy", DEFAULT_VERSION));
+        final var vMmePolicy = new AxPolicy(new AxArtifactKey("VMMEPolicy", DEFAULT_VERSION));
         vMmePolicy.setTemplate("MEDA");
 
-        final AxState vMmeActState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), "Act"));
+        final var vMmeActState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), "Act"));
         vMmeActState.setTrigger(vMmeEvent.getKey());
-        final AxStateOutput vMmeAct2Out = new AxStateOutput(vMmeActState.getKey(), AxReferenceKey.getNullKey(),
+        final var vMmeAct2Out = new AxStateOutput(vMmeActState.getKey(), AxReferenceKey.getNullKey(),
                         vMmeEvent.getKey());
         vMmeActState.getStateOutputs().put(vMmeAct2Out.getKey().getLocalName(), vMmeAct2Out);
         vMmeActState.setDefaultTask(vMmeActTask.getKey());
@@ -550,9 +552,9 @@ public class AadmDomainModelFactory {
         vMmeActState.getTaskReferences().put(vMmeNoActTask.getKey(), new AxStateTaskReference(vMmeActState.getKey(),
                         vMmeNoActTask.getKey(), AxStateTaskOutputType.DIRECT, vMmeAct2Out.getKey()));
 
-        final AxState vMmeDecideState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), DECIDE));
+        final var vMmeDecideState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), DECIDE));
         vMmeDecideState.setTrigger(vMmeEvent.getKey());
-        final AxStateOutput vMmeDec2Act = new AxStateOutput(vMmeDecideState.getKey(), vMmeActState.getKey(),
+        final var vMmeDec2Act = new AxStateOutput(vMmeDecideState.getKey(), vMmeActState.getKey(),
                         vMmeEvent.getKey());
         vMmeDecideState.getStateOutputs().put(vMmeDec2Act.getKey().getLocalName(), vMmeDec2Act);
         vMmeDecideState.setDefaultTask(vMmeDecideTask.getKey());
@@ -560,9 +562,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(vMmeDecideState.getKey(), vMmeDecideTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, vMmeDec2Act.getKey()));
 
-        final AxState vMmeEstablishState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), ESTABLISH));
+        final var vMmeEstablishState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), ESTABLISH));
         vMmeEstablishState.setTrigger(vMmeEvent.getKey());
-        final AxStateOutput vMmeEst2Dec = new AxStateOutput(vMmeEstablishState.getKey(), vMmeDecideState.getKey(),
+        final var vMmeEst2Dec = new AxStateOutput(vMmeEstablishState.getKey(), vMmeDecideState.getKey(),
                         vMmeEvent.getKey());
         vMmeEstablishState.getStateOutputs().put(vMmeEst2Dec.getKey().getLocalName(), vMmeEst2Dec);
         vMmeEstablishState.setDefaultTask(vMmeEstablishTask.getKey());
@@ -570,9 +572,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(vMmeEstablishState.getKey(), vMmeEstablishTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, vMmeEst2Dec.getKey()));
 
-        final AxState vMmeMatchState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), MATCH));
+        final var vMmeMatchState = new AxState(new AxReferenceKey(vMmePolicy.getKey(), MATCH));
         vMmeMatchState.setTrigger(vMmeEvent.getKey());
-        final AxStateOutput vMmeMat2Est = new AxStateOutput(vMmeMatchState.getKey(), vMmeEstablishState.getKey(),
+        final var vMmeMat2Est = new AxStateOutput(vMmeMatchState.getKey(), vMmeEstablishState.getKey(),
                         vMmeEvent.getKey());
         vMmeMatchState.getStateOutputs().put(vMmeMat2Est.getKey().getLocalName(), vMmeMat2Est);
         vMmeMatchState.setDefaultTask(vMmeMatchTask.getKey());
@@ -585,21 +587,21 @@ public class AadmDomainModelFactory {
         vMmePolicy.getStateMap().put(vMmeDecideState.getKey().getLocalName(), vMmeDecideState);
         vMmePolicy.getStateMap().put(vMmeActState.getKey().getLocalName(), vMmeActState);
 
-        final AxPolicy sapcPolicy = new AxPolicy(new AxArtifactKey("SAPCPolicy", DEFAULT_VERSION));
+        final var sapcPolicy = new AxPolicy(new AxArtifactKey("SAPCPolicy", DEFAULT_VERSION));
         sapcPolicy.setTemplate("MEDA");
 
-        final AxState sapcActState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), "Act"));
+        final var sapcActState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), "Act"));
         sapcActState.setTrigger(sapcEvent.getKey());
-        final AxStateOutput sapcAct2Out = new AxStateOutput(sapcActState.getKey(), AxReferenceKey.getNullKey(),
+        final var sapcAct2Out = new AxStateOutput(sapcActState.getKey(), AxReferenceKey.getNullKey(),
                         sapcBlacklistSubscriberEvent.getKey());
         sapcActState.getStateOutputs().put(sapcAct2Out.getKey().getLocalName(), sapcAct2Out);
         sapcActState.setDefaultTask(sapcActTask.getKey());
         sapcActState.getTaskReferences().put(sapcActTask.getKey(), new AxStateTaskReference(sapcActState.getKey(),
                         sapcActTask.getKey(), AxStateTaskOutputType.DIRECT, sapcAct2Out.getKey()));
 
-        final AxState sapcDecideState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), DECIDE));
+        final var sapcDecideState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), DECIDE));
         sapcDecideState.setTrigger(sapcEvent.getKey());
-        final AxStateOutput sapcDec2Act = new AxStateOutput(sapcDecideState.getKey(), sapcActState.getKey(),
+        final var sapcDec2Act = new AxStateOutput(sapcDecideState.getKey(), sapcActState.getKey(),
                         sapcEvent.getKey());
         sapcDecideState.getStateOutputs().put(sapcDec2Act.getKey().getLocalName(), sapcDec2Act);
         sapcDecideState.setDefaultTask(sapcDecideTask.getKey());
@@ -607,9 +609,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(sapcDecideState.getKey(), sapcDecideTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, sapcDec2Act.getKey()));
 
-        final AxState sapcEstablishState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), ESTABLISH));
+        final var sapcEstablishState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), ESTABLISH));
         sapcEstablishState.setTrigger(sapcEvent.getKey());
-        final AxStateOutput sapcEst2Dec = new AxStateOutput(sapcEstablishState.getKey(), sapcDecideState.getKey(),
+        final var sapcEst2Dec = new AxStateOutput(sapcEstablishState.getKey(), sapcDecideState.getKey(),
                         sapcEvent.getKey());
         sapcEstablishState.getStateOutputs().put(sapcEst2Dec.getKey().getLocalName(), sapcEst2Dec);
         sapcEstablishState.setDefaultTask(sapcEstablishTask.getKey());
@@ -617,9 +619,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(sapcEstablishState.getKey(), sapcEstablishTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, sapcEst2Dec.getKey()));
 
-        final AxState sapcMatchState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), MATCH));
+        final var sapcMatchState = new AxState(new AxReferenceKey(sapcPolicy.getKey(), MATCH));
         sapcMatchState.setTrigger(aadmXStreamActEvent.getKey());
-        final AxStateOutput sapcMat2Est = new AxStateOutput(sapcMatchState.getKey(), sapcEstablishState.getKey(),
+        final var sapcMat2Est = new AxStateOutput(sapcMatchState.getKey(), sapcEstablishState.getKey(),
                         sapcEvent.getKey());
         sapcMatchState.getStateOutputs().put(sapcMat2Est.getKey().getLocalName(), sapcMat2Est);
         sapcMatchState.setDefaultTask(sapcMatchTask.getKey());
@@ -632,12 +634,12 @@ public class AadmDomainModelFactory {
         sapcPolicy.getStateMap().put(sapcDecideState.getKey().getLocalName(), sapcDecideState);
         sapcPolicy.getStateMap().put(sapcActState.getKey().getLocalName(), sapcActState);
 
-        final AxPolicy periodicPolicy = new AxPolicy(new AxArtifactKey("PeriodicPolicy", DEFAULT_VERSION));
+        final var periodicPolicy = new AxPolicy(new AxArtifactKey("PeriodicPolicy", DEFAULT_VERSION));
         periodicPolicy.setTemplate("MEDA");
 
-        final AxState periodicActState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), "Act"));
+        final var periodicActState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), "Act"));
         periodicActState.setTrigger(periodicEvent.getKey());
-        final AxStateOutput perAct2Out = new AxStateOutput(periodicActState.getKey(), AxReferenceKey.getNullKey(),
+        final var perAct2Out = new AxStateOutput(periodicActState.getKey(), AxReferenceKey.getNullKey(),
                         sapcBlacklistSubscriberEvent.getKey());
         periodicActState.getStateOutputs().put(perAct2Out.getKey().getLocalName(), perAct2Out);
         periodicActState.setDefaultTask(periodicActTask.getKey());
@@ -645,9 +647,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(periodicActState.getKey(), periodicActTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, perAct2Out.getKey()));
 
-        final AxState periodicDecideState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), DECIDE));
+        final var periodicDecideState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), DECIDE));
         periodicDecideState.setTrigger(periodicEvent.getKey());
-        final AxStateOutput perDec2Act = new AxStateOutput(periodicDecideState.getKey(), periodicActState.getKey(),
+        final var perDec2Act = new AxStateOutput(periodicDecideState.getKey(), periodicActState.getKey(),
                         periodicEvent.getKey());
         periodicDecideState.getStateOutputs().put(perDec2Act.getKey().getLocalName(), perDec2Act);
         periodicDecideState.setDefaultTask(periodicDecideTask.getKey());
@@ -655,9 +657,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(periodicDecideState.getKey(), periodicDecideTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, perDec2Act.getKey()));
 
-        final AxState periodicEstablishState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), ESTABLISH));
+        final var periodicEstablishState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), ESTABLISH));
         periodicEstablishState.setTrigger(periodicEvent.getKey());
-        final AxStateOutput perEst2Dec = new AxStateOutput(periodicEstablishState.getKey(),
+        final var perEst2Dec = new AxStateOutput(periodicEstablishState.getKey(),
                         periodicDecideState.getKey(), periodicEvent.getKey());
         periodicEstablishState.getStateOutputs().put(perEst2Dec.getKey().getLocalName(), perEst2Dec);
         periodicEstablishState.setDefaultTask(periodicEstablishTask.getKey());
@@ -665,9 +667,9 @@ public class AadmDomainModelFactory {
                         new AxStateTaskReference(periodicEstablishState.getKey(), periodicEstablishTask.getKey(),
                                         AxStateTaskOutputType.DIRECT, perEst2Dec.getKey()));
 
-        final AxState periodicMatchState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), MATCH));
+        final var periodicMatchState = new AxState(new AxReferenceKey(periodicPolicy.getKey(), MATCH));
         periodicMatchState.setTrigger(periodicEvent.getKey());
-        final AxStateOutput perMat2Est = new AxStateOutput(periodicMatchState.getKey(), periodicEstablishState.getKey(),
+        final var perMat2Est = new AxStateOutput(periodicMatchState.getKey(), periodicEstablishState.getKey(),
                         periodicEvent.getKey());
         periodicMatchState.getStateOutputs().put(perMat2Est.getKey().getLocalName(), perMat2Est);
         periodicMatchState.setDefaultTask(periodicMatchTask.getKey());
@@ -681,15 +683,15 @@ public class AadmDomainModelFactory {
         periodicPolicy.getStateMap().put(periodicDecideState.getKey().getLocalName(), periodicDecideState);
         periodicPolicy.getStateMap().put(periodicActState.getKey().getLocalName(), periodicActState);
 
-        final AxPolicies aadmPolicies = new AxPolicies(new AxArtifactKey("AADMPolicies", DEFAULT_VERSION));
+        final var aadmPolicies = new AxPolicies(new AxArtifactKey("AADMPolicies", DEFAULT_VERSION));
         aadmPolicies.getPolicyMap().put(aadmPolicy.getKey(), aadmPolicy);
         aadmPolicies.getPolicyMap().put(vMmePolicy.getKey(), vMmePolicy);
         aadmPolicies.getPolicyMap().put(sapcPolicy.getKey(), sapcPolicy);
         aadmPolicies.getPolicyMap().put(periodicPolicy.getKey(), periodicPolicy);
 
-        final AxKeyInformation keyInformation = new AxKeyInformation(
+        final var keyInformation = new AxKeyInformation(
                         new AxArtifactKey("AADMKeyInformation", DEFAULT_VERSION));
-        final AxPolicyModel aadmPolicyModel = new AxPolicyModel(new AxArtifactKey("AADMPolicyModel", DEFAULT_VERSION));
+        final var aadmPolicyModel = new AxPolicyModel(new AxArtifactKey("AADMPolicyModel", DEFAULT_VERSION));
         aadmPolicyModel.setPolicies(aadmPolicies);
         aadmPolicyModel.setEvents(aadmEvents);
         aadmPolicyModel.setTasks(aadmTasks);

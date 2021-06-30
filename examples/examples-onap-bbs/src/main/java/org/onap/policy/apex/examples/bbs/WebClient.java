@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ package org.onap.policy.apex.examples.bbs;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,19 +36,15 @@ import javax.net.ssl.TrustManager;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -80,13 +75,13 @@ public class WebClient {
      */
     public String httpRequest(String requestUrl, String requestMethod, String outputStr, String username, String pass,
         String contentType) {
-        String result = "";
-        StringBuilder builder = new StringBuilder();
+        var result = "";
+        var builder = new StringBuilder();
         try {
             LOGGER.info("httpsRequest starts {} method {}", requestUrl, requestMethod);
             disableCertificateValidation();
 
-            URL url = new URL(requestUrl);
+            var url = new URL(requestUrl);
             HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
 
             httpUrlConn.setDoOutput(true);
@@ -110,12 +105,12 @@ public class WebClient {
             }
 
             if (null != outputStr) {
-                OutputStream outputStream = httpUrlConn.getOutputStream();
+                var outputStream = httpUrlConn.getOutputStream();
                 outputStream.write(outputStr.getBytes(StandardCharsets.UTF_8));
                 outputStream.close();
             }
 
-            try (BufferedReader bufferedReader = new BufferedReader(
+            try (var bufferedReader = new BufferedReader(
                 new InputStreamReader(httpUrlConn.getInputStream(), StandardCharsets.UTF_8))) {
                 String str;
                 while ((str = bufferedReader.readLine()) != null) {
@@ -140,34 +135,34 @@ public class WebClient {
      */
     public String toPrettyString(String xml, int indent) {
         try {
-            try (ByteArrayInputStream br = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))) {
+            try (var br = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8))) {
 
-                DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+                var df = DocumentBuilderFactory.newInstance();
                 df.setFeature(XML_DISALLOW_DOCTYPE_FEATURE, true);
                 df.setFeature(XML_EXTERNAL_ENTITY_FEATURE, false);
-                Document document = df.newDocumentBuilder().parse(new InputSource(br));
+                var document = df.newDocumentBuilder().parse(new InputSource(br));
 
                 document.normalize();
-                XPath path = XPathFactory.newInstance().newXPath();
-                NodeList nodeList = (NodeList) path
+                var path = XPathFactory.newInstance().newXPath();
+                var nodeList = (NodeList) path
                     .evaluate("//text()[normalize-space()='']", document, XPathConstants.NODESET);
 
-                for (int i = 0; i < nodeList.getLength(); ++i) {
-                    Node node = nodeList.item(i);
+                for (var i = 0; i < nodeList.getLength(); ++i) {
+                    var node = nodeList.item(i);
                     node.getParentNode().removeChild(node);
                 }
 
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                var transformerFactory = TransformerFactory.newInstance();
                 transformerFactory.setAttribute("indent-number", indent);
                 transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
                 transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 
-                Transformer transformer = transformerFactory.newTransformer();
+                var transformer = transformerFactory.newTransformer();
                 transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.name());
                 transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-                StringWriter stringWriter = new StringWriter();
+                var stringWriter = new StringWriter();
                 transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
                 return stringWriter.toString();
             }
@@ -183,7 +178,7 @@ public class WebClient {
         try {
             TrustManager[] trustAllCerts = NetworkUtil.getAlwaysTrustingManager();
 
-            SSLContext sc = SSLContext.getInstance("TLS");
+            var sc = SSLContext.getInstance("TLS");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier((String hostname, SSLSession session) -> {
