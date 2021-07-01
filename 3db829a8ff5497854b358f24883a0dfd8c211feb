@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c222569a_1652d454",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/concepts/AnomalyDetection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-01T16:03:25Z",
+      "side": 1,
+      "message": "looks like EqualsAndHashCode could be used in this class, too",
+      "revId": "3db829a8ff5497854b358f24883a0dfd8c211feb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10c22abc_f532e8cc",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/AdaptiveDomainModelFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-01T16:03:25Z",
+      "side": 1,
+      "message": "I agree with checkstyle - this method is crazy long!",
+      "revId": "3db829a8ff5497854b358f24883a0dfd8c211feb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
