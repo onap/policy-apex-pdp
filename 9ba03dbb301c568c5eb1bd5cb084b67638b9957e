@@ -22,6 +22,30 @@
       "revId": "9ba03dbb301c568c5eb1bd5cb084b67638b9957e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f46e9a_152ee409",
+        "filename": "examples/examples-adaptive/src/main/java/org/onap/policy/apex/examples/adaptive/model/AdaptiveDomainModelFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-07-02T12:43:55Z",
+      "side": 1,
+      "message": "Oh conflicted with my review! Sorry, that cleanup review is all over the place since it is in the core part.",
+      "parentUuid": "30d73fe8_c0ecd932",
+      "range": {
+        "startLine": 76,
+        "startChar": 14,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "9ba03dbb301c568c5eb1bd5cb084b67638b9957e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
