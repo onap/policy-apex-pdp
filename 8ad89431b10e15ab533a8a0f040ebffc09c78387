@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd5747d4_4843a867",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorEventsContextTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:59:04Z",
+      "side": 1,
+      "message": "here, too",
+      "revId": "8ad89431b10e15ab533a8a0f040ebffc09c78387",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

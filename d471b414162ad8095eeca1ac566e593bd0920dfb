@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "b5c873a6_a77a330f",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorEventsContextTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:59:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55799c0e_ebb8dd8b",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be16f835_dc5d88b5",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 5
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "cf79133c_5849e6ba",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:59:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be16f835_dc5d88b5",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0aa50976_76d89aa7",
         "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/PolicyFacade.java",
         "patchSetId": 5
@@ -73,6 +109,24 @@
       "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e735f9_5dcc51bf",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/PolicyFacade.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:59:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa50976_76d89aa7",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
