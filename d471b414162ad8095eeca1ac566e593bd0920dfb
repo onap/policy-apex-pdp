@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66c017fa_423b2a07",
+        "filename": "auth/cli-editor/src/main/resources/etc/editor/Commands.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-07-02T14:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2991563_f87029e7",
+      "range": {
+        "startLine": 1147,
+        "startChar": 0,
+        "endLine": 1147,
+        "endChar": 1
+      },
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55799c0e_ebb8dd8b",
         "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorEventsContextTest.java",
         "patchSetId": 5
@@ -57,6 +81,24 @@
       "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb524a2c_ac3ad866",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorEventsContextTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-07-02T14:59:28Z",
+      "side": 1,
+      "message": "This doesn\u0027t get changed usually. But now this changed because the core model part is updated. But agreed, I think it is okay to keep it like that. Done.",
+      "parentUuid": "55799c0e_ebb8dd8b",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     },
     {
       "key": {
