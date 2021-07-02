@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2991563_f87029e7",
+        "filename": "auth/cli-editor/src/main/resources/etc/editor/Commands.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1147,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:19:39Z",
+      "side": 1,
+      "message": "since we\u0027re touching the file, we could remove the tabs",
+      "range": {
+        "startLine": 1147,
+        "startChar": 0,
+        "endLine": 1147,
+        "endChar": 1
+      },
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55799c0e_ebb8dd8b",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorEventsContextTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:19:39Z",
+      "side": 1,
+      "message": "I\u0027m guessing we just ran it and plugged the number into this test.  If that\u0027s the case, maybe we should change it to something like this, so we don\u0027t have to update it in the future:\n\n  assertThat(xxx).isGreaterThan(1000)\n\nsame comment below",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be16f835_dc5d88b5",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:19:39Z",
+      "side": 1,
+      "message": "swap the arguments to the equals() test?",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aa50976_76d89aa7",
+        "filename": "model/model-api/src/main/java/org/onap/policy/apex/model/modelapi/impl/PolicyFacade.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1117,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-02T14:19:39Z",
+      "side": 1,
+      "message": "swap arguments?",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
