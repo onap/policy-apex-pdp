@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
     public boolean getTask(final TaskSelectionExecutionContext executor) {
         String id = executor.subject.getId();
         executor.logger.debug(id);
-        String inFields = executor.inFields.toString();
+        var inFields = executor.inFields.toString();
         executor.logger.debug(inFields);
         final double now = (Double) (executor.inFields.get("MonitoredValue"));
         final Integer iteration = (Integer) (executor.inFields.get("Iteration"));
@@ -120,7 +120,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         }
 
         // Get the context object
-        AnomalyDetection anomalyDetection =
+        var anomalyDetection =
                 (AnomalyDetection) executor.getContextAlbum(ANOMALY_DETECTION_ALBUM).get(ANOMALY_DETECTION);
         if (anomalyDetection == null) {
             anomalyDetection = new AnomalyDetection();
@@ -132,7 +132,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
             anomalyDetection.init(FREQUENCY);
         }
 
-        boolean unsetfirstround = false;
+        var unsetfirstround = false;
 
         int frequency = anomalyDetection.getFrequency();
         frequency = frequency + 1;
@@ -169,7 +169,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         listSizeControl(anomalyDetection.getAnomalyScores(), FREQUENCY * 4);
 
         // ---------- calculate the anomaly probability
-        double anomalyProbability = 0.0;
+        var anomalyProbability = 0.0;
         if (anomalyDetection.getAnomalyScores().size() > 30) {
             // 0.5
             anomalyProbability = getStatsTest(anomalyDetection.getAnomalyScores(), ANOMALY_SENSITIVITY);
@@ -282,10 +282,10 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         final double s = (z * z * n * (2.0 - n)) / (z * z * n - (n - 1.0) * (n - 1.0));
         final double t = FastMath.sqrt(s);
         // default p value = 0
-        double pvalue = 0.0;
+        var pvalue = 0.0;
         if (!Double.isNaN(t)) {
             // t distribution with n-2 degrees of freedom
-            final TDistribution tDist = new TDistribution(n - 2);
+            final var tDist = new TDistribution(n - 2);
             pvalue = n * (1.0 - tDist.cumulativeProbability(t));
             // set max pvalue = 1
             pvalue = pvalue > 1.0 ? 1.0 : pvalue;
@@ -312,9 +312,9 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
      * @return the double[]
      */
     private static Double[] removevalue(final Double[] lvalues, final double val) {
-        for (int i = 0; i < lvalues.length; i++) {
+        for (var i = 0; i < lvalues.length; i++) {
             if (Double.compare(lvalues[i], val) == 0) {
-                final Double[] ret = new Double[lvalues.length - 1];
+                final var ret = new Double[lvalues.length - 1];
                 System.arraycopy(lvalues, 0, ret, 0, i);
                 System.arraycopy(lvalues, i + 1, ret, i, lvalues.length - i - 1);
                 return ret;
@@ -330,7 +330,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
      * @return the mean
      */
     private static double getMean(final Double[] lvalues) {
-        double sum = 0.0;
+        var sum = 0.0;
         for (final double d : lvalues) {
 
             sum += d;
@@ -346,7 +346,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
      * @return stddev
      */
     private static double getStdDev(final Double[] lvalues, final double mean) {
-        double temp = 0.0;
+        var temp = 0.0;
         for (final double d : lvalues) {
             temp += (mean - d) * (mean - d);
         }

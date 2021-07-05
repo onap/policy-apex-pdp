@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (c) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +24,15 @@ package org.onap.policy.apex.examples.adaptive.concepts;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * The Class AutoLearn is used as a Java context for Adaptive auto-learning of trends towards a fixed value in the
  * adaptive domain.
  */
+@EqualsAndHashCode
+@ToString
 public class AutoLearn implements Serializable {
     private static final long serialVersionUID = 3825970380434170754L;
 
@@ -52,14 +57,14 @@ public class AutoLearn implements Serializable {
     public void init(final int size) {
         if (avDiffs == null || avDiffs.isEmpty()) {
             avDiffs = new ArrayList<>(size);
-            for (int i = 0; i < size; i++) {
+            for (var i = 0; i < size; i++) {
                 avDiffs.add(i, Double.NaN);
             }
         }
 
         if (counts == null || counts.isEmpty()) {
             counts = new ArrayList<>(size);
-            for (int i = 0; i < size; i++) {
+            for (var i = 0; i < size; i++) {
                 counts.add(i, 0L);
             }
         }
@@ -133,55 +138,5 @@ public class AutoLearn implements Serializable {
         counts = null;
     }
 
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "AutoLearn [avDiffs=" + avDiffs + ", counts=" + counts + "]";
-    }
 
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((avDiffs == null) ? 0 : avDiffs.hashCode());
-        result = prime * result + ((counts == null) ? 0 : counts.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AutoLearn other = (AutoLearn) obj;
-        if (avDiffs == null) {
-            if (other.avDiffs != null) {
-                return false;
-            }
-        } else if (!avDiffs.equals(other.avDiffs)) {
-            return false;
-        }
-        if (counts == null) {
-            if (other.counts != null) {
-                return false;
-            }
-        } else if (!counts.equals(other.counts)) {
-            return false;
-        }
-        return true;
-    }
 }
