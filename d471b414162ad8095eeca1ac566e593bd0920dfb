@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "761716c4_27ed12c4",
+        "filename": "auth/cli-editor/src/test/java/org/onap/policy/apex/auth/clieditor/CommandLineEditorEventsContextTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-07-06T13:32:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb524a2c_ac3ad866",
+      "revId": "d471b414162ad8095eeca1ac566e593bd0920dfb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be16f835_dc5d88b5",
         "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImpl.java",
         "patchSetId": 5
