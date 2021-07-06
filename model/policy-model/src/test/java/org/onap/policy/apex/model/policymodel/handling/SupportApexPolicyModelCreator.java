@@ -36,8 +36,6 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxInputField;
-import org.onap.policy.apex.model.eventmodel.concepts.AxOutputField;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicies;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -116,27 +114,6 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
         events.getEventMap().put(outEvent1.getKey(), outEvent1);
 
         final AxTask task = new AxTask(new AxArtifactKey("task", "0.0.1"));
-
-        for (final AxField field : inEvent.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(task.getKey().getName(), task.getKey().getVersion(),
-                            "inputFields", field.getKey().getLocalName());
-            final AxInputField inputField = new AxInputField(fieldkey, field.getSchema());
-            task.getInputFields().put(inputField.getKey().getLocalName(), inputField);
-        }
-
-        for (final AxField field : outEvent0.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(task.getKey().getName(), task.getKey().getVersion(),
-                            "outputFields", field.getKey().getLocalName());
-            final AxOutputField outputField = new AxOutputField(fieldkey, field.getSchema());
-            task.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
-        }
-
-        for (final AxField field : outEvent1.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(task.getKey().getName(), task.getKey().getVersion(),
-                            "outputFields", field.getKey().getLocalName());
-            final AxOutputField outputField = new AxOutputField(fieldkey, field.getSchema());
-            task.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
-        }
 
         task.setInputEvent(inEvent);
         task.setOutputEvents(Map.of(outEvent0.getId(), outEvent0, outEvent1.getId(), outEvent1));
@@ -271,27 +248,6 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
 
         final AxTask task = new AxTask(new AxArtifactKey("taskA", "0.0.1"));
 
-        for (final AxField field : inEvent.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(task.getKey().getName(), task.getKey().getVersion(),
-                            "inputFieldsA", field.getKey().getLocalName());
-            final AxInputField inputField = new AxInputField(fieldkey, field.getSchema());
-            task.getInputFields().put(inputField.getKey().getLocalName(), inputField);
-        }
-
-        for (final AxField field : outEvent0.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(task.getKey().getName(), task.getKey().getVersion(),
-                            "outputFieldsA", field.getKey().getLocalName());
-            final AxOutputField outputField = new AxOutputField(fieldkey, field.getSchema());
-            task.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
-        }
-
-        for (final AxField field : outEvent1.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(task.getKey().getName(), task.getKey().getVersion(),
-                            "outputFieldsA", field.getKey().getLocalName());
-            final AxOutputField outputField = new AxOutputField(fieldkey, field.getSchema());
-            task.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
-        }
-
         task.setInputEvent(inEvent);
         task.setOutputEvents(Map.of(outEvent0.getId(), outEvent0, outEvent1.getId(), outEvent1));
 
@@ -399,20 +355,6 @@ public class SupportApexPolicyModelCreator implements TestApexModelCreator<AxPol
         final AxEvent outEvent0 = policyModel.getEvents().getEventMap().get(new AxArtifactKey("outEvent0", "0.0.1"));
 
         final AxTask anotherTask = new AxTask(new AxArtifactKey("anotherTask", "0.0.1"));
-
-        for (final AxField field : inEvent.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(anotherTask.getKey().getName(),
-                            anotherTask.getKey().getVersion(), "inputFields", field.getKey().getLocalName());
-            final AxInputField inputField = new AxInputField(fieldkey, field.getSchema());
-            anotherTask.getInputFields().put(inputField.getKey().getLocalName(), inputField);
-        }
-
-        for (final AxField field : outEvent0.getFields()) {
-            final AxReferenceKey fieldkey = new AxReferenceKey(anotherTask.getKey().getName(),
-                            anotherTask.getKey().getVersion(), "outputFields", field.getKey().getLocalName());
-            final AxOutputField outputField = new AxOutputField(fieldkey, field.getSchema());
-            anotherTask.getOutputFields().put(outputField.getKey().getLocalName(), outputField);
-        }
 
         anotherTask.setInputEvent(inEvent);
         anotherTask.setOutputEvents(Map.of(outEvent0.getId(), outEvent0));

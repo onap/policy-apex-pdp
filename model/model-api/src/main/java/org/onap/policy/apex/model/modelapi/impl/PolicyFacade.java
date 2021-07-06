@@ -1112,10 +1112,17 @@ public class PolicyFacade {
                         ApexApiResult.Result.FAILED, "output type " + builder.getOutputType() + " invalid");
             }
 
-            // add input and output events to the task based on state definition
-            if (state.getStateOutputs().containsKey(outputRefKey.getLocalName())) {
-                populateIoEventsToTask(state, task, outputRefKey);
+            String outputRefName = outputRefKey.getLocalName();
+            // in case of SFL, outgoing event will be same for all state outputs that are part of SFL.So, take any entry
+            if (AxStateTaskOutputType.LOGIC.equals(stateTaskOutputType)) {
+                outputRefName = state.getStateOutputs().keySet().iterator().next();
             }
+
+            // add input and output events to the task based on state definition
+            if (state.getStateOutputs().containsKey(outputRefName)) {
+                populateIoEventsToTask(state, task, outputRefName);
+            }
+
             state.getTaskReferences().put(task.getKey(),
                 new AxStateTaskReference(refKey, stateTaskOutputType, outputRefKey));
             return new ApexApiResult();
@@ -1124,18 +1131,18 @@ public class PolicyFacade {
         }
     }
 
-    private void populateIoEventsToTask(final AxState state, final AxTask task, final AxReferenceKey outputRefKey) {
+    private void populateIoEventsToTask(final AxState state, final AxTask task, final String outputRefName) {
         AxEvent triggerEvent = apexModel.getPolicyModel().getEvents().get(state.getTrigger());
         task.setInputEvent(triggerEvent);
         Map<String, AxEvent> outputEvents = new TreeMap<>();
         if (state.getNextStateSet().isEmpty()
             || state.getNextStateSet().contains(AxReferenceKey.getNullKey().getLocalName())) {
-            state.getStateOutputs().get(outputRefKey.getLocalName()).getOutgoingEventSet()
+            state.getStateOutputs().get(outputRefName).getOutgoingEventSet()
                 .forEach(outgoingEventKey -> outputEvents.put(outgoingEventKey.getName(),
                     apexModel.getPolicyModel().getEvents().get(outgoingEventKey)));
         } else {
             AxArtifactKey outgoingEventKey =
-                state.getStateOutputs().get(outputRefKey.getLocalName()).getOutgoingEvent();
+                state.getStateOutputs().get(outputRefName).getOutgoingEvent();
             outputEvents.put(outgoingEventKey.getName(),
                 apexModel.getPolicyModel().getEvents().get(outgoingEventKey));
         }

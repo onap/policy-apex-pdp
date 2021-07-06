@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,19 +113,7 @@ public class ApexPolicyModelTest {
                     + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
                     + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
                     + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
-                    + "AxReferenceKey:"
-                    + "(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=state):"
-                    + "org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "task output field AxOutputField:(key=AxReferenceKey:"
-                    + "(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=outputFields,localName=OE1PAR0),"
-                    + "fieldSchemaKey=AxArtifactKey:(name=eventContextItem0,version=0.0.1),optional=false) for task "
-                    + "task:0.0.1 not in output event outEvent0:0.0.1\n" + "AxReferenceKey:"
-                    + "(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=state):"
-                    + "org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "task output field AxOutputField:(key=AxReferenceKey:"
-                    + "(parentKeyName=task,parentKeyVersion=0.0.1,parentLocalName=outputFields,localName=OE1PAR1),"
-                    + "fieldSchemaKey=AxArtifactKey:(name=eventContextItem1,version=0.0.1),optional=false) for task "
-                    + "task:0.0.1 not in output event outEvent0:0.0.1\n" + "********************************";
+                    + "********************************";
 
     private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
                     + "AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1):"

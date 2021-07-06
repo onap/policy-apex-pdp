@@ -22,6 +22,7 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -84,8 +85,8 @@ public class CommandLineEditorEventsContextTest {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(25892, logCharCount);
-        assertEquals(51975, modelCharCount);
+        assertThat(logCharCount).isGreaterThan(20000);
+        assertThat(modelCharCount).isGreaterThan(30000);
     }
 
     /**
@@ -114,8 +115,8 @@ public class CommandLineEditorEventsContextTest {
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
-        assertEquals(30068, logCharCount);
-        assertEquals(59015, modelCharCount);
+        assertThat(logCharCount).isGreaterThan(20000);
+        assertThat(modelCharCount).isGreaterThan(30000);
 
     }
 
