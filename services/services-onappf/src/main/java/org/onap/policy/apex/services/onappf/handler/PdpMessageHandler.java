@@ -141,6 +141,11 @@ public class PdpMessageHandler {
             pdpStatistics.setPolicyDeploySuccessCount(apexPolicyCounter.getPolicyDeploySuccessCount());
             pdpStatistics.setPolicyDeployFailCount(apexPolicyCounter.getPolicyDeployFailCount());
             pdpStatistics.setPolicyDeployCount(apexPolicyCounter.getPolicyDeployCount());
+
+            pdpStatistics.setPolicyUndeploySuccessCount(apexPolicyCounter.getPolicyUndeploySuccessCount());
+            pdpStatistics.setPolicyUndeployFailCount(apexPolicyCounter.getPolicyUndeployFailCount());
+            pdpStatistics.setPolicyUndeployCount(apexPolicyCounter.getPolicyUndeployCount());
+
             pdpStatistics.setPolicyExecutedCount(apexPolicyCounter.getPolicyExecutedCount());
             pdpStatistics.setPolicyExecutedSuccessCount(apexPolicyCounter.getPolicyExecutedSuccessCount());
             pdpStatistics.setPolicyExecutedFailCount(apexPolicyCounter.getPolicyExecutedFailCount());

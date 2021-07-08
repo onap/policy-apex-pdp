@@ -168,6 +168,7 @@ public class PdpUpdateMessageHandler {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
             }
+            updateDeploymentCounts(pdpUpdateMsg, pdpResponseDetails);
         }
         return pdpResponseDetails;
     }
@@ -196,12 +197,7 @@ public class PdpUpdateMessageHandler {
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
-        final ApexPolicyStatisticsManager apexPolicyStatisticsManager =
-                ApexPolicyStatisticsManager.getInstanceFromRegistry();
-        if (apexPolicyStatisticsManager != null) {
-            apexPolicyStatisticsManager
-                    .updatePolicyDeployCounter(pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
-        }
+        updateDeploymentCounts(pdpUpdateMsg, pdpResponseDetails);
         return pdpResponseDetails;
     }
 
@@ -283,5 +279,28 @@ public class PdpUpdateMessageHandler {
     private boolean containsAny(Set<ToscaConceptIdentifier> listToCheckWith,
             List<ToscaConceptIdentifier> listToCheckAgainst) {
         return listToCheckAgainst.stream().anyMatch(listToCheckWith::contains);
+    }
+
+    /**
+     * Update count values for deployment actions (deploy and undeploy) when applicable.
+     * @param pdpUpdateMsg the pdp update message from pap
+     * @param pdpResponseDetails the pdp response
+     */
+    private void updateDeploymentCounts(final PdpUpdate pdpUpdateMsg, PdpResponseDetails pdpResponseDetails) {
+        final ApexPolicyStatisticsManager statisticsManager =
+                ApexPolicyStatisticsManager.getInstanceFromRegistry();
+
+        if (statisticsManager != null) {
+            if (pdpUpdateMsg.getPoliciesToBeDeployed() != null && !pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()) {
+                statisticsManager.updatePolicyDeployCounter(
+                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+            }
+
+            if (pdpUpdateMsg.getPoliciesToBeUndeployed() != null
+                    && !pdpUpdateMsg.getPoliciesToBeUndeployed().isEmpty()) {
+                statisticsManager.updatePolicyUndeployCounter(
+                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+            }
+        }
     }
 }
