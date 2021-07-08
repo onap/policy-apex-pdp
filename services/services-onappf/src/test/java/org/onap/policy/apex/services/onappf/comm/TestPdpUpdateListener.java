@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
@@ -101,6 +102,8 @@ public class TestPdpUpdateListener {
         activator.initialize();
         pdpUpdateMessageListener = new PdpUpdateListener();
         pdpStateChangeListener = new PdpStateChangeListener();
+        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER,
+                new ApexPolicyStatisticsManager());
     }
 
     /**

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020 Nordix Foundation.
+ *  Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,9 @@ public class ApexPolicyStatisticsManager {
     private final AtomicLong policyDeployCount = new AtomicLong(0);
     private final AtomicLong policyDeploySuccessCount = new AtomicLong(0);
     private final AtomicLong policyDeployFailCount = new AtomicLong(0);
+    private final AtomicLong policyUndeployCount = new AtomicLong(0);
+    private final AtomicLong policyUndeploySuccessCount = new AtomicLong(0);
+    private final AtomicLong policyUndeployFailCount = new AtomicLong(0);
     private final AtomicLong policyExecutedCount = new AtomicLong(0);
     private final AtomicLong policyExecutedSuccessCount = new AtomicLong(0);
     private final AtomicLong policyExecutedFailCount = new AtomicLong(0);
@@ -79,6 +82,19 @@ public class ApexPolicyStatisticsManager {
             this.updatePolicyExecutedSuccessCount();
         } else {
             this.updatePolicyExecutedFailCount();
+        }
+    }
+
+
+    /**
+     * Update the policy undeploy count.
+     */
+    public void updatePolicyUndeployCounter(final boolean isSuccessful) {
+        this.policyUndeployCount.incrementAndGet();
+        if (isSuccessful) {
+            this.policyUndeploySuccessCount.incrementAndGet();
+        } else {
+            this.policyUndeployFailCount.incrementAndGet();
         }
     }
 
@@ -144,6 +160,9 @@ public class ApexPolicyStatisticsManager {
         policyDeployCount.set(0L);
         policyDeployFailCount.set(0L);
         policyDeploySuccessCount.set(0L);
+        policyUndeployCount.set(0L);
+        policyUndeployFailCount.set(0L);
+        policyUndeploySuccessCount.set(0L);
         policyExecutedCount.set(0L);
         policyExecutedSuccessCount.set(0L);
         policyExecutedFailCount.set(0L);
@@ -171,5 +190,17 @@ public class ApexPolicyStatisticsManager {
 
     public long getPolicyExecutedFailCount() {
         return policyExecutedFailCount.get();
+    }
+
+    public long getPolicyUndeployCount() {
+        return policyUndeployCount.get();
+    }
+
+    public long getPolicyUndeploySuccessCount() {
+        return policyUndeploySuccessCount.get();
+    }
+
+    public long getPolicyUndeployFailCount() {
+        return policyUndeployFailCount.get();
     }
 }
