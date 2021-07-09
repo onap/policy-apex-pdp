@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af803c7a_9a5433f5",
+        "filename": "services/services-engine/src/test/java/org/onap/policy/apex/service/engine/main/ApexPolicyStatisticsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-09T15:28:27Z",
+      "side": 1,
+      "message": "\"private\"",
+      "revId": "84fb7486ae7f619beb45532d411fbe3ee432624c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
