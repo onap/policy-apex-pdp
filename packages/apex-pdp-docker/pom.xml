@@ -2,6 +2,7 @@
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications Copyright (C) 2019-2020 Bell Canada.
+   Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -38,8 +39,6 @@
         <docker.skip>false</docker.skip>
         <docker.skip.build>false</docker.skip.build>
         <docker.skip.push>false</docker.skip.push>
-        <docker.pull.registry>nexus3.onap.org:10001</docker.pull.registry>
-        <docker.push.registry>nexus3.onap.org:10003</docker.push.registry>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
     </properties>
 
