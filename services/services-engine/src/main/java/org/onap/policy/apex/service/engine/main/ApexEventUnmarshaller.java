@@ -264,6 +264,9 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
             } catch (ApexException e) {
                 if (!iterator.hasNext()) {
                     final String errorMessage = "Error while converting event into an ApexEvent for " + name;
+                    if (!LOGGER.isDebugEnabled()) {
+                        LOGGER.warn("{}. Detailed logs are available at debug level.", errorMessage);
+                    }
                     throw new ApexEventException(errorMessage, e);
                 }
             }
