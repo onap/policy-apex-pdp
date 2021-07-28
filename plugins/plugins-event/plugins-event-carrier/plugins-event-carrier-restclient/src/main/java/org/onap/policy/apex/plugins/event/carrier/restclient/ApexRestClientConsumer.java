@@ -172,7 +172,7 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
                 // Send the event into Apex
                 eventReceiver.receiveEvent(new Properties(), eventJsonString);
             } catch (final Exception e) {
-                LOGGER.warn("error receiving events on thread {}", consumerThread.getName(), e);
+                LOGGER.debug("error receiving events on thread {}", consumerThread.getName(), e);
             }
         }
     }
