@@ -16,6 +16,24 @@
       "revId": "1036206455218a4722079b749e628ca96825418d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b6b21d_69655042",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-07-29T15:53:26Z",
+      "side": 1,
+      "message": "The 1 line message without stack trace is needed at a top level, because that gives an idea about the which listener thread  tried to parse event on the topic and failed. The exact event parsing error is best to keep on debug level, as debugging the parse error can be important too in some cases.",
+      "parentUuid": "7c476c33_002563ec",
+      "revId": "1036206455218a4722079b749e628ca96825418d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
