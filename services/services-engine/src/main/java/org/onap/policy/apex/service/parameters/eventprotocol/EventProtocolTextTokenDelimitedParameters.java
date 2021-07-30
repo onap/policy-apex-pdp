@@ -21,6 +21,11 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 
@@ -40,79 +45,13 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class EventProtocolTextTokenDelimitedParameters extends EventProtocolParameters {
     // The delimiter token for text blocks
     private @NotNull @NotBlank String startDelimiterToken = null;
     private String endDelimiterToken = null;
     private boolean delimiterAtStart = true;
-
-    /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
-     */
-    protected EventProtocolTextTokenDelimitedParameters() {
-        super();
-    }
-
-    /**
-     * Gets the start delimiter token that delimits events in the text.
-     *
-     * @return the start delimiter token
-     */
-    public String getStartDelimiterToken() {
-        return startDelimiterToken;
-    }
-
-    /**
-     * Sets the start delimiter token that delimits events in the text.
-     *
-     * @param startDelimiterToken
-     *        delimiterToken the delimiter token
-     */
-    public void setStartDelimiterToken(final String startDelimiterToken) {
-        this.startDelimiterToken = startDelimiterToken;
-    }
-
-    /**
-     * Gets the end delimiter token that delimits events in the text.
-     *
-     * @return the end delimiter token
-     */
-    public String getEndDelimiterToken() {
-        return endDelimiterToken;
-    }
-
-    /**
-     * Sets the end delimiter token that delimits events in the text.
-     *
-     * @param endDelimiterToken
-     *        delimiterToken the delimiter token
-     */
-    public void setEndDelimiterToken(final String endDelimiterToken) {
-        this.endDelimiterToken = endDelimiterToken;
-    }
-
-    /**
-     * Check if there must be a delimiter at the start of the first text block.
-     *
-     * @return true if there must be a delimiter at the start of the text block
-     */
-    public boolean isDelimiterAtStart() {
-        return delimiterAtStart;
-    }
-
-    /**
-     * Sets if there has to be a delimiter at the start of the first text block.
-     *
-     * @param delimiterAtStart
-     *        true if there must be a delimiter at the start of the text block
-     */
-    public void setDelimiterAtStart(boolean delimiterAtStart) {
-        this.delimiterAtStart = delimiterAtStart;
-    }
-
-    @Override
-    public String toString() {
-        return "EventProtocolTextTokenDelimitedParameters [startDelimiterToken=" + startDelimiterToken
-                        + ", endDelimiterToken=" + endDelimiterToken + ", delimiterAtStart=" + delimiterAtStart + "]";
-    }
 }

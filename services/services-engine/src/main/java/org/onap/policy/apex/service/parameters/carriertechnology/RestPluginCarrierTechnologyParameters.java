@@ -32,6 +32,7 @@ import java.util.regex.PatternSyntaxException;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.common.parameters.BeanValidationResult;
@@ -64,6 +65,7 @@ import org.slf4j.LoggerFactory;
 //@formatter:on
 @Setter
 @Getter
+@NoArgsConstructor
 public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyParameters {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(RestPluginCarrierTechnologyParameters.class);
@@ -95,14 +97,6 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     protected HttpMethod httpMethod = null;
     protected String[][] httpHeaders = null;
     protected String httpCodeFilter = DEFAULT_HTTP_CODE_FILTER;
-
-    /**
-     * Constructor to create a REST carrier technology parameters instance and
-     * register the instance with the parameter service.
-     */
-    public RestPluginCarrierTechnologyParameters() {
-        super();
-    }
 
     /**
      * Check if http headers have been set for the REST request.

@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * This class provides utility functions for tree maps. A function to find the nearest match in the tree map to an input
@@ -33,14 +35,8 @@ import java.util.NavigableMap;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TreeMapUtils {
-
-    /**
-     * This class is a utility class that can't be instantiated.
-     */
-    private TreeMapUtils() {
-        // Private constructor to block subclassing
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class TreeMapUtils {
 
     /**
      * Find the list of entries that matches a given word, for example "p" will match "put", "policy", and "push".

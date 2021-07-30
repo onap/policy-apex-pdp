@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  * Copyright (C) 2020-2021 Nordix Foundation.
+ * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,22 +24,16 @@ package org.onap.policy.apex.service.engine.event;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+import lombok.Getter;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
 public abstract class ApexPluginsEventProducer implements ApexEventProducer {
     // The name for this producer
+    @Getter
     protected String name = null;
     // The peer references for this event handler
     protected Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap =
             new EnumMap<>(EventHandlerPeeredMode.class);
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
 
     /**
      * {@inheritDoc}.

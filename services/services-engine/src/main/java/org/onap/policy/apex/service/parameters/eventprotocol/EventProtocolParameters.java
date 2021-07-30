@@ -21,6 +21,10 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.common.parameters.annotations.ClassName;
@@ -42,29 +46,15 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  */
 @NotNull
 @NotBlank
+@Getter
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class EventProtocolParameters extends ParameterGroupImpl {
     // The event protocol label
     private String label = null;
 
     // Event protocol converter plugin class for this event protocol
     private @ClassName String eventProtocolPluginClass;
-
-    /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of this class and
-     * register the instance with the parameter service.
-     */
-    protected EventProtocolParameters() {
-        super();
-    }
-
-    /**
-     * Gets the label of the event protocol.
-     *
-     * @return the label of the event protocol
-     */
-    public String getLabel() {
-        return label;
-    }
 
     /**
      * Sets the label of the event protocol.
@@ -76,30 +66,12 @@ public abstract class EventProtocolParameters extends ParameterGroupImpl {
     }
 
     /**
-     * Gets the event event protocol plugin class.
-     *
-     * @return the event event protocol plugin class
-     */
-    public String getEventProtocolPluginClass() {
-        return eventProtocolPluginClass;
-    }
-
-    /**
      * Sets the event event protocol plugin class.
      *
      * @param eventProtocolPluginClass the event event protocol plugin class
      */
     public void setEventProtocolPluginClass(final String eventProtocolPluginClass) {
         this.eventProtocolPluginClass = eventProtocolPluginClass.replaceAll("\\s+", "");
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "CarrierTechnologyParameters [label=" + label + ", EventProtocolPluginClass=" + eventProtocolPluginClass
-                        + "]";
     }
 
     @Override

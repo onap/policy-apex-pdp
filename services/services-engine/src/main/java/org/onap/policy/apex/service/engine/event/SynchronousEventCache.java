@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import lombok.Getter;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 import org.slf4j.ext.XLogger;
@@ -51,6 +53,7 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
     private static final long CACHE_STOP_WAIT_INTERVAL = 10;
 
     // The time in milliseconds to wait for the reply to a sent synchronous event
+    @Getter
     private long synchronousEventTimeout = DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT;
 
     // Map holding outstanding synchronous events
@@ -85,15 +88,6 @@ public class SynchronousEventCache extends PeeredReference implements Runnable {
         synchronousEventCacheThread = new Thread(this);
         synchronousEventCacheThread.setDaemon(true);
         synchronousEventCacheThread.start();
-    }
-
-    /**
-     * Gets the timeout value for synchronous events.
-     *
-     * @return the synchronous event timeout
-     */
-    public long getSynchronousEventTimeout() {
-        return synchronousEventTimeout;
     }
 
     /**

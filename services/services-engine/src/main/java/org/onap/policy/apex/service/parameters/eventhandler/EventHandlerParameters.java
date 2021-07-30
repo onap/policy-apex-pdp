@@ -23,6 +23,9 @@ package org.onap.policy.apex.service.parameters.eventhandler;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.service.parameters.ApexParameterConstants;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
@@ -55,12 +58,17 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@ToString
 public class EventHandlerParameters implements ParameterGroup {
     // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(EventHandlerParameters.class);
 
+    @Setter
     private String name = null;
+    @Setter
     private @NotNull @Valid CarrierTechnologyParameters carrierTechnologyParameters = null;
+    @Setter
     private @NotNull @Valid EventProtocolParameters eventProtocolParameters = null;
     private boolean synchronousMode = false;
     private String synchronousPeer = null;
@@ -68,7 +76,9 @@ public class EventHandlerParameters implements ParameterGroup {
     private boolean requestorMode = false;
     private String requestorPeer = null;
     private long requestorTimeout = 0;
+    @Setter
     private String eventName = null;
+    @Setter
     private String eventNameFilter = null;
 
     /**
@@ -82,66 +92,12 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Gets the name of the event handler.
-     *
-     * @return the event handler name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the event handler.
-     *
-     * @param name the event handler name
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
      * Checks if the name of the event handler is set.
      *
      * @return true if the name is set
      */
     public boolean checkSetName() {
         return !(name == null || name.trim().length() == 0);
-    }
-
-    /**
-     * Gets the carrier technology parameters of the event handler.
-     *
-     * @return the carrierTechnologyParameters of the event handler
-     */
-    public CarrierTechnologyParameters getCarrierTechnologyParameters() {
-        return carrierTechnologyParameters;
-    }
-
-    /**
-     * Sets the carrier technology parameters of the event handler.
-     *
-     * @param carrierTechnologyParameters the carrierTechnologyParameters to set
-     */
-    public void setCarrierTechnologyParameters(final CarrierTechnologyParameters carrierTechnologyParameters) {
-        this.carrierTechnologyParameters = carrierTechnologyParameters;
-    }
-
-    /**
-     * Gets the event protocol parameters of the event handler.
-     *
-     * @return the eventProtocolParameters
-     */
-    public EventProtocolParameters getEventProtocolParameters() {
-        return eventProtocolParameters;
-    }
-
-    /**
-     * Sets the event protocol parameters.
-     *
-     * @param eventProtocolParameters the eventProtocolParameters to set
-     */
-    public void setEventProtocolParameters(final EventProtocolParameters eventProtocolParameters) {
-        this.eventProtocolParameters = eventProtocolParameters;
     }
 
     /**
@@ -262,48 +218,12 @@ public class EventHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Gets the event name for this event handler.
-     *
-     * @return the event name
-     */
-    public String getEventName() {
-        return eventName;
-    }
-
-    /**
-     * Sets the event name for this event handler.
-     *
-     * @param eventName the event name
-     */
-    public void setEventName(final String eventName) {
-        this.eventName = eventName;
-    }
-
-    /**
      * Check if event name filtering is being used.
      *
      * @return true if event name filtering is being used
      */
     public boolean isSetEventNameFilter() {
         return eventNameFilter != null;
-    }
-
-    /**
-     * Gets the event name filter for this event handler.
-     *
-     * @return the event name filter
-     */
-    public String getEventNameFilter() {
-        return eventNameFilter;
-    }
-
-    /**
-     * Sets the event name filter for this event handler.
-     *
-     * @param eventNameFilter the event name filter
-     */
-    public void setEventNameFilter(final String eventNameFilter) {
-        this.eventNameFilter = eventNameFilter;
     }
 
     /**
@@ -324,72 +244,5 @@ public class EventHandlerParameters implements ParameterGroup {
         }
 
         return result;
-    }
-
-    /**
-     * Check if we're using synchronous mode.
-     *
-     * @return true if if we're using synchronous mode
-     */
-    public boolean isSynchronousMode() {
-        return synchronousMode;
-    }
-
-    /**
-     * The synchronous peer for this event handler.
-     *
-     * @return the synchronous peer for this event handler
-     */
-    public String getSynchronousPeer() {
-        return synchronousPeer;
-    }
-
-    /**
-     * Get the timeout for synchronous operations.
-     *
-     * @return the timeout for synchronous operations
-     */
-    public long getSynchronousTimeout() {
-        return synchronousTimeout;
-    }
-
-    /**
-     * Check if this event handler will use requestor mode.
-     *
-     * @return true if this event handler will use requestor mode
-     */
-    public boolean isRequestorMode() {
-        return requestorMode;
-    }
-
-    /**
-     * The requestor peer for this event handler.
-     *
-     * @return the requestor peer for this event handler
-     */
-    public String getRequestorPeer() {
-        return requestorPeer;
-    }
-
-    /**
-     * Get the requestor timeout.
-     *
-     * @return the requestorTimeout.
-     */
-    public long getRequestorTimeout() {
-        return requestorTimeout;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "EventHandlerParameters [name=" + name + ", carrierTechnologyParameters=" + carrierTechnologyParameters
-                        + ", eventProtocolParameters=" + eventProtocolParameters + ", synchronousMode="
-                        + synchronousMode + ", synchronousPeer=" + synchronousPeer + ", synchronousTimeout="
-                        + synchronousTimeout + ", requestorMode=" + requestorMode + ", requestorPeer=" + requestorPeer
-                        + ", requestorTimeout=" + requestorTimeout + ", eventName=" + eventName + ", eventNameFilter="
-                        + eventNameFilter + "]";
     }
 }

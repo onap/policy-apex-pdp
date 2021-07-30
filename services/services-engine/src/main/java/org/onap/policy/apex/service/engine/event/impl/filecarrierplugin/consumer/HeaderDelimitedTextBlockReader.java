@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,9 +53,6 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
     // Indicates that text block processing starts at the first block of text
     private final boolean delimiterAtStart;
     private boolean blockEndTokenUsed;
-
-    // The thread used to read the text from the stream
-    private Thread textConsumputionThread;
 
     // The input stream for text
     private InputStream inputStream;
@@ -108,7 +106,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
         this.inputStream = incomingInputStream;
 
         // Configure and start the text reading thread
-        textConsumputionThread = new ApplicationThreadFactory(this.getClass().getName()).newThread(this);
+        Thread textConsumputionThread = new ApplicationThreadFactory(this.getClass().getName()).newThread(this);
         textConsumputionThread.setDaemon(true);
         textConsumputionThread.start();
     }

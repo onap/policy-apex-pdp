@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.services.onappf.comm;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import lombok.Getter;
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.client.TopicSinkClient;
@@ -41,6 +43,7 @@ public class PdpStatusPublisher extends TimerTask {
 
     private TopicSinkClient topicSinkClient;
     private Timer timer;
+    @Getter
     private long interval;
 
     /**
@@ -69,15 +72,6 @@ public class PdpStatusPublisher extends TimerTask {
     public void terminate() {
         timer.cancel();
         timer.purge();
-    }
-
-    /**
-     * Get the current time interval used by the timer task.
-     *
-     * @return interval the current time interval
-     */
-    public long getInterval() {
-        return interval;
     }
 
     /**

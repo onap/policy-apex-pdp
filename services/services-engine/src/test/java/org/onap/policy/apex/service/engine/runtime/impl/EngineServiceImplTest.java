@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -243,13 +244,13 @@ public class EngineServiceImplTest {
         esImpl.startPeriodicEvents(100000);
 
         assertThatThrownBy(() -> esImpl.startPeriodicEvents(100000)).isInstanceOf(ApexException.class)
-            .hasMessage("Peiodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
+            .hasMessage("Periodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
                 + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]");
 
         esImpl.stopPeriodicEvents();
 
         assertThatThrownBy(() -> esImpl.stopPeriodicEvents()).isInstanceOf(ApexException.class)
-            .hasMessage("Peiodic event geneation not running on engine Engine:0.0.1");
+            .hasMessage("Periodic event geneation not running on engine Engine:0.0.1");
 
         assertThatThrownBy(() -> esImpl.clear(null)).isInstanceOf(ApexException.class)
             .hasMessage("engine key must be specified and may not be null");
@@ -395,7 +396,7 @@ public class EngineServiceImplTest {
             esImpl.startPeriodicEvents(100000);
             fail("test should throw an exception");
         } catch (ApexException apEx) {
-            assertEquals("Peiodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
+            assertEquals("Periodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
                     + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
         }
 
@@ -404,7 +405,7 @@ public class EngineServiceImplTest {
             esImpl.stopPeriodicEvents();
             fail("test should throw an exception");
         } catch (ApexException apEx) {
-            assertEquals("Peiodic event geneation not running on engine Engine:0.0.1", apEx.getMessage());
+            assertEquals("Periodic event geneation not running on engine Engine:0.0.1", apEx.getMessage());
         }
 
         try {

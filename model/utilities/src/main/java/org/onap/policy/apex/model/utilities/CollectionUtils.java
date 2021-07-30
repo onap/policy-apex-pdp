@@ -23,18 +23,16 @@ package org.onap.policy.apex.model.utilities;
 
 import java.util.List;
 import java.util.ListIterator;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * This is common utility class with static methods for handling collections.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class CollectionUtils {
-    /**
-     * Private constructor used to prevent sub class instantiation.
-     */
-    private CollectionUtils() {
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class CollectionUtils {
 
     /**
      * Compare two lists, checks for equality, then for equality on members.

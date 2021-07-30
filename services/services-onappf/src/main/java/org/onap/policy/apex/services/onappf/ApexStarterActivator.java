@@ -53,7 +53,8 @@ import org.slf4j.LoggerFactory;
 public class ApexStarterActivator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexStarterActivator.class);
-    private final ApexStarterParameterGroup apexStarterParameterGroup;
+    @Getter
+    private final ApexStarterParameterGroup parameterGroup;
     private List<TopicSink> topicSinks; // topics to which apex-pdp sends pdp status
     private List<TopicSource> topicSources; // topics to which apex-pdp listens to for messages from pap.
     private static final String[] MSG_TYPE_NAMES = { "messageName" };
@@ -99,7 +100,7 @@ public class ApexStarterActivator {
         instanceId = NetworkUtil.genUniqueName("apex");
         LOGGER.debug("ApexStarterActivator initializing with instance id: {}", instanceId);
         try {
-            this.apexStarterParameterGroup = apexStarterParameterGroup;
+            this.parameterGroup = apexStarterParameterGroup;
             this.msgDispatcher = new MessageTypeDispatcher(MSG_TYPE_NAMES);
         } catch (final RuntimeException e) {
             throw new ApexStarterRunTimeException(e);
@@ -202,15 +203,6 @@ public class ApexStarterActivator {
             LOGGER.error("ApexStarter termination failed");
             throw new ApexStarterException(exp.getMessage(), exp);
         }
-    }
-
-    /**
-     * Get the parameters used by the activator.
-     *
-     * @return apexStarterParameterGroup the parameters of the activator
-     */
-    public ApexStarterParameterGroup getParameterGroup() {
-        return apexStarterParameterGroup;
     }
 
     /**

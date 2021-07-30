@@ -1,19 +1,20 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import lombok.Getter;
 
 /**
  * This class holds the result of a difference check between two keyed maps. Four results are returned in the class. The
@@ -36,6 +38,7 @@ import java.util.TreeMap;
  * @param <K> the generic type
  * @param <V> the generic type
  */
+@Getter
 public class KeyedMapDifference<K, V> {
     private static final String KEY = "key=";
     private static final String VALUE = ",value=";
@@ -45,43 +48,6 @@ public class KeyedMapDifference<K, V> {
     private Map<K, V> rightOnly = new TreeMap<>();
     private Map<K, V> identicalValues = new TreeMap<>();
     private Map<K, List<V>> differentValues = new TreeMap<>();
-
-    /**
-     * Gets the entries that were found only in the left map.
-     *
-     * @return the entries only in the left map
-     */
-    public Map<K, V> getLeftOnly() {
-        return leftOnly;
-    }
-
-    /**
-     * Gets the entries that were found only in the right map.
-     *
-     * @return the entries only in the right map
-     */
-    public Map<K, V> getRightOnly() {
-        return rightOnly;
-    }
-
-    /**
-     * Gets the entries that were identical (keys and values the same) in both maps.
-     *
-     * @return the identical entries
-     */
-    public Map<K, V> getIdenticalValues() {
-        return identicalValues;
-    }
-
-    /**
-     * Gets the entries that had the same key but different values in both maps.
-     *
-     * @return the entries that were different. There are two values in the list of values for each entry. The first
-     *         value is the value that was in the left map and the second value is the value that was in the right map.
-     */
-    public Map<K, List<V>> getDifferentValues() {
-        return differentValues;
-    }
 
     /**
      * Return a string representation of the differences.
@@ -127,7 +93,7 @@ public class KeyedMapDifference<K, V> {
 
     /**
      * Output the entries in a map with entries that are in one side only as a string.
-     * 
+     *
      * @param sideMap the map for the side being checked
      * @param sideMapString the string that represents the map in output strings
      * @param keysOnly if true, just add key information and not entries
@@ -153,7 +119,7 @@ public class KeyedMapDifference<K, V> {
 
     /**
      * Output the differences between two the maps as a string.
-     * 
+     *
      * @param keysOnly if true, just add key information and not entries
      * @return the differences as a string
      */
@@ -185,7 +151,7 @@ public class KeyedMapDifference<K, V> {
 
     /**
      * Output the identical entries in the maps as a string.
-     * 
+     *
      * @param keysOnly if true, just add key information and not entries
      * @return the identical entries as a string
      */

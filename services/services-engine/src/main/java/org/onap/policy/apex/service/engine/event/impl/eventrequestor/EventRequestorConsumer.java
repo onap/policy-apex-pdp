@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,7 @@ import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import lombok.Getter;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
@@ -56,6 +58,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
     private ApexEventReceiver eventReceiver;
 
     // The name for this consumer
+    @Getter
     private String name = null;
 
     // The peer references for this event handler
@@ -70,6 +73,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
     private boolean stopOrderedFlag = false;
 
     // The number of events received to date
+    @Getter
     private int eventsReceived = 0;
 
     @Override
@@ -125,23 +129,6 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         consumerThread = new ApplicationThreadFactory(threadName).newThread(this);
         consumerThread.setDaemon(true);
         consumerThread.start();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the number of events received to date.
-     *
-     * @return the number of events received
-     */
-    public int getEventsReceived() {
-        return eventsReceived;
     }
 
     /**
