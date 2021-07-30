@@ -661,7 +661,7 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public void startPeriodicEvents(final long period) throws ApexException {
         // Check if periodic events are already started
         if (periodicEventGenerator != null) {
-            String message = "Peiodic event geneation already running on engine " + engineServiceKey.getId() + ", "
+            String message = "Periodic event geneation already running on engine " + engineServiceKey.getId() + ", "
                             + periodicEventGenerator.toString();
             LOGGER.warn(message);
             throw new ApexException(message);
@@ -682,8 +682,8 @@ public final class EngineServiceImpl implements EngineService, EngineServiceEven
     public void stopPeriodicEvents() throws ApexException {
         // Check if periodic events are already started
         if (periodicEventGenerator == null) {
-            LOGGER.warn("Peiodic event geneation not running on engine " + engineServiceKey.getId());
-            throw new ApexException("Peiodic event geneation not running on engine " + engineServiceKey.getId());
+            LOGGER.warn("Periodic event geneation not running on engine " + engineServiceKey.getId());
+            throw new ApexException("Periodic event geneation not running on engine " + engineServiceKey.getId());
         }
 
         // Stop periodic events

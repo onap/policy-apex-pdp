@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
@@ -46,6 +48,7 @@ public class EventRequestorProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventRequestorProducer.class);
 
     // The name for this producer
+    @Getter
     private String name = null;
 
     // The peer references for this event handler
@@ -53,6 +56,7 @@ public class EventRequestorProducer implements ApexEventProducer {
             new EnumMap<>(EventHandlerPeeredMode.class);
 
     // The number of events sent
+    @Getter
     private int eventsSent = 0;
 
     /**
@@ -79,23 +83,6 @@ public class EventRequestorProducer implements ApexEventProducer {
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the number of events sent to date.
-     *
-     * @return the number of events received
-     */
-    public int getEventsSent() {
-        return eventsSent;
     }
 
     /**

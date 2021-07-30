@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.service.parameters.carriertechnology;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.common.parameters.annotations.ClassName;
@@ -40,6 +42,7 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  */
 @NotNull
 @NotBlank
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class CarrierTechnologyParameters extends ParameterGroupImpl {
 
     // The carrier technology label
@@ -49,14 +52,6 @@ public abstract class CarrierTechnologyParameters extends ParameterGroupImpl {
     // technology
     private @ClassName String eventProducerPluginClass = null;
     private @ClassName String eventConsumerPluginClass = null;
-
-    /**
-     * Constructor to create a carrier technology parameters instance with the name of a sub class of this class and
-     * register the instance with the parameter service.
-     */
-    protected CarrierTechnologyParameters() {
-        super();
-    }
 
     /**
      * Gets the label of the carrier technology.

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  * Copyright (C) 2020 Nordix Foundation.
+ * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +23,13 @@ package org.onap.policy.apex.service.engine.event;
 
 import java.util.EnumMap;
 import java.util.Map;
+import lombok.Getter;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
 public abstract class ApexPluginsEventConsumer implements ApexEventConsumer, Runnable {
     // The name for this consumer
+    @Getter
     protected String name = null;
 
     // The peer references for this event handler
@@ -47,14 +50,6 @@ public abstract class ApexPluginsEventConsumer implements ApexEventConsumer, Run
         consumerThread = new ApplicationThreadFactory(threadName).newThread(this);
         consumerThread.setDaemon(true);
         consumerThread.start();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**

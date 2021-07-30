@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +21,14 @@
 
 package org.onap.policy.apex.services.onappf;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Names of various items contained in the Registry.
  */
-public class ApexStarterConstants {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ApexStarterConstants {
     // Registry keys
     public static final String REG_APEX_STARTER_ACTIVATOR = "object:activator/apex_starter";
     public static final String REG_PDP_STATUS_OBJECT = "object:pdp/status";
@@ -31,8 +36,4 @@ public class ApexStarterConstants {
     public static final String REG_PDP_STATUS_PUBLISHER = "object:pdp/status/publisher";
     public static final String REG_APEX_PDP_TOPIC_SINKS = "object:apex/pdp/topic/sinks";
     public static final String REG_APEX_ENGINE_HANDLER = "object:engine/apex/handler";
-
-    private ApexStarterConstants() {
-        super();
-    }
 }

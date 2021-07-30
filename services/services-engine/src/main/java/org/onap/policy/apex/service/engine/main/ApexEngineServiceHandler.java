@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import lombok.AllArgsConstructor;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.runtime.EngineService;
@@ -32,21 +34,13 @@ import org.slf4j.ext.XLoggerFactory;
  * service and the EngDep service for that engine. It also acts as an event
  * receiver for asynchronous and synchronous events.
  */
+@AllArgsConstructor
 public class ApexEngineServiceHandler {
     // The logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEngineServiceHandler.class);
 
     // The Apex engine service, the Apex engine itself
     private final EngineService apexEngineService;
-
-    /**
-     * Instantiates a new engine holder with its engine service and EngDep service.
-     *
-     * @param apexEngineService the apex engine service
-     */
-    ApexEngineServiceHandler(final EngineService apexEngineService) {
-        this.apexEngineService = apexEngineService;
-    }
 
     /**
      * This method forwards an event to the Apex service.

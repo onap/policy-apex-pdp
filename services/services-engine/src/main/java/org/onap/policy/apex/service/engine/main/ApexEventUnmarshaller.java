@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,7 @@ import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import lombok.Getter;
 import lombok.NonNull;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -66,6 +68,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
     private static final long EVENT_QUEUE_POLL_INTERVAL = 20;
 
     // The name of the unmarshaler
+    @Getter
     private final String name;
 
     // The engine service and consumer parameters
@@ -76,7 +79,9 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
     private ApexEngineServiceHandler engineServiceHandler;
 
     // Apex event producer and event converter, all events are sent as string representations
+    @Getter
     private ApexEventConsumer consumer;
+    @Getter
     private ApexEventProtocolConverter converter;
 
     // Temporary event holder for events going into Apex
@@ -129,33 +134,6 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
         unmarshallerThread = new ApplicationThreadFactory(threadName).newThread(this);
         unmarshallerThread.setDaemon(true);
         unmarshallerThread.start();
-    }
-
-    /**
-     * Gets the name of the unmarshaler.
-     *
-     * @return the unmarshaler name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the technology specific consumer for this unmarshaler.
-     *
-     * @return the consumer
-     */
-    public ApexEventConsumer getConsumer() {
-        return consumer;
-    }
-
-    /**
-     * Gets the event protocol converter for this unmarshaler.
-     *
-     * @return the event protocol converter
-     */
-    public ApexEventProtocolConverter getConverter() {
-        return converter;
     }
 
     /**

@@ -21,6 +21,11 @@
 
 package org.onap.policy.apex.service.parameters.eventprotocol;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 
@@ -36,62 +41,14 @@ import org.onap.policy.common.parameters.ValidationStatus;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString(callSuper = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class EventProtocolTextCharDelimitedParameters extends EventProtocolParameters {
     // The starting and ending character delimiter
     private char startChar = '\0';
     private char endChar = '\0';
-
-    /**
-     * Constructor to create an event protocol parameters instance with the name of a sub class of this class.
-     */
-    protected EventProtocolTextCharDelimitedParameters() {
-        super();
-    }
-
-    /**
-     * Gets the start character that delimits the start of text blocks.
-     *
-     * @return the start char
-     */
-    public char getStartChar() {
-        return startChar;
-    }
-
-    /**
-     * Sets the start character that delimits the start of text blocks.
-     *
-     * @param startChar the start character
-     */
-    public void setStartChar(final char startChar) {
-        this.startChar = startChar;
-    }
-
-    /**
-     * Gets the end character that delimits the end of text blocks.
-     *
-     * @return the end character
-     */
-    public char getEndChar() {
-        return endChar;
-    }
-
-    /**
-     * Sets the end character that delimits the end of text blocks.
-     *
-     * @param endChar the end character
-     */
-    public void setEndChar(final char endChar) {
-        this.endChar = endChar;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "EventProtocolTextCharDelimitedParameters {" + super.toString() + "} [startChar=" + startChar
-                        + ", endChar=" + endChar + "]";
-    }
 
     /**
      * {@inheritDoc}.

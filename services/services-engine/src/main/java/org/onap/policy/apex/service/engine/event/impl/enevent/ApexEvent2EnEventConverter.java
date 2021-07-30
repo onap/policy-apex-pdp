@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ package org.onap.policy.apex.service.engine.event.impl.enevent;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -41,19 +43,11 @@ import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@AllArgsConstructor
 public final class ApexEvent2EnEventConverter implements ApexEventConverter {
 
     // The Apex engine with its event definitions
     private final ApexEngine apexEngine;
-
-    /**
-     * Set up the event converter.
-     *
-     * @param apexEngine The engine to use to create events to be converted
-     */
-    public ApexEvent2EnEventConverter(final ApexEngine apexEngine) {
-        this.apexEngine = apexEngine;
-    }
 
     /**
      * {@inheritDoc}.

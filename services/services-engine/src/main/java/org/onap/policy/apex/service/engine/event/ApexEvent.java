@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.slf4j.Logger;
@@ -119,12 +121,15 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
 
     // An identifier for the current event execution. The default value here will always be unique
     // in a single JVM
+    @Setter
     private long executionId = ApexEvent.getNextExecutionId();
 
     // Event related properties used during processing of this event
+    @Setter
     private Properties executionProperties = new Properties();
 
     // A string holding a message that indicates why processing of this event threw an exception
+    @Setter
     private String exceptionMessage;
 
     /**
@@ -194,36 +199,6 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
             LOGGER.warn(message);
             throw new ApexEventException(message);
         }
-    }
-
-    /**
-     * Sets the pass-thru executionID for this event.
-     *
-     * <p>The default value for executionID is unique in the current JVM. For some applications/deployments this
-     * executionID may need to be globally unique
-     *
-     * @param executionId the executionID
-     */
-    public void setExecutionId(final long executionId) {
-        this.executionId = executionId;
-    }
-
-    /**
-     * Set the execution properties for this event.
-     *
-     * @param executionProperties the execution properties to set
-     */
-    public void setExecutionProperties(Properties executionProperties) {
-        this.executionProperties = executionProperties;
-    }
-
-    /**
-     * Sets the exception message explaining why processing of this event to fail.
-     *
-     * @param exceptionMessage the exception message
-     */
-    public void setExceptionMessage(final String exceptionMessage) {
-        this.exceptionMessage = exceptionMessage;
     }
 
     /*

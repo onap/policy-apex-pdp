@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +23,7 @@
 package org.onap.policy.apex.services.onappf;
 
 import java.util.Arrays;
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
@@ -44,7 +45,8 @@ public class ApexStarterMain {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexStarterMain.class);
 
     private ApexStarterActivator activator;
-    private ApexStarterParameterGroup parameterGroup;
+    @Getter
+    private ApexStarterParameterGroup parameters;
 
     /**
      * Instantiates the ApexStarter.
@@ -68,10 +70,10 @@ public class ApexStarterMain {
             arguments.validate();
 
             // Read the parameters
-            parameterGroup = new ApexStarterParameterHandler().getParameters(arguments);
+            parameters = new ApexStarterParameterHandler().getParameters(arguments);
 
             // create the activator
-            activator = new ApexStarterActivator(parameterGroup);
+            activator = new ApexStarterActivator(parameters);
             Registry.register(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, activator);
             Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER,
                 new ApexPolicyStatisticsManager());
@@ -92,15 +94,6 @@ public class ApexStarterMain {
         LOGGER.info(successMsg);
     }
 
-    /**
-     * Get the parameters specified in JSON.
-     *
-     * @return parameterGroup the parameters
-     */
-    public ApexStarterParameterGroup getParameters() {
-        return parameterGroup;
-    }
-
 
     /**
      * Shut down Execution.
@@ -109,7 +102,7 @@ public class ApexStarterMain {
      */
     public void shutdown() throws ApexStarterException {
         // clear the parameterGroup variable
-        parameterGroup = null;
+        parameters = null;
 
         // clear the apex starter activator
         if (activator != null && activator.isAlive()) {

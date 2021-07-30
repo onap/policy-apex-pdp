@@ -24,6 +24,7 @@ package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin;
 import java.io.File;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer.ApexFileEventProducer;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
@@ -51,6 +52,7 @@ import org.onap.policy.models.base.Validated;
  */
 @Getter
 @Setter
+@ToString
 public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters {
     // @formatter:off
     /** The label of this carrier technology. */
@@ -83,16 +85,6 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
         this.setLabel(FILE_CARRIER_TECHNOLOGY_LABEL);
         this.setEventProducerPluginClass(FILE_EVENT_PRODUCER_PLUGIN_CLASS);
         this.setEventConsumerPluginClass(FILE_EVENT_CONSUMER_PLUGIN_CLASS);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "FILECarrierTechnologyParameters [fileName=" + fileName + ", standardIO=" + standardIo
-                        + ", standardError=" + standardError + ", streamingMode=" + streamingMode + ", startDelay="
-                        + startDelay + "]";
     }
 
     /**

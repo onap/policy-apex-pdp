@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,8 @@
 package org.onap.policy.apex.model.utilities;
 
 import java.io.File;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -31,15 +34,10 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class DirectoryUtils {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class DirectoryUtils {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(DirectoryUtils.class);
-
-    /**
-     * Private constructor used to prevent sub class instantiation.
-     */
-    private DirectoryUtils() {
-    }
 
     /**
      * Method to get an empty temporary directory in the system temporary directory on the local machine that will be

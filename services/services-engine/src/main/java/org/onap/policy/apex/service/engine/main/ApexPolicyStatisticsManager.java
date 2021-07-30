@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,12 @@
 package org.onap.policy.apex.service.engine.main;
 
 import java.util.concurrent.atomic.AtomicLong;
+import lombok.NoArgsConstructor;
 import org.onap.policy.common.utils.services.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@NoArgsConstructor
 public class ApexPolicyStatisticsManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexPolicyStatisticsManager.class);
     public static final String REG_APEX_PDP_POLICY_COUNTER = "object:pdp/statistics/policy/counter";
@@ -37,13 +40,6 @@ public class ApexPolicyStatisticsManager {
     private final AtomicLong policyExecutedCount = new AtomicLong(0);
     private final AtomicLong policyExecutedSuccessCount = new AtomicLong(0);
     private final AtomicLong policyExecutedFailCount = new AtomicLong(0);
-
-    /**
-     * Constructs the object.
-     */
-    public ApexPolicyStatisticsManager() {
-        super();
-    }
 
     /**
      * To get the ApexPolicyStatisticsManager in Registry.
