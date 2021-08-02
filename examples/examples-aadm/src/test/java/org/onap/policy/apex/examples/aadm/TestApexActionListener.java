@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.examples.aadm;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 
@@ -37,6 +39,7 @@ import org.onap.policy.apex.core.engine.event.EnEvent;
 public class TestApexActionListener implements EnEventListener {
     List<EnEvent> resultEvents = new ArrayList<EnEvent>();
 
+    @Getter
     private final String id;
 
     /**
@@ -63,14 +66,5 @@ public class TestApexActionListener implements EnEventListener {
     @Override
     public void onEnEvent(final EnEvent actionEvent) {
         resultEvents.add(actionEvent);
-    }
-
-    /**
-     * Gets the id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
     }
 }

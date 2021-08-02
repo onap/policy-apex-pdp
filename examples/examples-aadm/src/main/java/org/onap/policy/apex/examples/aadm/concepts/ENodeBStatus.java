@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +22,19 @@
 package org.onap.policy.apex.examples.aadm.concepts;
 
 import java.io.Serializable;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The Class ENodeBStatus holds the status of an eNodeB in the AADM domain.
  */
+@Getter
+@Setter
 public class ENodeBStatus implements Serializable {
     private static final long serialVersionUID = 2852523814242234172L;
 
+    @Getter(AccessLevel.NONE)
     private final String enodeB;
 
     private long dosCount = 0;
@@ -52,24 +59,6 @@ public class ENodeBStatus implements Serializable {
     }
 
     /**
-     * Gets the number of Denial Of Service incidents on the eNodeB.
-     *
-     * @return the number of Denial Of Service incidents on the eNodeB
-     */
-    public long getDosCount() {
-        return dosCount;
-    }
-
-    /**
-     * Sets the number of Denial Of Service incidents on the eNodeB.
-     *
-     * @param incomingDosCount the number of Denial Of Service incidents on the eNodeB
-     */
-    public void setDosCount(final long incomingDosCount) {
-        this.dosCount = incomingDosCount;
-    }
-
-    /**
      * Increment DOS count.
      *
      * @return the long
@@ -85,23 +74,5 @@ public class ENodeBStatus implements Serializable {
      */
     public long decrementDosCount() {
         return --dosCount;
-    }
-
-    /**
-     * Gets the being probed.
-     *
-     * @return the being probed
-     */
-    public boolean getBeingProbed() {
-        return beingProbed;
-    }
-
-    /**
-     * Sets the being probed.
-     *
-     * @param beingProbed the being probed
-     */
-    public void setBeingProbed(final boolean beingProbed) {
-        this.beingProbed = beingProbed;
     }
 }

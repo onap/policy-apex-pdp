@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,14 @@
 package org.onap.policy.apex.examples.aadm.concepts;
 
 import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The Class IPAddressStatus holds the status of an IP address in the AADM domain.
  */
+@Getter
+@Setter
 public class IpAddressStatus implements Serializable {
     private static final long serialVersionUID = -7402022458317593252L;
 
@@ -39,33 +44,6 @@ public class IpAddressStatus implements Serializable {
      */
     public IpAddressStatus(final String ipAddress) {
         this.ipAddress = ipAddress;
-    }
-
-    /**
-     * Gets the IP address.
-     *
-     * @return the IP address
-     */
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    /**
-     * Gets the IMSI.
-     *
-     * @return the imsi
-     */
-    public String getImsi() {
-        return imsi;
-    }
-
-    /**
-     * Sets the IMSI.
-     *
-     * @param incomingImsi the imsi
-     */
-    public void setImsi(final String incomingImsi) {
-        this.imsi = incomingImsi;
     }
 
     /**
