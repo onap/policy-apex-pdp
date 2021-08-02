@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
 import java.util.List;
+import lombok.Getter;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
@@ -29,6 +31,7 @@ import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.even
 /**
  * This POJO class returns statistics on a event batch execution in Apex.
  */
+@Getter
 public class EventBatchStats {
     private final int batchNumber;
     private final int batchSize;
@@ -182,57 +185,5 @@ public class EventBatchStats {
         }
 
         return new ImmutablePair<>(roundTrip, apexExecution);
-    }
-
-    public int getBatchNumber() {
-        return batchNumber;
-    }
-
-    public int getBatchSize() {
-        return batchSize;
-    }
-
-    public String getApexClient() {
-        return apexClient;
-    }
-
-    public long getEventsNotSent() {
-        return eventsNotSent;
-    }
-
-    public long getEventsSent() {
-        return eventsSent;
-    }
-
-    public long getEventsNotReceived() {
-        return eventsNotReceived;
-    }
-
-    public long getEventsReceived() {
-        return eventsReceived;
-    }
-
-    public long getAverageRoundTripNano() {
-        return averageRoundTripNano;
-    }
-
-    public long getShortestRoundTripNano() {
-        return shortestRoundTripNano;
-    }
-
-    public long getLongestRoundTripNano() {
-        return longestRoundTripNano;
-    }
-
-    public long getAverageApexExecutionNano() {
-        return averageApexExecutionNano;
-    }
-
-    public long getShortestApexExecutionNano() {
-        return shortestApexExecutionNano;
-    }
-
-    public long getLongestApexExecutionNano() {
-        return longestApexExecutionNano;
     }
 }

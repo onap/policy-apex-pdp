@@ -79,7 +79,7 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult createContextAlbum(ContextAlbumBuilder builder) {
+    public ApexApiResult createContextAlbum(ContextAlbum builder) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(builder.getName());
@@ -131,7 +131,7 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult updateContextAlbum(ContextAlbumBuilder builder) {
+    public ApexApiResult updateContextAlbum(ContextAlbum builder) {
         try {
             final AxContextAlbum contextAlbum =
                     apexModel.getPolicyModel().getAlbums().get(builder.getName(), builder.getVersion());

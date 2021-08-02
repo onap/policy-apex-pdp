@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,7 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+import lombok.Getter;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -47,6 +49,7 @@ public class JmsEventSubscriber implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(JmsEventSubscriber.class);
 
     private final String topic;
+    @Getter
     private long eventsReceivedCount = 0;
 
     private final Thread subscriberThread;
@@ -110,15 +113,6 @@ public class JmsEventSubscriber implements Runnable {
 
         LOGGER.info("{} : event reception completed, {} events received", this.getClass().getName(),
                 eventsReceivedCount);
-    }
-
-    /**
-     * Gets the events received count.
-     *
-     * @return the events received count
-     */
-    public long getEventsReceivedCount() {
-        return eventsReceivedCount;
     }
 
     /**
