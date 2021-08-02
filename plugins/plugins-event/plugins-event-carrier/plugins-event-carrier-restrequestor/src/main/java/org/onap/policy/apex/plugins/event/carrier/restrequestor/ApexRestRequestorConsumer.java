@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +43,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Response;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -91,7 +93,8 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
 
     // The number of events received to date
     private Object eventsReceivedLock = new Object();
-    private Integer eventsReceived = 0;
+    @Getter
+    private int eventsReceived = 0;
 
     // The number of the next request runner thread
     private static long nextRequestRunnerThreadNo = 0;
@@ -174,15 +177,6 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                 "could not queue request \"" + restRequest + "\" on REST Requestor consumer (" + this.name + ")";
             throw new ApexEventRuntimeException(errorMessage);
         }
-    }
-
-    /**
-     * Get the number of events received to date.
-     *
-     * @return the number of events received
-     */
-    public int getEventsReceived() {
-        return eventsReceived;
     }
 
     /**

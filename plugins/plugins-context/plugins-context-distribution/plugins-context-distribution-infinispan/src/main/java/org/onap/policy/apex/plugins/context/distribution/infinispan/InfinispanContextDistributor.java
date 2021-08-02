@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -21,6 +22,8 @@
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
 import java.util.Map;
+import lombok.AccessLevel;
+import lombok.Setter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.impl.distribution.AbstractDistributor;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -40,6 +43,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(InfinispanContextDistributor.class);
 
     // The infinispan manager for distributing context for this JVM
+    @Setter(AccessLevel.PRIVATE)
     private static InfinispanManager infinispanManager = null;
 
     /**
@@ -75,14 +79,6 @@ public class InfinispanContextDistributor extends AbstractDistributor {
         }
 
         LOGGER.exit("init(" + key + ")");
-    }
-
-    /**
-     * Set the infinispan manager statically.
-     * @param newInfinispanManager the new infinspan manager instance
-     */
-    private static void setInfinispanManager(InfinispanManager newInfinispanManager) {
-        infinispanManager = newInfinispanManager;
     }
 
     /**

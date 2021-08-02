@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import com.google.gson.JsonElement;
 import java.io.ByteArrayOutputStream;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import lombok.Getter;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;
@@ -55,6 +57,7 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
     private static final String OBJECT_TAG = ": object \"";
 
     // The Avro schema for this context schema
+    @Getter
     private Schema avroSchema;
 
     // The mapper that translates between Java and Avro objects
@@ -79,15 +82,6 @@ public class AvroSchemaHelper extends AbstractSchemaHelper {
         // Get the Java type for this schema, if it is a primitive type then we can do direct
         // conversion to JAva
         setSchemaClass(avroObjectMapper.getJavaClass());
-    }
-
-    /**
-     * Getter to get the Avro schema.
-     *
-     * @return the Avro schema
-     */
-    public Schema getAvroSchema() {
-        return avroSchema;
     }
 
     @Override

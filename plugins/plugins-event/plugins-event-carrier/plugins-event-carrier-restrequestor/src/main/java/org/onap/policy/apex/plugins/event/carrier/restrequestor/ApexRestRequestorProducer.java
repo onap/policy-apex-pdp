@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.util.Properties;
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
@@ -38,6 +40,7 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  */
 public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
     // The number of events sent
+    @Getter
     private int eventsSent = 0;
 
     /**
@@ -77,15 +80,6 @@ public class ApexRestRequestorProducer extends ApexPluginsEventProducer {
                 "HTTP method may not be specified on REST Requestor producer (" + this.name + ")";
             throw new ApexEventException(errorMessage);
         }
-    }
-
-    /**
-     * Get the number of events sent to date.
-     *
-     * @return the number of events received
-     */
-    public int getEventsSent() {
-        return eventsSent;
     }
 
     /**

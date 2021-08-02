@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,8 @@ import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import lombok.AccessLevel;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -58,6 +61,7 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
     private ApexEventReceiver eventReceiver;
 
     // The HTTP client that makes a REST call to get an input event for Apex
+    @Setter(AccessLevel.PROTECTED)
     private Client client;
 
     // The pattern for filtering status code
@@ -175,14 +179,5 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
                 LOGGER.debug("error receiving events on thread {}", consumerThread.getName(), e);
             }
         }
-    }
-
-    /**
-     * Hook for unit test mocking of HTTP client.
-     *
-     * @param client the mocked client
-     */
-    protected void setClient(final Client client) {
-        this.client = client;
     }
 }

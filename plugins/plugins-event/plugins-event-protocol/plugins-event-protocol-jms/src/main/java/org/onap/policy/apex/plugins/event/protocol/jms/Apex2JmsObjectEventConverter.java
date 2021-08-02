@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,8 @@ package org.onap.policy.apex.plugins.event.protocol.jms;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter;
@@ -39,20 +42,13 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@NoArgsConstructor
 public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConverter {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(Apex2JmsObjectEventConverter.class);
 
     // JMS event protocol parameters on the consumer (JMS->Apex) sides
     private JmsObjectEventProtocolParameters eventProtocolParameters = null;
-
-    /**
-     * Constructor to create the Apex to JMS Object converter.
-     *
-     * @throws ApexEventException the apex event exception
-     */
-    public Apex2JmsObjectEventConverter() throws ApexEventException {
-        // Nothing specific to initiate for this plugin
-    }
 
     @Override
     public void init(final EventProtocolParameters parameters) {
@@ -140,14 +136,5 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
 
         // Return the single object from the Apex event message
         return apexEvent.values().iterator().next();
-    }
-
-    /**
-     * Returns eventProtocolParameters field. Getter used only for testing
-     *
-     * @return eventProtocolParameters
-     */
-    JmsObjectEventProtocolParameters getEventProtocolParameters() {
-        return eventProtocolParameters;
     }
 }
