@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
+import lombok.Getter;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
@@ -48,6 +50,7 @@ public class JmsEventProducer implements Runnable {
     private final int eventCount;
     private final boolean sendObjects;
     private final long eventInterval;
+    @Getter
     private long eventsSentCount = 0;
 
     private final Thread producerThread;
@@ -137,15 +140,6 @@ public class JmsEventProducer implements Runnable {
             eventsSentCount++;
         }
         LOGGER.debug("{} : completed, number of events sent", this.getClass().getName(), eventsSentCount);
-    }
-
-    /**
-     * Gets the events sent count.
-     *
-     * @return the events sent count
-     */
-    public long getEventsSentCount() {
-        return eventsSentCount;
     }
 
     /**

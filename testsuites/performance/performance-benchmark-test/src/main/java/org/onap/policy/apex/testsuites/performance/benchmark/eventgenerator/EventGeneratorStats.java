@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +25,13 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.Getter;
 
 /**
  * This class creates statistics for the event generator's current status.
  */
 public class EventGeneratorStats {
+    @Getter
     private final EventBatchStats totalStats;
     private final List<EventBatchStats> batchStatsList = new ArrayList<>();
 
@@ -50,9 +53,5 @@ public class EventGeneratorStats {
      */
     public String getStatsAsJsonString() {
         return new GsonBuilder().setPrettyPrinting().create().toJson(this);
-    }
-
-    public EventBatchStats getTotalStats() {
-        return totalStats;
     }
 }

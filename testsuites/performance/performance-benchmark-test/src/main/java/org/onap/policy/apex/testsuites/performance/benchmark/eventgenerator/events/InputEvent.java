@@ -21,14 +21,21 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import java.util.Random;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * This class is a POJO representing an input event for load testing.
  */
+@Getter
+@Setter
 public class InputEvent {
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
     private String nameSpace = "org.onap.policy.apex.sample.events";
     private String name;
     private String version = "0.0.1";
@@ -61,86 +68,12 @@ public class InputEvent {
         testTemperature = rand.nextDouble() * 1000;
     }
 
-    public String getNameSpace() {
-        return nameSpace;
-
-    }
-
-    public void setNameSpace(String nameSpace) {
-        this.nameSpace = nameSpace;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getTestSlogan() {
-        return testSlogan;
-    }
-
-    public void setTestSlogan(String testSlogan) {
-        this.testSlogan = testSlogan;
-    }
-
-    public int getTestMatchCase() {
-        return testMatchCase;
-    }
-
-    public void setTestMatchCase(int testMatchCase) {
-        this.testMatchCase = testMatchCase;
-    }
-
-    public long getTestTimestamp() {
-        return testTimestamp;
-    }
-
-    public void setTestTimestamp(long testTimestamp) {
-        this.testTimestamp = testTimestamp;
-    }
-
-    public double getTestTemperature() {
-        return testTemperature;
-    }
-
-    public void setTestTemperature(double testTemperature) {
-        this.testTemperature = testTemperature;
-    }
-
     /**
      * Get a JSON representation of the input event.
      *
      * @return the event in JSON format
      */
     public String asJson() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+        return gson.toJson(this);
     }
 }

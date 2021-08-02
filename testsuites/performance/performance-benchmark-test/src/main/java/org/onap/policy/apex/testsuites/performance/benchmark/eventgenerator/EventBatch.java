@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.Getter;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.InputEvent;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
 
@@ -32,11 +34,14 @@ import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.even
 public class EventBatch {
     private static AtomicInteger nextBatchNumber = new AtomicInteger();
 
+    @Getter
     private final int batchNumber = nextBatchNumber.getAndIncrement();
     private final Map<Integer, InputEvent>  inputEventMap  = new ConcurrentHashMap<>();
     private final Map<Integer, OutputEvent> outputEventMap = new ConcurrentHashMap<>();
 
+    @Getter
     private final int batchSize;
+    @Getter
     private final String apexClient;
 
     /**
@@ -81,18 +86,6 @@ public class EventBatch {
         jsonBuilder.append("\n]\n");
 
         return jsonBuilder.toString();
-    }
-
-    public int getBatchNumber() {
-        return batchNumber;
-    }
-
-    public int getBatchSize() {
-        return batchSize;
-    }
-
-    public String getApexClient() {
-        return apexClient;
     }
 
     /**

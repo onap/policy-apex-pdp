@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.glassfish.grizzly.http.server.Request;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
@@ -53,6 +57,8 @@ public class EventGeneratorEndpoint {
     private static ConcurrentHashMap<Integer, EventBatch> batchMap = new ConcurrentHashMap<>();
 
     // Flag indicating that event processing has finished
+    @Getter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PROTECTED)
     private static boolean finished = false;
 
     // The current HTTP request
@@ -162,18 +168,5 @@ public class EventGeneratorEndpoint {
      */
     protected static void clearEventGenerationStats() {
         batchMap.clear();
-    }
-
-    /**
-     * Check if event generation has finished.
-     *
-     * @return true if event generation has finished
-     */
-    protected static boolean isFinished() {
-        return finished;
-    }
-
-    protected static void setFinished(boolean finished) {
-        EventGeneratorEndpoint.finished = finished;
     }
 }

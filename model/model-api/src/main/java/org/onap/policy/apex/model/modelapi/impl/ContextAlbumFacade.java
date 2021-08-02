@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +80,7 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult createContextAlbum(ContextAlbumBuilder builder) {
+    public ApexApiResult createContextAlbum(ContextAlbum builder) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(builder.getName());
@@ -131,7 +132,7 @@ public class ContextAlbumFacade {
      * @return result of the operation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public ApexApiResult updateContextAlbum(ContextAlbumBuilder builder) {
+    public ApexApiResult updateContextAlbum(ContextAlbum builder) {
         try {
             final AxContextAlbum contextAlbum =
                     apexModel.getPolicyModel().getAlbums().get(builder.getName(), builder.getVersion());

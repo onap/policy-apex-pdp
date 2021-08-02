@@ -24,6 +24,10 @@
 package org.onap.policy.apex.model.modelapi.impl;
 
 import java.util.Properties;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
@@ -37,6 +41,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ApexModelImpl implements ApexModel {
 
     public static final String FIELDS_DEPRECATED_WARN_MSG =
@@ -46,6 +51,8 @@ public final class ApexModelImpl implements ApexModel {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexModelImpl.class);
 
     // The policy model being acted upon
+    @Getter
+    @Setter
     private AxPolicyModel policyModel = new AxPolicyModel();
 
     // The file name for the loaded file
@@ -85,13 +92,6 @@ public final class ApexModelImpl implements ApexModel {
         this.policyFacade         = new PolicyFacade(this, apexProperties, jsonMode);
         this.modelHandlerFacade   = new ModelHandlerFacade(this, apexProperties, jsonMode);
         // @formatter:on
-    }
-
-    /**
-     * Constructor, prevents this class being sub-classed.
-     */
-    private ApexModelImpl() {
-        // Private constructor to block subclassing
     }
 
     /**
@@ -321,9 +321,9 @@ public final class ApexModelImpl implements ApexModel {
     public ApexApiResult createContextAlbum(final String name, final String version, final String scope,
             final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description) {
-        return contextAlbumFacade.createContextAlbum(new ContextAlbumBuilder().setName(name).setVersion(version)
-                .setScope(scope).setWritable(writable).setContextSchemaName(contextSchemaName)
-                .setContextSchemaVersion(contextSchemaVersion).setUuid(uuid).setDescription(description));
+        return contextAlbumFacade.createContextAlbum(ContextAlbum.builder().name(name).version(version)
+                .scope(scope).writable(writable).contextSchemaName(contextSchemaName)
+                .contextSchemaVersion(contextSchemaVersion).uuid(uuid).description(description).build());
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
@@ -335,9 +335,9 @@ public final class ApexModelImpl implements ApexModel {
     public ApexApiResult updateContextAlbum(final String name, final String version, final String scope,
             final String writable, final String contextSchemaName, final String contextSchemaVersion, final String uuid,
             final String description) {
-        return contextAlbumFacade.updateContextAlbum(new ContextAlbumBuilder().setName(name).setVersion(version)
-                .setScope(scope).setWritable(writable).setContextSchemaName(contextSchemaName)
-                .setContextSchemaVersion(contextSchemaVersion).setUuid(uuid).setDescription(description));
+        return contextAlbumFacade.updateContextAlbum(ContextAlbum.builder().name(name).version(version)
+                .scope(scope).writable(writable).contextSchemaName(contextSchemaName)
+                .contextSchemaVersion(contextSchemaVersion).uuid(uuid).description(description).build());
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
@@ -702,9 +702,9 @@ public final class ApexModelImpl implements ApexModel {
     public ApexApiResult createPolicyStateTaskRef(final String name, final String version, final String stateName,
             final String taskLocalName, final String taskName, final String taskVersion, final String outputType,
             final String outputName) {
-        return policyFacade.createPolicyStateTaskRef(new CreatePolicyStateTaskRefBuilder().setName(name)
-                .setVersion(version).setStateName(stateName).setTaskLocalName(taskLocalName).setTaskName(taskName)
-                .setTaskVersion(taskVersion).setOutputType(outputType).setOutputName(outputName));
+        return policyFacade.createPolicyStateTaskRef(CreatePolicyStateTaskRef.builder().name(name)
+                .version(version).stateName(stateName).taskLocalName(taskLocalName).taskName(taskName)
+                .taskVersion(taskVersion).outputType(outputType).outputName(outputName).build());
     }
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
@@ -882,22 +882,6 @@ public final class ApexModelImpl implements ApexModel {
     @Override
     public ApexApiResult mergeWithString(final String otherModelString, final boolean keepOriginal) {
         return modelHandlerFacade.mergeWithString(otherModelString, keepOriginal);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxPolicyModel getPolicyModel() {
-        return policyModel;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void setPolicyModel(final AxPolicyModel policyModel) {
-        this.policyModel = policyModel;
     }
 
     /**

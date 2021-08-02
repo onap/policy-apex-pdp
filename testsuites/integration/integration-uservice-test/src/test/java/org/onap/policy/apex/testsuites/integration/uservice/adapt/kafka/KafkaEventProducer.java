@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
 import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
 import java.time.Duration;
+import lombok.Getter;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -45,6 +47,7 @@ public class KafkaEventProducer implements Runnable {
     private final int eventCount;
     private final boolean xmlEvents;
     private final long eventInterval;
+    @Getter
     private long eventsSentCount = 0;
 
     private final Thread producerThread;
@@ -125,15 +128,6 @@ public class KafkaEventProducer implements Runnable {
             LOGGER.debug("****** Sent event No. {} ******\n{}", eventsSentCount, eventString);
         }
         LOGGER.debug("{}: completed", KafkaEventProducer.class.getName());
-    }
-
-    /**
-     * Gets the events sent count.
-     *
-     * @return the events sent count
-     */
-    public long getEventsSentCount() {
-        return eventsSentCount;
     }
 
     /**

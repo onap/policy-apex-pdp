@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Samsung Electronics Co., Ltd. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,29 +19,20 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.integration.uservice.adapt.jms;
+package org.onap.policy.apex.model.modelapi.impl;
 
-import java.util.Hashtable;
-import javax.naming.Context;
-import javax.naming.NamingException;
-import javax.naming.spi.InitialContextFactory;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-/**
- * A factory for creating TestInitialContext objects.
- *
- * @author Liam Fallon (liam.fallon@ericsson.com)
- */
-@NoArgsConstructor
-public class TestInitialContextFactory implements InitialContextFactory {
-
-    private final Context context = new TestContext();
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public Context getInitialContext(final Hashtable<?, ?> environment) throws NamingException {
-        return context;
-    }
+@Getter
+@Builder
+public class CreatePolicyStateTaskRef {
+    private String name;
+    private String version;
+    private String stateName;
+    private String taskLocalName;
+    private String taskName;
+    private String taskVersion;
+    private String outputType;
+    private String outputName;
 }

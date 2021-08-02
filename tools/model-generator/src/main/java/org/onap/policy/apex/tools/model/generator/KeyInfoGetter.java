@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.tools.model.generator;
 
+import lombok.AllArgsConstructor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -30,20 +32,11 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  *
  * @author John Keeney (john.keeney@ericsson.com)
  */
-
+@AllArgsConstructor
 public class KeyInfoGetter {
 
     /** The policy model for the getters. */
     private final AxPolicyModel model;
-
-    /**
-     * Creates a new key getter.
-     *
-     * @param model the policy model to use
-     */
-    public KeyInfoGetter(final AxPolicyModel model) {
-        this.model = model;
-    }
 
     /**
      * Returns the key name as string.
