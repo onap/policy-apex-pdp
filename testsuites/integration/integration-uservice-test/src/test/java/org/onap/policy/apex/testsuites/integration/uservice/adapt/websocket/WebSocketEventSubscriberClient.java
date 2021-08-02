@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.websocket;
 
+import lombok.Getter;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageClient;
 import org.onap.policy.apex.core.infrastructure.messaging.stringmessaging.WsStringMessageListener;
@@ -34,6 +36,7 @@ public class WebSocketEventSubscriberClient implements WsStringMessageListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketEventSubscriberClient.class);
 
     private final int port;
+    @Getter
     private long eventsReceivedCount = 0;
 
     private final WsStringMessageClient client;
@@ -60,15 +63,6 @@ public class WebSocketEventSubscriberClient implements WsStringMessageListener {
         LOGGER.debug("{}: port {}, received event {}", WebSocketEventSubscriberClient.class.getName(), port,
                         eventString);
         eventsReceivedCount++;
-    }
-
-    /**
-     * Gets the events received count.
-     *
-     * @return the events received count
-     */
-    public long getEventsReceivedCount() {
-        return eventsReceivedCount;
     }
 
     /**

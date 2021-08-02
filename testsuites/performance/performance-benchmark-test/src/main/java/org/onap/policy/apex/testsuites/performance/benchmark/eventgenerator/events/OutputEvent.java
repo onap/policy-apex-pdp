@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,14 @@
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * This class is a POJO representing an output event for load testing.
  */
+@Getter
+@Setter
 public class OutputEvent extends InputEvent {
     @SerializedName(value = "TestMatchCaseSelected")
     private int testMatchCaseSelected;
@@ -51,78 +56,6 @@ public class OutputEvent extends InputEvent {
     private long testActStateTime;
 
     private long testReceviedTimestamp = System.nanoTime();
-
-    public int getTestMatchCaseSelected() {
-        return testMatchCaseSelected;
-    }
-
-    public void setTestMatchCaseSelected(int testMatchCaseSelected) {
-        this.testMatchCaseSelected = testMatchCaseSelected;
-    }
-
-    public long getTestMatchStateTime() {
-        return testMatchStateTime;
-    }
-
-    public void setTestMatchStateTime(long testMatchStateTime) {
-        this.testMatchStateTime = testMatchStateTime;
-    }
-
-    public int getTestEstablishCaseSelected() {
-        return testEstablishCaseSelected;
-    }
-
-    public void setTestEstablishCaseSelected(int testEstablishCaseSelected) {
-        this.testEstablishCaseSelected = testEstablishCaseSelected;
-    }
-
-    public long getTestEstablishStateTime() {
-        return testEstablishStateTime;
-    }
-
-    public void setTestEstablishStateTime(long testEstablishStateTime) {
-        this.testEstablishStateTime = testEstablishStateTime;
-    }
-
-    public int getTestDecideCaseSelected() {
-        return testDecideCaseSelected;
-    }
-
-    public void setTestDecideCaseSelected(int testDecideCaseSelected) {
-        this.testDecideCaseSelected = testDecideCaseSelected;
-    }
-
-    public long getTestDecideStateTime() {
-        return testDecideStateTime;
-    }
-
-    public void setTestDecideStateTime(long testDecideStateTime) {
-        this.testDecideStateTime = testDecideStateTime;
-    }
-
-    public int getTestActCaseSelected() {
-        return testActCaseSelected;
-    }
-
-    public void setTestActCaseSelected(int testActCaseSelected) {
-        this.testActCaseSelected = testActCaseSelected;
-    }
-
-    public long getTestActStateTime() {
-        return testActStateTime;
-    }
-
-    public void setTestActStateTime(long testActStateTime) {
-        this.testActStateTime = testActStateTime;
-    }
-
-    public long getTestReceviedTimestamp() {
-        return testReceviedTimestamp;
-    }
-
-    public void setTestReceviedTimestamp(long testReceviedTimestamp) {
-        this.testReceviedTimestamp = testReceviedTimestamp;
-    }
 
     public int findBatchNumber() {
         return Integer.valueOf(getTestSlogan().substring(0, getTestSlogan().indexOf('-')));

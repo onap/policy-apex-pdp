@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,8 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
@@ -41,14 +44,8 @@ import org.onap.policy.apex.service.engine.event.ApexEventException;
  *
  * @author John Keeney (john.keeney@ericsson.com)
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SchemaUtils {
-
-    /**
-     * Private constructor to avoid instantiation.
-     */
-    private SchemaUtils() {
-        // Private constructor to block subclassing
-    }
 
     /**
      * Returns the schema for an event.
