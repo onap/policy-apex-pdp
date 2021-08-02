@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,7 @@ import javax.jms.Session;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
@@ -70,6 +72,7 @@ public class ApexJmsProducer implements ApexEventProducer {
     private MessageProducer messageProducer;
 
     // The name for this producer
+    @Getter
     private String name = null;
 
     // The peer references for this event handler
@@ -169,14 +172,6 @@ public class ApexJmsProducer implements ApexEventProducer {
      */
     public InitialContext getInitialContext() throws NamingException {
         return new InitialContext(jmsProducerProperties.getJmsProducerProperties());
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**

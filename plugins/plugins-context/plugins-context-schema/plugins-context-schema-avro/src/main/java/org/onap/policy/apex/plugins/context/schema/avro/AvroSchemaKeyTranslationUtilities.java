@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +27,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.Map.Entry;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * This static final class contains utility methods for Avro schemas.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AvroSchemaKeyTranslationUtilities {
     // Constants for key replacements
     private static final String DOT_STRING = ".";
@@ -40,13 +44,6 @@ public final class AvroSchemaKeyTranslationUtilities {
     private static final String DASH_STRING_REPLACEMENT = "_DasH_";
     private static final String COLON_STRING = ":";
     private static final String COLON_STRING_REPLACEMENT = "_ColoN_";
-
-    /**
-     * Default constructor to avoid subclassing.
-     */
-    private AvroSchemaKeyTranslationUtilities() {
-        // Private constructor to prevent subclassing
-    }
 
     /**
      * Translate characters in JSON keys to values that are legal in Avro. Avro names must start with [A-Za-z_] and

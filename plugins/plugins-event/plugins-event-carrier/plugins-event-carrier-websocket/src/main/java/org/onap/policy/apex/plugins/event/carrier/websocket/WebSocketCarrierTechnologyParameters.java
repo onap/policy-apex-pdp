@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.websocket;
 
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.BeanValidationResult;
@@ -34,6 +35,7 @@ import org.onap.policy.models.base.Validated;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class WebSocketCarrierTechnologyParameters extends CarrierTechnologyParameters {
     // @formatter:off
     private static final int MIN_USER_PORT =  1024;
@@ -71,33 +73,6 @@ public class WebSocketCarrierTechnologyParameters extends CarrierTechnologyParam
         this.setLabel(WEB_SCOKET_CARRIER_TECHNOLOGY_LABEL);
         this.setEventProducerPluginClass(WEB_SCOKET_EVENT_PRODUCER_PLUGIN_CLASS);
         this.setEventConsumerPluginClass(KWEB_SCOKET_EVENT_CONSUMER_PLUGIN_CLASS);
-    }
-
-    /**
-     * Gets the host.
-     *
-     * @return the host
-     */
-    public String getHost() {
-        return host;
-    }
-
-    /**
-     * Gets the port.
-     *
-     * @return the port
-     */
-    public int getPort() {
-        return port;
-    }
-
-    /**
-     * Checks if is ws client.
-     *
-     * @return true, if checks if is ws client
-     */
-    public boolean isWsClient() {
-        return wsClient;
     }
 
     /**

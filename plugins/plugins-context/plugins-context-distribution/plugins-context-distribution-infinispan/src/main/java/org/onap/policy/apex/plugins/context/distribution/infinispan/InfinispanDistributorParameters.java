@@ -1,25 +1,30 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 
 /**
@@ -27,9 +32,13 @@ import org.onap.policy.apex.context.parameters.DistributorParameters;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class InfinispanDistributorParameters extends DistributorParameters {
     // @formatter:off
-    
+
     /** The default Infinispan configuration file location. */
     public static final String  DEFAULT_INFINISPAN_DISTRIBUTION_CONFIG_FILE = "infinispan/infinispan.xml";
 
@@ -48,92 +57,4 @@ public class InfinispanDistributorParameters extends DistributorParameters {
     private boolean preferIPv4Stack   = DEFAULT_INFINISPAN_JAVA_NET_PREFER_IPV4_STACK;
     private String jgroupsBindAddress = DEFAULT_INFINSPAN_JGROUPS_BIND_ADDRESS;
     // @formatter:on
-
-    /**
-     * The Constructor.
-     */
-    public InfinispanDistributorParameters() {
-        super();
-    }
-
-    /**
-     * Gets the config file.
-     *
-     * @return the config file
-     */
-    public String getConfigFile() {
-        return configFile;
-    }
-
-    /**
-     * Sets the config file.
-     *
-     * @param configFile the config file
-     */
-    public void setConfigFile(final String configFile) {
-        this.configFile = configFile;
-    }
-
-    /**
-     * Gets the jgroups file.
-     *
-     * @return the jgroups file
-     */
-    public String getJgroupsFile() {
-        return jgroupsFile;
-    }
-
-    /**
-     * Sets the jgroups file.
-     *
-     * @param jgroupsFile the jgroups file
-     */
-    public void setJgroupsFile(final String jgroupsFile) {
-        this.jgroupsFile = jgroupsFile;
-    }
-
-    /**
-     * Prefer I pv 4 stack.
-     *
-     * @return true, if prefer I pv 4 stack
-     */
-    public boolean preferIPv4Stack() {
-        return preferIPv4Stack;
-    }
-
-    /**
-     * Sets the prefer I pv 4 stack.
-     *
-     * @param preferIPv4Stack the prefer I pv 4 stack
-     */
-    public void setPreferIPv4Stack(final boolean preferIPv4Stack) {
-        this.preferIPv4Stack = preferIPv4Stack;
-    }
-
-    /**
-     * Getj groups bind address.
-     *
-     * @return the j groups bind address
-     */
-    public String getjGroupsBindAddress() {
-        return jgroupsBindAddress;
-    }
-
-    /**
-     * Setj groups bind address.
-     *
-     * @param jgroupsBindAddress the j groups bind address
-     */
-    public void setjGroupsBindAddress(final String jgroupsBindAddress) {
-        this.jgroupsBindAddress = jgroupsBindAddress;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "InfinispanDistributorParameters [configFile=" + configFile + ", jgroupsFile=" + jgroupsFile
-                + ", preferIPv4Stack=" + preferIPv4Stack + ", jGroupsBindAddress=" + jgroupsBindAddress + "]";
-    }
 }

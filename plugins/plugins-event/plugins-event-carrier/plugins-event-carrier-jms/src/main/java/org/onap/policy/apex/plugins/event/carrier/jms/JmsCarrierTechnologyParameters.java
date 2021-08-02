@@ -24,6 +24,8 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import java.util.Properties;
 import javax.naming.Context;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.annotations.Min;
 import org.onap.policy.common.parameters.annotations.NotBlank;
@@ -70,6 +72,8 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
 public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters {
     /** The label of this carrier technology. */
     public static final String JMS_CARRIER_TECHNOLOGY_LABEL = "JMS";
@@ -172,167 +176,5 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
         }
 
         return jmsProperties;
-    }
-
-    /**
-     * Gets the connection factory.
-     *
-     * @return the connection factory
-     */
-    public String getConnectionFactory() {
-        return connectionFactory;
-    }
-
-    /**
-     * Gets the initial context factory.
-     *
-     * @return the initial context factory
-     */
-    public String getInitialContextFactory() {
-        return initialContextFactory;
-    }
-
-    /**
-     * Gets the provider URL.
-     *
-     * @return the provider URL
-     */
-    public String getProviderUrl() {
-        return providerUrl;
-    }
-
-    /**
-     * Gets the security principal.
-     *
-     * @return the security principal
-     */
-    public String getSecurityPrincipal() {
-        return securityPrincipal;
-    }
-
-    /**
-     * Gets the security credentials.
-     *
-     * @return the security credentials
-     */
-    public String getSecurityCredentials() {
-        return securityCredentials;
-    }
-
-    /**
-     * Gets the producer topic.
-     *
-     * @return the producer topic
-     */
-    public String getProducerTopic() {
-        return producerTopic;
-    }
-
-    /**
-     * Gets the consumer topic.
-     *
-     * @return the consumer topic
-     */
-    public String getConsumerTopic() {
-        return consumerTopic;
-    }
-
-    /**
-     * Gets the consumer wait time.
-     *
-     * @return the consumer wait time
-     */
-    public long getConsumerWaitTime() {
-        return consumerWaitTime;
-    }
-
-    /**
-     * Sets the connection factory.
-     *
-     * @param connectionFactory the connection factory
-     */
-    public void setConnectionFactory(final String connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
-
-    /**
-     * Sets the initial context factory.
-     *
-     * @param initialContextFactory the initial context factory
-     */
-    public void setInitialContextFactory(final String initialContextFactory) {
-        this.initialContextFactory = initialContextFactory;
-    }
-
-    /**
-     * Sets the provider URL.
-     *
-     * @param providerUrl the provider URL
-     */
-    public void setProviderUrl(final String providerUrl) {
-        this.providerUrl = providerUrl;
-    }
-
-    /**
-     * Sets the security principal.
-     *
-     * @param securityPrincipal the security principal
-     */
-    public void setSecurityPrincipal(final String securityPrincipal) {
-        this.securityPrincipal = securityPrincipal;
-    }
-
-    /**
-     * Sets the security credentials.
-     *
-     * @param securityCredentials the security credentials
-     */
-    public void setSecurityCredentials(final String securityCredentials) {
-        this.securityCredentials = securityCredentials;
-    }
-
-    /**
-     * Sets the producer topic.
-     *
-     * @param producerTopic the producer topic
-     */
-    public void setProducerTopic(final String producerTopic) {
-        this.producerTopic = producerTopic;
-    }
-
-    /**
-     * Sets the consumer topic.
-     *
-     * @param consumerTopic the consumer topic
-     */
-    public void setConsumerTopic(final String consumerTopic) {
-        this.consumerTopic = consumerTopic;
-    }
-
-    /**
-     * Sets the consumer wait time.
-     *
-     * @param consumerWaitTime the consumer wait time
-     */
-    public void setConsumerWaitTime(final int consumerWaitTime) {
-        this.consumerWaitTime = consumerWaitTime;
-    }
-
-    /**
-     * Checks if is object message sending.
-     *
-     * @return true, if checks if is object message sending
-     */
-    public boolean isObjectMessageSending() {
-        return objectMessageSending;
-    }
-
-    /**
-     * Sets the object message sending.
-     *
-     * @param objectMessageSending the object message sending
-     */
-    public void setObjectMessageSending(final boolean objectMessageSending) {
-        this.objectMessageSending = objectMessageSending;
     }
 }

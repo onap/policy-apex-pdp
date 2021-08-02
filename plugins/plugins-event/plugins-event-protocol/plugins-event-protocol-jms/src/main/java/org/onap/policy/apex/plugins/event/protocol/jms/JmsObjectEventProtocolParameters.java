@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.protocol.jms;
 
+import lombok.Getter;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 
 /**
@@ -39,10 +41,10 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  * <li>It puts a single entry into the Apex event map with the the simple class name of the incoming Java object being
  * the key of the entry and the actual incoming object as the value of the entry.</li>
  * </ol>
- * 
+ *
  * <p>When sending an object to JMS, the plugin expects to receive an Apex event with a single entry. The plugin
  * marshals the value of that entry to an object that can be sent by JMS as a {@code javax.jms.ObjectMessage} instance.
- * 
+ *
  * <p>The parameters for this plugin are:
  * <ol>
  * <li>incomingEventSuffix: The suffix to append to the simple name of incoming Java class instances when they are
@@ -57,6 +59,7 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class JmsObjectEventProtocolParameters extends EventProtocolParameters {
     /** The label of this event protocol. */
     public static final String JMS_OBJECT_EVENT_PROTOCOL_LABEL = "JMSOBJECT";
@@ -87,41 +90,5 @@ public class JmsObjectEventProtocolParameters extends EventProtocolParameters {
 
         // Set the event protocol plugin class
         this.setEventProtocolPluginClass(Apex2JmsObjectEventConverter.class.getName());
-    }
-
-    /**
-     * Gets the incoming event version.
-     *
-     * @return the incoming event version
-     */
-    public String getIncomingEventVersion() {
-        return incomingEventVersion;
-    }
-
-    /**
-     * Gets the incoming event source.
-     *
-     * @return the incoming event source
-     */
-    public String getIncomingEventSource() {
-        return incomingEventSource;
-    }
-
-    /**
-     * Gets the incoming event target.
-     *
-     * @return the incoming event target
-     */
-    public String getIncomingEventTarget() {
-        return incomingEventTarget;
-    }
-
-    /**
-     * Gets the incoming event suffix.
-     *
-     * @return the incoming event suffix
-     */
-    public String getIncomingEventSuffix() {
-        return incomingEventSuffix;
     }
 }
