@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -72,6 +75,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxStateTaskReference")
 
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexStateTaskReference", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxStateTaskReference", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -82,6 +88,7 @@ public class AxStateTaskReference extends AxConcept {
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
+    @Getter
     private AxReferenceKey key;
 
     @Enumerated
@@ -97,6 +104,7 @@ public class AxStateTaskReference extends AxConcept {
     @AttributeOverride(name = "localName", column = @Column(name = "outputLocalName"))
     @Column(name = "output")
     @XmlElement(required = true)
+    @Getter
     private AxReferenceKey output;
     // @formatter:on
 
@@ -171,14 +179,6 @@ public class AxStateTaskReference extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxReferenceKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
 
@@ -217,15 +217,6 @@ public class AxStateTaskReference extends AxConcept {
     public void setStateTaskOutputType(final AxStateTaskOutputType stateTaskOutputType) {
         Assertions.argumentNotNull(stateTaskOutputType, "outputType may not be null");
         this.outputType = stateTaskOutputType;
-    }
-
-    /**
-     * Gets the output to perform when this state task reference instance is used.
-     *
-     * @return the output to perform when this state task reference instance is used
-     */
-    public AxReferenceKey getOutput() {
-        return output;
     }
 
     /**
@@ -279,24 +270,6 @@ public class AxStateTaskReference extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("stateKey=");
-        builder.append(key);
-        builder.append(",outputType=");
-        builder.append(outputType);
-        builder.append(",output=");
-        builder.append(output);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -309,44 +282,6 @@ public class AxStateTaskReference extends AxConcept {
         copy.setOutput(output);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + outputType.hashCode();
-        result = prime * result + output.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxStateTaskReference other = (AxStateTaskReference) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (outputType != other.outputType) {
-            return false;
-        }
-        return output.equals(other.output);
     }
 
     /**

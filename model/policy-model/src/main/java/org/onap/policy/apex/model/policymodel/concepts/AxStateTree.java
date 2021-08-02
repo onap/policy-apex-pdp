@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -41,9 +42,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation checks for recursive state use, in other words validation forbids the use of a given
  * state more than once in a state tree.
  */
+@Getter
 @EqualsAndHashCode
 public class AxStateTree implements Comparable<AxStateTree> {
-    private final AxState thisState;
+    private final AxState state;
     private final Set<AxStateTree> nextStates;
 
     /**
@@ -59,7 +61,7 @@ public class AxStateTree implements Comparable<AxStateTree> {
         Assertions.argumentNotNull(policy, "policy may not be null");
         Assertions.argumentNotNull(thisState, "thisState may not be null");
 
-        this.thisState = thisState;
+        this.state = thisState;
         nextStates = new TreeSet<>();
 
         for (final AxStateOutput stateOutput : thisState.getStateOutputs().values()) {
@@ -87,24 +89,6 @@ public class AxStateTree implements Comparable<AxStateTree> {
     }
 
     /**
-     * Gets the state for this state tree node.
-     *
-     * @return the state
-     */
-    public AxState getState() {
-        return thisState;
-    }
-
-    /**
-     * Gets the next states for this state tree node.
-     *
-     * @return the next states
-     */
-    public Set<AxStateTree> getNextStates() {
-        return nextStates;
-    }
-
-    /**
      * Gets the list of states referenced by this state tree as a list.
      *
      * @return the list of states referenced
@@ -112,7 +96,7 @@ public class AxStateTree implements Comparable<AxStateTree> {
     public List<AxState> getReferencedStateList() {
         final List<AxState> referencedStateList = new ArrayList<>();
 
-        referencedStateList.add(thisState);
+        referencedStateList.add(state);
         for (final AxStateTree nextStateTree : nextStates) {
             referencedStateList.addAll(nextStateTree.getReferencedStateList());
         }
@@ -128,7 +112,7 @@ public class AxStateTree implements Comparable<AxStateTree> {
     public Set<AxState> getReferencedStateSet() {
         final Set<AxState> referencedStateSet = new TreeSet<>();
 
-        referencedStateSet.add(thisState);
+        referencedStateSet.add(state);
         for (final AxStateTree nextStateTree : nextStates) {
             referencedStateSet.addAll(nextStateTree.getReferencedStateSet());
         }
@@ -148,7 +132,7 @@ public class AxStateTree implements Comparable<AxStateTree> {
         }
 
         final AxStateTree other = otherObj;
-        int result = thisState.compareTo(other.thisState);
+        int result = state.compareTo(other.state);
         if (result != 0) {
             return result;
         }

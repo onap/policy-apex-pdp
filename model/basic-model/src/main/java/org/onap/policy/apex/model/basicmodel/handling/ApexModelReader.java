@@ -34,6 +34,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
+import lombok.Getter;
+import lombok.Setter;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.oxm.MediaType;
@@ -70,6 +72,8 @@ public class ApexModelReader<C extends AxConcept> {
     private Unmarshaller unmarshaller = null;
 
     // All read concepts are validated after reading if this flag is set
+    @Getter
+    @Setter
     private boolean validateFlag = true;
 
     /**
@@ -214,24 +218,6 @@ public class ApexModelReader<C extends AxConcept> {
             // No validation check
             return apexConcept;
         }
-    }
-
-    /**
-     * Gets the value of the validation flag.
-     *
-     * @return the validation flag value
-     */
-    public boolean getValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validation flag.
-     *
-     * @param validateFlag the validation flag value
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
     }
 
     /**

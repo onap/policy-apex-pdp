@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +32,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -50,6 +54,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxTaskParameter")
 
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTaskParameter", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxTaskParameter", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -60,6 +67,7 @@ public class AxTaskParameter extends AxConcept {
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
+    @Getter
     private AxReferenceKey key;
 
     @Column(name = "defaultValue")
@@ -107,14 +115,6 @@ public class AxTaskParameter extends AxConcept {
 
         this.key = key;
         this.defaultValue = defaultValue.trim();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxReferenceKey getKey() {
-        return key;
     }
 
     /**
@@ -189,22 +189,6 @@ public class AxTaskParameter extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",defaultValue=");
-        builder.append(defaultValue);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -216,40 +200,6 @@ public class AxTaskParameter extends AxConcept {
         copy.setDefaultValue(defaultValue);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + defaultValue.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxTaskParameter other = (AxTaskParameter) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        return defaultValue.equals(other.defaultValue);
     }
 
     /**

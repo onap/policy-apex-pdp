@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,8 +85,8 @@ public class TaskParameterTest {
         par.clean();
 
         final AxTaskParameter clonedPar = new AxTaskParameter(par);
-        assertEquals("AxTaskParameter:(key=AxReferenceKey:(parentKeyName=ParParentName,parentKeyVersion=0.0.1,"
-                        + "parentLocalName=PLN,localName=LN),defaultValue=DefaultValue)", clonedPar.toString());
+        assertEquals("AxTaskParameter(key=AxReferenceKey(parentKeyName=ParParentName, parentKeyVersion=0.0.1,"
+                        + " parentLocalName=PLN, localName=LN), defaultValue=DefaultValue)", clonedPar.toString());
 
         assertNotEquals(0, par.hashCode());
         // disabling sonar because this code tests the equals() method

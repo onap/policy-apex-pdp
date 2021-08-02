@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
@@ -52,6 +55,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 @Entity
 @Table(name = "AxKeyInfo")
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp")
@@ -132,14 +139,6 @@ public class AxKeyInfo extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         return key.getKeys();
     }
@@ -155,15 +154,6 @@ public class AxKeyInfo extends AxConcept {
     }
 
     /**
-     * Gets the UUID of the concept.
-     *
-     * @return the uuid of the concept
-     */
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    /**
      * Sets the UUID of the concept.
      *
      * @param uuid the uuid of the concept
@@ -171,15 +161,6 @@ public class AxKeyInfo extends AxConcept {
     public void setUuid(final UUID uuid) {
         Assertions.argumentNotNull(uuid, "uuid may not be null");
         this.uuid = uuid;
-    }
-
-    /**
-     * Gets the description of the concept.
-     *
-     * @return the description of the concept
-     */
-    public String getDescription() {
-        return description;
     }
 
     /**
@@ -232,24 +213,6 @@ public class AxKeyInfo extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("artifactId=");
-        builder.append(key);
-        builder.append(",uuid=");
-        builder.append(uuid);
-        builder.append(",description=");
-        builder.append(description);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -262,46 +225,6 @@ public class AxKeyInfo extends AxConcept {
         copy.setDescription(description);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + uuid.hashCode();
-        result = prime * result + description.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxKeyInfo other = (AxKeyInfo) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (!uuid.equals(other.uuid)) {
-            return false;
-        }
-        final String thisdesc = CDataConditioner.clean(description);
-        final String otherdesc = CDataConditioner.clean(other.description);
-        return thisdesc.equals(otherdesc);
     }
 
     /**

@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +45,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -85,6 +88,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxTask")
 
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTask", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(
@@ -110,6 +116,8 @@ public class AxTask extends AxConcept {
         joinColumns = {@JoinColumn(name = "inEventTaskName", referencedColumnName = "name", updatable = false),
             @JoinColumn(name = "inEventTaskVersion", referencedColumnName = "version", updatable = false)})
     @XmlElement(name = "inputEvent", required = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private AxEvent inputEvent;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -118,6 +126,8 @@ public class AxTask extends AxConcept {
         joinColumns = {@JoinColumn(name = "outEventTaskName", referencedColumnName = "name", updatable = false),
             @JoinColumn(name = "outEventTaskVersion", referencedColumnName = "version", updatable = false)})
     @XmlElement(name = "outputEvents", required = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Map<String, AxEvent> outputEvents;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -338,26 +348,6 @@ public class AxTask extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",taskParameters=");
-        builder.append(taskParameters);
-        builder.append(",contextAlbumReferenceSet=");
-        builder.append(contextAlbumReferenceSet);
-        builder.append(",taskLogic=");
-        builder.append(taskLogic);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -382,49 +372,6 @@ public class AxTask extends AxConcept {
         copy.setTaskLogic(new AxTaskLogic(taskLogic));
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + taskParameters.hashCode();
-        result = prime * result + contextAlbumReferenceSet.hashCode();
-        result = prime * result + taskLogic.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxTask other = (AxTask) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (!taskParameters.equals(other.taskParameters)) {
-            return false;
-        }
-        if (!contextAlbumReferenceSet.equals(other.contextAlbumReferenceSet)) {
-            return false;
-        }
-        return taskLogic.equals(other.taskLogic);
     }
 
     /**

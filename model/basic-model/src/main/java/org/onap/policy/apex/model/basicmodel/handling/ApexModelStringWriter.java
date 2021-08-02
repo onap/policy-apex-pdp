@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,9 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import java.io.ByteArrayOutputStream;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.common.utils.validation.Assertions;
@@ -34,20 +38,14 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <C> the type of Apex concept to write to a string, must be a sub class of {@link AxConcept}
  */
+@AllArgsConstructor
 public class ApexModelStringWriter<C extends AxConcept> {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelStringWriter.class);
 
     // Should concepts being written to files be valid
+    @Getter
+    @Setter
     private boolean validateFlag;
-
-    /**
-     * Constructor, set the validation flag.
-     *
-     * @param validateFlag Should validation be performed prior to output
-     */
-    public ApexModelStringWriter(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
-    }
 
     /**
      * Write a concept to a string.
@@ -119,23 +117,5 @@ public class ApexModelStringWriter<C extends AxConcept> {
             throw new ApexException("error writing JSON string", e);
         }
 
-    }
-
-    /**
-     * Checks if is validate flag.
-     *
-     * @return true, if checks if is validate flag
-     */
-    public boolean isValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validate flag.
-     *
-     * @param validateFlag the validate flag
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
     }
 }

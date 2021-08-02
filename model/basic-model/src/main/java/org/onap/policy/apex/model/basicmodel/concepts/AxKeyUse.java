@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,8 @@
 package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -32,7 +35,8 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * <p>Validation checks that each key is valid.
  */
-
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class AxKeyUse extends AxKey {
     private static final long serialVersionUID = 2007147220109881705L;
 
@@ -138,20 +142,6 @@ public class AxKeyUse extends AxKey {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("usedKey=");
-        builder.append(usedKey);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -167,37 +157,6 @@ public class AxKeyUse extends AxKey {
         usedKey.copyTo(copy.usedKey);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + usedKey.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("comparison object may not be null");
-        }
-
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxKeyUse other = (AxKeyUse) obj;
-        return usedKey.equals(other.usedKey);
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -47,6 +51,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 @XmlType(name = "AxArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
     { "name", "version" })
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 public class AxArtifactKey extends AxKey {
     private static final long serialVersionUID = 8932717618579392561L;
@@ -147,30 +155,12 @@ public class AxArtifactKey extends AxKey {
     }
 
     /**
-     * Gets the key name.
-     *
-     * @return the key name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Sets the key name.
      *
      * @param name the key name
      */
     public void setName(final String name) {
         this.name = Assertions.validateStringParameter(NAME_TOKEN, name, NAME_REGEXP);
-    }
-
-    /**
-     * Gets the key version.
-     *
-     * @return the key version
-     */
-    public String getVersion() {
-        return version;
     }
 
     /**
@@ -275,22 +265,6 @@ public class AxArtifactKey extends AxKey {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("name=");
-        builder.append(name);
-        builder.append(",version=");
-        builder.append(version);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -302,41 +276,6 @@ public class AxArtifactKey extends AxKey {
         copy.setVersion(version);
 
         return copyObject;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + name.hashCode();
-        result = prime * result + version.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxArtifactKey other = (AxArtifactKey) obj;
-
-        if (!name.equals(other.name)) {
-            return false;
-        }
-        return version.equals(other.version);
     }
 
     /**

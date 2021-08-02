@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.model.basicmodel.concepts;
 
+import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -31,6 +33,7 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class AxValidationMessage {
     private final AxKey observedKey;
     private ValidationResult validationResult = ValidationResult.VALID;
@@ -56,42 +59,6 @@ public class AxValidationMessage {
         this.observedClass = observedClass.getName();
         this.validationResult = validationResult;
         this.message = message;
-    }
-
-    /**
-     * Gets the key of the observation.
-     *
-     * @return the key of the observation
-     */
-    public AxKey getObservedKey() {
-        return observedKey;
-    }
-
-    /**
-     * Gets the observed class.
-     *
-     * @return the observed class
-     */
-    public String getObservedClass() {
-        return observedClass;
-    }
-
-    /**
-     * Gets the type of observation made.
-     *
-     * @return the type of observation made
-     */
-    public ValidationResult getValidationResult() {
-        return validationResult;
-    }
-
-    /**
-     * Get a description of the observation.
-     *
-     * @return the observation description
-     */
-    public String getMessage() {
-        return message;
     }
 
     /**

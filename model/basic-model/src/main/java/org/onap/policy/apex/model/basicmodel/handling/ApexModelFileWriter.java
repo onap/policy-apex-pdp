@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,9 @@ package org.onap.policy.apex.model.basicmodel.handling;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.slf4j.ext.XLogger;
@@ -34,20 +38,14 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the type of Apex model to write to file, must be a sub class of {@link AxModel}
  */
+@AllArgsConstructor
 public class ApexModelFileWriter<M extends AxModel> {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelFileWriter.class);
 
     // Should models being written to files be valid
+    @Getter
+    @Setter
     private boolean validateFlag;
-
-    /**
-     * Constructor, set the validation flag.
-     *
-     * @param validateFlag indicates if validation be performed prior to output
-     */
-    public ApexModelFileWriter(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
-    }
 
     /**
      * Write a model to an XML file.
@@ -91,24 +89,6 @@ public class ApexModelFileWriter<M extends AxModel> {
         writeModelFile(model, modelWriter, modelFileName);
 
         LOGGER.debug("ran apexModelWriteJSONFile");
-    }
-
-    /**
-     * Checks if the validation flag is set.
-     *
-     * @return true, the validation flag is set
-     */
-    public boolean isValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validate flag.
-     *
-     * @param validateFlag the validate flag value
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
     }
 
     /**

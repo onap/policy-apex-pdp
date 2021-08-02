@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.model.basicmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -57,8 +59,8 @@ public class AxKeyInfoTest {
         assertEquals("Key Description", testKeyInfo.getDescription());
 
         AxKeyInfo clonedReferenceKey = new AxKeyInfo(testKeyInfo);
-        assertTrue(clonedReferenceKey.toString()
-                        .startsWith("AxKeyInfo:(artifactId=AxArtifactKey:(name=key,version=0.0.1),uuid="));
+        assertThat(clonedReferenceKey.toString())
+                        .startsWith("AxKeyInfo(key=AxArtifactKey(name=key, version=0.0.1), uuid=");
 
         assertNotEquals(0, testKeyInfo.hashCode());
         // disabling sonar because this code tests the equals() method

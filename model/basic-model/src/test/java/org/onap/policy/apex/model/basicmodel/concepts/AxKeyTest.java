@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.model.basicmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -86,14 +88,14 @@ public class AxKeyTest {
         assertNotNull(someKey0.toString());
 
         AxArtifactKey someKey7 = new AxArtifactKey(someKey1);
-        assertEquals(150332875, someKey7.hashCode());
+        assertThat(someKey7.hashCode()).isNotZero().isEqualTo(someKey1.hashCode());
         assertEquals(0, someKey7.compareTo(someKey1));
         assertEquals(-12, someKey7.compareTo(someKey0));
 
         assertThatThrownBy(() -> someKey0.compareTo(null))
             .hasMessage("comparison object may not be null");
         assertEquals(0, someKey0.compareTo(someKey0));
-        assertEquals(353602977, someKey0.compareTo(new AxReferenceKey()));
+        assertThat(someKey0.compareTo(new AxReferenceKey())).isNotZero();
 
         assertNotNull(someKey0);
         // disabling sonar because this code tests the equals() method

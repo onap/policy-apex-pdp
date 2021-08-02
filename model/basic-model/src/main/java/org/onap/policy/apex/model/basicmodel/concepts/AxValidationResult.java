@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * This class records the result of a validation and holds all validatino observation messages.
@@ -53,9 +55,11 @@ public class AxValidationResult {
     }
 
     // The actual verification result
+    @Getter
     private ValidationResult validationResult = ValidationResult.VALID;
 
     // Messages collected during the verification process
+    @Getter
     private final List<AxValidationMessage> messageList = new LinkedList<>();
 
     /**
@@ -75,24 +79,6 @@ public class AxValidationResult {
      */
     public boolean isOk() {
         return validationResult == ValidationResult.VALID || validationResult == ValidationResult.OBSERVATION;
-    }
-
-    /**
-     * Gets the validation result.
-     *
-     * @return the validation result on a concept
-     */
-    public ValidationResult getValidationResult() {
-        return validationResult;
-    }
-
-    /**
-     * Gets the list of validation results on the concept.
-     *
-     * @return the list of validaiton results
-     */
-    public List<AxValidationMessage> getMessageList() {
-        return messageList;
     }
 
     /**

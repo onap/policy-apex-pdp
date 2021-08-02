@@ -240,7 +240,7 @@ public class AxState extends AxConcept {
      */
     public AxState(final AxReferenceKey key) {
         // @formatter:off
-        this(new AxStateParamsBuilder()
+        this(AxStateParams.builder()
                         .key(key)                                                             // Key
                         .trigger(AxArtifactKey.getNullKey())                                  // Trigger Reference
                         .stateOutputs(new TreeMap<>())                                        // State Outputs
@@ -249,6 +249,7 @@ public class AxState extends AxConcept {
                         .stateFinalizerLogicMap(new TreeMap<>())                              // State Finalizer Logics
                         .defaultTask(AxArtifactKey.getNullKey())                              // Default Task
                         .taskReferenceMap(new TreeMap<>())                                    // Task References
+                        .build()
         );
         // @formatter:on
     }
@@ -259,7 +260,7 @@ public class AxState extends AxConcept {
      * @param axStateParams parameters for state creation
      */
     // CHECKSTYLE:OFF: checkstyle:parameterNumber
-    public AxState(AxStateParamsBuilder axStateParams) {
+    public AxState(AxStateParams axStateParams) {
         super();
         Assertions.argumentNotNull(axStateParams.getKey(), "key may not be null");
         Assertions.argumentNotNull(axStateParams.getTrigger(), "trigger may not be null");
