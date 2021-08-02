@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +23,16 @@
 package org.onap.policy.apex.testsuites.integration.context.utils;
 
 import java.util.TimeZone;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.onap.policy.apex.context.test.concepts.TestPolicyContextItem;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**
  * The Class Constants provides constants for context tests.
  */
-public class Constants {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Constants {
     public static final String MAP_CONTEXT_ALBUM = "MapContextAlbum";
     public static final String LONG_CONTEXT_ALBUM = "LongContextAlbum";
     public static final String DATE_CONTEXT_ALBUM = "DateContextAlbum";
@@ -63,13 +67,6 @@ public class Constants {
     private static final AxArtifactKey KEY2 = new AxArtifactKey("testC-next", VERSION);
 
     private static final AxArtifactKey[] USED_ARTIFACT_STACK_ARRAY = new AxArtifactKey[] {KEY, KEY2, KEY3};
-
-    /**
-     * Instantiates a new constants.
-     */
-    private Constants() {
-        // Private constructor to block subclassing
-    }
 
     /**
      * Gets the ax artifact key array.

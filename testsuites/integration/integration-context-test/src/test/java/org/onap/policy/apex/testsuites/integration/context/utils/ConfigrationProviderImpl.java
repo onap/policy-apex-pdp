@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;
@@ -41,9 +44,11 @@ import org.onap.policy.common.utils.validation.Assertions;
 /**
  * The Class ConfigrationProviderImpl provides configuration information for a context test back to the caller.
  */
+@Getter
+@ToString
 public class ConfigrationProviderImpl implements ConfigrationProvider {
 
-    private final String testType;
+    private final String testName;
     private final int jvmCount;
     private final int threadCount;
     private final int loopSize;
@@ -62,7 +67,7 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
      */
     public ConfigrationProviderImpl(final String testType, final int jvmCount, final int threadCount,
                     final int loopSize, final int albumSize, final int lockType) {
-        this.testType = testType;
+        this.testName = testType;
         this.jvmCount = jvmCount;
         this.threadCount = threadCount;
         this.loopSize = loopSize;
@@ -74,48 +79,8 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
      * {@inheritDoc}.
      */
     @Override
-    public String getTestName() {
-        return testType;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int getLoopSize() {
-        return loopSize;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int getThreadCount() {
-        return threadCount;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int getJvmCount() {
-        return jvmCount;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int getAlbumSize() {
-        return albumSize;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public ExecutorService getExecutorService() {
-        final String name = getThreadFactoryName(jvmCount, testType);
+        final String name = getThreadFactoryName(jvmCount, testName);
         final IntegrationThreadFactory threadFactory = new IntegrationThreadFactory(name);
         return Executors.newFixedThreadPool(threadCount, threadFactory);
     }
@@ -198,14 +163,6 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
     }
 
     /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public LockType getLockType() {
-        return lockType;
-    }
-
-    /**
      * Gets the thread factory name.
      *
      * @param jvmCount the jvm count
@@ -216,15 +173,4 @@ public class ConfigrationProviderImpl implements ConfigrationProvider {
         return jvmCount == 1 ? testType + ":TestConcurrentContextThread_0_"
                         : testType + ":TestConcurrentContextJVMThread_";
     }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "ConfigrationProviderImpl [testType=" + testType + ", jvmCount=" + jvmCount + ", threadCount="
-                        + threadCount + ", loopSize=" + loopSize + ", albumSize=" + albumSize + ", lockType=" + lockType
-                        + "]";
-    }
-
 }

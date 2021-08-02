@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,15 @@
 package org.onap.policy.apex.examples.aadm.concepts;
 
 import java.io.Serializable;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The Class IMSIStatus holds the status of an IMSI in the AADM domain.
  */
+@Getter
+@Setter
 public class ImsiStatus implements Serializable {
     private static final long serialVersionUID = 2852523814242234172L;
 
@@ -34,8 +40,10 @@ public class ImsiStatus implements Serializable {
 
     private boolean anomalous = false;
     private long anomalousTime = TIME_NOT_SET;
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private String enodeBId;
-    private long blackListedTime = TIME_NOT_SET;
+    private long blacklistedTime = TIME_NOT_SET;
     private long blockingCount = 0;
 
     /**
@@ -45,51 +53,6 @@ public class ImsiStatus implements Serializable {
      */
     public ImsiStatus(final String imsi) {
         this.imsi = imsi;
-    }
-
-    /**
-     * Gets the IMSI value.
-     *
-     * @return the IMSI value
-     */
-    public String getImsi() {
-        return imsi;
-    }
-
-    /**
-     * Gets the anomalous flag.
-     *
-     * @return the anomalous flag
-     */
-    public boolean getAnomalous() {
-        return anomalous;
-    }
-
-    /**
-     * Sets the anomalous flag.
-     *
-     * @param anomalous the anomalous flag
-     */
-    public void setAnomalous(final boolean anomalous) {
-        this.anomalous = anomalous;
-    }
-
-    /**
-     * Gets the time of the most recent anomolous event.
-     *
-     * @return the time of the most recent anomolous event
-     */
-    public long getAnomolousTime() {
-        return anomalousTime;
-    }
-
-    /**
-     * Sets the time of the most recent anomolous event.
-     *
-     * @param incomingAnomalousTime the time of the most recent anomolous event
-     */
-    public void setAnomolousTime(final long incomingAnomalousTime) {
-        this.anomalousTime = incomingAnomalousTime;
     }
 
     /**
@@ -117,42 +80,6 @@ public class ImsiStatus implements Serializable {
      */
     public boolean checkSetENodeBId() {
         return (enodeBId != null);
-    }
-
-    /**
-     * Gets the time at which the IMSI was blacklisted.
-     *
-     * @return the time at which the IMSI was blacklisted
-     */
-    public long getBlacklistedTime() {
-        return blackListedTime;
-    }
-
-    /**
-     * Sets the time at which the IMSI was blacklisted.
-     *
-     * @param incomingBlackListedTime the time at which the IMSI was blacklisted
-     */
-    public void setBlacklistedTime(final long incomingBlackListedTime) {
-        this.blackListedTime = incomingBlackListedTime;
-    }
-
-    /**
-     * Gets the number of times this IMSI was blocked.
-     *
-     * @return the number of times this IMSI was blocked
-     */
-    public long getBlockingCount() {
-        return blockingCount;
-    }
-
-    /**
-     * Sets the number of times this IMSI was blocked.
-     *
-     * @param blockingCount the number of times this IMSI was blocked
-     */
-    public void setBlockingCount(final long blockingCount) {
-        this.blockingCount = blockingCount;
     }
 
     /**

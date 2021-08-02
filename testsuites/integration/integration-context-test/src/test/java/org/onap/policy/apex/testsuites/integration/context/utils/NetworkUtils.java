@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,18 +29,14 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * The Class NetworkUtils contains some utility functions for getting network information for context tests.
  */
-public class NetworkUtils {
-
-    /**
-     * Instantiates a new network utils.
-     */
-    private NetworkUtils() {
-        // Private constructor to block subclassing
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class NetworkUtils {
 
     /**
      * The JGroups IP address must be set to a real (not loopback) IP address for Infinispan to work. In order to ensure
