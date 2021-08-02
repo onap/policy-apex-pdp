@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -39,6 +45,11 @@ import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
  */
 @Entity
 @Table(name = "ReferenceKeyTestEntity")
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 public class ReferenceKeyTestEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067895L;
 
@@ -68,39 +79,11 @@ public class ReferenceKeyTestEntity extends AxConcept {
     }
 
     /**
-     * Instantiates a new reference key test entity.
-     *
-     * @param key the key
-     * @param doubleValue the double value
-     */
-    public ReferenceKeyTestEntity(final AxReferenceKey key, final Double doubleValue) {
-        this.key = key;
-        this.doubleValue = doubleValue;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxReferenceKey getKey() {
-        return key;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
     public List<AxKey> getKeys() {
         return Arrays.asList((AxKey) getKey());
-    }
-
-    /**
-     * Sets the key.
-     *
-     * @param key the new key
-     */
-    public void setKey(final AxReferenceKey key) {
-        this.key = key;
     }
 
     /**
@@ -110,24 +93,6 @@ public class ReferenceKeyTestEntity extends AxConcept {
      */
     public boolean checkSetKey() {
         return (this.key != null);
-    }
-
-    /**
-     * Gets the double value.
-     *
-     * @return the double value
-     */
-    public double getDoubleValue() {
-        return doubleValue;
-    }
-
-    /**
-     * Sets the double value.
-     *
-     * @param doubleValue the new double value
-     */
-    public void setDoubleValue(final double doubleValue) {
-        this.doubleValue = doubleValue;
     }
 
     /**
@@ -150,14 +115,6 @@ public class ReferenceKeyTestEntity extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        return "ReferenceKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         final Object copyObject = ((target == null) ? new ReferenceKeyTestEntity() : target);
         if (copyObject instanceof ReferenceKeyTestEntity) {
@@ -172,42 +129,6 @@ public class ReferenceKeyTestEntity extends AxConcept {
         } else {
             return null;
         }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ReferenceKeyTestEntity other = (ReferenceKeyTestEntity) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return (Double.compare(doubleValue, other.doubleValue) == 0);
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (c) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +27,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * The Class AnomalyDetection is used as a Java context for Adaptive anomaly detection in the adaptive domain.
  */
+@Getter
+@Setter
 @EqualsAndHashCode
+@ToString
 public class AnomalyDetection implements Serializable {
     private static final long serialVersionUID = -823013127095523727L;
 
@@ -70,60 +77,6 @@ public class AnomalyDetection implements Serializable {
     }
 
     /**
-     * Indicates if this is the first round of the algorithm.
-     *
-     * @return true if this is the first round of the algorithm
-     */
-    public boolean getFirstRound() {
-        return firstRound;
-    }
-
-    /**
-     * Sets the first round indicator of the algorithm.
-     *
-     * @param firstRound the first round indicator of the algorithm
-     */
-    public void setFirstRound(final boolean firstRound) {
-        this.firstRound = firstRound;
-    }
-
-    /**
-     * Gets the frequency value of the algorithm.
-     *
-     * @return the frequency value of the algorithm
-     */
-    public int getFrequency() {
-        return frequency;
-    }
-
-    /**
-     * Sets the frequency value of the algorithm.
-     *
-     * @param frequency the frequency value of the algorithm
-     */
-    public void setFrequency(final int frequency) {
-        this.frequency = frequency;
-    }
-
-    /**
-     * Gets the anomaly score values of the algorithm.
-     *
-     * @return the anomaly score values of the algorithm
-     */
-    public List<Double> getAnomalyScores() {
-        return anomalyScores;
-    }
-
-    /**
-     * Sets the anomaly score values of the algorithm.
-     *
-     * @param anomalyScores the anomaly score values of the algorithm
-     */
-    public void setAnomalyScores(final List<Double> anomalyScores) {
-        this.anomalyScores = anomalyScores;
-    }
-
-    /**
      * Check if the anomaly score values of the algorithm are set.
      *
      * @return true, if the anomaly score values of the algorithm are set
@@ -140,24 +93,6 @@ public class AnomalyDetection implements Serializable {
     }
 
     /**
-     * Gets the frequency forecasted by the algorithm.
-     *
-     * @return the frequency forecasted by the algorithm
-     */
-    public List<Double> getFrequencyForecasted() {
-        return frequencyForecasted;
-    }
-
-    /**
-     * Sets the frequency forecasted by the algorithm.
-     *
-     * @param frequencyForecasted the frequency forecasted by the algorithm
-     */
-    public void setFrequencyForecasted(final List<Double> frequencyForecasted) {
-        this.frequencyForecasted = frequencyForecasted;
-    }
-
-    /**
      * Check if the frequency forecasted by the algorithm is set.
      *
      * @return true, if the frequency forecasted by the algorithm is set
@@ -171,14 +106,5 @@ public class AnomalyDetection implements Serializable {
      */
     public void unsetFrequencyForecasted() {
         frequencyForecasted = null;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "AnomalyDetection [firstRound=" + firstRound + ", frequency=" + frequency + ", anomalyScores="
-                + anomalyScores + ", frequencyForecasted=" + frequencyForecasted + "]";
     }
 }

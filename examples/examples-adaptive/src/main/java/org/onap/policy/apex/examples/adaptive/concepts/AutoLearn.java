@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (c) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +26,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
  * The Class AutoLearn is used as a Java context for Adaptive auto-learning of trends towards a fixed value in the
  * adaptive domain.
  */
+@Getter
+@Setter
 @EqualsAndHashCode
 @ToString
 public class AutoLearn implements Serializable {
@@ -71,24 +76,6 @@ public class AutoLearn implements Serializable {
     }
 
     /**
-     * Gets the average difference values of the algorithm.
-     *
-     * @return the average difference values of the algorithm
-     */
-    public List<Double> getAvDiffs() {
-        return avDiffs;
-    }
-
-    /**
-     * Sets the average difference values of the algorithm.
-     *
-     * @param avDiffs the average difference values of the algorithm
-     */
-    public void setAvDiffs(final List<Double> avDiffs) {
-        this.avDiffs = avDiffs;
-    }
-
-    /**
      * Check if the average difference values of the algorithm are set.
      *
      * @return true, if check set av diffs
@@ -102,24 +89,6 @@ public class AutoLearn implements Serializable {
      */
     public void unsetAvDiffs() {
         avDiffs = null;
-    }
-
-    /**
-     * Gets the count values of the algorithm.
-     *
-     * @return the count values of the algorithm
-     */
-    public List<Long> getCounts() {
-        return counts;
-    }
-
-    /**
-     * Sets the count values of the algorithm.
-     *
-     * @param counts the count values of the algorithm
-     */
-    public void setCounts(final List<Long> counts) {
-        this.counts = counts;
     }
 
     /**
