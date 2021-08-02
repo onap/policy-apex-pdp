@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +40,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter;
@@ -63,6 +68,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxContextAlbums")
 
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxContextAlbums", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
     { "key", "albums" })
@@ -79,6 +88,7 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     @JoinTable(joinColumns = {@JoinColumn(name = "contextName", referencedColumnName = "name"),
         @JoinColumn(name = "contextVersion", referencedColumnName = "version")})
     @XmlElement(name = "albums", required = true)
+    @Getter(AccessLevel.NONE)
     private Map<AxArtifactKey, AxContextAlbum> albums;
     // @formatter:on
 
@@ -148,14 +158,6 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
 
@@ -206,24 +208,6 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
             contextAlbumEntry.getKey().clean();
             contextAlbumEntry.getValue().clean();
         }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",albums=");
-        builder.append(albums);
-        builder.append(")");
-        return builder.toString();
     }
 
     /**
@@ -293,41 +277,6 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         copy.setAlbumsMap(newContextAlbum);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + albums.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxContextAlbums other = (AxContextAlbums) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        return albums.equals(other.albums);
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.auth.clieditor.utils.CliUtils;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
@@ -40,6 +42,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  */
 @Setter
 @Getter
+@ToString
 public class CommandLineParameters {
 
     // Default location of the command definition meta data in JSON
@@ -235,17 +238,5 @@ public class CommandLineParameters {
      */
     public boolean checkSetLogFileName() {
         return logFileName != null;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "CLIParameters [helpSet=" + helpSet + ", metadataFileName=" + metadataFileName
-                + ", apexPropertiesFileName=" + apexPropertiesFileName + ", commandFileName=" + commandFileName
-                + ", inputModelFileName=" + inputModelFileName + ", outputModelFileName=" + outputModelFileName
-                + ", logFileName=" + logFileName + ", echo=" + echo + ", suppressLog=" + suppressLog
-                + ", suppressModelOutput=" + suppressModelOutput + "]";
     }
 }

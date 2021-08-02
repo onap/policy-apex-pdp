@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.KeyInfoMarshalFilter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -59,6 +62,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxModel")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 @XmlRootElement(name = "apexModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -136,14 +143,6 @@ public class AxModel extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
 
@@ -163,15 +162,6 @@ public class AxModel extends AxConcept {
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the key information of this concept.
-     *
-     * @return the key information of this concept
-     */
-    public AxKeyInformation getKeyInformation() {
-        return keyInformation;
     }
 
     /**
@@ -371,22 +361,6 @@ public class AxModel extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",keyInformation=");
-        builder.append(keyInformation);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -398,40 +372,6 @@ public class AxModel extends AxConcept {
         copy.setKeyInformation(new AxKeyInformation(keyInformation));
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + keyInformation.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxModel other = (AxModel) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        return keyInformation.equals(other.keyInformation);
     }
 
     /**

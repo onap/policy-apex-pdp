@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +34,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -52,13 +57,17 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxEngineStats")
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEngineStats", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxEngineStats", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "timeStamp",
     "eventCount", "lastExecutionTime", "averageExecutionTime", "upTime", "lastStart"})
 public class AxEngineStats extends AxConcept {
     private static final long serialVersionUID = -6981129081962785368L;
-    private static final int HASH_CODE_PRIME = 32;
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
@@ -90,6 +99,7 @@ public class AxEngineStats extends AxConcept {
 
     @Column
     @XmlElement(required = true)
+    @Setter(AccessLevel.PRIVATE)
     private long lastStart;
 
     /**
@@ -153,14 +163,6 @@ public class AxEngineStats extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxReferenceKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         return key.getKeys();
     }
@@ -176,84 +178,12 @@ public class AxEngineStats extends AxConcept {
     }
 
     /**
-     * Gets the time stamp at which the statistics were recorded.
-     *
-     * @return the time stamp at which the statistics were recorded
-     */
-    public long getTimeStamp() {
-        return timeStamp;
-    }
-
-    /**
      * Gets the time stamp at which the statistics were recorded as a string.
      *
      * @return the time stamp at which the statistics were recorded as a string
      */
     public String getTimeStampString() {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(timeStamp);
-    }
-
-    /**
-     * Sets the time stamp at which the statistics were recorded.
-     *
-     * @param timeStamp the time stamp at which the statistics were recorded
-     */
-    public void setTimeStamp(final long timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
-    /**
-     * Gets the number of events processed by the engine.
-     *
-     * @return the number of events processed by the engine
-     */
-    public long getEventCount() {
-        return eventCount;
-    }
-
-    /**
-     * Sets the number of events processed by the engine.
-     *
-     * @param eventCount the number of events processed by the engine
-     */
-    public void setEventCount(final long eventCount) {
-        this.eventCount = eventCount;
-    }
-
-    /**
-     * Gets the amount of time taken to execute the last policy.
-     *
-     * @return the amount of time taken to execute the last policy
-     */
-    public long getLastExecutionTime() {
-        return lastExecutionTime;
-    }
-
-    /**
-     * Sets the amount of time taken to execute the last policy.
-     *
-     * @param lastExecutionTime the amount of time taken to execute the last policy
-     */
-    public void setLastExecutionTime(final long lastExecutionTime) {
-        this.lastExecutionTime = lastExecutionTime;
-    }
-
-    /**
-     * Gets the average amount of time taken to execute a policy.
-     *
-     * @return the average amount of time taken to execute a policy
-     */
-    public double getAverageExecutionTime() {
-        return averageExecutionTime;
-    }
-
-    /**
-     * Sets the average amount of time taken to execute a policy.
-     *
-     * @param averageExecutionTime the average amount of time taken to execute a policy
-     */
-    public void setAverageExecutionTime(final double averageExecutionTime) {
-        this.averageExecutionTime = averageExecutionTime;
     }
 
     /**
@@ -266,33 +196,6 @@ public class AxEngineStats extends AxConcept {
             return upTime + (timeStamp - this.getLastStart());
         }
         return upTime;
-    }
-
-    /**
-     * Sets the time that has elapsed since the policy engine was started.
-     *
-     * @param upTime the time that has elapsed since the policy engine was started
-     */
-    public void setUpTime(final long upTime) {
-        this.upTime = upTime;
-    }
-
-    /**
-     * Sets the time at which the policy engine was last started.
-     *
-     * @param lastStart the time at which the policy engine was last started
-     */
-    private void setLastStart(final long lastStart) {
-        this.lastStart = lastStart;
-    }
-
-    /**
-     * Gets the time at which the policy engine was last started.
-     *
-     * @return the time at which the policy engine was last started
-     */
-    public long getLastStart() {
-        return lastStart;
     }
 
     /**
@@ -379,30 +282,6 @@ public class AxEngineStats extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("engineKey=");
-        builder.append(key);
-        builder.append(",timeStamp=");
-        builder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(timeStamp));
-        builder.append(",eventCount=");
-        builder.append(eventCount);
-        builder.append(",lastExecutionTime=");
-        builder.append(lastExecutionTime);
-        builder.append(",averageExecutionTime=");
-        builder.append(averageExecutionTime);
-        builder.append(",upTime=");
-        builder.append(getUpTime());
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -419,61 +298,6 @@ public class AxEngineStats extends AxConcept {
         copy.setLastStart(lastStart);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + (int) (timeStamp ^ (timeStamp >>> HASH_CODE_PRIME));
-        result = prime * result + (int) (eventCount ^ (eventCount >>> HASH_CODE_PRIME));
-        result = prime * result + (int) (lastExecutionTime ^ (lastExecutionTime >>> HASH_CODE_PRIME));
-        result = prime * result + ((int) averageExecutionTime ^ ((int) averageExecutionTime >>> HASH_CODE_PRIME));
-        result = prime * result + (int) (upTime ^ (upTime >>> HASH_CODE_PRIME));
-        result = prime * result + (int) (getLastStart() ^ (getLastStart() >>> HASH_CODE_PRIME));
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxEngineStats other = (AxEngineStats) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (timeStamp != other.timeStamp) {
-            return false;
-        }
-        if (eventCount != other.eventCount) {
-            return false;
-        }
-        if (lastExecutionTime != other.lastExecutionTime) {
-            return false;
-        }
-        if (Double.compare(averageExecutionTime, other.averageExecutionTime) != 0) {
-            return false;
-        }
-        if (upTime != other.upTime) {
-            return false;
-        }
-        return getLastStart() == other.getLastStart();
     }
 
     /**

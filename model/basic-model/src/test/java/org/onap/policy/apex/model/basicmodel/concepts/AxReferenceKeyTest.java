@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +83,7 @@ public class AxReferenceKeyTest {
         testReferenceKey.clean();
 
         AxReferenceKey clonedReferenceKey = new AxReferenceKey(testReferenceKey);
-        assertEquals("AxReferenceKey:(parentKeyName=NPKN,parentKeyVersion=0.0.1,parentLocalName=NPKLN,localName=NLN)",
+        assertEquals("AxReferenceKey(parentKeyName=NPKN, parentKeyVersion=0.0.1, parentLocalName=NPKLN, localName=NLN)",
             clonedReferenceKey.toString());
 
         assertNotEquals(0, testReferenceKey.hashCode());
@@ -107,8 +108,6 @@ public class AxReferenceKeyTest {
 
         assertNotNull(testReferenceKey.getKeys());
 
-        assertThatThrownBy(() -> testReferenceKey.equals(null))
-            .hasMessage("comparison object may not be null");
         assertThatThrownBy(() -> testReferenceKey.copyTo(null))
             .hasMessage("target may not be null");
         assertThatThrownBy(() -> testReferenceKey.copyTo(new AxArtifactKey("Key", "0.0.1")))

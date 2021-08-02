@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +23,24 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import java.util.Properties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * This class holds a record of a REST request for the REST requestor plugin.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@ToString
 public class ApexRestRequest {
     private long executionId;
     private String eventName;
     private Object event;
+    @ToString.Exclude
     private Properties executionProperties;
+    @Setter
     private long timestamp;
 
     /**
@@ -48,68 +56,5 @@ public class ApexRestRequest {
         this.executionProperties = executionProperties;
         this.eventName = eventName;
         this.event = event;
-    }
-
-    /**
-     * Gets the execution id.
-     *
-     * @return the execution id
-     */
-    public long getExecutionId() {
-        return executionId;
-    }
-
-    /**
-     * Gets the event name.
-     *
-     * @return the event name
-     */
-    public String getEventName() {
-        return eventName;
-    }
-
-    /**
-     * Gets the event.
-     *
-     * @return the event
-     */
-    public Object getEvent() {
-        return event;
-    }
-
-    /**
-     * Gets the executionProperties.
-     *
-     * @return the executionProperties
-     */
-    public Properties getExecutionProperties() {
-        return executionProperties;
-    }
-
-    /**
-     * Gets the timestamp.
-     *
-     * @return the timestamp
-     */
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * Sets the timestamp.
-     *
-     * @param timestamp the new timestamp
-     */
-    public void setTimestamp(final long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "ApexRestRequest [executionId=" + executionId + ", eventName=" + eventName + ", event=" + event
-                + ", timestamp=" + timestamp + "]";
     }
 }

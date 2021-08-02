@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@
 package org.onap.policy.apex.context.impl.schema;
 
 import java.lang.reflect.Constructor;
+import lombok.Getter;
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
@@ -38,6 +40,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public abstract class AbstractSchemaHelper implements SchemaHelper {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AbstractSchemaHelper.class);
@@ -72,30 +75,6 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
 
         this.userKey = incomingUserKey;
         this.schema = incomingSchema;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxKey getUserKey() {
-        return userKey;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxContextSchema getSchema() {
-        return schema;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public Class<?> getSchemaClass() {
-        return schemaClass;
     }
 
     /**

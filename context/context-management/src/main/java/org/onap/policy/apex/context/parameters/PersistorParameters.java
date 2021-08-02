@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.ClassName;
 import org.onap.policy.common.parameters.annotations.NotNull;
@@ -38,6 +40,7 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 @NotNull
 public class PersistorParameters extends ParameterGroupImpl {
     /** The default persistor is a dummy persistor that stubs the Persistor interface. */
@@ -47,6 +50,7 @@ public class PersistorParameters extends ParameterGroupImpl {
     /** Default periodic flushing interval, 5 minutes in milliseconds. */
     public static final long DEFAULT_FLUSH_PERIOD = 300000;
 
+    @Setter
     private @ClassName String pluginClass = DEFAULT_PERSISTOR_PLUGIN_CLASS;
 
     // Parameters for flushing
@@ -58,33 +62,6 @@ public class PersistorParameters extends ParameterGroupImpl {
      */
     public PersistorParameters() {
         super(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
-    }
-
-    /**
-     * Gets the plugin class.
-     *
-     * @return the plugin class
-     */
-    public String getPluginClass() {
-        return pluginClass;
-    }
-
-    /**
-     * Sets the plugin class.
-     *
-     * @param pluginClass the plugin class
-     */
-    public void setPluginClass(final String pluginClass) {
-        this.pluginClass = pluginClass;
-    }
-
-    /**
-     * Gets the flush period in milliseconds.
-     *
-     * @return the flush period
-     */
-    public long getFlushPeriod() {
-        return flushPeriod;
     }
 
     /**

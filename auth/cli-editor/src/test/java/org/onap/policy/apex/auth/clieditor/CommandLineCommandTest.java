@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (c) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
@@ -47,8 +49,8 @@ public class CommandLineCommandTest {
         assertEquals("testDescription", commandLineCommand.getDescription());
         assertEquals("TestName", commandLineCommand.getName());
         assertEquals(
-            "CLICommand [name=TestName,keywordlist=[], argumentList=[], apiMethod=, systemCommand=true,"
-            + " description=testDescription]", commandLineCommand.toString());
+            "CommandLineCommand(name=TestName, keywordlist=[], argumentList=[], apiMethod=, systemCommand=true,"
+            + " description=testDescription)", commandLineCommand.toString());
     }
 
     @Test(expected = CommandLineException.class)
@@ -96,9 +98,9 @@ public class CommandLineCommandTest {
         assertEquals(0, commandLineCommand.compareTo(commandLineCommand));
         CommandLineCommand otherCommand = new CommandLineCommand();
         otherCommand.setSystemCommand(true);
-        assertEquals(6, commandLineCommand.compareTo(otherCommand));
+        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
         otherCommand.getArgumentList().add(new CommandLineArgument("testArgument"));
-        assertEquals(-609496833, commandLineCommand.compareTo(otherCommand));
+        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
     }
 
     @Test

@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistributor;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.ClassName;
@@ -33,6 +35,8 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
 @NotNull
 public class DistributorParameters extends ParameterGroupImpl {
     /** The default distributor makes context albums available to all threads in a single JVM. */
@@ -46,24 +50,6 @@ public class DistributorParameters extends ParameterGroupImpl {
      */
     public DistributorParameters() {
         super(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
-    }
-
-    /**
-     * Gets the plugin class.
-     *
-     * @return the plugin class
-     */
-    public String getPluginClass() {
-        return pluginClass;
-    }
-
-    /**
-     * Sets the plugin class.
-     *
-     * @param pluginClass the plugin class
-     */
-    public void setPluginClass(final String pluginClass) {
-        this.pluginClass = pluginClass;
     }
 
     @Override

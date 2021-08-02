@@ -32,11 +32,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Setter;
 
 /**
  * The Class ApexEditorAPIResult return the result of and messages from all model API method calls on the
  * {@link ApexModel} API.
  */
+@Setter
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class ApexApiResult {
@@ -178,15 +180,6 @@ public class ApexApiResult {
     }
 
     /**
-     * Sets the result status of an API operation.
-     *
-     * @param result the result status
-     */
-    public void setResult(final Result result) {
-        this.result = result;
-    }
-
-    /**
      * Gets the list of messages returned by an API operation.
      *
      * @return the list of messages returned by an API operation
@@ -195,15 +188,6 @@ public class ApexApiResult {
     @XmlElement(nillable = true, name = "message")
     public List<String> getMessages() {
         return messages;
-    }
-
-    /**
-     * Sets the list of messages to return as a result of an API operation.
-     *
-     * @param messages the list of messages to return as a result of an API operation
-     */
-    public void setMessages(final List<String> messages) {
-        this.messages = messages;
     }
 
     /**

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,18 +21,14 @@
 
 package org.onap.policy.apex.core.engine;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * This class holds constants used when managing engine parameter groups in apex.
  */
-public abstract class EngineParameterConstants {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class EngineParameterConstants {
     public static final String MAIN_GROUP_NAME = "ENGINE_PARAMETERS";
     public static final String EXECUTOR_GROUP_NAME = "EXECUTOR_PARAMETERS";
-
-    /**
-     * Private default constructor to prevent subclassing.
-     */
-    private EngineParameterConstants() {
-        // Prevents subclassing
-    }
-
 }

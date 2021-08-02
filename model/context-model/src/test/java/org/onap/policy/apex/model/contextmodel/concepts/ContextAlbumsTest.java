@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +22,11 @@
 
 package org.onap.policy.apex.model.contextmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -138,9 +139,9 @@ public class ContextAlbumsTest {
         album.setItemSchema(albumSchemaKey);
 
         final AxContextAlbum clonedAlbum = new AxContextAlbum(album);
-        assertEquals("AxContextAlbum:(key=AxArtifactKey:(name=NewAlbumName,version=0.0.1),"
-                        + "scope=NewAlbumScope,isWritable=true,itemSchema="
-                        + "AxArtifactKey:(name=AlbumSchemaName,version=0.0.1))", clonedAlbum.toString());
+        assertEquals("AxContextAlbum(key=AxArtifactKey(name=NewAlbumName, version=0.0.1), "
+                        + "scope=NewAlbumScope, isWritable=true, itemSchema="
+                        + "AxArtifactKey(name=AlbumSchemaName, version=0.0.1))", clonedAlbum.toString());
 
         assertNotEquals(0, album.hashCode());
         // disabling sonar because this code tests the equals() method
@@ -220,8 +221,8 @@ public class ContextAlbumsTest {
         albums.clean();
 
         final AxContextAlbums clonedAlbums = new AxContextAlbums(albums);
-        assertTrue(clonedAlbums.toString().startsWith(
-                        "AxContextAlbums:(AxContextAlbums:(key=AxArtifactKey:(name=AlbumsKey,version=0.0.1)"));
+        assertThat(clonedAlbums.toString()).startsWith(
+                        "AxContextAlbums(key=AxArtifactKey(name=AlbumsKey, version=0.0.1)");
 
         assertNotEquals(0, albums.hashCode());
 

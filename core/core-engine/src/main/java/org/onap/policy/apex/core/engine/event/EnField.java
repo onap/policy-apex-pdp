@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 package org.onap.policy.apex.core.engine.event;
 
 import java.io.Serializable;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
@@ -34,6 +36,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class EnField implements Serializable {
     private static final long serialVersionUID = -5713525780081840333L;
 
@@ -72,24 +75,6 @@ public class EnField implements Serializable {
     }
 
     /**
-     * Gets the field definition of this field.
-     *
-     * @return the field definition
-     */
-    public AxField getAxField() {
-        return axField;
-    }
-
-    /**
-     * Gets the schema helper of this field.
-     *
-     * @return the schema helper for this field
-     */
-    public SchemaHelper getSchemaHelper() {
-        return schemaHelper;
-    }
-
-    /**
      * Get the name of the field.
      *
      * @return the field name
@@ -105,15 +90,6 @@ public class EnField implements Serializable {
      */
     public AxReferenceKey getKey() {
         return axField.getKey();
-    }
-
-    /**
-     * Get the value of the field.
-     *
-     * @return the value
-     */
-    public Object getValue() {
-        return value;
     }
 
     /**

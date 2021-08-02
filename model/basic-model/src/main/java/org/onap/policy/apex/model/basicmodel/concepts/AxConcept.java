@@ -25,6 +25,8 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.annotation.XmlType;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -36,15 +38,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 @XmlType(name = "AxConcept", namespace = "http://www.onap.org/policy/apex-pdp")
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     private static final long serialVersionUID = -7434939557282697490L;
-
-    /**
-     * Default constructor.
-     */
-    protected AxConcept() {
-        // Default constructor
-    }
 
     /**
      * Copy constructor.

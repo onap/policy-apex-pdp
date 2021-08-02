@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +22,18 @@
 package org.onap.policy.apex.model.basicmodel.dao;
 
 import java.util.Properties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * This class is a POJO that holds properties for Apex DAOs.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString
 public class DaoParameters {
     /** The default Apex DAO plugin class. */
     public static final String DEFAULT_PLUGIN_CLASS = "org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao";
@@ -35,62 +42,6 @@ public class DaoParameters {
     private String persistenceUnit;
 
     private Properties jdbcProperties = new Properties();
-
-    /**
-     * Gets the DAO plugin class, this is the DAO class to use and it must implement the {@link ApexDao} interface.
-     *
-     * @return the DAO plugin class
-     */
-    public String getPluginClass() {
-        return pluginClass;
-    }
-
-    /**
-     * Sets the DAO plugin class, a class that implements the {@link ApexDao} interface.
-     *
-     * @param daoPluginClass the DAO plugin class
-     */
-    public void setPluginClass(final String daoPluginClass) {
-        pluginClass = daoPluginClass;
-    }
-
-    /**
-     * Gets the persistence unit for the DAO. The persistence unit defines the JDBC properties the DAO will use. The
-     * persistence unit must defined in the {@code META-INF/persistence.xml} resource file
-     *
-     * @return the persistence unit to use for JDBC access
-     */
-    public String getPersistenceUnit() {
-        return persistenceUnit;
-    }
-
-    /**
-     * Sets the persistence unit for the DAO. The persistence unit defines the JDBC properties the DAO will use. The
-     * persistence unit must defined in the {@code META-INF/persistence.xml} resource file
-     *
-     * @param daoPersistenceUnit the persistence unit to use for JDBC access
-     */
-    public void setPersistenceUnit(final String daoPersistenceUnit) {
-        persistenceUnit = daoPersistenceUnit;
-    }
-
-    /**
-     * Gets the JDBC properties.
-     *
-     * @return the JDBC properties
-     */
-    public Properties getJdbcProperties() {
-        return jdbcProperties;
-    }
-
-    /**
-     * Sets the JDBC properties.
-     *
-     * @param jdbcProperties the JDBC properties
-     */
-    public void setJdbcProperties(final Properties jdbcProperties) {
-        this.jdbcProperties = jdbcProperties;
-    }
 
     /**
      * Gets a single JDBC property.
@@ -110,14 +61,5 @@ public class DaoParameters {
      */
     public void setJdbcProperty(final String key, final String value) {
         jdbcProperties.setProperty(key, value);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "DAOParameters [pluginClass=" + pluginClass + ", persistenceUnit=" + persistenceUnit
-                + ", jdbcProperties=" + jdbcProperties + "]";
     }
 }

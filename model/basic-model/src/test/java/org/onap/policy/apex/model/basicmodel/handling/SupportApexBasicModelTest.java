@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +48,7 @@ public class SupportApexBasicModelTest {
     @Test
     public void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
-        assertEquals(VALID_MODEL_STRING, result.toString());
+        assertEquals(VALID_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
@@ -59,19 +60,20 @@ public class SupportApexBasicModelTest {
     @Test
     public void testApexModelVaidateWarning() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
-        assertEquals(WARNING_MODEL_STRING, result.toString());
+        assertEquals(WARNING_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
     public void testModelVaidateInvalidModel() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
-        assertEquals(INVALID_MODEL_STRING, result.toString());
+        assertEquals(INVALID_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
     public void testModelVaidateMalstructured() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
-        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
+        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING.replaceAll("\\s+", ""),
+                        result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
@@ -95,37 +97,37 @@ public class SupportApexBasicModelTest {
 
     // As there are no real concepts in a basic model, this is as near to a valid model as we can get
     private static final String VALID_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-                    + "AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + "AxArtifactKey(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
                     + ".AxModel:WARNING:key not found for key information entry\n"
-                    + "AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + "AxArtifactKey(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
                     + ".AxModel:WARNING:key not found for key information entry\n" + "********************************";
 
     private static final String WARNING_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-                    + "AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + "AxArtifactKey(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
                     + ".AxModel:WARNING:key not found for key information entry\n"
-                    + "AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + "AxArtifactKey(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
                     + ".AxModel:WARNING:key not found for key information entry\n"
-                    + "AxArtifactKey:(name=Unref0,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + "AxArtifactKey(name=Unref0,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
                     + ".AxModel:WARNING:key not found for key information entry\n"
-                    + "AxArtifactKey:(name=Unref1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
+                    + "AxArtifactKey(name=Unref1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts"
                     + ".AxModel:WARNING:key not found for key information entry\n" + "********************************";
 
     private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxArtifactKey(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
                     + "AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxArtifactKey(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
                     + "AxKeyInfo:OBSERVATION:description is blank\n"
-                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxArtifactKey(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
                     + "AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
-                    + "AxKeyInformation:INVALID:duplicate UUID found on keyInfoMap entry AxArtifactKey:"
+                    + "AxArtifactKey(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxKeyInformation:INVALID:duplicate UUID found on keyInfoMap entry AxArtifactKey"
                     + "(name=KeyInfoMapKey,version=0.0.1):00000000-0000-0000-0000-000000000000\n"
                     + "********************************";
 
     private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxArtifactKey(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
                     + "AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-                    + "AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
+                    + "AxArtifactKey(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts."
                     + "AxModel:INVALID:key information not found for key "
-                    + "AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)\n" + "********************************";
+                    + "AxArtifactKey(name=KeyInfoMapKey,version=0.0.1)\n" + "********************************";
 }

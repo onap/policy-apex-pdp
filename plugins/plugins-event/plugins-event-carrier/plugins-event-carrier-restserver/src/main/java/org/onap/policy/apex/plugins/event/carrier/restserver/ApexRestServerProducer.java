@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ package org.onap.policy.apex.plugins.event.carrier.restserver;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
@@ -43,6 +45,7 @@ public class ApexRestServerProducer implements ApexEventProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestServerProducer.class);
 
     // The name for this producer
+    @Getter
     private String name = null;
 
     // The peer references for this event handler
@@ -85,14 +88,6 @@ public class ApexRestServerProducer implements ApexEventProducer {
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**

@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -57,6 +60,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxKeyInformation")
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxKeyInformation", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -163,14 +170,6 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
         keyList.addAll(keyInfoMap.keySet());
@@ -186,15 +185,6 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the key info map of this concept.
-     *
-     * @return the key info map of this concept
-     */
-    public Map<AxArtifactKey, AxKeyInfo> getKeyInfoMap() {
-        return keyInfoMap;
     }
 
     /**
@@ -289,22 +279,6 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",keyInfoMap=");
-        builder.append(keyInfoMap);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -320,41 +294,6 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
         copy.setKeyInfoMap(newKeyInfoMap);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + keyInfoMap.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxKeyInformation other = (AxKeyInformation) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        return keyInfoMap.equals(other.keyInfoMap);
     }
 
     /**

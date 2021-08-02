@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ package org.onap.policy.apex.model.basicmodel.test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import lombok.AllArgsConstructor;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -43,6 +45,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the generic type
  */
+@AllArgsConstructor
 public class TestApexModel<M extends AxModel> {
     private static final String MODEL_IS_INVALID = "model is invalid ";
     private static final String ERROR_PROCESSING_FILE = "error processing file ";
@@ -56,18 +59,6 @@ public class TestApexModel<M extends AxModel> {
 
     // The class that provides the model
     private TestApexModelCreator<M> modelCreator = null;
-
-    /**
-     * Constructor, defines the subclass of {@link AxModel} that is being tested and the {@link TestApexModelCreator}
-     * object that is used to generate Apex models.
-     *
-     * @param rootModelClass the Apex model class, a sub class of {@link AxModel}
-     * @param modelCreator the @link TestApexModelCreator} that will generate Apex models of various types for testing
-     */
-    public TestApexModel(final Class<M> rootModelClass, final TestApexModelCreator<M> modelCreator) {
-        this.rootModelClass = rootModelClass;
-        this.modelCreator = modelCreator;
-    }
 
     /**
      * Get a test Apex model using the model creator.

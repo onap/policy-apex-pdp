@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +39,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import lombok.Getter;
+import lombok.Setter;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.oxm.MediaType;
@@ -63,6 +66,7 @@ public class ApexModelWriter<C extends AxConcept> {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelWriter.class);
 
     // Writing as JSON or XML
+    @Getter
     private boolean jsonOutput = false;
 
     // The list of fields to output as CDATA
@@ -72,6 +76,8 @@ public class ApexModelWriter<C extends AxConcept> {
     private Marshaller marshaller = null;
 
     // All written concepts are validated before writing if this flag is set
+    @Getter
+    @Setter
     private boolean validateFlag = true;
 
     /**
@@ -105,14 +111,6 @@ public class ApexModelWriter<C extends AxConcept> {
         return cdataFieldSet;
     }
 
-    /**
-     * Return true if JSON output enabled, XML output if false.
-     *
-     * @return true for JSON output
-     */
-    public boolean isJsonOutput() {
-        return jsonOutput;
-    }
 
     /**
      * Set the value of JSON output, true for JSON output, false for XML output.
@@ -258,23 +256,5 @@ public class ApexModelWriter<C extends AxConcept> {
             throw new ApexModelException("Unable to marshal Apex concept to JSON", e);
         }
         LOGGER.debug("wrote Apex concept JSON");
-    }
-
-    /**
-     * Gets the validation flag value.
-     *
-     * @return the validation flag value
-     */
-    public boolean getValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validation flag.
-     *
-     * @param validateFlag the validation flag value
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
     }
 }

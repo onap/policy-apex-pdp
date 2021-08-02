@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
@@ -50,6 +52,7 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
     private ApexEventReceiver eventReceiver;
 
     // The name for this consumer
+    @Getter
     private String name = null;
 
     // The peer references for this event handler
@@ -79,14 +82,6 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
     @Override
     public void start() {
         new Thread(new RunTestEventSender()).start();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**

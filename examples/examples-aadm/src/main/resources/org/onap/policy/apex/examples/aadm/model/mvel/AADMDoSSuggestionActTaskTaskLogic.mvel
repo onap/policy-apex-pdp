@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +61,7 @@ if (imsiStatus.getENodeBId() != null && !imsiStatus.getENodeBId().equals(inField
         outFields["ACTTASK"] = "remove_from_probe";
 
         for (ENodeBStatus enbStatus : getContextAlbum("ENodeBStatusAlbum").values) {
-            if (enbStatus.getBeingProbed()) {
+            if (enbStatus.isBeingProbed()) {
                 outFields["PROBE_ON"] = true;
                 outFields["TCP_ON"] = true;
                 return true;
@@ -78,7 +79,7 @@ if (imsiStatus.getENodeBId() != null && !imsiStatus.getENodeBId().equals(inField
 }
 
 imsiStatus.setAnomalous(true);
-imsiStatus.setAnomolousTime(System.currentTimeMillis());
+imsiStatus.setAnomalousTime(System.currentTimeMillis());
 imsiStatus.setENodeBId(inFields["ENODEB_ID"]);
 getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getImsi(), imsiStatus);
 logger.debug(imsiStatus.getENodeBId() + ": enodeb added to imsi ip added " + outFields["IMSI_IP"]);

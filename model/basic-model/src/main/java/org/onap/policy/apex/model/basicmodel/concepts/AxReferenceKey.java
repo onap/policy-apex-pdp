@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -56,6 +60,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlType(name = "AxReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "parentKeyName",
     "parentKeyVersion", "parentLocalName", "localName" })
 
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class AxReferenceKey extends AxKey {
     private static final String PARENT_KEY_NAME = "parentKeyName";
     private static final String PARENT_KEY_VERSION = "parentKeyVersion";
@@ -307,15 +314,6 @@ public class AxReferenceKey extends AxKey {
     }
 
     /**
-     * Gets the parent key name of this reference key.
-     *
-     * @return the parent key name of this reference key
-     */
-    public String getParentKeyName() {
-        return parentKeyName;
-    }
-
-    /**
      * Sets the parent key name of this reference key.
      *
      * @param parentKeyName
@@ -323,15 +321,6 @@ public class AxReferenceKey extends AxKey {
      */
     public void setParentKeyName(final String parentKeyName) {
         this.parentKeyName = Assertions.validateStringParameter(PARENT_KEY_NAME, parentKeyName, NAME_REGEXP);
-    }
-
-    /**
-     * Gets the parent key version of this reference key.
-     *
-     * @return the parent key version of this reference key
-     */
-    public String getParentKeyVersion() {
-        return parentKeyVersion;
     }
 
     /**
@@ -346,15 +335,6 @@ public class AxReferenceKey extends AxKey {
     }
 
     /**
-     * Gets the parent local name of this reference key.
-     *
-     * @return the parent local name of this reference key
-     */
-    public String getParentLocalName() {
-        return parentLocalName;
-    }
-
-    /**
      * Sets the parent local name of this reference key.
      *
      * @param parentLocalName
@@ -363,15 +343,6 @@ public class AxReferenceKey extends AxKey {
     public void setParentLocalName(final String parentLocalName) {
         this.parentLocalName = Assertions.validateStringParameter(PARENT_LOCAL_NAME, parentLocalName,
                         LOCAL_NAME_REGEXP);
-    }
-
-    /**
-     * Gets the local name of this reference key.
-     *
-     * @return the local name of this reference key
-     */
-    public String getLocalName() {
-        return localName;
     }
 
     /**
@@ -461,26 +432,6 @@ public class AxReferenceKey extends AxKey {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("parentKeyName=");
-        builder.append(parentKeyName);
-        builder.append(",parentKeyVersion=");
-        builder.append(parentKeyVersion);
-        builder.append(",parentLocalName=");
-        builder.append(parentLocalName);
-        builder.append(",localName=");
-        builder.append(localName);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -494,51 +445,6 @@ public class AxReferenceKey extends AxKey {
         copy.setParentLocalName(parentLocalName);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + parentKeyName.hashCode();
-        result = prime * result + parentKeyVersion.hashCode();
-        result = prime * result + parentLocalName.hashCode();
-        result = prime * result + localName.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("comparison object may not be null");
-        }
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxReferenceKey other = (AxReferenceKey) obj;
-
-        if (!parentKeyName.equals(other.parentKeyName)) {
-            return false;
-        }
-        if (!parentKeyVersion.equals(other.parentKeyVersion)) {
-            return false;
-        }
-        if (!parentLocalName.equals(other.parentLocalName)) {
-            return false;
-        }
-        return localName.equals(other.localName);
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,10 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -31,6 +36,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class CommandLineCommand implements Comparable<CommandLineCommand> {
     private String name = "";
     private final List<String> keywordlist = new ArrayList<>();
@@ -71,96 +80,6 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
     }
 
     /**
-     * Gets the name of the editor command.
-     *
-     * @return the name of the editor command
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the editor command.
-     *
-     * @param name the name of the editor command
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets the list of keywords for this command.
-     *
-     * @return the list of keywords for this command
-     */
-    public List<String> getKeywordlist() {
-        return keywordlist;
-    }
-
-    /**
-     * Gets the list of arguments for this command.
-     *
-     * @return the list of arguments for this command
-     */
-    public List<CommandLineArgument> getArgumentList() {
-        return argumentList;
-    }
-
-    /**
-     * Gets the method of the method that executes this command in the Java API.
-     *
-     * @return the method of the method that executes this command in the Java API
-     */
-    public String getApiMethod() {
-        return apiMethod;
-    }
-
-    /**
-     * Sets the method of the method that executes this command in the Java API.
-     *
-     * @param apiMethod the method of the method that executes this command in the Java API
-     */
-    public void setApiMethod(final String apiMethod) {
-        this.apiMethod = apiMethod;
-    }
-
-    /**
-     * Gets the description of the command.
-     *
-     * @return the description of the command
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets the description of the command.
-     *
-     * @param description the description of the command
-     */
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
-    /**
-     * Checks if this command is a system command.
-     *
-     * @return true, if this command is a system command
-     */
-    public boolean isSystemCommand() {
-        return systemCommand;
-    }
-
-    /**
-     * Sets whether this command is a system command.
-     *
-     * @param systemCommand whether this command is a system command
-     */
-    public void setSystemCommand(final boolean systemCommand) {
-        this.systemCommand = systemCommand;
-    }
-
-    /**
      * Gets help for this command.
      *
      * @return the help for this command
@@ -184,16 +103,6 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
             builder.append(argument.getHelp());
         }
         return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "CLICommand [name=" + name + ",keywordlist=" + keywordlist + ", argumentList=" + argumentList
-                + ", apiMethod=" + apiMethod + ", systemCommand=" + systemCommand + ", description=" + description
-                + "]";
     }
 
     /**
@@ -248,41 +157,5 @@ public class CommandLineCommand implements Comparable<CommandLineCommand> {
         }
 
         return 0;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + ((apiMethod == null) ? 0 : apiMethod.hashCode());
-        result = prime * result + argumentList.hashCode();
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + keywordlist.hashCode();
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + (systemCommand ? 1231 : 1237);
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        return this.compareTo((CommandLineCommand) obj) == 0;
     }
 }

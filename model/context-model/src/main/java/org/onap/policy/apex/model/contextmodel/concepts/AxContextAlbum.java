@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -66,6 +69,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxContextAlbum")
 
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -83,9 +90,6 @@ public class AxContextAlbum extends AxConcept {
 
     /** The value of scope for a context album for which a scope has not been specified. */
     public static final String SCOPE_UNDEFINED = "UNDEFINED";
-
-    private static final int HASH_PRIME_0 = 1231;
-    private static final int HASH_PRIME_1 = 1237;
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
@@ -165,14 +169,6 @@ public class AxContextAlbum extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
         keyList.add(new AxKeyUse(itemSchema.getKey()));
@@ -188,15 +184,6 @@ public class AxContextAlbum extends AxConcept {
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the scope of the context album.
-     *
-     * @return the context album scope
-     */
-    public String getScope() {
-        return scope;
     }
 
     /**
@@ -216,24 +203,6 @@ public class AxContextAlbum extends AxConcept {
      */
     public void setWritable(final boolean writable) {
         this.isWritable = writable;
-    }
-
-    /**
-     * Checks if the album is writable.
-     *
-     * @return true, if the album is writable
-     */
-    public boolean isWritable() {
-        return isWritable;
-    }
-
-    /**
-     * Gets the artifact key of the item schema of this context album.
-     *
-     * @return the item schema key
-     */
-    public AxArtifactKey getItemSchema() {
-        return itemSchema;
     }
 
     /**
@@ -293,26 +262,6 @@ public class AxContextAlbum extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",scope=");
-        builder.append(scope);
-        builder.append(",isWritable=");
-        builder.append(isWritable);
-        builder.append(",itemSchema=");
-        builder.append(itemSchema);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "targetObject may not be null");
 
@@ -326,49 +275,6 @@ public class AxContextAlbum extends AxConcept {
         copy.setItemSchema(new AxArtifactKey(itemSchema));
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + scope.hashCode();
-        result = prime * result + (isWritable ? HASH_PRIME_0 : HASH_PRIME_1);
-        result = prime * result + itemSchema.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxContextAlbum other = (AxContextAlbum) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (!scope.equals(other.scope)) {
-            return false;
-        }
-        if (isWritable != other.isWritable) {
-            return (false);
-        }
-        return itemSchema.equals(other.itemSchema);
     }
 
     /**

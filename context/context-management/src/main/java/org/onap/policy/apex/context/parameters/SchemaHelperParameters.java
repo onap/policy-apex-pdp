@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.ClassName;
 import org.onap.policy.common.parameters.annotations.NotNull;
@@ -31,34 +33,11 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
 @NotNull
 public class SchemaHelperParameters extends ParameterGroupImpl {
     private @ClassName String schemaHelperPluginClass;
-
-    /**
-     * Constructor to create a schema helper parameters instance and register the instance with the parameter service.
-     */
-    public SchemaHelperParameters() {
-        super();
-    }
-
-    /**
-     * Gets the schema helper plugin class.
-     *
-     * @return the schema helper plugin class
-     */
-    public String getSchemaHelperPluginClass() {
-        return schemaHelperPluginClass;
-    }
-
-    /**
-     * Sets the schema helper plugin class.
-     *
-     * @param pluginClass the schema helper plugin class
-     */
-    public void setSchemaHelperPluginClass(final String pluginClass) {
-        schemaHelperPluginClass = pluginClass;
-    }
 
     @Override
     public String toString() {

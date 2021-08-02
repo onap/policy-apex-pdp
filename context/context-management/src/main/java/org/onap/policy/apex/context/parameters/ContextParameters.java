@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.common.parameters.annotations.Valid;
@@ -44,6 +46,8 @@ import org.onap.policy.common.parameters.annotations.Valid;
  * being used for context album persistence
  * </ol>
  */
+@Getter
+@Setter
 @NotNull
 public class ContextParameters extends ParameterGroupImpl {
     private @Valid DistributorParameters distributorParameters = new DistributorParameters();
@@ -57,78 +61,6 @@ public class ContextParameters extends ParameterGroupImpl {
      */
     public ContextParameters() {
         super(ContextParameterConstants.MAIN_GROUP_NAME);
-    }
-
-    /**
-     * Gets the distributor parameters.
-     *
-     * @return the distributor parameters
-     */
-    public DistributorParameters getDistributorParameters() {
-        return distributorParameters;
-    }
-
-    /**
-     * Sets the distributor parameters.
-     *
-     * @param distributorParameters the distributor parameters
-     */
-    public void setDistributorParameters(final DistributorParameters distributorParameters) {
-        this.distributorParameters = distributorParameters;
-    }
-
-    /**
-     * Gets the schema parameters.
-     *
-     * @return the schema parameters
-     */
-    public SchemaParameters getSchemaParameters() {
-        return schemaParameters;
-    }
-
-    /**
-     * Sets the schema parameters.
-     *
-     * @param schemaParameters the schema parameters
-     */
-    public void setSchemaParameters(final SchemaParameters schemaParameters) {
-        this.schemaParameters = schemaParameters;
-    }
-
-    /**
-     * Gets the lock manager parameters.
-     *
-     * @return the lock manager parameters
-     */
-    public LockManagerParameters getLockManagerParameters() {
-        return lockManagerParameters;
-    }
-
-    /**
-     * Sets the lock manager parameters.
-     *
-     * @param lockManagerParameters the lock manager parameters
-     */
-    public void setLockManagerParameters(final LockManagerParameters lockManagerParameters) {
-        this.lockManagerParameters = lockManagerParameters;
-    }
-
-    /**
-     * Gets the persistor parameters.
-     *
-     * @return the persistor parameters
-     */
-    public PersistorParameters getPersistorParameters() {
-        return persistorParameters;
-    }
-
-    /**
-     * Sets the persistor parameters.
-     *
-     * @param persistorParameters the persistor parameters
-     */
-    public void setPersistorParameters(final PersistorParameters persistorParameters) {
-        this.persistorParameters = persistorParameters;
     }
 
     @Override

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.policymodel.concepts.AxState;
@@ -35,6 +37,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
+@AllArgsConstructor
 public class AxStateFacade {
     // CHECKSTYLE:OFF: checkstyle:visibilityModifier Logic has access to this field
 
@@ -42,15 +45,6 @@ public class AxStateFacade {
     public final AxState state;
 
     // CHECKSTYLE:ON: checkstyle:visibilityModifier
-
-    /**
-     * Instantiates a new AxState facade.
-     *
-     * @param state the state for which a facade is being presented
-     */
-    public AxStateFacade(final AxState state) {
-        this.state = state;
-    }
 
     /**
      * Gets the default task key of the state.

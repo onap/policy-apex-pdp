@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 package org.onap.policy.apex.testsuites.integration.uservice.executionproperties;
 
 import lombok.Data;
+import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
 
@@ -31,11 +33,13 @@ import org.onap.policy.common.utils.coder.StandardCoder;
  */
 @Data
 public class RunTestEvent {
+    private static final Coder coder = new StandardCoder();
+
     private String testToRun;
     private String propertyFileName;
 
     public String toJson() throws CoderException {
-        return new StandardCoder().encode(this);
+        return coder.encode(this);
     }
 
     /**
@@ -45,7 +49,7 @@ public class RunTestEvent {
      * @throws CoderException on JSON exceptions
      */
     public void fromJson(final String jsonString) throws CoderException {
-        RunTestEvent jsonTestEvent = new StandardCoder().decode(jsonString, RunTestEvent.class);
+        RunTestEvent jsonTestEvent = coder.decode(jsonString, RunTestEvent.class);
         this.testToRun = jsonTestEvent.testToRun;
         this.propertyFileName = jsonTestEvent.propertyFileName;
     }

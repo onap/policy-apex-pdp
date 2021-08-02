@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.events;
 
 import java.util.Random;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +34,7 @@ import org.slf4j.LoggerFactory;
 public class EventGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventGenerator.class);
 
+    @Getter
     private static int nextEventNo = 0;
 
     /**
@@ -601,14 +604,5 @@ public class EventGenerator {
             LOGGER.error("usage EventGenerator #events XML|JSON");
             return;
         }
-    }
-
-    /**
-     * Gets the next event no.
-     *
-     * @return the next event no
-     */
-    public static int getNextEventNo() {
-        return nextEventNo;
     }
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +40,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter;
@@ -61,6 +65,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxEvents")
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxEvents", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -145,14 +153,6 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
 
@@ -171,15 +171,6 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the event map containing the events in the event container.
-     *
-     * @return the event map with all the events in the event container
-     */
-    public Map<AxArtifactKey, AxEvent> getEventMap() {
-        return eventMap;
     }
 
     /**
@@ -251,22 +242,6 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",eventMap=");
-        builder.append(eventMap);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -282,41 +257,6 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         copy.setEventMap(newEventMap);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + eventMap.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxEvents other = (AxEvents) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        return eventMap.equals(other.eventMap);
     }
 
     /**

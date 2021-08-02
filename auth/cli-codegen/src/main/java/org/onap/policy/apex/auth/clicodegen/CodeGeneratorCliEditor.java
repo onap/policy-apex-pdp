@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +78,7 @@ import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.VERSION;
 import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.WRITABLE;
 
 import java.util.List;
+import lombok.Getter;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -102,6 +104,7 @@ public class CodeGeneratorCliEditor {
     /**
      * The ST for the model, loaded from the STG.
      */
+    @Getter
     private final ST model;
 
     /**
@@ -138,15 +141,6 @@ public class CodeGeneratorCliEditor {
         model.add(VERSION, version);
         model.add(UUID, uuid);
         model.add(DESCRIPTION, description);
-    }
-
-    /**
-     * Returns the model.
-     *
-     * @return the model
-     */
-    public ST getModel() {
-        return model;
     }
 
     /**
@@ -187,7 +181,7 @@ public class CodeGeneratorCliEditor {
      *
      * @param codeGenCliEditorBuilder The parameters for the context album
      */
-    public void addContextAlbumDeclaration(CodeGenCliEditorBuilder codeGenCliEditorBuilder) {
+    public void addContextAlbumDeclaration(CodeGenCliEditor codeGenCliEditorBuilder) {
         final var st = stg.getInstanceOf("ctxAlbumDecl");
         st.add(NAME, codeGenCliEditorBuilder.getName());
         st.add(VERSION, codeGenCliEditorBuilder.getVersion());
@@ -247,7 +241,7 @@ public class CodeGeneratorCliEditor {
      *
      * @param eventDeclarationBuilder param object for event declaration
      */
-    public void addEventDeclaration(EventDeclarationBuilder eventDeclarationBuilder) {
+    public void addEventDeclaration(EventDeclaration eventDeclarationBuilder) {
         final var st = stg.getInstanceOf("eventDecl");
         st.add(NAME, eventDeclarationBuilder.getName());
         st.add(VERSION, eventDeclarationBuilder.getVersion());
@@ -271,7 +265,7 @@ public class CodeGeneratorCliEditor {
      *
      * @param taskDeclarationBuilder builder for the task declaration parameters
      */
-    public void addTaskDeclaration(TaskDeclarationBuilder taskDeclarationBuilder) {
+    public void addTaskDeclaration(TaskDeclaration taskDeclarationBuilder) {
         final var st = stg.getInstanceOf("taskDecl");
         st.add(NAME, taskDeclarationBuilder.getName());
         st.add(VERSION, taskDeclarationBuilder.getVersion());
@@ -395,7 +389,7 @@ public class CodeGeneratorCliEditor {
      * @param policyStateTaskBuilder builder for the state task parameters
      * @return a CLI command for a policy state task definition
      */
-    public ST createPolicyStateTask(PolicyStateTaskBuilder policyStateTaskBuilder) {
+    public ST createPolicyStateTask(PolicyStateTask policyStateTaskBuilder) {
         final var st = stg.getInstanceOf("policyStateTask");
         st.add(POLICY_NAME, policyStateTaskBuilder.getPolicyName());
         st.add(VERSION, policyStateTaskBuilder.getVersion());
@@ -440,7 +434,7 @@ public class CodeGeneratorCliEditor {
      * @param policyStateDefBuilder builder for the state definition parameters
      * @return a CLI command for a policy state definition
      */
-    public ST createPolicyStateDef(PolicyStateDefBuilder policyStateDefBuilder) {
+    public ST createPolicyStateDef(PolicyStateDef policyStateDefBuilder) {
         final var st = stg.getInstanceOf("policyStateDef");
         st.add(POLICY_NAME, policyStateDefBuilder.getPolicyName());
         st.add(VERSION, policyStateDefBuilder.getVersion());

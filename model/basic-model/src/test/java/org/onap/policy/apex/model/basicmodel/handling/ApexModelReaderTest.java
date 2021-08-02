@@ -72,7 +72,7 @@ public class ApexModelReaderTest {
         ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class, true);
 
         modelReader.setValidateFlag(true);
-        assertTrue(modelReader.getValidateFlag());
+        assertTrue(modelReader.isValidateFlag());
 
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         AxModel readModel = modelReader.read(bais);
@@ -82,7 +82,7 @@ public class ApexModelReaderTest {
         assertThatThrownBy(() -> modelReader.read(baisInvalid))
             .hasMessageStartingWith("Apex concept validation failed");
         modelReader.setValidateFlag(false);
-        assertFalse(modelReader.getValidateFlag());
+        assertFalse(modelReader.isValidateFlag());
 
         ByteArrayInputStream bais2 = new ByteArrayInputStream(baos.toByteArray());
         AxModel readModel2 = modelReader.read(bais2);

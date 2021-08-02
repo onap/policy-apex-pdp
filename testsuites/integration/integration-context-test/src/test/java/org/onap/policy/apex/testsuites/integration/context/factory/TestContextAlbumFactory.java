@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +30,8 @@ import static org.onap.policy.apex.testsuites.integration.context.utils.Constant
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.POLICY_CONTEXT_ALBUM;
 import static org.onap.policy.apex.testsuites.integration.context.utils.Constants.VERSION;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
 import org.onap.policy.apex.context.test.concepts.TestContextTreeMapItem;
@@ -48,6 +51,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TestContextAlbumFactory {
     // Recurring string constants.
     private static final String CONTEXT = "context";
@@ -56,13 +60,6 @@ public final class TestContextAlbumFactory {
     private static final String APPLICATION = "APPLICATION";
     private static final String JAVA_LONG = Long.class.getName();
     private static final String JAVA_FLAVOUR = "Java";
-
-    /**
-     * Default constructor to prevent sub-classing.
-     */
-    private TestContextAlbumFactory() {
-        // Private constructor to block subclassing
-    }
 
     /**
      * Creates the policy context model.

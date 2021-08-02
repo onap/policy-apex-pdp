@@ -34,6 +34,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -60,6 +64,12 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxEngineModel")
+
+@Getter
+@Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+
 @XmlRootElement(name = "apexEngineModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxEngineModel", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -67,7 +77,6 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 public class AxEngineModel extends AxContextModel {
     private static final long serialVersionUID = 6381235864606564046L;
-    private static final int HASH_CODE_PRIME = 32;
 
     @Column(name = "timestamp")
     private long timestamp;
@@ -162,39 +171,12 @@ public class AxEngineModel extends AxContextModel {
     }
 
     /**
-     * Gets the time stamp at which the engine model measurements were taken.
-     *
-     * @return the time stamp at which the engine model measurements were taken
-     */
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    /**
      * Gets the time stamp at which the engine model measurements were taken as a string.
      *
      * @return the time stamp string
      */
     public String getTimeStampString() {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(timestamp);
-    }
-
-    /**
-     * Sets the time stamp at which the engine model measurements were taken.
-     *
-     * @param timestamp the time stamp at which the engine model measurements were taken
-     */
-    public void setTimestamp(final long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /**
-     * Gets the state of the engine at the time the measurements were taken.
-     *
-     * @return the state of the engine at the time the measurements were taken
-     */
-    public AxEngineState getState() {
-        return state;
     }
 
     /**
@@ -205,15 +187,6 @@ public class AxEngineModel extends AxContextModel {
     public void setState(final AxEngineState state) {
         Assertions.argumentNotNull(state, "state may not be null");
         this.state = state;
-    }
-
-    /**
-     * Gets the statistics of the engine at the time the measurements were taken.
-     *
-     * @return the statistics of the engine at the time the measurements were taken
-     */
-    public AxEngineStats getStats() {
-        return stats;
     }
 
     /**
@@ -261,25 +234,6 @@ public class AxEngineModel extends AxContextModel {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append(super.toString());
-        builder.append(",timestamp=");
-        builder.append(timestamp);
-        builder.append(",state=");
-        builder.append(state);
-        builder.append(",stats=");
-        builder.append(stats);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -293,50 +247,6 @@ public class AxEngineModel extends AxContextModel {
         copy.setStats(new AxEngineStats(stats));
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + super.hashCode();
-        result = prime * result + (int) (timestamp ^ (timestamp >>> HASH_CODE_PRIME));
-        result = prime * result + state.hashCode();
-        result = prime * result + stats.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("comparison object may not be null");
-        }
-
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxEngineModel other = (AxEngineModel) obj;
-        if (!super.equals(other)) {
-            return false;
-        }
-        if (timestamp != other.timestamp) {
-            return false;
-        }
-        if (!state.equals(other.state)) {
-            return false;
-        }
-        return stats.equals(other.stats);
     }
 
     /**

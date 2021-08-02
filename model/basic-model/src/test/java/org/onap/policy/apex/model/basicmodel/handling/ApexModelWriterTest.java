@@ -54,7 +54,7 @@ public class ApexModelWriterTest {
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
 
         modelWriter.setValidateFlag(true);
-        assertTrue(modelWriter.getValidateFlag());
+        assertTrue(modelWriter.isValidateFlag());
         assertEquals(0, modelWriter.getCDataFieldSet().size());
 
         assertFalse(modelWriter.isJsonOutput());

@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.core.engine.monitoring.EventMonitor;
@@ -49,6 +51,9 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class EnEvent extends HashMap<String, Object> {
     private static final long serialVersionUID = 6311863111866294637L;
 
@@ -58,37 +63,30 @@ public class EnEvent extends HashMap<String, Object> {
     // Repeasted string constants
     private static final String NULL_KEYS_ILLEGAL = "null keys are illegal on method parameter \"key\"";
 
-    // The definition of this event in the Apex model
-    private final AxEvent axEvent;
-
-    // The event monitor for this event
-    private final transient EventMonitor eventMonitor = new EventMonitor();
-
-    // The stack of execution of this event, used for monitoring
-    @Getter
-    @Setter
-    private AxConcept[] userArtifactStack;
-
     /*
      * This is not used for encryption/security, thus disabling sonar.
      */
     private static Random rand = new Random(System.nanoTime());     // NOSONAR
 
+    // The definition of this event in the Apex model
+    @EqualsAndHashCode.Include
+    private final AxEvent axEvent;
+
+    // The event monitor for this event
+    @Getter(AccessLevel.NONE)
+    private final transient EventMonitor eventMonitor = new EventMonitor();
+
+    // The stack of execution of this event, used for monitoring
+    private AxConcept[] userArtifactStack;
+
     // An identifier for the current event execution. The default value here will always be a random
-    // number, and should
-    // be reset
-    @Getter
-    @Setter
+    // number, and should be reset
     private long executionId = rand.nextLong();
 
     // Event related properties used during processing of this event
-    @Getter
-    @Setter
     private Properties executionProperties = new Properties();
 
     // A string holding a message that indicates why processing of this event threw an exception
-    @Getter
-    @Setter
     private String exceptionMessage;
 
     /**
@@ -113,15 +111,6 @@ public class EnEvent extends HashMap<String, Object> {
         }
         // Save the event definition from the Apex model
         this.axEvent = axEvent;
-    }
-
-    /**
-     * Gets the event definition of this event.
-     *
-     * @return the event definition
-     */
-    public AxEvent getAxEvent() {
-        return axEvent;
     }
 
     /**
@@ -297,41 +286,5 @@ public class EnEvent extends HashMap<String, Object> {
     public String toString() {
         return "EnEvent [axEvent=" + axEvent + ", userArtifactStack=" + Arrays.toString(userArtifactStack) + ", map="
                 + super.toString() + "]";
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + axEvent.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof EnEvent)) {
-            return false;
-        }
-        EnEvent other = (EnEvent) obj;
-        if (axEvent == null) {
-            if (other.axEvent != null) {
-                return false;
-            }
-        } else if (!axEvent.equals(other.axEvent)) {
-            return false;
-        }
-        return true;
     }
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.auth.clieditor.utils.CliUtils;
 import org.onap.policy.apex.model.utilities.json.JsonHandler;
 import org.slf4j.ext.XLogger;
@@ -49,6 +52,8 @@ public class ApexCommandLineEditorMain {
     private ApexModelProperties apexModelProperties;
 
     // The number of errors encountered in command processing
+    @Getter
+    @Setter
     private int errorCount = 0;
 
     /**
@@ -90,14 +95,14 @@ public class ApexCommandLineEditorMain {
         }
 
         // The JSON processing returns null if there is an empty file
-        if (commands == null || commands.getCommandSet().isEmpty()) {
+        if (commands == null || commands.getCommandList().isEmpty()) {
             LOGGER.error("start of Apex command line editor failed, no commands found in {}",
                             parameters.getApexPropertiesLocation());
             errorCount++;
             return;
         }
 
-        LOGGER.debug("found {} commands", commands.getCommandSet().size());
+        LOGGER.debug("found {} commands", commands.getCommandList().size());
 
         // Read the Apex properties
         try {
@@ -123,7 +128,7 @@ public class ApexCommandLineEditorMain {
 
         // Find the system commands
         final Set<KeywordNode> systemCommandNodes = new TreeSet<>();
-        for (final CommandLineCommand command : commands.getCommandSet()) {
+        for (final CommandLineCommand command : commands.getCommandList()) {
             if (command.isSystemCommand()) {
                 systemCommandNodes.add(new KeywordNode(command.getName(), command));
             }
@@ -131,7 +136,7 @@ public class ApexCommandLineEditorMain {
 
         // Read in the command hierarchy, this builds a tree of commands
         final var rootKeywordNode = new KeywordNode("root");
-        for (final CommandLineCommand command : commands.getCommandSet()) {
+        for (final CommandLineCommand command : commands.getCommandList()) {
             rootKeywordNode.processKeywords(command.getKeywordlist(), command);
         }
         rootKeywordNode.addSystemCommandNodes(systemCommandNodes);
@@ -162,24 +167,6 @@ public class ApexCommandLineEditorMain {
         } catch (final IOException e) {
             LOGGER.error("execution of Apex command line editor failed: " + e.getMessage(), e);
         }
-    }
-
-    /**
-     * Get the number of errors encountered in command processing.
-     *
-     * @return the number of errors
-     */
-    public int getErrorCount() {
-        return errorCount;
-    }
-
-    /**
-     * Sets the number of errors encountered in command processing.
-     *
-     * @param errorCount the number of errors
-     */
-    public void setErrorCount(final int errorCount) {
-        this.errorCount = errorCount;
     }
 
     /**

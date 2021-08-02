@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +41,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -72,6 +76,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxEvent")
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEvent", namespace = "http://www.onap.org/policy/apex-pdp")
@@ -210,14 +218,6 @@ public class AxEvent extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
 
@@ -242,15 +242,6 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Gets the name space of the event.
-     *
-     * @return the name space of the event
-     */
-    public String getNameSpace() {
-        return nameSpace;
-    }
-
-    /**
      * Sets the name space of the event.
      *
      * @param nameSpace the name space of the event
@@ -258,15 +249,6 @@ public class AxEvent extends AxConcept {
     public void setNameSpace(final String nameSpace) {
         Assertions.argumentNotNull(nameSpace, "nameSpace may not be null");
         this.nameSpace = nameSpace.trim();
-    }
-
-    /**
-     * Gets the source of the event.
-     *
-     * @return the source of the event
-     */
-    public String getSource() {
-        return source;
     }
 
     /**
@@ -280,15 +262,6 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Gets the target of the event.
-     *
-     * @return the target of the event
-     */
-    public String getTarget() {
-        return target;
-    }
-
-    /**
      * Sets the target of the event.
      *
      * @param target the target of the event
@@ -296,15 +269,6 @@ public class AxEvent extends AxConcept {
     public void setTarget(final String target) {
         Assertions.argumentNotNull(target, "target may not be null");
         this.target = target.trim();
-    }
-
-    /**
-     * Gets the event parameter map.
-     *
-     * @return the event parameter map
-     */
-    public Map<String, AxField> getParameterMap() {
-        return parameterMap;
     }
 
     /**
@@ -410,28 +374,6 @@ public class AxEvent extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",nameSpace=");
-        builder.append(nameSpace);
-        builder.append(",source=");
-        builder.append(source);
-        builder.append(",target=");
-        builder.append(target);
-        builder.append(",parameter=");
-        builder.append(parameterMap);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "targetObject may not be null");
 
@@ -452,53 +394,6 @@ public class AxEvent extends AxConcept {
         copy.setTarget(target);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + nameSpace.hashCode();
-        result = prime * result + source.hashCode();
-        result = prime * result + target.hashCode();
-        result = prime * result + parameterMap.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxEvent other = (AxEvent) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (!nameSpace.equals(other.nameSpace)) {
-            return false;
-        }
-        if (!source.equals(other.source)) {
-            return false;
-        }
-        if (!target.equals(other.target)) {
-            return false;
-        }
-        return parameterMap.equals(other.parameterMap);
     }
 
     /**

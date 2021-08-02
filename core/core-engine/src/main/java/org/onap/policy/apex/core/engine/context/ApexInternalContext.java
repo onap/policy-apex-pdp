@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
@@ -52,6 +54,7 @@ import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
  */
 public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
     // The key of the currently running Apex model
+    @Getter
     private AxArtifactKey key;
 
     // The context albums being used in this engine
@@ -87,15 +90,6 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
 
         // Record the key of the current model
         key = apexPolicyModel.getKey();
-    }
-
-    /**
-     * Get the key of the internal context, which is the same as the key of the engine.
-     *
-     * @return the key
-     */
-    public AxArtifactKey getKey() {
-        return key;
     }
 
     /**

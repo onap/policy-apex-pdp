@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -197,7 +198,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             final String fieldName = eventField.getKey().getLocalName();
 
             if (!apexEvent.containsKey(fieldName)) {
-                if (!eventField.getOptional()) {
+                if (!eventField.isOptional()) {
                     final String errorMessage = ERROR_CODING + eventDefinition.getId() + " event to Json. " + "Field \""
                                     + fieldName + "\" is missing, but is mandatory. Fields: " + apexEvent;
                     throw new ApexEventRuntimeException(errorMessage);
@@ -321,7 +322,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         for (final AxField eventField : eventDefinition.getFields()) {
             final String fieldName = eventField.getKey().getLocalName();
             if (!hasJsonField(jsonObject, fieldName)) {
-                if (!eventField.getOptional()) {
+                if (!eventField.isOptional()) {
                     final String errorMessage = ERROR_PARSING + eventDefinition.getId() + " event from Json. "
                                     + "Field \"" + fieldName + "\" is missing, but is mandatory.";
                     throw new ApexEventException(errorMessage);
@@ -329,7 +330,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
                 continue;
             }
 
-            final JsonElement fieldValue = getJsonField(jsonObject, fieldName, null, !eventField.getOptional());
+            final JsonElement fieldValue = getJsonField(jsonObject, fieldName, null, !eventField.isOptional());
 
             if (fieldValue != null && !fieldValue.isJsonNull()) {
                 // Get the schema helper

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +24,12 @@ package org.onap.policy.apex.auth.clieditor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -34,6 +37,9 @@ import org.onap.policy.common.utils.validation.Assertions;
  * keyword itself and all its children are held as a recursive tree. This class is used to manage
  * interactive sub-modes in the Apex CLI editor.
  */
+@Getter
+@ToString
+@EqualsAndHashCode
 public class KeywordNode implements Comparable<KeywordNode> {
     private final String keyword;
     private final TreeMap<String, KeywordNode> children;
@@ -106,41 +112,6 @@ public class KeywordNode implements Comparable<KeywordNode> {
     }
 
     /**
-     * Gets the keyword of this keyword node.
-     *
-     * @return the keyword of this keyword node
-     */
-    public String getKeyword() {
-        return keyword;
-    }
-
-    /**
-     * Gets the children of this keyword node.
-     *
-     * @return the children of this keyword node
-     */
-    public NavigableMap<String, KeywordNode> getChildren() {
-        return children;
-    }
-
-    /**
-     * Gets the command of this keyword node.
-     *
-     * @return the command of this keyword node
-     */
-    public CommandLineCommand getCommand() {
-        return command;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "CommandKeywordNode [keyword=" + keyword + ", children=" + children + ", command=" + command + "]";
-    }
-
-    /**
      * Gets the commands.
      *
      * @return the commands
@@ -181,32 +152,5 @@ public class KeywordNode implements Comparable<KeywordNode> {
             return (children.hashCode() - other.children.hashCode());
         }
         return command.compareTo(otherKeywordNode.command);
-    }
-
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + ((children == null) ? 0 : children.hashCode());
-        result = prime * result + ((command == null) ? 0 : command.hashCode());
-        result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        return this.compareTo((KeywordNode) obj) == 0;
     }
 }

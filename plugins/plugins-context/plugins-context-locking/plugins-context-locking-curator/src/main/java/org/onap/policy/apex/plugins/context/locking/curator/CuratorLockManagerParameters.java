@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,10 @@
 
 package org.onap.policy.apex.plugins.context.locking.curator;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
 
 /**
@@ -28,6 +33,10 @@ import org.onap.policy.apex.context.parameters.LockManagerParameters;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class CuratorLockManagerParameters extends LockManagerParameters {
     // @formatter:off
     /** The default address used to connect to the Zookeeper server. */
@@ -43,75 +52,4 @@ public class CuratorLockManagerParameters extends LockManagerParameters {
     private String zookeeperAddress       = DEFAULT_ZOOKEEPER_ADDRESS;
     private int zookeeperConnectSleepTime = DEFAULT_ZOOKEEPER_CONNECT_SLEEP_TIME;
     private int zookeeperContextRetries   = DEFAULT_ZOOKEEPER_CONNECT_RETRIES;
-    // @formatter:on
-
-    /**
-     * The Constructor.
-     */
-    public CuratorLockManagerParameters() {
-        super();
-    }
-
-    /**
-     * Gets the zookeeper address.
-     *
-     * @return the zookeeper address
-     */
-    public String getZookeeperAddress() {
-        return zookeeperAddress;
-    }
-
-    /**
-     * Sets the zookeeper address.
-     *
-     * @param zookeeperAddress the zookeeper address
-     */
-    public void setZookeeperAddress(final String zookeeperAddress) {
-        this.zookeeperAddress = zookeeperAddress;
-    }
-
-    /**
-     * Gets the zookeeper connect sleep time.
-     *
-     * @return the zookeeper connect sleep time
-     */
-    public int getZookeeperConnectSleepTime() {
-        return zookeeperConnectSleepTime;
-    }
-
-    /**
-     * Sets the zookeeper connect sleep time.
-     *
-     * @param zookeeperConnectSleepTime the zookeeper connect sleep time
-     */
-    public void setZookeeperConnectSleepTime(final int zookeeperConnectSleepTime) {
-        this.zookeeperConnectSleepTime = zookeeperConnectSleepTime;
-    }
-
-    /**
-     * Gets the zookeeper context retries.
-     *
-     * @return the zookeeper context retries
-     */
-    public int getZookeeperContextRetries() {
-        return zookeeperContextRetries;
-    }
-
-    /**
-     * Sets the zookeeper context retries.
-     *
-     * @param zookeeperContextRetries the zookeeper context retries
-     */
-    public void setZookeeperContextRetries(final int zookeeperContextRetries) {
-        this.zookeeperContextRetries = zookeeperContextRetries;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "CuratorLockManagerParameters [zookeeperAddress=" + zookeeperAddress + ", zookeeperConnectSleepTime="
-                + zookeeperConnectSleepTime + ", zookeeperContextRetries=" + zookeeperContextRetries + "]";
-    }
 }

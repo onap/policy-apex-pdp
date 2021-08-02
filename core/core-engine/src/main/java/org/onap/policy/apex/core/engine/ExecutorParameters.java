@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.core.engine;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 
 /**
@@ -32,6 +34,8 @@ import org.onap.policy.common.parameters.ParameterGroupImpl;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
 public class ExecutorParameters extends ParameterGroupImpl {
     // Executor Plugin classes for executors
     private String taskExecutorPluginClass;
@@ -44,62 +48,6 @@ public class ExecutorParameters extends ParameterGroupImpl {
      */
     public ExecutorParameters() {
         super(EngineParameterConstants.EXECUTOR_GROUP_NAME);
-    }
-
-    /**
-     * Gets the task executor plugin class for the executor.
-     *
-     * @return the task executor plugin class for the executor
-     */
-    public String getTaskExecutorPluginClass() {
-        return taskExecutorPluginClass;
-    }
-
-    /**
-     * Sets the task executor plugin class for the executor.
-     *
-     * @param taskExecutorPluginClass the task executor plugin class for the executor
-     */
-    public void setTaskExecutorPluginClass(final String taskExecutorPluginClass) {
-        this.taskExecutorPluginClass = taskExecutorPluginClass;
-    }
-
-    /**
-     * Gets the task selection executor plugin class for the executor.
-     *
-     * @return the task selection executor plugin class for the executor
-     */
-    public String getTaskSelectionExecutorPluginClass() {
-        return taskSelectionExecutorPluginClass;
-    }
-
-    /**
-     * Sets the task selection executor plugin class for the executor.
-     *
-     * @param taskSelectionExecutorPluginClass the task selection executor plugin class for the
-     *        executor
-     */
-    public void setTaskSelectionExecutorPluginClass(final String taskSelectionExecutorPluginClass) {
-        this.taskSelectionExecutorPluginClass = taskSelectionExecutorPluginClass;
-    }
-
-    /**
-     * Gets the state finalizer executor plugin class for the executor.
-     *
-     * @return the state finalizer executor plugin class for the executor
-     */
-    public String getStateFinalizerExecutorPluginClass() {
-        return stateFinalizerExecutorPluginClass;
-    }
-
-    /**
-     * Sets the state finalizer executor plugin class for the executor.
-     *
-     * @param stateFinalizerExecutorPluginClass the state finalizer executor plugin class for the
-     *        executor
-     */
-    public void setStateFinalizerExecutorPluginClass(final String stateFinalizerExecutorPluginClass) {
-        this.stateFinalizerExecutorPluginClass = stateFinalizerExecutorPluginClass;
     }
 
     @Override

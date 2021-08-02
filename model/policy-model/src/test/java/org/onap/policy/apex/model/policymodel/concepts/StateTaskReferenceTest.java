@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -110,7 +112,7 @@ public class StateTaskReferenceTest {
         stRef.clean();
 
         AxStateTaskReference clonedStRef = new AxStateTaskReference(stRef);
-        assertEquals("AxStateTaskReference:(stateKey=AxReferenceKey:(par", clonedStRef.toString().substring(0, 50));
+        assertThat(clonedStRef.toString()).startsWith("AxStateTaskReference(key=AxReferenceKey(par");
 
         assertNotEquals(0, stRef.hashCode());
 

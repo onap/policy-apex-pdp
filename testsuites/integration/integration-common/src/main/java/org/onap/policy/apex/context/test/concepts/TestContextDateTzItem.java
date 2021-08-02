@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +24,14 @@ package org.onap.policy.apex.context.test.concepts;
 
 import java.io.Serializable;
 import java.util.TimeZone;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * The Class TestContextDateTzItem.
  */
 @Data
+@AllArgsConstructor
 public class TestContextDateTzItem implements Serializable {
     private static final long serialVersionUID = 5604426823170331706L;
 
@@ -41,19 +44,6 @@ public class TestContextDateTzItem implements Serializable {
      */
     public TestContextDateTzItem() {
         dst = true;
-    }
-
-    /**
-     * The Constructor.
-     *
-     * @param dateValue the date value
-     * @param tzValue the tz value
-     * @param dst the dst
-     */
-    public TestContextDateTzItem(final TestContextDateItem dateValue, final String tzValue, final boolean dst) {
-        this.dateValue = dateValue;
-        this.tzValue = TimeZone.getTimeZone(tzValue).getDisplayName();
-        this.dst = dst;
     }
 
     /**

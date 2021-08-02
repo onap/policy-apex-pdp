@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,24 +25,17 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
+import lombok.NoArgsConstructor;
 
 /**
  * A factory for creating TestInitialContext objects.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@NoArgsConstructor
 public class TestInitialContextFactory implements InitialContextFactory {
 
     private final Context context = new TestContext();
-
-    /**
-     * Instantiates a new test initial context factory.
-     *
-     * @throws NamingException the naming exception
-     */
-    public TestInitialContextFactory() throws NamingException {
-        // Default constructor
-    }
 
     /**
      * {@inheritDoc}.

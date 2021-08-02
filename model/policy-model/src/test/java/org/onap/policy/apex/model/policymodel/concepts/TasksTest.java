@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -147,7 +149,7 @@ public class TasksTest {
         task.clean();
 
         final AxTask clonedTask = new AxTask(task);
-        assertEquals("AxTask:(key=AxArtifactKey:(name=TaskName", clonedTask.toString().substring(0, 40));
+        assertThat(clonedTask.toString()).startsWith("AxTask(key=AxArtifactKey(name=TaskName");
 
         assertNotEquals(0, task.hashCode());
         // disabling sonar because this code tests the equals() method
@@ -227,8 +229,7 @@ public class TasksTest {
         tasks.afterUnmarshal(null, null);
 
         final AxTasks clonedTasks = new AxTasks(tasks);
-        assertEquals("AxTasks:(key=AxArtifactKey:(name=TasksKey,version=0.0.1),tas",
-                        clonedTasks.toString().substring(0, 60));
+        assertThat(clonedTasks.toString()).startsWith("AxTasks(key=AxArtifactKey(name=TasksKey, version=0.0.1), tas");
 
         assertNotEquals(0, tasks.hashCode());
 

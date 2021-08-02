@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,31 +48,32 @@ public class ApexPolicyModelTest {
     @Test
     public void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
-        assertEquals(VALID_MODEL_STRING, result.toString());
+        assertEquals(VALID_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
     public void testApexModelVaidateObservation() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateObservation();
-        assertEquals(OBSERVATION_MODEL_STRING, result.toString());
+        assertEquals(OBSERVATION_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
     public void testApexModelVaidateWarning() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
-        assertEquals(WARNING_MODEL_STRING, result.toString());
+        assertEquals(WARNING_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
     public void testModelVaidateInvalidModel() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
-        assertEquals(INVALID_MODEL_STRING, result.toString());
+        assertEquals(INVALID_MODEL_STRING.replaceAll("\\s+", ""), result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
     public void testModelVaidateMalstructured() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
-        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
+        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING.replaceAll("\\s+", ""),
+                        result.toString().replaceAll("\\s+", ""));
     }
 
     @Test
@@ -97,57 +99,57 @@ public class ApexPolicyModelTest {
 
     private static final String OBSERVATION_MODEL_STRING = "\n"
                     + "***observations noted during validation of model***\n"
-                    + "AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,"
+                    + "AxReferenceKey(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,"
                     + "localName=state):org.onap.policy.apex.model.policymodel.concepts.AxState:OBSERVATION:"
                     + "state output stateOutput0 is not used directly by any task\n"
                     + "********************************";
 
     private static final String WARNING_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-                    + "AxArtifactKey:(name=policy,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicy:WARNING:state AxReferenceKey:"
+                    + "AxArtifactKey(name=policy,version=0.0.1)"
+                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicy:WARNING:state AxReferenceKey"
                     + "(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=anotherState) "
                     + "is not referenced in the policy execution tree\n" + "********************************";
 
     private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=contextAlbum0,version=0.0.1):"
+                    + "AxArtifactKey(name=contextAlbum0,version=0.0.1):"
                     + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
-                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+                    + "AxArtifactKey(name=contextAlbum1,version=0.0.1):"
                     + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
                     + "********************************";
 
     private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1):"
+                    + "AxArtifactKey(name=policyModel_KeyInfo,version=0.0.1):"
                     + "org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation:INVALID:"
-                    + "keyInfoMap may not be empty\n" + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "keyInfoMap may not be empty\n" + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "key information not found for key AxArtifactKey(name=policyModel,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "key information not found for key AxArtifactKey(name=policyModel_KeyInfo,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Schemas,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "key information not found for key AxArtifactKey(name=policyModel_Schemas,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Events,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "key information not found for key AxArtifactKey(name=policyModel_Events,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Albums,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "key information not found for key AxArtifactKey(name=policyModel_Albums,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Tasks,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
+                    + "key information not found for key AxArtifactKey(name=policyModel_Tasks,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Policies,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel_Schemas,version=0.0.1):"
+                    + "key information not found for key AxArtifactKey(name=policyModel_Policies,version=0.0.1)\n"
+                    + "AxArtifactKey(name=policyModel_Schemas,version=0.0.1):"
                     + "org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:"
-                    + "contextSchemas may not be empty\n" + "AxArtifactKey:(name=policyModel_Events,version=0.0.1):"
+                    + "contextSchemas may not be empty\n" + "AxArtifactKey(name=policyModel_Events,version=0.0.1):"
                     + "org.onap.policy.apex.model.eventmodel.concepts.AxEvents:INVALID:eventMap may not be empty\n"
-                    + "AxArtifactKey:(name=policyModel_Albums,version=0.0.1):"
+                    + "AxArtifactKey(name=policyModel_Albums,version=0.0.1):"
                     + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:OBSERVATION:albums are empty\n"
-                    + "AxArtifactKey:(name=policyModel_Tasks,version=0.0.1)"
+                    + "AxArtifactKey(name=policyModel_Tasks,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxTasks:INVALID:taskMap may not be empty\n"
-                    + "AxArtifactKey:(name=policyModel_Policies,version=0.0.1)"
+                    + "AxArtifactKey(name=policyModel_Policies,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicies:INVALID:policyMap may not be empty\n"
                     + "********************************";
 }

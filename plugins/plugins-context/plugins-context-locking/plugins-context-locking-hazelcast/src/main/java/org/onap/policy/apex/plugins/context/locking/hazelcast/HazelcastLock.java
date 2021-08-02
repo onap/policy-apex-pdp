@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.cp.lock.FencedLock;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import lombok.Getter;
 
 /**
  * This class maps a Hazelcast {@link ILock} to a Java {@link ReadWriteLock}.
@@ -33,6 +35,7 @@ import java.util.concurrent.locks.ReadWriteLock;
  */
 public class HazelcastLock implements ReadWriteLock {
     // The Lock ID
+    @Getter
     private final String lockId;
 
     // The hazelcast lock
@@ -51,15 +54,6 @@ public class HazelcastLock implements ReadWriteLock {
         // Create the Hazelcast read and write locks
         readLock = hazelcastInstance.getCPSubsystem().getLock(lockId + "_READ");
         writeLock = hazelcastInstance.getCPSubsystem().getLock(lockId + "_WRITE");
-    }
-
-    /**
-     * Get the lock Id of the lock.
-     *
-     * @return the lock ID
-     */
-    public String getLockId() {
-        return lockId;
     }
 
     /**

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,23 +26,20 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * The Class TestContextTreeSetItem.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TestContextTreeSetItem implements Serializable {
     private static final long serialVersionUID = 1254589722957250388L;
 
     private SortedSet<String> setValue = new TreeSet<>();
-
-    /**
-     * The Constructor.
-     */
-    public TestContextTreeSetItem() {
-        // Default constructor
-    }
 
     /**
      * The Constructor.
@@ -50,14 +48,5 @@ public class TestContextTreeSetItem implements Serializable {
      */
     public TestContextTreeSetItem(final String[] setArray) {
         this.setValue = new TreeSet<>(Arrays.asList(setArray));
-    }
-
-    /**
-     * The Constructor.
-     *
-     * @param setValue the set value
-     */
-    public TestContextTreeSetItem(final SortedSet<String> setValue) {
-        this.setValue = setValue;
     }
 }

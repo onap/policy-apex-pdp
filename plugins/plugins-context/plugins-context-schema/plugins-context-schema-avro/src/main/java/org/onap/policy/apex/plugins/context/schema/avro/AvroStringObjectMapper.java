@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import lombok.Getter;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Type;
 import org.apache.avro.util.Utf8;
@@ -40,6 +42,7 @@ public class AvroStringObjectMapper implements AvroObjectMapper {
 
     // The user keyAvro type for direct mapping
     private AxKey userKey;
+    @Getter
     private Type avroType;
 
     // The Apex compatible class
@@ -70,14 +73,6 @@ public class AvroStringObjectMapper implements AvroObjectMapper {
         // By default, we do not create an instance, normal Java object creation for strings is
         // sufficient
         return null;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public Type getAvroType() {
-        return avroType;
     }
 
     /**
