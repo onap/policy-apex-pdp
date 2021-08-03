@@ -105,7 +105,7 @@ public class RawMessageHandler<M> implements WebSocketMessageListener<M>, Runnab
             if (messageHolder != null) {
                 final List<M> messages = messageHolder.getMessages();
                 if (messages != null) {
-                    messageBlockQueue.add(new MessageBlock<>(messages, incomingData.getConn()));
+                    messageBlockQueue.add(new MessageBlock<>(messages, incomingData.getWebSocket()));
                 }
             }
         } catch (final IOException | ClassNotFoundException e) {

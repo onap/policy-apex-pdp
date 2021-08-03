@@ -22,6 +22,11 @@
 package org.onap.policy.apex.core.protocols;
 
 import java.io.Serializable;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**
@@ -29,8 +34,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
+@Getter
+@ToString
+@EqualsAndHashCode
 public abstract class Message implements Serializable {
-    private static final int HASH_PRIME = 31;
 
     // Serialization ID
     private static final long serialVersionUID = 2271443377544488309L;
@@ -42,12 +49,17 @@ public abstract class Message implements Serializable {
     private Action action = null;
 
     // The artifact key of the artifact to which this message is related
+    @Getter(AccessLevel.NONE)
     private AxArtifactKey targetKey = null;
 
     // The data of the message
+    @Setter
     private String messageData = null;
 
     // The timeout time for replies in milliseconds
+    @Setter
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private int replyTimeout = DEFAULT_REPLY_TIMEOUT;
 
     /**
@@ -70,24 +82,6 @@ public abstract class Message implements Serializable {
     protected Message(final Action action, final AxArtifactKey targetKey, final String messageData) {
         this.action = action;
         this.targetKey = targetKey;
-        this.messageData = messageData;
-    }
-
-    /**
-     * Set the message timeout.
-     *
-     * @param replyTimeout the timeout on reply messages in milliseconds
-     */
-    public void setReplyTimeout(final int replyTimeout) {
-        this.replyTimeout = replyTimeout;
-    }
-
-    /**
-     * Sets the message data.
-     *
-     * @param messageData the new message data
-     */
-    public void setMessageData(final String messageData) {
         this.messageData = messageData;
     }
 
@@ -120,75 +114,5 @@ public abstract class Message implements Serializable {
      */
     public final String getTargetName() {
         return targetKey.getName();
-    }
-
-    /**
-     * Gets the action or message type of this message.
-     *
-     * @return the action
-     */
-    public final Action getAction() {
-        return action;
-    }
-
-    /**
-     * Gets the message data.
-     *
-     * @return the message data
-     */
-    public final String getMessageData() {
-        return messageData;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-
-        final Message message = (Message) object;
-
-        if (action != null ? !action.equals(message.action) : message.action != null) {
-            return false;
-        }
-        if (targetKey != null ? !targetKey.equals(message.targetKey) : message.targetKey != null) {
-            return false;
-        }
-        return !(messageData != null ? !messageData.equals(message.messageData) : message.messageData != null);
-
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        int result = action != null ? action.hashCode() : 0;
-        result = HASH_PRIME * result + (targetKey != null ? targetKey.hashCode() : 0);
-        result = HASH_PRIME * result + (messageData != null ? messageData.hashCode() : 0);
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "Message [action=" + action + ", targetKey=" + targetKey + ", data=" + messageData + "]";
-    }
-
-    /**
-     * Get the timeout to wait for a reply.
-     *
-     * @return the timeout in milliseconds
-     */
-    public int getReplyTimeout() {
-        return replyTimeout;
     }
 }

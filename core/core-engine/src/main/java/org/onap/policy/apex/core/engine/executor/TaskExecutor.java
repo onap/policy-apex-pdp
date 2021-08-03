@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,6 +61,7 @@ public abstract class TaskExecutor
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TaskExecutor.class);
 
     // Hold the task and context definitions for this task
+    @Getter
     private Executor<?, ?, ?, ?> parent = null;
     private AxTask axTask = null;
     private ApexInternalContext internalContext = null;
@@ -271,14 +273,6 @@ public abstract class TaskExecutor
     @Override
     public AxArtifactKey getKey() {
         return axTask.getKey();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public Executor<?, ?, ?, ?> getParent() {
-        return parent;
     }
 
     /**

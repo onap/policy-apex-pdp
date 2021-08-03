@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -47,6 +49,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 public class StateMachineExecutor implements Executor<EnEvent, Collection<EnEvent>, AxPolicy, ApexInternalContext> {
     // The Apex Policy and context for this state machine
     private AxPolicy axPolicy = null;
+    @Getter
     private Executor<?, ?, ?, ?> parent = null;
     private ApexInternalContext internalContext = null;
 
@@ -196,14 +199,6 @@ public class StateMachineExecutor implements Executor<EnEvent, Collection<EnEven
     @Override
     public AxArtifactKey getKey() {
         return axPolicy.getKey();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public final Executor<?, ?, ?, ?> getParent() {
-        return parent;
     }
 
     /**

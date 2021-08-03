@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +54,7 @@ public abstract class DummyMessageListener implements MessageListener<String> {
         if (data != null) {
             if (logger.isDebugEnabled()) {
                 logger.debug("{} command recieved from machine {} ", data.getMessages().size(),
-                        data.getConnection().getRemoteSocketAddress().getHostString());
+                        data.getWebSocket().getRemoteSocketAddress().getHostString());
             }
             onCommand(data);
         }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +41,8 @@ public class SupportMessageTester {
 
         DummyMessage dummyMessage = new DummyMessage(new DummyAction(null), new AxArtifactKey("Target:0.0.1"));
         assertEquals(new DummyAction(null), dummyMessage.getAction());
-        assertEquals("Message [action=org.onap.policy.apex.core.protocols.DummyAction@1f, "
-            + "targetKey=AxArtifactKey:(name=Target,version=0.0.1), data=null]", dummyMessage.toString());
+        assertEquals("Message(action=org.onap.policy.apex.core.protocols.DummyAction@1f, "
+            + "targetKey=AxArtifactKey:(name=Target,version=0.0.1), messageData=null)", dummyMessage.toString());
 
         dummyMessage.setMessageData("Message Data");
         assertEquals("Message Data", dummyMessage.getMessageData());
@@ -60,7 +61,7 @@ public class SupportMessageTester {
         dummyMessage.setMessageData(null);
         assertNotEquals(0, dummyMessage.hashCode());
         dummyMessage = new DummyMessage(null, null, null);
-        assertEquals(0, dummyMessage.hashCode());
+        assertNotEquals(0, dummyMessage.hashCode());
 
         // disabling sonar because this code tests the equals() method
         assertEquals(dummyMessage, dummyMessage); // NOSONAR

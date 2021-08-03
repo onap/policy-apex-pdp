@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +26,8 @@ import static org.onap.policy.common.utils.validation.Assertions.argumentOfClass
 
 import java.util.Map;
 import java.util.Properties;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
@@ -53,6 +56,7 @@ public abstract class StateFinalizerExecutor
     private static final String EXECUTE_POST_SFL = "execute-post: state finalizer logic \"";
 
     // Hold the state and context definitions
+    @Getter
     private Executor<?, ?, ?, ?> parent = null;
     private AxState axState = null;
     private AxStateFinalizerLogic finalizerLogic = null;
@@ -67,16 +71,8 @@ public abstract class StateFinalizerExecutor
     // The execution context; contains the facades for events and context to be used by tasks
     // executed by this task
     // executor
+    @Getter(AccessLevel.PROTECTED)
     private StateFinalizerExecutionContext executionContext = null;
-
-    /**
-     * Gets the execution internalContext.
-     *
-     * @return the execution context
-     */
-    protected StateFinalizerExecutionContext getExecutionContext() {
-        return executionContext;
-    }
 
     /**
      * {@inheritDoc}.
@@ -175,14 +171,6 @@ public abstract class StateFinalizerExecutor
     @Override
     public AxReferenceKey getKey() {
         return finalizerLogic.getKey();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public Executor<?, ?, ?, ?> getParent() {
-        return parent;
     }
 
     /**

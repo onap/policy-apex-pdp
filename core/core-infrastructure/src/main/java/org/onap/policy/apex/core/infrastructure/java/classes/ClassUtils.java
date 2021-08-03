@@ -34,6 +34,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -42,7 +44,8 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public abstract class ClassUtils {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ClassUtils {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ClassUtils.class);
 
@@ -57,13 +60,6 @@ public abstract class ClassUtils {
 
     // Token for library fragment in path
     private static final String LIBRARAY_PATH_TOKEN = "/lib";
-
-    /**
-     * Private constructor used to prevent sub class instantiation.
-     */
-    private ClassUtils() {
-        // Private constructor to block subclassing
-    }
 
     /**
      * Get the class names of all classes on the class path. WARNING: This is a heavy call, use sparingly

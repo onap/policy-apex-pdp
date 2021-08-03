@@ -30,6 +30,8 @@ import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -39,6 +41,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MessagingUtils {
     // The port number of the lowest user port, ports 0-1023 are system ports
     private static final int LOWEST_USER_PORT = 1024;
@@ -50,13 +53,6 @@ public final class MessagingUtils {
 
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(MessagingUtils.class);
-
-    /**
-     * Private constructor used to prevent sub class instantiation.
-     */
-    private MessagingUtils() {
-        // Private constructor to block subclassing
-    }
 
     /**
      * This method searches the availability of the port, if the requested port not available, this method will throw an

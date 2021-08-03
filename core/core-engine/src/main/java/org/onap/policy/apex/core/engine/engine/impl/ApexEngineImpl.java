@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +32,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -76,9 +78,11 @@ public class ApexEngineImpl implements ApexEngine {
     private static final String STOP = "stop()<-";
 
     // The artifact key of this engine
+    @Getter
     private final AxArtifactKey key;
 
     // The state of this engine
+    @Getter
     private AxEngineState state = AxEngineState.STOPPED;
     private final Object stateLockObj = new Object();
 
@@ -86,6 +90,7 @@ public class ApexEngineImpl implements ApexEngine {
     private final Map<String, EnEventListener> eventListeners = new LinkedHashMap<>();
 
     // The context of this engine
+    @Getter
     private ApexInternalContext internalContext = null;
 
     // The state machines
@@ -446,22 +451,6 @@ public class ApexEngineImpl implements ApexEngine {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public final AxEngineState getState() {
-        return state;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxEngineModel getEngineStatus() {
         final var engineModel = new AxEngineModel(key);
         engineModel.setTimestamp(System.currentTimeMillis());
@@ -487,15 +476,6 @@ public class ApexEngineImpl implements ApexEngine {
         }
 
         return currentContext;
-    }
-
-    /**
-     * Get the internal context for the Apex engine.
-     *
-     * @return The Apex Internal Context
-     */
-    public ApexInternalContext getInternalContext() {
-        return internalContext;
     }
 
     /**
