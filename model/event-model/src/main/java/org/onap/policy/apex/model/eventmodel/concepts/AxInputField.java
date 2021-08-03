@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.NoArgsConstructor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
@@ -38,19 +40,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 @Table(name = "AxInputField")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
+@NoArgsConstructor
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexInputField", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxInputField", namespace = "http://www.onap.org/policy/apex-pdp")
 
 public class AxInputField extends AxField {
     private static final long serialVersionUID = 2090324845463750391L;
-
-    /**
-     * The default constructor creates a field with a null artifact and schema key.
-     */
-    public AxInputField() {
-        super();
-    }
 
     /**
      * The default constructor creates a field with the given artifact key and a null schema key.
@@ -98,6 +95,6 @@ public class AxInputField extends AxField {
      * @param field the input field to copy from
      */
     public AxInputField(final AxInputField field) {
-        super(new AxReferenceKey(field.getKey()), new AxArtifactKey(field.getSchema()), field.getOptional());
+        super(new AxReferenceKey(field.getKey()), new AxArtifactKey(field.getSchema()), field.isOptional());
     }
 }

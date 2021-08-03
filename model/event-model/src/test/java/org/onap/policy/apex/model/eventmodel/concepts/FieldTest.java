@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,9 +74,9 @@ public class FieldTest {
         field.setSchema(schemaKey);
         assertEquals("SchemaName:0.0.1", field.getSchema().getId());
 
-        assertEquals(false, field.getOptional());
+        assertEquals(false, field.isOptional());
         field.setOptional(true);
-        assertEquals(true, field.getOptional());
+        assertEquals(true, field.isOptional());
 
         AxValidationResult result = new AxValidationResult();
         result = field.validate(result);
@@ -104,9 +105,9 @@ public class FieldTest {
         field.clean();
 
         final AxField clonedField = new AxField(field);
-        assertEquals("AxField:(key=AxReferenceKey:(parentKeyName=FieldName,parentKeyVersion=0.0.1,"
-                        + "parentLocalName=PLN,localName=LN),fieldSchemaKey="
-                        + "AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)", clonedField.toString());
+        assertEquals("AxField(key=AxReferenceKey:(parentKeyName=FieldName,parentKeyVersion=0.0.1,"
+                        + "parentLocalName=PLN,localName=LN), fieldSchemaKey="
+                        + "AxArtifactKey:(name=SchemaName,version=0.0.1), optional=true)", clonedField.toString());
 
         assertNotEquals(0, field.hashCode());
         // disabling sonar because this code tests the equals() method

@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,9 +122,9 @@ public class TaskExecutorTest {
         Mockito.doReturn(schemaKey).when(axOptionalOutputFieldMock).getSchema();
         Mockito.doReturn(schemaKey).when(axMissingOutputFieldMock).getSchema();
 
-        Mockito.doReturn(true).when(axOptionalInputFieldMock).getOptional();
-        Mockito.doReturn(true).when(axOptionalOutputFieldMock).getOptional();
-        Mockito.doReturn(false).when(axMissingOutputFieldMock).getOptional();
+        Mockito.doReturn(true).when(axOptionalInputFieldMock).isOptional();
+        Mockito.doReturn(true).when(axOptionalOutputFieldMock).isOptional();
+        Mockito.doReturn(false).when(axMissingOutputFieldMock).isOptional();
 
         Mockito.doReturn(taskLogicMock).when(axTaskMock).getTaskLogic();
 

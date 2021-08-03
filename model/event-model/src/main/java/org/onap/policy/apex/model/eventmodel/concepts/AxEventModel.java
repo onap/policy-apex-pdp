@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -54,6 +57,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 @Entity
 @Table(name = "AxEventModel")
+
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 
 @XmlRootElement(name = "apexEventModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -146,15 +153,6 @@ public class AxEventModel extends AxModel {
     }
 
     /**
-     * Gets the context schemas.
-     *
-     * @return the context schemas
-     */
-    public AxContextSchemas getSchemas() {
-        return schemas;
-    }
-
-    /**
      * Sets the context schemas.
      *
      * @param schemas the context schemas
@@ -162,15 +160,6 @@ public class AxEventModel extends AxModel {
     public void setSchemas(final AxContextSchemas schemas) {
         Assertions.argumentNotNull(schemas, "schemas may not be null");
         this.schemas = schemas;
-    }
-
-    /**
-     * Gets the events from the model.
-     *
-     * @return the events
-     */
-    public AxEvents getEvents() {
-        return events;
     }
 
     /**
@@ -209,23 +198,6 @@ public class AxEventModel extends AxModel {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append(super.toString());
-        builder.append(",schemas=");
-        builder.append(schemas);
-        builder.append(",events=");
-        builder.append(events);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -238,45 +210,6 @@ public class AxEventModel extends AxModel {
         copy.setEvents(new AxEvents(events));
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + super.hashCode();
-        result = prime * result + schemas.hashCode();
-        result = prime * result + events.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("comparison object may not be null");
-        }
-
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxEventModel other = (AxEventModel) obj;
-        if (!super.equals(other)) {
-            return false;
-        }
-        if (!schemas.equals(other.schemas)) {
-            return false;
-        }
-        return events.equals(other.events);
     }
 
     /**

@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,7 +126,7 @@ public abstract class TaskExecutor
         missingTaskInputFields.removeAll(newIncomingFields.keySet());
 
         // Remove fields from the set that are optional
-        missingTaskInputFields.removeIf(missingField -> inputEventParameterMap.get(missingField).getOptional());
+        missingTaskInputFields.removeIf(missingField -> inputEventParameterMap.get(missingField).isOptional());
 
         if (!missingTaskInputFields.isEmpty()) {
             throw new StateMachineException("task input fields \"" + missingTaskInputFields
@@ -182,7 +183,7 @@ public abstract class TaskExecutor
             .forEach(missingTaskOutputFieldsEntry -> missingTaskOutputFieldsEntry.getValue()
                 .removeIf(missingField -> axTask.getInputEvent().getParameterMap().containsKey(missingField)
                     || axTask.getOutputEvents().get(missingTaskOutputFieldsEntry.getKey()).getParameterMap()
-                        .get(missingField).getOptional()));
+                        .get(missingField).isOptional()));
         missingTaskOutputFieldsMap.entrySet()
             .removeIf(missingTaskOutputFieldsEntry -> missingTaskOutputFieldsEntry.getValue().isEmpty());
         if (!missingTaskOutputFieldsMap.isEmpty()) {

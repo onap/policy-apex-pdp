@@ -37,6 +37,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -62,6 +67,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Table(name = "AxField")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexField", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxField", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -72,9 +81,6 @@ public class AxField extends AxConcept {
     private static final String FIELD_SCHEMA_KEY_MAY_NOT_BE_NULL = "fieldSchemaKey may not be null";
 
     private static final long serialVersionUID = -6443016863162692288L;
-
-    private static final int HASH_PRIME_0 = 1231;
-    private static final int HASH_PRIME_1 = 1237;
 
     @EmbeddedId()
     @XmlElement(name = "key", required = true)
@@ -87,11 +93,13 @@ public class AxField extends AxConcept {
     @AttributeOverride(name = "version", column = @Column(name = "fieldSchemaVersion"))
     @Column(name = "fieldSchemaKey")
     @XmlElement(required = true)
+    @Getter(AccessLevel.NONE)
     private AxArtifactKey fieldSchemaKey;
     // @formatter:on
 
     @Column(name = "optional")
     @XmlElement(required = false)
+    @Setter
     private boolean optional;
 
     /**
@@ -191,14 +199,6 @@ public class AxField extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxReferenceKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         final List<AxKey> keyList = key.getKeys();
         keyList.add(new AxKeyUse(fieldSchemaKey));
@@ -235,24 +235,6 @@ public class AxField extends AxConcept {
     }
 
     /**
-     * Gets the optionality of the field.
-     *
-     * @return the field optional flag
-     */
-    public boolean getOptional() {
-        return optional;
-    }
-
-    /**
-     * Sets the optionality of the field.
-     *
-     * @param optional the optionality of the field
-     */
-    public void setOptional(final boolean optional) {
-        this.optional = optional;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -286,24 +268,6 @@ public class AxField extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",fieldSchemaKey=");
-        builder.append(fieldSchemaKey);
-        builder.append(",optional=");
-        builder.append(optional);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
@@ -315,47 +279,6 @@ public class AxField extends AxConcept {
         copy.setSchema(new AxArtifactKey(fieldSchemaKey));
         copy.setOptional(optional);
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + fieldSchemaKey.hashCode();
-        result = prime * result + (optional ? HASH_PRIME_0 : HASH_PRIME_1);
-        return result;
-    }
-
-    /*
-     * (nonJavadoc)
-     *
-     * @see org.onap.policy.apex.model.basicmodel.concepts.AxConcept#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof AxField)) {
-            return false;
-        }
-
-        final AxField other = (AxField) obj;
-        if (!key.getLocalName().equals(other.key.getLocalName())) {
-            return false;
-        }
-        if (optional != other.optional) {
-            return false;
-        }
-        return fieldSchemaKey.equals(other.fieldSchemaKey);
     }
 
     /**
