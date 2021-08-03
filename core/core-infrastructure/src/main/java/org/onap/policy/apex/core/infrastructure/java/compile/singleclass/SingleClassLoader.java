@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +21,19 @@
 
 package org.onap.policy.apex.core.infrastructure.java.compile.singleclass;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * The Class SingleClassLoader is responsible for class loading the single Java class being held in memory.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@AllArgsConstructor
 public class SingleClassLoader extends ClassLoader {
     // The byte code of the class held in memory as byte code in a ByteCodeFileObject
-    private final SingleClassByteCodeFileObject byteCodeFileObject;
-
-    /**
-     * Instantiates a new single class loader to load the byte code of the class that is being held in memory.
-     *
-     * @param byteCodeFileObject the byte code of the class
-     */
-    public SingleClassLoader(final SingleClassByteCodeFileObject byteCodeFileObject) {
-        this.byteCodeFileObject = byteCodeFileObject;
-    }
+    private final SingleClassByteCodeFileObject fileObject;
 
     /**
      * {@inheritDoc}.
@@ -45,15 +42,6 @@ public class SingleClassLoader extends ClassLoader {
     protected Class<?> findClass(final String className) throws ClassNotFoundException {
         // Creates a java Class that can be instantiated from the class defined in the byte code in the
         // ByteCodeFileObejct
-        return defineClass(className, byteCodeFileObject.getByteCode(), 0, byteCodeFileObject.getByteCode().length);
-    }
-
-    /**
-     * Gets the file object.
-     *
-     * @return the file object
-     */
-    SingleClassByteCodeFileObject getFileObject() {
-        return byteCodeFileObject;
+        return defineClass(className, fileObject.getByteCode(), 0, fileObject.getByteCode().length);
     }
 }

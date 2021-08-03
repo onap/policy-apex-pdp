@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +28,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -58,6 +60,7 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
 
     // Hold the state and context definitions for this state
     private AxState axState = null;
+    @Getter
     private Executor<?, ?, ?, ?> parent = null;
     private ApexInternalContext context = null;
 
@@ -294,14 +297,6 @@ public class StateExecutor implements Executor<EnEvent, StateOutput, AxState, Ap
     @Override
     public AxReferenceKey getKey() {
         return axState.getKey();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public Executor<?, ?, ?, ?> getParent() {
-        return parent;
     }
 
     /**

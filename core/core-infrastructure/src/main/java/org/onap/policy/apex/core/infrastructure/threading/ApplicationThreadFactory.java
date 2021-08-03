@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.core.infrastructure.threading;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.Getter;
 
 /**
  * This class provides a thread factory for use by classes that require thread factories to handle concurrent operation.
@@ -34,8 +36,12 @@ public class ApplicationThreadFactory implements ThreadFactory {
     private static final AtomicInteger NEXT_POOL_NUMBER = new AtomicInteger();
     private final ThreadGroup group;
     private final AtomicInteger nextThreadNumber = new AtomicInteger();
+
+    @Getter
     private final String name;
+    @Getter
     private final long stackSize;
+    @Getter
     private final int threadPriority;
 
     /**
@@ -101,38 +107,11 @@ public class ApplicationThreadFactory implements ThreadFactory {
     }
 
     /**
-     * Gets the name of the thread factory.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the stack size of the threads created by this thread factory.
-     *
-     * @return the stack size
-     */
-    public long getStackSize() {
-        return stackSize;
-    }
-
-    /**
-     * Gets the thread priority of the threads created by this thread factory.
-     *
-     * @return the thread priority
-     */
-    public int getThreadPriority() {
-        return threadPriority;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
     public String toString() {
-        return "ApplicationThreadFactory [nextPollNumber=" + NEXT_POOL_NUMBER + ",nextThreadNumber=" + nextThreadNumber
+        return "ApplicationThreadFactory [nextPoolNumber=" + NEXT_POOL_NUMBER + ",nextThreadNumber=" + nextThreadNumber
                 + ", name=" + name + ", stackSize=" + stackSize + ", threadPriority=" + threadPriority + "]";
     }
 }

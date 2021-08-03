@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -76,6 +78,8 @@ public class StateFinalizerExecutionContext extends AbstractExecutionContext {
      * The state output that the state finalizer logic has selected for a state. The state finalizer logic sets this
      * field in its logic after executing and the Apex engine uses this state output for this state.
      */
+    @Getter
+    @Setter
     private String selectedStateOutputName;
 
     /**
@@ -155,23 +159,5 @@ public class StateFinalizerExecutionContext extends AbstractExecutionContext {
             throw new ContextRuntimeException("cannot find definition of context album \"" + contextAlbumName
                     + "\" on state \"" + subject.getId() + "\"");
         }
-    }
-
-    /**
-     * Return the state output name selected by the state finalizer logic.
-     *
-     * @return the state output name
-     */
-    public String getSelectedStateOutputName() {
-        return selectedStateOutputName;
-    }
-
-    /**
-     * Set the state output name selected by the state finalizer logic.
-     *
-     * @param selectedStateOutputName the state output name
-     */
-    public void setSelectedStateOutputName(final String selectedStateOutputName) {
-        this.selectedStateOutputName = selectedStateOutputName;
     }
 }

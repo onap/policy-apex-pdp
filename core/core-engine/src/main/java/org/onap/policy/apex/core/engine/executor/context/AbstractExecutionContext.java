@@ -23,6 +23,7 @@ package org.onap.policy.apex.core.engine.executor.context;
 
 import java.util.Properties;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.common.utils.coder.CoderException;
@@ -34,6 +35,7 @@ import org.onap.policy.common.utils.coder.StandardCoder;
  * policy, global, and external context.
  */
 @Getter
+@RequiredArgsConstructor
 public class AbstractExecutionContext {
     /** A constant <code>boolean true</code> value available for reuse e.g., for the return value */
     public static final Boolean IS_TRUE = true;
@@ -55,19 +57,6 @@ public class AbstractExecutionContext {
 
     // Execution properties for a policy execution
     private final Properties executionProperties;
-
-    /**
-     * Instantiates a new task execution context.
-     *
-     * @param executionId the execution ID for the current APEX policy execution instance
-     * @param executionProperties the execution properties for task execution
-     */
-    public AbstractExecutionContext(final long executionId, final Properties executionProperties) {
-
-        // Execution ID is the current policy execution instance
-        this.executionId = executionId;
-        this.executionProperties = executionProperties;
-    }
 
     /**
      * Get a JSON representation of an object.

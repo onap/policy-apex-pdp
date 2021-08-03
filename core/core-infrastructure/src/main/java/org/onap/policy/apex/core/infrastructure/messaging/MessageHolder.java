@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,9 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -34,9 +38,10 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Sajeevan Achuthan (sajeevan.achuthan@ericsson.com)
  * @param <M> the generic type of message being handled by a message holder instance
  */
+@Getter
+@ToString
+@EqualsAndHashCode
 public class MessageHolder<M> implements Serializable {
-    private static final int HASH_PRIME = 31;
-    private static final int FOUR_BYTES = 32;
 
     // Serial ID
     private static final long serialVersionUID = 1235487535388793719L;
@@ -49,6 +54,7 @@ public class MessageHolder<M> implements Serializable {
     private final InetAddress senderHostAddress;
 
     // Sequence of message in the message holder
+    @ToString.Exclude
     private final List<M> messages;
 
     /**
@@ -64,15 +70,6 @@ public class MessageHolder<M> implements Serializable {
     }
 
     /**
-     * Return the messages in this message holder.
-     *
-     * @return the messages
-     */
-    public List<M> getMessages() {
-        return messages;
-    }
-
-    /**
      * Adds a message to this message holder.
      *
      * @param message the message to add
@@ -83,76 +80,5 @@ public class MessageHolder<M> implements Serializable {
         } else {
             LOGGER.warn("duplicate message {} added to message holder", message);
         }
-    }
-
-    /**
-     * Gets the creation time.
-     *
-     * @return the creation time
-     */
-    public long getCreationTime() {
-        return creationTime;
-    }
-
-    /**
-     * Gets the sender host address.
-     *
-     * @return the sender host address
-     */
-    public InetAddress getSenderHostAddress() {
-        return senderHostAddress;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "ApexCommandProtocol [creationTime=" + creationTime + ", senderHostAddress=" + senderHostAddress + "]";
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = HASH_PRIME;
-        int result = 1;
-        result = prime * result + ((senderHostAddress == null) ? 0 : senderHostAddress.hashCode());
-        result = prime * result + ((messages == null) ? 0 : messages.hashCode());
-        result = prime * result + (int) (creationTime ^ (creationTime >>> FOUR_BYTES));
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final MessageHolder<?> other = (MessageHolder<?>) obj;
-        if (senderHostAddress == null) {
-            if (other.senderHostAddress != null) {
-                return false;
-            }
-        } else if (!senderHostAddress.equals(other.senderHostAddress)) {
-            return false;
-        }
-        if (messages == null) {
-            if (other.messages != null) {
-                return false;
-            }
-        } else if (!messages.equals(other.messages)) {
-            return false;
-        }
-        return creationTime == other.creationTime;
     }
 }

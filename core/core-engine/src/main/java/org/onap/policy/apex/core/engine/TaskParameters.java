@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 package org.onap.policy.apex.core.engine;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ValidationResult;
@@ -34,8 +36,9 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class TaskParameters {
-    private String name;
+    private String name = "taskParameters";
 
     // If taskId is not specified, then the taskParameter is added to all tasks in the engine.
     private String taskId;
@@ -46,10 +49,6 @@ public class TaskParameters {
     @NotNull
     @NotBlank
     private String value;
-
-    public TaskParameters() {
-        this.name = "taskParameters";
-    }
 
     /**
      * Full constructor.
