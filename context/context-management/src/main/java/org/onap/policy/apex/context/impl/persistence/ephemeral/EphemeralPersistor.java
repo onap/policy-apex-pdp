@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ package org.onap.policy.apex.context.impl.persistence.ephemeral;
 
 import java.util.Set;
 import java.util.TreeSet;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Persistor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -34,6 +36,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class EphemeralPersistor implements Persistor {
 
     // The key of this persistor
@@ -45,14 +48,6 @@ public class EphemeralPersistor implements Persistor {
     @Override
     public void init(final AxArtifactKey persistorKey) throws ContextException {
         this.key = persistorKey;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxArtifactKey getKey() {
-        return key;
     }
 
     /**

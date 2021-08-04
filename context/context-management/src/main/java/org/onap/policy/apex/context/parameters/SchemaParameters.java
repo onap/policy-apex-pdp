@@ -23,6 +23,8 @@ package org.onap.policy.apex.context.parameters;
 
 import java.util.Map;
 import java.util.TreeMap;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotNull;
@@ -39,6 +41,8 @@ import org.onap.policy.common.parameters.annotations.Valid;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 @NotNull
+@Getter
+@Setter
 public class SchemaParameters extends ParameterGroupImpl {
     /** The Java schema flavour is always available for use. */
     public static final String DEFAULT_SCHEMA_FLAVOUR = "Java";
@@ -57,24 +61,6 @@ public class SchemaParameters extends ParameterGroupImpl {
 
         // The default schema helper
         schemaHelperParameterMap.put(DEFAULT_SCHEMA_FLAVOUR, new JavaSchemaHelperParameters());
-    }
-
-    /**
-     * Gets a map of the schemas and schema helper parameters that are defined.
-     *
-     * @return the schema helper parameter map
-     */
-    public Map<String, SchemaHelperParameters> getSchemaHelperParameterMap() {
-        return schemaHelperParameterMap;
-    }
-
-    /**
-     * Sets the map of the schemas and schema helper parameters.
-     *
-     * @param schemaHelperParameterMap the schema helper parameter map
-     */
-    public void setSchemaHelperParameterMap(final Map<String, SchemaHelperParameters> schemaHelperParameterMap) {
-        this.schemaHelperParameterMap = schemaHelperParameterMap;
     }
 
     /**

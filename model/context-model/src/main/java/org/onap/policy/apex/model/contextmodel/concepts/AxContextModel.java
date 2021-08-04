@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -53,6 +56,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxContextModel")
+
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 
 @XmlRootElement(name = "apexContextModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -160,15 +167,6 @@ public class AxContextModel extends AxModel {
     }
 
     /**
-     * Gets the context schemas from the model.
-     *
-     * @return the context schemas
-     */
-    public AxContextSchemas getSchemas() {
-        return schemas;
-    }
-
-    /**
      * Sets the context schemas on the model.
      *
      * @param schemas the context schemas
@@ -176,15 +174,6 @@ public class AxContextModel extends AxModel {
     public void setSchemas(final AxContextSchemas schemas) {
         Assertions.argumentNotNull(schemas, "schemas may not be null");
         this.schemas = schemas;
-    }
-
-    /**
-     * Gets the context albums from the model.
-     *
-     * @return the context albums
-     */
-    public AxContextAlbums getAlbums() {
-        return albums;
     }
 
     /**
@@ -223,23 +212,6 @@ public class AxContextModel extends AxModel {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append(super.toString());
-        builder.append(",schemas=");
-        builder.append(schemas);
-        builder.append(",albums=");
-        builder.append(albums);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -252,45 +224,6 @@ public class AxContextModel extends AxModel {
         copy.setAlbums(new AxContextAlbums(albums));
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + super.hashCode();
-        result = prime * result + schemas.hashCode();
-        result = prime * result + albums.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("comparison object may not be null");
-        }
-
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxContextModel other = (AxContextModel) obj;
-        if (!super.equals(other)) {
-            return false;
-        }
-        if (!schemas.equals(other.schemas)) {
-            return false;
-        }
-        return albums.equals(other.albums);
     }
 
     /**
