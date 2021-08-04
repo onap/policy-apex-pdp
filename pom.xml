@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>3.3.2-SNAPSHOT</version>
+        <version>3.3.2</version>
         <relativePath />
     </parent>
 
@@ -45,8 +45,8 @@
         <version.commons-cli>1.4</version.commons-cli>
         <version.kafka>2.3.0</version.kafka>
         <version.hibernate>5.3.7.Final</version.hibernate>
-        <version.policy.common>1.8.2-SNAPSHOT</version.policy.common>
-        <version.policy.models>2.4.4-SNAPSHOT</version.policy.models>
+        <version.policy.common>1.8.2</version.policy.common>
+        <version.policy.models>2.4.4</version.policy.models>
         <version.jgroups>4.1.5.Final</version.jgroups>
         <version.commons-codec>20041127.091804</version.commons-codec>
         <version.caffeine>2.8.0</version.caffeine>
