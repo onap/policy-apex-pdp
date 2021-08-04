@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.LockManager;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -45,6 +46,7 @@ public abstract class AbstractLockManager implements LockManager {
     private static final String CONTEXT_ITEM = " context item ";
 
     // The key of this lock manager
+    @Getter
     private AxArtifactKey key = null;
 
     // Map of locks in use on this distributor for each context map
@@ -57,14 +59,6 @@ public abstract class AbstractLockManager implements LockManager {
     @Override
     public void init(final AxArtifactKey lockManagerKey) throws ContextException {
         this.key = lockManagerKey;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxArtifactKey getKey() {
-        return key;
     }
 
     /**

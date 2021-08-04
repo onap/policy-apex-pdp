@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +40,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter;
@@ -62,6 +67,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Entity
 @Table(name = "AxContextSchemas")
 
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxContextSchemas", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
     { "key", "schemas" })
@@ -81,6 +90,7 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
             inverseJoinColumns = {@JoinColumn(name = "contextSchemaName", referencedColumnName = "name"),
                 @JoinColumn(name = "contextSchemaVersion", referencedColumnName = "version")})
     @XmlElement(name = "schemas", required = true)
+    @Getter(AccessLevel.NONE)
     private Map<AxArtifactKey, AxContextSchema> schemas;
     // @formatter:on
 
@@ -141,14 +151,6 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         final NavigableMap<AxArtifactKey, AxContextSchema> navigableContextSchemas = new TreeMap<>();
         navigableContextSchemas.putAll(schemas);
         schemas = navigableContextSchemas;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxArtifactKey getKey() {
-        return key;
     }
 
     /**
@@ -252,22 +254,6 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",schemas=");
-        builder.append(schemas);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -285,40 +271,6 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         copy.setSchemasMap(newcontextSchemas);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + schemas.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxContextSchemas other = (AxContextSchemas) obj;
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        return schemas.equals(other.schemas);
     }
 
     /**
