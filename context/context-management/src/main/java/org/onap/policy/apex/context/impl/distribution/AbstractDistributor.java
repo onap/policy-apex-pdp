@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
@@ -56,21 +58,24 @@ public abstract class AbstractDistributor implements Distributor {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AbstractDistributor.class);
 
-    // The key of this distributor
-    private AxArtifactKey key = null;
-
     // The context albums for this context set indexed by their keys
     private static Map<AxArtifactKey, ContextAlbum> albumMaps = Collections
                     .synchronizedMap(new HashMap<AxArtifactKey, ContextAlbum>());
 
     // Lock manager for this distributor
+    @Setter
     private static LockManager lockManager = null;
+
+    // Hold a flush timer for this context distributor
+    @Setter
+    private static DistributorFlushTimerTask flushTimer = null;
+
+    // The key of this distributor
+    @Getter
+    private AxArtifactKey key = null;
 
     // Hold a persistor for this distributor
     private Persistor persistor = null;
-
-    // Hold a flush timer for this context distributor
-    private static DistributorFlushTimerTask flushTimer = null;
 
     /**
      * Create an instance of an abstract Context Distributor.
@@ -106,36 +111,10 @@ public abstract class AbstractDistributor implements Distributor {
     }
 
     /**
-     * Set the static lock manager.
-     *
-     * @param incomingLockManager the lock manager value
-     */
-    private static void setLockManager(final LockManager incomingLockManager) {
-        lockManager = incomingLockManager;
-    }
-
-    /**
-     * Set the static flush timer.
-     *
-     * @param incomingFlushTimer the flush timer value
-     */
-    private static void setFlushTimer(final DistributorFlushTimerTask incomingFlushTimer) {
-        flushTimer = incomingFlushTimer;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
     public abstract void shutdown();
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
 
     /**
      * Create a context album using whatever underlying mechanism we are using for albums.
