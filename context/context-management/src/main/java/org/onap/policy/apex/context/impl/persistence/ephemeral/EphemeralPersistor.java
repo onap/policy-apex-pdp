@@ -22,6 +22,7 @@ package org.onap.policy.apex.context.impl.persistence.ephemeral;
 
 import java.util.Set;
 import java.util.TreeSet;
+import lombok.Getter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Persistor;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -34,6 +35,7 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
 public class EphemeralPersistor implements Persistor {
 
     // The key of this persistor
@@ -45,14 +47,6 @@ public class EphemeralPersistor implements Persistor {
     @Override
     public void init(final AxArtifactKey persistorKey) throws ContextException {
         this.key = persistorKey;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxArtifactKey getKey() {
-        return key;
     }
 
     /**

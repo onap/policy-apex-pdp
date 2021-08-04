@@ -27,6 +27,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.ContextRuntimeException;
@@ -47,6 +50,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextAlbumImpl> {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ContextAlbumImpl.class);
@@ -56,18 +60,24 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     private static final String ALBUM = "album \"";
 
     // The definition of this context album
+    @Getter
+    @EqualsAndHashCode.Include
     private final AxContextAlbum albumDefinition;
 
     /// The map holding the items and their values for this context album
+    @EqualsAndHashCode.Include
     private final Map<String, Object> albumMap;
 
     // The artifact stack of the artifacts currently using the context album
+    @Getter
+    @Setter
     private AxConcept[] userArtifactStack = null;
 
     // The context distributor we are using
     private final Distributor distributor;
 
     // The schema helper that handles translations of Java objects for this album
+    @Getter
     private SchemaHelper schemaHelper;
 
     // The context monitor for this context album
@@ -130,22 +140,6 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
      * {@inheritDoc}.
      */
     @Override
-    public AxContextAlbum getAlbumDefinition() {
-        return albumDefinition;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public SchemaHelper getSchemaHelper() {
-        return schemaHelper;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public void lockForReading(final String keyOnAlbum) throws ContextException {
         distributor.lockForReading(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorReadLock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
@@ -180,22 +174,6 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         distributor.unlockForWriting(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorWriteUnlock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
                 userArtifactStack);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public AxConcept[] getUserArtifactStack() {
-        return userArtifactStack;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public void setUserArtifactStack(final AxConcept[] userArtifactStack) {
-        this.userArtifactStack = userArtifactStack;
     }
 
     /**
@@ -460,38 +438,5 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     @Override
     public int compareTo(ContextAlbumImpl otherContextAlbumImpl) {
         return (equals(otherContextAlbumImpl) ? 0 : 1);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + albumDefinition.hashCode();
-        result = prime * result + albumMap.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof ContextAlbumImpl)) {
-            return false;
-        }
-        ContextAlbumImpl other = (ContextAlbumImpl) obj;
-        if (!albumDefinition.equals(other.albumDefinition)) {
-            return false;
-        }
-        return albumMap.equals(other.albumMap);
     }
 }

@@ -24,6 +24,8 @@ package org.onap.policy.apex.context.impl.schema.java;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;
 import com.google.gson.TypeAdapter;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.BeanValidator;
@@ -45,6 +47,8 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 //@formatter:on
+@Getter
+@Setter
 public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavaSchemaHelperJsonAdapterParameters.class);
 
@@ -76,15 +80,6 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
      *
      * @return the adapted class
      */
-    public String getAdaptedClass() {
-        return adaptedClass;
-    }
-
-    /**
-     * Gets the adapted class.
-     *
-     * @return the adapted class
-     */
     public Class<?> getAdaptedClazz() {
         if (adaptedClass == null) {
             return null;
@@ -96,24 +91,6 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
             LOGGER.warn("class \"" + adaptedClass + "\" not found: ", e);
             return null;
         }
-    }
-
-    /**
-     * Sets the adapted class.
-     *
-     * @param adaptedClass the new adapted class
-     */
-    public void setAdaptedClass(String adaptedClass) {
-        this.adaptedClass = adaptedClass;
-    }
-
-    /**
-     * Gets the adaptor class.
-     *
-     * @return the adaptor class
-     */
-    public String getAdaptorClass() {
-        return adaptorClass;
     }
 
     /**
@@ -132,15 +109,6 @@ public class JavaSchemaHelperJsonAdapterParameters implements ParameterGroup {
             LOGGER.warn("class \"" + adaptorClass + "\" not found: ", e);
             return null;
         }
-    }
-
-    /**
-     * Sets the adaptor class.
-     *
-     * @param adaptorClass the new adaptor class
-     */
-    public void setAdaptorClass(String adaptorClass) {
-        this.adaptorClass = adaptorClass;
     }
 
     /**

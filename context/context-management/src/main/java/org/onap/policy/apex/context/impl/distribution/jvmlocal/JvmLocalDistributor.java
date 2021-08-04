@@ -38,13 +38,6 @@ public class JvmLocalDistributor extends AbstractDistributor {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JvmLocalDistributor.class);
 
     /**
-     * Create an instance of a JVM Local Context Distributor.
-     */
-    public JvmLocalDistributor() {
-        super();
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override

@@ -21,6 +21,8 @@
 
 package org.onap.policy.apex.context.parameters;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.ClassName;
@@ -34,6 +36,8 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 @NotNull
+@Getter
+@Setter
 public class LockManagerParameters extends ParameterGroupImpl {
     /**
      * The default lock manager can lock context album instance across all threads in a single JVM.
@@ -48,24 +52,6 @@ public class LockManagerParameters extends ParameterGroupImpl {
      */
     public LockManagerParameters() {
         super(ContextParameterConstants.LOCKING_GROUP_NAME);
-    }
-
-    /**
-     * Gets the plugin class.
-     *
-     * @return the plugin class
-     */
-    public String getPluginClass() {
-        return pluginClass;
-    }
-
-    /**
-     * Sets the plugin class.
-     *
-     * @param pluginClass the plugin class
-     */
-    public void setPluginClass(final String pluginClass) {
-        this.pluginClass = pluginClass;
     }
 
     @Override

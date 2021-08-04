@@ -33,6 +33,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -62,6 +66,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxContextSchema")
+
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexContextSchema", namespace = "http://www.onap.org/policy/apex-pdp")
@@ -95,6 +103,7 @@ public class AxContextSchema extends AxConcept {
     @Convert(converter = CDataConditioner.class)
     @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(name = "schemaDefinition", required = true)
+    @Getter(AccessLevel.NONE)
     private String schemaDefinition;
 
     /**
@@ -147,14 +156,6 @@ public class AxContextSchema extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         return key.getKeys();
     }
@@ -167,15 +168,6 @@ public class AxContextSchema extends AxConcept {
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the schema flavour, which defines the schema definition type being used.
-     *
-     * @return the schema flavour
-     */
-    public String getSchemaFlavour() {
-        return schemaFlavour;
     }
 
     /**
@@ -255,24 +247,6 @@ public class AxContextSchema extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",schemaFlavour=");
-        builder.append(schemaFlavour);
-        builder.append(",schemaDefinition=");
-        builder.append(schemaDefinition);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -285,48 +259,6 @@ public class AxContextSchema extends AxConcept {
         copy.setSchema(schemaDefinition);
 
         return copy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + key.hashCode();
-        result = prime * result + schemaFlavour.hashCode();
-        result = prime * result + schemaDefinition.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final AxContextSchema other = (AxContextSchema) obj;
-
-        if (!key.equals(other.key)) {
-            return false;
-        }
-        if (!schemaFlavour.equals(other.schemaFlavour)) {
-            return false;
-        }
-        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
-        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replace("\n", "");
-        return thisSchema.equals(otherSchema);
     }
 
     /**

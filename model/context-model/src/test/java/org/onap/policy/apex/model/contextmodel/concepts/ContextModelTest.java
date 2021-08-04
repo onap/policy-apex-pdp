@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.model.contextmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -54,7 +55,7 @@ public class ContextModelTest {
 
         model.clean();
         assertNotNull(model);
-        assertEquals("AxContextModel:(AxContextModel:(key=AxArtifactKey:", model.toString().substring(0, 50));
+        assertThat(model.toString()).startsWith("AxContextModel(super=AxContextModel:(key=AxArtifactKey:");
 
         final AxContextModel clonedModel = new AxContextModel(model);
 

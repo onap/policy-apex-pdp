@@ -21,11 +21,11 @@
 
 package org.onap.policy.apex.model.contextmodel.concepts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -121,8 +121,8 @@ public class ContextSchemasTest {
         schema.clean();
 
         final AxContextSchema clonedSchema = new AxContextSchema(schema);
-        assertEquals("AxContextSchema:(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1),"
-                        + "schemaFlavour=NewSchemaFlavour,schemaDefinition=NewSchemaDefinition)",
+        assertEquals("AxContextSchema(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1), "
+                        + "schemaFlavour=NewSchemaFlavour, schemaDefinition=NewSchemaDefinition)",
                         clonedSchema.toString());
 
         assertNotEquals(0, schema.hashCode());
@@ -201,8 +201,8 @@ public class ContextSchemasTest {
         schemas.clean();
 
         final AxContextSchemas clonedSchemas = new AxContextSchemas(schemas);
-        assertTrue(clonedSchemas.toString()
-                        .startsWith("AxContextSchemas:(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),"));
+        assertThat(clonedSchemas.toString())
+                        .startsWith("AxContextSchemas(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),");
 
         assertNotEquals(0, schemas.hashCode());
 
