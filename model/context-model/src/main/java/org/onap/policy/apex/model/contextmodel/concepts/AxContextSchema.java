@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +34,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.ToString;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -62,6 +66,9 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Entity
 @Table(name = "AxContextSchema")
+
+@Getter
+@ToString
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexContextSchema", namespace = "http://www.onap.org/policy/apex-pdp")
@@ -95,6 +102,7 @@ public class AxContextSchema extends AxConcept {
     @Convert(converter = CDataConditioner.class)
     @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(name = "schemaDefinition", required = true)
+    @Getter(AccessLevel.NONE)
     private String schemaDefinition;
 
     /**
@@ -147,14 +155,6 @@ public class AxContextSchema extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         return key.getKeys();
     }
@@ -167,15 +167,6 @@ public class AxContextSchema extends AxConcept {
     public void setKey(final AxArtifactKey key) {
         Assertions.argumentNotNull(key, "key may not be null");
         this.key = key;
-    }
-
-    /**
-     * Gets the schema flavour, which defines the schema definition type being used.
-     *
-     * @return the schema flavour
-     */
-    public String getSchemaFlavour() {
-        return schemaFlavour;
     }
 
     /**
@@ -255,24 +246,6 @@ public class AxContextSchema extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",schemaFlavour=");
-        builder.append(schemaFlavour);
-        builder.append(",schemaDefinition=");
-        builder.append(schemaDefinition);
-        builder.append(")");
-        return builder.toString();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
@@ -296,7 +269,9 @@ public class AxContextSchema extends AxConcept {
         var result = 1;
         result = prime * result + key.hashCode();
         result = prime * result + schemaFlavour.hashCode();
-        result = prime * result + schemaDefinition.hashCode();
+
+        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
+        result = prime * result + thisSchema.hashCode();
         return result;
     }
 
