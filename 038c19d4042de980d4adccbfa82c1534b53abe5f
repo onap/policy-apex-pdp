@@ -22,6 +22,30 @@
       "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d930e0_208328d1",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextSchema.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-05T12:31:07Z",
+      "side": 0,
+      "message": "hmm.  no, this type of change should have only been made in test code",
+      "parentUuid": "ee7e77cc_5402b8d0",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 100
+      },
+      "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
