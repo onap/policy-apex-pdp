@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c7a23af_9f1281c7",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextSchema.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-05T13:31:51Z",
+      "side": 1,
+      "message": "note: the original code violated the equals-hashcode contract, thus I added this line to fix that",
+      "revId": "7438fe5a86a9fcfaf248ee32197b24d1badaecb3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
