@@ -46,6 +46,30 @@
       "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0c67be1_265b6935",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextSchema.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-05T13:34:17Z",
+      "side": 0,
+      "message": "Maybe same change to keep the equals method in other classes too? especially the Ax**** ones",
+      "parentUuid": "d8d930e0_208328d1",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 100
+      },
+      "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
