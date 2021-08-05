@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee7e77cc_5402b8d0",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextSchema.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-05T08:56:34Z",
+      "side": 0,
+      "message": "I am just thinking, could this have any impact during equality checks!\nThis equals method is used to check if the AxConcept is already there in the engine while checking duplicates during multiple policy deployment.\nSame comment in some of the other AxConcept based classes.",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 100
+      },
+      "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
