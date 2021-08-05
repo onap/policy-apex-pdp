@@ -70,6 +70,30 @@
       "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2748d0d2_6f647ada",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextSchema.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-05T13:42:36Z",
+      "side": 0,
+      "message": "I didn\u0027t see any others that do this",
+      "parentUuid": "a0c67be1_265b6935",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 100
+      },
+      "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
