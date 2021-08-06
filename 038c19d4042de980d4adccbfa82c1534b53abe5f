@@ -94,6 +94,30 @@
       "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b739420_25d9cec9",
+        "filename": "model/context-model/src/main/java/org/onap/policy/apex/model/contextmodel/concepts/AxContextSchema.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-06T13:46:04Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "2748d0d2_6f647ada",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 328,
+        "endChar": 100
+      },
+      "revId": "038c19d4042de980d4adccbfa82c1534b53abe5f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
