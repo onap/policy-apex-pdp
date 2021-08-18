@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,10 +32,12 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
-import org.onap.policy.apex.services.onappf.rest.ApexStarterRestServer;
+import org.onap.policy.apex.services.onappf.rest.ApexStarterAafFilter;
+import org.onap.policy.apex.services.onappf.rest.HealthCheckRestControllerV1;
 import org.onap.policy.common.endpoints.event.comm.TopicEndpointManager;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
 import org.onap.policy.common.endpoints.event.comm.TopicSource;
+import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.endpoints.listeners.MessageTypeDispatcher;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.services.Registry;
@@ -72,7 +75,7 @@ public class ApexStarterActivator {
     /**
      * The ApexStarter REST API server.
      */
-    private ApexStarterRestServer restServer;
+    private RestServer restServer;
 
     @Getter
     @Setter(lombok.AccessLevel.PRIVATE)
@@ -143,8 +146,8 @@ public class ApexStarterActivator {
                     this::registerMsgDispatcher,
                     this::unregisterMsgDispatcher)
                 .addAction("Create REST server",
-                    () -> restServer =
-                                    new ApexStarterRestServer(apexStarterParameterGroup.getRestServerParameters()),
+                    () -> restServer = new RestServer(apexStarterParameterGroup.getRestServerParameters(),
+                                ApexStarterAafFilter.class, HealthCheckRestControllerV1.class),
                     () -> restServer = null)
                 .addAction("Rest Server",
                     () -> restServer.start(),
