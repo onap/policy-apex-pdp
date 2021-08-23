@@ -16,6 +16,24 @@
       "revId": "e919f71a777a688cea1d7b1bbb6ef5c4189009a8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d333ad3c_70863c69",
+        "filename": "services/services-onappf/src/main/resources/config/OnapPfConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-23T14:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9793e88_a62528b8",
+      "revId": "e919f71a777a688cea1d7b1bbb6ef5c4189009a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
