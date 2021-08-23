@@ -4,6 +4,7 @@
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2020 Nordix Foundation
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,9 +112,9 @@ public class CodeGeneratorCliEditorTest {
             final List<ST> parameters = getParametersForTask(codeGen, t);
             final List<ST> contextRefs = getCtxtRefsForTask(codeGen, t);
 
-            codeGen.addTaskDeclaration(new TaskDeclarationBuilder().setName(kig.getName(key))
-                .setVersion(kig.getVersion(key)).setUuid(kig.getUuid(key)).setDescription(kig.getDesc(key))
-                .setLogic(logic).setParameters(parameters).setContextRefs(contextRefs));
+            codeGen.addTaskDeclaration(TaskDeclaration.builder().name(kig.getName(key))
+                .version(kig.getVersion(key)).uuid(kig.getUuid(key)).description(kig.getDesc(key))
+                .logic(logic).parameters(parameters).contextRefs(contextRefs).build());
         }
 
         // 3: events
@@ -122,15 +123,16 @@ public class CodeGeneratorCliEditorTest {
             final List<ST> fields = getParametersForEvent(codeGen, e);
 
             codeGen.addEventDeclaration(
-                    new EventDeclarationBuilder()
-                            .setName(kig.getName(key))
-                            .setVersion(kig.getVersion(key))
-                            .setUuid(kig.getUuid(key))
-                            .setDescription(kig.getDesc(key))
-                            .setNameSpace(e.getNameSpace())
-                            .setSource(e.getSource())
-                            .setTarget(e.getTarget())
-                            .setFields(fields));
+                    EventDeclaration.builder()
+                            .name(kig.getName(key))
+                            .version(kig.getVersion(key))
+                            .uuid(kig.getUuid(key))
+                            .description(kig.getDesc(key))
+                            .nameSpace(e.getNameSpace())
+                            .source(e.getSource())
+                            .target(e.getTarget())
+                            .fields(fields)
+                            .build());
         }
 
         // 4: context albums
@@ -138,15 +140,16 @@ public class CodeGeneratorCliEditorTest {
             final AxArtifactKey key = a.getKey();
 
             codeGen.addContextAlbumDeclaration(
-                    new CodeGenCliEditorBuilder()
-                            .setName(kig.getName(key))
-                            .setVersion(kig.getVersion(key))
-                            .setUuid(kig.getUuid(key))
-                            .setDescription(kig.getDesc(key))
-                            .setScope(a.getScope())
-                            .setWritable(a.isWritable())
-                            .setSchemaName(kig.getName(a.getItemSchema()))
-                            .setSchemaVersion(kig.getVersion(a.getItemSchema())));
+                    CodeGenCliEditor.builder()
+                            .name(kig.getName(key))
+                            .version(kig.getVersion(key))
+                            .uuid(kig.getUuid(key))
+                            .description(kig.getDesc(key))
+                            .scope(a.getScope())
+                            .writable(a.isWritable())
+                            .schemaName(kig.getName(a.getItemSchema()))
+                            .schemaVersion(kig.getVersion(a.getItemSchema()))
+                            .build());
         }
 
         // 5: policies
@@ -261,14 +264,14 @@ public class CodeGeneratorCliEditorTest {
             final List<ST> tsLogic = getTslForState(cg, st);
             final List<ST> ctxRefs = getCtxtRefsForState(cg, st);
 
-            final ST val = cg.createPolicyStateDef(new PolicyStateDefBuilder()
-                    .setPolicyName(kig.getPName(skey)).setVersion(kig.getPVersion(skey))
-                    .setStateName(kig.getLName(skey)).setTriggerName(kig.getName(st.getTrigger()))
-                    .setTriggerVersion(kig.getVersion(st.getTrigger()))
-                    .setDefaultTask(kig.getName(st.getDefaultTask()))
-                    .setDefaultTaskVersion(kig.getVersion(st.getDefaultTask())).setOutputs(outputs)
-                    .setTasks(tasks).setTsLogic(tsLogic).setFinalizerLogics(finalizerLogics)
-                    .setCtxRefs(ctxRefs));
+            final ST val = cg.createPolicyStateDef(PolicyStateDef.builder()
+                    .policyName(kig.getPName(skey)).version(kig.getPVersion(skey))
+                    .stateName(kig.getLName(skey)).triggerName(kig.getName(st.getTrigger()))
+                    .triggerVersion(kig.getVersion(st.getTrigger()))
+                    .defaultTask(kig.getName(st.getDefaultTask()))
+                    .defaultTaskVersion(kig.getVersion(st.getDefaultTask())).outputs(outputs)
+                    .tasks(tasks).tsLogic(tsLogic).finalizerLogics(finalizerLogics)
+                    .ctxRefs(ctxRefs).build());
 
             ret.add(val);
         }
@@ -353,12 +356,13 @@ public class CodeGeneratorCliEditorTest {
             final AxStateTaskReference tr = e.getValue();
             final AxReferenceKey trkey = tr.getKey();
 
-            final ST val = cg.createPolicyStateTask(new PolicyStateTaskBuilder()
-                    .setPolicyName(kig.getPName(skey)).setVersion(kig.getPVersion(skey))
-                    .setStateName(kig.getLName(skey)).setTaskLocalName(kig.getLName(trkey))
-                    .setTaskName(kig.getName(tkey)).setTaskVersion(kig.getVersion(tkey))
-                    .setOutputType(tr.getStateTaskOutputType().name())
-                    .setOutputName(kig.getLName(tr.getOutput())));
+            final ST val = cg.createPolicyStateTask(PolicyStateTask.builder()
+                    .policyName(kig.getPName(skey)).version(kig.getPVersion(skey))
+                    .stateName(kig.getLName(skey)).taskLocalName(kig.getLName(trkey))
+                    .taskName(kig.getName(tkey)).taskVersion(kig.getVersion(tkey))
+                    .outputType(tr.getStateTaskOutputType().name())
+                    .outputName(kig.getLName(tr.getOutput()))
+                    .build());
 
             ret.add(val);
         }

@@ -23,7 +23,9 @@
 package org.onap.policy.apex.context.impl.schema;
 
 import java.lang.reflect.Constructor;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
@@ -52,16 +54,8 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     private AxContextSchema schema = null;
 
     // The class of objects for this schema
+    @Setter(AccessLevel.PROTECTED)
     private Class<?> schemaClass;
-
-    /**
-     * Sets the schema class for the schema, designed jots to be called by sub classes.
-     *
-     * @param schemaClass the Java class that is used to hold items of this schema
-     */
-    protected void setSchemaClass(final Class<?> schemaClass) {
-        this.schemaClass = schemaClass;
-    }
 
     /**
      * {@inheritDoc}.

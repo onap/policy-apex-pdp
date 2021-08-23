@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +78,7 @@ import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.VERSION;
 import static org.onap.policy.apex.auth.clicodegen.CliEditorContants.WRITABLE;
 
 import java.util.List;
+import lombok.Getter;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -102,6 +104,7 @@ public class CodeGeneratorCliEditor {
     /**
      * The ST for the model, loaded from the STG.
      */
+    @Getter
     private final ST model;
 
     /**
@@ -141,15 +144,6 @@ public class CodeGeneratorCliEditor {
     }
 
     /**
-     * Returns the model.
-     *
-     * @return the model
-     */
-    public ST getModel() {
-        return model;
-    }
-
-    /**
      * Sets the default name space.
      *
      * @param nameSpace new name space, ignored if blank
@@ -185,18 +179,18 @@ public class CodeGeneratorCliEditor {
     /**
      * Adds a new context album declaration to the model.
      *
-     * @param codeGenCliEditorBuilder The parameters for the context album
+     * @param codeGenCliEditor The parameters for the context album
      */
-    public void addContextAlbumDeclaration(CodeGenCliEditorBuilder codeGenCliEditorBuilder) {
+    public void addContextAlbumDeclaration(CodeGenCliEditor codeGenCliEditor) {
         final var st = stg.getInstanceOf("ctxAlbumDecl");
-        st.add(NAME, codeGenCliEditorBuilder.getName());
-        st.add(VERSION, codeGenCliEditorBuilder.getVersion());
-        st.add(UUID, codeGenCliEditorBuilder.getUuid());
-        st.add(DESCRIPTION, codeGenCliEditorBuilder.getDescription());
-        st.add(SCOPE, codeGenCliEditorBuilder.getScope());
-        st.add(WRITABLE, codeGenCliEditorBuilder.isWritable());
-        st.add(SCHEMA_NAME, codeGenCliEditorBuilder.getSchemaName());
-        st.add(SCHEMA_VERSION, codeGenCliEditorBuilder.getSchemaVersion());
+        st.add(NAME, codeGenCliEditor.getName());
+        st.add(VERSION, codeGenCliEditor.getVersion());
+        st.add(UUID, codeGenCliEditor.getUuid());
+        st.add(DESCRIPTION, codeGenCliEditor.getDescription());
+        st.add(SCOPE, codeGenCliEditor.getScope());
+        st.add(WRITABLE, codeGenCliEditor.isWritable());
+        st.add(SCHEMA_NAME, codeGenCliEditor.getSchemaName());
+        st.add(SCHEMA_VERSION, codeGenCliEditor.getSchemaVersion());
         model.add(DECLARATION, st);
     }
 
@@ -245,20 +239,20 @@ public class CodeGeneratorCliEditor {
     /**
      * Adds a new event declaration to the model.
      *
-     * @param eventDeclarationBuilder param object for event declaration
+     * @param eventDeclaration param object for event declaration
      */
-    public void addEventDeclaration(EventDeclarationBuilder eventDeclarationBuilder) {
+    public void addEventDeclaration(EventDeclaration eventDeclaration) {
         final var st = stg.getInstanceOf("eventDecl");
-        st.add(NAME, eventDeclarationBuilder.getName());
-        st.add(VERSION, eventDeclarationBuilder.getVersion());
-        st.add(UUID, eventDeclarationBuilder.getUuid());
-        st.add(DESCRIPTION, eventDeclarationBuilder.getDescription());
-        st.add(SOURCE, eventDeclarationBuilder.getSource());
-        st.add(TARGET, eventDeclarationBuilder.getTarget());
-        st.add(FIELDS, eventDeclarationBuilder.getFields());
+        st.add(NAME, eventDeclaration.getName());
+        st.add(VERSION, eventDeclaration.getVersion());
+        st.add(UUID, eventDeclaration.getUuid());
+        st.add(DESCRIPTION, eventDeclaration.getDescription());
+        st.add(SOURCE, eventDeclaration.getSource());
+        st.add(TARGET, eventDeclaration.getTarget());
+        st.add(FIELDS, eventDeclaration.getFields());
 
-        if (eventDeclarationBuilder.getNameSpace() != null) {
-            st.add(NAME_SPACE, eventDeclarationBuilder.getNameSpace());
+        if (eventDeclaration.getNameSpace() != null) {
+            st.add(NAME_SPACE, eventDeclaration.getNameSpace());
         } else if (defaultNamespace != null) {
             st.add(NAME_SPACE, defaultNamespace);
         }
@@ -269,19 +263,19 @@ public class CodeGeneratorCliEditor {
     /**
      * Adds a new task declaration to the model.
      *
-     * @param taskDeclarationBuilder builder for the task declaration parameters
+     * @param taskDeclaration task declaration parameters
      */
-    public void addTaskDeclaration(TaskDeclarationBuilder taskDeclarationBuilder) {
+    public void addTaskDeclaration(TaskDeclaration taskDeclaration) {
         final var st = stg.getInstanceOf("taskDecl");
-        st.add(NAME, taskDeclarationBuilder.getName());
-        st.add(VERSION, taskDeclarationBuilder.getVersion());
-        st.add(UUID, taskDeclarationBuilder.getUuid());
-        st.add(DESCRIPTION, taskDeclarationBuilder.getDescription());
-        st.add(INFIELDS, taskDeclarationBuilder.getInfields());
-        st.add(OUTFIELDS, taskDeclarationBuilder.getOutfields());
-        st.add(LOGIC, taskDeclarationBuilder.getLogic());
-        st.add(PARAMS, taskDeclarationBuilder.getParameters());
-        st.add(CONTEXT_REFS, taskDeclarationBuilder.getContextRefs());
+        st.add(NAME, taskDeclaration.getName());
+        st.add(VERSION, taskDeclaration.getVersion());
+        st.add(UUID, taskDeclaration.getUuid());
+        st.add(DESCRIPTION, taskDeclaration.getDescription());
+        st.add(INFIELDS, taskDeclaration.getInfields());
+        st.add(OUTFIELDS, taskDeclaration.getOutfields());
+        st.add(LOGIC, taskDeclaration.getLogic());
+        st.add(PARAMS, taskDeclaration.getParameters());
+        st.add(CONTEXT_REFS, taskDeclaration.getContextRefs());
         model.add(DECLARATION, st);
     }
 
@@ -392,19 +386,19 @@ public class CodeGeneratorCliEditor {
     /**
      * Creates a new policy state task definition for a task which belongs to a state which belongs to a policy.
      *
-     * @param policyStateTaskBuilder builder for the state task parameters
+     * @param policyStateTask state task parameters
      * @return a CLI command for a policy state task definition
      */
-    public ST createPolicyStateTask(PolicyStateTaskBuilder policyStateTaskBuilder) {
+    public ST createPolicyStateTask(PolicyStateTask policyStateTask) {
         final var st = stg.getInstanceOf("policyStateTask");
-        st.add(POLICY_NAME, policyStateTaskBuilder.getPolicyName());
-        st.add(VERSION, policyStateTaskBuilder.getVersion());
-        st.add(STATE_NAME, policyStateTaskBuilder.getStateName());
-        st.add(TASK_LOCAL_NAME, policyStateTaskBuilder.getTaskLocalName());
-        st.add(TASK_NAME, policyStateTaskBuilder.getTaskName());
-        st.add(TASK_VERSION, policyStateTaskBuilder.getTaskVersion());
-        st.add(OUTPUT_TYPE, policyStateTaskBuilder.getOutputType());
-        st.add(OUTPUT_NAME, policyStateTaskBuilder.getOutputName());
+        st.add(POLICY_NAME, policyStateTask.getPolicyName());
+        st.add(VERSION, policyStateTask.getVersion());
+        st.add(STATE_NAME, policyStateTask.getStateName());
+        st.add(TASK_LOCAL_NAME, policyStateTask.getTaskLocalName());
+        st.add(TASK_NAME, policyStateTask.getTaskName());
+        st.add(TASK_VERSION, policyStateTask.getTaskVersion());
+        st.add(OUTPUT_TYPE, policyStateTask.getOutputType());
+        st.add(OUTPUT_NAME, policyStateTask.getOutputName());
         return st;
     }
 
@@ -437,23 +431,23 @@ public class CodeGeneratorCliEditor {
     /**
      * Creates a new policy state definition for a state which belongs to a policy.
      *
-     * @param policyStateDefBuilder builder for the state definition parameters
+     * @param policyStateDef state definition parameters
      * @return a CLI command for a policy state definition
      */
-    public ST createPolicyStateDef(PolicyStateDefBuilder policyStateDefBuilder) {
+    public ST createPolicyStateDef(PolicyStateDef policyStateDef) {
         final var st = stg.getInstanceOf("policyStateDef");
-        st.add(POLICY_NAME, policyStateDefBuilder.getPolicyName());
-        st.add(VERSION, policyStateDefBuilder.getVersion());
-        st.add(STATE_NAME, policyStateDefBuilder.getStateName());
-        st.add(TRIGGER_NAME, policyStateDefBuilder.getTriggerName());
-        st.add(TRIGGER_VERSION, policyStateDefBuilder.getTriggerVersion());
-        st.add(DEFAULT_TASK, policyStateDefBuilder.getDefaultTask());
-        st.add(DEFAULT_TASK_VERSION, policyStateDefBuilder.getDefaultTaskVersion());
-        st.add(OUTPUTS, policyStateDefBuilder.getOutputs());
-        st.add(TASKS, policyStateDefBuilder.getTasks());
-        st.add(TS_LOGIC, policyStateDefBuilder.getTsLogic());
-        st.add(FINALIZER_LOGICS, policyStateDefBuilder.getFinalizerLogics());
-        st.add(CTX_REFS, policyStateDefBuilder.getCtxRefs());
+        st.add(POLICY_NAME, policyStateDef.getPolicyName());
+        st.add(VERSION, policyStateDef.getVersion());
+        st.add(STATE_NAME, policyStateDef.getStateName());
+        st.add(TRIGGER_NAME, policyStateDef.getTriggerName());
+        st.add(TRIGGER_VERSION, policyStateDef.getTriggerVersion());
+        st.add(DEFAULT_TASK, policyStateDef.getDefaultTask());
+        st.add(DEFAULT_TASK_VERSION, policyStateDef.getDefaultTaskVersion());
+        st.add(OUTPUTS, policyStateDef.getOutputs());
+        st.add(TASKS, policyStateDef.getTasks());
+        st.add(TS_LOGIC, policyStateDef.getTsLogic());
+        st.add(FINALIZER_LOGICS, policyStateDef.getFinalizerLogics());
+        st.add(CTX_REFS, policyStateDef.getCtxRefs());
         return st;
     }
 
