@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +22,20 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
-import org.onap.policy.common.utils.validation.Assertions;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
  * This class holds the definition of an argument of a CLI command.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@ToString
+@EqualsAndHashCode
 public class CommandLineArgument implements Comparable<CommandLineArgument> {
     private final String argumentName;
     private final boolean nullable;
@@ -66,33 +74,6 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
     }
 
     /**
-     * Gets the argument name.
-     *
-     * @return the argument name
-     */
-    public String getArgumentName() {
-        return argumentName;
-    }
-
-    /**
-     * Checks if the argument is nullable.
-     *
-     * @return true, if checks if the argument is nullable
-     */
-    public boolean isNullable() {
-        return nullable;
-    }
-
-    /**
-     * Gets the argument description.
-     *
-     * @return the argument description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
      * Gets the argument help.
      *
      * @return the argument help
@@ -109,83 +90,15 @@ public class CommandLineArgument implements Comparable<CommandLineArgument> {
      * {@inheritDoc}.
      */
     @Override
-    public String toString() {
-        return "CLIArgument [argumentName=" + argumentName + ", nullable=" + nullable + ", description=" + description
-                + "]";
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int compareTo(final CommandLineArgument otherArgument) {
-        Assertions.argumentNotNull(otherArgument, "comparison object may not be null");
-
+    public int compareTo(@NonNull final CommandLineArgument otherArgument) {
         if (this == otherArgument) {
             return 0;
         }
-        if (getClass() != otherArgument.getClass()) {
-            return this.hashCode() - otherArgument.hashCode();
-        }
-
-        final CommandLineArgument other = otherArgument;
-
-        if (!argumentName.equals(other.argumentName)) {
-            return argumentName.compareTo(other.argumentName);
-        }
-        if (nullable != other.nullable) {
-            return (this.hashCode() - other.hashCode());
-        }
-        return description.compareTo(otherArgument.description);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public int hashCode() {
-        final var prime = 31;
-        var result = 1;
-        result = prime * result + ((argumentName == null) ? 0 : argumentName.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + (nullable ? 1231 : 1237);
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        CommandLineArgument other = (CommandLineArgument) obj;
-        if (argumentName == null) {
-            if (other.argumentName != null) {
-                return false;
-            }
-        } else if (!argumentName.equals(other.argumentName)) {
-            return false;
-        }
-
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-
-        return nullable == other.nullable;
+        return new CompareToBuilder()
+                        .append(argumentName, otherArgument.argumentName)
+                        .append(nullable, otherArgument.nullable)
+                        .append(description, otherArgument.description)
+                        .append(getClass(), otherArgument.getClass())
+                        .toComparison();
     }
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +23,18 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import java.util.Properties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * This class contains the definitions of Apex model properties.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@Getter
+@Setter
+@ToString
 public class ApexModelProperties {
     /** The default version that will be used for concepts. */
     public static final String DEFAULT_CONCEPT_VERSION = "0.0.1";
@@ -81,134 +88,5 @@ public class ApexModelProperties {
         properties.setProperty("DEFAULT_MACRO_FILE_TAG", defaultMacroFileTag);
         // @formatter:on
         return properties;
-    }
-
-    /**
-     * Gets the default concept version.
-     *
-     * @return the default concept version
-     */
-    public String getDefaultConceptVersion() {
-        return defaultConceptVersion;
-    }
-
-    /**
-     * Sets the default concept version.
-     *
-     * @param defaultConceptVersion the default concept version
-     */
-    public void setDefaultConceptVersion(final String defaultConceptVersion) {
-        this.defaultConceptVersion = defaultConceptVersion;
-    }
-
-    /**
-     * Gets the default event namespace.
-     *
-     * @return the default event namespace
-     */
-    public String getDefaultEventNamespace() {
-        return defaultEventNamespace;
-    }
-
-    /**
-     * Sets the default event namespace.
-     *
-     * @param defaultEventNamespace the default event namespace
-     */
-    public void setDefaultEventNamespace(final String defaultEventNamespace) {
-        this.defaultEventNamespace = defaultEventNamespace;
-    }
-
-    /**
-     * Gets the default event source.
-     *
-     * @return the default event source
-     */
-    public String getDefaultEventSource() {
-        return defaultEventSource;
-    }
-
-    /**
-     * Sets the default event source.
-     *
-     * @param defaultEventSource the default event source
-     */
-    public void setDefaultEventSource(final String defaultEventSource) {
-        this.defaultEventSource = defaultEventSource;
-    }
-
-    /**
-     * Gets the default event target.
-     *
-     * @return the default event target
-     */
-    public String getDefaultEventTarget() {
-        return defaultEventTarget;
-    }
-
-    /**
-     * Sets the default event target.
-     *
-     * @param defaultEventTarget the default event target
-     */
-    public void setDefaultEventTarget(final String defaultEventTarget) {
-        this.defaultEventTarget = defaultEventTarget;
-    }
-
-    /**
-     * Gets the default logic block start tag.
-     *
-     * @return the default logic block start tag
-     */
-    public String getDefaultLogicBlockStartTag() {
-        return defaultLogicBlockStartTag;
-    }
-
-    /**
-     * Gets the default logic block end tag.
-     *
-     * @return the default logic block end tag
-     */
-    public String getDefaultLogicBlockEndTag() {
-        return defaultLogicBlockEndTag;
-    }
-
-    /**
-     * Gets the default policy template type.
-     *
-     * @return the default policy template
-     */
-    public String getDefaultPolicyTemplate() {
-        return defaultPolicyTemplate;
-    }
-
-    /**
-     * Sets the default policy template type.
-     *
-     * @param defaultPolicyTemplate the new default policy template
-     */
-    public void setDefaultPolicyTemplate(final String defaultPolicyTemplate) {
-        this.defaultPolicyTemplate = defaultPolicyTemplate;
-    }
-
-    /**
-     * Gets the default macro file tag.
-     *
-     * @return the default macro file end tag
-     */
-    public String getDefaultMacroFileTag() {
-        return defaultMacroFileTag;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "ApexModelProperties [defaultConceptVersion=" + defaultConceptVersion + ", defaultEventNamespace="
-                + defaultEventNamespace + ", defaultEventSource=" + defaultEventSource + ", defaultEventTarget="
-                + defaultEventTarget + ", defaultLogicBlockStartTag=" + defaultLogicBlockStartTag
-                + ", defaultLogicBlockEndTag=" + defaultLogicBlockEndTag + ", defaultPolicyTemplate="
-                + defaultPolicyTemplate + ", defaultMacroFileTag=" + defaultMacroFileTag + "]";
     }
 }

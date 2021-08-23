@@ -23,7 +23,9 @@ package org.onap.policy.apex.model.utilities;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
 import lombok.AccessLevel;
@@ -74,5 +76,47 @@ public final class TreeMapUtils {
             }
         }
         return foundNodes;
+    }
+
+    /**
+     * Compares two maps.
+     * @param <K> Key type
+     * @param <V> Value type
+     * @param leftMap left map
+     * @param rightMap right map
+     * @return an integer indicating how different the maps are
+     */
+    @SuppressWarnings("unchecked")
+    public static <K, V> int compareMaps(Map<? extends Comparable<K>, ? extends Comparable<V>> leftMap,
+                    Map<? extends Comparable<K>, ? extends Comparable<V>> rightMap) {
+        Iterator<?> leftIt = leftMap.entrySet().iterator();
+        Iterator<?> rightIt = rightMap.entrySet().iterator();
+
+        while (leftIt.hasNext() && rightIt.hasNext()) {
+            Map.Entry<?, ?> leftEntry = (Entry<?, ?>) leftIt.next();
+            Map.Entry<?, ?> rightEntry = (Entry<?, ?>) rightIt.next();
+
+            K leftKey = (K) leftEntry.getKey();
+            K rightKey = (K) rightEntry.getKey();
+            int result = ((Comparable<K>) leftKey).compareTo(rightKey);
+            if (result != 0) {
+                return result;
+            }
+
+            V leftValue = (V) leftEntry.getValue();
+            V rightValue = (V) rightEntry.getValue();
+            result = ((Comparable<V>) leftValue).compareTo(rightValue);
+            if (result != 0) {
+                return result;
+            }
+        }
+
+        if (leftIt.hasNext()) {
+            return 1;
+        } else if (rightIt.hasNext()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
