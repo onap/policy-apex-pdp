@@ -28,6 +28,7 @@ import java.io.File;
 import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import javax.net.ssl.SSLContext;
 import javax.ws.rs.client.Client;
@@ -209,7 +210,8 @@ public class CommonApexStarterRestServer {
     private void markActivator(final boolean wasAlive) {
         final Object manager = Whitebox.getInternalState(
                 Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class), "manager");
-        Whitebox.setInternalState(manager, "running", wasAlive);
+        AtomicBoolean running = Whitebox.getInternalState(manager, "running");
+        running.set(wasAlive);
     }
 
     /**
