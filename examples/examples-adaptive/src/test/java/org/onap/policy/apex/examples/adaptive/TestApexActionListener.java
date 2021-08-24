@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,8 @@ import static org.awaitility.Awaitility.await;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 
@@ -37,19 +40,12 @@ import org.onap.policy.apex.core.engine.event.EnEvent;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@AllArgsConstructor
 public class TestApexActionListener implements EnEventListener {
-    private List<EnEvent> resultEvents = new ArrayList<>();
+    private final List<EnEvent> resultEvents = new ArrayList<>();
 
+    @Getter
     private final String id;
-
-    /**
-     * Instantiates a new test apex action listener.
-     *
-     * @param id the id
-     */
-    public TestApexActionListener(final String id) {
-        this.id = id;
-    }
 
     /**
      * Gets the result.
@@ -70,14 +66,5 @@ public class TestApexActionListener implements EnEventListener {
             System.out.println("Action event from engine:" + actionEvent.getName());
             resultEvents.add(actionEvent);
         }
-    }
-
-    /**
-     * Gets the id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
     }
 }

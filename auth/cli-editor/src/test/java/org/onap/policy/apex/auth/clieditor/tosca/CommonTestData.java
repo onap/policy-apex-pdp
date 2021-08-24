@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +21,16 @@
 
 package org.onap.policy.apex.auth.clieditor.tosca;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Class to hold/create all parameters for test cases.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class CommonTestData {
-
-    private CommonTestData() {
-     // This class cannot be initialized
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class CommonTestData {
 
     public static final String INPUT_TOSCA_TEMPLATE_FILE_NAME = "src/test/resources/tosca/ToscaTemplate.json";
     public static final String APEX_CONFIG_FILE_NAME = "src/test/resources/tosca/ApexConfig.json";

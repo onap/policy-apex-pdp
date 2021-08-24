@@ -24,6 +24,7 @@ package org.onap.policy.apex.examples.aadm;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -36,20 +37,12 @@ import org.onap.policy.apex.core.engine.event.EnEvent;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
+@AllArgsConstructor
 public class TestApexActionListener implements EnEventListener {
-    List<EnEvent> resultEvents = new ArrayList<EnEvent>();
+    private final List<EnEvent> resultEvents = new ArrayList<EnEvent>();
 
     @Getter
     private final String id;
-
-    /**
-     * Instantiates a new test apex action listener.
-     *
-     * @param id the id
-     */
-    public TestApexActionListener(final String id) {
-        this.id = id;
-    }
 
     /**
      * Gets the result.

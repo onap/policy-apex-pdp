@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,8 @@ package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Map;
 import java.util.Properties;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -34,17 +37,11 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 /**
  * Dummy task executor for testing.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class DummyTaskExecutor extends TaskExecutor {
     private static final String EVENT_KEY = "Event1:0.0.1";
     private boolean override;
-
-    public DummyTaskExecutor() {
-        this(false);
-    }
-
-    public DummyTaskExecutor(final boolean override) {
-        this.override = override;
-    }
 
     @Override
     public void prepare() throws StateMachineException {

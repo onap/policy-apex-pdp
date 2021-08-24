@@ -22,6 +22,7 @@
 
 package org.onap.policy.apex.core.protocols;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,8 +42,9 @@ public class SupportMessageTester {
 
         DummyMessage dummyMessage = new DummyMessage(new DummyAction(null), new AxArtifactKey("Target:0.0.1"));
         assertEquals(new DummyAction(null), dummyMessage.getAction());
-        assertEquals("Message(action=org.onap.policy.apex.core.protocols.DummyAction@1f, "
-            + "targetKey=AxArtifactKey:(name=Target,version=0.0.1), messageData=null)", dummyMessage.toString());
+        assertThat(dummyMessage.toString())
+            .startsWith("Message(action=org.onap.policy.apex.core.protocols.DummyAction@")
+            .endsWith("targetKey=AxArtifactKey:(name=Target,version=0.0.1), messageData=null)");
 
         dummyMessage.setMessageData("Message Data");
         assertEquals("Message Data", dummyMessage.getMessageData());

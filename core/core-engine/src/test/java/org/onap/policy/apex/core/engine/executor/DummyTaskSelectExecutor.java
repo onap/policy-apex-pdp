@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,9 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import java.util.Properties;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
@@ -30,18 +34,13 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 /**
  * Dummy task selection executor for testing.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class DummyTaskSelectExecutor extends TaskSelectExecutor {
     private boolean override;
 
+    @Setter
     private static int taskNo;
-
-    public DummyTaskSelectExecutor() {
-        this(false);
-    }
-
-    public DummyTaskSelectExecutor(final boolean override) {
-        this.override = override;
-    }
 
     @Override
     public void prepare() throws StateMachineException {
@@ -61,10 +60,6 @@ public class DummyTaskSelectExecutor extends TaskSelectExecutor {
         }
 
         return new AxArtifactKey("task" + (taskNo++) + ":0.0.1");
-    }
-
-    public void setTaskNo(int incomingTaskNo) {
-        taskNo = incomingTaskNo;
     }
 
     /**

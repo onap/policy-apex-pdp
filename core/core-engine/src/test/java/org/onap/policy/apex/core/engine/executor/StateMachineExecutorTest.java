@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -222,26 +223,26 @@ public class StateMachineExecutorTest {
         executor.setContext(null, axPolicy, internalContextMock);
         executor.execute(0, null, incomingEventMock);
 
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         executor.execute(0, null, incomingEventMock);
 
         AxReferenceKey badStateKey = new AxReferenceKey("Policy:0.0.1:PName:BadState");
         axPolicy.getStateMap().get("State1").getStateOutputs().get("stateOutput1").setNextState(badStateKey);
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
             .hasMessage("state execution failed, next state \"Policy:0.0.1:PName:BadState\" not found");
         axPolicy.getStateMap().get("State1").getStateOutputs().get("stateOutput1")
             .setNextState(AxReferenceKey.getNullKey());
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         executor.execute(0, null, incomingEventMock);
 
         axPolicy.getStateMap().get("State1").setTrigger(new AxArtifactKey("BadTrigger:0.0.1"));
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
             .hasMessage("incoming event \"Event1:0.0.1\" does not match trigger \"BadTrigger:0.0.1\" "
                 + "of state \"Policy:0.0.1:NULL:state1\"");
         axPolicy.getStateMap().get("State1").setTrigger(new AxArtifactKey("Event1:0.0.1"));
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         executor.execute(0, null, incomingEventMock);
 
         AxStateFinalizerLogic savedSfl = axPolicy.getStateMap().get("State1").getStateFinalizerLogicMap().get("sfl");
@@ -255,7 +256,7 @@ public class StateMachineExecutorTest {
         axPolicy.getStateMap().get("State1").getStateFinalizerLogicMap().put("sfl", savedSfl);
         executor.setContext(null, axPolicy, internalContextMock);
 
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         executor.execute(0, null, incomingEventMock);
 
         AxArtifactKey task1Key = new AxArtifactKey("task1:0.0.1");
@@ -271,16 +272,16 @@ public class StateMachineExecutorTest {
             .setStateTaskOutputType(AxStateTaskOutputType.LOGIC);
         executor.setContext(null, axPolicy, internalContextMock);
 
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         executor.execute(0, null, incomingEventMock);
 
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         dummySfle.setReturnBad(true);
         assertThatThrownBy(() -> executor.execute(0, null, incomingEventMock))
             .hasMessage("State execution of state \"Policy:0.0.1:NULL:state1\" on task \"task1:0.0.1\""
                 + " failed: state output definition for state output \"stateOutputBad\" not found for "
                 + "state \"Policy:0.0.1:NULL:state1\"");
-        dummyTsle.setTaskNo(0);
+        DummyTaskSelectExecutor.setTaskNo(0);
         dummySfle.setReturnBad(false);
         executor.execute(0, null, incomingEventMock);
 

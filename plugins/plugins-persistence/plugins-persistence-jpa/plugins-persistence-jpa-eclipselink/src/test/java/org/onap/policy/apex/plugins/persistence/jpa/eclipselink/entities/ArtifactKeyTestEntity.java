@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -36,6 +42,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
  */
 @Entity
 @Table(name = "ArtifactKeyTestEntity")
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class ArtifactKeyTestEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067896L;
 
@@ -78,25 +88,8 @@ public class ArtifactKeyTestEntity extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public AxArtifactKey getKey() {
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public List<AxKey> getKeys() {
         return Arrays.asList((AxKey) getKey());
-    }
-
-    /**
-     * Sets the key.
-     *
-     * @param key the new key
-     */
-    public void setKey(final AxArtifactKey key) {
-        this.key = key;
     }
 
     /**
@@ -106,24 +99,6 @@ public class ArtifactKeyTestEntity extends AxConcept {
      */
     public boolean checkSetKey() {
         return (this.key != null);
-    }
-
-    /**
-     * Gets the double value.
-     *
-     * @return the double value
-     */
-    public double getDoubleValue() {
-        return doubleValue;
-    }
-
-    /**
-     * Sets the double value.
-     *
-     * @param doubleValue the new double value
-     */
-    public void setDoubleValue(final double doubleValue) {
-        this.doubleValue = doubleValue;
     }
 
     /**
@@ -140,14 +115,6 @@ public class ArtifactKeyTestEntity extends AxConcept {
     @Override
     public void clean() {
         key.clean();
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String toString() {
-        return "ArtifactKeyTestEntity [key=" + key + ", doubleValue=" + doubleValue + "]";
     }
 
     /**
@@ -174,42 +141,6 @@ public class ArtifactKeyTestEntity extends AxConcept {
      * {@inheritDoc}.
      */
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return (Double.compare(doubleValue, other.doubleValue) == 0);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
     public int compareTo(final AxConcept otherObj) {
         if (otherObj == null) {
             return -1;
@@ -221,13 +152,9 @@ public class ArtifactKeyTestEntity extends AxConcept {
             return -1;
         }
         final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) otherObj;
-        if (key == null) {
-            if (other.key != null) {
-                return 1;
-            }
-        } else if (!key.equals(other.key)) {
-            return key.compareTo(other.key);
-        }
-        return Double.compare(doubleValue, other.doubleValue);
+        return new CompareToBuilder()
+                        .append(key, other.key)
+                        .append(doubleValue, other.doubleValue)
+                        .toComparison();
     }
 }

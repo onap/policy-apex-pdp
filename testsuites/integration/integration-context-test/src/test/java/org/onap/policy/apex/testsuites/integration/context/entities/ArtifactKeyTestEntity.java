@@ -33,6 +33,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -143,13 +144,9 @@ public class ArtifactKeyTestEntity extends AxConcept {
             return -1;
         }
         final ArtifactKeyTestEntity other = (ArtifactKeyTestEntity) otherObj;
-        if (key == null) {
-            if (other.key != null) {
-                return 1;
-            }
-        } else if (!key.equals(other.key)) {
-            return key.compareTo(other.key);
-        }
-        return Double.compare(doubleValue, other.doubleValue);
+        return new CompareToBuilder()
+                        .append(key, other.key)
+                        .append(doubleValue, other.doubleValue)
+                        .toComparison();
     }
 }

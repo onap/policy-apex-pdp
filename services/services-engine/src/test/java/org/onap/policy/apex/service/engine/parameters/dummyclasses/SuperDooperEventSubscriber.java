@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.service.engine.parameters.dummyclasses;
 
+import lombok.Getter;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
@@ -34,21 +36,14 @@ public class SuperDooperEventSubscriber implements ApexEventConsumer {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(SuperDooperEventSubscriber.class);
 
+    @Getter
     private String name;
-
-    public SuperDooperEventSubscriber() {
-    }
 
     @Override
     public void init(final String name, final EventHandlerParameters consumerParameters,
             final ApexEventReceiver apexEventReceiver) throws ApexEventException {
         this.name = name;
         LOGGER.info("Initialising Apex Consumer: " + this.getClass().getName() + ":" + this.name);
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**

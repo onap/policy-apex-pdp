@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,60 +22,20 @@
 
 package org.onap.policy.apex.core.protocols;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Dummy action for testing.
  */
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class DummyAction implements Action {
     private static final long serialVersionUID = 9178856761163651594L;
 
     private String actionString = "An Action String";
-
-    public DummyAction(final String actionString) {
-        this.actionString = actionString;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getActionString() {
-        return actionString;
-    }
-
-    public void setActionString(final String actionString) {
-        this.actionString = actionString;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((actionString == null) ? 0 : actionString.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        DummyAction other = (DummyAction) obj;
-        if (actionString == null) {
-            if (other.actionString != null) {
-                return false;
-            }
-        } else if (!actionString.equals(other.actionString)) {
-            return false;
-        }
-        return true;
-    }
 }
