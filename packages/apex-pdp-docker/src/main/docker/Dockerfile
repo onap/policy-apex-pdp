@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2020 Nordix Foundation.
-#  Modification Copyright (C) 2020 AT&T Foundation.
+#  Modification Copyright (C) 2020-2021 AT&T Foundation.
 #  Modifications Copyright (C) 2021 Bell Canada.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,9 +31,9 @@ ARG POLICY_LOGS=/var/log/onap/policy/apex-pdp
 ENV POLICY_HOME=/opt/app/policy/apex-pdp
 ENV POLICY_LOGS=$POLICY_LOGS
 
-RUN apk add --no-cache \
+RUN apk update \
+    && apk add --no-cache \
         vim \
-        iproute2 \
         iputils \
     && addgroup -S apexuser && adduser -S apexuser -G apexuser \
     && mkdir -p $POLICY_HOME \
