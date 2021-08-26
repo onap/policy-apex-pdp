@@ -143,7 +143,7 @@ public abstract class AbstractDistributor implements Distributor {
         // Get the context album definition
         final AxContextAlbum album = ModelService.getModel(AxContextAlbums.class).get(axContextAlbumKey);
         if (album == null) {
-            final String resultString = "context album " + axContextAlbumKey.getId() + " does not exist";
+            final var resultString = "context album " + axContextAlbumKey.getId() + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextException(resultString);
         }
@@ -151,7 +151,7 @@ public abstract class AbstractDistributor implements Distributor {
         // Check if the context album is valid
         final AxValidationResult result = album.validate(new AxValidationResult());
         if (!result.isValid()) {
-            final String resultString = "context album definition for " + album.getKey().getId() + " is invalid"
+            final var resultString = "context album definition for " + album.getKey().getId() + " is invalid"
                             + result;
             LOGGER.warn(resultString);
             throw new ContextException(resultString);
@@ -160,7 +160,7 @@ public abstract class AbstractDistributor implements Distributor {
         // Get the schema of the context album
         final AxContextSchema schema = ModelService.getModel(AxContextSchemas.class).get(album.getItemSchema());
         if (schema == null) {
-            final String resultString = "schema \"" + album.getItemSchema().getId() + "\" for context album "
+            final var resultString = "schema \"" + album.getItemSchema().getId() + "\" for context album "
                             + album.getKey().getId() + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextException(resultString);

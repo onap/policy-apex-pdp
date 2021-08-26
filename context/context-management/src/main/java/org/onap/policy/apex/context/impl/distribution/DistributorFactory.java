@@ -67,7 +67,7 @@ public class DistributorFactory {
 
         // Check the class is a distributor
         if (!(contextDistributorObject instanceof Distributor)) {
-            final String returnString = "Specified Apex context distributor plugin class \"" + pluginClass
+            final var returnString = "Specified Apex context distributor plugin class \"" + pluginClass
                     + "\" does not implement the ContextDistributor interface";
             throw new ContextException(returnString);
         }

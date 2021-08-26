@@ -63,7 +63,7 @@ public class SchemaHelperFactory {
         // Get the schema for items in the album
         final AxContextSchema schema = ModelService.getModel(AxContextSchemas.class).get(schemaKey);
         if (schema == null) {
-            final String resultString =
+            final var resultString =
                     "schema \"" + schemaKey.getId() + "\" for entity " + owningEntityKey.getId() + " does not exist";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);
@@ -76,7 +76,7 @@ public class SchemaHelperFactory {
         final SchemaHelperParameters schemaHelperParameters =
                 schemaParameters.getSchemaHelperParameters(schema.getSchemaFlavour());
         if (schemaHelperParameters == null) {
-            final String resultString = "context schema helper parameters not found for context schema  \""
+            final var resultString = "context schema helper parameters not found for context schema  \""
                     + schema.getSchemaFlavour() + "\"";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);
@@ -88,7 +88,7 @@ public class SchemaHelperFactory {
         try {
             schemaHelperObject = Class.forName(pluginClass).getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
-            final String resultString = "Apex context schema helper class not found for context schema helper plugin \""
+            final var resultString = "Apex context schema helper class not found for context schema helper plugin \""
                     + pluginClass + "\"";
             LOGGER.warn(resultString, e);
             throw new ContextRuntimeException(resultString, e);
@@ -96,7 +96,7 @@ public class SchemaHelperFactory {
 
         // Check the class is a schema helper
         if (!(schemaHelperObject instanceof SchemaHelper)) {
-            final String resultString = "Specified Apex context schema helper plugin class \"" + pluginClass
+            final var resultString = "Specified Apex context schema helper plugin class \"" + pluginClass
                     + "\" does not implement the SchemaHelper interface";
             LOGGER.warn(resultString);
             throw new ContextRuntimeException(resultString);

@@ -85,7 +85,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public Object createNewInstance() {
         if (schemaClass == null) {
-            final String returnString =
+            final var returnString =
                     userKey.getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -94,7 +94,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
         try {
             return schemaClass.getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
-            final String returnString =
+            final var returnString =
                     userKey.getId() + ": could not create an instance of class \"" + schemaClass.getName()
                             + "\" using the default constructor \"" + schemaClass.getSimpleName() + "()\"";
             LOGGER.warn(returnString, e);
@@ -108,7 +108,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
     @Override
     public Object createNewInstance(final String stringValue) {
         if (schemaClass == null) {
-            final String returnString =
+            final var returnString =
                     userKey.getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -121,7 +121,7 @@ public abstract class AbstractSchemaHelper implements SchemaHelper {
             // Invoke the constructor
             return stringConstructor.newInstance(stringValue);
         } catch (final Exception e) {
-            final String returnString =
+            final var returnString =
                     userKey.getId() + ": could not create an instance of class \"" + schemaClass.getName()
                             + "\" using the string constructor \"" + schemaClass.getSimpleName() + "(String)\"";
             LOGGER.warn(returnString, e);

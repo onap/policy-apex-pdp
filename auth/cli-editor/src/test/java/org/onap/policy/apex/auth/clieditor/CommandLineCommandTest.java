@@ -98,22 +98,22 @@ public class CommandLineCommandTest {
         assertEquals(0, commandLineCommand.compareTo(commandLineCommand));
         CommandLineCommand otherCommand = new CommandLineCommand();
         otherCommand.setSystemCommand(true);
-        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
+        assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
         otherCommand.getArgumentList().add(new CommandLineArgument("testArgument"));
-        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
+        assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
     }
 
     @Test
     public void testCompareKeywordList() {
         CommandLineCommand otherCommand = new CommandLineCommand();
         otherCommand.getKeywordlist().add("test");
-        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
+        assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
         commandLineCommand.getKeywordlist().add("test");
         assertEquals(0, commandLineCommand.compareTo(otherCommand));
         commandLineCommand.getKeywordlist().add("test2");
-        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
+        assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
         otherCommand.getKeywordlist().add("test3");
-        assertThat(commandLineCommand.compareTo(otherCommand)).isNotZero();
+        assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
     }
 
     @Test

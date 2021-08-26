@@ -46,7 +46,7 @@ public class ContextMonitor {
      */
     public void monitorInit(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value) {
-        String monitorInitString = monitor("INIT", null, albumKey, schemaKey, name, value);
+        var monitorInitString = monitor("INIT", null, albumKey, schemaKey, name, value);
         LOGGER.trace(monitorInitString);
     }
 
@@ -61,7 +61,7 @@ public class ContextMonitor {
      */
     public void monitorInit(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        String monitorInitString = monitor("INIT", userArtifactStack, albumKey, schemaKey, name, value);
+        var monitorInitString = monitor("INIT", userArtifactStack, albumKey, schemaKey, name, value);
         LOGGER.trace(monitorInitString);
     }
 
@@ -76,7 +76,7 @@ public class ContextMonitor {
      */
     public void monitorDelete(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        String monitorDeleteString = monitor("DEL", userArtifactStack, albumKey, schemaKey, name, value);
+        var monitorDeleteString = monitor("DEL", userArtifactStack, albumKey, schemaKey, name, value);
         LOGGER.trace(monitorDeleteString);
     }
 
@@ -91,7 +91,7 @@ public class ContextMonitor {
      */
     public void monitorGet(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        String monitorGetString = monitor("GET", userArtifactStack, albumKey, schemaKey, name, value);
+        var monitorGetString = monitor("GET", userArtifactStack, albumKey, schemaKey, name, value);
         LOGGER.trace(monitorGetString);
     }
 
@@ -106,7 +106,7 @@ public class ContextMonitor {
      */
     public void monitorSet(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final Object value, final AxConcept[] userArtifactStack) {
-        String monitorSetString = monitor("SET", userArtifactStack, albumKey, schemaKey, name, value);
+        var monitorSetString = monitor("SET", userArtifactStack, albumKey, schemaKey, name, value);
         LOGGER.trace(monitorSetString);
     }
 
@@ -120,7 +120,7 @@ public class ContextMonitor {
      */
     public void monitorReadLock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        String monitorReadLockString = monitor("READLOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        var monitorReadLockString = monitor("READLOCK", userArtifactStack, albumKey, schemaKey, name, null);
         LOGGER.trace(monitorReadLockString);
     }
 
@@ -134,7 +134,7 @@ public class ContextMonitor {
      */
     public void monitorWriteLock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        String writeLockMonitorString = monitor("WRITELOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        var writeLockMonitorString = monitor("WRITELOCK", userArtifactStack, albumKey, schemaKey, name, null);
         LOGGER.trace(writeLockMonitorString);
     }
 
@@ -148,7 +148,7 @@ public class ContextMonitor {
      */
     public void monitorReadUnlock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        String monitorReadUnlockString = monitor("READUNLOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        var monitorReadUnlockString = monitor("READUNLOCK", userArtifactStack, albumKey, schemaKey, name, null);
         LOGGER.trace(monitorReadUnlockString);
     }
 
@@ -162,7 +162,7 @@ public class ContextMonitor {
      */
     public void monitorWriteUnlock(final AxArtifactKey albumKey, final AxArtifactKey schemaKey, final String name,
             final AxConcept[] userArtifactStack) {
-        String monitorWriteUnlockString = monitor("WRITEUNLOCK", userArtifactStack, albumKey, schemaKey, name, null);
+        var monitorWriteUnlockString = monitor("WRITEUNLOCK", userArtifactStack, albumKey, schemaKey, name, null);
         LOGGER.trace(monitorWriteUnlockString);
     }
 
@@ -179,13 +179,13 @@ public class ContextMonitor {
      */
     private String monitor(final String preamble, final AxConcept[] userArtifactStack, final AxArtifactKey albumKey,
             final AxArtifactKey schemaKey, final String name, final Object value) {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
 
         builder.append(preamble);
         builder.append(",[");
 
         if (userArtifactStack != null) {
-            boolean first = true;
+            var first = true;
             for (final AxConcept stackKey : userArtifactStack) {
                 if (first) {
                     first = false;

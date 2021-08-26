@@ -111,7 +111,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
             schemaHelper = new SchemaHelperFactory().createSchemaHelper(albumDefinition.getKey(),
                     albumDefinition.getItemSchema());
         } catch (final ContextRuntimeException e) {
-            final String resultString = "could not initiate schema management for context album " + albumDefinition;
+            final var resultString = "could not initiate schema management for context album " + albumDefinition;
             LOGGER.warn(resultString, e);
             throw new ContextException(resultString, e);
         }
@@ -237,7 +237,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     @Override
     public Object get(final Object key) {
         if (key == null) {
-            final String returnString =
+            final var returnString =
                     ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for get()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -304,21 +304,21 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     @Override
     public Object put(final String key, final Object incomingValue) {
         if (key == null) {
-            final String returnString =
+            final var returnString =
                     ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (incomingValue == null) {
-            final String returnString = ALBUM + albumDefinition.getId() + "\" null values are illegal on key \""
+            final var returnString = ALBUM + albumDefinition.getId() + "\" null values are illegal on key \""
                     + key + "\" for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (!albumDefinition.isWritable()) {
-            final String returnString = ALBUM + albumDefinition.getId()
+            final var returnString = ALBUM + albumDefinition.getId()
                     + "\" put() not allowed on read only albums for key=\"" + key + "\", value=\"" + incomingValue;
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -342,7 +342,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
             // Put the translated value on the map and return the old map value
             return albumMap.put(key, valueToPut);
         } catch (final ContextRuntimeException e) {
-            final String returnString = "Failed to set context value for key \"" + key + "\" in album \""
+            final var returnString = "Failed to set context value for key \"" + key + "\" in album \""
                     + albumDefinition.getId() + "\": " + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
@@ -355,7 +355,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     @Override
     public void putAll(final Map<? extends String, ? extends Object> incomingContextAlbum) {
         if (!albumDefinition.isWritable()) {
-            final String returnString =
+            final var returnString =
                     ALBUM + albumDefinition.getId() + "\" putAll() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -390,7 +390,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     @Override
     public Object remove(final Object key) {
         if (!albumDefinition.isWritable()) {
-            final String returnString = ALBUM + albumDefinition.getId()
+            final var returnString = ALBUM + albumDefinition.getId()
                     + "\" remove() not allowed on read only albums for key=\"" + key + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
@@ -416,7 +416,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     @Override
     public void clear() {
         if (!albumDefinition.isWritable()) {
-            final String returnString =
+            final var returnString =
                     ALBUM + albumDefinition.getId() + "\" clear() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);

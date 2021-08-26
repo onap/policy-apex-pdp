@@ -101,14 +101,14 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         if (getSchemaClass() == null) {
-            final String returnString =
+            final var returnString =
                     getUserKey().getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (incomingObject instanceof JsonElement) {
-            final String elementJsonString = getGson().toJson((JsonElement) incomingObject);
+            final var elementJsonString = getGson().toJson((JsonElement) incomingObject);
             return getGson().fromJson(elementJsonString, this.getSchemaClass());
         }
 
@@ -116,7 +116,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return incomingObject;
         }
 
-        final String returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
+        final var returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
                 + incomingObject.getClass().getName()
                 + "\" is not an instance of JsonObject and is not assignable to \"" + getSchemaClass().getName() + "\"";
         LOGGER.warn(returnString);
@@ -163,7 +163,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             // Use Gson to translate the object
             return getGson().toJson(schemaObject);
         } else {
-            final String returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
+            final var returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
                     + "\" of class \"" + schemaObject.getClass().getName() + "\" not compatible with class \""
                     + getSchemaClass().getName() + "\"";
             LOGGER.warn(returnString);
@@ -220,7 +220,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             final Constructor<?> stringConstructor = getSchemaClass().getConstructor(String.class);
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
-            final String returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
+            final var returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
                     + object.getClass().getName() + "\" not compatible with class \"" + getSchemaClass().getName()
                     + "\"";
             LOGGER.warn(returnString, e);
@@ -253,7 +253,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             try {
                 adapterObject = jsonAdapterEntry.getAdaptorClazz().getDeclaredConstructor().newInstance();
             } catch (Exception e) {
-                final String returnString = getUserKey().getId() + ": instantiation of adapter class \""
+                final var returnString = getUserKey().getId() + ": instantiation of adapter class \""
                         + jsonAdapterEntry.getAdaptorClass() + "\"  to decode and encode class \""
                         + jsonAdapterEntry.getAdaptedClass() + "\" failed: " + e.getMessage();
                 LOGGER.warn(returnString, e);
