@@ -83,7 +83,7 @@ public class TaskExecutionContext extends AbstractExecutionContext {
     /**
      * Logger for task execution, task logic can use this field to access and log to Apex logging.
      */
-    public final XLogger logger = EXECUTION_LOGGER;
+    public static final XLogger logger = EXECUTION_LOGGER;
 
     // CHECKSTYLE:ON: checkstyle:VisibilityModifier
 
