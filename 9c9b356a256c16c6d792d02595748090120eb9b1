@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93172c1b_2f7a244a",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/impl/schema/java/JavaSchemaHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-27T21:21:44Z",
+      "side": 1,
+      "message": "surpised it didn\u0027t complain about this",
+      "range": {
+        "startLine": 243,
+        "startChar": 8,
+        "endLine": 243,
+        "endChar": 35
+      },
+      "revId": "9c9b356a256c16c6d792d02595748090120eb9b1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
