@@ -24,11 +24,9 @@
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import java.util.Properties;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
 import lombok.AccessLevel;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -148,11 +146,11 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
         @Override
         public void run() {
             try {
-                final Response response = client.target(restConsumerProperties.getUrl()).request("application/json")
+                final var response = client.target(restConsumerProperties.getUrl()).request("application/json")
                         .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap()).get();
 
                 // Match the return code
-                Matcher isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
+                var isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
 
                 // Check that status code
                 if (!isPass.matches()) {
@@ -164,7 +162,7 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
                 }
 
                 // Get the event we received
-                final String eventJsonString = response.readEntity(String.class);
+                final var eventJsonString = response.readEntity(String.class);
 
                 // Check there is content
                 if (StringUtils.isBlank(eventJsonString)) {

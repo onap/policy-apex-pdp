@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,13 +25,11 @@ package org.onap.policy.apex.plugins.event.carrier.grpc;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import org.onap.ccsdk.cds.controllerblueprints.common.api.EventType;
 import org.onap.ccsdk.cds.controllerblueprints.common.api.Status;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceInput;
-import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceInput.Builder;
 import org.onap.ccsdk.cds.controllerblueprints.processing.api.ExecutionServiceOutput;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -100,7 +99,7 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
         final Object event) {
 
         ExecutionServiceInput executionServiceInput;
-        Builder builder = ExecutionServiceInput.newBuilder();
+        var builder = ExecutionServiceInput.newBuilder();
         try {
             JsonFormat.parser().ignoringUnknownFields().merge((String) event, builder);
             executionServiceInput = builder.build();
@@ -109,7 +108,7 @@ public class ApexGrpcProducer extends ApexPluginsEventProducer implements CdsPro
                 "Incoming Event cannot be converted to ExecutionServiceInput type for gRPC request." + e.getMessage());
         }
         try {
-            CountDownLatch countDownLatch = client.sendRequest(executionServiceInput);
+            var countDownLatch = client.sendRequest(executionServiceInput);
             if (!countDownLatch.await(props.getTimeout(), TimeUnit.SECONDS)) {
                 cdsResponse.set(ExecutionServiceOutput.newBuilder().setStatus(Status.newBuilder()
                     .setErrorMessage(CdsActorConstants.TIMED_OUT).setEventType(EventType.EVENT_COMPONENT_FAILURE))

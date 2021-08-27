@@ -124,7 +124,7 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
 
         NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, untaggedUrl, event.toString());
         // Send the event as a REST request
-        final Response response = sendEventAsRestRequest(untaggedUrl, (String) event);
+        final var response = sendEventAsRestRequest(untaggedUrl, (String) event);
 
         NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, untaggedUrl, response.readEntity(String.class));
 

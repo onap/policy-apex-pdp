@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +26,6 @@ import java.util.Properties;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Message;
-import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.jms.Topic;
@@ -141,11 +141,11 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
     @Override
     public void run() {
         // JMS session and message consumer for receiving messages
-        try (final Session jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
+        try (final var jmsSession = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)) {
             // Create a message consumer for reception of messages and set this class as a message listener
             createMessageConsumer(jmsSession);
         } catch (final Exception exc) {
-            final String errorMessage = "failed to create a JMS session towards the JMS server for receiving messages";
+            final var errorMessage = "failed to create a JMS session towards the JMS server for receiving messages";
             throw new ApexEventRuntimeException(errorMessage, exc);
         }
         // Everything is now set up
@@ -161,7 +161,7 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
      * @param jmsSession a JMS session
      */
     private void createMessageConsumer(final Session jmsSession) {
-        try (final MessageConsumer messageConsumer = jmsSession.createConsumer(jmsIncomingTopic)) {
+        try (final var messageConsumer = jmsSession.createConsumer(jmsIncomingTopic)) {
             messageConsumer.setMessageListener(this);
 
             // The endless loop that receives events over JMS
@@ -169,8 +169,7 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
                 ThreadUtilities.sleep(jmsConsumerProperties.getConsumerWaitTime());
             }
         } catch (final Exception exc) {
-            final String errorMessage = "failed to create a JMS message consumer for receiving messages";
-            throw new ApexEventRuntimeException(errorMessage, exc);
+            throw new ApexEventRuntimeException("failed to create a JMS message consumer for receiving messages", exc);
         }
     }
 
@@ -188,8 +187,7 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
 
             eventReceiver.receiveEvent(new Properties(), jmsMessage);
         } catch (final Exception e) {
-            final String errorMessage = "failed to receive message from JMS";
-            throw new ApexEventRuntimeException(errorMessage, e);
+            throw new ApexEventRuntimeException("failed to receive message from JMS", e);
         }
     }
 
@@ -210,8 +208,7 @@ public class ApexJmsConsumer extends ApexPluginsEventConsumer implements Message
                 connection.close();
             }
         } catch (final Exception e) {
-            final String errorMessage = "close of connection to the JMS server failed";
-            LOGGER.warn(errorMessage, e);
+            LOGGER.warn("close of connection to the JMS server failed", e);
         }
     }
 

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  * Copyright (C) 2020 Nordix Foundation.
+ * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +68,7 @@ public class JavascriptExecutor {
     public boolean execute(final Object executionContext) throws StateMachineException {
         Object returnObject = null;
 
-        Context context = Context.enter();
+        var context = Context.enter();
         try {
             // Pass the subject context to the Javascript engine
             Scriptable javascriptScope = context.initStandardObjects();
@@ -91,7 +92,7 @@ public class JavascriptExecutor {
     }
 
     private Script compile(String id, String javascriptCode) throws StateMachineException {
-        Context context = Context.enter();
+        var context = Context.enter();
         try {
             // Set up the default values of the context
             context.setOptimizationLevel(DEFAULT_OPTIMIZATION_LEVEL);

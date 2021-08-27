@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@
 
 package org.onap.policy.apex.plugins.executor.java;
 
-import java.lang.reflect.Method;
 import java.util.Properties;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -84,13 +84,13 @@ public class JavaTaskSelectExecutor extends TaskSelectExecutor {
         executePre(executionId, executionProperties, incomingEvent);
 
         // Check and execute the Java logic
-        boolean returnValue = false;
+        var returnValue = false;
         try {
             // Find and call the method with the signature "public boolean getTask(final TaskSelectionExecutionContext
             // executor)" to invoke the task selection
             // logic in the Java class
-            final Method method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask",
-                    new Class[] {TaskSelectionExecutionContext.class});
+            final var classes = new Class[] {TaskSelectionExecutionContext.class};
+            final var method = taskSelectionLogicObject.getClass().getDeclaredMethod("getTask", classes);
             returnValue = (boolean) method.invoke(taskSelectionLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error(
