@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +45,7 @@ public class EventMonitor {
      * @param userArtifactStack the keys of the artifacts using the event at the moment
      */
     public void monitorGet(final AxField eventParameter, final Object value, final AxConcept[] userArtifactStack) {
-        String monitorGetString = monitor("GET", userArtifactStack, eventParameter, value);
+        var monitorGetString = monitor("GET", userArtifactStack, eventParameter, value);
         LOGGER.trace(monitorGetString);
     }
 
@@ -56,7 +57,7 @@ public class EventMonitor {
      * @param userArtifactStack the keys of the artifacts using the event at the moment
      */
     public void monitorSet(final AxField eventParameter, final Object value, final AxConcept[] userArtifactStack) {
-        String monitorSetString = monitor("SET", userArtifactStack, eventParameter, value);
+        var monitorSetString = monitor("SET", userArtifactStack, eventParameter, value);
         LOGGER.trace(monitorSetString);
     }
 
@@ -69,7 +70,7 @@ public class EventMonitor {
      */
     public void monitorRemove(final AxField eventParameter, final Object removedValue,
             final AxConcept[] userArtifactStack) {
-        String monitorRemoveString = monitor("REMOVE", userArtifactStack, eventParameter, removedValue);
+        var monitorRemoveString = monitor("REMOVE", userArtifactStack, eventParameter, removedValue);
         LOGGER.trace(monitorRemoveString);
     }
 
@@ -84,13 +85,13 @@ public class EventMonitor {
      */
     private String monitor(final String preamble, final AxConcept[] userArtifactStack, final AxField eventParameter,
             final Object value) {
-        final StringBuilder builder = new StringBuilder();
+        final var builder = new StringBuilder();
 
         builder.append(preamble);
         builder.append(",[");
 
         if (userArtifactStack != null) {
-            boolean first = true;
+            var first = true;
             for (final AxConcept stackKey : userArtifactStack) {
                 if (first) {
                     first = false;

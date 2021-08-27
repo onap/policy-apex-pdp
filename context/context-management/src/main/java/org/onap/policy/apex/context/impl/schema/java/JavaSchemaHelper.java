@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -234,10 +235,10 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      * @return the GSON instance
      */
     private Gson getGson() {
-        GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+        var gsonBuilder = new GsonBuilder().setPrettyPrinting();
 
         // Get the Java schema helper parameters from the parameter service
-        SchemaParameters schemaParameters = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        var schemaParameters = (SchemaParameters) ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
         JavaSchemaHelperParameters javaSchemaHelperParmeters =
                 (JavaSchemaHelperParameters) schemaParameters.getSchemaHelperParameterMap().get("Java");

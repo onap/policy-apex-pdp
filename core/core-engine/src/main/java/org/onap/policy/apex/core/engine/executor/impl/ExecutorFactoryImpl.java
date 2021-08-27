@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,7 +118,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
     public TaskExecutor getTaskExecutor(final Executor<?, ?, ?, ?> parentExecutor, final AxTask task,
             final ApexInternalContext context) {
         // Create task executor
-        final TaskExecutor taskExecutor = (TaskExecutor) createExecutor(task.getTaskLogic().getLogicFlavour(),
+        final var taskExecutor = (TaskExecutor) createExecutor(task.getTaskLogic().getLogicFlavour(),
                 taskExecutorPluginClassMap.get(task.getTaskLogic().getLogicFlavour()), TaskExecutor.class);
         taskExecutor.setParameters(implementationParameterMap.get(task.getTaskLogic().getLogicFlavour()));
         taskExecutor.setContext(parentExecutor, task, context);

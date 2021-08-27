@@ -93,7 +93,7 @@ public class StateMachineExecutor implements Executor<EnEvent, Collection<EnEven
         StateExecutor lastExecutor = null;
         for (final AxState state : axPolicy.getStateMap().values()) {
             // Create a state executor for this state and add its context (the state)
-            final StateExecutor stateExecutor = new StateExecutor(executorFactory);
+            final var stateExecutor = new StateExecutor(executorFactory);
             stateExecutor.setContext(this, state, internalContext);
 
             // Update the next executor on the last executor
@@ -140,8 +140,8 @@ public class StateMachineExecutor implements Executor<EnEvent, Collection<EnEven
 
         // Get the first state of the state machine and define a state output that starts state
         // execution
-        StateExecutor stateExecutor = firstExecutor;
-        StateOutput stateOutput = new StateOutput(new AxStateOutput(firstExecutor.getSubject().getKey(),
+        var stateExecutor = firstExecutor;
+        var stateOutput = new StateOutput(new AxStateOutput(firstExecutor.getSubject().getKey(),
                 incomingEvent.getKey(), firstExecutor.getSubject().getKey()), incomingEvent);
 
         while (true) {

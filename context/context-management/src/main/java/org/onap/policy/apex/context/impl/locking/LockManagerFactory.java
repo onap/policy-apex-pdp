@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +51,8 @@ public class LockManagerFactory {
     public LockManager createLockManager(final AxArtifactKey key) throws ContextException {
         LOGGER.entry("Lock Manager factory, key=" + key);
 
-        final LockManagerParameters lockManagerParameters =
-                ParameterService.get(ContextParameterConstants.LOCKING_GROUP_NAME);
+        final var lockManagerParameters =
+                        (LockManagerParameters) ParameterService.get(ContextParameterConstants.LOCKING_GROUP_NAME);
 
         // Get the class for the lock manager using reflection
         Object lockManagerObject = null;
@@ -76,7 +77,7 @@ public class LockManagerFactory {
         }
 
         // The context lock manager to return
-        final LockManager lockManager = (LockManager) lockManagerObject;
+        final var lockManager = (LockManager) lockManagerObject;
 
         // Lock and load (OK sorry!!!) the lock manager
         lockManager.init(key);
