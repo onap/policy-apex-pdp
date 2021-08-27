@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ package org.onap.policy.apex.service.parameters.carriertechnology;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -71,7 +71,7 @@ public class CarrierTechnologyParametersJsonAdapter
     @Override
     public JsonElement serialize(final CarrierTechnologyParameters src, final Type typeOfSrc,
             final JsonSerializationContext context) {
-        final String returnMessage = "serialization of Apex carrier technology parameters to Json is not supported";
+        final var returnMessage = "serialization of Apex carrier technology parameters to Json is not supported";
         LOGGER.error(returnMessage);
         throw new ParameterRuntimeException(returnMessage);
     }
@@ -82,10 +82,10 @@ public class CarrierTechnologyParametersJsonAdapter
     @Override
     public CarrierTechnologyParameters deserialize(final JsonElement json, final Type typeOfT,
             final JsonDeserializationContext context) {
-        final JsonObject jsonObject = json.getAsJsonObject();
+        final var jsonObject = json.getAsJsonObject();
 
         // Get the carrier technology label primitive
-        final JsonPrimitive labelJsonPrimitive = (JsonPrimitive) jsonObject.get(CARRIER_TECHNOLOGY_TOKEN);
+        final var labelJsonPrimitive = (JsonPrimitive) jsonObject.get(CARRIER_TECHNOLOGY_TOKEN);
 
         // Check if we found our carrier technology
         if (labelJsonPrimitive == null) {
@@ -107,7 +107,7 @@ public class CarrierTechnologyParametersJsonAdapter
 
         // Get the technology carrier parameter class for the carrier technology plugin class from
         // the configuration parameters
-        final JsonPrimitive classNameJsonPrimitive = (JsonPrimitive) jsonObject.get(PARAMETER_CLASS_NAME);
+        final var classNameJsonPrimitive = (JsonPrimitive) jsonObject.get(PARAMETER_CLASS_NAME);
 
         // If no technology carrier parameter class was specified, we try to use a built in carrier
         // technology
@@ -142,7 +142,7 @@ public class CarrierTechnologyParametersJsonAdapter
         }
 
         // Deserialise the class
-        CarrierTechnologyParameters carrierTechnologyParameters =
+        var carrierTechnologyParameters = (CarrierTechnologyParameters)
                 context.deserialize(jsonObject.get(CARRIER_TECHNOLOGY_PARAMETERS), carrierTechnologyParameterClass);
         if (carrierTechnologyParameters == null) {
             // OK no parameters for the carrier technology have been specified, just instantiate the

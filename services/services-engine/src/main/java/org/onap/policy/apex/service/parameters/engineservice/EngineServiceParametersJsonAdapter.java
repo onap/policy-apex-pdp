@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +79,7 @@ public class EngineServiceParametersJsonAdapter
     @Override
     public JsonElement serialize(final EngineParameters src, final Type typeOfSrc,
                     final JsonSerializationContext context) {
-        final String returnMessage = "serialization of Apex parameters to Json is not supported";
+        final var returnMessage = "serialization of Apex parameters to Json is not supported";
         LOGGER.error(returnMessage);
         throw new ParameterRuntimeException(returnMessage);
     }
@@ -89,9 +90,9 @@ public class EngineServiceParametersJsonAdapter
     @Override
     public EngineParameters deserialize(final JsonElement json, final Type typeOfT,
                     final JsonDeserializationContext context) {
-        final JsonObject engineParametersJsonObject = json.getAsJsonObject();
+        final var engineParametersJsonObject = json.getAsJsonObject();
 
-        final EngineParameters engineParameters = new EngineParameters();
+        final var engineParameters = new EngineParameters();
 
         // Deserialise context parameters, they may be a subclass of the ContextParameters class
         engineParameters.setContextParameters(
@@ -151,12 +152,12 @@ public class EngineServiceParametersJsonAdapter
         }
 
         // We do this because the JSON parameters may be for a subclass of ContextParameters
-        final ContextParameters contextParameters = (ContextParameters) deserializeParameters(CONTEXT_PARAMETERS,
+        final var contextParameters = (ContextParameters) deserializeParameters(CONTEXT_PARAMETERS,
                         contextParametersElement, context);
 
         // We know this will work because if the context parameters was not a Json object, the
         // previous deserializeParameters() call would not have worked
-        final JsonObject contextParametersObject = engineParametersJsonObject.get(CONTEXT_PARAMETERS).getAsJsonObject();
+        final var contextParametersObject = engineParametersJsonObject.get(CONTEXT_PARAMETERS).getAsJsonObject();
 
         // Now get the distributor, lock manager, and persistence parameters
         final JsonElement distributorParametersElement = contextParametersObject.get(DISTRIBUTOR_PARAMETERS);
@@ -204,11 +205,11 @@ public class EngineServiceParametersJsonAdapter
         }
 
         // Deserialize the executor parameters
-        final JsonObject executorParametersJsonObject = engineParametersJsonObject.get(EXECUTOR_PARAMETERS)
+        final var executorParametersJsonObject = engineParametersJsonObject.get(EXECUTOR_PARAMETERS)
                         .getAsJsonObject();
 
         for (final Entry<String, JsonElement> executorEntries : executorParametersJsonObject.entrySet()) {
-            final ExecutorParameters executorParameters = (ExecutorParameters) deserializeParameters(
+            final var executorParameters = (ExecutorParameters) deserializeParameters(
                             EXECUTOR_PARAMETERS + ':' + executorEntries.getKey(), executorEntries.getValue(), context);
             engineParameters.getExecutorParameterMap().put(executorEntries.getKey(), executorParameters);
         }
@@ -235,7 +236,7 @@ public class EngineServiceParametersJsonAdapter
         }
 
         // Deserialize the executor parameters
-        final JsonObject schemaHelperParametersJsonObject = contextParametersJsonObject.get(SCHEMA_PARAMETERS)
+        final var schemaHelperParametersJsonObject = contextParametersJsonObject.get(SCHEMA_PARAMETERS)
                         .getAsJsonObject();
 
         for (final Entry<String, JsonElement> schemaHelperEntries : schemaHelperParametersJsonObject.entrySet()) {
@@ -286,7 +287,7 @@ public class EngineServiceParametersJsonAdapter
         }
 
         // Check the parameter has a value
-        final String parameterClassName = parameterClassNameElement.getAsString();
+        final var parameterClassName = parameterClassNameElement.getAsString();
         if (parameterClassName == null || parameterClassName.trim().length() == 0) {
             final String returnMessage = "value for field \"" + PARAMETER_CLASS_NAME + "\" in \"" + parametersLabel
                             + "\" entry is not specified or is blank";

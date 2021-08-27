@@ -108,7 +108,7 @@ public class EventRequestorProducer implements ApexEventProducer {
     public void sendEvent(final long executionId, final Properties executorProperties, final String eventName,
             final Object eventObject) {
         // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache =
+        final var synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);

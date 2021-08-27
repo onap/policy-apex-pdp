@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ package org.onap.policy.apex.service.parameters.eventprotocol;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -69,7 +69,7 @@ public class EventProtocolParametersJsonAdapter
     @Override
     public JsonElement serialize(final EventProtocolParameters src, final Type typeOfSrc,
             final JsonSerializationContext context) {
-        final String returnMessage = "serialization of Apex event protocol parameters to Json is not supported";
+        final var returnMessage = "serialization of Apex event protocol parameters to Json is not supported";
         LOGGER.error(returnMessage);
         throw new ParameterRuntimeException(returnMessage);
     }
@@ -80,10 +80,10 @@ public class EventProtocolParametersJsonAdapter
     @Override
     public EventProtocolParameters deserialize(final JsonElement json, final Type typeOfT,
             final JsonDeserializationContext context) {
-        final JsonObject jsonObject = json.getAsJsonObject();
+        final var jsonObject = json.getAsJsonObject();
 
         // Get the event protocol label primitive
-        final JsonPrimitive labelJsonPrimitive = (JsonPrimitive) jsonObject.get(EVENT_PROTOCOL_TOKEN);
+        final var labelJsonPrimitive = (JsonPrimitive) jsonObject.get(EVENT_PROTOCOL_TOKEN);
 
         // Check if we found our event protocol
         if (labelJsonPrimitive == null) {
@@ -105,7 +105,7 @@ public class EventProtocolParametersJsonAdapter
 
         // Get the event protocol parameter class for the event protocol plugin class from the
         // configuration parameters
-        final JsonPrimitive classNameJsonPrimitive = (JsonPrimitive) jsonObject.get(PARAMETER_CLASS_NAME);
+        final var classNameJsonPrimitive = (JsonPrimitive) jsonObject.get(PARAMETER_CLASS_NAME);
 
         // If no event protocol parameter class was specified, we use the default
         if (classNameJsonPrimitive == null) {
@@ -137,7 +137,7 @@ public class EventProtocolParametersJsonAdapter
         }
 
         // Deserialise the class
-        EventProtocolParameters eventProtocolParameters =
+        var eventProtocolParameters = (EventProtocolParameters)
                 context.deserialize(jsonObject.get(EVENT_PROTOCOL_PARAMETERS), eventProtocolParameterClass);
         if (eventProtocolParameters == null) {
             // OK no parameters for the event protocol have been specified, just instantiate the

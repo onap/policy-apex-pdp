@@ -106,7 +106,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
         this.inputStream = incomingInputStream;
 
         // Configure and start the text reading thread
-        Thread textConsumputionThread = new ApplicationThreadFactory(this.getClass().getName()).newThread(this);
+        var textConsumputionThread = new ApplicationThreadFactory(this.getClass().getName()).newThread(this);
         textConsumputionThread.setDaemon(true);
         textConsumputionThread.start();
     }
@@ -117,7 +117,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
     @Override
     public TextBlock readTextBlock() throws IOException {
         // Holder for the current text block
-        final StringBuilder textBlockBuilder = new StringBuilder();
+        final var textBlockBuilder = new StringBuilder();
 
         // Wait for the timeout period if there is no input
         if (!eofOnInputStream && textLineQueue.isEmpty()) {
@@ -169,7 +169,7 @@ public class HeaderDelimitedTextBlockReader implements TextBlockReader, Runnable
      */
     @Override
     public void run() {
-        try (BufferedReader textReader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (var textReader = new BufferedReader(new InputStreamReader(inputStream))) {
             // Read the input line by line until we see end of file on the stream
             String line;
             while ((line = textReader.readLine()) != null) {

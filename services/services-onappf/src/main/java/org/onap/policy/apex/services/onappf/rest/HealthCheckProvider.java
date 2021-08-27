@@ -47,7 +47,7 @@ public class HealthCheckProvider {
                         Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class);
         final boolean alive = activator.isAlive();
 
-        final HealthCheckReport report = new HealthCheckReport();
+        final var report = new HealthCheckReport();
         report.setName(activator.getInstanceId());
         report.setUrl(URL);
         report.setHealthy(alive);
