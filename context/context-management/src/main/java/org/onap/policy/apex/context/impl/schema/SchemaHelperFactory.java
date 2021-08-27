@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ package org.onap.policy.apex.context.impl.schema;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
-import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -70,10 +70,11 @@ public class SchemaHelperFactory {
         }
 
         // Get the schema class using the parameter service
-        final SchemaParameters schemaParameters = ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
+        final var schemaParameters =
+                        (SchemaParameters) ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
         // Get the class for the schema helper from the schema parameters
-        final SchemaHelperParameters schemaHelperParameters =
+        final var schemaHelperParameters =
                 schemaParameters.getSchemaHelperParameters(schema.getSchemaFlavour());
         if (schemaHelperParameters == null) {
             final var resultString = "context schema helper parameters not found for context schema  \""
@@ -103,7 +104,7 @@ public class SchemaHelperFactory {
         }
 
         // The context schema helper to return
-        final SchemaHelper schemaHelper = (SchemaHelper) schemaHelperObject;
+        final var schemaHelper = (SchemaHelper) schemaHelperObject;
 
         // Lock and load the schema helper
         schemaHelper.init(owningEntityKey.getKey(), schema);
