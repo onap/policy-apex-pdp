@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +31,13 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 
+@RunWith(MockitoJUnitRunner.class)
 public class AccessControlFilterTest {
 
     private AccessControlFilter acf;
@@ -46,7 +49,6 @@ public class AccessControlFilterTest {
 
     @Before
     public void beforeEach() {
-        MockitoAnnotations.initMocks(this);
         acf = new AccessControlFilter();
     }
 
