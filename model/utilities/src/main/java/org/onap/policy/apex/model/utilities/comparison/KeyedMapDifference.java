@@ -58,7 +58,7 @@ public class KeyedMapDifference<K, V> {
      * @return the string
      */
     public String asString(final boolean diffsOnly, final boolean keysOnly) {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
         if (leftOnly.isEmpty()) {
             if (!diffsOnly) {
@@ -101,7 +101,7 @@ public class KeyedMapDifference<K, V> {
      */
     private Object getInOneSideOnlyAsString(final Map<K, V> sideMap, final String sideMapString,
                     final boolean keysOnly) {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
         builder.append("*** list of keys on " + sideMapString + " only\n");
         for (Entry<K, V> leftEntry : sideMap.entrySet()) {
@@ -124,7 +124,7 @@ public class KeyedMapDifference<K, V> {
      * @return the differences as a string
      */
     private String getDifferencesAsString(final boolean keysOnly) {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
         builder.append("*** list of differing entries between left and right\n");
         for (Entry<K, List<V>> differentEntry : differentValues.entrySet()) {
@@ -132,7 +132,7 @@ public class KeyedMapDifference<K, V> {
             builder.append(differentEntry.getKey());
             if (!keysOnly) {
                 builder.append(",values={");
-                boolean first = true;
+                var first = true;
                 for (V differentEntryValue : differentEntry.getValue()) {
                     builder.append(differentEntryValue);
                     if (first) {
@@ -156,7 +156,7 @@ public class KeyedMapDifference<K, V> {
      * @return the identical entries as a string
      */
     private String getIdenticalsAsString(final boolean keysOnly) {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
         builder.append("*** list of identical entries in left and right\n");
         for (Entry<K, V> identicalEntry : identicalValues.entrySet()) {

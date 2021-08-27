@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -188,7 +189,7 @@ public final class Console {
             return;
         }
 
-        final StringBuilder err = new StringBuilder();
+        final var err = new StringBuilder();
         if (appName != null) {
             err.append(this.getAppName()).append(": ");
         }
@@ -217,7 +218,7 @@ public final class Console {
             return;
         }
 
-        final StringBuilder warn = new StringBuilder();
+        final var warn = new StringBuilder();
         if (appName != null) {
             warn.append(this.getAppName()).append(": ");
         }

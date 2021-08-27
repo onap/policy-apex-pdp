@@ -183,7 +183,7 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
             return null;
         }
 
-        Matcher matcher = patternErrorKey.matcher(url2);
+        var matcher = patternErrorKey.matcher(url2);
         if (matcher.find()) {
             final String urlInvalidMessage = "invalid URL has been set for event sending on " + getLabel();
             return new ObjectValidationResult("url", url2, ValidationStatus.INVALID, urlInvalidMessage);
@@ -202,13 +202,13 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
             return null;
         }
 
-        BeanValidationResult result = new BeanValidationResult(HTTP_HEADERS, httpHeaders);
+        var result = new BeanValidationResult(HTTP_HEADERS, httpHeaders);
 
-        int item = 0;
+        var item = 0;
         for (String[] httpHeader : httpHeaders) {
             final String label = "entry " + (item++);
             final List<String> value = (httpHeader == null ? null : Arrays.asList(httpHeader));
-            BeanValidationResult result2 = new BeanValidationResult(label, value);
+            var result2 = new BeanValidationResult(label, value);
 
             if (httpHeader == null) {
                 // note: add to result, not result2

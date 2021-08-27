@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,9 +53,10 @@ public class PdpStateChangeMessageHandler {
      * @param pdpStateChangeMsg pdp state change message
      */
     public void handlePdpStateChangeEvent(final PdpStateChange pdpStateChangeMsg) {
-        final PdpStatus pdpStatusContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);
-        final PdpStatusPublisher pdpStatusPublisher = Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
-        final PdpMessageHandler pdpMessageHandler = new PdpMessageHandler();
+        final var pdpStatusContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);
+        final var pdpStatusPublisher =
+                        Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
+        final var pdpMessageHandler = new PdpMessageHandler();
         PdpResponseDetails pdpResponseDetails = null;
         if (pdpStateChangeMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
                 pdpStatusContext.getPdpSubgroup())) {
@@ -68,7 +70,7 @@ public class PdpStateChangeMessageHandler {
                 default:
                     break;
             }
-            final PdpStatus pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
+            final var pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
             pdpStatus.setResponse(pdpResponseDetails);
             pdpStatus.setDescription("Pdp status response message for PdpStateChange");
             pdpStatusPublisher.send(pdpStatus);
@@ -115,7 +117,7 @@ public class PdpStateChangeMessageHandler {
         final PdpMessageHandler pdpMessageHandler, final List<ToscaPolicy> policies) {
         PdpResponseDetails pdpResponseDetails;
         try {
-            final ApexEngineHandler apexEngineHandler = new ApexEngineHandler(policies);
+            final var apexEngineHandler = new ApexEngineHandler(policies);
             Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
             if (apexEngineHandler.isApexEngineRunning()) {
                 List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
@@ -127,7 +129,7 @@ public class PdpStateChangeMessageHandler {
                         pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                             PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
                 } else {
-                    StringBuilder message = new StringBuilder(
+                    var message = new StringBuilder(
                         "Apex engine started. But, only the following polices are running - ");
                     for (ToscaConceptIdentifier policy : runningPolicies) {
                         message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
@@ -146,8 +148,7 @@ public class PdpStateChangeMessageHandler {
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
-        final ApexPolicyStatisticsManager apexPolicyStatisticsManager =
-                ApexPolicyStatisticsManager.getInstanceFromRegistry();
+        final var apexPolicyStatisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
         if (apexPolicyStatisticsManager != null) {
             apexPolicyStatisticsManager
                     .updatePolicyDeployCounter(pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);

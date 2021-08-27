@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,8 @@
 package org.onap.policy.apex.model.utilities;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -54,8 +57,10 @@ final class DirectoryDeleteShutdownHook extends Thread {
         if (tempDir.exists()) {
             // Empty and delete the directory
             DirectoryUtils.emptyDirectory(tempDir);
-            if (!tempDir.delete()) {
-                LOGGER.warn("Failed to delete directory {}", tempDir);
+            try {
+                Files.delete(tempDir.toPath());
+            } catch (IOException e) {
+                LOGGER.warn("Failed to delete directory {}", tempDir, e);
             }
         }
     }

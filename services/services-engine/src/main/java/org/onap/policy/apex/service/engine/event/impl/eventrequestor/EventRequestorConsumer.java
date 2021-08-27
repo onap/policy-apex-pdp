@@ -156,7 +156,7 @@ public class EventRequestorConsumer implements ApexEventConsumer, Runnable {
         while (consumerThread.isAlive() && !stopOrderedFlag) {
             try {
                 // Take the next event from the queue
-                final Object eventObject =
+                final var eventObject =
                         incomingEventRequestQueue.poll(EVENT_REQUESTOR_WAIT_SLEEP_TIME, TimeUnit.MILLISECONDS);
                 if (eventObject == null) {
                     // Poll timed out, wait again

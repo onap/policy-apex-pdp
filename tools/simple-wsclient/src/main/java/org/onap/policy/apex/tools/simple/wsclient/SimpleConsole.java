@@ -133,8 +133,8 @@ public class SimpleConsole extends WebSocketClient {
         thread.setName("ClientThread");
         thread.start();
 
-        final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder event = new StringBuilder();
+        final var in = new BufferedReader(new InputStreamReader(System.in));
+        var event = new StringBuilder();
         String line;
         while ((line = in.readLine()) != null) {
             if ("exit".equals(line)) {

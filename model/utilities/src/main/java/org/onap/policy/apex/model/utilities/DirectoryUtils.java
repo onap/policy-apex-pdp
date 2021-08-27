@@ -23,6 +23,8 @@
 package org.onap.policy.apex.model.utilities;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.slf4j.ext.XLogger;
@@ -51,7 +53,7 @@ public final class DirectoryUtils {
         try {
             // Get the name of the temporary directory
             final String tempDirName = System.getProperty("java.io.tmpdir") + "/" + nameprefix + System.nanoTime();
-            final File tempDir = new File(tempDirName);
+            final var tempDir = new File(tempDirName);
 
             // Delete the directory if it already exists
             if (tempDir.exists()) {
@@ -95,8 +97,10 @@ public final class DirectoryUtils {
                 }
 
                 // Delete the directory entry
-                if (!directoryFile.delete()) {
-                    LOGGER.warn("Failed to delete directory file {}", directoryFile);
+                try {
+                    Files.delete(directoryFile.toPath());
+                } catch (IOException e) {
+                    LOGGER.warn("Failed to delete directory file {}", directoryFile, e);
                 }
             }
         }

@@ -92,9 +92,9 @@ public final class CollectionUtils {
 
             // Get the next objects
             @SuppressWarnings("unchecked")
-            final T leftObject = (T) leftIterator.next();
+            final var leftObject = (T) leftIterator.next();
             @SuppressWarnings("unchecked")
-            final T rightObject = (T) rightIterator.next();
+            final var rightObject = (T) rightIterator.next();
 
             // Compare the objects
             @SuppressWarnings("unchecked")

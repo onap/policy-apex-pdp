@@ -61,7 +61,7 @@ public class PdpStatusPublisher extends TimerTask {
 
     @Override
     public void run() {
-        final PdpStatus pdpStatus = new PdpMessageHandler().createPdpStatusFromContext();
+        final var pdpStatus = new PdpMessageHandler().createPdpStatusFromContext();
         topicSinkClient.send(pdpStatus);
         LOGGER.debug("Sent heartbeat to PAP - {}", pdpStatus);
     }

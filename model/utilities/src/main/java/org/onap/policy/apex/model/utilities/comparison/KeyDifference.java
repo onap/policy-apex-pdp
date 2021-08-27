@@ -63,7 +63,7 @@ public class KeyDifference<K> {
      * @return the difference between the keys as a string
      */
     public String asString(final boolean diffsOnly) {
-        StringBuilder builder = new StringBuilder();
+        var builder = new StringBuilder();
 
         if (leftKey.equals(rightKey)) {
             if (!diffsOnly) {

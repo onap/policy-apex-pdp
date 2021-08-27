@@ -100,15 +100,15 @@ public final class TreeMapUtils {
             Map.Entry<?, ?> leftEntry = (Entry<?, ?>) leftIt.next();
             Map.Entry<?, ?> rightEntry = (Entry<?, ?>) rightIt.next();
 
-            K leftKey = (K) leftEntry.getKey();
-            K rightKey = (K) rightEntry.getKey();
+            var leftKey = (K) leftEntry.getKey();
+            var rightKey = (K) rightEntry.getKey();
             int result = ((Comparable<K>) leftKey).compareTo(rightKey);
             if (result != 0) {
                 return result;
             }
 
-            V leftValue = (V) leftEntry.getValue();
-            V rightValue = (V) rightEntry.getValue();
+            var leftValue = (V) leftEntry.getValue();
+            var rightValue = (V) rightEntry.getValue();
             result = ((Comparable<V>) leftValue).compareTo(rightValue);
             if (result != 0) {
                 return result;

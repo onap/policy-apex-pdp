@@ -109,9 +109,9 @@ public class ApexStarterActivator {
             throw new ApexStarterRunTimeException(e);
         }
 
-        final PdpUpdateListener pdpUpdateListener = new PdpUpdateListener();
-        final PdpStateChangeListener pdpStateChangeListener = new PdpStateChangeListener();
-        final PdpMessageHandler pdpMessageHandler = new PdpMessageHandler();
+        final var pdpUpdateListener = new PdpUpdateListener();
+        final var pdpStateChangeListener = new PdpStateChangeListener();
+        final var pdpMessageHandler = new PdpMessageHandler();
         supportedPolicyTypes =
             pdpMessageHandler.getSupportedPolicyTypesFromParameters(apexStarterParameterGroup.getPdpStatusParameters());
 
@@ -160,7 +160,7 @@ public class ApexStarterActivator {
      * Method to stop and unregister the pdp status publisher.
      */
     private void stopAndRemovePdpStatusPublisher() {
-        final PdpStatusPublisher pdpStatusPublisher =
+        final var pdpStatusPublisher =
                 Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
         pdpStatusPublisher.terminate();
         Registry.unregister(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
@@ -196,7 +196,7 @@ public class ApexStarterActivator {
             throw new IllegalStateException("activator is not running");
         }
         try {
-            final PdpStatusPublisher pdpStatusPublisher =
+            final var pdpStatusPublisher =
                     Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
             // send a final heartbeat with terminated status
             pdpStatusPublisher.send(new PdpMessageHandler().getTerminatedPdpStatus());

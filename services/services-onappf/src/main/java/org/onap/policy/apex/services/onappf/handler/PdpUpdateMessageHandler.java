@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,8 +59,8 @@ public class PdpUpdateMessageHandler {
      * @param pdpUpdateMsg pdp update message
      */
     public void handlePdpUpdateEvent(final PdpUpdate pdpUpdateMsg) {
-        final PdpMessageHandler pdpMessageHandler = new PdpMessageHandler();
-        final PdpStatus pdpStatusContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);
+        final var pdpMessageHandler = new PdpMessageHandler();
+        final var pdpStatusContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);
         PdpResponseDetails pdpResponseDetails = null;
         if (pdpUpdateMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
                 pdpStatusContext.getPdpSubgroup())) {
@@ -69,9 +70,9 @@ public class PdpUpdateMessageHandler {
             } else {
                 pdpResponseDetails = handlePdpUpdate(pdpUpdateMsg, pdpMessageHandler, pdpStatusContext);
             }
-            final PdpStatusPublisher pdpStatusPublisherTemp =
-                    Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
-            final PdpStatus pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
+            final var pdpStatusPublisherTemp =
+                    Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
+            final var pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
             pdpStatus.setResponse(pdpResponseDetails);
             pdpStatus.setDescription("Pdp status response message for PdpUpdate");
             pdpStatusPublisherTemp.send(pdpStatus);
@@ -89,7 +90,8 @@ public class PdpUpdateMessageHandler {
     private PdpResponseDetails handlePdpUpdate(final PdpUpdate pdpUpdateMsg, final PdpMessageHandler pdpMessageHandler,
         final PdpStatus pdpStatusContext) {
         PdpResponseDetails pdpResponseDetails = null;
-        final PdpStatusPublisher pdpStatusPublisher = Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
+        final var pdpStatusPublisher =
+                        Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
         if (null != pdpUpdateMsg.getPdpHeartbeatIntervalMs() && pdpUpdateMsg.getPdpHeartbeatIntervalMs() > 0
                 && pdpStatusPublisher.getInterval() != pdpUpdateMsg.getPdpHeartbeatIntervalMs()) {
             updateInterval(pdpUpdateMsg.getPdpHeartbeatIntervalMs());
@@ -109,7 +111,7 @@ public class PdpUpdateMessageHandler {
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
             pdpResponseDetails = startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler);
 
-            ApexEngineHandler apexEngineHandler =
+            var apexEngineHandler =
                 Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
             // in hearbeat while in active state, only the policies which are running should be there.
             // if some policy fails, that shouldn't go in the heartbeat.
@@ -210,7 +212,7 @@ public class PdpUpdateMessageHandler {
         List<ToscaConceptIdentifier> policiesToBeUndeployed = pdpUpdateMsg.getPoliciesToBeUndeployed();
         if (runningPolicies.containsAll(policiesToBeDeployed)
             && !containsAny(runningPolicies, policiesToBeUndeployed)) {
-            StringBuilder message = new StringBuilder("Apex engine started. ");
+            var message = new StringBuilder("Apex engine started. ");
             if (!policiesToBeDeployed.isEmpty()) {
                 message.append("Deployed policies are: ");
                 for (ToscaConceptIdentifier policy : policiesToBeDeployed) {
@@ -226,7 +228,7 @@ public class PdpUpdateMessageHandler {
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                 PdpResponseStatus.SUCCESS, message.toString());
         } else {
-            StringBuilder message =
+            var message =
                 new StringBuilder("Apex engine started. But, only the following polices are running - ");
             for (ToscaConceptIdentifier policy : runningPolicies) {
                 message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
@@ -262,7 +264,8 @@ public class PdpUpdateMessageHandler {
      * @param interval time interval received in the pdp update message from pap
      */
     public void updateInterval(final long interval) {
-        final PdpStatusPublisher pdpStatusPublisher = Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER);
+        final var pdpStatusPublisher =
+                        Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
         pdpStatusPublisher.terminate();
         final List<TopicSink> topicSinks = Registry.get(ApexStarterConstants.REG_APEX_PDP_TOPIC_SINKS);
         Registry.registerOrReplace(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER,
@@ -287,8 +290,7 @@ public class PdpUpdateMessageHandler {
      * @param pdpResponseDetails the pdp response
      */
     private void updateDeploymentCounts(final PdpUpdate pdpUpdateMsg, PdpResponseDetails pdpResponseDetails) {
-        final ApexPolicyStatisticsManager statisticsManager =
-                ApexPolicyStatisticsManager.getInstanceFromRegistry();
+        final var statisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
 
         if (statisticsManager != null) {
             if (pdpUpdateMsg.getPoliciesToBeDeployed() != null && !pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()) {

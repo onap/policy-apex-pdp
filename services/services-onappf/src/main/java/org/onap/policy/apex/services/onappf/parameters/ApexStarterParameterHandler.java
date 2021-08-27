@@ -55,7 +55,7 @@ public class ApexStarterParameterHandler {
         // Read the parameters
         try {
             // Read the parameters from JSON
-            final File file = new File(arguments.getFullConfigurationFilePath());
+            final var file = new File(arguments.getFullConfigurationFilePath());
             apexStarterParameterGroup = CODER.decode(file, ApexStarterParameterGroup.class);
         } catch (final CoderException e) {
             final String errorMessage = "error reading parameters from \"" + arguments.getConfigurationFilePath()

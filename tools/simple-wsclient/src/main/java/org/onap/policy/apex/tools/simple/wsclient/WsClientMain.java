@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,14 +51,14 @@ public final class WsClientMain {
 
     /**
      * Run the command.
-     * 
+     *
      * @param args the command line arguments
      * @param outStream stream for output
      */
     WsClientMain(final String[] args, final PrintStream outStream) {
-        boolean console = false;
+        var console = false;
 
-        final CliParser cli = new CliParser();
+        final var cli = new CliParser();
         cli.addOption(CliOptions.HELP);
         cli.addOption(CliOptions.VERSION);
         cli.addOption(CliOptions.CONSOLE);
@@ -89,7 +90,7 @@ public final class WsClientMain {
 
     /**
      * Run the console or echo.
-     * 
+     *
      * @param console if true, run the console otherwise run echo
      * @param cmd the command line to run
      * @param outStream stream for output
@@ -140,7 +141,7 @@ public final class WsClientMain {
         outStream.println();
 
         try {
-            final SimpleEcho simpleEcho = new SimpleEcho(server, port, APP_NAME, outStream, outStream);
+            final var simpleEcho = new SimpleEcho(server, port, APP_NAME, outStream, outStream);
             simpleEcho.connect();
         } catch (final URISyntaxException uex) {
             String message = APP_NAME + ": URI exception, could not create URI from server and port settings";
@@ -180,7 +181,7 @@ public final class WsClientMain {
         outStream.println();
 
         try {
-            final SimpleConsole simpleConsole = new SimpleConsole(server, port, APP_NAME, outStream, outStream);
+            final var simpleConsole = new SimpleConsole(server, port, APP_NAME, outStream, outStream);
             simpleConsole.runClient();
         } catch (final URISyntaxException uex) {
             String message = APP_NAME + ": URI exception, could not create URI from server and port settings";
@@ -207,15 +208,15 @@ public final class WsClientMain {
 
     /**
      * Get the help string for the application.
-     * 
+     *
      * @param cli the command line options
      * @return the help string
      */
     private String getHelpString(final CliParser cli) {
-        HelpFormatter formatter = new HelpFormatter();
+        var formatter = new HelpFormatter();
 
-        final StringWriter helpStringWriter = new StringWriter();
-        final PrintWriter helpPrintWriter = new PrintWriter(helpStringWriter);
+        final var helpStringWriter = new StringWriter();
+        final var helpPrintWriter = new PrintWriter(helpStringWriter);
 
         formatter.printHelp(helpPrintWriter, 120, APP_NAME, APP_DESCRIPTION, cli.getOptions(), 2, 4, "");
 

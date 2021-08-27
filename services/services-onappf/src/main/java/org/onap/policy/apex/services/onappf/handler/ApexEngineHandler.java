@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.TaskParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -103,7 +103,7 @@ public class ApexEngineHandler {
         policiesToUnDeploy.removeIf(p -> !runningPolicies.contains(p));
         Map<ToscaConceptIdentifier, ApexMain> undeployedPoliciesMainMap = new LinkedHashMap<>();
         policiesToUnDeploy.forEach(policyId -> {
-            ApexMain apexMain = apexMainMap.get(policyId);
+            var apexMain = apexMainMap.get(policyId);
             try {
                 apexMain.shutdown();
                 undeployedPoliciesMainMap.put(policyId, apexMain);
@@ -183,7 +183,7 @@ public class ApexEngineHandler {
             .stream().filter(key -> !outputParamKeysToRetain.contains(key)).collect(Collectors.toList());
         eventInputParamKeysToRemove.forEach(existingParameters.getEventInputParameters()::remove);
         eventOutputParamKeysToRemove.forEach(existingParameters.getEventOutputParameters()::remove);
-        EngineParameters engineParameters = main.getApexParameters().getEngineServiceParameters().getEngineParameters();
+        var engineParameters = main.getApexParameters().getEngineServiceParameters().getEngineParameters();
         final List<TaskParameters> taskParametersToRemove = engineParameters.getTaskParameters().stream()
             .filter(taskParameter -> !taskParametersToRetain.contains(taskParameter)).collect(Collectors.toList());
         final List<String> executorParamKeysToRemove = engineParameters.getExecutorParameterMap().keySet().stream()
@@ -191,8 +191,7 @@ public class ApexEngineHandler {
         final List<String> schemaParamKeysToRemove =
             engineParameters.getContextParameters().getSchemaParameters().getSchemaHelperParameterMap().keySet()
                 .stream().filter(key -> !schemaParamKeysToRetain.contains(key)).collect(Collectors.toList());
-        EngineParameters aggregatedEngineParameters =
-            existingParameters.getEngineServiceParameters().getEngineParameters();
+        var aggregatedEngineParameters = existingParameters.getEngineServiceParameters().getEngineParameters();
         aggregatedEngineParameters.getTaskParameters().removeAll(taskParametersToRemove);
         executorParamKeysToRemove.forEach(aggregatedEngineParameters.getExecutorParameterMap()::remove);
         schemaParamKeysToRemove.forEach(aggregatedEngineParameters.getContextParameters().getSchemaParameters()
@@ -248,9 +247,9 @@ public class ApexEngineHandler {
         Map<ToscaConceptIdentifier, ApexMain> failedPoliciesMainMap = new LinkedHashMap<>();
         for (ToscaPolicy policy : policies) {
             String policyName = policy.getIdentifier().getName();
-            final StandardCoder standardCoder = new StandardCoder();
-            ToscaServiceTemplate toscaServiceTemplate = new ToscaServiceTemplate();
-            ToscaTopologyTemplate toscaTopologyTemplate = new ToscaTopologyTemplate();
+            final var standardCoder = new StandardCoder();
+            var toscaServiceTemplate = new ToscaServiceTemplate();
+            var toscaTopologyTemplate = new ToscaTopologyTemplate();
             toscaTopologyTemplate.setPolicies(List.of(Map.of(policyName, policy)));
             toscaServiceTemplate.setToscaTopologyTemplate(toscaTopologyTemplate);
             File file;
@@ -260,9 +259,9 @@ public class ApexEngineHandler {
             } catch (CoderException | IOException e) {
                 throw new ApexStarterException(e);
             }
-            final String[] apexArgs = {"-p", file.getAbsolutePath()};
+            final var apexArgs = new String[] {"-p", file.getAbsolutePath()};
             LOGGER.info("Starting apex engine for policy {}", policy.getIdentifier());
-            ApexMain apexMain = new ApexMain(apexArgs);
+            var apexMain = new ApexMain(apexArgs);
             if (apexMain.isAlive()) {
                 apexMainMap.put(policy.getIdentifier(), apexMain);
             } else {

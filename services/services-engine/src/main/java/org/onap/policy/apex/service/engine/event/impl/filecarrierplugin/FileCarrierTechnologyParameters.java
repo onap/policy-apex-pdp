@@ -127,7 +127,7 @@ public class FileCarrierTechnologyParameters extends CarrierTechnologyParameters
         String absoluteFileName = null;
 
         // Resolve the file name if it is a relative file name
-        File theFile = new File(fileName);
+        var theFile = new File(fileName);
         if (theFile.isAbsolute()) {
             absoluteFileName = fileName;
         } else {

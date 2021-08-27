@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +22,7 @@
 
 package org.onap.policy.apex.service.engine.runtime.impl;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,7 +40,6 @@ import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
-import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -49,7 +47,6 @@ import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
-import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineState;
@@ -450,7 +447,7 @@ final class EngineWorker implements EngineService {
 
         // Convert that information into a string
         try {
-            final ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
+            final var baOutputStream = new ByteArrayOutputStream();
             final ApexModelWriter<AxEngineModel> modelWriter = new ApexModelWriter<>(AxEngineModel.class);
             modelWriter.setJsonOutput(true);
             modelWriter.write(apexEngineModel, baOutputStream);
@@ -477,14 +474,14 @@ final class EngineWorker implements EngineService {
     @Override
     public String getRuntimeInfo(final AxArtifactKey engineKey) {
         // We'll build up the JSON string for runtime information bit by bit
-        final StringBuilder runtimeJsonStringBuilder = new StringBuilder();
+        final var runtimeJsonStringBuilder = new StringBuilder();
 
         // Get the engine information
         final AxEngineModel engineModel = engine.getEngineStatus();
         final Map<AxArtifactKey, Map<String, Object>> engineContextAlbums = engine.getEngineContext();
 
         // Use GSON to convert our context information into JSON
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        final var gson = new GsonBuilder().setPrettyPrinting().create();
 
         // Get context into a JSON string
         runtimeJsonStringBuilder.append("{\"TimeStamp\":");
@@ -497,7 +494,7 @@ final class EngineWorker implements EngineService {
         // Get context into a JSON string
         runtimeJsonStringBuilder.append(",\"ContextAlbums\":[");
 
-        boolean firstAlbum = true;
+        var firstAlbum = true;
         for (final Entry<AxArtifactKey, Map<String, Object>> contextAlbumEntry : engineContextAlbums.entrySet()) {
             if (firstAlbum) {
                 firstAlbum = false;
@@ -510,7 +507,7 @@ final class EngineWorker implements EngineService {
             runtimeJsonStringBuilder.append(",\"AlbumContent\":[");
 
             // Get the schema helper to use to marshal context album objects to JSON
-            final AxContextAlbum axContextAlbum =
+            final var axContextAlbum =
                     ModelService.getModel(AxContextAlbums.class).get(contextAlbumEntry.getKey());
             SchemaHelper schemaHelper = null;
 
@@ -520,7 +517,7 @@ final class EngineWorker implements EngineService {
                 schemaHelper = new SchemaHelperFactory().createSchemaHelper(axContextAlbum.getKey(),
                         axContextAlbum.getItemSchema());
             } catch (final ContextRuntimeException e) {
-                final String resultString =
+                final var resultString =
                         "could not find schema helper to marshal context album \"" + axContextAlbum + "\" to JSON";
                 LOGGER.warn(resultString, e);
 
@@ -531,7 +528,7 @@ final class EngineWorker implements EngineService {
                 continue;
             }
 
-            boolean firstEntry = true;
+            var firstEntry = true;
             for (final Entry<String, Object> contextEntry : contextAlbumEntry.getValue().entrySet()) {
                 if (firstEntry) {
                     firstEntry = false;
@@ -554,8 +551,8 @@ final class EngineWorker implements EngineService {
         runtimeJsonStringBuilder.append("]}");
 
         // Tidy up the JSON string
-        final JsonElement jsonElement = JsonParser.parseString(runtimeJsonStringBuilder.toString());
-        final String tidiedRuntimeString = gson.toJson(jsonElement);
+        final var jsonElement = JsonParser.parseString(runtimeJsonStringBuilder.toString());
+        final var tidiedRuntimeString = gson.toJson(jsonElement);
 
         LOGGER.debug("runtime information={}", tidiedRuntimeString);
 
@@ -592,7 +589,7 @@ final class EngineWorker implements EngineService {
 
             // Take events from the event processing queue of the worker and pass them to the engine
             // for processing
-            boolean stopFlag = false;
+            var stopFlag = false;
             while (processorThread != null && !processorThread.isInterrupted() && !stopFlag) {
                 ApexEvent event = null;
                 try {
@@ -603,12 +600,12 @@ final class EngineWorker implements EngineService {
                     LOGGER.debug("Engine {} processing interrupted ", engineWorkerKey);
                     break;
                 }
-                boolean executedResult = false;
+                var executedResult = false;
                 try {
                     if (event != null) {
                         debugEventIfDebugEnabled(event);
 
-                        final EnEvent enevent = apexEnEventConverter.fromApexEvent(event);
+                        final var enevent = apexEnEventConverter.fromApexEvent(event);
                         executedResult = engine.handleEvent(enevent);
                     }
                 } catch (final ApexException e) {
@@ -617,7 +614,7 @@ final class EngineWorker implements EngineService {
                     LOGGER.warn("Engine {} terminated processing event {}", engineWorkerKey, event.toString(), e);
                     stopFlag = true;
                 }
-                ApexPolicyStatisticsManager apexPolicyCounter = ApexPolicyStatisticsManager.getInstanceFromRegistry();
+                var apexPolicyCounter = ApexPolicyStatisticsManager.getInstanceFromRegistry();
                 if (!stopFlag && apexPolicyCounter != null) {
                     apexPolicyCounter.updatePolicyExecutedCounter(executedResult);
                 }

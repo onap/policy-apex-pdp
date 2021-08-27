@@ -54,11 +54,11 @@ public class ApexStarterMain {
      * @param args the command line arguments
      */
     public ApexStarterMain(final String[] args) {
-        final String params = Arrays.toString(args);
+        final var params = Arrays.toString(args);
         LOGGER.info("In ApexStarter with parameters {}", params);
 
         // Check the arguments
-        final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
+        final var arguments = new ApexStarterCommandLineArguments();
         try {
             // The arguments return a string if there is a message to print and we should exit
             final String argumentMessage = arguments.parse(args);
@@ -90,7 +90,7 @@ public class ApexStarterMain {
 
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new ApexStarterShutdownHookClass());
-        String successMsg = String.format(MessageConstants.START_SUCCESS_MSG, MessageConstants.POLICY_APEX_PDP);
+        var successMsg = String.format(MessageConstants.START_SUCCESS_MSG, MessageConstants.POLICY_APEX_PDP);
         LOGGER.info(successMsg);
     }
 
