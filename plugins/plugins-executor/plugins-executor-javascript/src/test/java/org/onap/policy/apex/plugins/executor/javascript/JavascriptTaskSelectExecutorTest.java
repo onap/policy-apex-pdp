@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,9 +86,8 @@ public class JavascriptTaskSelectExecutorTest {
         state.getTaskSelectionLogic().setLogic("java.lang.String");
         jtse.prepare();
 
-        assertThatThrownBy(() -> {
-            jtse.execute(-1, new Properties(), null);
-        }).isInstanceOf(NullPointerException.class);
+        final var props = new Properties();
+        assertThatThrownBy(() -> jtse.execute(-1, props, null)).isInstanceOf(NullPointerException.class);
 
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);

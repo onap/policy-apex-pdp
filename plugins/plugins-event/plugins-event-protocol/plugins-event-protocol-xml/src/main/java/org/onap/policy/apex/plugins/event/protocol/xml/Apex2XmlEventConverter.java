@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,6 @@ package org.onap.policy.apex.plugins.event.protocol.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -34,7 +34,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.ObjectFactory;
 import org.onap.policy.apex.plugins.event.protocol.xml.jaxb.XMLApexEvent;
@@ -69,11 +68,11 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
      */
     public Apex2XmlEventConverter() throws ApexEventException {
         try {
-            final URL schemaUrl = ResourceUtils.getUrlResource(MODEL_SCHEMA_NAME);
-            final Schema apexEventSchema =
+            final var schemaUrl = ResourceUtils.getUrlResource(MODEL_SCHEMA_NAME);
+            final var apexEventSchema =
                     SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaUrl);
 
-            final JAXBContext jaxbContext = JAXBContext.newInstance(XMLApexEvent.class);
+            final var jaxbContext = JAXBContext.newInstance(XMLApexEvent.class);
 
             // Set up the unmarshaller to carry out validation
             unmarshaller = jaxbContext.createUnmarshaller();
@@ -121,7 +120,7 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
 
         // Use JAXB to read and verify the event from the XML string
         try {
-            final StreamSource source = new StreamSource(new ByteArrayInputStream(xmlEventString.getBytes()));
+            final var source = new StreamSource(new ByteArrayInputStream(xmlEventString.getBytes()));
             final JAXBElement<XMLApexEvent> rootElement = unmarshaller.unmarshal(source, XMLApexEvent.class);
             xmlApexEvent = rootElement.getValue();
         } catch (final JAXBException e) {
@@ -129,7 +128,7 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
         }
 
         // Create the Apex event
-        final ApexEvent apexEvent = new ApexEvent(xmlApexEvent.getName(), xmlApexEvent.getVersion(),
+        final var apexEvent = new ApexEvent(xmlApexEvent.getName(), xmlApexEvent.getVersion(),
                 xmlApexEvent.getNameSpace(), xmlApexEvent.getSource(), xmlApexEvent.getTarget());
 
         // Set the data on the apex event
@@ -170,13 +169,13 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
         }
 
         // Create the XML event
-        final XMLApexEvent xmlApexEvent = new XMLApexEvent(apexEvent.getName(), apexEvent.getVersion(),
+        final var xmlApexEvent = new XMLApexEvent(apexEvent.getName(), apexEvent.getVersion(),
                 apexEvent.getNameSpace(), apexEvent.getSource(), apexEvent.getTarget(), xmlDataList);
 
         // Write the event into a DOM document
         try {
             // Marshal the event into XML
-            final StringWriter writer = new StringWriter();
+            final var writer = new StringWriter();
             marshaller.marshal(objectFactory.createXmlApexEvent(xmlApexEvent), writer);
 
             // Return the event as XML in a string

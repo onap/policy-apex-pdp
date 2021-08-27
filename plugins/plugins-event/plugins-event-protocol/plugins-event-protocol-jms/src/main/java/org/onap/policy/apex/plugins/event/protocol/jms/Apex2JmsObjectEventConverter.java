@@ -100,7 +100,7 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
 
         // Create the Apex event
         // @formatter:off
-        final ApexEvent apexEvent = new ApexEvent(
+        final var apexEvent = new ApexEvent(
                         jmsIncomingObject.getClass().getSimpleName() + eventProtocolParameters.getIncomingEventSuffix(),
                         eventProtocolParameters.getIncomingEventVersion(),
                         jmsIncomingObject.toString().getClass().getPackage().getName(),

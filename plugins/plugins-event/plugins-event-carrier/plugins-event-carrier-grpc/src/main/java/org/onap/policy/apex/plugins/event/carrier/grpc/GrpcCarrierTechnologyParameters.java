@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +85,7 @@ public class GrpcCarrierTechnologyParameters extends CarrierTechnologyParameters
      * @throws ApexEventException exception thrown when invalid parameters are provided
      */
     public void validateGrpcParameters(boolean isProducer) throws ApexEventException {
-        StringBuilder errorMessage = new StringBuilder();
+        var errorMessage = new StringBuilder();
         if (isProducer) {
             if (timeout < 1) {
                 errorMessage.append("timeout should have a positive value.\n");

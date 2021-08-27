@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +23,6 @@
 
 package org.onap.policy.apex.plugins.executor.java;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Properties;
 import org.onap.policy.apex.context.ContextException;
@@ -83,13 +83,13 @@ public class JavaTaskExecutor extends TaskExecutor {
         executePre(executionId, executionProperties, incomingFields);
 
         // Check and execute the Java logic
-        boolean returnValue = false;
+        var returnValue = false;
         try {
             // Find and call the method with the signature "public boolean getEvent(final TaskExecutionContext executor)
             // throws ApexException" to invoke the
             // task logic in the Java class
-            final Method method =
-                    taskLogicObject.getClass().getDeclaredMethod("getEvent", new Class[] {TaskExecutionContext.class});
+            final var classes = new Class[] {TaskExecutionContext.class};
+            final var method = taskLogicObject.getClass().getDeclaredMethod("getEvent", classes);
             returnValue = (boolean) method.invoke(taskLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error("execute: task logic failed to run for task  \"" + getSubject().getKey().getId() + "\"");

@@ -30,13 +30,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -154,7 +152,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
 
         // Check if HTTP headers has been set
         if (restConsumerProperties.checkHttpHeadersSet()) {
-            final String httpHeaderString = Arrays.deepToString(restConsumerProperties.getHttpHeaders());
+            final var httpHeaderString = Arrays.deepToString(restConsumerProperties.getHttpHeaders());
             LOGGER.debug("REST Requestor consumer has http headers ({}): {}", this.name, httpHeaderString);
         }
 
@@ -201,11 +199,11 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
 
                 // Create a thread to process the REST request and place it on the map of ongoing
                 // requests
-                final RestRequestRunner restRequestRunner = new RestRequestRunner(restRequest);
+                final var restRequestRunner = new RestRequestRunner(restRequest);
                 ongoingRestRequestMap.put(restRequest, restRequestRunner);
 
                 // Start execution of the request
-                final Thread restRequestRunnerThread = new Thread(restRequestRunner);
+                final var restRequestRunnerThread = new Thread(restRequestRunner);
                 restRequestRunnerThread.setName("RestRequestRunner_" + nextRequestRunnerThreadNo);
                 restRequestRunnerThread.start();
             } catch (final InterruptedException e) {
@@ -284,7 +282,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
         public void run() {
             // Get the thread for the request
             restRequestThread = Thread.currentThread();
-            Properties inputExecutionProperties = request.getExecutionProperties();
+            var inputExecutionProperties = request.getExecutionProperties();
             String url = restConsumerProperties.getUrl();
             Set<String> names = restConsumerProperties.getKeysFromUrl();
             if (!names.isEmpty() && inputExecutionProperties != null) {
@@ -305,12 +303,12 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                     NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, url, request.getEvent().toString());
                 }
                 // Execute the REST request
-                final Response response = sendEventAsRestRequest(url);
+                final var response = sendEventAsRestRequest(url);
                 // Get the event we received
-                final String eventJsonString = response.readEntity(String.class);
+                final var eventJsonString = response.readEntity(String.class);
                 NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, url, eventJsonString);
                 // Match the return code
-                Matcher isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
+                var isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
 
                 // Check that the request worked
                 if (!isPass.matches()) {

@@ -158,11 +158,11 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
      * @return the kafka producer properties
      */
     public Properties getKafkaProducerProperties() {
-        final Properties retKafkaProps = new Properties();
+        final var retKafkaProps = new Properties();
 
         // Add properties from the Kafka property array
         if (kafkaProperties != null) {
-            for (int i = 0; i < kafkaProperties.length; i++) {
+            for (var i = 0; i < kafkaProperties.length; i++) {
                 retKafkaProps.setProperty(kafkaProperties[i][0], kafkaProperties[i][1]);
             }
         }
@@ -188,11 +188,11 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
      * @return the kafka consumer properties
      */
     public Properties getKafkaConsumerProperties() {
-        final Properties retKafkaProps = new Properties();
+        final var retKafkaProps = new Properties();
 
         // Add properties from the Kafka property array
         if (kafkaProperties != null) {
-            for (int i = 0; i < kafkaProperties.length; i++) {
+            for (var i = 0; i < kafkaProperties.length; i++) {
                 retKafkaProps.setProperty(kafkaProperties[i][0], kafkaProperties[i][1]);
             }
         }
@@ -250,8 +250,8 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
                     "not specified, must be specified as a list of strings");
         }
 
-        BeanValidationResult result = new BeanValidationResult("consumerTopicList", consumerTopicList);
-        int item = 0;
+        var result = new BeanValidationResult("consumerTopicList", consumerTopicList);
+        var item = 0;
         for (final String consumerTopic : consumerTopicList) {
             if (StringUtils.isBlank(consumerTopic)) {
                 result.addResult(ENTRY + item, consumerTopic, ValidationStatus.INVALID, Validated.IS_BLANK);
@@ -272,13 +272,13 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
             return null;
         }
 
-        BeanValidationResult result = new BeanValidationResult(KAFKA_PROPERTIES, kafkaProperties);
+        var result = new BeanValidationResult(KAFKA_PROPERTIES, kafkaProperties);
 
-        for (int i = 0; i < kafkaProperties.length; i++) {
+        for (var i = 0; i < kafkaProperties.length; i++) {
             final String label = ENTRY + i;
             final String[] kafkaProperty = kafkaProperties[i];
             final List<String> value = (kafkaProperty == null ? null : Arrays.asList(kafkaProperty));
-            final BeanValidationResult result2 = new BeanValidationResult(label, value);
+            final var result2 = new BeanValidationResult(label, value);
 
             if (kafkaProperty == null) {
                 // note: add to result, not result2
