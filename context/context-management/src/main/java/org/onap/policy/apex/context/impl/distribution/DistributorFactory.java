@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,8 +54,8 @@ public class DistributorFactory {
         Assertions.argumentOfClassNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
         // Get the class for the distributor using reflection
-        final DistributorParameters distributorParameters =
-                ParameterService.get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
+        final var distributorParameters =
+                        (DistributorParameters) ParameterService.get(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         final String pluginClass = distributorParameters.getPluginClass();
         Object contextDistributorObject = null;
         try {
@@ -73,7 +74,7 @@ public class DistributorFactory {
         }
 
         // The context Distributor to return
-        final Distributor contextDistributor = (Distributor) contextDistributorObject;
+        final var contextDistributor = (Distributor) contextDistributorObject;
 
         // Lock and load the context distributor
         contextDistributor.init(key);

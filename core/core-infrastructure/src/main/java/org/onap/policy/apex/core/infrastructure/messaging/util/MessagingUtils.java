@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,7 +106,7 @@ public final class MessagingUtils {
      * @return true if port is available
      */
     public static boolean isPortAvailable(final int port) {
-        try (final Socket socket = new Socket("localhost", port)) {
+        try (final var socket = new Socket("localhost", port)) {
             return false;
         } catch (final IOException ignoredException) {
             LOGGER.trace("Port {} is available", port, ignoredException);
@@ -193,13 +194,13 @@ public final class MessagingUtils {
             // At this point, we did not find a non-loopback address.
             // Fall back to returning whatever InetAddress.getLocalHost()
             // returns...
-            final InetAddress jdkSuppliedAddress = InetAddress.getLocalHost();
+            final var jdkSuppliedAddress = InetAddress.getLocalHost();
             if (jdkSuppliedAddress == null) {
                 throw new UnknownHostException("The JDK InetAddress.getLocalHost() method unexpectedly returned null.");
             }
             return jdkSuppliedAddress;
         } catch (final Exception e) {
-            final UnknownHostException unknownHostException =
+            final var unknownHostException =
                     new UnknownHostException("Failed to determine LAN address: " + e);
             unknownHostException.initCause(e);
             throw unknownHostException;
@@ -214,8 +215,8 @@ public final class MessagingUtils {
      */
     public static byte[] serializeObject(final Object object) {
         LOGGER.entry(object.getClass().getName());
-        final ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-        try (ObjectOutputStream oos = new ObjectOutputStream(bytesOut)) {
+        final var bytesOut = new ByteArrayOutputStream();
+        try (var oos = new ObjectOutputStream(bytesOut)) {
             oos.writeObject(object);
         } catch (final IOException e) {
             LOGGER.warn("error on object serialization", e);

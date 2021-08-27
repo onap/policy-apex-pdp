@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
@@ -72,7 +72,7 @@ public final class ClassUtils {
 
         try {
             // The library path for predefined classes in Java
-            String sunBootLibraryPathString = System.getProperty(SUN_BOOT_LIBRARY_PATH);
+            var sunBootLibraryPathString = System.getProperty(SUN_BOOT_LIBRARY_PATH);
 
             // Check it exists and has a "lib" in it
             if (sunBootLibraryPathString != null && sunBootLibraryPathString.contains(LIBRARAY_PATH_TOKEN)) {
@@ -80,7 +80,7 @@ public final class ClassUtils {
                 sunBootLibraryPathString = sunBootLibraryPathString.substring(0,
                         sunBootLibraryPathString.lastIndexOf(LIBRARAY_PATH_TOKEN) + LIBRARAY_PATH_TOKEN.length());
 
-                final File bootLibraryFile = new File(sunBootLibraryPathString);
+                final var bootLibraryFile = new File(sunBootLibraryPathString);
                 // The set used to hold class names is populated with predefined Java classes
                 classNameSet.addAll(processDir(bootLibraryFile, ""));
             }
@@ -96,7 +96,7 @@ public final class ClassUtils {
                 if (url == null || url.getFile() == null) {
                     continue;
                 }
-                final File urlFile = new File(url.getFile());
+                final var urlFile = new File(url.getFile());
                 // Directories may contain ".class" files
                 if (urlFile.isDirectory()) {
                     classNameSet.addAll(processDir(urlFile, url.getFile()));
@@ -121,7 +121,7 @@ public final class ClassUtils {
                 return urls;
             }
 
-            Method mmethod = nullclassloader.getMethod("getBootstrapClassPath");
+            var mmethod = nullclassloader.getMethod("getBootstrapClassPath");
             if (mmethod == null) {
                 return urls;
             }
@@ -234,7 +234,7 @@ public final class ClassUtils {
             return classPathSet;
         }
         // JARs are ZIP files
-        final ZipInputStream zip = new ZipInputStream(jarInputStream);
+        final var zip = new ZipInputStream(jarInputStream);
 
         // Iterate over each entry in the JAR
         for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {

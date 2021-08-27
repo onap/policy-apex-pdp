@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,8 +93,8 @@ public class RawMessageHandler<M> implements WebSocketMessageListener<M>, Runnab
         // the queue
         // processing thread
 
-        try (final ByteArrayInputStream stream = new ByteArrayInputStream(dataByteBuffer.array());
-                        final ObjectInputStream ois = new ObjectInputStream(stream)) {
+        try (final var stream = new ByteArrayInputStream(dataByteBuffer.array());
+                        final var ois = new ObjectInputStream(stream)) {
             @SuppressWarnings("unchecked")
             final MessageHolder<M> messageHolder = (MessageHolder<M>) ois.readObject();
 
