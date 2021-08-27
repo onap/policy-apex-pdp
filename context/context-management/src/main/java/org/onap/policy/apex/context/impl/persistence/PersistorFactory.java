@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +52,8 @@ public class PersistorFactory {
         LOGGER.entry("persistor factory, key=" + key);
         Assertions.argumentOfClassNotNull(key, ContextException.class, "Parameter \"key\" may not be null");
 
-        final PersistorParameters persistorParameters =
-                ParameterService.get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        final var persistorParameters =
+                        (PersistorParameters) ParameterService.get(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
 
         // Get the class for the persistor using reflection
         Object persistorObject = null;
@@ -75,7 +76,7 @@ public class PersistorFactory {
         }
 
         // The persistor to return
-        final Persistor persistor = (Persistor) persistorObject;
+        final var persistor = (Persistor) persistorObject;
 
         // Lock and load the persistor
         persistor.init(key);

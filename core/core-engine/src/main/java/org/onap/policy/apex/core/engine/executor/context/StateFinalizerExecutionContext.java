@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,7 +86,7 @@ public class StateFinalizerExecutionContext extends AbstractExecutionContext {
     /**
      * Logger for state finalizer execution, state finalizer logic can use this field to access and log to Apex logging.
      */
-    public final XLogger logger = EXCEUTION_LOGGER;
+    public static final XLogger logger = EXCEUTION_LOGGER;
 
     // CHECKSTYLE:ON: checkstyle:visibilityModifier
 
@@ -150,7 +151,7 @@ public class StateFinalizerExecutionContext extends AbstractExecutionContext {
      */
     public ContextAlbum getContextAlbum(final String contextAlbumName) {
         // Find the context album
-        final ContextAlbum foundContextAlbum = context.get(contextAlbumName);
+        final var foundContextAlbum = context.get(contextAlbumName);
 
         // Check if the context album exists
         if (foundContextAlbum != null) {
