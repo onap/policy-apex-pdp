@@ -40,8 +40,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
@@ -73,8 +72,6 @@ public class ApexRestClientConusmerTest {
 
     @Test
     public void testApexRestClientConsumerErrors() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -105,11 +102,8 @@ public class ApexRestClientConusmerTest {
         assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
-        Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).get();
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         // We have not set the URL, this test should not receive any events
@@ -117,8 +111,6 @@ public class ApexRestClientConusmerTest {
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> incomingEventReceiver.getEventCount() == 0);
         arcc.stop();
         assertEquals(0, incomingEventReceiver.getEventCount());
-
-        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
 
         // We have not set the URL, this test should not receive any events
         arcc.start();
@@ -129,8 +121,6 @@ public class ApexRestClientConusmerTest {
 
     @Test
     public void testApexRestClientConsumerHttpError() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -156,7 +146,6 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -171,8 +160,6 @@ public class ApexRestClientConusmerTest {
 
     @Test
     public void testApexRestClientConsumerJsonError() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -196,7 +183,6 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -212,8 +198,6 @@ public class ApexRestClientConusmerTest {
 
     @Test
     public void testApexRestClientConsumerJsonEmpty() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -239,7 +223,6 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -260,8 +243,6 @@ public class ApexRestClientConusmerTest {
 
     @Test
     public void testApexRestClientConsumerJsonOk() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -287,7 +268,6 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         // We have not set the URL, this test should not receive any events
@@ -299,8 +279,6 @@ public class ApexRestClientConusmerTest {
 
     @Test
     public void testApexRestClientConsumerInvalidStatusCode() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -326,7 +304,6 @@ public class ApexRestClientConusmerTest {
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getHttpCodeFilter());
         arcc.setClient(httpClientMock);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();

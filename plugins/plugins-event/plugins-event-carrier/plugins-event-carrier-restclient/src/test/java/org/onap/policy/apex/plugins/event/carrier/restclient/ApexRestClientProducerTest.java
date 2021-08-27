@@ -35,8 +35,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
@@ -107,8 +106,6 @@ public class ApexRestClientProducerTest {
 
     @Test
     public void testApexRestClientProducerPutEvent() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -135,8 +132,6 @@ public class ApexRestClientProducerTest {
 
     @Test
     public void testApexRestClientProducerPostEventFail() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -150,11 +145,6 @@ public class ApexRestClientProducerTest {
         assertEquals("RestClientConsumer", arcp.getName());
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
-        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
-        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
-        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
         arcp.setClient(httpClientMock);
 
         // test property not found
@@ -171,8 +161,6 @@ public class ApexRestClientProducerTest {
 
     @Test
     public void testApexRestClientProducerPostEventOK() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -203,8 +191,6 @@ public class ApexRestClientProducerTest {
 
     @Test
     public void testApexRestClientProducerPostEventCache() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -237,8 +223,6 @@ public class ApexRestClientProducerTest {
 
     @Test
     public void testApexRestClientProducerPostEventCacheTrace() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -271,8 +255,6 @@ public class ApexRestClientProducerTest {
 
     @Test
     public void testApexRestClientProducerHttpError() throws ApexEventException {
-        MockitoAnnotations.initMocks(this);
-
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
