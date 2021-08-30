@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c55920_e026399a",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/TaskExecutionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-30T16:39:22Z",
+      "side": 1,
+      "message": "Removing the \"static\" from here, and similar change from TaskSelectionExecutionContext seems to fix the issue.",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 18
+      },
+      "revId": "050bc8548964ddc43c6e01dfa7371ed816f695f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
