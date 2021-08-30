@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa5100b9_0193501b",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/StateFinalizerExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-30T16:59:02Z",
+      "side": 1,
+      "message": "I wonder if it is better to remove this too!\nBut we should be okay, because I assume the problem is something around accessing public static fields using object instance in jruby only, so it shouldn\u0027t really matter if the tests passes..",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
