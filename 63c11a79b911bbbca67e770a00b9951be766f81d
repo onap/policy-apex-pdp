@@ -46,6 +46,30 @@
       "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a40f7e7c_edd8e61e",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/StateFinalizerExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-30T18:51:27Z",
+      "side": 1,
+      "message": "one question would be: what is actually referencing it?  Kind of sounds like one of the scripts (jruby) is referencing it.  Is it a test script, or is it reasonable for all scripts to assume the existence of a logger object?  If the latter, then should probably remove it from here, too, so there\u0027s consistency across the XxxExecutionContext objects.  (For that matter, if it\u0027s something the scripts depend on, then perhaps these classes should extend an interface that includes a getLogger method.)",
+      "parentUuid": "75ddf2aa_6a606b6f",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
