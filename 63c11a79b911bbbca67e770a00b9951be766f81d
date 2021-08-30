@@ -70,6 +70,30 @@
       "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a78cca5_0af65f16",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/StateFinalizerExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-08-30T19:14:36Z",
+      "side": 1,
+      "message": "Finally decided to remove \"static\" from here and fix them together in another review.",
+      "parentUuid": "a40f7e7c_edd8e61e",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
