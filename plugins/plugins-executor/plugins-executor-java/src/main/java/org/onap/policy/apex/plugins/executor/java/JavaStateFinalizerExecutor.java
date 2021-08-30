@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,6 @@
 
 package org.onap.policy.apex.plugins.executor.java;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Properties;
 import org.onap.policy.apex.context.ContextException;
@@ -80,14 +80,14 @@ public class JavaStateFinalizerExecutor extends StateFinalizerExecutor {
         executePre(executionId, executionProperties, incomingFields);
 
         // Check and execute the Java logic
-        boolean returnValue = false;
+        var returnValue = false;
         try {
             // Find and call the method with the signature "public boolean getStateOutput(final
             // StateFinalizerExecutionContext executor) throws ApexException"
             // to invoke the
             // task logic in the Java class
-            final Method method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput",
-                    new Class[] {StateFinalizerExecutionContext.class});
+            final var classes = new Class[] {StateFinalizerExecutionContext.class};
+            final var method = stateFinalizerLogicObject.getClass().getDeclaredMethod("getStateOutput", classes);
             returnValue = (boolean) method.invoke(stateFinalizerLogicObject, getExecutionContext());
         } catch (final Exception e) {
             LOGGER.error("execute: state finalizer logic failed to run for state finalizer  \"" + getSubject().getId()

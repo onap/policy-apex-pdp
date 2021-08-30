@@ -197,7 +197,7 @@ public class ApexJmsProducer implements ApexEventProducer {
     public void sendEvent(final long executionId, final Properties executionProperties, final String eventname,
                     final Object eventObject) {
         // Check if this is a synchronized event, if so we have received a reply
-        final SynchronousEventCache synchronousEventCache = (SynchronousEventCache) peerReferenceMap
+        final var synchronousEventCache = (SynchronousEventCache) peerReferenceMap
                         .get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache != null) {
             synchronousEventCache.removeCachedEventToApexIfExists(executionId);

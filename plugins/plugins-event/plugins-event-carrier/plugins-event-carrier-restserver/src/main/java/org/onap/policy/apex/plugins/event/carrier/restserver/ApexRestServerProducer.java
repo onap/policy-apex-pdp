@@ -118,7 +118,7 @@ public class ApexRestServerProducer implements ApexEventProducer {
         }
 
         // If we are not synchronized, then exit
-        final SynchronousEventCache synchronousEventCache =
+        final var synchronousEventCache =
                 (SynchronousEventCache) peerReferenceMap.get(EventHandlerPeeredMode.SYNCHRONOUS);
         if (synchronousEventCache == null) {
             return;

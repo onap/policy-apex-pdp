@@ -159,7 +159,7 @@ public class JmsCarrierTechnologyParameters extends CarrierTechnologyParameters 
      * @return the jms consumer properties
      */
     private Properties getJmsProperties() {
-        final Properties jmsProperties = new Properties();
+        final var jmsProperties = new Properties();
 
         jmsProperties.put(PROPERTY_INITIAL_CONTEXT_FACTORY, initialContextFactory);
 
