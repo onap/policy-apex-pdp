@@ -22,6 +22,30 @@
       "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ddf2aa_6a606b6f",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/StateFinalizerExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-08-30T17:15:19Z",
+      "side": 1,
+      "message": "agree, the build went through 😊\nHowever, I am okay removing static here too. Let me know.",
+      "parentUuid": "aa5100b9_0193501b",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
