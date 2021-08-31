@@ -94,6 +94,30 @@
       "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "362027cd_f00c0d50",
+        "filename": "core/core-engine/src/main/java/org/onap/policy/apex/core/engine/executor/context/StateFinalizerExecutionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-08-31T10:10:18Z",
+      "side": 1,
+      "message": "@Jim when writing the logic, the usage usually goes something like executor.logger.info(..) - atleast in case of javascript we do this in many places. But all of them were passing with the static added too. So, I think it is just about how the public static fields are accessed in Jruby. StateFinalizer was not used in the test jruby logic I guess, so the tests passed. But anyway, it is better to remove the \"static\" to keep it consistent with task and taskselection logic.",
+      "parentUuid": "7a78cca5_0af65f16",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "63c11a79b911bbbca67e770a00b9951be766f81d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
