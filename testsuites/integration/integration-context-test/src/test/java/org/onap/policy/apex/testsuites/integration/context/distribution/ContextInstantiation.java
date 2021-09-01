@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.context.distribution;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -274,16 +276,16 @@ public class ContextInstantiation {
         externalContextOther.setTestExternalContextItem002(new TestContextIntItem());
         externalContextOther.getTestExternalContextItem002().setIntValue(INT_VAL_2);
 
-        assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContextOther).equals(externalContext));
+        assertThat(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContextOther)).isEqualTo(externalContext);
         externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
         assertEquals(INT_VAL_2, externalContextItem.getTestExternalContextItem002().getIntValue());
-        assertTrue(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContext).equals(externalContextOther));
+        assertThat(externalContextAlbum.put(EXTERNAL_CONTEXT, externalContext)).isEqualTo(externalContextOther);
         externalContextItem = (TestExternalContextItem) externalContextAlbum.get(EXTERNAL_CONTEXT);
         assertEquals(INT_VAL_3, externalContextItem.getTestExternalContextItem002().getIntValue());
         assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItem00A", null))
             .hasMessageContaining(NULL_ILLEGAL + "\"TestExternalContextItem00A\" for put()");
 
-        assertTrue(externalContextAlbum.get(EXTERNAL_CONTEXT).equals(externalContext));
+        assertThat(externalContextAlbum.get(EXTERNAL_CONTEXT)).isEqualTo(externalContext);
 
         assertThatThrownBy(() -> externalContextAlbum.put("TestExternalContextItemFFF", null))
             .hasMessageContaining(NULL_ILLEGAL + "\"TestExternalContextItemFFF\" for put()");
@@ -477,11 +479,11 @@ public class ContextInstantiation {
     }
 
     private void assertFloat(final float actual, final float expected) {
-        assertTrue(Float.compare(actual, expected) == 0);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private void assertDouble(final double actual, final double expected) {
-        assertTrue(Double.compare(actual, expected) == 0);
+        assertThat(actual).isEqualTo(expected);
     }
 
     private Distributor getDistributor() throws ContextException {

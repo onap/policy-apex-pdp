@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (c) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +41,7 @@ public class MessagingUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalArgumentException() {
-        assertEquals(1, MessagingUtils.findPort(65536));
+        MessagingUtils.findPort(65536);
     }
 
     @Test
@@ -58,7 +59,7 @@ public class MessagingUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidAllocateAddress() {
-        assertEquals(1, MessagingUtils.allocateAddress(1));
+        MessagingUtils.allocateAddress(1);
     }
 
     @Test

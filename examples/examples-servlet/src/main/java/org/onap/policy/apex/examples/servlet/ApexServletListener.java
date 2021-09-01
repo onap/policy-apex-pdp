@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +58,7 @@ public class ApexServletListener implements ServletContextListener {
 
         // Check that a configuration file have been specified
         if (servletContextEvent.getServletContext().getInitParameter("config-file") == null) {
-            final String errorMessage =
+            final var errorMessage =
                     "Apex servlet start failed, servlet parameter \"config-file\" has not been specified";
             LOGGER.error("Apex servlet start failed, servlet parameter \"config-file\" has not been specified");
             throw new ApexRuntimeException(errorMessage);
@@ -89,8 +90,7 @@ public class ApexServletListener implements ServletContextListener {
             apexMain.shutdown();
             apexMain = null;
         } catch (final ApexException e) {
-            final String errorMessage = "Apex servlet stop did not execute normally";
-            LOGGER.error(errorMessage, e);
+            LOGGER.error("Apex servlet stop did not execute normally", e);
         }
 
         LOGGER.info("Apex Servliet has been stopped");

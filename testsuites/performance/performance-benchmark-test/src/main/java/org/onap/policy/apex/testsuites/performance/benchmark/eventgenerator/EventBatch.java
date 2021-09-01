@@ -55,8 +55,8 @@ public class EventBatch {
         this.apexClient = apexClient;
 
         // Create the events for the batch of events
-        for (int eventNumber = 0; eventNumber < batchSize; eventNumber++) {
-            InputEvent inputEvent = new InputEvent();
+        for (var eventNumber = 0; eventNumber < batchSize; eventNumber++) {
+            var inputEvent = new InputEvent();
             inputEvent.setTestSlogan(getEventSlogan(eventNumber));
             inputEventMap.put(eventNumber, inputEvent);
         }
@@ -72,9 +72,9 @@ public class EventBatch {
             return inputEventMap.get(0).asJson();
         }
 
-        StringBuilder jsonBuilder = new StringBuilder();
+        var jsonBuilder = new StringBuilder();
         jsonBuilder.append("[\n");
-        boolean first = true;
+        var first = true;
         for (InputEvent inputEvent : inputEventMap.values()) {
             if (first) {
                 first = false;
@@ -95,7 +95,7 @@ public class EventBatch {
      * @return the event slogan
      */
     private String getEventSlogan(final int eventNumber) {
-        StringBuilder testSloganBuilder = new StringBuilder();
+        var testSloganBuilder = new StringBuilder();
         testSloganBuilder.append(batchNumber);
         testSloganBuilder.append('-');
         testSloganBuilder.append(eventNumber);

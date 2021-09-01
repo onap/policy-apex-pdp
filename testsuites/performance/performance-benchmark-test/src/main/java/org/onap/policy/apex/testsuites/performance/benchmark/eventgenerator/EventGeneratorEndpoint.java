@@ -115,7 +115,7 @@ public class EventGeneratorEndpoint {
             return Response.status(204).build();
         }
 
-        EventBatch batch = new EventBatch(parameters.get().getBatchSize(), getApexClient());
+        var batch = new EventBatch(parameters.get().getBatchSize(), getApexClient());
         batchMap.put(batch.getBatchNumber(), batch);
 
         return Response.status(200).entity(batch.getBatchAsJsonString()).build();
@@ -130,7 +130,7 @@ public class EventGeneratorEndpoint {
     @Path("/PostEvent")
     @POST
     public Response postEventResponse(final String jsonString) {
-        final OutputEvent outputEvent = new Gson().fromJson(jsonString, OutputEvent.class);
+        final var outputEvent = new Gson().fromJson(jsonString, OutputEvent.class);
 
         EventBatch batch = batchMap.get(outputEvent.findBatchNumber());
 

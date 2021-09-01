@@ -26,7 +26,6 @@ import java.util.List;
 import lombok.Getter;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
 
 /**
  * This POJO class returns statistics on a event batch execution in Apex.
@@ -85,7 +84,7 @@ public class EventBatchStats {
         long accumulatedRoundTripTime = 0;
         long accumulatedApexExecutionTime = 0;
 
-        for (int eventNo = 0; eventNo < batchSize; eventNo++) {
+        for (var eventNo = 0; eventNo < batchSize; eventNo++) {
             Pair<Long, Long> eventTimings = calculateEventTimings(eventBatch, eventNo);
             if (eventTimings == null) {
                 // The event has not been sent yet or the response has not been received yet
@@ -154,7 +153,7 @@ public class EventBatchStats {
         // If an event is in a batch, it has been sent
         eventsSent++;
 
-        OutputEvent outputEvent = eventBatch.getOutputEvent(eventNo);
+        var outputEvent = eventBatch.getOutputEvent(eventNo);
 
         if (outputEvent == null) {
             eventsNotReceived++;

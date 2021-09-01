@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,7 +100,7 @@ public class EventGeneratorParameterHandler {
      * @throws ParseException on parse errors
      */
     public EventGeneratorParameters parse(final String[] args) throws ParseException {
-        CommandLine commandLine = new DefaultParser().parse(options, args);
+        var commandLine = new DefaultParser().parse(options, args);
         final String[] remainingArgs = commandLine.getArgs();
 
         if (remainingArgs.length > 0) {
@@ -110,7 +111,7 @@ public class EventGeneratorParameterHandler {
             return null;
         }
 
-        EventGeneratorParameters parameters = new EventGeneratorParameters();
+        var parameters = new EventGeneratorParameters();
 
         if (commandLine.hasOption('c')) {
             parameters = getParametersFromJsonFile(commandLine.getOptionValue(CONFIGURATION_FILE));
@@ -200,10 +201,10 @@ public class EventGeneratorParameterHandler {
      * @return help string
      */
     public String getHelp(final String mainClassName) {
-        final StringWriter stringWriter = new StringWriter();
-        final PrintWriter stringPrintWriter = new PrintWriter(stringWriter);
+        final var stringWriter = new StringWriter();
+        final var stringPrintWriter = new PrintWriter(stringWriter);
 
-        final HelpFormatter helpFormatter = new HelpFormatter();
+        final var helpFormatter = new HelpFormatter();
         helpFormatter.printHelp(stringPrintWriter, MAX_HELP_LINE_LENGTH, mainClassName + " [options...] ", "", options,
                 0, 0, "");
 

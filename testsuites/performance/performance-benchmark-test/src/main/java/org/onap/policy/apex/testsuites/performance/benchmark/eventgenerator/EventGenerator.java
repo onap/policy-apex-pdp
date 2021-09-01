@@ -65,7 +65,7 @@ public class EventGenerator {
 
         LOGGER.info("Event generator REST server starting");
 
-        final ResourceConfig rc = new ResourceConfig(EventGeneratorEndpoint.class);
+        final var rc = new ResourceConfig(EventGeneratorEndpoint.class);
         eventGeneratorServer = GrizzlyHttpServerFactory.createHttpServer(getBaseUri(), rc);
 
         // Wait for the HTTP server to come up
@@ -147,7 +147,7 @@ public class EventGenerator {
             LOGGER.info("Starting event generator with arguments: {}", Arrays.toString(args));
         }
 
-        EventGeneratorParameterHandler parameterHandler = new EventGeneratorParameterHandler();
+        var parameterHandler = new EventGeneratorParameterHandler();
 
         EventGeneratorParameters parameters = null;
 
@@ -166,7 +166,7 @@ public class EventGenerator {
         }
 
         // Start the event generator
-        EventGenerator eventGenerator = new EventGenerator(parameters);
+        var eventGenerator = new EventGenerator(parameters);
         LOGGER.info("Event generator started");
 
         // Wait for event generation to finish

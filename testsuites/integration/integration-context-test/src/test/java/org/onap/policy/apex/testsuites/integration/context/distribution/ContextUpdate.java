@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.context.distribution;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -97,10 +99,10 @@ public class ContextUpdate {
             .hasMessage("album \"LongContextAlbum:0.0.1\" null keys are illegal on keys for put()");
 
         assertNull(dateContextAlbum.put("date0", tciA));
-        assertTrue(dateContextAlbum.put("date0", tciA).equals(tciA));
+        assertThat(dateContextAlbum.put("date0", tciA)).isEqualTo(tciA);
 
         assertNull(mapContextAlbum.put("map0", tciC));
-        assertTrue(mapContextAlbum.put("map0", tciC).equals(tciC));
+        assertThat(mapContextAlbum.put("map0", tciC)).isEqualTo(tciC);
 
         contextDistributor.clear();
     }

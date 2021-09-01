@@ -33,7 +33,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 /**
  * Test of the abstract Message class.
  */
-public class SupportMessageTester {
+public class SupportMessageTest {
 
     @Test
     public void testMessage() {
