@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.auth.clieditor.tosca;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +28,7 @@ import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.auth.clieditor.CommandLineParameters;
 import org.onap.policy.apex.auth.clieditor.utils.CliUtils;
 import org.onap.policy.common.utils.coder.CoderException;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +65,7 @@ public class ApexCliToscaEditorMain {
 
         String policyModelFilePath = null;
         try {
-            final var tempModelFile = File.createTempFile("policyModel", ".json");
+            final var tempModelFile = TextFileUtils.createTempFile("policyModel", ".json");
             policyModelFilePath = tempModelFile.getAbsolutePath();
         } catch (IOException e) {
             LOGGER.error("Cannot create the policy model temp file.", e);

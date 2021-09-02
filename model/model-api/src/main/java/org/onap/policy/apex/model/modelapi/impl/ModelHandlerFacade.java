@@ -480,7 +480,7 @@ public class ModelHandlerFacade {
         ApexApiResult splitResult = new ApexApiResult();
         File tempSplitPolicyFile = null;
         try {
-            tempSplitPolicyFile = File.createTempFile("ApexTempPolicy", null);
+            tempSplitPolicyFile = TextFileUtils.createTempFile("ApexTempPolicy", null);
 
             // Split the policy into a temporary file
             splitResult = split(tempSplitPolicyFile.getCanonicalPath(), splitOutPolicies);

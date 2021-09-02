@@ -57,6 +57,7 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
+import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
@@ -254,7 +255,7 @@ public class ApexEngineHandler {
             toscaServiceTemplate.setToscaTopologyTemplate(toscaTopologyTemplate);
             File file;
             try {
-                file = File.createTempFile(policyName, ".json");
+                file = TextFileUtils.createTempFile(policyName, ".json");
                 standardCoder.encode(file, toscaServiceTemplate);
             } catch (CoderException | IOException e) {
                 throw new ApexStarterException(e);
