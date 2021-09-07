@@ -48,7 +48,6 @@
         <version.policy.common>1.9.0-SNAPSHOT</version.policy.common>
         <version.policy.models>2.5.0-SNAPSHOT</version.policy.models>
         <version.jgroups>4.1.5.Final</version.jgroups>
-        <version.commons-codec>20041127.091804</version.commons-codec>
         <version.caffeine>2.8.0</version.caffeine>
         <sonar.javascript.lcov.reportPaths>${project.basedir}/target/code-coverage/lcov.info</sonar.javascript.lcov.reportPaths>
     </properties>
@@ -119,11 +118,6 @@
                 <groupId>org.jgroups</groupId>
                 <artifactId>jgroups</artifactId>
                 <version>${version.jgroups}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${version.commons-codec}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
