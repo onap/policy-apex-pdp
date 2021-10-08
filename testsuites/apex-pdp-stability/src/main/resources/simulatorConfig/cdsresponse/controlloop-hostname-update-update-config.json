@@ -1,0 +1,36 @@
+{
+    "commonHeader": {
+        "timestamp": "2020-08-24T14:45:07.491Z",
+        "originatorId": "CDS",
+        "requestId": "123456",
+        "subRequestId": "123-123",
+        "flags": null
+    },
+    "actionIdentifiers": {
+        "blueprintName": "controlloop-hostname-update",
+        "blueprintVersion": "1.0.4",
+        "actionName": "update-config",
+        "mode": "sync"
+    },
+    "status": {
+        "code": 200,
+        "eventType": "EVENT_COMPONENT_EXECUTED",
+        "timestamp": "2020-08-24T14:45:12.863Z",
+        "errorMessage": null,
+        "message": "success"
+    },
+    "payload": {
+        "update-config-response": {
+            "execute-command-logs": [
+                "INFO:root:<data xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\"/>",
+                "INFO:root:configuring Device....",
+                "INFO:root:Done Device Configuration Successfully",
+                "INFO:root:Device Configuration After modification",
+                "INFO:root:http://10.101.200.10:32777/restconf/config/network-topology:network-topology/topology/topology-netconf/node/927b2580-36d9-4f13-8421-3c9d43b7a57e/yang-ext:mount",
+                "INFO:root:<data xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\"><system
+xmlns=\"urn:opendaylight:hostname\"><hostname>testhost-1212332324343</hostname></system></data>"
+            ],
+            "prepare-environment-logs": ["Installed pip packages:\n requirements.txt\n\n"]
+        }
+    }
+}
