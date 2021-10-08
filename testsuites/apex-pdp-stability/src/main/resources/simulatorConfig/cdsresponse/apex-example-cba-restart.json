@@ -1,0 +1,33 @@
+{
+    "correlationUUID": null,
+    "commonHeader": {
+        "timestamp": "2020-12-16T10:30:46.213Z",
+        "originatorId": "POLICY",
+        "requestId": "f392e439-c176-411b-b972-8acadac0f8df",
+        "subRequestId": "8c7935a4-79d8-4ec0-b661-dcca3cd68006",
+        "flags": null
+    },
+    "actionIdentifiers": {
+        "blueprintName": "apex-example-cba",
+        "blueprintVersion": "1.0.0",
+        "actionName": "restart",
+        "mode": "sync"
+    },
+    "status": {
+        "code": 200,
+        "eventType": "EVENT_COMPONENT_EXECUTED",
+        "timestamp": "2020-12-16T10:30:46.828Z",
+        "errorMessage": null,
+        "message": "success"
+    },
+    "payload": {
+        "restart-response": {
+            "execute-command-logs": [
+                "INFO:root:Arguments : Active,,"
+            ],
+            "prepare-environment-logs": [
+                "Installed pip packages:\n   requirements.txt\n\n"
+            ]
+        }
+    }
+}
