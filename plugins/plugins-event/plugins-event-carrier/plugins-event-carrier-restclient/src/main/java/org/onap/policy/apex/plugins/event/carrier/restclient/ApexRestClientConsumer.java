@@ -75,7 +75,6 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
         if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RestClientCarrierTechnologyParameters)) {
             final String errorMessage =
                     "specified consumer properties are not applicable to REST client consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
         restConsumerProperties =
@@ -92,7 +91,6 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
             final String errorMessage = "specified HTTP method of \"" + restConsumerProperties.getHttpMethod()
                     + "\" is invalid, only HTTP method \"GET\" "
                     + "is supported for event reception on REST client consumer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -157,7 +155,6 @@ public class ApexRestClientConsumer extends ApexPluginsEventConsumer {
                     final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
                             + "\" failed with status code " + response.getStatus() + " and message \""
                             + response.readEntity(String.class) + "\"";
-                    LOGGER.warn(errorMessage);
                     throw new ApexEventRuntimeException(errorMessage);
                 }
 
