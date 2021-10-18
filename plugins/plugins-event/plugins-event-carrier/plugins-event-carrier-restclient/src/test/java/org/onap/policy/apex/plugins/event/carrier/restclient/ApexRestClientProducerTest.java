@@ -190,6 +190,35 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
+    public void testApexRestClientProducerPostEventAccepted() throws ApexEventException {
+        ApexRestClientProducer arcp = new ApexRestClientProducer();
+        assertNotNull(arcp);
+
+        EventHandlerParameters producerParameters = new EventHandlerParameters();
+        RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
+        producerParameters.setCarrierTechnologyParameters(rcctp);
+
+        rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
+        arcp.init("RestClientConsumer", producerParameters);
+        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
+        assertEquals("RestClientConsumer", arcp.getName());
+
+        rcctp.setUrl("http://some.place.{key}.does.not/{tag}");
+        Properties properties = new Properties();
+        properties.put("tag", "exist");
+        properties.put("key", "that");
+        Mockito.doReturn(Response.Status.ACCEPTED.getStatusCode()).when(responseMock).getStatus();
+        Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
+        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
+        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
+        Mockito.doReturn(targetMock).when(httpClientMock).target("http://some.place.that.does.not/exist");
+        arcp.setClient(httpClientMock);
+
+        arcp.sendEvent(123, properties, "EventName", "This is an ACCEPTED Event");
+        arcp.stop();
+    }
+
+    @Test
     public void testApexRestClientProducerPostEventCache() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);

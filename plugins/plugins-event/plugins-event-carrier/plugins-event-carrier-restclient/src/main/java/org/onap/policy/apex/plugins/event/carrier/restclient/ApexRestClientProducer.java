@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -26,6 +26,7 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -59,6 +60,8 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
     // The REST carrier properties
     private RestClientCarrierTechnologyParameters restProducerProperties;
 
+    private Pattern httpCodeFilterPattern = null;
+
     /**
      * {@inheritDoc}.
      */
@@ -77,6 +80,8 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
         restProducerProperties =
                 (RestClientCarrierTechnologyParameters) producerParameters.getCarrierTechnologyParameters();
 
+        this.httpCodeFilterPattern = Pattern.compile(restProducerProperties.getHttpCodeFilter());
+
         // Check if the HTTP method has been set
         if (restProducerProperties.getHttpMethod() == null) {
             restProducerProperties.setHttpMethod(RestPluginCarrierTechnologyParameters.HttpMethod.POST);
@@ -88,7 +93,6 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
             final String errorMessage = "specified HTTP method of \"" + restProducerProperties.getHttpMethod()
                     + "\" is invalid, only HTTP methods \"POST\" and \"PUT\" are supported "
                     + "for event sending on REST client producer (" + this.name + ")";
-            LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
@@ -128,8 +132,12 @@ public class ApexRestClientProducer extends ApexPluginsEventProducer {
 
         NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, untaggedUrl, response.readEntity(String.class));
 
-        // Check that the request worked
-        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+
+        // Match the return code
+        var isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
+
+        // Check that status code
+        if (!isPass.matches()) {
             final String errorMessage = "send of event to URL \"" + untaggedUrl + "\" using HTTP \""
                     + restProducerProperties.getHttpMethod() + "\" failed with status code " + response.getStatus();
             throw new ApexEventRuntimeException(errorMessage);
