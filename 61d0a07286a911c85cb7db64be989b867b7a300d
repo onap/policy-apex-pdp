@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9bb1c9ff_37ff5640",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-10-19T10:23:36Z",
+      "side": 1,
+      "message": "Is this reported by sonar \"Either log or rethrow the exception\"?\nAnyway the exception will be printed in the logs, so we can probably remove the extra logging.",
+      "range": {
+        "startLine": 144,
+        "startChar": 11,
+        "endLine": 144,
+        "endChar": 38
+      },
+      "revId": "61d0a07286a911c85cb7db64be989b867b7a300d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee70f4c6_ea7aaeb7",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/test/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducerTest.java",
         "patchSetId": 1
