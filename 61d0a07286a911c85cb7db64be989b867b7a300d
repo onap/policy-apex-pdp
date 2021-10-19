@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "9f2c59eb_e6a688bc",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-10-19T10:25:42Z",
+      "side": 1,
+      "message": "Please remove the logging before exception statements in the ApexRestClientConsumer class as well.",
+      "revId": "61d0a07286a911c85cb7db64be989b867b7a300d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "281ca1cb_03f2eea0",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-10-19T10:25:42Z",
+      "side": 1,
+      "message": "If we log a warning right before throwing an exception, SONAR will flag an error.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 1
+      },
+      "revId": "61d0a07286a911c85cb7db64be989b867b7a300d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9bb1c9ff_37ff5640",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 1
@@ -18,6 +58,29 @@
         "startChar": 11,
         "endLine": 144,
         "endChar": 38
+      },
+      "revId": "61d0a07286a911c85cb7db64be989b867b7a300d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffdb8db3_d310f9d8",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-10-19T10:25:42Z",
+      "side": 1,
+      "message": "If we log a warning right before throwing an exception, SONAR will flag an error.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 1
       },
       "revId": "61d0a07286a911c85cb7db64be989b867b7a300d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
