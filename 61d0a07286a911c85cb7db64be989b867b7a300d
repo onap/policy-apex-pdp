@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "95c9cd53_c7787fed",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-10-19T12:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88abed35_505823cb",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 1
+      },
+      "revId": "61d0a07286a911c85cb7db64be989b867b7a300d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bb1c9ff_37ff5640",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-restclient/src/main/java/org/onap/policy/apex/plugins/event/carrier/restclient/ApexRestClientProducer.java",
         "patchSetId": 1
