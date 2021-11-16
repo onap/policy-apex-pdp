@@ -245,6 +245,18 @@
     </dependencies>
 
     <build>
+        <filters>
+            <filter>src/main/resources/properties/db.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources/META-INF</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <!-- Copy required resources and examples -->
             <plugin>
