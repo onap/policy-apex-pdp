@@ -2,7 +2,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2016-2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019-2021 Nordix Foundation.
+   Modifications Copyright (C) 2019-2021, 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -59,18 +59,18 @@
         <class>org.onap.policy.apex.domains.aadm.concepts.IMSIStatus</class>
         <class>org.onap.policy.apex.domains.aadm.concepts.IPAddressStatus</class>
         <class>org.onap.policy.apex.domains.adaptive.concepts.AnomalyDetection</class>
-        <class>org.onap.policy.apex.domains.adaptive.concepts.AutoLearn</class>
-        <class>org.onap.policy.apex.domains.vpn.concepts.VPNCustomer</class>
+        <class>org.onap.policy.apex.domains.adaptive.concepts.Autmer</class>
+        <class>org.onap.policy.apex.domains.vpn.concepts.VPNCustooLearn</class>
         <class>org.onap.policy.apex.domains.vpn.concepts.VPNLink</class>
         <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="eclipselink.target-database" value="MySQL" />
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:5432/apex" />
-            <property name="javax.persistence.jdbc.user" value="policy" />
-            <property name="javax.persistence.jdbc.password" value="P01icY" />
+            <property name="eclipselink.target-database" value="${database.target-database}" />
+            <property name="javax.persistence.jdbc.driver" value="${database.jdbc.driver}" />
+            <property name="javax.persistence.jdbc.url" value="${database.jdbc.url}" />
+            <property name="javax.persistence.jdbc.user" value="${database.jdbc.user}" />
+            <property name="javax.persistence.jdbc.password" value="${database.jdbc.password}" />
 
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
             <property name="eclipselink.logging.level" value="INFO" />
@@ -123,11 +123,11 @@
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="eclipselink.target-database" value="MySQL" />
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:5432/apex_test" />
-            <property name="javax.persistence.jdbc.user" value="policy" />
-            <property name="javax.persistence.jdbc.password" value="P01icY" />
+            <property name="eclipselink.target-database" value="${database.target-database}" />
+            <property name="javax.persistence.jdbc.driver" value="${database.jdbc.driver}" />
+            <property name="javax.persistence.jdbc.url" value="${database.jdbc.url}" />
+            <property name="javax.persistence.jdbc.user" value="${database.jdbc.user}" />
+            <property name="javax.persistence.jdbc.password" value="${database.jdbc.password}" />
 
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
             <property name="eclipselink.logging.level" value="INFO" />
@@ -178,13 +178,13 @@
         <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
 
         <properties>
-            <property name="eclipselink.target-database" value="MySQL" />
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:5432/apex" />
-            <property name="javax.persistence.jdbc.user" value="policy" />
-            <property name="javax.persistence.jdbc.password" value="P01icY" />
+            <property name="eclipselink.target-database" value="${database.target-database}" />
+            <property name="javax.persistence.jdbc.driver" value="${database.jdbc.driver}" />
+            <property name="javax.persistence.jdbc.url" value="${database.jdbc.url}" />
+            <property name="javax.persistence.jdbc.user" value="${database.jdbc.user}" />
+            <property name="javax.persistence.jdbc.password" value="${database.jdbc.password}" />
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+            <property name="hibernate.dialect" value="${database.dialect}" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.connection.provider_class"
                 value="org.hibernate.connection.C3P0ConnectionProvider" />
@@ -241,12 +241,12 @@
         <class>org.onap.policy.apex.domains.vpn.concepts.VPNProblem</class>
 
         <properties>
-            <property name="eclipselink.target-database" value="MySQL" />
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:5432/apex_test" />
-            <property name="javax.persistence.jdbc.user" value="policy" />
-            <property name="javax.persistence.jdbc.password" value="P01icY" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+            <property name="eclipselink.target-database" value="${database.target-database}" />
+            <property name="javax.persistence.jdbc.driver" value="${database.jdbc.driver}" />
+            <property name="javax.persistence.jdbc.url" value="${database.jdbc.url}" />
+            <property name="javax.persistence.jdbc.user" value="${database.jdbc.user}" />
+            <property name="javax.persistence.jdbc.password" value="${database.jdbc.password}" />
+            <property name="hibernate.dialect" value="${database.dialect}" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.connection.provider_class"
                 value="org.hibernate.connection.C3P0ConnectionProvider" />
