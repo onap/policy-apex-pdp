@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import io.prometheus.client.Counter;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.NoArgsConstructor;
 import org.onap.policy.common.utils.services.Registry;
@@ -30,7 +32,28 @@ import org.slf4j.LoggerFactory;
 @NoArgsConstructor
 public class ApexPolicyStatisticsManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexPolicyStatisticsManager.class);
+
+    static final Counter POLICY_DEPLOY_REQUESTS_COUNTER = Counter.build()
+            .name("policies_deploy_requests_total").help("Total number of TOSCA policies deploy requests.")
+            .register();
+    static final Counter POLICY_DEPLOY_REQUESTS_SUCCESS_COUNTER = Counter.build()
+            .name("policies_deploy_requests_success").help("Total number of TOSCA policies deploy requests that succeeded.")
+            .register();
+    static final Counter POLICY_DEPLOY_REQUESTS_FAILED_COUNTER = Counter.build()
+            .name("policies_deploy_requests_failed").help("Total number of TOSCA policies deploy requests that failed.")
+            .register();
+    static final Counter POLICY_UNDEPLOY_REQUESTS_COUNTER = Counter.build()
+            .name("policies_undeploy_requests_total").help("Total number of TOSCA policies undeploy requests.")
+            .register();
+    static final Counter POLICY_UNDEPLOY_REQUESTS_SUCCESS_COUNTER = Counter.build()
+            .name("policies_undeploy_requests_success").help("Total number of TOSCA policies undeploy requests that succeeded.")
+            .register();
+    static final Counter POLICY_UNDEPLOY_REQUESTS_FAILED_COUNTER = Counter.build()
+            .name("policies_undeploy_requests_failed").help("Total number of TOSCA policies undeploy requests that failed.")
+            .register();
+
     public static final String REG_APEX_PDP_POLICY_COUNTER = "object:pdp/statistics/policy/counter";
+
     private final AtomicLong policyDeployCount = new AtomicLong(0);
     private final AtomicLong policyDeploySuccessCount = new AtomicLong(0);
     private final AtomicLong policyDeployFailCount = new AtomicLong(0);
@@ -61,11 +84,14 @@ public class ApexPolicyStatisticsManager {
      * Update the policy deploy count.
      */
     public void updatePolicyDeployCounter(final boolean isSuccessful) {
-        this.updatepPolicyDeployCount();
+        this.updatePolicyDeployCount();
+        this.POLICY_DEPLOY_REQUESTS_COUNTER.inc();
         if (!isSuccessful) {
             this.updatePolicyDeployFailCount();
+            this.POLICY_DEPLOY_REQUESTS_FAILED_COUNTER.inc();
         } else {
             this.updatePolicyDeploySuccessCount();
+            this.POLICY_DEPLOY_REQUESTS_SUCCESS_COUNTER.inc();
         }
     }
 
@@ -87,10 +113,13 @@ public class ApexPolicyStatisticsManager {
      */
     public void updatePolicyUndeployCounter(final boolean isSuccessful) {
         this.policyUndeployCount.incrementAndGet();
+        this.POLICY_UNDEPLOY_REQUESTS_COUNTER.inc();
         if (isSuccessful) {
             this.policyUndeploySuccessCount.incrementAndGet();
+            this.POLICY_UNDEPLOY_REQUESTS_SUCCESS_COUNTER.inc();
         } else {
             this.policyUndeployFailCount.incrementAndGet();
+            this.POLICY_UNDEPLOY_REQUESTS_FAILED_COUNTER.inc();
         }
     }
 
@@ -99,7 +128,7 @@ public class ApexPolicyStatisticsManager {
      *
      * @return the updated value of policyDeployCount
      */
-    private long updatepPolicyDeployCount() {
+    private long updatePolicyDeployCount() {
         return policyDeployCount.incrementAndGet();
     }
 
@@ -149,31 +178,16 @@ public class ApexPolicyStatisticsManager {
         return policyExecutedFailCount.incrementAndGet();
     }
 
-    /**
-     * Reset all the statistics counts to 0.
-     */
-    public void resetAllStatistics() {
-        policyDeployCount.set(0L);
-        policyDeployFailCount.set(0L);
-        policyDeploySuccessCount.set(0L);
-        policyUndeployCount.set(0L);
-        policyUndeployFailCount.set(0L);
-        policyUndeploySuccessCount.set(0L);
-        policyExecutedCount.set(0L);
-        policyExecutedSuccessCount.set(0L);
-        policyExecutedFailCount.set(0L);
-    }
-
     public long getPolicyDeployCount() {
-        return policyDeployCount.get();
+        return Double.valueOf(POLICY_DEPLOY_REQUESTS_COUNTER.get()).longValue();
     }
 
     public long getPolicyDeployFailCount() {
-        return policyDeployFailCount.get();
+        return Double.valueOf(POLICY_DEPLOY_REQUESTS_FAILED_COUNTER.get()).longValue();
     }
 
     public long getPolicyDeploySuccessCount() {
-        return policyDeploySuccessCount.get();
+        return Double.valueOf(POLICY_DEPLOY_REQUESTS_SUCCESS_COUNTER.get()).longValue();
     }
 
     public long getPolicyExecutedCount() {
@@ -189,14 +203,14 @@ public class ApexPolicyStatisticsManager {
     }
 
     public long getPolicyUndeployCount() {
-        return policyUndeployCount.get();
+        return Double.valueOf(POLICY_UNDEPLOY_REQUESTS_COUNTER.get()).longValue();
     }
 
     public long getPolicyUndeploySuccessCount() {
-        return policyUndeploySuccessCount.get();
+        return Double.valueOf(POLICY_UNDEPLOY_REQUESTS_SUCCESS_COUNTER.get()).longValue();
     }
 
     public long getPolicyUndeployFailCount() {
-        return policyUndeployFailCount.get();
+        return Double.valueOf(POLICY_UNDEPLOY_REQUESTS_FAILED_COUNTER.get()).longValue();
     }
 }
