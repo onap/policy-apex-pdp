@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -455,13 +456,5 @@ public class EngineWorkerTest {
         assertNotNull(policyCounter);
         assertEquals(policyCounter.getPolicyExecutedCount(),
                 policyCounter.getPolicyExecutedFailCount() + policyCounter.getPolicyExecutedSuccessCount());
-        policyCounter.resetAllStatistics();
-        assertEquals(0, policyCounter.getPolicyExecutedCount());
-        assertEquals(0, policyCounter.getPolicyExecutedFailCount());
-        assertEquals(0, policyCounter.getPolicyExecutedSuccessCount());
-        assertEquals(0, policyCounter.getPolicyDeployCount());
-        assertEquals(0, policyCounter.getPolicyDeployFailCount());
-        assertEquals(0, policyCounter.getPolicyDeploySuccessCount());
-
     }
 }
