@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23ed12d0_ad0b69b9",
+        "filename": "services/services-engine/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-11-30T00:21:04Z",
+      "side": 1,
+      "message": "Don\u0027t you just need the prometheus library and not the whole common endpoints?   I didn\u0027t see any imports that uses endpoints.   Did I miss it?",
+      "revId": "8c7c5238c9cd908dd54112534c1e08c17e8982f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
