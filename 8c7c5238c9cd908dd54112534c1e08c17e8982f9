@@ -34,6 +34,24 @@
       "revId": "8c7c5238c9cd908dd54112534c1e08c17e8982f9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e32768_2ed0104f",
+        "filename": "services/services-engine/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 159
+      },
+      "writtenOn": "2021-11-30T05:48:15Z",
+      "side": 1,
+      "message": "Please let me know if this is ok, and I will make the changes to its usages accordingly: https://gerrit.onap.org/r/c/policy/parent/+/125974",
+      "parentUuid": "a8d317d5_e87447fb",
+      "revId": "8c7c5238c9cd908dd54112534c1e08c17e8982f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
