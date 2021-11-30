@@ -16,6 +16,24 @@
       "revId": "8c7c5238c9cd908dd54112534c1e08c17e8982f9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8d317d5_e87447fb",
+        "filename": "services/services-engine/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 159
+      },
+      "writtenOn": "2021-11-30T04:34:00Z",
+      "side": 1,
+      "message": "Yes I only need the Prometheus library. I wanted to avoid redefining them. Is there a better place to define these via dependencyManagement? Possibly in org.onap.policy.common:common-modules or org.onap.policy.parent:integration?",
+      "parentUuid": "23ed12d0_ad0b69b9",
+      "revId": "8c7c5238c9cd908dd54112534c1e08c17e8982f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
