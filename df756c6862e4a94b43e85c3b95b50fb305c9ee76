@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75c02cae_5c012fb5",
+        "filename": "pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-12-01T14:06:24Z",
+      "side": 1,
+      "message": "Models should also point now to SNAPSHOT of common - if someone can do that also",
+      "range": {
+        "startLine": 49,
+        "startChar": 31,
+        "endLine": 49,
+        "endChar": 48
+      },
+      "revId": "df756c6862e4a94b43e85c3b95b50fb305c9ee76",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
