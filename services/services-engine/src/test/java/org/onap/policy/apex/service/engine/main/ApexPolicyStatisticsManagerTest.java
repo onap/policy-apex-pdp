@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,26 +64,6 @@ public class ApexPolicyStatisticsManagerTest {
 
         statisticsManager.updatePolicyUndeployCounter(true);
         assertUndeploys(2, 1, 1);
-    }
-
-    @Test
-    public void testResetAllStatistics() {
-        statisticsManager.updatePolicyDeployCounter(true);
-        statisticsManager.updatePolicyDeployCounter(true);
-        statisticsManager.updatePolicyDeployCounter(false);
-        statisticsManager.updatePolicyUndeployCounter(false);
-        statisticsManager.updatePolicyExecutedCounter(true);
-
-        assertDeploys(3, 2, 1);
-        assertUndeploys(1, 0, 1);
-        assertExecuted(1, 1, 0);
-
-        statisticsManager.resetAllStatistics();
-
-        assertDeploys(0, 0, 0);
-        assertUndeploys(0, 0, 0);
-        assertExecuted(0, 0, 0);
-
     }
 
     private void assertDeploys(long count, long success, long fail) {
