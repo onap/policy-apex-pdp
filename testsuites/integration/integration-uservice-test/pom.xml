@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019-2020 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
    Modifications Copyright (C) 2020 Bell Canada.
    Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
   ================================================================================
@@ -159,13 +159,17 @@
         <dependency>
             <groupId>com.salesforce.kafka.test</groupId>
             <artifactId>kafka-junit4</artifactId>
-            <version>3.2.1</version>
+            <version>3.2.3</version>
             <scope>test</scope>
             <exclusions>
             <!-- The default netty version in kafka-junit4 has vulnerabilities -->
                 <exclusion>
                     <groupId>io.netty</groupId>
                     <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
