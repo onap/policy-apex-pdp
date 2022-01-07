@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import io.prometheus.client.CollectorRegistry;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -70,6 +71,8 @@ import org.onap.policy.common.parameters.ParameterService;
  * Test the engine implementation.
  */
 public class ApexEngineImplTest {
+    private static final String ENGINE_ID = "Engine:0.0.1";
+
     private AxPolicyModel policyModel;
     private AxPolicyModel incompatiblePolicyModel;
     private AxPolicyModel policyModelWithStates;
@@ -170,7 +173,7 @@ public class ApexEngineImplTest {
 
     @Test
     public void testSanity() throws ApexException  {
-        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
         assertEquals(engineKey, engine.getKey());
@@ -182,6 +185,7 @@ public class ApexEngineImplTest {
             .hasMessage("stop()<-Engine:0.0.1,STOPPED, cannot stop engine, " + "engine is already stopped");
 
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
         assertEquals(0, engine.getEngineContext().size());
         assertEquals(engineKey, engine.getEngineStatus().getKey());
         assertNull(engine.getInternalContext());
@@ -200,7 +204,7 @@ public class ApexEngineImplTest {
 
     @Test
     public void testListener() throws ApexException {
-        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
 
         engine.addEventListener("myListener", new DummyListener());
@@ -227,6 +231,7 @@ public class ApexEngineImplTest {
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertThatThrownBy(engine::start)
             .hasMessage("start()<-Engine:0.0.1,READY, cannot start engine, engine not in state STOPPED");
@@ -236,25 +241,29 @@ public class ApexEngineImplTest {
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.clear();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         assertThatThrownBy(engine::start).hasMessage("start()<-Engine:0.0.1,STOPPED,  cannot start engine, "
             + "engine has not been initialized, its model is not loaded");
 
         engine.updateModel(policyModel, false);
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertNull(engine.createEvent(null));
     }
 
     @Test
     public void testEventKey() throws ApexException {
-        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         engine.updateModel(policyModel, false);
         engine.start();
@@ -265,33 +274,41 @@ public class ApexEngineImplTest {
 
         assertTrue(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.addEventListener("myListener", new DummyListener());
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertThatThrownBy(() -> engine.updateModel(policyModel, false)).hasMessage(
             "updateModel()<-Engine:0.0.1, cannot update model, engine should be stopped but is in state READY");
 
         assertTrue(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.addEventListener("badListener", new DummyEnEventListener());
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertFalse(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.removeEventListener("badListener");
         engine.addEventListener("slowListener", new DummySlowEnEventListener());
@@ -299,21 +316,24 @@ public class ApexEngineImplTest {
 
     @Test
     public void testState() throws InterruptedException, ApexException {
-        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
         assertEquals(engineKey, engine.getKey());
 
         engine.updateModel(policyModel, false);
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         DummySlowEnEventListener slowListener = new DummySlowEnEventListener();
         engine.addEventListener("slowListener", slowListener);
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         EnEvent event = engine.createEvent(eventKey);
@@ -329,15 +349,18 @@ public class ApexEngineImplTest {
         }).start();
         await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.EXECUTING);
 
         assertFalse(engine.handleEvent(event));
         assertNotNull(engine.createEvent(eventKey));
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         // 4 seconds is more than the 3 second wait on engine stopping
         slowListener.setWaitTime(4000);
@@ -350,24 +373,28 @@ public class ApexEngineImplTest {
 
         await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.EXECUTING);
         assertThatThrownBy(engine::stop)
             .hasMessage("stop()<-Engine:0.0.1,STOPPED, error stopping engine, engine stop timed out");
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
         engine.clear();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
     }
 
     @Test
     public void testStateMachineError() throws InterruptedException, IllegalArgumentException, IllegalAccessException,
                     NoSuchFieldException, SecurityException, ApexException {
 
-        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
         assertEquals(engineKey, engine.getKey());
 
         engine.updateModel(policyModel, false);
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         final Field smHandlerField = engine.getClass().getDeclaredField("stateMachineHandler");
         smHandlerField.setAccessible(true);
@@ -375,8 +402,10 @@ public class ApexEngineImplTest {
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         EnEvent event = engine.createEvent(eventKey);
@@ -384,32 +413,38 @@ public class ApexEngineImplTest {
 
         assertFalse(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
         Mockito.doThrow(new StateMachineException("mocked state machine exception",
                 new IOException("nexted exception"))).when(smHandlerMock).start();
         assertThatThrownBy(engine::start).hasMessage("updateModel()<-Engine:0.0.1, error starting the engine state "
                 + "machines \"Engine:0.0.1\"");
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.clear();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
     }
 
     @Test
     public void testStateMachineHandler() throws InterruptedException, IllegalArgumentException, IllegalAccessException,
                     NoSuchFieldException, SecurityException, ApexException {
-        AxArtifactKey engineKey = new AxArtifactKey("Engine:0.0.1");
+        AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
         assertEquals(engineKey, engine.getKey());
 
         engine.updateModel(policyModelWithStates, false);
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         EnEvent event = engine.createEvent(eventKey);
@@ -417,17 +452,22 @@ public class ApexEngineImplTest {
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         // Can't work, state is not fully defined
         assertFalse(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         final Field smHandlerField = engine.getClass().getDeclaredField("stateMachineHandler");
         smHandlerField.setAccessible(true);
@@ -448,22 +488,35 @@ public class ApexEngineImplTest {
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         assertThatThrownBy(engine::start).hasMessageContaining("updateModel()<-Engine:0.0.1, error starting the "
                     + "engine state machines \"Engine:0.0.1\"");
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.start();
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         // Works, Dummy executor fakes event execution
         assertTrue(engine.handleEvent(event));
         assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
 
         engine.stop();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         engine.clear();
         assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
+    }
+
+    private void checkAxEngineStateMetric(AxEngineState state) {
+        Double stateMetric = CollectorRegistry.defaultRegistry
+                .getSampleValue("apex_engine_state", new String[]{"engine_instance_id"},
+                        new String[]{ENGINE_ID});
+        assertEquals(stateMetric.intValue(), state.getStateIdentifier());
     }
 }
