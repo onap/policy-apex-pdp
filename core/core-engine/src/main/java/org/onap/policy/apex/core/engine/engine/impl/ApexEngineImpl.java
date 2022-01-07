@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,7 @@ package org.onap.policy.apex.core.engine.engine.impl;
 
 import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
+import io.prometheus.client.Gauge;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -71,6 +72,11 @@ public class ApexEngineImpl implements ApexEngine {
 
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEngineImpl.class);
+
+    // Register state changes with prometheus
+    static final Gauge ENGINE_STATE = Gauge.build().name("apex_engine_state").labelNames("engine_instance_id")
+            .help("State of the APEX engine as integers mapped as - 0:UNDEFINED, 1:STOPPED, 2:READY,"
+                    + " 3:EXECUTING, 4:STOPPING").register();
 
     // Recurring string constants
     private static final String UPDATE_MODEL = "updateModel()<-";
@@ -123,6 +129,7 @@ public class ApexEngineImpl implements ApexEngine {
      */
     @Override
     public void updateModel(final AxPolicyModel apexModel, final boolean isSubsequentInstance) throws ApexException {
+        updateStatePrometheusMetric();
         if (apexModel != null) {
             LOGGER.entry("updateModel()->{}, apexPolicyModel {}", key.getId(), apexModel.getKey().getId());
         } else {
@@ -249,6 +256,7 @@ public class ApexEngineImpl implements ApexEngine {
 
         // OK, we are good to go
         state = AxEngineState.READY;
+        updateStatePrometheusMetric();
 
         LOGGER.exit("start()" + key);
     }
@@ -278,6 +286,7 @@ public class ApexEngineImpl implements ApexEngine {
                     case READY:
                     case STOPPED:
                         state = AxEngineState.STOPPED;
+                        updateStatePrometheusMetric();
                         stateMachineHandler.stop();
                         engineStats.engineStop();
                         LOGGER.exit("stop()" + key);
@@ -286,6 +295,7 @@ public class ApexEngineImpl implements ApexEngine {
                     // Engine is executing a policy, wait for it to stop
                     case EXECUTING:
                         state = AxEngineState.STOPPING;
+                        updateStatePrometheusMetric();
                         break;
 
                     // Wait for the engine to stop
@@ -303,6 +313,7 @@ public class ApexEngineImpl implements ApexEngine {
         synchronized (stateLockObj) {
             state = AxEngineState.STOPPED;
         }
+        updateStatePrometheusMetric();
 
         throw new ApexException(STOP + key.getId() + "," + state + ", error stopping engine, engine stop timed out");
     }
@@ -370,6 +381,7 @@ public class ApexEngineImpl implements ApexEngine {
 
             state = AxEngineState.EXECUTING;
         }
+        updateStatePrometheusMetric();
 
         String message = "execute(): triggered by event " + incomingEvent.toString();
         LOGGER.debug(message);
@@ -413,6 +425,7 @@ public class ApexEngineImpl implements ApexEngine {
                 state = AxEngineState.STOPPED;
             }
         }
+        updateStatePrometheusMetric();
         return ret;
     }
 
@@ -506,5 +519,12 @@ public class ApexEngineImpl implements ApexEngine {
         exceptionEvent.setExceptionMessage(exceptionMessageStringBuilder.toString());
 
         return Set.of(exceptionEvent);
+    }
+
+    /**
+     * Update the APEX engine state to prometheus for monitoring.
+     */
+    private void updateStatePrometheusMetric() {
+        ENGINE_STATE.labels(getKey().getId()).set(state.getStateIdentifier());
     }
 }
