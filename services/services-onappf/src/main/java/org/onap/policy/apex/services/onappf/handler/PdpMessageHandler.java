@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,8 @@
 
 package org.onap.policy.apex.services.onappf.handler;
 
+import io.prometheus.client.Gauge;
+import io.prometheus.client.Histogram;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,22 @@ import org.slf4j.LoggerFactory;
  */
 public class PdpMessageHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(PdpMessageHandler.class);
+
+    static final Gauge ENGINE_EVENTS_EXECUTED_COUNT = Gauge.build().name("apex_engine_events_executed_count")
+            .labelNames("engine_instance_id")
+            .help("Total number of APEX events processed by the engine.").register();
+    static final Gauge ENGINE_STATE = Gauge.build().name("apex_engine_state").labelNames("engine_instance_id")
+            .help("State of the APEX engine as integers mapped as - 0:UNDEFINED, 1:STOPPED, 2:READY,"
+                    + " 3:EXECUTING, 4:STOPPING").register();
+    static final Gauge ENGINE_UPTIME = Gauge.build().name("apex_engine_uptime")
+            .labelNames("engine_instance_id")
+            .help("Time elapsed since the engine was started.").register();
+    static final Histogram ENGINE_LAST_EXECUTION_TIME = Histogram.build()
+            .name("apex_engine_last_execution_time_seconds").labelNames("engine_instance_id")
+            .help("Time taken to execute the last APEX policy in seconds.").register();
+    static final Gauge ENGINE_AVG_EXECUTION_TIME = Gauge.build().name("apex_engine_average_execution_time_seconds")
+            .labelNames("engine_instance_id")
+            .help("Average time taken to execute an APEX policy in seconds.").register();
 
     /**
      * Method to create PdpStatus message from the parameters which will be saved to the context.
@@ -170,9 +189,23 @@ public class PdpMessageHandler {
                 workerStatistics.setLastStart(engineModel.getStats().getLastStart());
                 workerStatistics.setUpTime(engineModel.getStats().getUpTime());
                 pdpEngineWorkerStats.add(workerStatistics);
+                registerEngineMetricsWithPrometheus(engineModel);
             });
         }
         return pdpEngineWorkerStats;
+    }
+
+    private void registerEngineMetricsWithPrometheus(AxEngineModel engineModel) {
+        var engineStats = engineModel.getStats();
+        var engineId = engineModel.getId();
+
+        LOGGER.info("Registering metrics with prometheus for ApexEngine instance->{}", engineId);
+
+        ENGINE_UPTIME.labels(engineId).set(engineStats.getUpTime() / 1000d);
+        ENGINE_STATE.labels(engineId).set(engineModel.getState().getStateId());
+        ENGINE_EVENTS_EXECUTED_COUNT.labels(engineId).set(engineStats.getEventCount());
+        ENGINE_AVG_EXECUTION_TIME.labels(engineId).set(engineStats.getAverageExecutionTime() / 1000d);
+        ENGINE_LAST_EXECUTION_TIME.labels(engineId).observe(engineStats.getLastExecutionTime() / 1000d);
     }
 
     private PdpEngineWorkerState transferEngineState(@NonNull final AxEngineState state) {
