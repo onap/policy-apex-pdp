@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.model.enginemodel.concepts;
 
+import io.prometheus.client.Gauge;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.persistence.Column;
@@ -59,6 +61,16 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxEngineStats extends AxConcept {
     private static final long serialVersionUID = -6981129081962785368L;
     private static final int HASH_CODE_PRIME = 32;
+    static final String ENGINE_INSTANCE_ID = "engine_instance_id";
+    static final Gauge ENGINE_EVENTS_EXECUTED_COUNT = Gauge.build().name("apex_engine_events_executed_count")
+            .labelNames(ENGINE_INSTANCE_ID)
+            .help("Total number of APEX events processed by the engine.").register();
+    static final Gauge ENGINE_UPTIME = Gauge.build().name("apex_engine_uptime")
+            .labelNames(ENGINE_INSTANCE_ID)
+            .help("Time elapsed since the engine was started.").register();
+    static final Gauge ENGINE_AVG_EXECUTION_TIME = Gauge.build().name("apex_engine_average_execution_time_seconds")
+            .labelNames(ENGINE_INSTANCE_ID)
+            .help("Average time taken to execute an APEX policy in seconds.").register();
 
     @EmbeddedId
     @XmlElement(name = "key", required = true)
@@ -104,6 +116,20 @@ public class AxEngineStats extends AxConcept {
         upTime = 0;
         lastEnterTime = 0;
         lastStart = 0;
+        initEngineMetricsWithPrometheus();
+    }
+
+    /**
+     * Register the APEX engine metrics with Prometheus.
+     */
+    private void initEngineMetricsWithPrometheus() {
+        var engineId = getKey().getParentArtifactKey().getId();
+        if (engineId.startsWith(AxKey.NULL_KEY_NAME)) {
+            return;
+        }
+        ENGINE_UPTIME.labels(engineId).set(upTime / 1000d);
+        ENGINE_EVENTS_EXECUTED_COUNT.labels(engineId).set(this.eventCount);
+        ENGINE_AVG_EXECUTION_TIME.labels(engineId).set(this.averageExecutionTime / 1000d);
     }
 
     /**
@@ -147,6 +173,7 @@ public class AxEngineStats extends AxConcept {
         this.averageExecutionTime = averageExecutionTime;
         this.upTime = upTime;
         this.lastStart = lastStart;
+        initEngineMetricsWithPrometheus();
     }
 
     /**
@@ -218,6 +245,8 @@ public class AxEngineStats extends AxConcept {
      */
     public void setEventCount(final long eventCount) {
         this.eventCount = eventCount;
+        ENGINE_EVENTS_EXECUTED_COUNT.labels(getKey().getParentArtifactKey().getId())
+                .set(this.eventCount);
     }
 
     /**
@@ -254,6 +283,8 @@ public class AxEngineStats extends AxConcept {
      */
     public void setAverageExecutionTime(final double averageExecutionTime) {
         this.averageExecutionTime = averageExecutionTime;
+        ENGINE_AVG_EXECUTION_TIME.labels(getKey().getParentArtifactKey().getId())
+                .set(this.averageExecutionTime / 1000d);
     }
 
     /**
@@ -275,6 +306,7 @@ public class AxEngineStats extends AxConcept {
      */
     public void setUpTime(final long upTime) {
         this.upTime = upTime;
+        ENGINE_UPTIME.labels(getKey().getParentArtifactKey().getId()).set(this.upTime / 1000d);
     }
 
     /**
@@ -306,6 +338,7 @@ public class AxEngineStats extends AxConcept {
         upTime = 0;
         lastEnterTime = 0;
         lastStart = 0;
+        initEngineMetricsWithPrometheus();
     }
 
     /**
@@ -321,6 +354,7 @@ public class AxEngineStats extends AxConcept {
         }
         lastEnterTime = now;
         timeStamp = now;
+        ENGINE_EVENTS_EXECUTED_COUNT.labels(getKey().getParentArtifactKey().getId()).set(this.eventCount);
     }
 
     /**
@@ -333,6 +367,8 @@ public class AxEngineStats extends AxConcept {
         averageExecutionTime = ((averageExecutionTime * (eventCount - 1.0)) + lastExecutionTime) / eventCount;
         lastEnterTime = 0;
         timeStamp = System.currentTimeMillis();
+        ENGINE_AVG_EXECUTION_TIME.labels(getKey().getParentArtifactKey().getId())
+                .set(this.averageExecutionTime / 1000d);
     }
 
     /**
@@ -352,6 +388,7 @@ public class AxEngineStats extends AxConcept {
         timeStamp = now;
         upTime += (timeStamp - this.getLastStart());
         this.setLastStart(0);
+        ENGINE_UPTIME.labels(getKey().getParentArtifactKey().getId()).set(this.upTime / 1000d);
     }
 
     /**
@@ -417,6 +454,7 @@ public class AxEngineStats extends AxConcept {
         copy.setAverageExecutionTime(averageExecutionTime);
         copy.setUpTime(upTime);
         copy.setLastStart(lastStart);
+        initEngineMetricsWithPrometheus();
 
         return copy;
     }
