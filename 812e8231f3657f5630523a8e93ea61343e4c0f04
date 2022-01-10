@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ea91c1e1_6bf058d8",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/engine/impl/ApexEngineImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2022-01-10T12:33:10Z",
+      "side": 1,
+      "message": "Modifications Copyright (C) 2022 Bell Canada.",
+      "revId": "812e8231f3657f5630523a8e93ea61343e4c0f04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7743471e_2bda3675",
         "filename": "model/engine-model/src/main/java/org/onap/policy/apex/model/enginemodel/concepts/AxEngineStats.java",
         "patchSetId": 2
