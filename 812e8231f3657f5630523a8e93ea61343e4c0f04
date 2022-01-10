@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7743471e_2bda3675",
+        "filename": "model/engine-model/src/main/java/org/onap/policy/apex/model/enginemodel/concepts/AxEngineStats.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2022-01-10T12:32:20Z",
+      "side": 1,
+      "message": "Sonar might complain here asking to extract constant.",
+      "range": {
+        "startLine": 72,
+        "startChar": 24,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "812e8231f3657f5630523a8e93ea61343e4c0f04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55cb9971_9e9708d7",
+        "filename": "model/engine-model/src/test/java/org/onap/policy/apex/model/enginemodel/concepts/EngineStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2022-01-10T12:32:20Z",
+      "side": 1,
+      "message": "Sonar: extract constant.",
+      "range": {
+        "startLine": 227,
+        "startChar": 82,
+        "endLine": 227,
+        "endChar": 102
+      },
+      "revId": "812e8231f3657f5630523a8e93ea61343e4c0f04",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
