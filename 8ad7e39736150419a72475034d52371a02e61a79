@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dd5ea942_6b2da62d",
+        "filename": "model/engine-model/src/main/java/org/onap/policy/apex/model/enginemodel/concepts/AxEngineState.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 159
+      },
+      "writtenOn": "2022-01-10T06:23:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1426377b_4fc66360",
+      "revId": "8ad7e39736150419a72475034d52371a02e61a79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b71d4294_94f9a55a",
         "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpMessageHandler.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2022-01-07T18:49:57Z",
       "side": 1,
       "message": "AFAIK, this method will be called every 2 mins (heartbeat interval), so I hope we intend to publish metrics to prometheus in the same interval.",
+      "range": {
+        "startLine": 84,
+        "startChar": 21,
+        "endLine": 84,
+        "endChar": 50
+      },
+      "revId": "8ad7e39736150419a72475034d52371a02e61a79",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4321071_e0b45009",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 159
+      },
+      "writtenOn": "2022-01-10T06:23:50Z",
+      "side": 1,
+      "message": "That\u0027s a good point, something I was also wondering about. Ideally, the metrics should be updated as and when they change. Prometheus scrapes them periodically at an interval it is configured to do so. I am refactoring my changes to address this. Thanks for the feedback Ram",
+      "parentUuid": "b71d4294_94f9a55a",
       "range": {
         "startLine": 84,
         "startChar": 21,
