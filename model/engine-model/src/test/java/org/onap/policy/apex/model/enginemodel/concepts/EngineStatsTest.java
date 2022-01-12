@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import io.prometheus.client.CollectorRegistry;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -41,13 +43,15 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
  */
 public class EngineStatsTest {
     private static final Object WAIT_LOCK = new Object();
+    private static final String ENGINE_KEY = "EngineKey";
+    private static final String ENGINE_VERSION = "0.0.1";
 
     @Test
     public void testEngineStats() {
         assertNotNull(new AxEngineStats());
         assertNotNull(new AxEngineStats(new AxReferenceKey()));
 
-        final AxReferenceKey statsKey = new AxReferenceKey("EngineKey", "0.0.1", "EngineStats");
+        final AxReferenceKey statsKey = new AxReferenceKey(ENGINE_KEY, ENGINE_VERSION, "EngineStats");
         final AxEngineStats stats = new AxEngineStats(statsKey);
 
         assertThatThrownBy(() -> stats.setKey(null))
@@ -58,13 +62,16 @@ public class EngineStatsTest {
 
         stats.setAverageExecutionTime(123.45);
         assertEquals(Double.valueOf(123.45), Double.valueOf(stats.getAverageExecutionTime()));
+        checkAvgExecTimeMetric(stats);
 
         stats.setEventCount(987);
         assertEquals(987, stats.getEventCount());
+        checkEventsCountMetric(stats);
 
         final long lastExecutionTime = System.currentTimeMillis();
         stats.setLastExecutionTime(lastExecutionTime);
         assertEquals(lastExecutionTime, stats.getLastExecutionTime());
+        checkLastExecTimeMetric(stats);
 
         final long timestamp = System.currentTimeMillis();
         stats.setTimeStamp(timestamp);
@@ -74,28 +81,39 @@ public class EngineStatsTest {
         final long upTime = System.currentTimeMillis() - timestamp;
         stats.setUpTime(upTime);
         assertEquals(upTime, stats.getUpTime());
+        checkUpTimeMetric(stats);
 
         stats.engineStart();
         assertTrue(stats.getUpTime() > -1);
+        checkEngineStartTimestampMetric(stats);
+        checkLastExecTimeMetric(stats);
         stats.engineStop();
         assertTrue(stats.getUpTime() >= 0);
 
         stats.engineStop();
+        checkUpTimeMetric(stats);
+        checkEngineStartTimestampMetric(stats);
 
         stats.reset();
 
         stats.setEventCount(-2);
         stats.executionEnter(new AxArtifactKey());
         assertEquals(2, stats.getEventCount());
+        checkEventsCountMetric(stats);
 
         stats.setEventCount(10);
         stats.executionEnter(new AxArtifactKey());
         assertEquals(11, stats.getEventCount());
+        checkEventsCountMetric(stats);
 
         stats.reset();
         stats.engineStart();
         stats.setEventCount(4);
         stats.executionEnter(new AxArtifactKey());
+        checkEventsCountMetric(stats);
+        checkUpTimeMetric(stats);
+        checkAvgExecTimeMetric(stats);
+        checkEngineStartTimestampMetric(stats);
 
         synchronized (WAIT_LOCK) {
             try {
@@ -109,6 +127,7 @@ public class EngineStatsTest {
         final double avExecutionTime = stats.getAverageExecutionTime();
         assertTrue(avExecutionTime >= 2.0 && avExecutionTime < 10.0);
         stats.engineStop();
+        checkUpTimeMetric(stats);
 
         AxValidationResult result = new AxValidationResult();
         result = stats.validate(result);
@@ -126,6 +145,7 @@ public class EngineStatsTest {
 
         stats.clean();
         stats.reset();
+        checkAllPrometheusMetrics(stats);
 
         final AxEngineStats clonedStats = new AxEngineStats(stats);
         assertEquals("AxEngineStats:(engineKey=AxReferenceKey:(parentKey", clonedStats.toString().substring(0, 50));
@@ -138,6 +158,7 @@ public class EngineStatsTest {
         assertEquals(stats, stats); // NOSONAR
         assertEquals(stats, clonedStats);
         assertNotNull(stats);
+        checkAllPrometheusMetrics(clonedStats);
 
         Object helloObject = "Hello";
         assertNotEquals(stats, helloObject);
@@ -155,6 +176,7 @@ public class EngineStatsTest {
         stats.setTimeStamp(0);
         assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
+        checkAllPrometheusMetrics(clonedStats);
 
         stats.setEventCount(1);
         assertNotEquals(stats, new AxEngineStats(statsKey));
@@ -193,9 +215,57 @@ public class EngineStatsTest {
         assertNotEquals(stats, newStats);
         assertNotEquals(0, stats.compareTo(newStats));
         stats.engineStop();
+        checkUpTimeMetric(stats);
+        checkEngineStartTimestampMetric(stats);
         stats.reset();
         assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
+        checkAllPrometheusMetrics(stats);
     }
 
+    private void checkUpTimeMetric(AxEngineStats stats) {
+        Double upTimeMetric = CollectorRegistry.defaultRegistry.getSampleValue("apex_engine_uptime",
+                new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
+                new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
+        assertEquals(upTimeMetric.longValue(), stats.getUpTime());
+    }
+
+    private void checkEventsCountMetric(AxEngineStats stats) {
+        Double eventsCountMetric = CollectorRegistry.defaultRegistry
+                .getSampleValue("apex_engine_events_executed_count",
+                        new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
+                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
+        assertEquals(eventsCountMetric.longValue(), stats.getEventCount());
+    }
+
+    private void checkLastExecTimeMetric(AxEngineStats stats) {
+        Double lastExecTimeMetric = CollectorRegistry.defaultRegistry
+                .getSampleValue("apex_engine_last_execution_time_sum", new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
+                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
+        assertEquals(lastExecTimeMetric.longValue(), stats.getLastExecutionTime());
+    }
+
+    private void checkEngineStartTimestampMetric(AxEngineStats stats) {
+        Double engineStartTimestampMetric = CollectorRegistry.defaultRegistry
+                .getSampleValue("apex_engine_last_start_timestamp_epoch",
+                        new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
+                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
+        assertEquals(engineStartTimestampMetric.longValue(), stats.getLastStart());
+    }
+
+    private void checkAvgExecTimeMetric(AxEngineStats stats) {
+        Double avgExecTimeMetric = CollectorRegistry.defaultRegistry
+                .getSampleValue("apex_engine_average_execution_time_seconds",
+                        new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
+                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
+        assertEquals(avgExecTimeMetric, Double.valueOf(stats.getAverageExecutionTime()));
+    }
+
+    private void checkAllPrometheusMetrics(AxEngineStats stats) {
+        checkEventsCountMetric(stats);
+        checkUpTimeMetric(stats);
+        checkAvgExecTimeMetric(stats);
+        checkEngineStartTimestampMetric(stats);
+        checkEngineStartTimestampMetric(stats);
+    }
 }
