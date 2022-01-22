@@ -95,7 +95,7 @@ public class EnEventTest {
         event.setUserArtifactStack(usedArtifactStackArray);
         assertEquals(usedArtifactStackArray.length, event.getUserArtifactStack().length);
         assertEquals("EnEvent [axEvent=AxEvent:(key=AxArtifactKey:(name=Event,version=0.0.1),nameSpace=a.name.space,"
-                        + "source=some source,target=some target,parameter={}), "
+                        + "source=some source,target=some target,parameter={},toscaPolicyState=), "
                         + "userArtifactStack=[AxArtifactKey:(name=Event,version=0.0.1)], map={}]", event.toString());
         assertThatThrownBy(() -> event.put(null, null))
             .hasMessage("null keys are illegal on method parameter \"key\"");

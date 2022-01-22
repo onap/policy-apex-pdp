@@ -328,7 +328,7 @@ public class ApexJmsProducerTest {
         // Prepare sendEvent
 
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-            "testSource", "testTarget");
+            "testSource", "testTarget", "");
         Mockito.doThrow(JMSException.class).when(session).createObjectMessage(apexEvent);
 
         final long executionId = random.nextLong();
@@ -367,7 +367,7 @@ public class ApexJmsProducerTest {
         // Prepare sendEvent
         final Message message = Mockito.mock(ObjectMessage.class);
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-            "testSource", "testTarget");
+            "testSource", "testTarget", "");
         Mockito.doReturn(message).when(session).createObjectMessage(apexEvent);
         Mockito.doThrow(JMSException.class).when(messageProducer).send(message);
 
@@ -410,7 +410,7 @@ public class ApexJmsProducerTest {
         // Prepare sendEvent
         final Message message = Mockito.mock(ObjectMessage.class);
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-            "testSource", "testTarget");
+            "testSource", "testTarget", "");
         Mockito.doReturn(message).when(session).createObjectMessage(apexEvent);
         Mockito.doNothing().when(messageProducer).send(message);
 
@@ -452,7 +452,7 @@ public class ApexJmsProducerTest {
 
         // Prepare sendEvent
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-            "testSource", "testTarget");
+            "testSource", "testTarget", "");
 
         Mockito.doThrow(JMSException.class).when(session).createTextMessage(apexEvent.toString());
 
@@ -495,7 +495,7 @@ public class ApexJmsProducerTest {
         // Prepare sendEvent
         final Message message = Mockito.mock(TextMessage.class);
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-            "testSource", "testTarget");
+            "testSource", "testTarget", "");
         Mockito.doReturn(message).when(session).createTextMessage(apexEvent.toString());
         Mockito.doThrow(JMSException.class).when(messageProducer).send(message);
 
@@ -539,7 +539,7 @@ public class ApexJmsProducerTest {
         // Prepare sendEvent
         final Message message = Mockito.mock(TextMessage.class);
         ApexEvent apexEvent = new ApexEvent("testEvent", "testVersion", "testNameSpace",
-            "testSource", "testTarget");
+            "testSource", "testTarget", "");
         Mockito.doReturn(message).when(session).createTextMessage(apexEvent.toString());
         Mockito.doNothing().when(messageProducer).send(message);
 

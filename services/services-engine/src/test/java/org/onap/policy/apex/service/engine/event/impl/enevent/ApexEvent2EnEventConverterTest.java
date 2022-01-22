@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021  Nordix Foundation
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,6 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -58,8 +60,9 @@ public class ApexEvent2EnEventConverterTest {
         final String nameSpace = "a" + RandomStringUtils.randomAlphanumeric(7);
         final String source = RandomStringUtils.randomAlphanumeric(8);
         final String target = RandomStringUtils.randomAlphanumeric(9);
+        final String toscaPolicyState = AxToscaPolicyProcessingStatus.ENTRY.name();
 
-        final ApexEvent event = new ApexEvent(name, version, nameSpace, source, target);
+        final ApexEvent event = new ApexEvent(name, version, nameSpace, source, target, toscaPolicyState);
 
         assertThatThrownBy(() -> converter.toApexEvent(eventName, event))
             .isInstanceOf(ApexEventRuntimeException.class);
@@ -73,6 +76,7 @@ public class ApexEvent2EnEventConverterTest {
         final String nameSpace = "b" + RandomStringUtils.randomAlphabetic(7);
         final String source = RandomStringUtils.randomAlphabetic(8);
         final String target = RandomStringUtils.randomAlphabetic(9);
+        final String toscaPolicyState = AxToscaPolicyProcessingStatus.ENTRY.name();
         final int executionId = random.nextInt(1000);
         final String exceptionMessage = RandomStringUtils.randomAlphabetic(11);
 
@@ -83,12 +87,13 @@ public class ApexEvent2EnEventConverterTest {
         axEvent.setNameSpace(nameSpace);
         axEvent.setSource(source);
         axEvent.setTarget(target);
+        axEvent.setToscaPolicyState(toscaPolicyState);
         final EnEvent enEvent = new EnEvent(axEvent);
         enEvent.setExecutionId(executionId);
         enEvent.setExceptionMessage(exceptionMessage);
 
         // prepare expected event
-        final ApexEvent apexEvent = new ApexEvent(name, version, nameSpace, source, target);
+        final ApexEvent apexEvent = new ApexEvent(name, version, nameSpace, source, target, toscaPolicyState);
         apexEvent.setExecutionId(executionId);
         apexEvent.setExceptionMessage(exceptionMessage);
         final Object[] expected = {apexEvent};

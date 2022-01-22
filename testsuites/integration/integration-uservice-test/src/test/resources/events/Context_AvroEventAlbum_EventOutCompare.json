@@ -4,6 +4,7 @@
     "nameSpace": "org.onap.policy.apex.test",
     "source": "External",
     "target": "Apex",
+    "toscaPolicyState": "",
     "AvroArray": [
         "I",
         "once",

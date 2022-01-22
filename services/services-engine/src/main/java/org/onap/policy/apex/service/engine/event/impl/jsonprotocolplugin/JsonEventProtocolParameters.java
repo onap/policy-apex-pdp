@@ -61,11 +61,12 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
 
     // Aliases for Apex event header fields
     // @formatter:off
-    private String nameAlias      = null;
-    private String versionAlias   = null;
-    private String nameSpaceAlias = null;
-    private String sourceAlias    = null;
-    private String targetAlias    = null;
+    private String nameAlias        = null;
+    private String versionAlias     = null;
+    private String nameSpaceAlias   = null;
+    private String sourceAlias      = null;
+    private String targetAlias      = null;
+    private String toscaPolicyStateAlias = null;
     // @formatter:on
 
     // Flag indicating POJO decoding and encoding and parameter indicating the name of the Pojo field
