@@ -1,6 +1,7 @@
 /*
  *  ============LICENSE_START=======================================================
  *  Copyright (C) 2021. Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +43,7 @@ public class ApexEventTest {
     @Before
     public void setUp() throws Exception {
         apexEvent =
-            new ApexEvent("name", "version", "namespace", "source", "target");
+            new ApexEvent("name", "version", "namespace", "source", "target", "");
 
     }
 
@@ -50,7 +51,7 @@ public class ApexEventTest {
     public void invalidEventName() {
         final String name = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent(name, "version", "namespace", "source", "target"))
+            apexEvent = new ApexEvent(name, "version", "namespace", "source", "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
@@ -58,7 +59,7 @@ public class ApexEventTest {
     public void invalidEventVersion() {
         final String version = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", version, "namespace", "source", "target"))
+            apexEvent = new ApexEvent("name", version, "namespace", "source", "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
@@ -66,7 +67,7 @@ public class ApexEventTest {
     public void invalidEventNamespace() {
         final String namespace = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", "version", namespace, "source", "target"))
+            apexEvent = new ApexEvent("name", "version", namespace, "source", "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
@@ -74,7 +75,7 @@ public class ApexEventTest {
     public void invalidEventSource() {
         final String source = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", "version", "namespace", source, "target"))
+            apexEvent = new ApexEvent("name", "version", "namespace", source, "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
@@ -82,8 +83,16 @@ public class ApexEventTest {
     public void invalidEventTarget() {
         final String target = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", "version", "namespace", "source", target))
+            apexEvent = new ApexEvent("name", "version", "namespace", "source", target, ""))
             .isInstanceOf(ApexEventException.class);
+    }
+
+    @Test
+    public void invalidEventStatus() {
+        final String toscaPolicyState = "INVALID_STATUS";
+        Assertions.assertThatCode(() ->
+                        apexEvent = new ApexEvent("name", "version", "namespace", "source", "target", toscaPolicyState))
+                .isInstanceOf(ApexEventException.class);
     }
 
     @Test

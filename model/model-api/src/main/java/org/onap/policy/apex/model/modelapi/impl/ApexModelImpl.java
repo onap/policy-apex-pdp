@@ -3,7 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -251,8 +251,9 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     public ApexApiResult createEvent(final String name, final String version, final String nameSpace,
-            final String source, final String target, final String uuid, final String description) {
-        return eventFacade.createEvent(name, version, nameSpace, source, target, uuid, description);
+            final String source, final String target, final String uuid, final String description,
+            final String toscaPolicyState) {
+        return eventFacade.createEvent(name, version, nameSpace, source, target, uuid, description, toscaPolicyState);
     }
 
     /**
@@ -260,8 +261,9 @@ public final class ApexModelImpl implements ApexModel {
      */
     @Override
     public ApexApiResult updateEvent(final String name, final String version, final String nameSpace,
-            final String source, final String target, final String uuid, final String description) {
-        return eventFacade.updateEvent(name, version, nameSpace, source, target, uuid, description);
+            final String source, final String target, final String uuid, final String description,
+            final String toscaPolicyState) {
+        return eventFacade.updateEvent(name, version, nameSpace, source, target, uuid, description, toscaPolicyState);
     }
 
     /**

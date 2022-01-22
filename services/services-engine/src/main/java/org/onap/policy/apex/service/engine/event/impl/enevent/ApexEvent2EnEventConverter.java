@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -72,12 +72,12 @@ public final class ApexEvent2EnEventConverter implements ApexEventConverter {
         // Create the Apex event
         final var axEvent = enEvent.getAxEvent();
         final var apexEvent = new ApexEvent(axEvent.getKey().getName(), axEvent.getKey().getVersion(),
-                axEvent.getNameSpace(), axEvent.getSource(), axEvent.getTarget());
+                axEvent.getNameSpace(), axEvent.getSource(), axEvent.getTarget(), axEvent.getToscaPolicyState());
 
         apexEvent.setExecutionId(enEvent.getExecutionId());
         apexEvent.setExecutionProperties(enEvent.getExecutionProperties());
 
-        // Copy he exception message to the Apex event if it is set
+        // Copy the exception message to the Apex event if it is set
         if (enEvent.getExceptionMessage() != null) {
             apexEvent.setExceptionMessage(enEvent.getExceptionMessage());
         }

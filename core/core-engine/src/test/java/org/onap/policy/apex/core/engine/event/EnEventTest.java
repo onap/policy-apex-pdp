@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,7 +96,7 @@ public class EnEventTest {
         event.setUserArtifactStack(usedArtifactStackArray);
         assertEquals(usedArtifactStackArray.length, event.getUserArtifactStack().length);
         assertEquals("EnEvent [axEvent=AxEvent:(key=AxArtifactKey:(name=Event,version=0.0.1),nameSpace=a.name.space,"
-                        + "source=some source,target=some target,parameter={}), "
+                        + "source=some source,target=some target,parameter={},toscaPolicyState=), "
                         + "userArtifactStack=[AxArtifactKey:(name=Event,version=0.0.1)], map={}]", event.toString());
         assertThatThrownBy(() -> event.put(null, null))
             .hasMessage("null keys are illegal on method parameter \"key\"");

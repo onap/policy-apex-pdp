@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2020 Nordix Foundation.
-#  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+#  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -75,7 +75,8 @@ LE
 
 album create name=PMSubscriptionAlbum scope=policy writable=true schemaName=PMSubscriptionType
 
-event create name=testPolicyB version=0.0.1 nameSpace=org.onap.policy.apex.onap.pmcontrol source=DCAE target=APEX
+# Incoming event
+event create name=testPolicyB version=0.0.1 nameSpace=org.onap.policy.apex.onap.pmcontrol source=DCAE target=APEX toscaPolicyState=ENTRY
 event parameter create name=testPolicyB parName=nfName schemaName=SimpleStringType
 event parameter create name=testPolicyB parName=policyName schemaName=SimpleStringType
 event parameter create name=testPolicyB parName=changeType schemaName=SimpleStringType
@@ -109,7 +110,7 @@ event parameter create name=CDSResponseEvent parName=actionIdentifiers schemaNam
 event parameter create name=CDSResponseEvent parName=status schemaName=CDSResponseStatusType
 event parameter create name=CDSResponseEvent parName=payload schemaName=CDSResponsePayloadType
 
-event create name=CDSResponseStatusEvent nameSpace=org.onap.policy.apex.onap.pmcontrol source=APEX target=DCAE
+event create name=CDSResponseStatusEvent nameSpace=org.onap.policy.apex.onap.pmcontrol source=APEX target=DCAE toscaPolicyState=EXIT_SUCCESS
 event parameter create name=CDSResponseStatusEvent parName=status schemaName=SubscriptionStatusType
 
 event create name=LogEvent nameSpace=org.onap.policy.apex.onap.pmcontrol source=APEX target=DCAE

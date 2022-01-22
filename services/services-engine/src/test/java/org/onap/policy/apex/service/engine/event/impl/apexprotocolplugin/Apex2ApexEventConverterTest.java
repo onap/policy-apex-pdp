@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021  Nordix Foundation
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,6 +30,7 @@ import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventList;
@@ -76,8 +78,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace = "a" + RandomStringUtils.randomAlphanumeric(7);
         final String source = RandomStringUtils.randomAlphanumeric(8);
         final String target = RandomStringUtils.randomAlphanumeric(9);
+        final String toscaPolicyState = AxToscaPolicyProcessingStatus.ENTRY.name();
 
-        final ApexEvent event = new ApexEvent(name, version, nameSpace, source, target);
+        final ApexEvent event = new ApexEvent(name, version, nameSpace, source, target, toscaPolicyState);
         final List<ApexEvent> result = converter.toApexEvent(eventName, event);
         assertThat(result).isEmpty();
     }
@@ -90,8 +93,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace1 = "a" + RandomStringUtils.randomAlphanumeric(7);
         final String source1 = RandomStringUtils.randomAlphanumeric(8);
         final String target1 = RandomStringUtils.randomAlphanumeric(9);
+        final String toscaPolicyState1 = AxToscaPolicyProcessingStatus.ENTRY.name();
 
-        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1);
+        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1, toscaPolicyState1);
 
         final String key = RandomStringUtils.randomAlphabetic(3);
         event.put(key, new Object());
@@ -108,8 +112,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace1 = "a" + RandomStringUtils.randomAlphanumeric(7);
         final String source1 = RandomStringUtils.randomAlphanumeric(8);
         final String target1 = RandomStringUtils.randomAlphanumeric(9);
+        final String toscaPolicyState1 = AxToscaPolicyProcessingStatus.ENTRY.name();
 
-        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1);
+        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1, toscaPolicyState1);
 
         final ApexEventList eventList = new ApexEventList();
         eventList.add(event);
@@ -119,8 +124,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace2 = "b" + RandomStringUtils.randomAlphanumeric(17);
         final String source2 = RandomStringUtils.randomAlphanumeric(18);
         final String target2 = RandomStringUtils.randomAlphanumeric(19);
+        final String toscaPolicyState2 = AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name();
 
-        final ApexEvent parentEvent = new ApexEvent(name2, version2, nameSpace2, source2, target2);
+        final ApexEvent parentEvent = new ApexEvent(name2, version2, nameSpace2, source2, target2, toscaPolicyState2);
         final String key = RandomStringUtils.randomAlphabetic(3);
         parentEvent.put(key, eventList);
         final List<ApexEvent> result = converter.toApexEvent(eventName, parentEvent);
@@ -136,8 +142,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace1 = "a" + RandomStringUtils.randomAlphanumeric(7);
         final String source1 = RandomStringUtils.randomAlphanumeric(8);
         final String target1 = RandomStringUtils.randomAlphanumeric(9);
+        final String toscaPolicyState1 = AxToscaPolicyProcessingStatus.ENTRY.name();
 
-        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1);
+        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1, toscaPolicyState1);
 
         final ApexEventList eventList = new ApexEventList();
         eventList.add(event);
@@ -147,8 +154,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace2 = "b" + RandomStringUtils.randomAlphanumeric(17);
         final String source2 = RandomStringUtils.randomAlphanumeric(18);
         final String target2 = RandomStringUtils.randomAlphanumeric(19);
+        final String toscaPolicyState2 = AxToscaPolicyProcessingStatus.EXIT_FAILURE.name();
 
-        final ApexEvent parentEvent = new ApexEvent(name2, version2, nameSpace2, source2, target2);
+        final ApexEvent parentEvent = new ApexEvent(name2, version2, nameSpace2, source2, target2, toscaPolicyState2);
         final String key1 = RandomStringUtils.randomAlphabetic(3);
         final String key2 = RandomStringUtils.randomAlphabetic(2);
         parentEvent.put(key1, eventList);
@@ -170,8 +178,9 @@ public class Apex2ApexEventConverterTest {
         final String nameSpace1 = "a" + RandomStringUtils.randomAlphanumeric(7);
         final String source1 = RandomStringUtils.randomAlphanumeric(8);
         final String target1 = RandomStringUtils.randomAlphanumeric(9);
+        final String toscaPolicyState1 = AxToscaPolicyProcessingStatus.ENTRY.name();
 
-        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1);
+        final ApexEvent event = new ApexEvent(name1, version1, nameSpace1, source1, target1, toscaPolicyState1);
 
         final Object actual = converter.fromApexEvent(event);
         assertSame(event, actual);

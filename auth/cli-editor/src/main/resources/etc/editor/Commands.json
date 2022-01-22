@@ -507,6 +507,11 @@
           "argumentName": "description",
           "nullable": true,
           "description": "event description, omit to generate a description"
+        },
+        {
+          "argumentName": "toscaPolicyState",
+          "nullable": true,
+          "description": "event toscaPolicyState, omit to generate a toscaPolicyState"
         }
       ],
       "apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.createEvent",
@@ -553,6 +558,11 @@
           "argumentName": "description",
           "nullable": true,
           "description": "event description, omit to not update"
+        },
+        {
+          "argumentName": "toscaPolicyState",
+          "nullable": true,
+          "description": "event toscaPolicyState, omit to generate a toscaPolicyState"
         }
       ],
       "apiMethod": "org.onap.policy.apex.model.modelapi.ApexEditorApi.updateEvent",

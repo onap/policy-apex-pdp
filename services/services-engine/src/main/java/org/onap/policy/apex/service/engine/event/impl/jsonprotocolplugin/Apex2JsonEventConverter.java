@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -188,6 +188,7 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         jsonObject.addProperty(ApexEvent.NAMESPACE_HEADER_FIELD, apexEvent.getNameSpace());
         jsonObject.addProperty(ApexEvent.SOURCE_HEADER_FIELD, apexEvent.getSource());
         jsonObject.addProperty(ApexEvent.TARGET_HEADER_FIELD, apexEvent.getTarget());
+        jsonObject.addProperty(ApexEvent.TOSCA_POLICY_STATE_HEADER_FIELD, apexEvent.getToscaPolicyState());
 
         if (apexEvent.getExceptionMessage() != null) {
             jsonObject.addProperty(ApexEvent.EXCEPTION_MESSAGE_HEADER_FIELD, apexEvent.getExceptionMessage());
@@ -416,8 +417,9 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
         final String eventNamespace = getHeaderNamespace(jsonObject, eventName, eventDefinition);
         final String eventSource = getHeaderSource(jsonObject, eventDefinition);
         final String eventTarget = getHeaderTarget(jsonObject, eventDefinition);
+        final String eventStatus = getHeaderToscaPolicyState(jsonObject, eventDefinition);
 
-        return new ApexEvent(eventName, eventVersion, eventNamespace, eventSource, eventTarget);
+        return new ApexEvent(eventName, eventVersion, eventNamespace, eventSource, eventTarget, eventStatus);
     }
 
     /**
@@ -518,6 +520,23 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
             target = eventDefinition.getTarget();
         }
         return target;
+    }
+
+    /**
+     * Determine the status field of the event header.
+     *
+     * @param jsonObject the event in JSON format
+     * @param eventDefinition the definition of the event structure
+     * @return the event toscaPolicyState
+     */
+    private String getHeaderToscaPolicyState(final JsonObject jsonObject, final AxEvent eventDefinition) {
+        // For toscaPolicyState, use defined value from model only if value is not found on the incoming event
+        var toscaPolicyState = getJsonStringField(jsonObject, ApexEvent.TOSCA_POLICY_STATE_HEADER_FIELD,
+                jsonPars.getToscaPolicyStateAlias(), null, false);
+        if (toscaPolicyState == null) {
+            toscaPolicyState = eventDefinition.getToscaPolicyState();
+        }
+        return toscaPolicyState;
     }
 
     /**
