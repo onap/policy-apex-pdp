@@ -35,6 +35,7 @@ import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
@@ -80,6 +81,7 @@ public class YamlPluginStabilityTest {
 
         testEvent = new AxEvent(new AxArtifactKey("TestEvent", "0.0.1"));
         testEvent.setNameSpace("org.onap.policy.apex.plugins.event.protocol.yaml");
+        testEvent.setToscaPolicyState(AxToscaPolicyProcessingStatus.ENTRY.name());
         AxField teField0 = new AxField(new AxReferenceKey(testEvent.getKey(), "intValue"), simpleIntSchema.getKey());
         testEvent.getParameterMap().put("intValue", teField0);
         AxField teField1 = new AxField(new AxReferenceKey(testEvent.getKey(), "doubleValue"),
@@ -130,7 +132,8 @@ public class YamlPluginStabilityTest {
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .hasMessage("event processing failed, Apex event is null");
         ApexEvent apexEvent = new ApexEvent(testEvent.getKey().getName(), testEvent.getKey().getVersion(),
-                        testEvent.getNameSpace(), testEvent.getSource(), testEvent.getTarget());
+                testEvent.getNameSpace(), testEvent.getSource(), testEvent.getTarget(),
+                testEvent.getToscaPolicyState());
         apexEvent.put("doubleValue", 123.45);
         apexEvent.put("intValue", 123);
         apexEvent.put("stringValue", "123.45");

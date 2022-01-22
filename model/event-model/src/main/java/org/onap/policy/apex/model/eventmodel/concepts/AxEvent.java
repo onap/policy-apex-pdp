@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,8 @@
 
 package org.onap.policy.apex.model.eventmodel.concepts;
 
+import com.google.common.base.Strings;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,9 +43,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import org.apache.commons.lang3.EnumUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
@@ -50,7 +55,7 @@ import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class defines an Apex event. An {@link AxEvent} is used to kick off execution of policies in Apex and is emitted
- * by policies when they completer execution. In addition, Apex uses {@link AxEvent} instances internally to pass
+ * by policies when they complete execution. In addition, Apex uses {@link AxEvent} instances internally to pass
  * control from one Apex state to the next during execution.
  *
  * <p>The {@link AxArtifactKey} of an event uniquely identifies it in an Apex system and the name field in the key is
@@ -76,7 +81,7 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEvent", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxEvent", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "nameSpace", "source", "target", "parameterMap" })
+    { "key", "nameSpace", "source", "target", "parameterMap", "toscaPolicyState"})
 
 public class AxEvent extends AxConcept {
     private static final long serialVersionUID = -1460388382582984269L;
@@ -106,6 +111,10 @@ public class AxEvent extends AxConcept {
     @XmlElement(name = "parameter", required = true)
     private Map<String, AxField> parameterMap;
 
+    @Column(name = "toscaPolicyState")
+    @XmlElement(required = false)
+    private String toscaPolicyState;
+
     /**
      * The default constructor creates an event with a null artifact key. The event name space, source, and target are
      * all defined as empty strings and the parameter map is initialized as an empty map.
@@ -130,7 +139,7 @@ public class AxEvent extends AxConcept {
      * @param key the key of the event
      */
     public AxEvent(final AxArtifactKey key) {
-        this(key, "", "", "", new TreeMap<>());
+        this(key, "", "", "", new TreeMap<>(), "");
     }
 
     /**
@@ -141,7 +150,7 @@ public class AxEvent extends AxConcept {
      * @param nameSpace the name space of the event
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace) {
-        this(key, nameSpace, "", "", new TreeMap<>());
+        this(key, nameSpace, "", "", new TreeMap<>(), "");
     }
 
     /**
@@ -154,7 +163,7 @@ public class AxEvent extends AxConcept {
      * @param target the target of the event
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace, final String source, final String target) {
-        this(key, nameSpace, source, target, new TreeMap<>());
+        this(key, nameSpace, source, target, new TreeMap<>(), "");
     }
 
     /**
@@ -165,9 +174,10 @@ public class AxEvent extends AxConcept {
      * @param source the source of the event
      * @param target the target of the event
      * @param parameterMap the map of parameters that the event has
+     * @param toscaPolicyState the TOSCA policy processing status that event is flagged with
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace, final String source, final String target,
-                    final SortedMap<String, AxField> parameterMap) {
+                    final SortedMap<String, AxField> parameterMap, final String toscaPolicyState) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
         Assertions.argumentNotNull(nameSpace, "nameSpace may not be null");
@@ -180,6 +190,7 @@ public class AxEvent extends AxConcept {
         this.source = source;
         this.target = target;
         this.parameterMap = parameterMap;
+        this.toscaPolicyState = toscaPolicyState;
     }
 
     /**
@@ -327,6 +338,24 @@ public class AxEvent extends AxConcept {
     }
 
     /**
+     * Gets the TOSCA policy processing status from the event.
+     *
+     * @return the TOSCA policy processing status
+     */
+    public String getToscaPolicyState() {
+        return toscaPolicyState;
+    }
+
+    /**
+     * Sets the TOSCA policy processing status on the event.
+     *
+     * @param toscaPolicyState the TOSCA policy processing status
+     */
+    public void setToscaPolicyState(String toscaPolicyState) {
+        this.toscaPolicyState = toscaPolicyState;
+    }
+
+    /**
      * {@inheritDoc}.
      */
     @Override
@@ -363,8 +392,15 @@ public class AxEvent extends AxConcept {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
                                 "value on parameter " + eventParameterEntry.getKey() + " may not be null"));
             } else {
-                result = vaidateEventParameters(eventParameterEntry, result);
+                result = validateEventParameters(eventParameterEntry, result);
             }
+        }
+
+        if (!Strings.isNullOrEmpty(toscaPolicyState)
+                && !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
+            result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                    "toscaPolicyState on event is not a valid enum. Valid values are: "
+                            + Arrays.asList(AxToscaPolicyProcessingStatus.values())));
         }
 
         return result;
@@ -377,7 +413,7 @@ public class AxEvent extends AxConcept {
      * @param result the validation result to append to
      * @return The validation result
      */
-    private AxValidationResult vaidateEventParameters(final Entry<String, AxField> eventParameterEntry,
+    private AxValidationResult validateEventParameters(final Entry<String, AxField> eventParameterEntry,
                     final AxValidationResult result) {
         if (!eventParameterEntry.getKey().equals(eventParameterEntry.getValue().getKey().getLocalName())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
@@ -424,6 +460,8 @@ public class AxEvent extends AxConcept {
         builder.append(target);
         builder.append(",parameter=");
         builder.append(parameterMap);
+        builder.append(",toscaPolicyState=");
+        builder.append(toscaPolicyState);
         builder.append(")");
         return builder.toString();
     }
@@ -450,6 +488,7 @@ public class AxEvent extends AxConcept {
         copy.setNameSpace(nameSpace);
         copy.setSource(source);
         copy.setTarget(target);
+        copy.setToscaPolicyState(toscaPolicyState);
 
         return copy;
     }
@@ -466,6 +505,7 @@ public class AxEvent extends AxConcept {
         result = prime * result + source.hashCode();
         result = prime * result + target.hashCode();
         result = prime * result + parameterMap.hashCode();
+        result = prime * result + toscaPolicyState.hashCode();
         return result;
     }
 
@@ -496,6 +536,9 @@ public class AxEvent extends AxConcept {
             return false;
         }
         if (!target.equals(other.target)) {
+            return false;
+        }
+        if (!toscaPolicyState.equals(other.toscaPolicyState)) {
             return false;
         }
         return parameterMap.equals(other.parameterMap);
@@ -531,6 +574,9 @@ public class AxEvent extends AxConcept {
         }
         if (!parameterMap.equals(other.parameterMap)) {
             return (parameterMap.hashCode() - other.parameterMap.hashCode());
+        }
+        if (!toscaPolicyState.equals(other.toscaPolicyState)) {
+            return toscaPolicyState.compareTo(other.toscaPolicyState);
         }
 
         return 0;

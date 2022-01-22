@@ -323,12 +323,12 @@ public class ApexServiceModelUpdateTest {
         eventDataMap.put("TestTemperature", 34.5445667);
 
         final ApexEvent event =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
         final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
 
@@ -344,8 +344,6 @@ public class ApexServiceModelUpdateTest {
      * implements this interface, and the object created with that class is registered with a component using the
      * component's <code>addTestListener</code> method. When the test event occurs, that object's appropriate method is
      * invoked.
-     *
-     * @see TestEvent
      */
     private final class TestListener implements ApexEventListener {
 

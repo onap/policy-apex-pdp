@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ public class TestFile2FileFiltered {
                 "target/examples/events/SampleDomain/Events0104Out.json" };
 
         final long[] expectedFileSizes =
-            { 22366, 19834 };
+            { 23532, 20868 };
 
         testFilteredFileEvents(args, outFilePaths, expectedFileSizes);
         // @formatter:on
@@ -71,7 +71,7 @@ public class TestFile2FileFiltered {
                 "target/examples/events/SampleDomain/Events0104Out.json" };
 
         final long[] expectedFileSizes =
-            { 22366, 19834 };
+            { 23532, 20868 };
 
         testFilteredFileEvents(args, outFilePaths, expectedFileSizes);
         // @formatter:on
@@ -87,7 +87,7 @@ public class TestFile2FileFiltered {
             { "target/examples/events/SampleDomain/Events0004Out.json" };
 
         final long[] expectedFileSizes =
-            { 22366 };
+            { 23532 };
 
         testFilteredFileEvents(args, outFilePaths, expectedFileSizes);
         // @formatter:on
@@ -121,6 +121,7 @@ public class TestFile2FileFiltered {
 
         for (int i = 0; i < outFilePaths.length; i++) {
             final String fileString = stripVariableLengthText(outFilePaths[i]);
+            System.out.println("SAMPLE OUTPUT FILE STRING::::::" + outFilePaths[i] + "::::::" + fileString);
             actualFileSizes[i] = fileString.length();
             new File(outFilePaths[i]).delete();
         }

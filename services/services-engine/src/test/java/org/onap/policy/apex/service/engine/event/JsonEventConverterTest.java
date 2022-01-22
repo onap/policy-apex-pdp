@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +60,7 @@ public class JsonEventConverterTest {
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .hasMessage("event processing failed, Apex event is null");
         assertThatThrownBy(() -> converter.fromApexEvent(new ApexEvent("Event", "0.0.1", "a.name.space",
-                "here", "there")))
+                "here", "there", "")))
             .hasMessage("Model for org.onap.policy.apex.model.eventmodel.concepts.AxEvents not found in model service");
     }
 }

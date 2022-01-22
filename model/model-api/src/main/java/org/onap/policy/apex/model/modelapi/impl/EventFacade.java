@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,10 +86,12 @@ public class EventFacade {
      * @param target of the event, set to null to use the default value
      * @param uuid event UUID, set to null to generate a UUID
      * @param description event description, set to null to generate a description
+     * @param toscaPolicyState specifies TOSCA policy processing status
      * @return result of the operation
      */
     public ApexApiResult createEvent(final String name, final String version, final String nameSpace,
-            final String source, final String target, final String uuid, final String description) {
+            final String source, final String target, final String uuid, final String description,
+            final String toscaPolicyState) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -107,6 +110,9 @@ public class EventFacade {
             event.setNameSpace((nameSpace != null ? nameSpace : apexProperties.getProperty("DEFAULT_EVENT_NAMESPACE")));
             event.setSource((source != null ? source : apexProperties.getProperty("DEFAULT_EVENT_SOURCE")));
             event.setTarget((target != null ? target : apexProperties.getProperty("DEFAULT_EVENT_TARGET")));
+            if (toscaPolicyState != null) {
+                event.setToscaPolicyState(toscaPolicyState);
+            }
 
             apexModel.getPolicyModel().getEvents().getEventMap().put(key, event);
 
@@ -130,10 +136,12 @@ public class EventFacade {
      * @param target of the event, set to null to not update
      * @param uuid event UUID, set to null to not update
      * @param description event description, set to null to not update
+     * @param toscaPolicyState specifies TOSCA policy processing status
      * @return result of the operation
      */
     public ApexApiResult updateEvent(final String name, final String version, final String nameSpace,
-            final String source, final String target, final String uuid, final String description) {
+            final String source, final String target, final String uuid, final String description,
+            final String toscaPolicyState) {
         try {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
@@ -149,6 +157,9 @@ public class EventFacade {
             }
             if (target != null) {
                 event.setTarget(target);
+            }
+            if (toscaPolicyState != null) {
+                event.setToscaPolicyState(toscaPolicyState);
             }
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);

@@ -128,8 +128,9 @@ public final class Apex2XmlEventConverter implements ApexEventProtocolConverter 
         }
 
         // Create the Apex event
+        // FIXME: Introduce new AxEvent field for APEX to Xml conversion
         final var apexEvent = new ApexEvent(xmlApexEvent.getName(), xmlApexEvent.getVersion(),
-                xmlApexEvent.getNameSpace(), xmlApexEvent.getSource(), xmlApexEvent.getTarget());
+                xmlApexEvent.getNameSpace(), xmlApexEvent.getSource(), xmlApexEvent.getTarget(), "");
 
         // Set the data on the apex event
         for (final XMLApexEventData xmlData : xmlApexEvent.getData()) {

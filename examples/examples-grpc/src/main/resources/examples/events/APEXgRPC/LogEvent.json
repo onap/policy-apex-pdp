@@ -4,6 +4,7 @@
   "nameSpace": "org.onap.policy.apex.onap.pmcontrol",
   "source": "APEX",
   "target": "DCAE",
+  "toscaPolicyState": "",
   "final_status": "FINAL_SUCCESS",
   "message": "Operation successfully completed."
 }

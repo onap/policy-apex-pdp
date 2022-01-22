@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,7 +153,7 @@ public class XmlEventHandlerTest {
             event0000DataMap.put("NullValue", null);
 
             final ApexEvent apexEvent0000 =
-                    new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.sample.events", "test", "apex");
+                    new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.sample.events", "test", "apex", "");
             apexEvent0000.putAll(event0000DataMap);
 
             final String apexEvent0000XmlString = xmlEventConverter.fromApexEvent(apexEvent0000);
@@ -182,8 +183,8 @@ public class XmlEventHandlerTest {
             event0004DataMap.put("TestActCaseSelected", Integer.valueOf(2));
             event0004DataMap.put("TestActStateTime", Long.valueOf(1434370506095L));
 
-            final ApexEvent apexEvent0004 =
-                    new ApexEvent("Event0004", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+            final ApexEvent apexEvent0004 = new ApexEvent("Event0004", "0.0.1",
+                    "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
             apexEvent0004.putAll(event0004DataMap);
 
             final String apexEvent0004XmlString = xmlEventConverter.fromApexEvent(apexEvent0004);

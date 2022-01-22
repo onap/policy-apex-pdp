@@ -257,7 +257,9 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
 
         String target = getHeaderTarget(yamlMap, eventDefinition);
 
-        return new ApexEvent(name, version, namespace, source, target);
+        String toscaPolicyState = getHeaderToscaPolicyState(yamlMap, eventDefinition);
+
+        return new ApexEvent(name, version, namespace, source, target, toscaPolicyState);
     }
 
     /**
@@ -315,6 +317,23 @@ public class Apex2YamlEventConverter implements ApexEventProtocolConverter {
             target = eventDefinition.getTarget();
         }
         return target;
+    }
+
+    /**
+     * Get the event header toscaPolicyState field.
+     *
+     * @param yamlMap the YAML map to read from
+     * @param eventDefinition the event definition
+     * @return the event header toscaPolicyState field
+     */
+    private String getHeaderToscaPolicyState(final Map<?, ?> yamlMap, final AxEvent eventDefinition) {
+        // For toscaPolicyState, use the defined value only if not found on the incoming event
+        var toscaPolicyState = getYamlStringField(yamlMap, ApexEvent.TOSCA_POLICY_STATE_HEADER_FIELD,
+                yamlPars.getToscaPolicyStateAlias(), null, false);
+        if (toscaPolicyState == null) {
+            toscaPolicyState = eventDefinition.getTarget();
+        }
+        return toscaPolicyState;
     }
 
     /**
