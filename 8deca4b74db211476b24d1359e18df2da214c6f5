@@ -16,6 +16,24 @@
       "revId": "8deca4b74db211476b24d1359e18df2da214c6f5",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a63abe9_e0a454ef",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/event/EnEventTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 159
+      },
+      "writtenOn": "2022-01-24T19:12:00Z",
+      "side": 1,
+      "message": "Thanks Jorge, fixed this for all modified files.",
+      "parentUuid": "fd2a0959_5c739771",
+      "revId": "8deca4b74db211476b24d1359e18df2da214c6f5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
