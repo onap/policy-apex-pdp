@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd2a0959_5c739771",
+        "filename": "core/core-engine/src/test/java/org/onap/policy/apex/core/engine/event/EnEventTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2022-01-24T14:24:49Z",
+      "side": 1,
+      "message": "License dates reminder - general comment",
+      "revId": "8deca4b74db211476b24d1359e18df2da214c6f5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
