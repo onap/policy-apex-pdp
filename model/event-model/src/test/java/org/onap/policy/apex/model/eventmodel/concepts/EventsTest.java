@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import io.prometheus.client.CollectorRegistry;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import org.junit.Test;
@@ -313,5 +314,24 @@ public class EventsTest {
         assertEquals("EventName", events.get("EventName", "0.0.1").getKey().getName());
         assertEquals(1, events.getAll("EventName", "0.0.1").size());
         assertEquals(0, events.getAll("NonExistantEventsName").size());
+    }
+
+    @Test
+    public void testForPolicyExecutedMetrics() {
+        var defaultRegistry = CollectorRegistry.defaultRegistry;
+        var event = new AxEvent(new AxArtifactKey("EventName", "0.0.1"), "namespace");
+        event.setToscaPolicyState(AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name());
+        event.setToscaPolicyState(AxToscaPolicyProcessingStatus.EXIT_FAILURE.name());
+        assertEquals(defaultRegistry.getSampleValue("policy_executed_total").longValue(), 2);
+        assertEquals(defaultRegistry.getSampleValue("policy_executed_success_count_total").longValue(), 1);
+        assertEquals(defaultRegistry.getSampleValue("policy_executed_failed_count_total").longValue(), 1);
+
+        var event1 = new AxEvent(new AxArtifactKey("EventName1", "0.0.1"), "namespace");
+        event1.setToscaPolicyState(AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name());
+        event1.setToscaPolicyState(AxToscaPolicyProcessingStatus.EXIT_FAILURE.name());
+
+        assertEquals(defaultRegistry.getSampleValue("policy_executed_total").longValue(), 4);
+        assertEquals(defaultRegistry.getSampleValue("policy_executed_success_count_total").longValue(), 2);
+        assertEquals(defaultRegistry.getSampleValue("policy_executed_failed_count_total").longValue(), 2);
     }
 }

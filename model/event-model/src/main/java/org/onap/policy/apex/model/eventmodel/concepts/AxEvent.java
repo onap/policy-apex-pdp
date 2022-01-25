@@ -23,6 +23,7 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import com.google.common.base.Strings;
+import io.prometheus.client.Counter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,13 @@ public class AxEvent extends AxConcept {
     private static final long serialVersionUID = -1460388382582984269L;
 
     private static final String WHITESPACE_REGEXP = "\\s+$";
+
+    static final Counter POLICY_EXECUTED_TOTAL_COUNTER = Counter.build().name("policy_executed_total")
+            .help("Total number of TOSCA policies executed.").register();
+    static final Counter POLICY_EXECUTED_SUCCESS_COUNTER = Counter.build().name("policy_executed_success_count")
+            .help("Total number of TOSCA policies executed successfully.").register();
+    static final Counter POLICY_EXECUTED_FAIL_COUNTER = Counter.build().name("policy_executed_failed_count")
+            .help("Total number of TOSCA policies that failed to execute.").register();
 
     /** The key of the event, unique in the Apex system. */
     @EmbeddedId
@@ -191,6 +199,7 @@ public class AxEvent extends AxConcept {
         this.target = target;
         this.parameterMap = parameterMap;
         this.toscaPolicyState = toscaPolicyState;
+        updatePolicyExecutedMetrics(toscaPolicyState);
     }
 
     /**
@@ -353,6 +362,22 @@ public class AxEvent extends AxConcept {
      */
     public void setToscaPolicyState(String toscaPolicyState) {
         this.toscaPolicyState = toscaPolicyState;
+        updatePolicyExecutedMetrics(toscaPolicyState);
+    }
+
+    /**
+     * Increment Prometheus counters for TOSCA policy execution metrics.
+     *
+     * @param toscaPolicyState the TOSCA Policy state flag from the event
+     */
+    private void updatePolicyExecutedMetrics(String toscaPolicyState) {
+        if (AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_SUCCESS_COUNTER.inc();
+            POLICY_EXECUTED_TOTAL_COUNTER.inc();
+        } else if (AxToscaPolicyProcessingStatus.EXIT_FAILURE.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_FAIL_COUNTER.inc();
+            POLICY_EXECUTED_TOTAL_COUNTER.inc();
+        }
     }
 
     /**
