@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +23,8 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import com.google.common.base.Strings;
+import io.prometheus.client.Counter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -33,9 +35,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.NonNull;
+import org.apache.commons.lang3.EnumUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -48,6 +52,9 @@ import org.onap.policy.apex.service.engine.event.impl.EventProtocolFactory;
 import org.onap.policy.apex.service.parameters.engineservice.EngineServiceParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
+import org.onap.policy.common.utils.resources.PrometheusUtils;
+import org.onap.policy.models.pdp.concepts.PdpStatus;
+import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -66,6 +73,14 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
     // The amount of time to wait between polls of the event queue in milliseconds
     private static final long EVENT_QUEUE_POLL_INTERVAL = 20;
+
+    private static final String PROMETHEUS_NAMESPACE = "pdpa";
+    private static final String PROMETHEUS_TOTAL_LABEL_VALUE = "TOTAL";
+
+    // prometheus registration for policy execution metrics
+    static final Counter POLICY_EXECUTED_COUNTER =
+        Counter.build().namespace(PROMETHEUS_NAMESPACE).name(PrometheusUtils.POLICY_EXECUTION_METRIC)
+            .labelNames(PrometheusUtils.STATUS_METRIC_LABEL).help(PrometheusUtils.POLICY_EXECUTION_HELP).register();
 
     // The name of the unmarshaler
     @Getter
@@ -218,8 +233,33 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
             }
 
+            // Update policy execution metrics
+            updatePolicyExecutedMetrics(apexEvent.getToscaPolicyState());
+
             // Enqueue the event
             queue.add(apexEvent);
+        }
+    }
+
+    /**
+     * Increment Prometheus counters for TOSCA policy execution metrics.
+     *
+     * @param toscaPolicyState the TOSCA Policy state flag from the event
+     */
+    private void updatePolicyExecutedMetrics(String toscaPolicyState) {
+        // Skip events that are not flagged as TOSCA processing entry or exit points.
+        if (Strings.isNullOrEmpty(toscaPolicyState)
+                || !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
+            return;
+        }
+
+        // Increment total, successful and failed policy executed counter.
+        if (AxToscaPolicyProcessingStatus.ENTRY.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_COUNTER.labels(PROMETHEUS_TOTAL_LABEL_VALUE).inc();
+        } else if (AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_COUNTER.labels(PdpResponseStatus.SUCCESS.name()).inc();
+        } else if (AxToscaPolicyProcessingStatus.EXIT_FAILURE.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_COUNTER.labels(PdpResponseStatus.FAIL.name()).inc();
         }
     }
 
