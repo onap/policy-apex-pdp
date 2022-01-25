@@ -23,6 +23,8 @@
 
 package org.onap.policy.apex.service.engine.main;
 
+import com.google.common.base.Strings;
+import io.prometheus.client.Counter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -33,9 +35,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.NonNull;
+import org.apache.commons.lang3.EnumUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -66,6 +70,14 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
     // The amount of time to wait between polls of the event queue in milliseconds
     private static final long EVENT_QUEUE_POLL_INTERVAL = 20;
+
+    // prometheus registration for policy execution metrics
+    static final Counter POLICY_EXECUTED_TOTAL_COUNTER = Counter.build().name("policy_executed_total")
+            .help("Total number of TOSCA policies executed.").register();
+    static final Counter POLICY_EXECUTED_SUCCESS_COUNTER = Counter.build().name("policy_executed_success_total")
+            .help("Total number of TOSCA policies executed successfully.").register();
+    static final Counter POLICY_EXECUTED_FAILED_COUNTER = Counter.build().name("policy_executed_failed_total")
+            .help("Total number of TOSCA policies that failed to execute.").register();
 
     // The name of the unmarshaler
     @Getter
@@ -218,8 +230,33 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
                 synchronousEventCache.cacheSynchronizedEventToApex(apexEvent.getExecutionId(), apexEvent);
             }
 
+            // Update policy execution metrics
+            updatePolicyExecutedMetrics(apexEvent.getToscaPolicyState());
+
             // Enqueue the event
             queue.add(apexEvent);
+        }
+    }
+
+    /**
+     * Increment Prometheus counters for TOSCA policy execution metrics.
+     *
+     * @param toscaPolicyState the TOSCA Policy state flag from the event
+     */
+    private void updatePolicyExecutedMetrics(String toscaPolicyState) {
+        // Skip events that are not flagged as TOSCA processing entry or exit points.
+        if (Strings.isNullOrEmpty(toscaPolicyState)
+                || !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
+            return;
+        }
+
+        // Increment total, successful and failed policy executed counter.
+        if (AxToscaPolicyProcessingStatus.ENTRY.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_TOTAL_COUNTER.inc();
+        } else if (AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_SUCCESS_COUNTER.inc();
+        } else if (AxToscaPolicyProcessingStatus.EXIT_FAILURE.name().equals(toscaPolicyState)) {
+            POLICY_EXECUTED_FAILED_COUNTER.inc();
         }
     }
 
