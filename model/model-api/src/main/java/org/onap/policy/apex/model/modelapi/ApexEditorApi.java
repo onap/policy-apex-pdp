@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -205,10 +205,11 @@ public interface ApexEditorApi {
      * @param target of the event, set to null to use the default value
      * @param uuid event UUID, set to null to generate a UUID
      * @param description event description, set to null to generate a description
+     * @param toscaPolicyState specifies TOSCA policy processing status
      * @return result of the operation
      */
     ApexApiResult createEvent(final String name, final String version, final String nameSpace, final String source,
-            final String target, final String uuid, final String description);
+            final String target, final String uuid, final String description, final String toscaPolicyState);
 
     /**
      * Update an event.
@@ -220,10 +221,11 @@ public interface ApexEditorApi {
      * @param target of the event, set to null to not update
      * @param uuid event UUID, set to null to not update
      * @param description event description, set to null to not update
+     * @param toscaPolicyState specifies TOSCA policy processing status
      * @return result of the operation
      */
     ApexApiResult updateEvent(final String name, final String version, final String nameSpace, final String source,
-            final String target, final String uuid, final String description);
+            final String target, final String uuid, final String description, final String toscaPolicyState);
 
     /**
      * List events.

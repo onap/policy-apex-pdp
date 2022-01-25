@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,9 @@
 
 package org.onap.policy.apex.service.engine.event;
 
+import com.google.common.base.Strings;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -30,7 +33,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang3.EnumUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +97,14 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     public static final String TARGET_HEADER_FIELD = "target";
 
     /**
+     * The toscaPolicyState of Apex event, an optional field. It specifies the TOSCA Policy processing status
+     * on an Apex event, with possible values as enumerated in
+     * {@link org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus}.
+     * If no toscaPolicyState is specified, it indicates that the TOSCA Policy is under process.
+     */
+    public static final String TOSCA_POLICY_STATE_HEADER_FIELD = "toscaPolicyState";
+
+    /**
      * The exception message field of an Apex event is an exception message indicating that an event
      * failed.
      */
@@ -118,6 +131,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private final String nameSpace;
     private final String source;
     private final String target;
+    private final String toscaPolicyState;
 
     // An identifier for the current event execution. The default value here will always be unique
     // in a single JVM
@@ -143,14 +157,13 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * @throws ApexEventException thrown on validation errors on event names and versions
      */
     public ApexEvent(final String name, final String version, final String nameSpace, final String source,
-            final String target) throws ApexEventException {
-        // @formatter:off
-        this.name      = validateField(NAME_HEADER_FIELD,      name,      NAME_REGEXP);
-        this.version   = validateField(VERSION_HEADER_FIELD,   version,   VERSION_REGEXP);
+            final String target, final String toscaPolicyState) throws ApexEventException {
+        this.name = validateField(NAME_HEADER_FIELD, name, NAME_REGEXP);
+        this.version = validateField(VERSION_HEADER_FIELD, version, VERSION_REGEXP);
         this.nameSpace = validateField(NAMESPACE_HEADER_FIELD, nameSpace, NAMESPACE_REGEXP);
-        this.source    = validateField(SOURCE_HEADER_FIELD,    source,    SOURCE_REGEXP);
-        this.target    = validateField(TARGET_HEADER_FIELD,    target,    TARGET_REGEXP);
-        // @formatter:on
+        this.source = validateField(SOURCE_HEADER_FIELD, source, SOURCE_REGEXP);
+        this.target = validateField(TARGET_HEADER_FIELD, target, TARGET_REGEXP);
+        this.toscaPolicyState = validateField(TOSCA_POLICY_STATE_HEADER_FIELD, toscaPolicyState, "");
     }
 
     /**
@@ -174,6 +187,17 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      */
     private String validateField(final String fieldName, final String fieldValue, final String fieldRegexp)
             throws ApexEventException {
+        if (fieldName.equals(TOSCA_POLICY_STATE_HEADER_FIELD) && !Strings.isNullOrEmpty(fieldValue)) {
+            if (EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, fieldValue)) {
+                return fieldValue;
+            } else {
+                String message = EVENT_PREAMBLE + name + ": field \"" + fieldName + "=" + fieldValue
+                        + "\"  is illegal. It doesn't match supported values '"
+                        + Arrays.asList(AxToscaPolicyProcessingStatus.values()) + "'";
+                LOGGER.warn(message);
+                throw new ApexEventException(message);
+            }
+        }
         if (fieldValue.matches(fieldRegexp)) {
             return fieldValue;
         } else {

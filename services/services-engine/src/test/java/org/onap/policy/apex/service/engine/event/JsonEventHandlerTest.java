@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +39,7 @@ import org.junit.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -250,7 +252,8 @@ public class JsonEventHandlerTest {
         basicEventMap.put("intPar", 12345);
 
         final ApexEvent basicEvent =
-               new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test", "apex");
+               new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test", "apex",
+                       AxToscaPolicyProcessingStatus.ENTRY.name());
         basicEvent.putAll(basicEventMap);
 
         final String apexEvent0000JsonString = (String) jsonEventConverter.fromApexEvent(basicEvent);
@@ -263,5 +266,6 @@ public class JsonEventHandlerTest {
         assertTrue(apexEvent0000JsonString.contains("\"source\": \"test\""));
         assertTrue(apexEvent0000JsonString.contains("\"target\": \"apex\""));
         assertTrue(apexEvent0000JsonString.contains("\"intPar\": 12345"));
+        assertTrue(apexEvent0000JsonString.contains("\"toscaPolicyState\": \"ENTRY\""));
     }
 }

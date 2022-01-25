@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -239,7 +239,7 @@ public class EngineServiceImplTest {
 
         esImpl.stop();
         esImpl.sendEvent(null);
-        esImpl.sendEvent(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget"));
+        esImpl.sendEvent(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget", ""));
 
         esImpl.startPeriodicEvents(100000);
 
@@ -381,7 +381,8 @@ public class EngineServiceImplTest {
         }
 
         try {
-            esImpl.sendEvent(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget"));
+            esImpl.sendEvent(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget",
+                    ""));
         } catch (ApexException apEx) {
             fail("test should not throw an exception");
         }

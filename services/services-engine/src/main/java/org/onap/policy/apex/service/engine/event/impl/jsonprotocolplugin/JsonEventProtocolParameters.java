@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,11 +62,12 @@ public class JsonEventProtocolParameters extends EventProtocolTextCharDelimitedP
 
     // Aliases for Apex event header fields
     // @formatter:off
-    private String nameAlias      = null;
-    private String versionAlias   = null;
-    private String nameSpaceAlias = null;
-    private String sourceAlias    = null;
-    private String targetAlias    = null;
+    private String nameAlias             = null;
+    private String versionAlias          = null;
+    private String nameSpaceAlias        = null;
+    private String sourceAlias           = null;
+    private String targetAlias           = null;
+    private String toscaPolicyStateAlias = null;
     // @formatter:on
 
     // Flag indicating POJO decoding and encoding and parameter indicating the name of the Pojo field

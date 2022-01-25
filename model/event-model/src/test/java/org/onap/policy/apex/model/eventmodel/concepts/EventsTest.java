@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +33,7 @@ import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
+import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 
@@ -51,7 +53,7 @@ public class EventsTest {
         assertNotNull(new AxEvent(new AxArtifactKey(), "namespace"));
         assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target"));
         assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target"));
-        assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target", parameterMap));
+        assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target", parameterMap, ""));
 
         final AxEvent event = new AxEvent();
 
@@ -71,6 +73,9 @@ public class EventsTest {
 
         event.setParameterMap(parameterMap);
         assertEquals(0, event.getParameterMap().size());
+
+        event.setToscaPolicyState(AxToscaPolicyProcessingStatus.ENTRY.name());
+        assertEquals(AxToscaPolicyProcessingStatus.ENTRY.name(), event.getToscaPolicyState());
 
         final AxField eventField =
                 new AxField(new AxReferenceKey(eventKey, "Field0"), new AxArtifactKey("Field0Schema", "0.0.1"));
@@ -178,6 +183,12 @@ public class EventsTest {
         result = event.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
+        event.setToscaPolicyState("invalid_enum");
+        result = new AxValidationResult();
+        result = event.validate(result);
+        assertEquals(ValidationResult.INVALID, result.getValidationResult());
+        event.setToscaPolicyState(AxToscaPolicyProcessingStatus.ENTRY.name());
+
         event.clean();
         event.afterUnmarshal(null, null);
 
@@ -192,25 +203,36 @@ public class EventsTest {
         assertEquals(event, clonedEvent);
         assertNotNull(event);
         assertNotEquals(event, (Object) "Hello");
-        assertNotEquals(
-                event, new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap));
-        assertNotEquals(event, new AxEvent(eventKey, "namespace1", "source", "target", parameterMap));
-        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source2", "target", parameterMap));
-        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source", "target3", parameterMap));
-        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source", "target", parameterMapEmpty));
-        assertEquals(event, new AxEvent(eventKey, "namespace", "source", "target", parameterMap));
+        assertNotEquals(event, new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap,
+                        AxToscaPolicyProcessingStatus.ENTRY.name()));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace1", "source", "target", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name()));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source2", "target", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name()));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source", "target3", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name()));
+        assertNotEquals(event, new AxEvent(eventKey, "namespace", "source", "target", parameterMapEmpty,
+                AxToscaPolicyProcessingStatus.ENTRY.name()));
+        assertEquals(event, new AxEvent(eventKey, "namespace", "source", "target", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name()));
 
         assertEquals(0, event.compareTo(event));
         assertEquals(0, event.compareTo(clonedEvent));
         assertNotEquals(0, event.compareTo(new AxArtifactKey()));
         assertNotEquals(0, event.compareTo(null));
         assertNotEquals(0, event
-                .compareTo(new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap)));
-        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace1", "source", "target", parameterMap)));
-        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source2", "target", parameterMap)));
-        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target3", parameterMap)));
-        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target", parameterMapEmpty)));
-        assertEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target", parameterMap)));
+                .compareTo(new AxEvent(AxArtifactKey.getNullKey(), "namespace", "source", "target", parameterMap,
+                        AxToscaPolicyProcessingStatus.ENTRY.name())));
+        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace1", "source", "target", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name())));
+        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source2", "target", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name())));
+        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target3", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name())));
+        assertNotEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target", parameterMapEmpty,
+                AxToscaPolicyProcessingStatus.ENTRY.name())));
+        assertEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target", parameterMap,
+                AxToscaPolicyProcessingStatus.ENTRY.name())));
 
         assertNotNull(event.getKeys());
 

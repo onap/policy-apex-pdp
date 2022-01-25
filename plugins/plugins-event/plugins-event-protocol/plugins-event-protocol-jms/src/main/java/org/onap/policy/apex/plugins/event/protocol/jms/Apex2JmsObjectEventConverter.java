@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,12 +100,13 @@ public final class Apex2JmsObjectEventConverter implements ApexEventProtocolConv
 
         // Create the Apex event
         // @formatter:off
+        // FIXME: Introduce new AxEvent field for APEX to Jms object conversion
         final var apexEvent = new ApexEvent(
                         jmsIncomingObject.getClass().getSimpleName() + eventProtocolParameters.getIncomingEventSuffix(),
                         eventProtocolParameters.getIncomingEventVersion(),
                         jmsIncomingObject.toString().getClass().getPackage().getName(),
                         eventProtocolParameters.getIncomingEventSource(),
-                        eventProtocolParameters.getIncomingEventTarget());
+                        eventProtocolParameters.getIncomingEventTarget(), "");
         // @formatter:on
 
         // Set the data on the apex event as the incoming object

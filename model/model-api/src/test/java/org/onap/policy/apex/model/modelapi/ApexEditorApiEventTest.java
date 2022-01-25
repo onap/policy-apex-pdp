@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,29 +45,29 @@ public class ApexEditorApiEventTest {
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createEvent("MyEvent002", "0.0.2", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createEvent("MyEvent012", "0.1.2", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 012");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 012", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createEvent("MyEvent012", "0.1.4", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 014");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 014", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createEvent("MyEvent012", null, null, null, null, null, null);
+        result = apexModel.createEvent("MyEvent012", null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.createEvent("MyEvent012", null, null, null, null, null, null);
+        result = apexModel.createEvent("MyEvent012", null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createEvent("MyEvent002", "0.0.2", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002", null);
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createEvent("@£$%^", "0.2.5", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002", null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = apexModel.deleteEvent("MyEvent012", "0.1.4");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createEvent("MyEvent012", "0.1.4", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 014");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 014", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.validateEvent(null, null);
@@ -74,18 +75,19 @@ public class ApexEditorApiEventTest {
 
         result = apexModel.updateContextSchema(null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-        result = apexModel.updateEvent("MyEvent012", "0.1.2", "Another Namespace", null, "Another target", null, null);
+        result = apexModel.updateEvent("MyEvent012", "0.1.2", "Another Namespace", null, "Another target", null, null,
+                null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updateEvent("MyEvent002", "0.0.2", "My Namespace", "My Source", "my target",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.updateEvent("MyEvent012", null, null, null, null, null, null);
+        result = apexModel.updateEvent("MyEvent012", null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        result = apexModel.updateEvent("MyEvent015", null, null, null, null, null, null);
+        result = apexModel.updateEvent("MyEvent015", null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.updateEvent("MyEvent014", "0.1.5", null, null, null, null, null);
+        result = apexModel.updateEvent("MyEvent014", "0.1.5", null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
-        result = apexModel.updateEvent("@£$%^^", "0.6.9", null, null, null, null, null);
+        result = apexModel.updateEvent("@£$%^^", "0.6.9", null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = apexModel.listEvent("@£$%", null);

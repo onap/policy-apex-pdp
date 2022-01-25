@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -179,13 +180,13 @@ public class ApexServiceTest {
         eventDataMap.put("TestTemperature", 34.5445667);
 
         final ApexEvent event =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
         final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
@@ -239,7 +240,7 @@ public class ApexServiceTest {
         eventDataMap.put("TestTemperature", 34.5445667);
 
         final ApexEvent event1 =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event1.putAll(eventDataMap);
         event1.setExecutionId(System.nanoTime());
 
@@ -261,7 +262,7 @@ public class ApexServiceTest {
         }
 
         final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
 
@@ -329,13 +330,13 @@ public class ApexServiceTest {
         eventDataMap.put("TestTemperature", 34.5445667);
 
         final ApexEvent event =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event.setExecutionId(System.nanoTime());
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
         final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event2.setExecutionId(System.nanoTime());
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
@@ -389,7 +390,7 @@ public class ApexServiceTest {
         eventDataMap.put("TestTemperature", 34.5445667);
 
         final ApexEvent event1 =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event1.putAll(eventDataMap);
 
         final ApexEventListener myEventListener1 = new ApexEventListener() {
@@ -410,7 +411,7 @@ public class ApexServiceTest {
         }
 
         final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event2.putAll(eventDataMap);
 
         final ApexEventListener myEventListener2 = new ApexEventListener() {
@@ -472,8 +473,6 @@ public class ApexServiceTest {
      * implements this interface, and the object created with that class is registered with a component using the
      * component's <code>addTestListener</code> method. When the test event occurs, that object's appropriate method is
      * invoked.
-     *
-     * @see TestEvent
      */
     private static final class TestListener implements ApexEventListener {
 

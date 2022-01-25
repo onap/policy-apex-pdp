@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -323,12 +323,12 @@ public class ApexServiceModelUpdateTest {
         eventDataMap.put("TestTemperature", 34.5445667);
 
         final ApexEvent event =
-                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0000", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event);
 
         final ApexEvent event2 =
-                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex");
+                new ApexEvent("Event0100", "0.0.1", "org.onap.policy.apex.domains.sample.events", "test", "apex", "");
         event2.putAll(eventDataMap);
         engineServiceEventInterface.sendEvent(event2);
 
@@ -344,8 +344,6 @@ public class ApexServiceModelUpdateTest {
      * implements this interface, and the object created with that class is registered with a component using the
      * component's <code>addTestListener</code> method. When the test event occurs, that object's appropriate method is
      * invoked.
-     *
-     * @see TestEvent
      */
     private final class TestListener implements ApexEventListener {
 
