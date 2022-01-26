@@ -109,9 +109,9 @@ public class EngineStatsTest {
         stats.reset();
         stats.engineStart();
         stats.setEventCount(4);
+        checkUpTimeMetric(stats);
         stats.executionEnter(new AxArtifactKey());
         checkEventsCountMetric(stats);
-        checkUpTimeMetric(stats);
         checkAvgExecTimeMetric(stats);
         checkEngineStartTimestampMetric(stats);
 
