@@ -25,7 +25,9 @@ package org.onap.policy.apex.service.engine.main;
 import io.prometheus.client.Counter;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.NoArgsConstructor;
+import org.onap.policy.common.utils.resources.PrometheusUtils;
 import org.onap.policy.common.utils.services.Registry;
+import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,26 +35,14 @@ import org.slf4j.LoggerFactory;
 public class ApexPolicyStatisticsManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexPolicyStatisticsManager.class);
 
-    static final Counter POLICY_DEPLOY_REQUESTS_COUNTER = Counter.build()
-            .name("policies_deploy_requests_total")
-            .help("Total number of TOSCA policies deploy requests.").register();
-    static final Counter POLICY_DEPLOY_REQUESTS_SUCCESS_COUNTER = Counter.build()
-            .name("policies_deploy_requests_success")
-            .help("Total number of TOSCA policies deploy requests that succeeded.").register();
-    static final Counter POLICY_DEPLOY_REQUESTS_FAILED_COUNTER = Counter.build()
-            .name("policies_deploy_requests_failed")
-            .help("Total number of TOSCA policies deploy requests that failed.").register();
-    static final Counter POLICY_UNDEPLOY_REQUESTS_COUNTER = Counter.build()
-            .name("policies_undeploy_requests_total").help("Total number of TOSCA policies undeploy requests.")
-            .register();
-    static final Counter POLICY_UNDEPLOY_REQUESTS_SUCCESS_COUNTER = Counter.build()
-            .name("policies_undeploy_requests_success")
-            .help("Total number of TOSCA policies undeploy requests that succeeded.").register();
-    static final Counter POLICY_UNDEPLOY_REQUESTS_FAILED_COUNTER = Counter.build()
-            .name("policies_undeploy_requests_failed")
-            .help("Total number of TOSCA policies undeploy requests that failed.").register();
+    static final Counter POLICY_DEPLOYMENTS_COUNTER =
+        Counter.build().namespace(PrometheusUtils.PdpType.PDPA.getNamespace())
+            .name(PrometheusUtils.POLICY_DEPLOYMENTS_METRIC)
+            .labelNames(PrometheusUtils.OPERATION_METRIC_LABEL, PrometheusUtils.STATUS_METRIC_LABEL)
+            .help(PrometheusUtils.POLICY_DEPLOYMENT_HELP).register();
 
     public static final String REG_APEX_PDP_POLICY_COUNTER = "object:pdp/statistics/policy/counter";
+    private static final String PROMETHEUS_TOTAL_LABEL_VALUE = "TOTAL";
 
     private final AtomicLong policyDeployCount = new AtomicLong(0);
     private final AtomicLong policyDeploySuccessCount = new AtomicLong(0);
@@ -84,14 +74,14 @@ public class ApexPolicyStatisticsManager {
      * Update the policy deploy count.
      */
     public void updatePolicyDeployCounter(final boolean isSuccessful) {
+        POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.DEPLOY_OPERATION, PROMETHEUS_TOTAL_LABEL_VALUE).inc();
         this.policyDeployCount.incrementAndGet();
-        POLICY_DEPLOY_REQUESTS_COUNTER.inc();
         if (!isSuccessful) {
+            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.DEPLOY_OPERATION, PdpResponseStatus.FAIL.name()).inc();
             this.policyDeployFailCount.incrementAndGet();
-            POLICY_DEPLOY_REQUESTS_FAILED_COUNTER.inc();
         } else {
+            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.DEPLOY_OPERATION, PdpResponseStatus.SUCCESS.name()).inc();
             this.policyDeploySuccessCount.incrementAndGet();
-            POLICY_DEPLOY_REQUESTS_SUCCESS_COUNTER.inc();
         }
     }
 
@@ -107,32 +97,32 @@ public class ApexPolicyStatisticsManager {
         }
     }
 
-
     /**
      * Update the policy undeploy count.
      */
     public void updatePolicyUndeployCounter(final boolean isSuccessful) {
+        POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.UNDEPLOY_OPERATION, PROMETHEUS_TOTAL_LABEL_VALUE).inc();
         this.policyUndeployCount.incrementAndGet();
-        POLICY_UNDEPLOY_REQUESTS_COUNTER.inc();
         if (isSuccessful) {
+            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.UNDEPLOY_OPERATION, PdpResponseStatus.SUCCESS.name())
+                .inc();
             this.policyUndeploySuccessCount.incrementAndGet();
-            POLICY_UNDEPLOY_REQUESTS_SUCCESS_COUNTER.inc();
         } else {
+            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.UNDEPLOY_OPERATION, PdpResponseStatus.FAIL.name()).inc();
             this.policyUndeployFailCount.incrementAndGet();
-            POLICY_UNDEPLOY_REQUESTS_FAILED_COUNTER.inc();
         }
     }
 
     public long getPolicyDeployCount() {
-        return Double.valueOf(POLICY_DEPLOY_REQUESTS_COUNTER.get()).longValue();
+        return policyDeployCount.get();
     }
 
     public long getPolicyDeployFailCount() {
-        return Double.valueOf(POLICY_DEPLOY_REQUESTS_FAILED_COUNTER.get()).longValue();
+        return policyDeployFailCount.get();
     }
 
     public long getPolicyDeploySuccessCount() {
-        return Double.valueOf(POLICY_DEPLOY_REQUESTS_SUCCESS_COUNTER.get()).longValue();
+        return policyDeploySuccessCount.get();
     }
 
     public long getPolicyExecutedCount() {
@@ -148,14 +138,14 @@ public class ApexPolicyStatisticsManager {
     }
 
     public long getPolicyUndeployCount() {
-        return Double.valueOf(POLICY_UNDEPLOY_REQUESTS_COUNTER.get()).longValue();
+        return policyUndeployCount.get();
     }
 
     public long getPolicyUndeploySuccessCount() {
-        return Double.valueOf(POLICY_UNDEPLOY_REQUESTS_SUCCESS_COUNTER.get()).longValue();
+        return policyUndeploySuccessCount.get();
     }
 
     public long getPolicyUndeployFailCount() {
-        return Double.valueOf(POLICY_UNDEPLOY_REQUESTS_FAILED_COUNTER.get()).longValue();
+        return policyUndeployFailCount.get();
     }
 }
