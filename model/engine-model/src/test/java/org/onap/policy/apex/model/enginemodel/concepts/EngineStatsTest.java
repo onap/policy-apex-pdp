@@ -224,40 +224,36 @@ public class EngineStatsTest {
     }
 
     private void checkUpTimeMetric(AxEngineStats stats) {
-        Double upTimeMetric = CollectorRegistry.defaultRegistry.getSampleValue("apex_engine_uptime",
-                new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
+        final var defaultRegistry = CollectorRegistry.defaultRegistry;
+        Double upTimeMetric = defaultRegistry.getSampleValue("pdpa_engine_uptime",
+            new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
         assertEquals(upTimeMetric.longValue(), stats.getUpTime());
     }
 
     private void checkEventsCountMetric(AxEngineStats stats) {
-        Double eventsCountMetric = CollectorRegistry.defaultRegistry
-                .getSampleValue("apex_engine_events_executed_count",
-                        new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
+        Double eventsCountMetric = CollectorRegistry.defaultRegistry.getSampleValue("pdpa_engine_event_executions",
+                new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
         assertEquals(eventsCountMetric.longValue(), stats.getEventCount());
     }
 
     private void checkLastExecTimeMetric(AxEngineStats stats) {
         Double lastExecTimeMetric = CollectorRegistry.defaultRegistry
-                .getSampleValue("apex_engine_last_execution_time_sum", new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
+            .getSampleValue("pdpa_engine_last_execution_time_sum", new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
+                new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
         assertEquals(lastExecTimeMetric.longValue(), stats.getLastExecutionTime());
     }
 
     private void checkEngineStartTimestampMetric(AxEngineStats stats) {
         Double engineStartTimestampMetric = CollectorRegistry.defaultRegistry
-                .getSampleValue("apex_engine_last_start_timestamp_epoch",
-                        new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
+            .getSampleValue("pdpa_engine_last_start_timestamp_epoch",
+                new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
         assertEquals(engineStartTimestampMetric.longValue(), stats.getLastStart());
     }
 
     private void checkAvgExecTimeMetric(AxEngineStats stats) {
-        Double avgExecTimeMetric = CollectorRegistry.defaultRegistry
-                .getSampleValue("apex_engine_average_execution_time_seconds",
-                        new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                        new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
+        final var defaultRegistry = CollectorRegistry.defaultRegistry;
+        Double avgExecTimeMetric = defaultRegistry.getSampleValue("pdpa_engine_average_execution_time_seconds",
+            new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;;
         assertEquals(avgExecTimeMetric, Double.valueOf(stats.getAverageExecutionTime()));
     }
 
