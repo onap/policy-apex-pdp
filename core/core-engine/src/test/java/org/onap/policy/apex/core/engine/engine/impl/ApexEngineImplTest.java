@@ -515,8 +515,7 @@ public class ApexEngineImplTest {
 
     private void checkAxEngineStateMetric(AxEngineState state) {
         Double stateMetric = CollectorRegistry.defaultRegistry
-                .getSampleValue("apex_engine_state", new String[]{"engine_instance_id"},
-                        new String[]{ENGINE_ID});
+            .getSampleValue("pdpa_engine_state", new String[]{"engine_instance_id"}, new String[]{ENGINE_ID});
         assertEquals(stateMetric.intValue(), state.getStateIdentifier());
     }
 }
