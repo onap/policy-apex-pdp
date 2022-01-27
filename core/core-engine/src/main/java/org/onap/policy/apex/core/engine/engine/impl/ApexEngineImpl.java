@@ -56,6 +56,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateOutput;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskOutputType;
 import org.onap.policy.apex.model.policymodel.concepts.AxStateTaskReference;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
+import org.onap.policy.common.utils.resources.PrometheusUtils;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -74,9 +75,10 @@ public class ApexEngineImpl implements ApexEngine {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEngineImpl.class);
 
     // Register state changes with prometheus
-    static final Gauge ENGINE_STATE = Gauge.build().name("apex_engine_state").labelNames("engine_instance_id")
-            .help("State of the APEX engine as integers mapped as - 0:UNDEFINED, 1:STOPPED, 2:READY,"
-                    + " 3:EXECUTING, 4:STOPPING").register();
+    static final Gauge ENGINE_STATE = Gauge.build().namespace(PrometheusUtils.PdpType.PDPA.getNamespace())
+        .name("engine_state").labelNames("engine_instance_id")
+        .help("State of the APEX engine as integers mapped as - 0:UNDEFINED, 1:STOPPED, 2:READY,"
+            + " 3:EXECUTING, 4:STOPPING").register();
 
     // Recurring string constants
     private static final String UPDATE_MODEL = "updateModel()<-";

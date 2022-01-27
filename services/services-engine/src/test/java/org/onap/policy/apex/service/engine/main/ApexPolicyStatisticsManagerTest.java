@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021 Nordix Foundation.
- *  Modifications Copyright (C) 2021 Bell Canada Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,10 @@ package org.onap.policy.apex.service.engine.main;
 
 import static org.junit.Assert.assertEquals;
 
+import io.prometheus.client.CollectorRegistry;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.common.utils.resources.PrometheusUtils;
 
 public class ApexPolicyStatisticsManagerTest {
 
@@ -46,6 +48,7 @@ public class ApexPolicyStatisticsManagerTest {
         statisticsManager.updatePolicyDeployCounter(true);
         statisticsManager.updatePolicyDeployCounter(true);
         assertDeploys(3, 2, 1);
+        checkDeploymentsMetrics("deploy");
     }
 
     @Test
@@ -64,6 +67,7 @@ public class ApexPolicyStatisticsManagerTest {
 
         statisticsManager.updatePolicyUndeployCounter(true);
         assertUndeploys(2, 1, 1);
+        checkDeploymentsMetrics("undeploy");
     }
 
     private void assertDeploys(long count, long success, long fail) {
@@ -84,4 +88,23 @@ public class ApexPolicyStatisticsManagerTest {
         assertEquals(fail, statisticsManager.getPolicyExecutedFailCount());
     }
 
+    private void checkDeploymentsMetrics(String operation) {
+        final var defaultRegistry = CollectorRegistry.defaultRegistry;
+        Double totalCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
+            new String[]{"operation", "status"}, new String[]{operation, "TOTAL"});
+        Double successCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
+            new String[]{"operation", "status"}, new String[]{operation, "SUCCESS"});
+        Double failCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
+            new String[]{"operation", "status"}, new String[]{operation, "FAIL"});
+
+        if (PrometheusUtils.DEPLOY_OPERATION.equals(operation)) {
+            assertEquals(totalCount.intValue(), statisticsManager.getPolicyDeployCount());
+            assertEquals(successCount.intValue(), statisticsManager.getPolicyDeploySuccessCount());
+            assertEquals(failCount.intValue(), statisticsManager.getPolicyDeployFailCount());
+        } else if (PrometheusUtils.UNDEPLOY_OPERATION.equals(operation)) {
+            assertEquals(totalCount.intValue(), statisticsManager.getPolicyUndeployCount());
+            assertEquals(successCount.intValue(), statisticsManager.getPolicyUndeploySuccessCount());
+            assertEquals(failCount.intValue(), statisticsManager.getPolicyUndeployFailCount());
+        }
+    }
 }
