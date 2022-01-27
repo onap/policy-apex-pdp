@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "989edb11_1ec8bb55",
+        "filename": "packages/apex-pdp-package-full/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2022-01-27T09:33:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26fb1914_b4d47fa4",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "52f2f3f6575860337dfeae9b78eee0875a3b082f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecc2106f_dbd202ec",
         "filename": "packages/apex-pdp-package-full/src/main/resources/META-INF/persistence.xml",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "52f2f3f6575860337dfeae9b78eee0875a3b082f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f5f66a_b57fe8fe",
+        "filename": "packages/apex-pdp-package-full/src/main/resources/META-INF/persistence.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2022-01-27T09:33:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ecc2106f_dbd202ec",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 1
+      },
+      "revId": "52f2f3f6575860337dfeae9b78eee0875a3b082f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
