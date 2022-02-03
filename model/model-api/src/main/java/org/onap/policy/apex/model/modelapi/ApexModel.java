@@ -1,26 +1,26 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.modelapi;
 
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 /**
@@ -60,25 +60,6 @@ public interface ApexModel extends ApexEditorApi {
      * @return the result of the operation
      */
     ApexApiResult saveToFile(String fileName, boolean xmlFlag);
-
-    /**
-     * Load an Apex model from a database.
-     *
-     * @param modelName the name of the model to load
-     * @param modelVersion the version of the model to load, loads the policy model from the database with this name, if
-     *        more than one exist, an exception is thrown
-     * @param daoParameters the parameters to use to access the database over JDBC
-     * @return the result of the operation
-     */
-    ApexApiResult loadFromDatabase(String modelName, String modelVersion, DaoParameters daoParameters);
-
-    /**
-     * Save an Apex model to a database.
-     *
-     * @param daoParameters the parameters to use to access the database over JDBC
-     * @return the result of the operation
-     */
-    ApexApiResult saveToDatabase(DaoParameters daoParameters);
 
     /**
      * Read an APEX model from a location identified by a URL.

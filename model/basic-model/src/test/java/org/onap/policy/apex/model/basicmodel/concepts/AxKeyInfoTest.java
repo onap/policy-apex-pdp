@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,10 +65,11 @@ public class AxKeyInfoTest {
         assertEquals(testKeyInfo, testKeyInfo); // NOSONAR
         assertEquals(testKeyInfo, clonedReferenceKey);
         assertNotNull(testKeyInfo);
-        assertNotEquals(testKeyInfo, (Object) new AxArtifactKey());
+        Object differentKeyType = new AxArtifactKey();
+        assertNotEquals(testKeyInfo, differentKeyType);
         assertNotEquals(testKeyInfo, new AxKeyInfo(new AxArtifactKey()));
         assertNotEquals(testKeyInfo, new AxKeyInfo(key, UUID.randomUUID(), "Some Description"));
-        assertNotEquals(testKeyInfo, new AxKeyInfo(key, uuid, "Some Description"));
+        assertEquals(testKeyInfo, new AxKeyInfo(key, uuid, "Some Other Description"));
         assertEquals(testKeyInfo, new AxKeyInfo(key, uuid, "Key Description"));
 
         assertEquals(0, testKeyInfo.compareTo(testKeyInfo));

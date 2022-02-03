@@ -47,8 +47,7 @@ left key AxArtifactKey:(name=PolicyModel,version=0.0.1) equals right key AxArtif
 key=AxArtifactKey:(name=LeftOnlyKeyInfo,version=0.0.1)
 *** list of keys on right only
 key=AxArtifactKey:(name=RightOnlyKeyInfo,version=0.0.1)
-*** list of differing entries between left and right
-key=AxArtifactKey:(name=inEvent,version=0.0.1)
+*** all values in left and right are identical
 *** list of identical entries in left and right
 key=AxArtifactKey:(name=ContextSchemas,version=0.0.1)
 key=AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)
@@ -61,6 +60,7 @@ key=AxArtifactKey:(name=contextAlbum1,version=0.0.1)
 key=AxArtifactKey:(name=eventContextItem0,version=0.0.1)
 key=AxArtifactKey:(name=eventContextItem1,version=0.0.1)
 key=AxArtifactKey:(name=events,version=0.0.1)
+key=AxArtifactKey:(name=inEvent,version=0.0.1)
 key=AxArtifactKey:(name=outEvent0,version=0.0.1)
 key=AxArtifactKey:(name=outEvent1,version=0.0.1)
 key=AxArtifactKey:(name=policies,version=0.0.1)
@@ -68,4 +68,3 @@ key=AxArtifactKey:(name=policy,version=0.0.1)
 key=AxArtifactKey:(name=task,version=0.0.1)
 key=AxArtifactKey:(name=tasks,version=0.0.1)
 ***********************************
-

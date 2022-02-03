@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,6 @@ import java.io.File;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.ApexDaoFactory;
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelWriter;
@@ -171,29 +169,6 @@ public class TestApexModel<M extends AxModel> {
         checkModelEquality(model, byteArrayModel, "test model does not equal JSON marshalled and unmarshalled model");
 
         LOGGER.debug("ran testApexModelWriteReadJSON");
-    }
-
-    /**
-     * Test write and read of an Apex model to database using JPA.
-     *
-     * @param daoParameters the DAO parameters to use for JPA/JDBC
-     * @throws ApexException thrown on errors writing or reading the model to database
-     */
-    public final void testApexModelWriteReadJpa(final DaoParameters daoParameters) throws ApexException {
-        LOGGER.debug("running testApexModelWriteReadJPA . . .");
-
-        final var model = modelCreator.getModel();
-
-        final var apexDao = new ApexDaoFactory().createApexDao(daoParameters);
-        apexDao.init(daoParameters);
-
-        apexDao.create(model);
-        final var dbJpaModel = apexDao.get(rootModelClass, model.getKey());
-        apexDao.close();
-
-        checkModelEquality(model, dbJpaModel, "test model does not equal model written and read using generic JPA");
-
-        LOGGER.debug("ran testApexModelWriteReadJPA");
     }
 
     /**

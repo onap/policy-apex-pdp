@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.modelapi.ApexApiResult;
 import org.onap.policy.apex.model.modelapi.ApexApiResult.Result;
 import org.onap.policy.apex.model.modelapi.ApexModel;
@@ -786,23 +785,6 @@ public final class ApexModelImpl implements ApexModel {
         } else {
             return modelHandlerFacade.saveToFile(saveFileName, xmlFlag);
         }
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public ApexApiResult loadFromDatabase(final String modelName, final String modelVersion,
-            final DaoParameters daoParameters) {
-        return modelHandlerFacade.loadFromDatabase(modelName, modelVersion, daoParameters);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public ApexApiResult saveToDatabase(final DaoParameters daoParameters) {
-        return modelHandlerFacade.saveToDatabase(daoParameters);
     }
 
     /**

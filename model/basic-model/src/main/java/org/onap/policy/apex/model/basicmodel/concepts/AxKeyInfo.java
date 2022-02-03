@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -35,11 +34,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
-import org.onap.policy.apex.model.basicmodel.dao.converters.Uuid2String;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -74,14 +70,10 @@ public class AxKeyInfo extends AxConcept {
     private AxArtifactKey key;
 
     @Column(name = "uuid")
-    @Convert(converter = Uuid2String.class)
-    @XmlJavaTypeAdapter(value = Uuid2String.class)
     @XmlElement(name = "UUID", required = true)
     private UUID uuid;
 
     @Column(name = "description", length = MAX_DESCRIPTION_LENGTH_8192)
-    @Convert(converter = CDataConditioner.class)
-    @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(required = true)
     private String description;
 
@@ -299,9 +291,7 @@ public class AxKeyInfo extends AxConcept {
         if (!uuid.equals(other.uuid)) {
             return false;
         }
-        final String thisdesc = CDataConditioner.clean(description);
-        final String otherdesc = CDataConditioner.clean(other.description);
-        return thisdesc.equals(otherdesc);
+        return description.equals(description);
     }
 
     /**

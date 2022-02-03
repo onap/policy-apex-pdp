@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.ApexDao;
-import org.onap.policy.apex.model.basicmodel.dao.ApexDaoFactory;
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelFileWriter;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
@@ -66,7 +61,6 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ModelHandlerFacade {
-    private static final String FOUND_IN_DATABASE = " found in database";
     private static final String FILE_NAME_MAY_NOT_BE_NULL = "fileName may not be null";
     private static final String MODEL = "model ";
     private static final String ALREADY_LOADED = " already loaded";
@@ -157,113 +151,6 @@ public class ModelHandlerFacade {
             return new ApexApiResult();
         } catch (ApexException e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
-        }
-    }
-
-    /**
-     * Load an Apex model from a database.
-     *
-     * @param modelName the name of the model to load
-     * @param modelVersion the version of the model to load, loads the policy model from the database with this name, if
-     *        more than one exist, an exception is thrown
-     * @param daoParameters the parameters to use to access the database over JDBC
-     * @return the result of the operation
-     */
-    public ApexApiResult loadFromDatabase(final String modelName, final String modelVersion,
-            final DaoParameters daoParameters) {
-        Assertions.argumentNotNull(modelName, "modelName may not be null");
-        Assertions.argumentNotNull(daoParameters, "DaoParameters may not be null");
-
-        if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
-            return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                    MODEL + apexModel.getPolicyModel().getKey().getId() + ALREADY_LOADED);
-        }
-
-        ApexDao apexDao = null;
-        try {
-            apexDao = new ApexDaoFactory().createApexDao(daoParameters);
-            apexDao.init(daoParameters);
-
-            // Single specific model requested
-            if (modelVersion != null) {
-                AxPolicyModel daoPolicyModel =
-                        apexDao.get(AxPolicyModel.class, new AxArtifactKey(modelName, modelVersion));
-
-                if (daoPolicyModel != null) {
-                    apexModel.setPolicyModel(daoPolicyModel);
-                    return new ApexApiResult();
-                } else {
-                    apexModel.setPolicyModel(new AxPolicyModel());
-                    return new ApexApiResult(ApexApiResult.Result.FAILED, "no policy model with name " + modelName
-                            + " and version " + modelVersion + FOUND_IN_DATABASE);
-                }
-            } else {
-                // Fishing expedition
-                return searchInDatabase(modelName, apexDao, apexModel);
-            }
-        } catch (ApexException | ApexRuntimeException e) {
-            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
-        } finally {
-            if (apexDao != null) {
-                apexDao.close();
-            }
-        }
-    }
-
-    /**
-     * Search for an Apex model in the database.
-     *
-     * @param modelName the name of the model to load
-     * @param apexDao the DAO to use to find the model
-     * @param apexModel the APEX model we are loading the found model into
-     * @return the result of the operation
-     */
-    private ApexApiResult searchInDatabase(String modelName, ApexDao apexDao, ApexModel apexModel) {
-        AxPolicyModel foundPolicyModel = null;
-
-        List<AxPolicyModel> policyModelList = apexDao.getAll(AxPolicyModel.class);
-        for (AxPolicyModel dbPolicyModel : policyModelList) {
-            if (dbPolicyModel.getKey().getName().equals(modelName)) {
-                if (foundPolicyModel == null) {
-                    foundPolicyModel = dbPolicyModel;
-                } else {
-                    return new ApexApiResult(ApexApiResult.Result.FAILED,
-                            "more than one policy model with name " + modelName + FOUND_IN_DATABASE);
-                }
-            }
-        }
-
-        if (foundPolicyModel != null) {
-            apexModel.setPolicyModel(foundPolicyModel);
-            return new ApexApiResult();
-        } else {
-            apexModel.setPolicyModel(new AxPolicyModel());
-            return new ApexApiResult(ApexApiResult.Result.FAILED,
-                    "no policy model with name " + modelName + FOUND_IN_DATABASE);
-        }
-    }
-
-    /**
-     * Save an Apex model to a database.
-     *
-     * @param daoParameters the parameters to use to access the database over JDBC
-     * @return the result of the operation
-     */
-    public ApexApiResult saveToDatabase(final DaoParameters daoParameters) {
-        ApexDao apexDao = null;
-
-        try {
-            apexDao = new ApexDaoFactory().createApexDao(daoParameters);
-            apexDao.init(daoParameters);
-
-            apexDao.create(apexModel.getPolicyModel());
-            return new ApexApiResult();
-        } catch (ApexException e) {
-            return new ApexApiResult(ApexApiResult.Result.FAILED, e);
-        } finally {
-            if (apexDao != null) {
-                apexDao.close();
-            }
         }
     }
 

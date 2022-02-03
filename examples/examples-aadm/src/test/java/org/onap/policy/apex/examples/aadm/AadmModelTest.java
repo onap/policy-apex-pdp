@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
@@ -59,14 +58,5 @@ public class AadmModelTest {
     @Test
     public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
-    }
-
-    @Test
-    public void testModelWriteReadJpa() throws Exception {
-        final DaoParameters DaoParameters = new DaoParameters();
-        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        DaoParameters.setPersistenceUnit("AADMModelTest");
-
-        testApexModel.testApexModelWriteReadJpa(DaoParameters);
     }
 }

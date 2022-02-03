@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 public class AutoLearnModelTest {
+    private static final String VALID_MODEL_STRING = "***validation of model successful***";
+
     TestApexModel<AxPolicyModel> testApexModel;
 
     /**
@@ -57,15 +58,4 @@ public class AutoLearnModelTest {
     public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
-
-    @Test
-    public void testModelWriteReadJpa() throws Exception {
-        final DaoParameters DaoParameters = new DaoParameters();
-        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        DaoParameters.setPersistenceUnit("AdaptiveModelsTest");
-
-        testApexModel.testApexModelWriteReadJpa(DaoParameters);
-    }
-
-    private static final String VALID_MODEL_STRING = "***validation of model successful***";
 }

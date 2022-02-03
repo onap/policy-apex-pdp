@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -41,7 +40,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -96,8 +94,6 @@ public class AxLogic extends AxConcept {
     private String logicFlavour;
 
     @Column(name = "logic", length = MAX_LOGIC_SIZE)
-    @Convert(converter = CDataConditioner.class)
-    @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(required = true)
     private String logic;
 
@@ -361,9 +357,7 @@ public class AxLogic extends AxConcept {
         if (!logicFlavour.equals(other.logicFlavour)) {
             return false;
         }
-        final String thislogic = CDataConditioner.clean(logic).replace("\n", "");
-        final String otherlogic = CDataConditioner.clean(other.logic).replace("\n", "");
-        return thislogic.equals(otherlogic);
+        return logic.equals(other.logic);
     }
 
     /**

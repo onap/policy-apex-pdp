@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,72 +27,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.DaoParameters;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
 public class ApexPolicyModelTest {
-    TestApexModel<AxPolicyModel> testApexModel;
-
-    /**
-     * Set up the policy model tests.
-     *
-     * @throws Exception on setup errors
-     */
-    @Before
-    public void setup() throws Exception {
-        testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new SupportApexPolicyModelCreator());
-    }
-
-    @Test
-    public void testModelValid() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelValid();
-        assertEquals(VALID_MODEL_STRING, result.toString());
-    }
-
-    @Test
-    public void testApexModelVaidateObservation() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateObservation();
-        assertEquals(OBSERVATION_MODEL_STRING, result.toString());
-    }
-
-    @Test
-    public void testApexModelVaidateWarning() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
-        assertEquals(WARNING_MODEL_STRING, result.toString());
-    }
-
-    @Test
-    public void testModelVaidateInvalidModel() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
-        assertEquals(INVALID_MODEL_STRING, result.toString());
-    }
-
-    @Test
-    public void testModelVaidateMalstructured() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
-        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
-    }
-
-    @Test
-    public void testModelWriteReadXml() throws Exception {
-        testApexModel.testApexModelWriteReadXml();
-    }
-
-    @Test
-    public void testModelWriteReadJson() throws Exception {
-        testApexModel.testApexModelWriteReadJson();
-    }
-
-    @Test
-    public void testModelWriteReadJpa() throws Exception {
-        final DaoParameters DaoParameters = new DaoParameters();
-        DaoParameters.setPluginClass("org.onap.policy.apex.model.basicmodel.dao.impl.DefaultApexDao");
-        DaoParameters.setPersistenceUnit("DAOTest");
-
-        testApexModel.testApexModelWriteReadJpa(DaoParameters);
-    }
-
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
 
     private static final String OBSERVATION_MODEL_STRING = "\n"
@@ -150,4 +88,56 @@ public class ApexPolicyModelTest {
                     + "AxArtifactKey:(name=policyModel_Policies,version=0.0.1)"
                     + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicies:INVALID:policyMap may not be empty\n"
                     + "********************************";
+
+    TestApexModel<AxPolicyModel> testApexModel;
+
+    /**
+     * Set up the policy model tests.
+     *
+     * @throws Exception on setup errors
+     */
+    @Before
+    public void setup() throws Exception {
+        testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new SupportApexPolicyModelCreator());
+    }
+
+    @Test
+    public void testModelValid() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValid();
+        assertEquals(VALID_MODEL_STRING, result.toString());
+    }
+
+    @Test
+    public void testApexModelVaidateObservation() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelVaidateObservation();
+        assertEquals(OBSERVATION_MODEL_STRING, result.toString());
+    }
+
+    @Test
+    public void testApexModelVaidateWarning() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
+        assertEquals(WARNING_MODEL_STRING, result.toString());
+    }
+
+    @Test
+    public void testModelVaidateInvalidModel() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
+        assertEquals(INVALID_MODEL_STRING, result.toString());
+    }
+
+    @Test
+    public void testModelVaidateMalstructured() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
+        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
+    }
+
+    @Test
+    public void testModelWriteReadXml() throws Exception {
+        testApexModel.testApexModelWriteReadXml();
+    }
+
+    @Test
+    public void testModelWriteReadJson() throws Exception {
+        testApexModel.testApexModelWriteReadJson();
+    }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -33,7 +32,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
@@ -43,7 +41,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.dao.converters.CDataConditioner;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -99,8 +96,6 @@ public class AxContextSchema extends AxConcept {
     private String schemaFlavour;
 
     @Column(name = "schemaDefinition", length = MAX_SCHEMA_SIZE)
-    @Convert(converter = CDataConditioner.class)
-    @XmlJavaTypeAdapter(value = CDataConditioner.class)
     @XmlElement(name = "schemaDefinition", required = true)
     @Getter(AccessLevel.NONE)
     private String schemaDefinition;
@@ -270,7 +265,7 @@ public class AxContextSchema extends AxConcept {
         result = prime * result + key.hashCode();
         result = prime * result + schemaFlavour.hashCode();
 
-        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
+        final String thisSchema = schemaDefinition.replace("\n", "");
         result = prime * result + thisSchema.hashCode();
         return result;
     }
@@ -299,9 +294,7 @@ public class AxContextSchema extends AxConcept {
         if (!schemaFlavour.equals(other.schemaFlavour)) {
             return false;
         }
-        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
-        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replace("\n", "");
-        return thisSchema.equals(otherSchema);
+        return schemaDefinition.equals(other.schemaDefinition);
     }
 
     /**
@@ -326,8 +319,6 @@ public class AxContextSchema extends AxConcept {
         if (!schemaFlavour.equals(other.schemaFlavour)) {
             return schemaFlavour.compareTo(other.schemaFlavour);
         }
-        final String thisSchema = CDataConditioner.clean(schemaDefinition).replace("\n", "");
-        final String otherSchema = CDataConditioner.clean(other.schemaDefinition).replace("\n", "");
-        return thisSchema.compareTo(otherSchema);
+        return schemaDefinition.compareTo(other.schemaDefinition);
     }
 }
