@@ -1,6 +1,6 @@
 <!--
   ============LICENSE_START=======================================================
-   Copyright (c) 2020 Nordix Foundation.
+   Copyright (c) 2020,2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -50,10 +50,6 @@
             <groupId>org.onap.policy.apex-pdp.model</groupId>
             <artifactId>utilities</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>

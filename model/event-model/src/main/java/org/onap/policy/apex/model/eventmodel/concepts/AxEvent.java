@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,12 +31,6 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -75,9 +69,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * is checked to ensure it matches the event parameter key on the event. Finally, the parent key of each parameter is
  * checked to ensure it matches the event key.
  */
-@Entity
-@Table(name = "AxEvent")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEvent", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxEvent", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -89,29 +80,23 @@ public class AxEvent extends AxConcept {
     private static final String WHITESPACE_REGEXP = "\\s+$";
 
     /** The key of the event, unique in the Apex system. */
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     // CHECKSTYLE:OFF: checkstyle:VisibilityMonitor
     protected AxArtifactKey key;
     // CHECKSTYLE:ON: checkstyle:VisibilityMonitor
 
-    @Column(name = "nameSpace")
     @XmlElement(required = true)
     private String nameSpace;
 
-    @Column(name = "source")
     @XmlElement(required = true)
     private String source;
 
-    @Column(name = "target")
     @XmlElement(required = true)
     private String target;
 
-    @OneToMany(cascade = CascadeType.ALL)
     @XmlElement(name = "parameter", required = true)
     private Map<String, AxField> parameterMap;
 
-    @Column(name = "toscaPolicyState")
     @XmlElement(required = false)
     private String toscaPolicyState;
 

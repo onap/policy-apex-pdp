@@ -1,29 +1,26 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,17 +30,13 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 /**
  * This class holds Task Selection Logic for {@link AxState} states in Apex. It is a specialization
  * of the {@link AxLogic} class, so that Task Selection Logic in Apex states can be strongly typed.
- * 
+ *
  * <p>Task Selection Logic is used to select the task {@link AxTask} that a state will execute. The
  * logic uses fields on the incoming trigger event and information from the context albums available
  * on a state to decide what task {@link AxTask} to select for execution in a given context.
- * 
+ *
  * <p>Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
  */
-@Entity
-@Table(name = "AxTaskSelectionLogic")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTaskSelectionLogic", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxTaskSelectionLogic", namespace = "http://www.onap.org/policy/apex-pdp")

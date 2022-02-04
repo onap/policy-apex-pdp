@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -25,11 +25,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
 import java.util.Map.Entry;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -103,9 +98,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <li>All events referred to on direct state outputs must exist
  * </ol>
  */
-@Entity
-@Table(name = "AxPolicyModel")
-
 @XmlRootElement(name = "apexPolicyModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxPolicyModel", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -116,38 +108,21 @@ public class AxPolicyModel extends AxModel {
 
     private static final long serialVersionUID = 8800599637708309945L;
 
-    // @formatter:off
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "policiesName", referencedColumnName = "name")
-    @JoinColumn(name = "policiesVersion", referencedColumnName = "version")
     @XmlElement(name = "policies", required = true)
     private AxPolicies policies;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tasksName", referencedColumnName = "name")
-    @JoinColumn(name = "tasksVersion", referencedColumnName = "version")
     @XmlElement(name = "tasks", required = true)
     private AxTasks tasks;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "eventsName", referencedColumnName = "name")
-    @JoinColumn(name = "eventsVersion", referencedColumnName = "version")
     @XmlElement(name = "events", required = true)
     private AxEvents events;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "albumsName", referencedColumnName = "name")
-    @JoinColumn(name = "albumsVersion", referencedColumnName = "version")
     @XmlElement(name = "albums", required = false)
     @XmlJavaTypeAdapter(EmptyAlbumsAdapter.class)
     private AxContextAlbums albums;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schemasName", referencedColumnName = "name")
-    @JoinColumn(name = "schemasVersion", referencedColumnName = "version")
     @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
-    // @formatter:on
 
     /**
      * The Default Constructor creates a policy model with a null key and empty containers for

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +23,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -67,8 +61,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation checks that the album key and the context schema key are not null and that the scope field is not
  * undefined and matches the regular expression SCOPE_REGEXP.
  */
-@Entity
-@Table(name = "AxContextAlbum")
 
 @Getter
 @ToString
@@ -92,27 +84,18 @@ public class AxContextAlbum extends AxConcept {
     /** The value of scope for a context album for which a scope has not been specified. */
     public static final String SCOPE_UNDEFINED = "UNDEFINED";
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    @Column(name = SCOPE_STRING)
     @XmlElement(name = SCOPE_STRING, required = true)
     private String scope;
 
-    @Column(name = "isWritable")
     @XmlElement(name = "isWritable", required = true)
     @Setter
     private boolean isWritable;
 
-    // @formatter:off
-    @Embedded
-    @AttributeOverride(name = "name", column = @Column(name = "itemSchemaName"))
-    @AttributeOverride(name = "version", column = @Column(name = "itemSchemaVersion"))
-    @Column(name = "itemSchema")
     @XmlElement(name = "itemSchema", required = true)
     private AxArtifactKey itemSchema;
-    // @formatter:on
 
     /**
      * The default constructor creates a context album with a null artifact key. The scope of the context album is set

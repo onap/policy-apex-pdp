@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -41,7 +39,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Key validation checks that the name and version fields match the NAME_REGEXP and VERSION_REGEXP
  * regular expressions respectively.
  */
-@Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp")
 
@@ -54,11 +51,9 @@ public class AxArtifactKey extends AxKey {
     private static final String NAME_TOKEN = "name";
     private static final String VERSION_TOKEN = "version";
 
-    @Column(name = NAME_TOKEN)
     @XmlElement(required = true)
     private String name;
 
-    @Column(name = VERSION_TOKEN)
     @XmlElement(required = true)
     private String version;
 

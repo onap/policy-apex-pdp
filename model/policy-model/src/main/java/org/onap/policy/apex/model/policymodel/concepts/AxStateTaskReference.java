@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,13 +23,6 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -69,9 +62,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * </ol>
  */
 
-@Entity
-@Table(name = "AxStateTaskReference")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexStateTaskReference", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxStateTaskReference", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -80,25 +70,14 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxStateTaskReference extends AxConcept {
     private static final long serialVersionUID = 8041771382337655535L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxReferenceKey key;
 
-    @Enumerated
-    @Column(name = "outputType")
     @XmlElement(required = true)
     private AxStateTaskOutputType outputType;
 
-    // @formatter:off
-    @Embedded
-    @AttributeOverride(name = "parentKeyName", column = @Column(name = "outputParentKeyName"))
-    @AttributeOverride(name = "parentKeyVersion", column = @Column(name = "outputParentKeyVersion"))
-    @AttributeOverride(name = "parentLocalName", column = @Column(name = "outputParentLocalName"))
-    @AttributeOverride(name = "localName", column = @Column(name = "outputLocalName"))
-    @Column(name = "output")
     @XmlElement(required = true)
     private AxReferenceKey output;
-    // @formatter:on
 
     /**
      * The Default Constructor creates a state task reference with a null reference key, an

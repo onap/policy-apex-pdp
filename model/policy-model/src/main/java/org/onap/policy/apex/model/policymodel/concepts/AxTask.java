@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,16 +28,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -82,9 +72,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * </ol>
  */
 
-@Entity
-@Table(name = "AxTask")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTask", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(
@@ -99,41 +86,23 @@ public class AxTask extends AxConcept {
 
     private static final long serialVersionUID = 5374237330697362762L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     @NonNull
     private AxArtifactKey key;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "INPUT_EVENT_JT",
-        joinColumns = {@JoinColumn(name = "inEventTaskName", referencedColumnName = "name", updatable = false),
-            @JoinColumn(name = "inEventTaskVersion", referencedColumnName = "version", updatable = false)})
     @XmlElement(name = "inputEvent", required = false)
     private AxEvent inputEvent;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "OUTPUT_EVENT_JT",
-        joinColumns = {@JoinColumn(name = "outEventTaskName", referencedColumnName = "name", updatable = false),
-            @JoinColumn(name = "outEventTaskVersion", referencedColumnName = "version", updatable = false)})
     @XmlElement(name = "outputEvents", required = false)
     private Map<String, AxEvent> outputEvents;
 
-    @OneToMany(cascade = CascadeType.ALL)
     @XmlElement(name = "taskParameters", required = true)
     private Map<String, AxTaskParameter> taskParameters;
 
-    // @formatter:off
-    @ElementCollection
-    @CollectionTable(joinColumns = {@JoinColumn(name = "contextAlbumName", referencedColumnName = "name"),
-        @JoinColumn(name = "contextAlbumVersion", referencedColumnName = "version")})
     @XmlElement(name = "contextAlbumReference")
     @NonNull
     private Set<AxArtifactKey> contextAlbumReferenceSet;
-    // @formatter:on
 
-    @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(required = true)
     @NonNull
     private AxTaskLogic taskLogic;

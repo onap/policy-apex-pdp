@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,9 +24,6 @@ package org.onap.policy.apex.testsuites.integration.context.entities;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.AllArgsConstructor;
@@ -44,8 +41,6 @@ import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 /**
  * The Class ReferenceKeyTestEntity provides a reference key test concept.
  */
-@Entity
-@Table(name = "ReferenceKeyTestEntity")
 @Getter
 @Setter
 @ToString
@@ -54,7 +49,6 @@ import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 public class ReferenceKeyTestEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067895L;
 
-    @EmbeddedId()
     @XmlElement(name = "key", required = true)
     @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     protected AxReferenceKey key;

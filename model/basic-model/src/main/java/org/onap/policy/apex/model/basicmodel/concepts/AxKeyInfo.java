@@ -25,10 +25,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -46,9 +42,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * blank and warns if the UUID is a zero UUID.
  */
 
-@Entity
-@Table(name = "AxKeyInfo")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxKeyInfo", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -65,15 +58,12 @@ public class AxKeyInfo extends AxConcept {
      */
     private static final Random sharedRandom = new Random();    // NOSONAR
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    @Column(name = "uuid")
     @XmlElement(name = "UUID", required = true)
     private UUID uuid;
 
-    @Column(name = "description", length = MAX_DESCRIPTION_LENGTH_8192)
     @XmlElement(required = true)
     private String description;
 

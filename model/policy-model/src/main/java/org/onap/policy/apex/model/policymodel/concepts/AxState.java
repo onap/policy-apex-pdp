@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2018 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,19 +29,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -120,9 +107,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * </ol>
  */
 
-@Entity
-@Table(name = "AxState")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexState", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxState", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -134,86 +118,29 @@ public class AxState extends AxConcept {
 
     private static final long serialVersionUID = 8041771382337655535L;
 
-    @EmbeddedId
     @XmlElement(name = "stateKey", required = true)
     private AxReferenceKey key;
 
-    // @formatter:off
-    @Embedded
-    @AttributeOverride(name = "name", column = @Column(name = "inTriggerName"))
-    @AttributeOverride(name = "version", column = @Column(name = "inTriggerVersion"))
-    @Column(name = "trigger")
     @XmlElement(required = true)
     private AxArtifactKey trigger;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = {@JoinColumn(name = "soParentKeyName", referencedColumnName = "parentKeyName"),
-                @JoinColumn(name = "soParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                @JoinColumn(name = "soParentLocalName", referencedColumnName = "parentLocalName"),
-                @JoinColumn(name = "soLocalName", referencedColumnName = "localName")},
-            inverseJoinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-                @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-                @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "stateOutputs", required = true)
     private Map<String, AxStateOutput> stateOutputs;
 
-    @ElementCollection
-    @CollectionTable(joinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-        @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-        @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-        @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "contextAlbumReference")
     private Set<AxArtifactKey> contextAlbumReferenceSet;
 
-    @OneToOne
-    @JoinTable(name = "STATE_TSL_JT",
-            joinColumns = {
-                @JoinColumn(name = "tslParentKeyName", referencedColumnName = "parentKeyName", updatable = false,
-                            insertable = false),
-                @JoinColumn(name = "tslParentKeyVersion", referencedColumnName = "parentKeyVersion",
-                            updatable = false, insertable = false),
-                @JoinColumn(name = "tslParentLocalName ", referencedColumnName = "parentLocalName",
-                            updatable = false, insertable = false),
-                @JoinColumn(name = "tslLocalName", referencedColumnName = "localName", updatable = false,
-                            insertable = false)})
     @XmlElement(required = true)
     private AxTaskSelectionLogic taskSelectionLogic;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = {@JoinColumn(name = "sflParentKeyName", referencedColumnName = "parentKeyName"),
-                @JoinColumn(name = "sflParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                @JoinColumn(name = "sflParentLocalName", referencedColumnName = "parentLocalName"),
-                @JoinColumn(name = "sflLocalName", referencedColumnName = "localName")},
-            inverseJoinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-                @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-                @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "stateFinalizerLogicMap", required = true)
     private Map<String, AxStateFinalizerLogic> stateFinalizerLogicMap;
 
-    @Embedded
-    @AttributeOverride(name = "name", column = @Column(name = "defaultTaskName"))
-    @AttributeOverride(name = "version", column = @Column(name = "defaultTaskVersion"))
-    @Column(name = "defaultTask")
     @XmlElement(required = true)
     private AxArtifactKey defaultTask;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = {@JoinColumn(name = "trmParentKeyName", referencedColumnName = "parentKeyName"),
-                @JoinColumn(name = "trmParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                @JoinColumn(name = "trmParentLocalName", referencedColumnName = "parentLocalName"),
-                @JoinColumn(name = "trmLocalName", referencedColumnName = "localName")},
-            inverseJoinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-                @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-                @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "taskReferences", required = true)
     private Map<AxArtifactKey, AxStateTaskReference> taskReferenceMap;
-    // @formatter:on
 
     /**
      * The Default Constructor creates a state with a null reference key and with default values for all other fields.

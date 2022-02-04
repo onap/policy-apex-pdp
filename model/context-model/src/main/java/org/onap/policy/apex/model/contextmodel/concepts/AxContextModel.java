@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,11 +23,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -54,9 +49,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation runs {@link AxModel} validation on the model. In addition, the {@link AxContextSchemas} and
  * {@link AxContextAlbums} validation is run on the context schemas and albums in the model.
  */
-@Entity
-@Table(name = "AxContextModel")
-
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -69,19 +61,11 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxContextModel extends AxModel {
     private static final long serialVersionUID = 8800599637708309945L;
 
-    // @formatter:off
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schemasName", referencedColumnName = "name")
-    @JoinColumn(name = "schemasVersion", referencedColumnName = "version")
     @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "albumsName", referencedColumnName = "name")
-    @JoinColumn(name = "albumsVersion", referencedColumnName = "version")
     @XmlElement(name = "albums", required = true)
     private AxContextAlbums albums;
-    // @formatter:on
 
     /**
      * The Default Constructor creates a {@link AxContextModel} object with a null artifact key and creates an empty

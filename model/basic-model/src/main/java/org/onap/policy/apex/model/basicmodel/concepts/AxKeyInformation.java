@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,13 +30,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.UUID;
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -55,9 +48,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * the map is defined, that the key in each map entry matches the key if each entry value, and that no duplicate UUIDs
  * exist. Each key information entry is then validated individually.
  */
-@Entity
-@Table(name = "AxKeyInformation")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxKeyInformation", namespace = "http://www.onap.org/policy/apex-pdp",
         propOrder = { "key", "keyInfoMap" })
@@ -65,19 +55,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKeyInfo> {
     private static final long serialVersionUID = -2746380769017043888L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    // @formatter:off
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = { @JoinColumn(name = "keyInfoMapName", referencedColumnName = "name"),
-                @JoinColumn(name = "keyInfoMapVersion", referencedColumnName = "version"), },
-            inverseJoinColumns = { @JoinColumn(name = "keyInfoName", referencedColumnName = "name"),
-                @JoinColumn(name = "keyInfoVersion", referencedColumnName = "version") })
     private Map<AxArtifactKey, AxKeyInfo> keyInfoMap;
-    // @formatter:on
 
     /**
      * The Default Constructor creates this concept with a null key.

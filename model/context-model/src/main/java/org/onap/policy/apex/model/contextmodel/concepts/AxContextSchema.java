@@ -23,10 +23,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -61,9 +57,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * the regular expression SCHEMA_FLAVOUR_REGEXP. Finally, validation checks that the defined schema is not a blank or
  * empty string.
  */
-@Entity
-@Table(name = "AxContextSchema")
-
 @Getter
 @ToString
 
@@ -87,15 +80,12 @@ public class AxContextSchema extends AxConcept {
     /** The maximum permissible size of a schema definition. */
     public static final int MAX_SCHEMA_SIZE = 32672; // The maximum size supported by Apache Derby
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    @Column(name = SCHEMA_FLAVOUR)
     @XmlElement(required = true)
     private String schemaFlavour;
 
-    @Column(name = "schemaDefinition", length = MAX_SCHEMA_SIZE)
     @XmlElement(name = "schemaDefinition", required = true)
     @Getter(AccessLevel.NONE)
     private String schemaDefinition;

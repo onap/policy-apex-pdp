@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,6 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -59,28 +52,16 @@ import org.onap.policy.common.utils.validation.Assertions;
  * in the container. Each task entry is checked to ensure that its key and value are not null and
  * that the key matches the key in the map value. Each task entry is then validated individually.
  */
-@Entity
-@Table(name = "AxTasks")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxTasks", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "taskMap"})
 public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     private static final long serialVersionUID = 4290442590545820316L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    // @formatter:off
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = {@JoinColumn(name = "taskMapName", referencedColumnName = "name"),
-                @JoinColumn(name = "taskMapVersion", referencedColumnName = "version")},
-            inverseJoinColumns = {@JoinColumn(name = "taskName", referencedColumnName = "name"),
-                @JoinColumn(name = "taskVersion", referencedColumnName = "version")})
     @XmlElement(required = true)
     private Map<AxArtifactKey, AxTask> taskMap;
-    // @formatter:on
 
     /**
      * The Default Constructor creates a {@link AxTasks} object with a null artifact key and creates

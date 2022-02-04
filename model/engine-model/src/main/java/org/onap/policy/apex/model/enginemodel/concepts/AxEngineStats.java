@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,11 +26,6 @@ import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -51,9 +46,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * of events, the amount of time taken to execute the last policy, the average policy execution time, the up time of the
  * engine, and the time stamp of the last engine start are recorded.
  */
-
-@Entity
-@Table(name = "AxEngineStats")
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexEngineStats", namespace = "http://www.onap.org/policy/apex-pdp")
@@ -79,35 +71,27 @@ public class AxEngineStats extends AxConcept {
             .name("apex_engine_last_execution_time").labelNames(ENGINE_INSTANCE_ID)
             .help("Time taken to execute the last APEX policy in seconds.").register();
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxReferenceKey key;
 
-    @Column
     @XmlElement(required = true)
     private long timeStamp;
 
-    @Column
     @XmlElement(required = true)
     private long eventCount;
 
-    @Column
     @XmlElement(required = true)
     private long lastExecutionTime;
 
-    @Column
     @XmlElement(required = true)
     private double averageExecutionTime;
 
-    @Column
     @XmlElement(required = true)
     private long upTime;
 
-    @Transient
     @Getter
     private transient long lastEnterTime;
 
-    @Column
     @XmlElement(required = true)
     private long lastStart;
 

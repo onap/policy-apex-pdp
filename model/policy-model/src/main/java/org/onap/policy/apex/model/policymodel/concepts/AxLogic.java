@@ -22,12 +22,6 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -56,10 +50,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * the {@code LOGIC_FLAVOUR_REGEXP} regular expression, and that the specified logic string is not null or blank.
  */
 
-@Entity
-@Table(name = "AxLogic")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexLogic", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxLogic", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -84,16 +74,13 @@ public class AxLogic extends AxConcept {
     /** The maximum permissible size of a logic definition. */
     public static final int MAX_LOGIC_SIZE = 32672; // The maximum size supported by Apache Derby
 
-    @EmbeddedId()
     @XmlElement(name = "key", required = true)
     @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     private AxReferenceKey key;
 
-    @Column(name = LOGIC_FLAVOUR_TOKEN)
     @XmlElement(required = true)
     private String logicFlavour;
 
-    @Column(name = "logic", length = MAX_LOGIC_SIZE)
     @XmlElement(required = true)
     private String logic;
 

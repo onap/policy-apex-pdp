@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +21,6 @@
 
 package org.onap.policy.apex.model.eventmodel.concepts;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,10 +31,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 /**
  * This class specializes the {@link AxField} class for use as output fields on events.
  */
-@Entity
-@Table(name = "AxOutputField")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexOutputField", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxOutputField", namespace = "http://www.onap.org/policy/apex-pdp")

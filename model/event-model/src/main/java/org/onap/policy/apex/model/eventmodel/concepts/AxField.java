@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,14 +23,6 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import java.util.List;
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -58,10 +50,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * <p>Validation checks that the field key and the field schema reference key are not null.
  */
-@Entity
-@Table(name = "AxField")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexField", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxField", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -76,21 +64,13 @@ public class AxField extends AxConcept {
     private static final int HASH_PRIME_0 = 1231;
     private static final int HASH_PRIME_1 = 1237;
 
-    @EmbeddedId()
     @XmlElement(name = "key", required = true)
     @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     private AxReferenceKey key;
 
-    // @formatter:off
-    @Embedded
-    @AttributeOverride(name = "name", column = @Column(name = "fieldSchemaName"))
-    @AttributeOverride(name = "version", column = @Column(name = "fieldSchemaVersion"))
-    @Column(name = "fieldSchemaKey")
     @XmlElement(required = true)
     private AxArtifactKey fieldSchemaKey;
-    // @formatter:on
 
-    @Column(name = "optional")
     @XmlElement(required = false)
     private boolean optional;
 

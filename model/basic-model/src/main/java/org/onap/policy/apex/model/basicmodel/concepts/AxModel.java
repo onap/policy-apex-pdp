@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,14 +25,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -56,10 +48,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * ensure that an {@link AxArtifactKey} instance exists for every {@link AxKeyInfo} instance.
  */
 
-@Entity
-@Table(name = "AxModel")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
 @XmlRootElement(name = "apexModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -70,14 +58,10 @@ public class AxModel extends AxConcept {
 
     private static final long serialVersionUID = -771659065637205430L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
     // @formatter:off
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "keyInformationName", referencedColumnName = "name")
-    @JoinColumn(name = "keyInformationVersion", referencedColumnName = "version")
     @XmlElement(name = "keyInformation", required = true)
     @XmlJavaTypeAdapter(KeyInfoMarshalFilter.class)
     private AxKeyInformation keyInformation;

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -25,15 +25,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
 import java.util.Set;
-import javax.persistence.AttributeOverride;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -70,9 +61,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * </ol>
  */
 
-@Entity
-@Table(name = "AxStateOutput")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexStateOutput", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxStateOutput", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -82,34 +70,17 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxStateOutput extends AxConcept {
     private static final long serialVersionUID = 8041771382337655535L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     @NonNull
     private AxReferenceKey key;
 
-    // @formatter:off
-    @Embedded
-    @AttributeOverride(name = "name", column = @Column(name = "outgoingEventName"))
-    @AttributeOverride(name = "version", column = @Column(name = "outgoingEventVersion"))
-    @Column(name = "outgoingEvent")
     @XmlElement(required = true)
     @NonNull
     private AxArtifactKey outgoingEvent;
 
-    @ElementCollection
-    @CollectionTable(joinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-        @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-        @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-        @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "outgoingEventReference", required = false)
     private Set<AxArtifactKey> outgoingEventSet;
 
-    @Embedded
-    @AttributeOverride(name = "parentKeyName", column = @Column(name = "nextStateParentKeyName"))
-    @AttributeOverride(name = "parentKeyVersion", column = @Column(name = "nextStateParentKeyVersion"))
-    @AttributeOverride(name = "parentLocalName", column = @Column(name = "nextStateParentLocalName"))
-    @AttributeOverride(name = "localName", column = @Column(name = "nextStateLocalName"))
-    @Column(name = "nextState")
     @XmlElement(required = true)
     @NonNull
     private AxReferenceKey nextState;

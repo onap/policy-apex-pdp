@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,6 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,9 +43,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * default value.
  */
 
-@Entity
-@Table(name = "AxTaskParameter")
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexTaskParameter", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxTaskParameter", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -58,11 +51,9 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxTaskParameter extends AxConcept {
     private static final long serialVersionUID = 7351688156934099977L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxReferenceKey key;
 
-    @Column(name = "defaultValue")
     @XmlElement
     private String defaultValue;
 

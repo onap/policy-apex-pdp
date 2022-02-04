@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,20 +23,13 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
-@Entity
-@Table(name = "TestEntity")
-
 public class DummyEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067894L;
 
-    @EmbeddedId()
     @XmlElement(name = "key", required = true)
     @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     protected AxReferenceKey key;

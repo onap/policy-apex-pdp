@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,7 +48,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * VERSION_REGEXP regular expressions respectively and that the local name fields match the
  * LOCAL_NAME_REGEXP regular expression.
  */
-@Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "apexReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "parentKeyName",
@@ -76,19 +73,15 @@ public class AxReferenceKey extends AxKey {
     private static final int PARENT_LOCAL_NAME_FIELD = 2;
     private static final int LOCAL_NAME_FIELD = 3;
 
-    @Column(name = PARENT_KEY_NAME)
     @XmlElement(required = true)
     private String parentKeyName;
 
-    @Column(name = PARENT_KEY_VERSION)
     @XmlElement(required = true)
     private String parentKeyVersion;
 
-    @Column(name = PARENT_LOCAL_NAME)
     @XmlElement(required = true)
     private String parentLocalName;
 
-    @Column(name = LOCAL_NAME)
     @XmlElement(required = true)
     private String localName;
 

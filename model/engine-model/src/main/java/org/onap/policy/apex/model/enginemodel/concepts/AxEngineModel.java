@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,11 +24,6 @@ package org.onap.policy.apex.model.enginemodel.concepts;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -58,8 +53,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation checks that the current state {@link AxEngineState} is defined and that the time stamp
  * is set on the engine model.
  */
-@Entity
-@Table(name = "AxEngineModel")
 @XmlRootElement(name = "apexEngineModel", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxEngineModel", namespace = "http://www.onap.org/policy/apex-pdp",
@@ -69,21 +62,11 @@ public class AxEngineModel extends AxContextModel {
     private static final long serialVersionUID = 6381235864606564046L;
     private static final int HASH_CODE_PRIME = 32;
 
-    @Column(name = "timestamp")
     private long timestamp;
 
-    @Enumerated
-    @Column(name = "state")
     @XmlElement(required = true)
     private AxEngineState state;
 
-    @JoinColumn(name = "statsParentKeyName", referencedColumnName = "parentKeyName", updatable = false,
-                    insertable = false)
-    @JoinColumn(name = "statsParentKeyVersion", referencedColumnName = "parentKeyVersion", updatable = false,
-                    insertable = false)
-    @JoinColumn(name = "statsParentLocalName ", referencedColumnName = "parentLocalName", updatable = false,
-                    insertable = false)
-    @JoinColumn(name = "statsLocalName", referencedColumnName = "localName", updatable = false, insertable = false)
     private AxEngineStats stats;
 
     /**

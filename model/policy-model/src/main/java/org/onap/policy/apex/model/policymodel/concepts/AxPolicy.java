@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,14 +27,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -79,8 +71,6 @@ import org.slf4j.ext.XLoggerFactory;
  * </ol>
  */
 
-@Entity
-@Table(name = "AxPolicy")
 @XmlRootElement(name = "apexPolicy", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AxPolicy", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
@@ -92,23 +82,15 @@ public class AxPolicy extends AxConcept {
     // Logger for this class
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AxPolicy.class);
 
-    @EmbeddedId
     @XmlElement(name = "policyKey", required = true)
     private AxArtifactKey key;
 
-    @Column(name = "template")
     @XmlElement(required = true)
     private String template;
 
-    // @formatter:off
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = {@JoinColumn(name = "parentKeyName", referencedColumnName = "name"),
-        @JoinColumn(name = "parentKeyVersion", referencedColumnName = "version")})
     @XmlElement(name = "state", required = true)
     private Map<String, AxState> stateMap;
-    // @formatter:on
 
-    @Column(name = "firstState")
     @XmlElement(required = true)
     private String firstState;
 

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,13 +28,6 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -65,9 +58,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * map key matches the key in the map value for all album entries. Each context album entry is then validated
  * individually.
  */
-@Entity
-@Table(name = "AxContextAlbums")
-
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -79,18 +69,12 @@ import org.onap.policy.common.utils.validation.Assertions;
 public final class AxContextAlbums extends AxConcept implements AxConceptGetter<AxContextAlbum> {
     private static final long serialVersionUID = -4844259809024470975L;
 
-    @EmbeddedId
     @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    // @formatter:off
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = {@JoinColumn(name = "contextName", referencedColumnName = "name"),
-        @JoinColumn(name = "contextVersion", referencedColumnName = "version")})
     @XmlElement(name = "albums", required = true)
     @Getter(AccessLevel.NONE)
     private Map<AxArtifactKey, AxContextAlbum> albums;
-    // @formatter:on
 
     /**
      * The Default Constructor creates a {@link AxContextAlbums} object with a null artifact key and creates an empty
