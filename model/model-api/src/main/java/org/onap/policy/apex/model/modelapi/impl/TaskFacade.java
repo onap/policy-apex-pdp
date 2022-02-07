@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,23 +59,17 @@ public class TaskFacade {
     // Facade classes for working towards the real Apex model
     private final KeyInformationFacade keyInformationFacade;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * Constructor that creates a task facade for the Apex Model API.
      *
      * @param apexModel the apex model
      * @param apexProperties Properties for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise
-     *        set to false
      */
-    public TaskFacade(final ApexModel apexModel, final Properties apexProperties, final boolean jsonMode) {
+    public TaskFacade(final ApexModel apexModel, final Properties apexProperties) {
         this.apexModel = apexModel;
         this.apexProperties = apexProperties;
-        this.jsonMode = jsonMode;
 
-        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties, jsonMode);
+        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties);
     }
 
     /**
@@ -88,7 +82,7 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult createTask(final String name, final String version, final String uuid,
-            final String description) {
+        final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -124,12 +118,12 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult updateTask(final String name, final String version, final String uuid,
-            final String description) {
+        final String description) {
         try {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
@@ -150,12 +144,12 @@ public class TaskFacade {
             final Set<AxTask> taskSet = apexModel.getPolicyModel().getTasks().getAll(name, version);
             if (name != null && taskSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxTask task : taskSet) {
-                result.addMessage(new ApexModelStringWriter<AxTask>(false).writeString(task, AxTask.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxTask>(false).writeString(task, AxTask.class));
             }
             return result;
         } catch (final Exception e) {
@@ -177,22 +171,22 @@ public class TaskFacade {
                 final AxTask removedTask = apexModel.getPolicyModel().getTasks().getTaskMap().remove(key);
                 if (removedTask != null) {
                     return new ApexApiResult(ApexApiResult.Result.SUCCESS,
-                            new ApexModelStringWriter<AxTask>(false).writeString(removedTask, AxTask.class, jsonMode));
+                        new ApexModelStringWriter<AxTask>(false).writeString(removedTask, AxTask.class));
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getId() + DOES_NOT_EXIST);
+                        CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxTask> taskSet = apexModel.getPolicyModel().getTasks().getAll(name, version);
             if (taskSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxTask task : taskSet) {
-                result.addMessage(new ApexModelStringWriter<AxTask>(false).writeString(task, AxTask.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxTask>(false).writeString(task, AxTask.class));
                 apexModel.getPolicyModel().getTasks().getTaskMap().remove(task.getKey());
                 keyInformationFacade.deleteKeyInformation(name, version);
             }
@@ -214,14 +208,14 @@ public class TaskFacade {
             final Set<AxTask> taskSet = apexModel.getPolicyModel().getTasks().getAll(name, version);
             if (taskSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxTask task : taskSet) {
                 final AxValidationResult validationResult = task.validate(new AxValidationResult());
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(task.getKey(),
-                        AxArtifactKey.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxArtifactKey>(false).writeString(task.getKey(), AxArtifactKey.class));
                 result.addMessage(validationResult.toString());
             }
             return result;
@@ -241,12 +235,12 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult createTaskLogic(final String name, final String version, final String logicFlavour,
-            final String logic) {
+        final String logic) {
         try {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             // There is only one logic item associated with a task so we use a hard coded logic name
@@ -254,7 +248,7 @@ public class TaskFacade {
 
             if (!task.getTaskLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
+                    CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             task.setTaskLogic(new AxTaskLogic(refKey, logicFlavour, logic));
@@ -274,17 +268,17 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult updateTaskLogic(final String name, final String version, final String logicFlavour,
-            final String logic) {
+        final String logic) {
         try {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (task.getTaskLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + task.getTaskLogic().getKey().getId() + DOES_NOT_EXIST);
+                    CONCEPT + task.getTaskLogic().getKey().getId() + DOES_NOT_EXIST);
             }
 
             final AxTaskLogic taskLogic = task.getTaskLogic();
@@ -313,11 +307,11 @@ public class TaskFacade {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
-            return new ApexApiResult(ApexApiResult.Result.SUCCESS, new ApexModelStringWriter<AxTaskLogic>(false)
-                    .writeString(task.getTaskLogic(), AxTaskLogic.class, jsonMode));
+            return new ApexApiResult(ApexApiResult.Result.SUCCESS,
+                new ApexModelStringWriter<AxTaskLogic>(false).writeString(task.getTaskLogic(), AxTaskLogic.class));
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
@@ -335,17 +329,17 @@ public class TaskFacade {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (task.getTaskLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + task.getTaskLogic().getKey().getId() + DOES_NOT_EXIST);
+                    CONCEPT + task.getTaskLogic().getKey().getId() + DOES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
-            result.addMessage(new ApexModelStringWriter<AxTaskLogic>(false).writeString(task.getTaskLogic(),
-                    AxTaskLogic.class, jsonMode));
+            result.addMessage(
+                new ApexModelStringWriter<AxTaskLogic>(false).writeString(task.getTaskLogic(), AxTaskLogic.class));
             task.setTaskLogic(new AxTaskLogic());
             return result;
         } catch (final Exception e) {
@@ -363,21 +357,21 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult createTaskParameter(final String name, final String version, final String parName,
-            final String defaultValue) {
+        final String defaultValue) {
         try {
             Assertions.argumentNotNull(parName, "parName may not be null");
 
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final AxReferenceKey refKey = new AxReferenceKey(task.getKey(), parName);
 
             if (task.getTaskParameters().containsKey(refKey.getLocalName())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
+                    CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             task.getTaskParameters().put(refKey.getLocalName(), new AxTaskParameter(refKey, defaultValue));
@@ -400,29 +394,29 @@ public class TaskFacade {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (parName != null) {
                 final AxTaskParameter taskParameter = task.getTaskParameters().get(parName);
                 if (taskParameter != null) {
                     return new ApexApiResult(ApexApiResult.Result.SUCCESS,
-                            new ApexModelStringWriter<AxTaskParameter>(false).writeString(taskParameter,
-                                    AxTaskParameter.class, jsonMode));
+                        new ApexModelStringWriter<AxTaskParameter>(false).writeString(taskParameter,
+                            AxTaskParameter.class));
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + name + ':' + version + ':' + taskParameter + DOES_NOT_EXIST);
+                        CONCEPT + name + ':' + version + ':' + taskParameter + DOES_NOT_EXIST);
                 }
             } else {
                 if (task.getTaskParameters().size() == 0) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            "no task parameters defined on task " + task.getKey().getId());
+                        "no task parameters defined on task " + task.getKey().getId());
                 }
 
                 final ApexApiResult result = new ApexApiResult();
                 for (final AxTaskParameter parameter : task.getTaskParameters().values()) {
                     result.addMessage(new ApexModelStringWriter<AxTaskParameter>(false).writeString(parameter,
-                            AxTaskParameter.class, jsonMode));
+                        AxTaskParameter.class));
                 }
                 return result;
             }
@@ -444,29 +438,29 @@ public class TaskFacade {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             if (parName != null) {
                 if (task.getTaskParameters().containsKey(parName)) {
                     result.addMessage(new ApexModelStringWriter<AxTaskParameter>(false)
-                            .writeString(task.getTaskParameters().get(parName), AxTaskParameter.class, jsonMode));
+                        .writeString(task.getTaskParameters().get(parName), AxTaskParameter.class));
                     task.getTaskParameters().remove(parName);
                     return result;
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
+                        CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
                 }
             } else {
                 if (task.getTaskParameters().size() == 0) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            "no task parameters defined on task " + task.getKey().getId());
+                        "no task parameters defined on task " + task.getKey().getId());
                 }
 
                 for (final AxTaskParameter parameter : task.getTaskParameters().values()) {
                     result.addMessage(new ApexModelStringWriter<AxTaskParameter>(false).writeString(parameter,
-                            AxTaskParameter.class, jsonMode));
+                        AxTaskParameter.class));
                 }
                 task.getTaskParameters().clear();
                 return result;
@@ -487,24 +481,24 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult createTaskContextRef(final String name, final String version, final String contextAlbumName,
-            final String contextAlbumVersion) {
+        final String contextAlbumVersion) {
         try {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final AxContextAlbum contextAlbum =
-                    apexModel.getPolicyModel().getAlbums().get(contextAlbumName, contextAlbumVersion);
+                apexModel.getPolicyModel().getAlbums().get(contextAlbumName, contextAlbumVersion);
             if (contextAlbum == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + contextAlbumName + ':' + contextAlbumVersion + DOES_NOT_EXIST);
+                    CONCEPT + contextAlbumName + ':' + contextAlbumVersion + DOES_NOT_EXIST);
             }
 
             if (task.getContextAlbumReferences().contains(contextAlbum.getKey())) {
-                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS, "context album reference for concept "
-                        + contextAlbum.getKey().getId() + " already exists in task");
+                return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
+                    "context album reference for concept " + contextAlbum.getKey().getId() + " already exists in task");
             }
 
             task.getContextAlbumReferences().add(contextAlbum.getKey());
@@ -526,28 +520,28 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult listTaskContextRef(final String name, final String version, final String contextAlbumName,
-            final String contextAlbumVersion) {
+        final String contextAlbumVersion) {
         try {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             boolean found = false;
             for (final AxArtifactKey albumKey : task.getContextAlbumReferences()) {
                 if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
-                        || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
+                    || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
                     continue;
                 }
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey,
-                        AxArtifactKey.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxArtifactKey>(false).writeString(albumKey, AxArtifactKey.class));
                 found = true;
             }
             if (!found) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + contextAlbumName + ':' + contextAlbumVersion + DOES_NOT_EXIST);
+                    CONCEPT + contextAlbumName + ':' + contextAlbumVersion + DOES_NOT_EXIST);
             }
             return result;
         } catch (final Exception e) {
@@ -567,19 +561,19 @@ public class TaskFacade {
      * @return result of the operation
      */
     public ApexApiResult deleteTaskContextRef(final String name, final String version, final String contextAlbumName,
-            final String contextAlbumVersion) {
+        final String contextAlbumVersion) {
         try {
             final AxTask task = apexModel.getPolicyModel().getTasks().get(name, version);
             if (task == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final Set<AxArtifactKey> deleteSet = new TreeSet<>();
 
             for (final AxArtifactKey albumKey : task.getContextAlbumReferences()) {
                 if ((contextAlbumName != null && !albumKey.getName().equals(contextAlbumName))
-                        || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
+                    || (contextAlbumVersion != null && !albumKey.getVersion().equals(contextAlbumVersion))) {
                     continue;
                 }
                 deleteSet.add(albumKey);
@@ -587,13 +581,13 @@ public class TaskFacade {
 
             if (deleteSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + contextAlbumName + ':' + contextAlbumVersion + DOES_NOT_EXIST);
+                    CONCEPT + contextAlbumName + ':' + contextAlbumVersion + DOES_NOT_EXIST);
             }
             final ApexApiResult result = new ApexApiResult();
             for (final AxArtifactKey keyToDelete : deleteSet) {
                 task.getContextAlbumReferences().remove(keyToDelete);
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(keyToDelete,
-                        AxArtifactKey.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxArtifactKey>(false).writeString(keyToDelete, AxArtifactKey.class));
             }
             return result;
         } catch (final Exception e) {

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,12 +29,13 @@ import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
 
 /**
  * Test tasks for API tests.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEditorApiTaskTest {
     @Test
     public void testTaskCrud() {
-        final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
+        final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.validateTask(null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
@@ -46,13 +47,13 @@ public class ApexEditorApiTaskTest {
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createTask("@^^$^^$", "0.0.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createTask("MyTask002", "0.0.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createTask("MyTask002", "0.0.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createTask("MyTask012", null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
@@ -60,16 +61,16 @@ public class ApexEditorApiTaskTest {
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.listTask(null, null);
         result = apexModel.createTask("MyTask002", "0.0.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createTask("MyTask012", "0.1.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.deleteTask("MyTask002", "0.0.2");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createTask("MyTask002", "0.0.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.validateTask(null, null);
@@ -82,7 +83,7 @@ public class ApexEditorApiTaskTest {
         result = apexModel.updateTask("MyTask002", "0.0.1", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updateTask("MyTask002", "0.0.2", "1fa2e430-f2b2-11e6-bc64-92361f002700",
-                "A description of 002");
+            "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updateTask("MyTask012", null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());

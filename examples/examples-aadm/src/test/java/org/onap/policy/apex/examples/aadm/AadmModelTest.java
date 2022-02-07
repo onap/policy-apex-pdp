@@ -51,11 +51,6 @@ public class AadmModelTest {
     }
 
     @Test
-    public void testModelWriteReadXml() throws Exception {
-        testApexModel.testApexModelWriteReadXml();
-    }
-
-    @Test
     public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }

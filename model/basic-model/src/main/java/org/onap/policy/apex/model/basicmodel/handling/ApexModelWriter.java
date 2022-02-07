@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,129 +21,67 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Set;
-import java.util.TreeSet;
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.eclipse.persistence.jaxb.JAXBContextFactory;
-import org.eclipse.persistence.jaxb.MarshallerProperties;
-import org.eclipse.persistence.oxm.MediaType;
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class writes an Apex concept to an XML file or JSON file from a Java Apex Concept.
+ * This class writes an Apex concept to a file from a Java Apex Concept.
  *
  * @param <C> the type of Apex concept to write, must be a sub class of {@link AxConcept}
  * @author John Keeney (john.keeney@ericsson.com)
  */
+@Getter
+@Setter
 public class ApexModelWriter<C extends AxConcept> {
 
     private static final String CONCEPT_MAY_NOT_BE_NULL = "concept may not be null";
     private static final String CONCEPT_WRITER_MAY_NOT_BE_NULL = "concept writer may not be null";
     private static final String CONCEPT_STREAM_MAY_NOT_BE_NULL = "concept stream may not be null";
 
+    // Use GSON to serialize JSON
+    private static Gson gson = new GsonBuilder()
+        .registerTypeAdapter(AxReferenceKey.class, new ApexModelCustomGsonRefereceKeyAdapter())
+        .registerTypeAdapter(Map.class, new ApexModelCustomGsonMapAdapter())
+        .setPrettyPrinting()
+        .create();
+
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelWriter.class);
 
-    // Writing as JSON or XML
-    private boolean jsonOutput = false;
-
-    // The list of fields to output as CDATA
-    private final Set<String> cdataFieldSet = new TreeSet<>();
-
-    // The Marshaller for the Apex concepts
-    private Marshaller marshaller = null;
+    //  The root class of the concept we are reading
+    private final Class<C> rootConceptClass;
 
     // All written concepts are validated before writing if this flag is set
-    private boolean validateFlag = true;
+    private boolean validate = true;
 
     /**
-     * Constructor, initiates the writer.
+     * Constructor, initiates the writer with validation on.
      *
      * @param rootConceptClass the root concept class for concept reading
-     * @throws ApexModelException the apex concept writer exception
+     * @throws ApexModelException the apex concept reader exception
      */
     public ApexModelWriter(final Class<C> rootConceptClass) throws ApexModelException {
-        // Set up Eclipselink for XML and JSON output
-        System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
-
-        try {
-            final var jaxbContext = JAXBContextFactory.createContext(new Class[]{rootConceptClass}, null);
-
-            // Set up the unmarshaller to carry out validation
-            marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
-        } catch (final JAXBException e) {
-            throw new ApexModelException("JAXB marshaller creation exception", e);
-        }
-    }
-
-    /**
-     * The set of fields to be output as CDATA.
-     *
-     * @return the set of fields
-     */
-    public Set<String> getCDataFieldSet() {
-        return cdataFieldSet;
-    }
-
-    /**
-     * Return true if JSON output enabled, XML output if false.
-     *
-     * @return true for JSON output
-     */
-    public boolean isJsonOutput() {
-        return jsonOutput;
-    }
-
-    /**
-     * Set the value of JSON output, true for JSON output, false for XML output.
-     *
-     * @param jsonOutput true for JSON output
-     * @throws ApexModelException on errors setting output type
-     */
-    public void setJsonOutput(final boolean jsonOutput) throws ApexModelException {
-        this.jsonOutput = jsonOutput;
-
-        // Set up output specific parameters
-        if (this.jsonOutput) {
-            try {
-                marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
-                marshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-            } catch (final Exception e) {
-                throw new ApexModelException("JAXB error setting marshaller for JSON output", e);
-            }
-        } else {
-            try {
-                marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_XML);
-            } catch (final Exception e) {
-                throw new ApexModelException("JAXB error setting marshaller for XML output", e);
-            }
-        }
+        // Save the root concept class
+        this.rootConceptClass = rootConceptClass;
     }
 
     /**
      * This method validates the Apex concept then writes it into a stream.
      *
-     * @param concept           the concept to write
+     * @param concept the concept to write
      * @param apexConceptStream the stream to write to
      * @throws ApexModelException on validation or writing exceptions
      */
@@ -157,7 +95,7 @@ public class ApexModelWriter<C extends AxConcept> {
     /**
      * This method validates the Apex concept then writes it into a writer.
      *
-     * @param concept           the concept to write
+     * @param concept the concept to write
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
@@ -166,84 +104,23 @@ public class ApexModelWriter<C extends AxConcept> {
         Assertions.argumentNotNull(apexConceptWriter, CONCEPT_WRITER_MAY_NOT_BE_NULL);
 
         // Check if we should validate the concept
-        if (validateFlag) {
+        if (validate) {
             // Validate the concept first
             final AxValidationResult validationResult = concept.validate(new AxValidationResult());
             if (!validationResult.isValid()) {
                 String message =
-                    "Apex concept xml (" + concept.getKey().getId() + ") validation failed: " + validationResult
-                        .toString();
+                    "Apex concept (" + concept.getKey().getId() + ") validation failed: " + validationResult.toString();
                 throw new ApexModelException(message);
             }
         }
 
-        if (jsonOutput) {
-            writeJson(concept, apexConceptWriter);
-        } else {
-            writeXml(concept, apexConceptWriter);
-        }
-    }
-
-    /**
-     * This method writes the Apex concept into a writer in XML format.
-     *
-     * @param concept           the concept to write
-     * @param apexConceptWriter the writer to write to
-     * @throws ApexModelException on validation or writing exceptions
-     */
-    private void writeXml(final C concept, final Writer apexConceptWriter) throws ApexModelException {
-        Assertions.argumentNotNull(concept, CONCEPT_MAY_NOT_BE_NULL);
-
-        LOGGER.debug("writing Apex concept XML . . .");
-
-        try {
-            // Write the concept into a DOM document, then transform to add CDATA fields and pretty
-            // print, then write out the result
-            final var docBuilderFactory = DocumentBuilderFactory.newInstance();
-            docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-
-            docBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            final var document = docBuilderFactory.newDocumentBuilder().newDocument();
-
-            // Marshal the concept into the empty document.
-            marshaller.marshal(concept, document);
-
-            final var domTransformer = getTransformer();
-
-            // Convert the cDataFieldSet into a space delimited string
-            domTransformer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS,
-                cdataFieldSet.toString().replaceAll("[\\[\\]\\,]", " "));
-            domTransformer.transform(new DOMSource(document), new StreamResult(apexConceptWriter));
-        } catch (JAXBException | TransformerException | ParserConfigurationException e) {
-            throw new ApexModelException("Unable to marshal Apex concept to XML", e);
-        }
-        LOGGER.debug("wrote Apex concept XML");
-    }
-
-    private Transformer getTransformer() throws TransformerConfigurationException {
-        // Transform the DOM to the output stream
-        final var transformerFactory = TransformerFactory.newInstance();
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
-
-        final var domTransformer = transformerFactory.newTransformer();
-
-        // Pretty print
-        try {
-            domTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            // May fail if not using XALAN XSLT engine. But not in any way vital
-            domTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-        } catch (final Exception ignore) {
-            LOGGER.trace("Unable to set indent property", ignore);
-        }
-        return domTransformer;
+        writeJson(concept, apexConceptWriter);
     }
 
     /**
      * This method writes the Apex concept into a writer in JSON format.
      *
-     * @param concept           the concept to write
+     * @param concept the concept to write
      * @param apexConceptWriter the writer to write to
      * @throws ApexModelException on validation or writing exceptions
      */
@@ -252,29 +129,20 @@ public class ApexModelWriter<C extends AxConcept> {
 
         LOGGER.debug("writing Apex concept JSON . . .");
 
+        String modelJsonString = null;
         try {
-            marshaller.marshal(concept, apexConceptWriter);
-        } catch (final JAXBException e) {
-            throw new ApexModelException("Unable to marshal Apex concept to JSON", e);
+            modelJsonString = gson.toJson(concept, rootConceptClass);
+        } catch (Exception je) {
+            throw new ApexModelException("Unable to marshal Apex concept to JSON", je);
         }
+
+        try {
+            apexConceptWriter.write(modelJsonString);
+            apexConceptWriter.close();
+        } catch (IOException ioe) {
+            throw new ApexModelException("Unable to write Apex concept as JSON", ioe);
+        }
+
         LOGGER.debug("wrote Apex concept JSON");
-    }
-
-    /**
-     * Gets the validation flag value.
-     *
-     * @return the validation flag value
-     */
-    public boolean getValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validation flag.
-     *
-     * @param validateFlag the validation flag value
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
     }
 }

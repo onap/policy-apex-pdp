@@ -28,11 +28,6 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -60,18 +55,11 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = false)
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxContextSchemas", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "schemas" })
-
 public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxContextSchema> {
     private static final long serialVersionUID = -3203734282886453582L;
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    @XmlElement(name = "schemas", required = true)
     @Getter(AccessLevel.NONE)
     private Map<AxArtifactKey, AxContextSchema> schemas;
 
@@ -105,7 +93,7 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
     /**
      * This Constructor creates a {@link AxContextSchemas} object with all its fields defined.
      *
-     * @param key the key of the context schema container
+     * @param key     the key of the context schema container
      * @param schemas a map of the schemas to insert in the context schema container
      */
     public AxContextSchemas(final AxArtifactKey key, final Map<AxArtifactKey, AxContextSchema> schemas) {
@@ -119,22 +107,6 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the context schema map is returned as a raw hash
-     * map. This method is called by JAXB after unmarshaling and is used to convert the hash map to a
-     * {@link NavigableMap} so that it will work with the {@link AxConceptGetter} interface.
-     *
-     * @param unmarshaller the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
-     */
-    public void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
-        // The map must be navigable to allow name and version searching, unmarshaling returns a
-        // hash map
-        final NavigableMap<AxArtifactKey, AxContextSchema> navigableContextSchemas = new TreeMap<>();
-        navigableContextSchemas.putAll(schemas);
-        schemas = navigableContextSchemas;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -143,6 +115,14 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         keyList.addAll(schemas.keySet());
 
         return keyList;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void buildReferences() {
+        schemas.values().stream().forEach(schema -> schema.buildReferences());
     }
 
     /**
@@ -185,30 +165,30 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
 
         if (key.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key is a null key"));
+                "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (schemas.size() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "contextSchemas may not be empty"));
+                "contextSchemas may not be empty"));
         } else {
             for (final Entry<AxArtifactKey, AxContextSchema> contextSchemaEntry : schemas.entrySet()) {
                 if (contextSchemaEntry.getKey().equals(AxArtifactKey.getNullKey())) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                                    "key on schemas entry " + contextSchemaEntry.getKey()
-                                                    + " may not be the null key"));
+                        "key on schemas entry " + contextSchemaEntry.getKey()
+                            + " may not be the null key"));
                 } else if (contextSchemaEntry.getValue() == null) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                                    "value on schemas entry " + contextSchemaEntry.getKey() + " may not be null"));
+                        "value on schemas entry " + contextSchemaEntry.getKey() + " may not be null"));
                 } else {
                     if (!contextSchemaEntry.getKey().equals(contextSchemaEntry.getValue().getKey())) {
                         result.addValidationMessage(
-                                        new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                                                        "key on schemas entry " + contextSchemaEntry.getKey()
-                                                                        + " does not equal entry key "
-                                                                        + contextSchemaEntry.getValue().getKey()));
+                            new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
+                                "key on schemas entry " + contextSchemaEntry.getKey()
+                                    + " does not equal entry key "
+                                    + contextSchemaEntry.getValue().getKey()));
                     }
 
                     result = contextSchemaEntry.getValue().validate(result);
@@ -247,7 +227,7 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
         final Map<AxArtifactKey, AxContextSchema> newcontextSchemas = new TreeMap<>();
         for (final Entry<AxArtifactKey, AxContextSchema> contextSchemasEntry : schemas.entrySet()) {
             newcontextSchemas.put(new AxArtifactKey(contextSchemasEntry.getKey()),
-                            new AxContextSchema(contextSchemasEntry.getValue()));
+                new AxContextSchema(contextSchemasEntry.getValue()));
         }
         copy.setSchemasMap(newcontextSchemas);
 
@@ -302,7 +282,7 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
     @Override
     public AxContextSchema get(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextSchema>) schemas).get(conceptKeyName,
-                        conceptKeyVersion);
+            conceptKeyVersion);
     }
 
     /**
@@ -319,6 +299,6 @@ public class AxContextSchemas extends AxConcept implements AxConceptGetter<AxCon
     @Override
     public Set<AxContextSchema> getAll(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxContextSchema>) schemas).getAll(conceptKeyName,
-                        conceptKeyVersion);
+            conceptKeyVersion);
     }
 }

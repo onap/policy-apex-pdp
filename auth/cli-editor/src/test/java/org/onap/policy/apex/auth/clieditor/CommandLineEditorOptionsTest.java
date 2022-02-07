@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,7 @@ public class CommandLineEditorOptionsTest {
         final int modelCharCount = modelString.replaceAll("\\s+", "").length();
 
         assertEquals(1204, logCharCount);
-        assertEquals(2561, modelCharCount);
+        assertEquals(2904, modelCharCount);
 
         tempLogFile.delete();
         tempModelFile.delete();
@@ -126,7 +126,6 @@ public class CommandLineEditorOptionsTest {
         final String logString = TextFileUtils.getTextFileAsString(tempLogFile.getCanonicalPath());
         final String modelString = TextFileUtils.getTextFileAsString(tempModelFile.getCanonicalPath());
 
-        System.err.println(modelString);
         // As a sanity check, count the number of non white space characters in log and model files
         final int logCharCount = logString.replaceAll("\\s+", "").length();
         final int modelCharCount = modelString.replaceAll("\\s+", "").length();
@@ -164,7 +163,7 @@ public class CommandLineEditorOptionsTest {
         final int modelCharCount = modelString.replaceAll("\\s+", "").length();
 
         assertEquals(0, logCharCount);
-        assertEquals(2561, modelCharCount);
+        assertEquals(2904, modelCharCount);
 
         tempLogFile.delete();
         tempModelFile.delete();
@@ -249,7 +248,7 @@ public class CommandLineEditorOptionsTest {
         final int tempModelFileInCharCount = tempModelFileInString.replaceAll("\\s+", "").length();
 
         assertEquals(1204, tempLogFileInCharCount);
-        assertEquals(2561, tempModelFileInCharCount);
+        assertEquals(2904, tempModelFileInCharCount);
 
         final String[] cliArgsOut = new String[] {"-i", tempModelFileIn.getAbsolutePath(), "-c",
             "src/main/resources/examples/scripts/ShellPolicyModelAddSchema.apex", "-l",
@@ -267,7 +266,7 @@ public class CommandLineEditorOptionsTest {
         final int tempModelFileOutCharCount = tempModelFileOutString.replaceAll("\\s+", "").length();
 
         assertEquals(1154, tempLogFileOutCharCount);
-        assertEquals(2993, tempModelFileOutCharCount);
+        assertEquals(3336, tempModelFileOutCharCount);
 
         tempLogFileIn.delete();
         tempModelFileIn.delete();

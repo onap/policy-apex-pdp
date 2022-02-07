@@ -23,11 +23,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -48,11 +43,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * VERSION_REGEXP regular expressions respectively and that the local name fields match the
  * LOCAL_NAME_REGEXP regular expression.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxReferenceKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "parentKeyName",
-    "parentKeyVersion", "parentLocalName", "localName" })
-
 public class AxReferenceKey extends AxKey {
     private static final String PARENT_KEY_NAME = "parentKeyName";
     private static final String PARENT_KEY_VERSION = "parentKeyVersion";
@@ -61,28 +51,25 @@ public class AxReferenceKey extends AxKey {
 
     private static final long serialVersionUID = 8932717618579392561L;
 
-    /** Regular expression to specify the structure of local names in reference keys. */
+    /**
+     * Regular expression to specify the structure of local names in reference keys.
+     */
     public static final String LOCAL_NAME_REGEXP = "[A-Za-z0-9\\-_\\.]+|^$";
 
-    /** Regular expression to specify the structure of IDs in reference keys. */
+    /**
+     * Regular expression to specify the structure of IDs in reference keys.
+     */
     public static final String REFERENCE_KEY_ID_REGEXP =
-                    "[A-Za-z0-9\\-_]+:[0-9].[0-9].[0-9]:[A-Za-z0-9\\-_]+:[A-Za-z0-9\\-_]+";
+        "[A-Za-z0-9\\-_]+:[0-9].[0-9].[0-9]:[A-Za-z0-9\\-_]+:[A-Za-z0-9\\-_]+";
 
     private static final int PARENT_NAME_FIELD = 0;
     private static final int PARENT_VERSION_FIELD = 1;
     private static final int PARENT_LOCAL_NAME_FIELD = 2;
     private static final int LOCAL_NAME_FIELD = 3;
 
-    @XmlElement(required = true)
     private String parentKeyName;
-
-    @XmlElement(required = true)
     private String parentKeyVersion;
-
-    @XmlElement(required = true)
     private String parentLocalName;
-
-    @XmlElement(required = true)
     private String localName;
 
     /**
@@ -95,19 +82,17 @@ public class AxReferenceKey extends AxKey {
     /**
      * The Copy Constructor creates a key by copying another key.
      *
-     * @param referenceKey
-     *        the reference key to copy from
+     * @param referenceKey the reference key to copy from
      */
     public AxReferenceKey(final AxReferenceKey referenceKey) {
         this(referenceKey.getParentKeyName(), referenceKey.getParentKeyVersion(), referenceKey.getParentLocalName(),
-                        referenceKey.getLocalName());
+            referenceKey.getLocalName());
     }
 
     /**
      * Constructor to create a null reference key for the specified parent artifact key.
      *
-     * @param axArtifactKey
-     *        the parent artifact key of this reference key
+     * @param axArtifactKey the parent artifact key of this reference key
      */
     public AxReferenceKey(final AxArtifactKey axArtifactKey) {
         this(axArtifactKey.getName(), axArtifactKey.getVersion(), NULL_KEY_NAME, NULL_KEY_NAME);
@@ -116,10 +101,8 @@ public class AxReferenceKey extends AxKey {
     /**
      * Constructor to create a reference key for the given parent artifact key with the given local name.
      *
-     * @param axArtifactKey
-     *        the parent artifact key of this reference key
-     * @param localName
-     *        the local name of this reference key
+     * @param axArtifactKey the parent artifact key of this reference key
+     * @param localName     the local name of this reference key
      */
     public AxReferenceKey(final AxArtifactKey axArtifactKey, final String localName) {
         this(axArtifactKey, NULL_KEY_NAME, localName);
@@ -128,10 +111,8 @@ public class AxReferenceKey extends AxKey {
     /**
      * Constructor to create a reference key for the given parent reference key with the given local name.
      *
-     * @param parentReferenceKey
-     *        the parent reference key of this reference key
-     * @param localName
-     *        the local name of this reference key
+     * @param parentReferenceKey the parent reference key of this reference key
+     * @param localName          the local name of this reference key
      */
     public AxReferenceKey(final AxReferenceKey parentReferenceKey, final String localName) {
         this(parentReferenceKey.getParentArtifactKey(), parentReferenceKey.getLocalName(), localName);
@@ -141,12 +122,9 @@ public class AxReferenceKey extends AxKey {
      * Constructor to create a reference key for the given parent reference key (specified by the parent reference key's
      * artifact key and local name) with the given local name.
      *
-     * @param axArtifactKey
-     *        the artifact key of the parent reference key of this reference key
-     * @param parentLocalName
-     *        the local name of the parent reference key of this reference key
-     * @param localName
-     *        the local name of this reference key
+     * @param axArtifactKey   the artifact key of the parent reference key of this reference key
+     * @param parentLocalName the local name of the parent reference key of this reference key
+     * @param localName       the local name of this reference key
      */
     public AxReferenceKey(final AxArtifactKey axArtifactKey, final String parentLocalName, final String localName) {
         this(axArtifactKey.getName(), axArtifactKey.getVersion(), parentLocalName, localName);
@@ -156,12 +134,9 @@ public class AxReferenceKey extends AxKey {
      * Constructor to create a reference key for the given parent artifact key (specified by the parent artifact key's
      * name and version) with the given local name.
      *
-     * @param parentKeyName
-     *        the name of the parent artifact key of this reference key
-     * @param parentKeyVersion
-     *        the version of the parent artifact key of this reference key
-     * @param localName
-     *        the local name of this reference key
+     * @param parentKeyName    the name of the parent artifact key of this reference key
+     * @param parentKeyVersion the version of the parent artifact key of this reference key
+     * @param localName        the local name of this reference key
      */
     public AxReferenceKey(final String parentKeyName, final String parentKeyVersion, final String localName) {
         this(parentKeyName, parentKeyVersion, NULL_KEY_NAME, localName);
@@ -171,31 +146,26 @@ public class AxReferenceKey extends AxKey {
      * Constructor to create a reference key for the given parent key (specified by the parent key's name, version nad
      * local name) with the given local name.
      *
-     * @param parentKeyName
-     *        the parent key name of this reference key
-     * @param parentKeyVersion
-     *        the parent key version of this reference key
-     * @param parentLocalName
-     *        the parent local name of this reference key
-     * @param localName
-     *        the local name of this reference key
+     * @param parentKeyName    the parent key name of this reference key
+     * @param parentKeyVersion the parent key version of this reference key
+     * @param parentLocalName  the parent local name of this reference key
+     * @param localName        the local name of this reference key
      */
     public AxReferenceKey(final String parentKeyName, final String parentKeyVersion, final String parentLocalName,
-                    final String localName) {
+                          final String localName) {
         super();
         this.parentKeyName = Assertions.validateStringParameter(PARENT_KEY_NAME, parentKeyName, NAME_REGEXP);
         this.parentKeyVersion = Assertions.validateStringParameter(PARENT_KEY_VERSION, parentKeyVersion,
-                        VERSION_REGEXP);
+            VERSION_REGEXP);
         this.parentLocalName = Assertions.validateStringParameter(PARENT_LOCAL_NAME, parentLocalName,
-                        LOCAL_NAME_REGEXP);
+            LOCAL_NAME_REGEXP);
         this.localName = Assertions.validateStringParameter(LOCAL_NAME, localName, LOCAL_NAME_REGEXP);
     }
 
     /**
      * Constructor to create a key from the specified key ID.
      *
-     * @param id
-     *        the key ID in a format that respects the KEY_ID_REGEXP
+     * @param id the key ID in a format that respects the KEY_ID_REGEXP
      */
     public AxReferenceKey(final String id) {
         final var conditionedId = Assertions.validateStringParameter("id", id, REFERENCE_KEY_ID_REGEXP);
@@ -208,13 +178,13 @@ public class AxReferenceKey extends AxKey {
 
         // Initiate the new key
         parentKeyName = Assertions.validateStringParameter(PARENT_KEY_NAME, nameVersionNameArray[PARENT_NAME_FIELD],
-                        NAME_REGEXP);
+            NAME_REGEXP);
         parentKeyVersion = Assertions.validateStringParameter(PARENT_KEY_VERSION,
-                        nameVersionNameArray[PARENT_VERSION_FIELD], VERSION_REGEXP);
+            nameVersionNameArray[PARENT_VERSION_FIELD], VERSION_REGEXP);
         parentLocalName = Assertions.validateStringParameter(PARENT_LOCAL_NAME,
-                        nameVersionNameArray[PARENT_LOCAL_NAME_FIELD], LOCAL_NAME_REGEXP);
+            nameVersionNameArray[PARENT_LOCAL_NAME_FIELD], LOCAL_NAME_REGEXP);
         localName = Assertions.validateStringParameter(LOCAL_NAME, nameVersionNameArray[LOCAL_NAME_FIELD],
-                        LOCAL_NAME_REGEXP);
+            LOCAL_NAME_REGEXP);
     }
 
     /**
@@ -224,7 +194,7 @@ public class AxReferenceKey extends AxKey {
      */
     public static AxReferenceKey getNullKey() {
         return new AxReferenceKey(AxKey.NULL_KEY_NAME, AxKey.NULL_KEY_VERSION, AxKey.NULL_KEY_NAME,
-                        AxKey.NULL_KEY_NAME);
+            AxKey.NULL_KEY_NAME);
     }
 
     /**
@@ -274,8 +244,7 @@ public class AxReferenceKey extends AxKey {
     /**
      * Sets the parent artifact key of this reference key.
      *
-     * @param parentKey
-     *        the parent artifact key of this reference key
+     * @param parentKey the parent artifact key of this reference key
      */
     public void setParentArtifactKey(final AxArtifactKey parentKey) {
         Assertions.argumentNotNull(parentKey, "parentKey may not be null");
@@ -288,8 +257,7 @@ public class AxReferenceKey extends AxKey {
     /**
      * Sets the parent reference key of this reference key.
      *
-     * @param parentKey
-     *        the parent reference key of this reference key
+     * @param parentKey the parent reference key of this reference key
      */
     public void setParentReferenceKey(final AxReferenceKey parentKey) {
         Assertions.argumentNotNull(parentKey, "parentKey may not be null");
@@ -311,8 +279,7 @@ public class AxReferenceKey extends AxKey {
     /**
      * Sets the parent key name of this reference key.
      *
-     * @param parentKeyName
-     *        the parent key name of this reference key
+     * @param parentKeyName the parent key name of this reference key
      */
     public void setParentKeyName(final String parentKeyName) {
         this.parentKeyName = Assertions.validateStringParameter(PARENT_KEY_NAME, parentKeyName, NAME_REGEXP);
@@ -330,12 +297,11 @@ public class AxReferenceKey extends AxKey {
     /**
      * Sets the parent key version of this reference key.
      *
-     * @param parentKeyVersion
-     *        the parent key version of this reference key
+     * @param parentKeyVersion the parent key version of this reference key
      */
     public void setParentKeyVersion(final String parentKeyVersion) {
         this.parentKeyVersion = Assertions.validateStringParameter(PARENT_KEY_VERSION, parentKeyVersion,
-                        VERSION_REGEXP);
+            VERSION_REGEXP);
     }
 
     /**
@@ -350,12 +316,11 @@ public class AxReferenceKey extends AxKey {
     /**
      * Sets the parent local name of this reference key.
      *
-     * @param parentLocalName
-     *        the parent local name of this reference key
+     * @param parentLocalName the parent local name of this reference key
      */
     public void setParentLocalName(final String parentLocalName) {
         this.parentLocalName = Assertions.validateStringParameter(PARENT_LOCAL_NAME, parentLocalName,
-                        LOCAL_NAME_REGEXP);
+            LOCAL_NAME_REGEXP);
     }
 
     /**
@@ -370,8 +335,7 @@ public class AxReferenceKey extends AxKey {
     /**
      * Sets the local name of this reference key.
      *
-     * @param localName
-     *        the local name of this reference key
+     * @param localName the local name of this reference key
      */
     public void setLocalName(final String localName) {
         this.localName = Assertions.validateStringParameter(LOCAL_NAME, localName, LOCAL_NAME_REGEXP);
@@ -409,31 +373,31 @@ public class AxReferenceKey extends AxKey {
     @Override
     public AxValidationResult validate(final AxValidationResult result) {
         final var parentNameValidationErrorMessage = Assertions.getStringParameterValidationMessage(PARENT_KEY_NAME,
-                        parentKeyName, NAME_REGEXP);
+            parentKeyName, NAME_REGEXP);
         if (parentNameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
-                            "parentKeyName invalid-" + parentNameValidationErrorMessage));
+                "parentKeyName invalid-" + parentNameValidationErrorMessage));
         }
 
         final var parentKeyVersionValidationErrorMessage = Assertions
-                        .getStringParameterValidationMessage(PARENT_KEY_VERSION, parentKeyVersion, VERSION_REGEXP);
+            .getStringParameterValidationMessage(PARENT_KEY_VERSION, parentKeyVersion, VERSION_REGEXP);
         if (parentKeyVersionValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
-                            "parentKeyVersion invalid-" + parentKeyVersionValidationErrorMessage));
+                "parentKeyVersion invalid-" + parentKeyVersionValidationErrorMessage));
         }
 
         final var parentLocalNameValidationErrorMessage = Assertions
-                        .getStringParameterValidationMessage(PARENT_LOCAL_NAME, parentLocalName, LOCAL_NAME_REGEXP);
+            .getStringParameterValidationMessage(PARENT_LOCAL_NAME, parentLocalName, LOCAL_NAME_REGEXP);
         if (parentLocalNameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
-                            "parentLocalName invalid-" + parentLocalNameValidationErrorMessage));
+                "parentLocalName invalid-" + parentLocalNameValidationErrorMessage));
         }
 
         final var localNameValidationErrorMessage = Assertions.getStringParameterValidationMessage(LOCAL_NAME,
-                        localName, LOCAL_NAME_REGEXP);
+            localName, LOCAL_NAME_REGEXP);
         if (localNameValidationErrorMessage != null) {
             result.addValidationMessage(new AxValidationMessage(this, this.getClass(), ValidationResult.INVALID,
-                            "localName invalid-" + localNameValidationErrorMessage));
+                "localName invalid-" + localNameValidationErrorMessage));
         }
 
         return result;

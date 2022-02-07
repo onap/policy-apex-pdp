@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -33,9 +32,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-
-@XmlType(name = "AxConcept", namespace = "http://www.onap.org/policy/apex-pdp")
-
 public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
     private static final long serialVersionUID = -7434939557282697490L;
 
@@ -84,6 +80,12 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      * Clean this concept, tidy up any superfluous information such as leading and trailing white space.
      */
     public abstract void clean();
+
+    /**
+     * Builds references used by a concept.
+     */
+    public void buildReferences() {
+    }
 
     /**
      * {@inheritDoc}.

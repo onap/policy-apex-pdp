@@ -23,18 +23,13 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -106,40 +101,27 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <li>Each State Finalizer logic instance in a state must be valid, see validation in {@link AxStateFinalizerLogic}
  * </ol>
  */
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexState", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxState", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "trigger", "stateOutputs", "contextAlbumReferenceSet", "taskSelectionLogic", "stateFinalizerLogicMap",
-        "defaultTask", "taskReferenceMap" })
-
 public class AxState extends AxConcept {
     private static final String DOES_NOT_EQUAL_STATE_KEY = " does not equal state key";
 
     private static final long serialVersionUID = 8041771382337655535L;
 
-    @XmlElement(name = "stateKey", required = true)
+
+
+    @SerializedName("stateKey")
     private AxReferenceKey key;
 
-    @XmlElement(required = true)
     private AxArtifactKey trigger;
-
-    @XmlElement(name = "stateOutputs", required = true)
     private Map<String, AxStateOutput> stateOutputs;
 
-    @XmlElement(name = "contextAlbumReference")
+    @SerializedName("contextAlbumReference")
     private Set<AxArtifactKey> contextAlbumReferenceSet;
 
-    @XmlElement(required = true)
     private AxTaskSelectionLogic taskSelectionLogic;
-
-    @XmlElement(name = "stateFinalizerLogicMap", required = true)
     private Map<String, AxStateFinalizerLogic> stateFinalizerLogicMap;
-
-    @XmlElement(required = true)
     private AxArtifactKey defaultTask;
 
-    @XmlElement(name = "taskReferences", required = true)
+    @SerializedName("taskReferences")
     private Map<AxArtifactKey, AxStateTaskReference> taskReferenceMap;
 
     /**
@@ -210,29 +192,19 @@ public class AxState extends AxConcept {
     // CHECKSTYLE:ON: checkstyle:parameterNumber
 
     /**
-     * When a state is unmarshalled from disk or from the database, the parent of contained objects is not defined. This
-     * method is called by JAXB after unmarshaling and is used to set the parent keys of all
+     * When a state is deserialized from disk or from the database, the parent of contained objects is not defined. This
+     * method is called by JAXB after deserialized and is used to set the parent keys of all
      * {@link AxTaskSelectionLogic}, {@link AxStateOutput}, and {@link AxStateFinalizerLogic} instance in the state.
-     *
-     * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
+    @Override
+    public void buildReferences() {
         if (!taskSelectionLogic.getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
             taskSelectionLogic.getKey().setParentReferenceKey(key);
         }
 
-        for (final Entry<String, AxStateOutput> soEntry : stateOutputs.entrySet()) {
-            soEntry.getValue().getKey().setParentReferenceKey(key);
-        }
-
-        for (final Entry<String, AxStateFinalizerLogic> sflEntry : stateFinalizerLogicMap.entrySet()) {
-            sflEntry.getValue().getKey().setParentReferenceKey(key);
-        }
-
-        for (final Entry<AxArtifactKey, AxStateTaskReference> trEntry : taskReferenceMap.entrySet()) {
-            trEntry.getValue().getKey().setParentReferenceKey(key);
-        }
+        stateOutputs.values().stream().forEach(output -> output.getKey().setParentReferenceKey(key));
+        stateFinalizerLogicMap.values().stream().forEach(output -> output.getKey().setParentReferenceKey(key));
+        taskReferenceMap.values().stream().forEach(output -> output.getKey().setParentReferenceKey(key));
     }
 
     /**

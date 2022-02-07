@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,33 +38,26 @@ public class ApexModelStringWriterTest {
         AxModel basicModel = new DummyApexBasicModelCreator().getModel();
         assertNotNull(basicModel);
 
-        AxKeyInfo intKeyInfo   = basicModel.getKeyInformation().get("IntegerKIKey");
+        AxKeyInfo intKeyInfo = basicModel.getKeyInformation().get("IntegerKIKey");
         AxKeyInfo floatKeyInfo = basicModel.getKeyInformation().get("FloatKIKey");
 
         // Ensure marshalling is OK
         ApexModelStringWriter<AxKeyInfo> stringWriter = new ApexModelStringWriter<AxKeyInfo>(true);
 
-        assertNotNull(stringWriter.writeJsonString(intKeyInfo,   AxKeyInfo.class));
+        assertNotNull(stringWriter.writeJsonString(intKeyInfo, AxKeyInfo.class));
         assertNotNull(stringWriter.writeJsonString(floatKeyInfo, AxKeyInfo.class));
 
-        assertNotNull(stringWriter.writeString(intKeyInfo,   AxKeyInfo.class, true));
-        assertNotNull(stringWriter.writeString(floatKeyInfo, AxKeyInfo.class, true));
+        assertNotNull(stringWriter.writeString(intKeyInfo, AxKeyInfo.class));
+        assertNotNull(stringWriter.writeString(floatKeyInfo, AxKeyInfo.class));
 
-        assertNotNull(stringWriter.writeString(intKeyInfo,   AxKeyInfo.class, false));
-        assertNotNull(stringWriter.writeString(floatKeyInfo, AxKeyInfo.class, false));
+        assertNotNull(stringWriter.writeString(intKeyInfo, AxKeyInfo.class));
+        assertNotNull(stringWriter.writeString(floatKeyInfo, AxKeyInfo.class));
 
-        assertNotNull(stringWriter.writeXmlString(intKeyInfo,   AxKeyInfo.class));
-        assertNotNull(stringWriter.writeXmlString(floatKeyInfo, AxKeyInfo.class));
-
-        assertThatThrownBy(() -> stringWriter.writeString(null, AxKeyInfo.class, true))
-            .hasMessage("concept may not be null");
-        assertThatThrownBy(() -> stringWriter.writeString(null, AxKeyInfo.class, false))
-            .hasMessage("concept may not be null");
+        assertThatThrownBy(() -> stringWriter.writeString(null, AxKeyInfo.class)).hasMessage("concept may not be null");
+        assertThatThrownBy(() -> stringWriter.writeString(null, AxKeyInfo.class)).hasMessage("concept may not be null");
         assertThatThrownBy(() -> stringWriter.writeJsonString(null, AxKeyInfo.class))
             .hasMessage("error writing JSON string");
-        assertThatThrownBy(() -> stringWriter.writeXmlString(null, AxKeyInfo.class))
-            .hasMessage("error writing XML string");
-        stringWriter.setValidateFlag(true);
-        assertTrue(stringWriter.isValidateFlag());
+        stringWriter.setValidate(true);
+        assertTrue(stringWriter.isValidate());
     }
 }

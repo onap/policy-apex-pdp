@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -41,6 +41,7 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
 import org.onap.policy.common.parameters.ParameterException;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.parameters.ValidationResult;
+import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.slf4j.ext.XLogger;
@@ -61,6 +62,8 @@ public class ApexParameterHandler {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexParameterHandler.class);
 
     private static final String POLICY_TYPE_IMPL = "policy_type_impl";
+    private static final String APEX_POLICY_MODEL = "apexPolicyModel";
+
     private String policyModel;
     private String apexConfig;
 
@@ -81,13 +84,13 @@ public class ApexParameterHandler {
             // Register the adapters for our carrier technologies and event protocols with GSON
             // @formatter:off
             final var gson = new GsonBuilder()
-                            .registerTypeAdapter(EngineParameters.class,
-                                            new EngineServiceParametersJsonAdapter())
-                            .registerTypeAdapter(CarrierTechnologyParameters.class,
-                                            new CarrierTechnologyParametersJsonAdapter())
-                            .registerTypeAdapter(EventProtocolParameters.class,
-                                            new EventProtocolParametersJsonAdapter())
-                            .create();
+                .registerTypeAdapter(EngineParameters.class,
+                    new EngineServiceParametersJsonAdapter())
+                .registerTypeAdapter(CarrierTechnologyParameters.class,
+                    new CarrierTechnologyParametersJsonAdapter())
+                .registerTypeAdapter(EventProtocolParameters.class,
+                    new EventProtocolParametersJsonAdapter())
+                .create();
             // @formatter:on
             parameters = gson.fromJson(apexConfig, ApexParameters.class);
         } catch (final Exception e) {
@@ -135,13 +138,13 @@ public class ApexParameterHandler {
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                        .getSchemaParameters());
+            .getSchemaParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                        .getDistributorParameters());
+            .getDistributorParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                        .getLockManagerParameters());
+            .getLockManagerParameters());
         ParameterService.register(parameters.getEngineServiceParameters().getEngineParameters().getContextParameters()
-                        .getPersistorParameters());
+            .getPersistorParameters());
     }
 
     private void parseConfigAndModel(final String toscaPolicyFilePath) throws ApexException {
@@ -162,11 +165,7 @@ public class ApexParameterHandler {
                     || EVENT_OUTPUT_PARAMETERS.equals(property.getKey())) {
                     body = standardCoder.convert(property.getValue(), JsonObject.class);
                     if (ENGINE_SERVICE_PARAMETERS.equals(property.getKey())) {
-                        JsonElement policyModelObject = ((JsonObject) body).get(POLICY_TYPE_IMPL);
-                        if (null != policyModelObject) {
-                            policyModel = standardCoder.encode(policyModelObject);
-                        }
-                        ((JsonObject) body).remove(POLICY_TYPE_IMPL);
+                        policyModel = extractPolicyModel(standardCoder, body);
                     }
                 }
                 apexConfigJsonObject.add(property.getKey(), body);
@@ -174,6 +173,31 @@ public class ApexParameterHandler {
             apexConfig = standardCoder.encode(apexConfigJsonObject);
         } catch (Exception e) {
             throw new ApexException("Parsing config and model from the tosca policy failed.", e);
+        }
+    }
+
+    private String extractPolicyModel(StandardCoder standardCoder, JsonElement body) throws CoderException {
+        // Check for "policy_type_impl"
+        JsonElement policyTypeImplObject = ((JsonObject) body).get(POLICY_TYPE_IMPL);
+        if (null == policyTypeImplObject) {
+            return null;
+        }
+
+        // "policy_type_impl" found
+        if (policyTypeImplObject instanceof JsonObject) {
+
+            // Check for "apexPolicyModel", this is used to encapsulate policy models sometimes
+            JsonElement policyModelObject = ((JsonObject) policyTypeImplObject).get(APEX_POLICY_MODEL);
+
+            if (policyModelObject != null) {
+                // Policy model encased in an "apexPolicyModel" object
+                return standardCoder.encode(policyModelObject);
+            } else {
+                // No encasement
+                return standardCoder.encode(policyTypeImplObject);
+            }
+        } else {
+            return policyTypeImplObject.getAsString();
         }
     }
 }

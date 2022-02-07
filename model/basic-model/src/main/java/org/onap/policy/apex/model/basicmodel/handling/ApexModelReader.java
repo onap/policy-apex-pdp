@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,55 +22,47 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.regex.Pattern;
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.SchemaFactory;
-import org.eclipse.persistence.jaxb.JAXBContextFactory;
-import org.eclipse.persistence.jaxb.MarshallerProperties;
-import org.eclipse.persistence.oxm.MediaType;
+import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
+import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
-import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 import org.onap.policy.common.utils.validation.Assertions;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class reads an Apex concept from an XML file into a Java Apex Concept {@link AxConcept}.
+ * This class reads an Apex concept from a file into a Java Apex Concept {@link AxConcept}.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <C> the type of Apex concept to read, must be a sub class of {@link AxConcept}
  */
+@Getter
+@Setter
 public class ApexModelReader<C extends AxConcept> {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelReader.class);
 
-    // Regular expressions for checking input types
-    // (starts with <?xml...>
-    private static final String XML_INPUT_TYPE_REGEXP = "^\\s*<\\?xml.*>\\s*";
-    // starts with some kind of bracket [ or (
-    private static final String JSON_INPUT_TYPE_REGEXP = "^\\s*[\\(\\{\\[][\\s\\S]*[\\)\\}\\]]";
-    // or {, then has something, then has
-    // and has a close bracket
+    // Use GSON to deserialize JSON
+    private static Gson gson = new GsonBuilder()
+        .registerTypeAdapter(AxReferenceKey.class, new ApexModelCustomGsonRefereceKeyAdapter())
+        .registerTypeAdapter(Map.class, new ApexModelCustomGsonMapAdapter())
+        .setPrettyPrinting()
+        .create();
 
     //  The root class of the concept we are reading
     private final Class<C> rootConceptClass;
 
-    // The unmarshaller for the Apex concepts
-    private Unmarshaller unmarshaller = null;
-
     // All read concepts are validated after reading if this flag is set
-    private boolean validateFlag = true;
+    private boolean validate = true;
 
     /**
      * Constructor, initiates the reader with validation on.
@@ -81,17 +73,6 @@ public class ApexModelReader<C extends AxConcept> {
     public ApexModelReader(final Class<C> rootConceptClass) throws ApexModelException {
         // Save the root concept class
         this.rootConceptClass = rootConceptClass;
-
-        try {
-            final var jaxbContext = JAXBContextFactory.createContext(new Class[] {rootConceptClass}, null);
-
-            // Set up the unmarshaller to carry out validation
-            unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
-        } catch (final JAXBException e) {
-            LOGGER.error("Unable to set JAXB context", e);
-            throw new ApexModelException("Unable to set JAXB context", e);
-        }
     }
 
     /**
@@ -103,36 +84,11 @@ public class ApexModelReader<C extends AxConcept> {
      */
     public ApexModelReader(final Class<C> rootConceptClass, final boolean validate) throws ApexModelException {
         this(rootConceptClass);
-        this.validateFlag = validate;
+        this.validate = validate;
     }
 
     /**
-     * Set the schema to use for reading XML files.
-     *
-     * @param schemaFileName the schema file to use
-     * @throws ApexModelException if the schema cannot be set
-     */
-    public void setSchema(final String schemaFileName) throws ApexModelException {
-        // Has a schema been set
-        if (schemaFileName != null) {
-            try {
-                // Set the concept schema
-                final var schemaUrl = ResourceUtils.getUrlResource(schemaFileName);
-                final var apexConceptSchema =
-                        SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(schemaUrl);
-                unmarshaller.setSchema(apexConceptSchema);
-            } catch (final Exception e) {
-                LOGGER.error("Unable to load schema ", e);
-                throw new ApexModelException("Unable to load schema", e);
-            }
-        } else {
-            // Clear the schema
-            unmarshaller.setSchema(null);
-        }
-    }
-
-    /**
-     * This method checks the specified Apex concept XML file and reads it into an Apex concept.
+     * This method checks the specified Apex concept file and reads it into an Apex concept.
      *
      * @param apexConceptStream the apex concept stream
      * @return the Apex concept
@@ -179,28 +135,23 @@ public class ApexModelReader<C extends AxConcept> {
 
         LOGGER.entry("reading Apex concept from string . . .");
 
-        final var apexString = apexConceptString.trim();
-
-        // Set the type of input for this stream
-        setInputType(apexString);
-
-        // The Apex Concept
         C apexConcept = null;
-
-        // Use JAXB to read and verify the Apex concept XML file
         try {
-            // Load the configuration file
-            final var source = new StreamSource(new StringReader(apexString));
-            final JAXBElement<C> rootElement = unmarshaller.unmarshal(source, rootConceptClass);
-            apexConcept = rootElement.getValue();
-        } catch (final JAXBException e) {
-            throw new ApexModelException("Unable to unmarshal Apex concept ", e);
+            apexConcept = gson.fromJson(apexConceptString, rootConceptClass);
+        } catch (final Exception je) {
+            throw new ApexModelException("Unable to unmarshal Apex concept ", je);
+        }
+
+        if (apexConcept == null) {
+            throw new ApexModelException("Unable to unmarshal Apex concept, unmarshaled model is null ");
         }
 
         LOGGER.debug("reading of Apex concept {} completed");
 
+        apexConcept.buildReferences();
+
         // Check if the concept should be validated
-        if (validateFlag) {
+        if (validate) {
             // Validate the configuration file
             final AxValidationResult validationResult = apexConcept.validate(new AxValidationResult());
             if (validationResult.isValid()) {
@@ -215,54 +166,4 @@ public class ApexModelReader<C extends AxConcept> {
             return apexConcept;
         }
     }
-
-    /**
-     * Gets the value of the validation flag.
-     *
-     * @return the validation flag value
-     */
-    public boolean getValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validation flag.
-     *
-     * @param validateFlag the validation flag value
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
-    }
-
-    /**
-     * Set the type of input for the concept reader.
-     *
-     * @param apexConceptString The stream with
-     * @throws ApexModelException on errors setting input type
-     */
-    private void setInputType(final String apexConceptString) throws ApexModelException {
-        // Check the input type
-        if (Pattern.compile(JSON_INPUT_TYPE_REGEXP).matcher(apexConceptString).find()) {
-            // is json
-            try {
-                unmarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_JSON);
-                unmarshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
-            } catch (final Exception e) {
-                LOGGER.warn("JAXB error setting marshaller for JSON Input", e);
-                throw new ApexModelException("JAXB error setting unmarshaller for JSON input", e);
-            }
-        } else if (Pattern.compile(XML_INPUT_TYPE_REGEXP).matcher(apexConceptString).find()) {
-            // is xml
-            try {
-                unmarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, MediaType.APPLICATION_XML);
-            } catch (final Exception e) {
-                LOGGER.warn("JAXB error setting marshaller for XML Input", e);
-                throw new ApexModelException("JAXB error setting unmarshaller for XML input", e);
-            }
-        } else {
-            LOGGER.warn("format of input for Apex concept is neither JSON nor XML");
-            throw new ApexModelException("format of input for Apex concept is neither JSON nor XML");
-        }
-    }
-
 }

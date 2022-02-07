@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -74,7 +74,7 @@ public class CodeGeneratorCliEditorTest {
         ApexModelReader<AxPolicyModel> modelReader = null;
         modelReader = new ApexModelReader<>(AxPolicyModel.class);
 
-        modelReader.setValidateFlag(false);
+        modelReader.setValidate(false);
         AxPolicyModel apexPolicyModel = null;
         apexPolicyModel = modelReader
                             .read(new FileInputStream(new File("src/test/resources/models/TestPolicyModel.json")));

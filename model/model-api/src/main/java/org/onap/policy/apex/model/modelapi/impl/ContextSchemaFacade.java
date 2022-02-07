@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,22 +52,17 @@ public class ContextSchemaFacade {
     // Facade classes for working towards the real Apex model
     private final KeyInformationFacade keyInformationFacade;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * Constructor to create the context schema facade for the Model API.
      *
      * @param apexModel the apex model
      * @param apexProperties Properties for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise set to false
      */
-    public ContextSchemaFacade(final ApexModel apexModel, final Properties apexProperties, final boolean jsonMode) {
+    public ContextSchemaFacade(final ApexModel apexModel, final Properties apexProperties) {
         this.apexModel = apexModel;
         this.apexProperties = apexProperties;
-        this.jsonMode = jsonMode;
 
-        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties, jsonMode);
+        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties);
     }
 
     /**
@@ -82,7 +77,7 @@ public class ContextSchemaFacade {
      * @return result of the operation
      */
     public ApexApiResult createContextSchema(final String name, final String version, final String schemaFlavour,
-                    final String schemaDefinition, final String uuid, final String description) {
+        final String schemaDefinition, final String uuid, final String description) {
         try {
             Assertions.argumentNotNull(schemaFlavour, "schemaFlavour may not be null");
 
@@ -99,7 +94,7 @@ public class ContextSchemaFacade {
             }
 
             apexModel.getPolicyModel().getSchemas().getSchemasMap().put(key,
-                            new AxContextSchema(key, schemaFlavour, schemaDefinition));
+                new AxContextSchema(key, schemaFlavour, schemaDefinition));
 
             if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
                 return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
@@ -123,12 +118,12 @@ public class ContextSchemaFacade {
      * @return result of the operation
      */
     public ApexApiResult updateContextSchema(final String name, final String version, final String schemaFlavour,
-                    final String schemaDefinition, final String uuid, final String description) {
+        final String schemaDefinition, final String uuid, final String description) {
         try {
             final AxContextSchema schema = apexModel.getPolicyModel().getSchemas().get(name, version);
             if (schema == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                                CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (schemaFlavour != null) {
@@ -157,13 +152,13 @@ public class ContextSchemaFacade {
             final Set<AxContextSchema> schemaSet = apexModel.getPolicyModel().getSchemas().getAll(name, version);
             if (name != null && schemaSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                                CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxContextSchema schema : schemaSet) {
-                result.addMessage(new ApexModelStringWriter<AxContextSchema>(false).writeString(schema,
-                                AxContextSchema.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxContextSchema>(false).writeString(schema, AxContextSchema.class));
             }
             return result;
         } catch (final Exception e) {
@@ -182,28 +177,28 @@ public class ContextSchemaFacade {
         try {
             if (version != null) {
                 final AxArtifactKey key = new AxArtifactKey(name, version);
-                final AxContextSchema removedSchema = apexModel.getPolicyModel().getSchemas().getSchemasMap()
-                                .remove(key);
+                final AxContextSchema removedSchema =
+                    apexModel.getPolicyModel().getSchemas().getSchemasMap().remove(key);
                 if (removedSchema != null) {
                     return new ApexApiResult(ApexApiResult.Result.SUCCESS,
-                                    new ApexModelStringWriter<AxContextSchema>(false).writeString(removedSchema,
-                                                    AxContextSchema.class, jsonMode));
+                        new ApexModelStringWriter<AxContextSchema>(false).writeString(removedSchema,
+                            AxContextSchema.class));
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                                    CONCEPT + key.getId() + DOES_NOT_EXIST);
+                        CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxContextSchema> schemaSet = apexModel.getPolicyModel().getSchemas().getAll(name, version);
             if (schemaSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                                CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxContextSchema schema : schemaSet) {
-                result.addMessage(new ApexModelStringWriter<AxContextSchema>(false).writeString(schema,
-                                AxContextSchema.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxContextSchema>(false).writeString(schema, AxContextSchema.class));
                 apexModel.getPolicyModel().getSchemas().getSchemasMap().remove(schema.getKey());
                 keyInformationFacade.deleteKeyInformation(name, version);
             }
@@ -225,14 +220,14 @@ public class ContextSchemaFacade {
             final Set<AxContextSchema> schemaSet = apexModel.getPolicyModel().getSchemas().getAll(name, version);
             if (schemaSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                                CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxContextSchema schema : schemaSet) {
                 final AxValidationResult validationResult = schema.validate(new AxValidationResult());
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(schema.getKey(),
-                                AxArtifactKey.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxArtifactKey>(false).writeString(schema.getKey(), AxArtifactKey.class));
                 result.addMessage(validationResult.toString());
             }
             return result;

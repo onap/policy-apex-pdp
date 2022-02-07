@@ -23,13 +23,9 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Set;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -60,28 +56,20 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <li>The next state key must be valid, see validation in {@link AxReferenceKey}
  * </ol>
  */
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexStateOutput", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxStateOutput", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "outgoingEvent", "outgoingEventSet", "nextState"})
 @Getter
 @Setter
 public class AxStateOutput extends AxConcept {
     private static final long serialVersionUID = 8041771382337655535L;
 
-    @XmlElement(name = "key", required = true)
     @NonNull
     private AxReferenceKey key;
 
-    @XmlElement(required = true)
     @NonNull
     private AxArtifactKey outgoingEvent;
 
-    @XmlElement(name = "outgoingEventReference", required = false)
+    @SerializedName("outgoingEventReference")
     private Set<AxArtifactKey> outgoingEventSet;
 
-    @XmlElement(required = true)
     @NonNull
     private AxReferenceKey nextState;
     // @formatter:on

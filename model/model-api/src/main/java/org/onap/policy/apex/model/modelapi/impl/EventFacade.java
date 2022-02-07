@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,23 +57,17 @@ public class EventFacade {
     // Facade classes for working towards the real Apex model
     private final KeyInformationFacade keyInformationFacade;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * Constructor to create an event facade for the Model API.
      *
      * @param apexModel the apex model
      * @param apexProperties Properties for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise
-     *        set to false
      */
-    public EventFacade(final ApexModel apexModel, final Properties apexProperties, final boolean jsonMode) {
+    public EventFacade(final ApexModel apexModel, final Properties apexProperties) {
         this.apexModel = apexModel;
         this.apexProperties = apexProperties;
-        this.jsonMode = jsonMode;
 
-        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties, jsonMode);
+        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties);
     }
 
     /**
@@ -90,8 +84,8 @@ public class EventFacade {
      * @return result of the operation
      */
     public ApexApiResult createEvent(final String name, final String version, final String nameSpace,
-            final String source, final String target, final String uuid, final String description,
-            final String toscaPolicyState) {
+        final String source, final String target, final String uuid, final String description,
+        final String toscaPolicyState) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -140,13 +134,13 @@ public class EventFacade {
      * @return result of the operation
      */
     public ApexApiResult updateEvent(final String name, final String version, final String nameSpace,
-            final String source, final String target, final String uuid, final String description,
-            final String toscaPolicyState) {
+        final String source, final String target, final String uuid, final String description,
+        final String toscaPolicyState) {
         try {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (nameSpace != null) {
@@ -180,13 +174,12 @@ public class EventFacade {
             final Set<AxEvent> eventSet = apexModel.getPolicyModel().getEvents().getAll(name, version);
             if (name != null && eventSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxEvent event : eventSet) {
-                result.addMessage(
-                        new ApexModelStringWriter<AxEvent>(false).writeString(event, AxEvent.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxEvent>(false).writeString(event, AxEvent.class));
             }
             return result;
         } catch (final Exception e) {
@@ -207,24 +200,23 @@ public class EventFacade {
                 final AxArtifactKey key = new AxArtifactKey(name, version);
                 final AxEvent removedEvent = apexModel.getPolicyModel().getEvents().getEventMap().remove(key);
                 if (removedEvent != null) {
-                    return new ApexApiResult(ApexApiResult.Result.SUCCESS, new ApexModelStringWriter<AxEvent>(false)
-                            .writeString(removedEvent, AxEvent.class, jsonMode));
+                    return new ApexApiResult(ApexApiResult.Result.SUCCESS,
+                        new ApexModelStringWriter<AxEvent>(false).writeString(removedEvent, AxEvent.class));
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getId() + DOES_NOT_EXIST);
+                        CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxEvent> eventSet = apexModel.getPolicyModel().getEvents().getAll(name, version);
             if (eventSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxEvent event : eventSet) {
-                result.addMessage(
-                        new ApexModelStringWriter<AxEvent>(false).writeString(event, AxEvent.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxEvent>(false).writeString(event, AxEvent.class));
                 apexModel.getPolicyModel().getEvents().getEventMap().remove(event.getKey());
                 keyInformationFacade.deleteKeyInformation(name, version);
             }
@@ -246,14 +238,14 @@ public class EventFacade {
             final Set<AxEvent> eventSet = apexModel.getPolicyModel().getEvents().getAll(name, version);
             if (eventSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxEvent event : eventSet) {
                 final AxValidationResult validationResult = event.validate(new AxValidationResult());
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(event.getKey(),
-                        AxArtifactKey.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxArtifactKey>(false).writeString(event.getKey(), AxArtifactKey.class));
                 result.addMessage(validationResult.toString());
             }
             return result;
@@ -275,28 +267,28 @@ public class EventFacade {
      * @return result of the operation
      */
     public ApexApiResult createEventPar(final String name, final String version, final String parName,
-            final String contextSchemaName, final String contextSchemaVersion, final boolean optional) {
+        final String contextSchemaName, final String contextSchemaVersion, final boolean optional) {
         try {
             Assertions.argumentNotNull(parName, "parName may not be null");
 
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final AxReferenceKey refKey = new AxReferenceKey(event.getKey(), parName);
 
             if (event.getParameterMap().containsKey(refKey.getLocalName())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        CONCEPT + refKey.getId() + ALREADY_EXISTS);
+                    CONCEPT + refKey.getId() + ALREADY_EXISTS);
             }
 
             final AxContextSchema schema =
-                    apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
+                apexModel.getPolicyModel().getSchemas().get(contextSchemaName, contextSchemaVersion);
             if (schema == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
+                    CONCEPT + contextSchemaName + ':' + contextSchemaVersion + DOES_NOT_EXIST);
             }
 
             event.getParameterMap().put(refKey.getLocalName(), new AxField(refKey, schema.getKey(), optional));
@@ -319,28 +311,27 @@ public class EventFacade {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             if (parName != null) {
                 final AxField eventField = event.getParameterMap().get(parName);
                 if (eventField != null) {
                     return new ApexApiResult(ApexApiResult.Result.SUCCESS,
-                            new ApexModelStringWriter<AxField>(false).writeString(eventField, AxField.class, jsonMode));
+                        new ApexModelStringWriter<AxField>(false).writeString(eventField, AxField.class));
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
+                        CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
                 }
             } else {
                 if (event.getParameterMap().size() == 0) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            "no parameters defined on event " + event.getKey().getId());
+                        "no parameters defined on event " + event.getKey().getId());
                 }
 
                 final ApexApiResult result = new ApexApiResult();
                 for (final AxField eventPar : event.getParameterMap().values()) {
-                    result.addMessage(
-                            new ApexModelStringWriter<AxField>(false).writeString(eventPar, AxField.class, jsonMode));
+                    result.addMessage(new ApexModelStringWriter<AxField>(false).writeString(eventPar, AxField.class));
                 }
                 return result;
             }
@@ -362,29 +353,28 @@ public class EventFacade {
             final AxEvent event = apexModel.getPolicyModel().getEvents().get(name, version);
             if (event == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ':' + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ':' + version + DOES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             if (parName != null) {
                 if (event.getParameterMap().containsKey(parName)) {
                     result.addMessage(new ApexModelStringWriter<AxField>(false)
-                            .writeString(event.getParameterMap().get(parName), AxField.class, jsonMode));
+                        .writeString(event.getParameterMap().get(parName), AxField.class));
                     event.getParameterMap().remove(parName);
                     return result;
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
+                        CONCEPT + name + ':' + version + ':' + parName + DOES_NOT_EXIST);
                 }
             } else {
                 if (event.getParameterMap().size() == 0) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            "no parameters defined on event " + event.getKey().getId());
+                        "no parameters defined on event " + event.getKey().getId());
                 }
 
                 for (final AxField eventPar : event.getParameterMap().values()) {
-                    result.addMessage(
-                            new ApexModelStringWriter<AxField>(false).writeString(eventPar, AxField.class, jsonMode));
+                    result.addMessage(new ApexModelStringWriter<AxField>(false).writeString(eventPar, AxField.class));
                 }
                 event.getParameterMap().clear();
                 return result;

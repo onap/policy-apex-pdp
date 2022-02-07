@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,13 @@ import org.junit.Test;
 
 /**
  * Context album for API tests.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class ApexEditorApiContextAlbumTest {
     @Test
     public void testContextAlbumCrud() {
-        final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
+        final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.validateContextAlbum(null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
@@ -44,13 +45,13 @@ public class ApexEditorApiContextAlbumTest {
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createContextAlbum("MyMap002", "0.0.2", "APPLICATION", "true", "MapType", "0.0.1",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createContextAlbum("MyMap012", "0.1.2", "ZOOBY", "false", "MapType", "0.0.1",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 012");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 012");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createContextAlbum("MyMap012", "0.1.4", "UNDEFINED", null, "MapType", "0.0.1",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 014");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 014");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createContextAlbum("MyMap012", null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -73,16 +74,16 @@ public class ApexEditorApiContextAlbumTest {
         result = apexModel.createContextAlbum("MyMap012", null, "EPHEMERAL", "false", "MapType", null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createContextAlbum("MyMap002", "0.0.2", "APPLICATION", "true", "MapType", null,
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createContextAlbum("MyMap011", "0.1.2", "APPLICATION", "true", "MapType", "0.0.1",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.deleteContextAlbum("MyMap012", "0.1.2");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createContextAlbum("MyMap012", "0.1.2", "ZOOBY", "false", "MapType", "0.0.1",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 012");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 012");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.validateContextAlbum(null, null);
@@ -95,7 +96,7 @@ public class ApexEditorApiContextAlbumTest {
         result = apexModel.updateContextAlbum("MyMap002", "0.0.2", "ZOOBY", "true", null, null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updateContextAlbum("MyMap002", "0.0.2", null, null, null, null,
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updateContextAlbum("MyMap012", null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
@@ -114,13 +115,13 @@ public class ApexEditorApiContextAlbumTest {
         result = apexModel.updateContextAlbum("MyMap012", null, "APPLICATION", "false", "String", null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updateContextAlbum("MyMap012", null, "APPLICATION", "false", "StringType", "0.0.2", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updateContextAlbum("MyMap012", null, "APPLICATION", "false", "StringType", "0.0.1", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updateContextAlbum("MyMap012", null, "APPLICATION", "Hello", "StringType", "0.0.1", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.listContextAlbum("@£%%$", null);
@@ -159,6 +160,7 @@ public class ApexEditorApiContextAlbumTest {
 
         result = apexModel.deleteContextAlbum("MyMap012", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
+        assertEquals(2, result.getMessages().size());
 
         result = apexModel.listContextAlbum("MyMap012", null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());

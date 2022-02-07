@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -147,10 +147,10 @@ public class StateTest {
         state.setTaskReferences(trMap);
         assertEquals(trMap, state.getTaskReferences());
 
-        state.afterUnmarshal(null, null);
+        state.buildReferences();
         assertEquals(state.getKey(), state.getKeys().get(0));
         state.getTaskSelectionLogic().getKey().setLocalName(AxKey.NULL_KEY_NAME);
-        state.afterUnmarshal(null, null);
+        state.buildReferences();
         assertEquals(state.getKey(), state.getKeys().get(0));
 
         final Set<String> stateSet = state.getNextStateSet();
@@ -387,7 +387,9 @@ public class StateTest {
         assertEquals(state, state); // NOSONAR
         assertEquals(state, clonedState);
         assertNotNull(state);
-        assertNotEquals(state, (Object) "Hello");
+
+        Object helloObj = "Hello";
+        assertNotEquals(state, helloObj);
         assertNotEquals(state, new AxState(new AxStateParamsBuilder().key(new AxReferenceKey()).trigger(triggerKey)
                         .stateOutputs(soMap).contextAlbumReferenceSet(ctxtSet).taskSelectionLogic(tsl)
                         .stateFinalizerLogicMap(sflMap).defaultTask(defTaskKey).taskReferenceMap(trMap)));

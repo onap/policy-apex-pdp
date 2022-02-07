@@ -25,14 +25,7 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.handling.KeyInfoMarshalFilter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -47,25 +40,13 @@ import org.onap.policy.common.utils.validation.Assertions;
  * {@link AxArtifactKey} and {@link AxReferenceKey} usage references a key that exists. Finally, a check is made to
  * ensure that an {@link AxArtifactKey} instance exists for every {@link AxKeyInfo} instance.
  */
-
-@XmlRootElement(name = "apexModel", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "keyInformation" })
-
 public class AxModel extends AxConcept {
     private static final String IS_A_NULL_KEY = " is a null key";
 
     private static final long serialVersionUID = -771659065637205430L;
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
-
-    // @formatter:off
-    @XmlElement(name = "keyInformation", required = true)
-    @XmlJavaTypeAdapter(KeyInfoMarshalFilter.class)
     private AxKeyInformation keyInformation;
-    // @formatter:on
 
     /**
      * The Default Constructor creates this concept with a NULL artifact key.

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -85,7 +85,7 @@ public class TasksTest {
         assertEquals("TaskName:0.0.1", task.getKey().getId());
         assertEquals("TaskName:0.0.1", task.getKeys().get(0).getId());
 
-        task.afterUnmarshal(null, null);
+        task.buildReferences();
         assertEquals(1, task.getTaskParameters().size());
 
         AxValidationResult result = new AxValidationResult();
@@ -154,7 +154,9 @@ public class TasksTest {
         assertEquals(task, task); // NOSONAR
         assertEquals(task, clonedTask);
         assertNotNull(task);
-        assertNotEquals(task, (Object) "Hello");
+
+        Object helloObj = "Hello";
+        assertNotEquals(task, helloObj);
         assertNotEquals(task, new AxTask(new AxArtifactKey(), tpMap, ctxtSet, tl));
         assertEquals(task, new AxTask(taskKey, tpMap, ctxtSet, tl));
         assertNotEquals(task, new AxTask(taskKey, tpEmptyMap, ctxtSet, tl));
@@ -224,7 +226,6 @@ public class TasksTest {
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         tasks.clean();
-        tasks.afterUnmarshal(null, null);
 
         final AxTasks clonedTasks = new AxTasks(tasks);
         assertEquals("AxTasks:(key=AxArtifactKey:(name=TasksKey,version=0.0.1),tas",
@@ -236,7 +237,7 @@ public class TasksTest {
         assertEquals(tasks, tasks); // NOSONAR
         assertEquals(tasks, clonedTasks);
         assertNotNull(tasks);
-        assertNotEquals(tasks, (Object) "Hello");
+        assertNotEquals(tasks, helloObj);
         assertNotEquals(tasks, new AxTasks(new AxArtifactKey()));
 
         assertEquals(0, tasks.compareTo(tasks));

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
@@ -83,7 +84,7 @@ public class LogicBlockTest {
 
         // Read the file from disk
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
-        modelReader.setValidateFlag(false);
+        modelReader.setValidate(false);
 
         final URL writtenModelUrl = ResourceUtils.getLocalFile(tempLogicModelFile.getCanonicalPath());
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
@@ -111,7 +112,7 @@ public class LogicBlockTest {
 
         // Read the file from disk
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
-        modelReader.setValidateFlag(false);
+        modelReader.setValidate(false);
 
         final URL writtenModelUrl = ResourceUtils.getLocalFile(tempAvroModelFile.getCanonicalPath());
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());

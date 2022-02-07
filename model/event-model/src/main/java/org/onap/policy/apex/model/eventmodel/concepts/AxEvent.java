@@ -23,6 +23,7 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import com.google.common.base.Strings;
+import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +32,6 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang3.EnumUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
@@ -69,35 +64,22 @@ import org.onap.policy.common.utils.validation.Assertions;
  * is checked to ensure it matches the event parameter key on the event. Finally, the parent key of each parameter is
  * checked to ensure it matches the event key.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexEvent", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxEvent", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "nameSpace", "source", "target", "parameterMap", "toscaPolicyState"})
-
 public class AxEvent extends AxConcept {
     private static final long serialVersionUID = -1460388382582984269L;
 
     private static final String WHITESPACE_REGEXP = "\\s+$";
 
     /** The key of the event, unique in the Apex system. */
-    @XmlElement(name = "key", required = true)
     // CHECKSTYLE:OFF: checkstyle:VisibilityMonitor
     protected AxArtifactKey key;
     // CHECKSTYLE:ON: checkstyle:VisibilityMonitor
 
-    @XmlElement(required = true)
     private String nameSpace;
-
-    @XmlElement(required = true)
     private String source;
-
-    @XmlElement(required = true)
     private String target;
 
-    @XmlElement(name = "parameter", required = true)
+    @SerializedName("parameter")
     private Map<String, AxField> parameterMap;
-
-    @XmlElement(required = false)
     private String toscaPolicyState;
 
     /**
@@ -189,14 +171,10 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * When an event is unmarshalled from disk or from the database, the parent key in the reference keys in its
-     * parameter map are not set. This method is called by JAXB after unmarshaling and is used to set the parent key of
-     * the {@link AxField} instances in the parameter map to be the key of the event that contains them.
-     *
-     * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
+     * {@inheritDoc}.
      */
-    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
+    @Override
+    public void buildReferences() {
         for (final AxField parameter : parameterMap.values()) {
             parameter.getKey().setParentArtifactKey(key);
         }

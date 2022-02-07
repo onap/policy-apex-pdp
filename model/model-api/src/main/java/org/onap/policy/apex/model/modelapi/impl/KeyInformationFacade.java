@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,9 +52,6 @@ public class KeyInformationFacade {
     // Properties to use for the model
     private final Properties apexProperties;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * Create key information.
      *
@@ -65,7 +63,7 @@ public class KeyInformationFacade {
      * @return result of the operation
      */
     public ApexApiResult createKeyInformation(final String name, final String version, final String uuid,
-            final String description) {
+        final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -107,12 +105,12 @@ public class KeyInformationFacade {
      * @return result of the operation
      */
     public ApexApiResult updateKeyInformation(final String name, final String version, final String uuid,
-            final String description) {
+        final String description) {
         try {
             final AxKeyInfo keyInfo = apexModel.getPolicyModel().getKeyInformation().get(name, version);
             if (keyInfo == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + name + ":" + version + DOES_NOT_EXIST);
+                    CONCEPT + name + ":" + version + DOES_NOT_EXIST);
             }
 
             if (description != null) {
@@ -145,13 +143,12 @@ public class KeyInformationFacade {
             final Set<AxKeyInfo> keyInfoSet = apexModel.getPolicyModel().getKeyInformation().getAll(name, version);
             if (name != null && keyInfoSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxKeyInfo keyInfo : keyInfoSet) {
-                result.addMessage(
-                        new ApexModelStringWriter<AxKeyInfo>(false).writeString(keyInfo, AxKeyInfo.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxKeyInfo>(false).writeString(keyInfo, AxKeyInfo.class));
             }
             return result;
         } catch (final Exception e) {
@@ -172,26 +169,25 @@ public class KeyInformationFacade {
             if (version != null) {
                 final AxArtifactKey key = new AxArtifactKey(name, version);
                 final AxKeyInfo removedKeyInfo =
-                        apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().remove(key);
+                    apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().remove(key);
                 if (removedKeyInfo != null) {
-                    return new ApexApiResult(ApexApiResult.Result.SUCCESS, new ApexModelStringWriter<AxKeyInfo>(false)
-                            .writeString(removedKeyInfo, AxKeyInfo.class, jsonMode));
+                    return new ApexApiResult(ApexApiResult.Result.SUCCESS,
+                        new ApexModelStringWriter<AxKeyInfo>(false).writeString(removedKeyInfo, AxKeyInfo.class));
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getId() + DOES_NOT_EXIST);
+                        CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxKeyInfo> keyInfoSet = apexModel.getPolicyModel().getKeyInformation().getAll(name, version);
             if (keyInfoSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxKeyInfo keyInfo : keyInfoSet) {
-                result.addMessage(
-                        new ApexModelStringWriter<AxKeyInfo>(false).writeString(keyInfo, AxKeyInfo.class, jsonMode));
+                result.addMessage(new ApexModelStringWriter<AxKeyInfo>(false).writeString(keyInfo, AxKeyInfo.class));
                 apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().remove(keyInfo.getKey());
             }
             return result;
@@ -213,14 +209,14 @@ public class KeyInformationFacade {
             final Set<AxKeyInfo> keyInfoSet = apexModel.getPolicyModel().getKeyInformation().getAll(name, version);
             if (keyInfoSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxKeyInfo keyInfo : keyInfoSet) {
                 final AxValidationResult validationResult = keyInfo.validate(new AxValidationResult());
-                result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(keyInfo.getKey(),
-                        AxArtifactKey.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxArtifactKey>(false).writeString(keyInfo.getKey(), AxArtifactKey.class));
                 result.addMessage(validationResult.toString());
             }
             return result;

@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ package org.onap.policy.apex.model.basicmodel.handling;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.slf4j.ext.XLogger;
@@ -34,42 +36,21 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the type of Apex model to write to file, must be a sub class of {@link AxModel}
  */
+@Getter
+@Setter
 public class ApexModelFileWriter<M extends AxModel> {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexModelFileWriter.class);
 
     // Should models being written to files be valid
-    private boolean validateFlag;
+    private boolean validate;
 
     /**
      * Constructor, set the validation flag.
      *
-     * @param validateFlag indicates if validation be performed prior to output
+     * @param validate indicates if validation be performed prior to output
      */
-    public ApexModelFileWriter(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
-    }
-
-    /**
-     * Write a model to an XML file.
-     *
-     * @param model The model to write
-     * @param rootModelClass The concept class
-     * @param modelFileName The name of the file to write to
-     * @throws ApexException thrown on errors
-     */
-    public void apexModelWriteXmlFile(final M model, final Class<M> rootModelClass, final String modelFileName)
-                    throws ApexException {
-        LOGGER.debug("running apexModelWriteXMLFile . . .");
-
-        final ApexModelWriter<M> modelWriter = new ApexModelWriter<>(rootModelClass);
-        modelWriter.setValidateFlag(validateFlag);
-        modelWriter.getCDataFieldSet().add("description");
-        modelWriter.getCDataFieldSet().add("logic");
-        modelWriter.getCDataFieldSet().add("uiLogic");
-
-        writeModelFile(model, modelWriter, modelFileName);
-
-        LOGGER.debug("ran apexModelWriteXMLFile");
+    public ApexModelFileWriter(final boolean validate) {
+        this.validate = validate;
     }
 
     /**
@@ -85,30 +66,11 @@ public class ApexModelFileWriter<M extends AxModel> {
         LOGGER.debug("running apexModelWriteJSONFile . . .");
 
         final ApexModelWriter<M> modelWriter = new ApexModelWriter<>(rootModelClass);
-        modelWriter.setJsonOutput(true);
-        modelWriter.setValidateFlag(validateFlag);
+        modelWriter.setValidate(validate);
 
         writeModelFile(model, modelWriter, modelFileName);
 
         LOGGER.debug("ran apexModelWriteJSONFile");
-    }
-
-    /**
-     * Checks if the validation flag is set.
-     *
-     * @return true, the validation flag is set
-     */
-    public boolean isValidateFlag() {
-        return validateFlag;
-    }
-
-    /**
-     * Sets the validate flag.
-     *
-     * @param validateFlag the validate flag value
-     */
-    public void setValidateFlag(final boolean validateFlag) {
-        this.validateFlag = validateFlag;
     }
 
     /**

@@ -22,11 +22,6 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -42,19 +37,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  * a default value. If the task parameter is not set in a configuration file, the task uses its
  * default value.
  */
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexTaskParameter", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxTaskParameter", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "defaultValue"})
-
 public class AxTaskParameter extends AxConcept {
     private static final long serialVersionUID = 7351688156934099977L;
 
-    @XmlElement(name = "key", required = true)
     private AxReferenceKey key;
-
-    @XmlElement
     private String defaultValue;
 
     /**

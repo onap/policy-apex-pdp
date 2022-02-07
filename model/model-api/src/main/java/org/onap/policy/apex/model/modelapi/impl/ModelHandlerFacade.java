@@ -70,22 +70,17 @@ public class ModelHandlerFacade {
     // Apex model we're working towards
     private final ApexModel apexModel;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * This Constructor creates a model handling facade for the given {@link ApexModel}.
      *
      * @param apexModel the apex model to manipulate
      * @param apexProperties properties for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise set to false
      */
-    public ModelHandlerFacade(final ApexModel apexModel, final Properties apexProperties, final boolean jsonMode) {
+    public ModelHandlerFacade(final ApexModel apexModel, final Properties apexProperties) {
         Assertions.argumentNotNull(apexModel, "apexModel may not be null");
         Assertions.argumentNotNull(apexProperties, "apexProperties may not be null");
 
         this.apexModel = apexModel;
-        this.jsonMode = jsonMode;
     }
 
     /**
@@ -134,20 +129,15 @@ public class ModelHandlerFacade {
      * Save an Apex model to a file.
      *
      * @param fileName the file name
-     * @param xmlFlag if true, save the file in XML format, otherwise save the file in the default JSON format
      * @return the result of the operation
      */
-    public ApexApiResult saveToFile(final String fileName, final boolean xmlFlag) {
+    public ApexApiResult saveToFile(final String fileName) {
         Assertions.argumentNotNull(fileName, FILE_NAME_MAY_NOT_BE_NULL);
 
         ApexModelFileWriter<AxPolicyModel> apexModelFileWriter = new ApexModelFileWriter<>(false);
 
         try {
-            if (xmlFlag) {
-                apexModelFileWriter.apexModelWriteXmlFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
-            } else {
-                apexModelFileWriter.apexModelWriteJsonFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
-            }
+            apexModelFileWriter.apexModelWriteJsonFile(apexModel.getPolicyModel(), AxPolicyModel.class, fileName);
             return new ApexApiResult();
         } catch (ApexException e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
@@ -180,7 +170,7 @@ public class ModelHandlerFacade {
 
         try {
             ApexModelReader<AxPolicyModel> apexModelReader = new ApexModelReader<>(AxPolicyModel.class);
-            apexModelReader.setValidateFlag(false);
+            apexModelReader.setValidate(false);
             AxPolicyModel newPolicyModel = apexModelReader.read(apexModelUrl.openStream());
             apexModel.setPolicyModel(newPolicyModel != null ? newPolicyModel : new AxPolicyModel());
             return new ApexApiResult();
@@ -194,10 +184,9 @@ public class ModelHandlerFacade {
      * Write an APEX model to a location identified by a URL.
      *
      * @param urlString the URL to read the model from
-     * @param xmlFlag if true, save the file in XML format, otherwise save the file in the default JSON format
      * @return the result of the operation
      */
-    public ApexApiResult writeToUrl(final String urlString, final boolean xmlFlag) {
+    public ApexApiResult writeToUrl(final String urlString) {
         Assertions.argumentNotNull(urlString, "urlString may not be null");
 
         URL apexModelUrl;
@@ -212,8 +201,7 @@ public class ModelHandlerFacade {
 
         try {
             ApexModelWriter<AxPolicyModel> apexModelWriter = new ApexModelWriter<>(AxPolicyModel.class);
-            apexModelWriter.setValidateFlag(false);
-            apexModelWriter.setJsonOutput(!xmlFlag);
+            apexModelWriter.setValidate(false);
 
             // Open the URL for output and write the model
             URLConnection urlConnection = apexModelUrl.openConnection();
@@ -250,7 +238,7 @@ public class ModelHandlerFacade {
                 result.setResult(ApexApiResult.Result.FAILED);
             }
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
+                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class));
             result.addMessage(validationResult.toString());
             return result;
         } catch (Exception e) {
@@ -277,7 +265,7 @@ public class ModelHandlerFacade {
             PolicyModelComparer policyModelComparer =
                     new PolicyModelComparer(apexModel.getPolicyModel(), otherPolicyModel);
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
+                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class));
             result.addMessage(policyModelComparer.toString());
 
             return result;
@@ -306,7 +294,7 @@ public class ModelHandlerFacade {
             PolicyModelComparer policyModelComparer =
                     new PolicyModelComparer(apexModel.getPolicyModel(), otherPolicyModel);
             result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false)
-                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class, jsonMode));
+                    .writeString(apexModel.getPolicyModel().getKey(), AxArtifactKey.class));
             result.addMessage(policyModelComparer.toString());
 
             return result;
@@ -470,7 +458,7 @@ public class ModelHandlerFacade {
 
         try {
             ApexModelReader<AxPolicyModel> apexModelReader = new ApexModelReader<>(AxPolicyModel.class);
-            apexModelReader.setValidateFlag(false);
+            apexModelReader.setValidate(false);
             readModel = apexModelReader.read(apexModelUrl.openStream());
             result.setResult(ApexApiResult.Result.SUCCESS);
             return readModel;
@@ -497,7 +485,7 @@ public class ModelHandlerFacade {
 
         try {
             ApexModelReader<AxPolicyModel> apexModelReader = new ApexModelReader<>(AxPolicyModel.class);
-            apexModelReader.setValidateFlag(false);
+            apexModelReader.setValidate(false);
             readModel = apexModelReader.read(modelStringStream);
             result.setResult(ApexApiResult.Result.SUCCESS);
             return readModel;

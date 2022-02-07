@@ -22,19 +22,12 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -49,12 +42,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation checks that the logic key is valid, that the logic flavour is defined and is valid when checked against
  * the {@code LOGIC_FLAVOUR_REGEXP} regular expression, and that the specified logic string is not null or blank.
  */
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexLogic", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxLogic", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "logicFlavour", "logic" })
-
 public class AxLogic extends AxConcept {
     private static final long serialVersionUID = -4260562004005697328L;
 
@@ -74,14 +61,8 @@ public class AxLogic extends AxConcept {
     /** The maximum permissible size of a logic definition. */
     public static final int MAX_LOGIC_SIZE = 32672; // The maximum size supported by Apache Derby
 
-    @XmlElement(name = "key", required = true)
-    @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     private AxReferenceKey key;
-
-    @XmlElement(required = true)
     private String logicFlavour;
-
-    @XmlElement(required = true)
     private String logic;
 
     /**

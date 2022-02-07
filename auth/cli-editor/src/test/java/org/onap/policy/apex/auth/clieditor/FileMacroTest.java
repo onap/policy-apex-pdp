@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@ public class FileMacroTest {
 
         // Read the file from disk
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
-        modelReader.setValidateFlag(false);
+        modelReader.setValidate(false);
 
         final URL writtenModelUrl = ResourceUtils.getLocalFile(tempModelFile.getCanonicalPath());
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());

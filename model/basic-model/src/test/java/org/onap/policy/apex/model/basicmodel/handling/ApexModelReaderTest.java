@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,45 +34,33 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.stream.StreamSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApexModelReaderTest {
-    @Mock
-    private Unmarshaller unmarshallerMock;
-
     @Test
     public void testModelReader() throws IOException, ApexException {
         AxModel model = new DummyApexBasicModelCreator().getModel();
         AxModel invalidModel = new DummyApexBasicModelCreator().getInvalidModel();
 
         ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
-        modelWriter.setValidateFlag(true);
-        modelWriter.setJsonOutput(true);
+        modelWriter.setValidate(true);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         modelWriter.write(model, baos);
 
         ByteArrayOutputStream baosInvalid = new ByteArrayOutputStream();
-        modelWriter.setValidateFlag(false);
+        modelWriter.setValidate(false);
         modelWriter.write(invalidModel, baosInvalid);
 
         ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class, true);
 
-        modelReader.setValidateFlag(true);
-        assertTrue(modelReader.getValidateFlag());
+        modelReader.setValidate(true);
+        assertTrue(modelReader.isValidate());
 
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         AxModel readModel = modelReader.read(bais);
@@ -81,26 +69,24 @@ public class ApexModelReaderTest {
         ByteArrayInputStream baisInvalid = new ByteArrayInputStream(baosInvalid.toByteArray());
         assertThatThrownBy(() -> modelReader.read(baisInvalid))
             .hasMessageStartingWith("Apex concept validation failed");
-        modelReader.setValidateFlag(false);
-        assertFalse(modelReader.getValidateFlag());
+        modelReader.setValidate(false);
+        assertFalse(modelReader.isValidate());
 
         ByteArrayInputStream bais2 = new ByteArrayInputStream(baos.toByteArray());
         AxModel readModel2 = modelReader.read(bais2);
         assertEquals(model, readModel2);
 
-        modelWriter.setJsonOutput(false);
+        ByteArrayOutputStream baosJson = new ByteArrayOutputStream();
+        modelWriter.write(model, baosJson);
 
-        ByteArrayOutputStream baosXml = new ByteArrayOutputStream();
-        modelWriter.write(model, baosXml);
-
-        ByteArrayInputStream baisXml = new ByteArrayInputStream(baosXml.toByteArray());
-        AxModel readModelXml = modelReader.read(baisXml);
-        assertEquals(model, readModelXml);
+        ByteArrayInputStream baisJson = new ByteArrayInputStream(baosJson.toByteArray());
+        AxModel readModelJson = modelReader.read(baisJson);
+        assertEquals(model, readModelJson);
 
         String dummyString = "SomeDummyText";
         ByteArrayInputStream baisDummy = new ByteArrayInputStream(dummyString.getBytes());
         assertThatThrownBy(() -> modelReader.read(baisDummy))
-            .hasMessage("format of input for Apex concept is neither JSON nor XML");
+            .hasMessageContaining("Unable to unmarshal Apex concept");
         ByteArrayInputStream nullBais = null;
         assertThatThrownBy(() -> modelReader.read(nullBais))
             .hasMessage("concept stream may not be null");
@@ -115,42 +101,5 @@ public class ApexModelReaderTest {
         assertThatThrownBy(() -> modelReader.read(br))
              .hasMessage("Unable to read Apex concept ");
         tempFile.delete();
-        modelReader.setSchema(null);
-
-        final File tempFileA = File.createTempFile("Apex", "Dummy");
-        assertThatThrownBy(() -> modelReader.setSchema(tempFileA.getCanonicalPath()))
-            .hasMessage("Unable to load schema");
-        tempFile.delete();
-        modelReader.setSchema("xml/example.xsd");
-    }
-
-    @Test
-    public void testSetInputTypeError() throws ApexModelException,
-        NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        MockitoAnnotations.initMocks(this);
-
-        ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class, true);
-
-        Field marshallerField = modelReader.getClass().getDeclaredField("unmarshaller");
-        marshallerField.setAccessible(true);
-        marshallerField.set(modelReader, unmarshallerMock);
-        marshallerField.setAccessible(false);
-
-        assertThatThrownBy(() -> {
-            Mockito.doThrow(new JAXBException("Exception marshalling to JSON")).when(unmarshallerMock)
-                .unmarshal((StreamSource) Mockito.anyObject(), Mockito.anyObject());
-
-            modelReader.read("{Hello}");
-        }).hasMessage("Unable to unmarshal Apex concept ");
-        assertThatThrownBy(() -> {
-            Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(unmarshallerMock)
-                .setProperty(Mockito.anyString(), Mockito.anyString());
-            modelReader.read("{Hello}");
-        }).hasMessage("JAXB error setting unmarshaller for JSON input");
-        assertThatThrownBy(() -> {
-            Mockito.doThrow(new PropertyException("Exception setting JAXB property")).when(unmarshallerMock)
-                .setProperty(Mockito.anyString(), Mockito.anyString());
-            modelReader.read("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        }).hasMessage("JAXB error setting unmarshaller for XML input");
     }
 }

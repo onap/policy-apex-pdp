@@ -44,7 +44,7 @@ import org.slf4j.ext.XLoggerFactory;
 public class TestApexModel<M extends AxModel> {
     private static final String MODEL_IS_INVALID = "model is invalid ";
     private static final String ERROR_PROCESSING_FILE = "error processing file ";
-    private static final String TEST_MODEL_UNEQUAL_STR = "test model does not equal model read from XML file ";
+    private static final String TEST_MODEL_UNEQUAL_STR = "test model does not equal model read from file ";
     private static final String TEMP_FILE_CREATE_ERR_STR = "error creating temporary file for Apex model";
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestApexModel.class);
@@ -77,55 +77,6 @@ public class TestApexModel<M extends AxModel> {
     }
 
     /**
-     * Test write and read in XML format.
-     *
-     * @throws ApexException on write/read errors
-     */
-    public final void testApexModelWriteReadXml() throws ApexException {
-        LOGGER.debug("running testApexModelWriteReadXML . . .");
-
-        final var model = modelCreator.getModel();
-
-        // Write the file to disk
-        File xmlFile;
-
-        try {
-            xmlFile = File.createTempFile("ApexModel", ".xml");
-            xmlFile.deleteOnExit();
-        } catch (final Exception e) {
-            LOGGER.warn(TEMP_FILE_CREATE_ERR_STR, e);
-            throw new ApexException(TEMP_FILE_CREATE_ERR_STR, e);
-        }
-        new ApexModelFileWriter<M>(true).apexModelWriteXmlFile(model, rootModelClass, xmlFile.getPath());
-
-        // Read the file from disk
-        final ApexModelReader<M> modelReader = new ApexModelReader<>(rootModelClass);
-
-        try {
-            final var apexModelUrl = ResourceUtils.getLocalFile(xmlFile.getAbsolutePath());
-            final var fileModel = modelReader.read(apexModelUrl.openStream());
-            checkModelEquality(model, fileModel, TEST_MODEL_UNEQUAL_STR + xmlFile.getAbsolutePath());
-        } catch (final Exception e) {
-            LOGGER.warn(ERROR_PROCESSING_FILE + xmlFile.getAbsolutePath(), e);
-            throw new ApexException(ERROR_PROCESSING_FILE + xmlFile.getAbsolutePath(), e);
-        }
-
-        final ApexModelWriter<M> modelWriter = new ApexModelWriter<>(rootModelClass);
-        modelWriter.getCDataFieldSet().add("description");
-        modelWriter.getCDataFieldSet().add("logic");
-        modelWriter.getCDataFieldSet().add("uiLogic");
-
-        final var baOutputStream = new ByteArrayOutputStream();
-        modelWriter.write(model, baOutputStream);
-        final var baInputStream = new ByteArrayInputStream(baOutputStream.toByteArray());
-        final var byteArrayModel = modelReader.read(baInputStream);
-
-        checkModelEquality(model, byteArrayModel, "test model does not equal XML marshalled and unmarshalled model");
-
-        LOGGER.debug("ran testApexModelWriteReadXML");
-    }
-
-    /**
      * Test write and read in JSON format.
      *
      * @throws ApexException on write/read errors
@@ -138,7 +89,7 @@ public class TestApexModel<M extends AxModel> {
         // Write the file to disk
         File jsonFile;
         try {
-            jsonFile = File.createTempFile("ApexModel", ".xml");
+            jsonFile = File.createTempFile("ApexModel", ".json");
             jsonFile.deleteOnExit();
         } catch (final Exception e) {
             LOGGER.warn(TEMP_FILE_CREATE_ERR_STR, e);
@@ -159,7 +110,6 @@ public class TestApexModel<M extends AxModel> {
         }
 
         final ApexModelWriter<M> modelWriter = new ApexModelWriter<>(rootModelClass);
-        modelWriter.setJsonOutput(true);
 
         final var baOutputStream = new ByteArrayOutputStream();
         modelWriter.write(model, baOutputStream);

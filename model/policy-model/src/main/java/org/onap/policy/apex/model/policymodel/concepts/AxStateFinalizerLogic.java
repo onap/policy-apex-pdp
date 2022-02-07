@@ -21,10 +21,6 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
 /**
@@ -39,10 +35,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
  *
  * <p>Validation uses standard Apex Logic validation, see validation in {@link AxLogic}.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexStateFinalizerLogic", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxStateFinalizerLogic", namespace = "http://www.onap.org/policy/apex-pdp")
-
 public class AxStateFinalizerLogic extends AxLogic {
     private static final long serialVersionUID = 2090324845463750391L;
 

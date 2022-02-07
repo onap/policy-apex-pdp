@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +24,4 @@
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-
-@XmlSchema(namespace = "http://www.onap.org/policy/apex-pdp", elementFormDefault = XmlNsForm.QUALIFIED,
-        xmlns = { @XmlNs(namespaceURI = "http://www.onap.org/policy/apex-pdp", prefix = "") })
-
 package org.onap.policy.apex.model.basicmodel.concepts;
-
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;

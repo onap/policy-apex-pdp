@@ -30,11 +30,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.UUID;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -48,16 +43,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  * the map is defined, that the key in each map entry matches the key if each entry value, and that no duplicate UUIDs
  * exist. Each key information entry is then validated individually.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxKeyInformation", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "key", "keyInfoMap" })
-
 public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKeyInfo> {
     private static final long serialVersionUID = -2746380769017043888L;
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
-
     private Map<AxArtifactKey, AxKeyInfo> keyInfoMap;
 
     /**
@@ -102,22 +91,6 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the key information map is returned as a raw Hash
-     * Map. This method is called by JAXB after unmarshaling and is used to convert the hash map to a
-     * {@link NavigableMap} so that it will work with the {@link AxConceptGetter} interface.
-     *
-     * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
-     */
-    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
-        // The map must be navigable to allow name and version searching,
-        // unmarshaling returns a hash map
-        final NavigableMap<AxArtifactKey, AxKeyInfo> navigablekeyInfoMap = new TreeMap<>();
-        navigablekeyInfoMap.putAll(keyInfoMap);
-        keyInfoMap = navigablekeyInfoMap;
-    }
-
-    /**
      * This method generates default key information for all keys found in the concept passed in as a parameter that do
      * not already have key information.
      *
@@ -157,6 +130,14 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
         keyList.addAll(keyInfoMap.keySet());
 
         return keyList;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void buildReferences() {
+        keyInfoMap.values().stream().forEach(keyInfo -> keyInfo.buildReferences());
     }
 
     /**
@@ -218,7 +199,7 @@ public class AxKeyInformation extends AxConcept implements AxConceptGetter<AxKey
     }
 
     /**
-     * Validate an key information entry.
+     * Validate a key information entry.
      *
      * @param keyInfoEntry the key information entry
      * @param uuidSet the set of UUIDs encountered in validation so far, the UUID of this entry is added to the set

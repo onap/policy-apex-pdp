@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,17 +61,6 @@ public class MfpModelTest {
 
         result = testApexModel2.testApexModelValid();
         assertTrue("Model did not validate cleanly", result.isOk());
-    }
-
-    /**
-     * Test model write and read XML.
-     *
-     * @throws Exception if there is an error
-     */
-    @Test
-    public void testModelWriteReadXml() throws Exception {
-        testApexModel1.testApexModelWriteReadXml();
-        testApexModel2.testApexModelWriteReadXml();
     }
 
     /**
