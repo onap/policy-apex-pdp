@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,26 +49,20 @@ public class ModelFacade {
     // Facade classes for working towards the real Apex model
     private final KeyInformationFacade keyInformationFacade;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * Constructor to create a model facade for the Apex model.
      *
      * @param apexModel the apex model
      * @param apexProperties Properties for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise
-     *        set to false
      */
-    public ModelFacade(final ApexModel apexModel, final Properties apexProperties, final boolean jsonMode) {
+    public ModelFacade(final ApexModel apexModel, final Properties apexProperties) {
         Assertions.argumentNotNull(apexModel, "apexModel may not be null");
         Assertions.argumentNotNull(apexProperties, "apexProperties may not be null");
 
         this.apexModel = apexModel;
         this.apexProperties = apexProperties;
-        this.jsonMode = jsonMode;
 
-        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties, jsonMode);
+        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties);
     }
 
     /**
@@ -81,7 +75,7 @@ public class ModelFacade {
      * @return result of the operation
      */
     public ApexApiResult createModel(final String name, final String version, final String uuid,
-            final String description) {
+        final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -98,7 +92,7 @@ public class ModelFacade {
 
             if (!apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        CONCEPT + apexModel.getPolicyModel().getKey().getId() + ALREADY_CREATED);
+                    CONCEPT + apexModel.getPolicyModel().getKey().getId() + ALREADY_CREATED);
             }
 
             apexModel.setPolicyModel(new AxPolicyModel(key));
@@ -107,6 +101,7 @@ public class ModelFacade {
 
             result = keyInformationFacade.createKeyInformation(name, version, uuid, description);
             if (result.getResult().equals(ApexApiResult.Result.SUCCESS)) {
+                apexModel.getPolicyModel().buildReferences();
                 apexModel.getPolicyModel().getKeyInformation().generateKeyInfo(apexModel.getPolicyModel());
             }
             return result;
@@ -125,7 +120,7 @@ public class ModelFacade {
      * @return result of the operation
      */
     public ApexApiResult updateModel(final String name, final String version, final String uuid,
-            final String description) {
+        final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -137,13 +132,13 @@ public class ModelFacade {
                     key.setVersion(defaultVersion);
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.FAILED,
-                            CONCEPT + apexModel.getPolicyModel().getKey().getId() + NO_VERSION_SPECIFIED);
+                        CONCEPT + apexModel.getPolicyModel().getKey().getId() + NO_VERSION_SPECIFIED);
                 }
             }
 
             if (apexModel.getPolicyModel().getKey().equals(AxArtifactKey.getNullKey())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + apexModel.getPolicyModel().getKey().getId() + DOES_NOT_EXIST);
+                    CONCEPT + apexModel.getPolicyModel().getKey().getId() + DOES_NOT_EXIST);
             }
 
             return keyInformationFacade.updateKeyInformation(name, version, uuid, description);
@@ -161,8 +156,8 @@ public class ModelFacade {
         try {
             final ApexApiResult result = new ApexApiResult();
             final AxArtifactKey modelkey = apexModel.getPolicyModel().getKey();
-            result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(modelkey, AxArtifactKey.class,
-                    jsonMode));
+            result
+                .addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(modelkey, AxArtifactKey.class));
             return result;
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
@@ -178,7 +173,7 @@ public class ModelFacade {
         try {
             final ApexApiResult result = new ApexApiResult();
             result.addMessage(new ApexModelStringWriter<AxPolicyModel>(false).writeString(apexModel.getPolicyModel(),
-                    AxPolicyModel.class, jsonMode));
+                AxPolicyModel.class));
             return result;
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);

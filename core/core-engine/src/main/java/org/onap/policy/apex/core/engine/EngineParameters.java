@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,8 +39,8 @@ import org.onap.policy.common.parameters.annotations.Valid;
  * for each of those executors.
  *
  * <p>The context parameters for the engine are held in a {@link ContextParameters} instance. This instance holds the
- * parameters for context schema handling that will be used by the engine as well as the context album distribution,
- * locking, and persistence parameters.
+ * parameters for context schema handling that will be used by the engine as well as the context album distribution and
+ * locking parameters.
  *
  * <p>In Apex, an engine can be configured to use many logic flavours. The executors for each logic flavour are
  * identified by their name. Each logic flavour executor must have an instance of {@link ExecutorParameters} defined for

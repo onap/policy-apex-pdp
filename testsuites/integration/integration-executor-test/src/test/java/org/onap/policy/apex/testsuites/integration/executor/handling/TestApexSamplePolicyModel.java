@@ -59,16 +59,6 @@ public class TestApexSamplePolicyModel {
     }
 
     /**
-     * Test model write read xml.
-     *
-     * @throws Exception the exception
-     */
-    @Test
-    public void testModelWriteReadXml() throws Exception {
-        testApexModel.testApexModelWriteReadXml();
-    }
-
-    /**
      * Test model write read json.
      *
      * @throws Exception the exception

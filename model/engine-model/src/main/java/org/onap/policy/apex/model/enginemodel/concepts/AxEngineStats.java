@@ -26,11 +26,6 @@ import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
@@ -47,10 +42,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * engine, and the time stamp of the last engine start are recorded.
  */
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexEngineStats", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxEngineStats", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "timeStamp",
-    "eventCount", "lastExecutionTime", "averageExecutionTime", "upTime", "lastStart"})
 public class AxEngineStats extends AxConcept {
     private static final long serialVersionUID = -6981129081962785368L;
     private static final int HASH_CODE_PRIME = 32;
@@ -71,28 +62,15 @@ public class AxEngineStats extends AxConcept {
             .name("apex_engine_last_execution_time").labelNames(ENGINE_INSTANCE_ID)
             .help("Time taken to execute the last APEX policy in seconds.").register();
 
-    @XmlElement(name = "key", required = true)
     private AxReferenceKey key;
-
-    @XmlElement(required = true)
     private long timeStamp;
-
-    @XmlElement(required = true)
     private long eventCount;
-
-    @XmlElement(required = true)
     private long lastExecutionTime;
-
-    @XmlElement(required = true)
     private double averageExecutionTime;
-
-    @XmlElement(required = true)
     private long upTime;
 
     @Getter
     private transient long lastEnterTime;
-
-    @XmlElement(required = true)
     private long lastStart;
 
     /**

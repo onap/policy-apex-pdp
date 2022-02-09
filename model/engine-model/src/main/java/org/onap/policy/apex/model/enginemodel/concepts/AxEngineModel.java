@@ -24,11 +24,6 @@ package org.onap.policy.apex.model.enginemodel.concepts;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -53,20 +48,12 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation checks that the current state {@link AxEngineState} is defined and that the time stamp
  * is set on the engine model.
  */
-@XmlRootElement(name = "apexEngineModel", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxEngineModel", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"timestamp", "state", "stats"})
-
 public class AxEngineModel extends AxContextModel {
     private static final long serialVersionUID = 6381235864606564046L;
     private static final int HASH_CODE_PRIME = 32;
 
     private long timestamp;
-
-    @XmlElement(required = true)
     private AxEngineState state;
-
     private AxEngineStats stats;
 
     /**

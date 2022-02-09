@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -199,7 +199,7 @@ public class EngineServiceImplTest {
             .isInstanceOf(ApexException.class).hasMessage("engine with key DummyKey:0.0.1 not found in engine service");
 
         String status = esImpl.getStatus(esImpl.getEngineKeys().iterator().next());
-        assertTrue(status.contains("\n   \"apexEngineModel\" :"));
+        assertTrue(status.contains("\"timestamp\":"));
 
         assertFalse(esImpl.isStarted());
         assertFalse(esImpl.isStarted(null));
@@ -334,7 +334,7 @@ public class EngineServiceImplTest {
         assertEquals(AxEngineState.EXECUTING, esImpl.getState());
 
         String status = esImpl.getStatus(esImpl.getEngineKeys().iterator().next());
-        assertTrue(status.contains("\n   \"apexEngineModel\" :"));
+        assertTrue(status.contains("\"timestamp\":"));
         assertTrue(esImpl.isStarted());
         assertTrue(esImpl.isStarted(esImpl.getEngineKeys().iterator().next()));
         assertFalse(esImpl.isStopped());

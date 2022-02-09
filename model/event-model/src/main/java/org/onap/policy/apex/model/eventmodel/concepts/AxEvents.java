@@ -27,11 +27,6 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter;
@@ -52,17 +47,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  * container. Each event entry is checked to ensure that its key and value are not null and that the key matches the key
  * in the map value. Each event entry is then validated individually.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxEvents", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "eventMap" })
-
 public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     private static final long serialVersionUID = 4290442590545820316L;
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
-
-    @XmlElement(required = true)
     private Map<AxArtifactKey, AxEvent> eventMap;
 
     /**
@@ -108,21 +96,6 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the event map is returned as a raw hash map. This
-     * method is called by JAXB after unmarshaling and is used to convert the hash map to a {@link NavigableMap} so that
-     * it will work with the {@link AxConceptGetter} interface.
-     *
-     * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
-     */
-    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
-        // The map must be navigable to allow name and version searching, unmarshaling returns a hash map
-        final NavigableMap<AxArtifactKey, AxEvent> navigableEventMap = new TreeMap<>();
-        navigableEventMap.putAll(eventMap);
-        eventMap = navigableEventMap;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -142,6 +115,14 @@ public class AxEvents extends AxConcept implements AxConceptGetter<AxEvent> {
         }
 
         return keyList;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void buildReferences() {
+        eventMap.values().stream().forEach(event -> event.buildReferences());
     }
 
     /**

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,9 +84,12 @@ public class ApexCliToscaEditorTest {
     @Test
     public void testApexCliTosca_success() throws IOException {
         final ApexCliToscaEditorMain cliEditor = new ApexCliToscaEditorMain(sampleArgs);
+
+
         String outputTosca = TextFileUtils.getTextFileAsString(tempOutputToscaFile.getAbsolutePath());
         String outputToscaCompare =
-            TextFileUtils.getTextFileAsString("src/test/resources/tosca/ToscaPolicyOutput_compare.json").trim();
+            TextFileUtils.getTextFileAsString("src/test/resources/tosca/ToscaPolicyOutput_compare_2.json").trim();
+
         assertEquals(outputToscaCompare, outputTosca);
         assertFalse(cliEditor.isFailure());
     }

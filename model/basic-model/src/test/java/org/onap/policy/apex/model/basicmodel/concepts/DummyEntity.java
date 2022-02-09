@@ -23,17 +23,11 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 
 public class DummyEntity extends AxConcept {
     private static final long serialVersionUID = -2962570563281067894L;
 
-    @XmlElement(name = "key", required = true)
-    @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     protected AxReferenceKey key;
-
     private double doubleValue;
 
     public DummyEntity() {

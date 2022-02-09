@@ -41,14 +41,14 @@ public class ModelHandlerFacadeTest {
 
     @Test
     public void testModelHandlerFacade() throws IOException {
-        assertThatThrownBy(() -> new ModelHandlerFacade(null, null, false))
+        assertThatThrownBy(() -> new ModelHandlerFacade(null, null))
             .hasMessage("apexModel may not be null");
-        final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
+        final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
-        assertThatThrownBy(() -> new ModelHandlerFacade(apexModel, null, false))
+        assertThatThrownBy(() -> new ModelHandlerFacade(apexModel, null))
             .hasMessage("apexProperties may not be null");
         final Properties modelProperties = new Properties();
-        final ModelHandlerFacade mhf = new ModelHandlerFacade(apexModel, modelProperties, false);
+        final ModelHandlerFacade mhf = new ModelHandlerFacade(apexModel, modelProperties);
         assertNotNull(mhf);
 
         ApexApiResult result = mhf.loadFromFile("src/test/resources/models/PolicyModel.json");
@@ -83,7 +83,7 @@ public class ModelHandlerFacadeTest {
         final File tempFile = File.createTempFile("ApexModel", "json");
         tempFile.deleteOnExit();
 
-        result = mhf.writeToUrl("File:///" + tempFile.getCanonicalPath(), false);
+        result = mhf.writeToUrl("File:///" + tempFile.getCanonicalPath());
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
         result = mhf.validate();

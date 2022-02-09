@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,13 +25,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Setter;
 
 /**
@@ -39,14 +32,11 @@ import lombok.Setter;
  * {@link ApexModel} API.
  */
 @Setter
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
 public class ApexApiResult {
 
     /**
      * This enumeration is used to represent the result status of a call on the {@link ApexModel} API.
      */
-    @XmlEnum(value = String.class)
     public enum Result {
         /** The method call succeeded. */
         SUCCESS,
@@ -155,7 +145,6 @@ public class ApexApiResult {
      *
      * @return true, if the result indicates the API operation succeeded
      */
-    @XmlAttribute(required = true)
     public boolean isOk() {
         return Result.isOk(result);
     }
@@ -174,7 +163,6 @@ public class ApexApiResult {
      *
      * @return the result status
      */
-    @XmlAttribute(required = true)
     public Result getResult() {
         return result;
     }
@@ -184,8 +172,6 @@ public class ApexApiResult {
      *
      * @return the list of messages returned by an API operation
      */
-    @XmlElementWrapper(required = false, nillable = true)
-    @XmlElement(nillable = true, name = "message")
     public List<String> getMessages() {
         return messages;
     }
@@ -195,7 +181,6 @@ public class ApexApiResult {
      *
      * @return the messages returned by an API operation as a single string
      */
-    @XmlElement(required = true, name = "content")
     public String getMessage() {
         final StringBuilder builder = new StringBuilder();
         for (final String message : messages) {

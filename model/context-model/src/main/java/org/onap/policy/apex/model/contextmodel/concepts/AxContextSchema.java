@@ -23,11 +23,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
@@ -59,12 +54,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  */
 @Getter
 @ToString
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexContextSchema", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxContextSchema", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "schemaFlavour", "schemaDefinition" })
-
 public class AxContextSchema extends AxConcept {
     private static final String SCHEMA_FLAVOUR = "schemaFlavour";
     private static final String WHITESPACE_REGEXP = "\\s+$";
@@ -80,13 +69,9 @@ public class AxContextSchema extends AxConcept {
     /** The maximum permissible size of a schema definition. */
     public static final int MAX_SCHEMA_SIZE = 32672; // The maximum size supported by Apache Derby
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
-
-    @XmlElement(required = true)
     private String schemaFlavour;
 
-    @XmlElement(name = "schemaDefinition", required = true)
     @Getter(AccessLevel.NONE)
     private String schemaDefinition;
 

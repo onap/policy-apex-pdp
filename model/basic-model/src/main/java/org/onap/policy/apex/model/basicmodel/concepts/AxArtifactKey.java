@@ -23,11 +23,6 @@ package org.onap.policy.apex.model.basicmodel.concepts;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
 
@@ -39,22 +34,13 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Key validation checks that the name and version fields match the NAME_REGEXP and VERSION_REGEXP
  * regular expressions respectively.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp")
-
-@XmlType(name = "AxArtifactKey", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "name", "version" })
-
 public class AxArtifactKey extends AxKey {
     private static final long serialVersionUID = 8932717618579392561L;
 
     private static final String NAME_TOKEN = "name";
     private static final String VERSION_TOKEN = "version";
 
-    @XmlElement(required = true)
     private String name;
-
-    @XmlElement(required = true)
     private String version;
 
     /**

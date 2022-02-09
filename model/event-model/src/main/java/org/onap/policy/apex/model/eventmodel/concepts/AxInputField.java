@@ -21,20 +21,12 @@
 
 package org.onap.policy.apex.model.eventmodel.concepts;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
 /**
  * This class specializes the {@link AxField} class for use as input fields on events.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexInputField", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxInputField", namespace = "http://www.onap.org/policy/apex-pdp")
-
 public class AxInputField extends AxField {
     private static final long serialVersionUID = 2090324845463750391L;
 

@@ -22,18 +22,13 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -71,14 +66,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <li>The task logic must be valid, see validation in {@link AxTaskLogic}
  * </ol>
  */
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexTask", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(
-    name = "AxTask",
-    namespace = "http://www.onap.org/policy/apex-pdp",
-    propOrder = {"key", "inputEvent", "outputEvents", "taskParameters",
-        "contextAlbumReferenceSet", "taskLogic"})
 @Getter
 @Setter
 public class AxTask extends AxConcept {
@@ -86,24 +73,17 @@ public class AxTask extends AxConcept {
 
     private static final long serialVersionUID = 5374237330697362762L;
 
-    @XmlElement(name = "key", required = true)
     @NonNull
     private AxArtifactKey key;
 
-    @XmlElement(name = "inputEvent", required = false)
     private AxEvent inputEvent;
-
-    @XmlElement(name = "outputEvents", required = false)
     private Map<String, AxEvent> outputEvents;
-
-    @XmlElement(name = "taskParameters", required = true)
     private Map<String, AxTaskParameter> taskParameters;
 
-    @XmlElement(name = "contextAlbumReference")
+    @SerializedName("contextAlbumReference")
     @NonNull
     private Set<AxArtifactKey> contextAlbumReferenceSet;
 
-    @XmlElement(required = true)
     @NonNull
     private AxTaskLogic taskLogic;
 
@@ -163,18 +143,17 @@ public class AxTask extends AxConcept {
     }
 
     /**
-     * When a task is unmarshalled from disk or from the database, the parent of contained objects
-     * is not defined. This method is called by JAXB after unmarshaling and is used to set the
+     * When a task is deserialized from disk or from the database, the parent of contained objects
+     * is not defined. This method is called by JAXB after deserialization and is used to set the
      * parent keys of all {@link AxTaskParameter} instance in the task.
-     *
-     * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
      */
-    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
-        taskLogic.getKey().setParentArtifactKey(key);
-        for (final AxTaskParameter parameter : taskParameters.values()) {
-            parameter.getKey().setParentArtifactKey(key);
+    @Override
+    public void buildReferences() {
+        if (!taskLogic.getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
+            taskLogic.getKey().setParentArtifactKey(key);
         }
+
+        taskParameters.values().stream().forEach(parameter -> parameter.getKey().setParentArtifactKey(key));
     }
 
     /**

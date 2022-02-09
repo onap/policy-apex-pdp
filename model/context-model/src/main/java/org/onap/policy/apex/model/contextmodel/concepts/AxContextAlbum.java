@@ -23,11 +23,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -66,11 +61,6 @@ import org.onap.policy.common.utils.validation.Assertions;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxContextAlbum", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "scope", "isWritable", "itemSchema" })
-
 public class AxContextAlbum extends AxConcept {
     private static final String SCOPE_STRING = "scope";
 
@@ -84,17 +74,12 @@ public class AxContextAlbum extends AxConcept {
     /** The value of scope for a context album for which a scope has not been specified. */
     public static final String SCOPE_UNDEFINED = "UNDEFINED";
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
-
-    @XmlElement(name = SCOPE_STRING, required = true)
     private String scope;
 
-    @XmlElement(name = "isWritable", required = true)
     @Setter
     private boolean isWritable;
 
-    @XmlElement(name = "itemSchema", required = true)
     private AxArtifactKey itemSchema;
 
     /**

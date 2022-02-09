@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This class is used to save Apex models to file in XML or JSON format.
+ * This class is used to save Apex models to file in JSON format.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the type of Apex model to save to file, must be a sub class of {@link AxModel}
@@ -51,7 +51,7 @@ public class ApexModelSaver<M extends AxModel> {
      * @param rootModelClass the class of the model, a sub class of {@link AxModel}
      * @param model the model to write, an instance of a sub class of {@link AxModel}
      * @param writePath the directory to which models will be written. The name of the written model will be the Model
-     *        Name for its key with the suffix {@code .xml} or {@code .json}.
+     *        Name for its key with the suffix {@code .json}.
      */
     public ApexModelSaver(final Class<M> rootModelClass, final M model, final String writePath) {
         Assertions.argumentNotNull(rootModelClass, "argument rootModelClass may not be null");
@@ -61,21 +61,6 @@ public class ApexModelSaver<M extends AxModel> {
         this.rootModelClass = rootModelClass;
         this.model = model;
         this.writePath = writePath;
-    }
-
-    /**
-     * Write an Apex model to a file in XML format. The model will be written to {@code <writePath/modelKeyName.xml>}
-     *
-     * @throws ApexException on errors writing the Apex model
-     */
-    public void apexModelWriteXml() throws ApexException {
-        LOGGER.debug("running apexModelWriteXML . . .");
-
-        // Write the file to disk
-        final var xmlFile = new File(writePath + File.separatorChar + model.getKey().getName() + ".xml");
-        new ApexModelFileWriter<M>(true).apexModelWriteXmlFile(model, rootModelClass, xmlFile.getPath());
-
-        LOGGER.debug("ran apexModelWriteXML");
     }
 
     /**

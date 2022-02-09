@@ -23,11 +23,6 @@
 package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -61,22 +56,11 @@ import org.onap.policy.common.utils.validation.Assertions;
  * {@link AxReferenceKey}
  * </ol>
  */
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexStateTaskReference", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxStateTaskReference", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = {"key", "outputType", "output"})
-
 public class AxStateTaskReference extends AxConcept {
     private static final long serialVersionUID = 8041771382337655535L;
 
-    @XmlElement(name = "key", required = true)
     private AxReferenceKey key;
-
-    @XmlElement(required = true)
     private AxStateTaskOutputType outputType;
-
-    @XmlElement(required = true)
     private AxReferenceKey output;
 
     /**

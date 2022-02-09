@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -219,7 +219,7 @@ public class EngineWorkerTest {
         assertEquals(AxEngineState.STOPPED, worker.getState());
 
         String status = worker.getStatus(worker.getEngineKeys().iterator().next());
-        assertEquals("{\"apexEngineModel\":{\"key\":", status.replaceAll("\\s+", "").substring(0, 26));
+        assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
 
         assertFalse(worker.isStarted());
         assertFalse(worker.isStarted(null));
@@ -380,7 +380,7 @@ public class EngineWorkerTest {
         assertEquals(AxEngineState.READY, worker.getState());
 
         String status = worker.getStatus(worker.getEngineKeys().iterator().next());
-        assertEquals("{\"apexEngineModel\":{\"key\":", status.replaceAll("\\s+", "").substring(0, 26));
+        assertEquals("{\"timestamp\":", status.replaceAll("\\s+", "").substring(0, 13));
 
         assertTrue(worker.isStarted());
         assertTrue(worker.isStarted(worker.getEngineKeys().iterator().next()));

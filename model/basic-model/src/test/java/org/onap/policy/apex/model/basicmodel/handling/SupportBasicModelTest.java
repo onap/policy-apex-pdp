@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation
+ *  Modifications Copyright (C) 2020-2022 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,6 @@ public class SupportBasicModelTest {
         testApexModel.testApexModelVaidateMalstructured();
 
         testApexModel.testApexModelWriteReadJson();
-        testApexModel.testApexModelWriteReadXml();
     }
 
     @Test
@@ -102,14 +101,11 @@ public class SupportBasicModelTest {
     }
 
     @Test
-    public void testModelCreator1XmlJson() throws ApexException {
+    public void testModelCreator1Json() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
             new SupportApexModelCreator1());
 
         assertThatThrownBy(() -> testApexModel.testApexModelWriteReadJson())
-            .hasMessageStartingWith("error processing file");
-
-        assertThatThrownBy(() -> testApexModel.testApexModelWriteReadXml())
             .hasMessageStartingWith("error processing file");
     }
 }

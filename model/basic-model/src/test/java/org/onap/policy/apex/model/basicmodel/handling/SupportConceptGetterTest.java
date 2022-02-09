@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,19 +156,19 @@ public class SupportConceptGetterTest {
         ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class);
         ApexModelFileWriter<AxModel> modelWriter = new ApexModelFileWriter<AxModel>(true);
 
-        modelReader.setValidateFlag(false);
-        modelWriter.setValidateFlag(false);
+        modelReader.setValidate(false);
+        modelWriter.setValidate(false);
 
-        File tempXmlFile = File.createTempFile("ApexModel", "xml");
-        modelWriter.apexModelWriteJsonFile(basicModel, AxModel.class, tempXmlFile.getCanonicalPath());
+        File tempJsonFile = File.createTempFile("ApexModel", "json");
+        modelWriter.apexModelWriteJsonFile(basicModel, AxModel.class, tempJsonFile.getCanonicalPath());
 
-        FileInputStream xmlFileInputStream = new FileInputStream(tempXmlFile);
-        AxModel readXmlModel = modelReader.read(xmlFileInputStream);
-        xmlFileInputStream.close();
-        assertEquals(basicModel, readXmlModel);
-        assertEquals(intKI91, readXmlModel.getKeyInformation().get("IntegerKIKey91"));
-        assertNotNull(readXmlModel.getKeyInformation().get("FloatKIKey"));
-        tempXmlFile.delete();
+        FileInputStream jsonFileInputStream = new FileInputStream(tempJsonFile);
+        AxModel readJsonModel = modelReader.read(jsonFileInputStream);
+        jsonFileInputStream.close();
+        assertEquals(basicModel, readJsonModel);
+        assertEquals(intKI91, readJsonModel.getKeyInformation().get("IntegerKIKey91"));
+        assertNotNull(readJsonModel.getKeyInformation().get("FloatKIKey"));
+        tempJsonFile.delete();
     }
 
     private AxModel setTestBasicModel() {

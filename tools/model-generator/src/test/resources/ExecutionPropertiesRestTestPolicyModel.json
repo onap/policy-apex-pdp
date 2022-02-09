@@ -1,530 +1,574 @@
 {
-   "apexPolicyModel" : {
-      "key" : {
-         "name" : "ExecutionPropertiesRestTestPolicyModel",
-         "version" : "0.0.1"
-      },
-      "keyInformation" : {
-         "key" : {
-            "name" : "ExecutionPropertiesRestTestPolicyModel_KeyInfo",
-            "version" : "0.0.1"
-         },
-         "keyInfoMap" : {
-            "entry" : [ {
-               "key" : {
-                  "name" : "Event0200",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "Event0200",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "7be89b0e-07a6-38fe-a8fb-94f3f3473883",
-                  "description" : "Generated description for concept referred to by key \"Event0200:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "Event0201",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "Event0201",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "a44bcbd7-c30e-3a78-a9be-3cd3cecf1c93",
-                  "description" : "Generated description for concept referred to by key \"Event0201:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ExecutionPropertiesRestTestPolicyModel",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ExecutionPropertiesRestTestPolicyModel",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "08ff4009-748a-3b9c-90f8-a4ac19ebb472",
-                  "description" : "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ExecutionPropertiesRestTestPolicyModel_Events",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ExecutionPropertiesRestTestPolicyModel_Events",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "afe732b9-baff-3235-a75c-29a0669b0d1d",
-                  "description" : "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Events:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ExecutionPropertiesRestTestPolicyModel_KeyInfo",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ExecutionPropertiesRestTestPolicyModel_KeyInfo",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "9ec07b81-7488-3b33-907e-335256c96e08",
-                  "description" : "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_KeyInfo:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ExecutionPropertiesRestTestPolicyModel_Policies",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ExecutionPropertiesRestTestPolicyModel_Policies",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "c1df0d76-7445-32ca-914f-06167254fbce",
-                  "description" : "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Policies:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ExecutionPropertiesRestTestPolicyModel_Schemas",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ExecutionPropertiesRestTestPolicyModel_Schemas",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "9984fed6-9ec5-3c69-a458-5033767f00f1",
-                  "description" : "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Schemas:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "ExecutionPropertiesRestTestPolicyModel_Tasks",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "ExecutionPropertiesRestTestPolicyModel_Tasks",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "08f87bf9-4056-30de-8c4e-179f06bdaabb",
-                  "description" : "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Tasks:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "Policy2",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "Policy2",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "9d2804df-f77d-3018-a024-5c6f7fd8e60e",
-                  "description" : "Generated description for concept referred to by key \"Policy2:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "SimpleStringType",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "SimpleStringType",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "8a4957cf-9493-3a76-8c22-a208e23259af",
-                  "description" : "Generated description for concept referred to by key \"SimpleStringType:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "TaskFetchHttpCode",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "TaskFetchHttpCode",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "0a776ac8-cc11-37a5-8f40-7262a31ada0a",
-                  "description" : "Generated description for concept referred to by key \"TaskFetchHttpCode:0.0.1\""
-               }
-            }, {
-               "key" : {
-                  "name" : "TaskTagUrl",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "TaskTagUrl",
-                     "version" : "0.0.1"
-                  },
-                  "UUID" : "638c559b-dc94-3d71-bdb0-c4bdeb042de3",
-                  "description" : "Generated description for concept referred to by key \"TaskTagUrl:0.0.1\""
-               }
-            } ]
-         }
-      },
-      "policies" : {
-         "key" : {
-            "name" : "ExecutionPropertiesRestTestPolicyModel_Policies",
-            "version" : "0.0.1"
-         },
-         "policyMap" : {
-            "entry" : [ {
-               "key" : {
-                  "name" : "Policy2",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "policyKey" : {
-                     "name" : "Policy2",
-                     "version" : "0.0.1"
-                  },
-                  "template" : "freestyle",
-                  "state" : {
-                     "entry" : [ {
-                        "key" : "Decide",
-                        "value" : {
-                           "stateKey" : {
-                              "parentKeyName" : "Policy2",
-                              "parentKeyVersion" : "0.0.1",
-                              "parentLocalName" : "NULL",
-                              "localName" : "Decide"
-                           },
-                           "trigger" : {
-                              "name" : "Event0201",
-                              "version" : "0.0.1"
-                           },
-                           "stateOutputs" : {
-                              "entry" : [ {
-                                 "key" : "TagUrlOut",
-                                 "value" : {
-                                    "key" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "Decide",
-                                       "localName" : "TagUrlOut"
-                                    },
-                                    "outgoingEvent" : {
-                                       "name" : "Event0201",
-                                       "version" : "0.0.1"
-                                    },
-                                    "nextState" : {
-                                       "parentKeyName" : "NULL",
-                                       "parentKeyVersion" : "0.0.0",
-                                       "parentLocalName" : "NULL",
-                                       "localName" : "NULL"
-                                    }
-                                 }
-                              } ]
-                           },
-                           "contextAlbumReference" : [ ],
-                           "taskSelectionLogic" : {
-                              "key" : "NULL",
-                              "logicFlavour" : "UNDEFINED",
-                              "logic" : ""
-                           },
-                           "stateFinalizerLogicMap" : {
-                              "entry" : [ ]
-                           },
-                           "defaultTask" : {
-                              "name" : "TaskTagUrl",
-                              "version" : "0.0.1"
-                           },
-                           "taskReferences" : {
-                              "entry" : [ {
-                                 "key" : {
-                                    "name" : "TaskTagUrl",
-                                    "version" : "0.0.1"
-                                 },
-                                 "value" : {
-                                    "key" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "Decide",
-                                       "localName" : "tag"
-                                    },
-                                    "outputType" : "DIRECT",
-                                    "output" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "Decide",
-                                       "localName" : "TagUrlOut"
-                                    }
-                                 }
-                              } ]
-                           }
+  "key": {
+    "name": "ExecutionPropertiesRestTestPolicyModel",
+    "version": "0.0.1"
+  },
+  "keyInformation": {
+    "key": {
+      "name": "ExecutionPropertiesRestTestPolicyModel_KeyInfo",
+      "version": "0.0.1"
+    },
+    "keyInfoMap": {
+      "entry": [
+        {
+          "key": {
+            "name": "Event0200",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "Event0200",
+              "version": "0.0.1"
+            },
+            "UUID": "7be89b0e-07a6-38fe-a8fb-94f3f3473883",
+            "description": "Generated description for concept referred to by key \"Event0200:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "Event0201",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "Event0201",
+              "version": "0.0.1"
+            },
+            "UUID": "a44bcbd7-c30e-3a78-a9be-3cd3cecf1c93",
+            "description": "Generated description for concept referred to by key \"Event0201:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "ExecutionPropertiesRestTestPolicyModel",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "ExecutionPropertiesRestTestPolicyModel",
+              "version": "0.0.1"
+            },
+            "UUID": "08ff4009-748a-3b9c-90f8-a4ac19ebb472",
+            "description": "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "ExecutionPropertiesRestTestPolicyModel_Events",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "ExecutionPropertiesRestTestPolicyModel_Events",
+              "version": "0.0.1"
+            },
+            "UUID": "afe732b9-baff-3235-a75c-29a0669b0d1d",
+            "description": "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Events:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "ExecutionPropertiesRestTestPolicyModel_KeyInfo",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "ExecutionPropertiesRestTestPolicyModel_KeyInfo",
+              "version": "0.0.1"
+            },
+            "UUID": "9ec07b81-7488-3b33-907e-335256c96e08",
+            "description": "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_KeyInfo:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "ExecutionPropertiesRestTestPolicyModel_Policies",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "ExecutionPropertiesRestTestPolicyModel_Policies",
+              "version": "0.0.1"
+            },
+            "UUID": "c1df0d76-7445-32ca-914f-06167254fbce",
+            "description": "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Policies:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "ExecutionPropertiesRestTestPolicyModel_Schemas",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "ExecutionPropertiesRestTestPolicyModel_Schemas",
+              "version": "0.0.1"
+            },
+            "UUID": "9984fed6-9ec5-3c69-a458-5033767f00f1",
+            "description": "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Schemas:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "ExecutionPropertiesRestTestPolicyModel_Tasks",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "ExecutionPropertiesRestTestPolicyModel_Tasks",
+              "version": "0.0.1"
+            },
+            "UUID": "08f87bf9-4056-30de-8c4e-179f06bdaabb",
+            "description": "Generated description for concept referred to by key \"ExecutionPropertiesRestTestPolicyModel_Tasks:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "Policy2",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "Policy2",
+              "version": "0.0.1"
+            },
+            "UUID": "9d2804df-f77d-3018-a024-5c6f7fd8e60e",
+            "description": "Generated description for concept referred to by key \"Policy2:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "SimpleStringType",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "SimpleStringType",
+              "version": "0.0.1"
+            },
+            "UUID": "8a4957cf-9493-3a76-8c22-a208e23259af",
+            "description": "Generated description for concept referred to by key \"SimpleStringType:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "TaskFetchHttpCode",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "TaskFetchHttpCode",
+              "version": "0.0.1"
+            },
+            "UUID": "0a776ac8-cc11-37a5-8f40-7262a31ada0a",
+            "description": "Generated description for concept referred to by key \"TaskFetchHttpCode:0.0.1\""
+          }
+        },
+        {
+          "key": {
+            "name": "TaskTagUrl",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "TaskTagUrl",
+              "version": "0.0.1"
+            },
+            "UUID": "638c559b-dc94-3d71-bdb0-c4bdeb042de3",
+            "description": "Generated description for concept referred to by key \"TaskTagUrl:0.0.1\""
+          }
+        }
+      ]
+    }
+  },
+  "policies": {
+    "key": {
+      "name": "ExecutionPropertiesRestTestPolicyModel_Policies",
+      "version": "0.0.1"
+    },
+    "policyMap": {
+      "entry": [
+        {
+          "key": {
+            "name": "Policy2",
+            "version": "0.0.1"
+          },
+          "value": {
+            "policyKey": {
+              "name": "Policy2",
+              "version": "0.0.1"
+            },
+            "template": "freestyle",
+            "state": {
+              "entry": [
+                {
+                  "key": "Decide",
+                  "value": {
+                    "stateKey": {
+                      "parentKeyName": "Policy2",
+                      "parentKeyVersion": "0.0.1",
+                      "parentLocalName": "NULL",
+                      "localName": "Decide"
+                    },
+                    "trigger": {
+                      "name": "Event0201",
+                      "version": "0.0.1"
+                    },
+                    "stateOutputs": {
+                      "entry": [
+                        {
+                          "key": "TagUrlOut",
+                          "value": {
+                            "key": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "Decide",
+                              "localName": "TagUrlOut"
+                            },
+                            "outgoingEvent": {
+                              "name": "Event0201",
+                              "version": "0.0.1"
+                            },
+                            "nextState": {
+                              "parentKeyName": "NULL",
+                              "parentKeyVersion": "0.0.0",
+                              "parentLocalName": "NULL",
+                              "localName": "NULL"
+                            }
+                          }
                         }
-                     }, {
-                        "key" : "Junit",
-                        "value" : {
-                           "stateKey" : {
-                              "parentKeyName" : "Policy2",
-                              "parentKeyVersion" : "0.0.1",
-                              "parentLocalName" : "NULL",
-                              "localName" : "Junit"
-                           },
-                           "trigger" : {
-                              "name" : "Event0200",
-                              "version" : "0.0.1"
-                           },
-                           "stateOutputs" : {
-                              "entry" : [ {
-                                 "key" : "HttpCodeOut",
-                                 "value" : {
-                                    "key" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "Junit",
-                                       "localName" : "HttpCodeOut"
-                                    },
-                                    "outgoingEvent" : {
-                                       "name" : "Event0201",
-                                       "version" : "0.0.1"
-                                    },
-                                    "nextState" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "NULL",
-                                       "localName" : "Decide"
-                                    }
-                                 }
-                              } ]
-                           },
-                           "contextAlbumReference" : [ ],
-                           "taskSelectionLogic" : {
-                              "key" : "NULL",
-                              "logicFlavour" : "UNDEFINED",
-                              "logic" : ""
-                           },
-                           "stateFinalizerLogicMap" : {
-                              "entry" : [ ]
-                           },
-                           "defaultTask" : {
-                              "name" : "TaskFetchHttpCode",
-                              "version" : "0.0.1"
-                           },
-                           "taskReferences" : {
-                              "entry" : [ {
-                                 "key" : {
-                                    "name" : "TaskFetchHttpCode",
-                                    "version" : "0.0.1"
-                                 },
-                                 "value" : {
-                                    "key" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "Junit",
-                                       "localName" : "check"
-                                    },
-                                    "outputType" : "DIRECT",
-                                    "output" : {
-                                       "parentKeyName" : "Policy2",
-                                       "parentKeyVersion" : "0.0.1",
-                                       "parentLocalName" : "Junit",
-                                       "localName" : "HttpCodeOut"
-                                    }
-                                 }
-                              } ]
-                           }
+                      ]
+                    },
+                    "contextAlbumReference": [],
+                    "taskSelectionLogic": {
+                      "key": "NULL",
+                      "logicFlavour": "UNDEFINED",
+                      "logic": ""
+                    },
+                    "stateFinalizerLogicMap": {
+                      "entry": []
+                    },
+                    "defaultTask": {
+                      "name": "TaskTagUrl",
+                      "version": "0.0.1"
+                    },
+                    "taskReferences": {
+                      "entry": [
+                        {
+                          "key": {
+                            "name": "TaskTagUrl",
+                            "version": "0.0.1"
+                          },
+                          "value": {
+                            "key": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "Decide",
+                              "localName": "tag"
+                            },
+                            "outputType": "DIRECT",
+                            "output": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "Decide",
+                              "localName": "TagUrlOut"
+                            }
+                          }
                         }
-                     } ]
-                  },
-                  "firstState" : "Junit"
-               }
-            } ]
-         }
-      },
-      "tasks" : {
-         "key" : {
-            "name" : "ExecutionPropertiesRestTestPolicyModel_Tasks",
-            "version" : "0.0.1"
-         },
-         "taskMap" : {
-            "entry" : [ {
-               "key" : {
-                  "name" : "TaskFetchHttpCode",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "TaskFetchHttpCode",
-                     "version" : "0.0.1"
-                  },
-                  "inputFields" : {
-                     "entry" : [ {
-                        "key" : "testToRun",
-                        "value" : {
-                           "key" : "testToRun",
-                           "fieldSchemaKey" : {
-                              "name" : "SimpleStringType",
-                              "version" : "0.0.1"
-                           },
-                           "optional" : false
-                        }
-                     } ]
-                  },
-                  "outputFields" : {
-                     "entry" : [ {
-                        "key" : "testToRun",
-                        "value" : {
-                           "key" : "testToRun",
-                           "fieldSchemaKey" : {
-                              "name" : "SimpleStringType",
-                              "version" : "0.0.1"
-                           },
-                           "optional" : false
-                        }
-                     } ]
-                  },
-                  "taskParameters" : {
-                     "entry" : [ ]
-                  },
-                  "contextAlbumReference" : [ ],
-                  "taskLogic" : {
-                     "key" : "TaskLogic",
-                     "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "/*\n * ============LICENSE_START=======================================================\n *  Copyright (C) 2019 Nordix Foundation.\n * ================================================================================\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n * ============LICENSE_END=========================================================\n */\n\nexecutor.logger.info(executor.subject.id);\nexecutor.logger.info(executor.inFields);\n\nexecutor.logger.info(executor.outFields);\n\nexecutor.logger.info(\"executionProperties:\" + executor.getExecutionProperties());\n\nif (executor.getExecutionProperties() == \"{HTTP_CODE_STATUS=500}\" )\nexecutor.outFields.put(\"testToRun\", \"CodeFilterSet\");\nelse\nexecutor.outFields.put(\"testToRun\", \"CodeFilterDefault\");\n\nvar returnValue = executor.isTrue;"
+                      ]
+                    }
                   }
-               }
-            }, {
-               "key" : {
-                  "name" : "TaskTagUrl",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "TaskTagUrl",
-                     "version" : "0.0.1"
-                  },
-                  "inputFields" : {
-                     "entry" : [ {
-                        "key" : "testToRun",
-                        "value" : {
-                           "key" : "testToRun",
-                           "fieldSchemaKey" : {
-                              "name" : "SimpleStringType",
-                              "version" : "0.0.1"
-                           },
-                           "optional" : false
+                },
+                {
+                  "key": "Junit",
+                  "value": {
+                    "stateKey": {
+                      "parentKeyName": "Policy2",
+                      "parentKeyVersion": "0.0.1",
+                      "parentLocalName": "NULL",
+                      "localName": "Junit"
+                    },
+                    "trigger": {
+                      "name": "Event0200",
+                      "version": "0.0.1"
+                    },
+                    "stateOutputs": {
+                      "entry": [
+                        {
+                          "key": "HttpCodeOut",
+                          "value": {
+                            "key": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "Junit",
+                              "localName": "HttpCodeOut"
+                            },
+                            "outgoingEvent": {
+                              "name": "Event0201",
+                              "version": "0.0.1"
+                            },
+                            "nextState": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "NULL",
+                              "localName": "Decide"
+                            }
+                          }
                         }
-                     } ]
-                  },
-                  "outputFields" : {
-                     "entry" : [ {
-                        "key" : "testToRun",
-                        "value" : {
-                           "key" : "testToRun",
-                           "fieldSchemaKey" : {
-                              "name" : "SimpleStringType",
-                              "version" : "0.0.1"
-                           },
-                           "optional" : false
+                      ]
+                    },
+                    "contextAlbumReference": [],
+                    "taskSelectionLogic": {
+                      "key": "NULL",
+                      "logicFlavour": "UNDEFINED",
+                      "logic": ""
+                    },
+                    "stateFinalizerLogicMap": {
+                      "entry": []
+                    },
+                    "defaultTask": {
+                      "name": "TaskFetchHttpCode",
+                      "version": "0.0.1"
+                    },
+                    "taskReferences": {
+                      "entry": [
+                        {
+                          "key": {
+                            "name": "TaskFetchHttpCode",
+                            "version": "0.0.1"
+                          },
+                          "value": {
+                            "key": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "Junit",
+                              "localName": "check"
+                            },
+                            "outputType": "DIRECT",
+                            "output": {
+                              "parentKeyName": "Policy2",
+                              "parentKeyVersion": "0.0.1",
+                              "parentLocalName": "Junit",
+                              "localName": "HttpCodeOut"
+                            }
+                          }
                         }
-                     } ]
-                  },
-                  "taskParameters" : {
-                     "entry" : [ ]
-                  },
-                  "contextAlbumReference" : [ ],
-                  "taskLogic" : {
-                     "key" : "TaskLogic",
-                     "logicFlavour" : "JAVASCRIPT",
-                     "logic" : "/*\n * ============LICENSE_START=======================================================\n *  Copyright (C) 2019 Nordix Foundation.\n * ================================================================================\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n * ============LICENSE_END=========================================================\n */\n\nexecutor.logger.info(executor.subject.id);\nexecutor.logger.info(executor.inFields);\n\nexecutor.logger.info(executor.outFields);\n\nexecutor.logger.info(\"executionProperties in:\" + executor.getExecutionProperties());\n\nexecutor.getExecutionProperties().setProperty(\"tagId\", executor.inFields.get(\"testToRun\"));\nexecutor.getExecutionProperties().setProperty(\"value\", \"3\");\n\nexecutor.logger.info(\"executionProperties out:\" + executor.getExecutionProperties());\n\nvar returnValue = executor.isTrue;"
+                      ]
+                    }
                   }
-               }
-            } ]
-         }
-      },
-      "events" : {
-         "key" : {
-            "name" : "ExecutionPropertiesRestTestPolicyModel_Events",
-            "version" : "0.0.1"
-         },
-         "eventMap" : {
-            "entry" : [ {
-               "key" : {
-                  "name" : "Event0200",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "Event0200",
-                     "version" : "0.0.1"
-                  },
-                  "nameSpace" : "org.onap.policy.apex.domains.test",
-                  "source" : "Junit",
-                  "target" : "Decide",
-                  "parameter" : {
-                     "entry" : [ {
-                        "key" : "testToRun",
-                        "value" : {
-                           "key" : "testToRun",
-                           "fieldSchemaKey" : {
-                              "name" : "SimpleStringType",
-                              "version" : "0.0.1"
-                           },
-                           "optional" : false
-                        }
-                     } ]
+                }
+              ]
+            },
+            "firstState": "Junit"
+          }
+        }
+      ]
+    }
+  },
+  "tasks": {
+    "key": {
+      "name": "ExecutionPropertiesRestTestPolicyModel_Tasks",
+      "version": "0.0.1"
+    },
+    "taskMap": {
+      "entry": [
+        {
+          "key": {
+            "name": "TaskFetchHttpCode",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "TaskFetchHttpCode",
+              "version": "0.0.1"
+            },
+            "inputFields": {
+              "entry": [
+                {
+                  "key": "testToRun",
+                  "value": {
+                    "key": "testToRun",
+                    "fieldSchemaKey": {
+                      "name": "SimpleStringType",
+                      "version": "0.0.1"
+                    },
+                    "optional": false
                   }
-               }
-            }, {
-               "key" : {
-                  "name" : "Event0201",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "Event0201",
-                     "version" : "0.0.1"
-                  },
-                  "nameSpace" : "org.onap.policy.apex.domains.test",
-                  "source" : "Decide",
-                  "target" : "OutSide",
-                  "parameter" : {
-                     "entry" : [ {
-                        "key" : "testToRun",
-                        "value" : {
-                           "key" : "testToRun",
-                           "fieldSchemaKey" : {
-                              "name" : "SimpleStringType",
-                              "version" : "0.0.1"
-                           },
-                           "optional" : false
-                        }
-                     } ]
+                }
+              ]
+            },
+            "outputFields": {
+              "entry": [
+                {
+                  "key": "testToRun",
+                  "value": {
+                    "key": "testToRun",
+                    "fieldSchemaKey": {
+                      "name": "SimpleStringType",
+                      "version": "0.0.1"
+                    },
+                    "optional": false
                   }
-               }
-            } ]
-         }
-      },
-      "schemas" : {
-         "key" : {
-            "name" : "ExecutionPropertiesRestTestPolicyModel_Schemas",
-            "version" : "0.0.1"
-         },
-         "schemas" : {
-            "entry" : [ {
-               "key" : {
-                  "name" : "SimpleStringType",
-                  "version" : "0.0.1"
-               },
-               "value" : {
-                  "key" : {
-                     "name" : "SimpleStringType",
-                     "version" : "0.0.1"
-                  },
-                  "schemaFlavour" : "Java",
-                  "schemaDefinition" : "java.lang.String"
-               }
-            } ]
-         }
-      }
-   }
+                }
+              ]
+            },
+            "taskParameters": {
+              "entry": []
+            },
+            "contextAlbumReference": [],
+            "taskLogic": {
+              "key": "TaskLogic",
+              "logicFlavour": "JAVASCRIPT",
+              "logic": "/*\n * ============LICENSE_START=======================================================\n *  Copyright (C) 2019 Nordix Foundation.\n * ================================================================================\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n * ============LICENSE_END=========================================================\n */\n\nexecutor.logger.info(executor.subject.id);\nexecutor.logger.info(executor.inFields);\n\nexecutor.logger.info(executor.outFields);\n\nexecutor.logger.info(\"executionProperties:\" + executor.getExecutionProperties());\n\nif (executor.getExecutionProperties() == \"{HTTP_CODE_STATUS=500}\" )\nexecutor.outFields.put(\"testToRun\", \"CodeFilterSet\");\nelse\nexecutor.outFields.put(\"testToRun\", \"CodeFilterDefault\");\n\nvar returnValue = executor.isTrue;"
+            }
+          }
+        },
+        {
+          "key": {
+            "name": "TaskTagUrl",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "TaskTagUrl",
+              "version": "0.0.1"
+            },
+            "inputFields": {
+              "entry": [
+                {
+                  "key": "testToRun",
+                  "value": {
+                    "key": "testToRun",
+                    "fieldSchemaKey": {
+                      "name": "SimpleStringType",
+                      "version": "0.0.1"
+                    },
+                    "optional": false
+                  }
+                }
+              ]
+            },
+            "outputFields": {
+              "entry": [
+                {
+                  "key": "testToRun",
+                  "value": {
+                    "key": "testToRun",
+                    "fieldSchemaKey": {
+                      "name": "SimpleStringType",
+                      "version": "0.0.1"
+                    },
+                    "optional": false
+                  }
+                }
+              ]
+            },
+            "taskParameters": {
+              "entry": []
+            },
+            "contextAlbumReference": [],
+            "taskLogic": {
+              "key": "TaskLogic",
+              "logicFlavour": "JAVASCRIPT",
+              "logic": "/*\n * ============LICENSE_START=======================================================\n *  Copyright (C) 2019 Nordix Foundation.\n * ================================================================================\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n * ============LICENSE_END=========================================================\n */\n\nexecutor.logger.info(executor.subject.id);\nexecutor.logger.info(executor.inFields);\n\nexecutor.logger.info(executor.outFields);\n\nexecutor.logger.info(\"executionProperties in:\" + executor.getExecutionProperties());\n\nexecutor.getExecutionProperties().setProperty(\"tagId\", executor.inFields.get(\"testToRun\"));\nexecutor.getExecutionProperties().setProperty(\"value\", \"3\");\n\nexecutor.logger.info(\"executionProperties out:\" + executor.getExecutionProperties());\n\nvar returnValue = executor.isTrue;"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "events": {
+    "key": {
+      "name": "ExecutionPropertiesRestTestPolicyModel_Events",
+      "version": "0.0.1"
+    },
+    "eventMap": {
+      "entry": [
+        {
+          "key": {
+            "name": "Event0200",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "Event0200",
+              "version": "0.0.1"
+            },
+            "nameSpace": "org.onap.policy.apex.domains.test",
+            "source": "Junit",
+            "target": "Decide",
+            "parameter": {
+              "entry": [
+                {
+                  "key": "testToRun",
+                  "value": {
+                    "key": "testToRun",
+                    "fieldSchemaKey": {
+                      "name": "SimpleStringType",
+                      "version": "0.0.1"
+                    },
+                    "optional": false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "key": {
+            "name": "Event0201",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "Event0201",
+              "version": "0.0.1"
+            },
+            "nameSpace": "org.onap.policy.apex.domains.test",
+            "source": "Decide",
+            "target": "OutSide",
+            "parameter": {
+              "entry": [
+                {
+                  "key": "testToRun",
+                  "value": {
+                    "key": "testToRun",
+                    "fieldSchemaKey": {
+                      "name": "SimpleStringType",
+                      "version": "0.0.1"
+                    },
+                    "optional": false
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "schemas": {
+    "key": {
+      "name": "ExecutionPropertiesRestTestPolicyModel_Schemas",
+      "version": "0.0.1"
+    },
+    "schemas": {
+      "entry": [
+        {
+          "key": {
+            "name": "SimpleStringType",
+            "version": "0.0.1"
+          },
+          "value": {
+            "key": {
+              "name": "SimpleStringType",
+              "version": "0.0.1"
+            },
+            "schemaFlavour": "Java",
+            "schemaDefinition": "java.lang.String"
+          }
+        }
+      ]
+    }
+  }
 }

@@ -56,10 +56,9 @@ public interface ApexModel extends ApexEditorApi {
      * Save an Apex model to a file.
      *
      * @param fileName the file name
-     * @param xmlFlag if true, save the file in XML format, otherwise save the file in the default JSON format
      * @return the result of the operation
      */
-    ApexApiResult saveToFile(String fileName, boolean xmlFlag);
+    ApexApiResult saveToFile(String fileName);
 
     /**
      * Read an APEX model from a location identified by a URL.
@@ -73,10 +72,9 @@ public interface ApexModel extends ApexEditorApi {
      * Write an APEX model to a location identified by a URL.
      *
      * @param urlString the URL to read the model from
-     * @param xmlFlag if true, save the file in XML format, otherwise save the file in the default JSON format
      * @return the result of the operation
      */
-    ApexApiResult writeToUrl(String urlString, boolean xmlFlag);
+    ApexApiResult writeToUrl(String urlString);
 
     /**
      * Analyse an Apex model that shows the concept usage references of a policy model.

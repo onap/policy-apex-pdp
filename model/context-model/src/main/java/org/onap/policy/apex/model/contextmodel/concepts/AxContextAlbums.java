@@ -28,11 +28,6 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,18 +56,11 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = false)
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxContextAlbums", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "albums" })
-
 public final class AxContextAlbums extends AxConcept implements AxConceptGetter<AxContextAlbum> {
     private static final long serialVersionUID = -4844259809024470975L;
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
 
-    @XmlElement(name = "albums", required = true)
     @Getter(AccessLevel.NONE)
     private Map<AxArtifactKey, AxContextAlbum> albums;
 
@@ -120,25 +108,6 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, the context album map is returned as a raw hash map.
-     * This method is called by JAXB after unmarshaling and is used to convert the hash map to a {@link NavigableMap} so
-     * that it will work with the {@link AxConceptGetter} interface.
-     *
-     * @param unmarsaller the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
-     */
-    public void afterUnmarshal(final Unmarshaller unmarsaller, final Object parent) {
-        Assertions.argumentNotNull(unmarsaller, "unmarsaller should not be null");
-        Assertions.argumentNotNull(parent, "parent should not be null");
-
-        // The map must be navigable to allow name and version searching, unmarshaling returns a
-        // hash map
-        final NavigableMap<AxArtifactKey, AxContextAlbum> navigableAlbums = new TreeMap<>();
-        navigableAlbums.putAll(albums);
-        albums = navigableAlbums;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -150,6 +119,14 @@ public final class AxContextAlbums extends AxConcept implements AxConceptGetter<
         }
 
         return keyList;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void buildReferences() {
+        albums.values().stream().forEach(album -> album.buildReferences());
     }
 
     /**

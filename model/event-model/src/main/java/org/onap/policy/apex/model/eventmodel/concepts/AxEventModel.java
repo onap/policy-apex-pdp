@@ -23,11 +23,6 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -46,18 +41,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <p>Validation runs {@link AxModel} validation on the model. In addition, the {@link AxContextSchemas} and
  * {@link AxEvents} validation is run on the context schemas and events in the model.
  */
-
-@XmlRootElement(name = "apexEventModel", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxEventModel", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = { "schemas", "events" })
-
 public class AxEventModel extends AxModel {
     private static final long serialVersionUID = 8800599637708309945L;
 
-    @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
-
-    @XmlElement(name = "events", required = true)
     private AxEvents events;
 
     /**

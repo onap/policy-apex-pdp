@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -190,9 +190,9 @@ public class PoliciesTest {
 
         final AxState clonedState = new AxState(policyPN.getStateMap().get("state"));
         clonedState.getKey().setLocalName("ClonedState");
-        clonedState.afterUnmarshal(null, null);
 
         savedStateMap.put(clonedState.getKey().getLocalName(), clonedState);
+        policyPN.buildReferences();
         result = new AxValidationResult();
         result = policyPN.validate(result);
         assertEquals(ValidationResult.WARNING, result.getValidationResult());
@@ -213,7 +213,9 @@ public class PoliciesTest {
         assertEquals(policyPN, policyPN); // NOSONAR
         assertEquals(policyPN, clonedPolicy);
         assertNotNull(policyPN);
-        assertNotEquals(policyPN, (Object) "Hello");
+
+        Object helloObj = "Hello";
+        assertNotEquals(policyPN, helloObj);
         assertNotEquals(policyPN,
                         new AxPolicy(AxArtifactKey.getNullKey(), savedTemplate, savedStateMap, savedFirstState));
         assertNotEquals(policyPN, new AxPolicy(savedPolicyKey, "SomeTemplate", savedStateMap, savedFirstState));
@@ -287,7 +289,6 @@ public class PoliciesTest {
         assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         policies.clean();
-        policies.afterUnmarshal(null, null);
 
         final AxPolicies clonedPolicies = new AxPolicies(policies);
         assertEquals("AxPolicies:(key=AxArtifactKey:(name=PoliciesKey,version=0.0.",
@@ -298,7 +299,7 @@ public class PoliciesTest {
         assertEquals(policies, policies); // NOSONAR
         assertEquals(policies, clonedPolicies);
         assertNotNull(policies);
-        assertNotEquals(policies, (Object) "Hello");
+        assertNotEquals(policyPN, helloObj);
         assertNotEquals(policies, new AxPolicies(new AxArtifactKey()));
 
         assertEquals(0, policies.compareTo(policies));
@@ -324,7 +325,6 @@ public class PoliciesTest {
 
         final AxState secondState = new AxState(policyPN.getStateMap().get("state"));
         secondState.getKey().setLocalName("SecondState");
-        secondState.afterUnmarshal(null, null);
         policyPN.getStateMap().put("SecondState", secondState);
         policyPN.getStateMap().get("state").getStateOutputs().get("stateOutput0").setNextState(secondState.getKey());
 
@@ -344,7 +344,6 @@ public class PoliciesTest {
 
         final AxState thirdState = new AxState(policyPN.getStateMap().get("state"));
         thirdState.getKey().setLocalName("ThirdState");
-        thirdState.afterUnmarshal(null, null);
         policyPN.getStateMap().put("ThirdState", thirdState);
         policyPN.getStateMap().get("SecondState").getStateOutputs().get("stateOutput0")
                         .setNextState(thirdState.getKey());

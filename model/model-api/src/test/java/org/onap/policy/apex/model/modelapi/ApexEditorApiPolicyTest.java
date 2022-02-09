@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.junit.Test;
 public class ApexEditorApiPolicyTest {
     @Test
     public void testMyTestPolicyCrud() {
-        final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
+        final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.validatePolicy(null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
@@ -45,10 +45,10 @@ public class ApexEditorApiPolicyTest {
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createPolicy("MyPolicy002", "0.0.2", "SomeTemplate", "AState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicy("MyPolicy002", "0.0.2", "SomeTemplate", "AState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createPolicy("MyPolicy012", null, null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -59,19 +59,19 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.createPolicy("MyPolicy012", null, "SomeTemplate", "AState", null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicy("MyPolicy002", "0.0.2", "SomeTemplate", "AState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createPolicy("MyPolicy012", "0.1.2", "SomeTemplate", "AState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicy("MyTestPolicy", "0.0.1", "SomeTemplate", "TestState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.deletePolicy("MyPolicy002", "0.0.2");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicy("MyPolicy002", "0.0.2", "SomeTemplate", "AState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.validatePolicy(null, null);
@@ -84,7 +84,7 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.updatePolicy("MyPolicy002", "0.0.1", null, null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicy("MyPolicy002", "0.0.2", "SomeOtherTemplate", "BState",
-                "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
+            "1fa2e430-f2b2-11e6-bc64-92361f002700", "A description of 002");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicy("MyPolicy012", null, "SomeOtherTemplate", null, null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
@@ -137,7 +137,6 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.deletePolicy("MyPolicy012", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         assertEquals(2, result.getMessages().size());
-
         result = apexModel.createPolicyState(null, null, null, null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyState("MyPolicy123", null, null, null, null, null, null);
@@ -255,15 +254,15 @@ public class ApexEditorApiPolicyTest {
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = apexModel.createPolicyState("MyTestPolicy", "0.0.1", "TestState1", "inEvent", "0.0.1", "task",
-                "0.0.1");
+            "0.0.1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createPolicyState("MyTestPolicy", "0.0.1", "TestState2", "outEvent0", "0.0.1", "task",
-                "0.0.1");
+            "0.0.1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createPolicyState("MyTestPolicy", "0.0.1", "TestState3", "outEvent1", "0.0.1", "task",
-                "0.0.1");
+            "0.0.1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createPolicyStateTaskSelectionLogic(null, null, null, null, null);
@@ -279,29 +278,29 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "NewTSL00", null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "UNDEFINED",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "MVEL",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
         result = apexModel.deletePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "JAVA",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "JYTHON",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.deletePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1", "JAVASCRIPT",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.deletePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1", "JRUBY",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.updatePolicyStateTaskSelectionLogic(null, null, null, null, null);
@@ -321,15 +320,15 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "NonExistantState", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "",
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1", "MVEL",
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyPolicy012", null, "TestState1", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1", null,
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1", null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
@@ -373,13 +372,13 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.deletePolicyStateTaskSelectionLogic("MyTestPolicy", "0.0.1", "TestState1");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1", null,
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.listPolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         assertEquals(1, result.getMessages().size());
         result = apexModel.createPolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1", "JRUBY",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.listPolicyStateTaskSelectionLogic("MyTestPolicy", null, "TestState1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
@@ -397,37 +396,37 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.createPolicyStateOutput("MyTestPolicy", null, "SomeState", "SomeOutput", null, null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "1.2.3", "TestState1", "SomeOutput", null, null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOutput", null, null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOutput",
-                "SomeDummyEvent", null, null);
+            "SomeDummyEvent", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOutput", "inEvent",
-                "1.2.3", null);
+            "1.2.3", null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOutput", "inEvent",
-                "0.0.1", "SomeDummyNextState");
+            "0.0.1", "SomeDummyNextState");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOutput", "inEvent",
-                "0.0.1", null);
+            "0.0.1", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOtherOutput", "inEvent",
-                "0.0.1", "TestState1");
+            "0.0.1", "TestState1");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOtherOutput", "inEvent",
-                "0.0.1", "TestState2");
+            "0.0.1", "TestState2");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOtherOutput", "inEvent",
-                "0.0.1", "TestState2");
+            "0.0.1", "TestState2");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState2", "AnotherOtherOutput",
-                "outEvent0", "0.0.1", "TestState3");
+            "outEvent0", "0.0.1", "TestState3");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState2", "YetAnotherOtherOutput",
-                "outEvent0", "0.0.1", "TestState3");
+            "outEvent0", "0.0.1", "TestState3");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.listPolicyStateOutput(null, null, null, null);
@@ -495,19 +494,19 @@ public class ApexEditorApiPolicyTest {
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOutput", "inEvent",
-                "0.0.1", null);
+            "0.0.1", null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOtherOutput", "inEvent",
-                "0.0.1", "TestState1");
+            "0.0.1", "TestState1");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState1", "SomeOtherOutput", "inEvent",
-                "0.0.1", "TestState2");
+            "0.0.1", "TestState2");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState2", "AnotherOtherOutput",
-                "outEvent0", "0.0.1", "TestState3");
+            "outEvent0", "0.0.1", "TestState3");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateOutput("MyTestPolicy", "0.0.1", "TestState2", "YetAnotherOtherOutput",
-                "outEvent0", "0.0.1", "TestState3");
+            "outEvent0", "0.0.1", "TestState3");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createPolicyStateFinalizerLogic(null, null, null, null, null, null);
@@ -519,34 +518,34 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", null, "SomeState", "SFLName01", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "1.2.3", "TestState1", "SFLName01", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName01", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName01",
-                "NewTSL00", null);
+            "NewTSL00", null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName02",
-                "UNDEFINED", "Some Policy Logic");
+            "UNDEFINED", "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName03", "MVEL",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName03", "MVEL",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName04", "JAVA",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName05", "JYTHON",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", "SFLName06",
-                "JAVASCRIPT", "Some Policy Logic");
+            "JAVASCRIPT", "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", "SFLName07", "JRUBY",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.updatePolicyStateFinalizerLogic(null, null, null, null, null, null);
@@ -556,37 +555,37 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", null, "TestState99", "SomeSFLName", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy2", null, "TestState1", "SomeSFLName", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy1", "0.0.2", "TestState1", "SomeSFLName", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "NonEistantSFL", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName06", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName06", "",
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName06", "MVEL",
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyPolicy012", null, "TestState1", "SFLName06", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", "SFLName06", null,
-                "Some Other Policy Logic");
+            "Some Other Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", "SFLName06", null, null);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyPolicy015", null, "TestState1", "SFLName06", null, null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.updatePolicyStateFinalizerLogic("MyPolicy014", "0.1.5", "TestState1", "SFLName06", null,
-                null);
+            null);
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = apexModel.listPolicyStateFinalizerLogic(null, null, null, null);
@@ -669,22 +668,22 @@ public class ApexEditorApiPolicyTest {
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
 
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName02",
-                "UNDEFINED", "Some Policy Logic");
+            "UNDEFINED", "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName03", "MVEL",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName04", "JAVA",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", "0.0.1", "TestState1", "SFLName05", "JYTHON",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", "SFLName06",
-                "JAVASCRIPT", "Some Policy Logic");
+            "JAVASCRIPT", "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateFinalizerLogic("MyTestPolicy", null, "TestState1", "SFLName07", "JRUBY",
-                "Some Policy Logic");
+            "Some Policy Logic");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
 
         result = apexModel.createTask("TestTask0", null, null, null);
@@ -705,81 +704,81 @@ public class ApexEditorApiPolicyTest {
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "SomeState", null, null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "SomeState", null, null, null, null,
-                "DummyOutput");
+            "DummyOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "1.2.3", "SomeState", null, null, null, null,
-                "DummyOutput");
+            "DummyOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("AnyOldPolicy", "1.2.3", "SomeState", null, null, null, null,
-                "DummyOutput");
+            "DummyOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName", null,
-                null, null, "DummyOutput");
+            null, null, "DummyOutput");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName",
-                "SomeTask", "Zooby|", null, "DummyOutput");
+            "SomeTask", "Zooby|", null, "DummyOutput");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName",
-                "SomeTask", "0.0.1", null, "DummyOutput");
+            "SomeTask", "0.0.1", null, "DummyOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", null, "DummyOutput");
+            "0.0.1", null, "DummyOutput");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "Some Policy Logic", "DummyOutput");
+            "0.0.1", "Some Policy Logic", "DummyOutput");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "DIRECT", "DummyOutput");
+            "0.0.1", "DIRECT", "DummyOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", "0.0.1", "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "LOGIC", "DummyOutput");
+            "0.0.1", "LOGIC", "DummyOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "DIRECT", "SFLName07");
+            "0.0.1", "DIRECT", "SFLName07");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "LOGIC", "SomeOutput");
+            "0.0.1", "LOGIC", "SomeOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "DIRECT", "SomeOutput");
+            "0.0.1", "DIRECT", "SomeOutput");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "NonExistantTask", "0.0.1", "DIRECT", "SomeOutput");
+            "NonExistantTask", "0.0.1", "DIRECT", "SomeOutput");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName", "task",
-                "0.0.1", "LOGIC", "SFLName07");
+            "0.0.1", "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask0", "0.0.1", "LOGIC", "SFLName07");
+            "TestTask0", "0.0.1", "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask1", "0.0.1", "DIRECT", "SomeOtherOutput");
+            "TestTask1", "0.0.1", "DIRECT", "SomeOtherOutput");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask2", "0.0.1", "LOGIC", "SFLName07");
+            "TestTask2", "0.0.1", "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask3", "0.0.1", "DIRECT", "SomeOtherOutput");
+            "TestTask3", "0.0.1", "DIRECT", "SomeOtherOutput");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", null, "TestTask4", "0.0.1",
-                "LOGIC", "SFLName07");
+            "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", null, "TestTask4", "0.0.1",
-                "LOGIC", "SFLName07");
+            "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
         result = apexModel.deletePolicyStateTaskRef("MyTestPolicy", null, "TestState1", "TestTask4", "0.0.1");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask4", "0.0.1", "FUNKY", "SFLName07");
+            "TestTask4", "0.0.1", "FUNKY", "SFLName07");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask4", "0.0.1", "UNDEFINED", "SFLName07");
+            "TestTask4", "0.0.1", "UNDEFINED", "SFLName07");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", "SomeTaskLocalName",
-                "TestTask4", "0.0.1", "LOGIC", "SFLName07");
+            "TestTask4", "0.0.1", "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
         result = apexModel.createPolicyStateTaskRef("MyTestPolicy", null, "TestState1", null, "TestTask0", "0.0.1",
-                "LOGIC", "SFLName07");
+            "LOGIC", "SFLName07");
         assertEquals(ApexApiResult.Result.CONCEPT_EXISTS, result.getResult());
 
         result = apexModel.listPolicyStateTaskRef(null, null, null, null, null);

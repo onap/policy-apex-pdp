@@ -54,9 +54,6 @@ public final class ApexModelImpl implements ApexModel {
     @Setter
     private AxPolicyModel policyModel = new AxPolicyModel();
 
-    // The file name for the loaded file
-    private String fileName = null;
-
     // @formatter:off
     private ModelFacade modelFacade;
     private KeyInformationFacade keyInformationFacade;
@@ -69,27 +66,24 @@ public final class ApexModelImpl implements ApexModel {
     // @formatter:on
 
     private Properties apexProperties;
-    private boolean jsonMode;
 
     /**
      * Create an implementation of the Apex editor and model APIs.
      *
      * @param apexProperties The properties to use for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise set to false
      */
-    public ApexModelImpl(final Properties apexProperties, final boolean jsonMode) {
+    public ApexModelImpl(final Properties apexProperties) {
         this.apexProperties = apexProperties;
-        this.jsonMode = jsonMode;
 
         // @formatter:off
-        this.modelFacade          = new ModelFacade(this, apexProperties, jsonMode);
-        this.keyInformationFacade = new KeyInformationFacade(this, apexProperties, jsonMode);
-        this.contextSchemaFacade  = new ContextSchemaFacade(this, apexProperties, jsonMode);
-        this.eventFacade          = new EventFacade(this, apexProperties, jsonMode);
-        this.contextAlbumFacade   = new ContextAlbumFacade(this, apexProperties, jsonMode);
-        this.taskFacade           = new TaskFacade(this, apexProperties, jsonMode);
-        this.policyFacade         = new PolicyFacade(this, apexProperties, jsonMode);
-        this.modelHandlerFacade   = new ModelHandlerFacade(this, apexProperties, jsonMode);
+        this.modelFacade          = new ModelFacade(this, apexProperties);
+        this.keyInformationFacade = new KeyInformationFacade(this, apexProperties);
+        this.contextSchemaFacade  = new ContextSchemaFacade(this, apexProperties);
+        this.eventFacade          = new EventFacade(this, apexProperties);
+        this.contextAlbumFacade   = new ContextAlbumFacade(this, apexProperties);
+        this.taskFacade           = new TaskFacade(this, apexProperties);
+        this.policyFacade         = new PolicyFacade(this, apexProperties);
+        this.modelHandlerFacade   = new ModelHandlerFacade(this, apexProperties);
         // @formatter:on
     }
 
@@ -101,17 +95,15 @@ public final class ApexModelImpl implements ApexModel {
         ApexModelImpl ret = new ApexModelImpl();
         // @formatter:off
         ret.policyModel          = new AxPolicyModel(policyModel);
-        ret.fileName             = this.fileName;
         ret.apexProperties       = this.apexProperties;
-        ret.jsonMode             = this.jsonMode;
-        ret.modelFacade          = new ModelFacade(ret, this.apexProperties, this.jsonMode);
-        ret.keyInformationFacade = new KeyInformationFacade(ret, this.apexProperties, this.jsonMode);
-        ret.contextSchemaFacade  = new ContextSchemaFacade(ret, this.apexProperties, this.jsonMode);
-        ret.eventFacade          = new EventFacade(ret, this.apexProperties, this.jsonMode);
-        ret.contextAlbumFacade   = new ContextAlbumFacade(ret, this.apexProperties, this.jsonMode);
-        ret.taskFacade           = new TaskFacade(ret, this.apexProperties, this.jsonMode);
-        ret.policyFacade         = new PolicyFacade(ret, this.apexProperties, this.jsonMode);
-        ret.modelHandlerFacade   = new ModelHandlerFacade(ret, this.apexProperties, this.jsonMode);
+        ret.modelFacade          = new ModelFacade(ret, this.apexProperties);
+        ret.keyInformationFacade = new KeyInformationFacade(ret, this.apexProperties);
+        ret.contextSchemaFacade  = new ContextSchemaFacade(ret, this.apexProperties);
+        ret.eventFacade          = new EventFacade(ret, this.apexProperties);
+        ret.contextAlbumFacade   = new ContextAlbumFacade(ret, this.apexProperties);
+        ret.taskFacade           = new TaskFacade(ret, this.apexProperties);
+        ret.policyFacade         = new PolicyFacade(ret, this.apexProperties);
+        ret.modelHandlerFacade   = new ModelHandlerFacade(ret, this.apexProperties);
         // @formatter:on
 
         return ret;
@@ -770,7 +762,6 @@ public final class ApexModelImpl implements ApexModel {
     @Override
     // CHECKSTYLE:OFF: checkstyle:HiddenField
     public ApexApiResult loadFromFile(final String fileName) {
-        this.fileName = fileName;
         return modelHandlerFacade.loadFromFile(fileName);
     }
     // CHECKSTYLE:ON: checkstyle:HiddenField
@@ -779,12 +770,8 @@ public final class ApexModelImpl implements ApexModel {
      * {@inheritDoc}.
      */
     @Override
-    public ApexApiResult saveToFile(final String saveFileName, final boolean xmlFlag) {
-        if (saveFileName == null) {
-            return modelHandlerFacade.saveToFile(fileName, xmlFlag);
-        } else {
-            return modelHandlerFacade.saveToFile(saveFileName, xmlFlag);
-        }
+    public ApexApiResult saveToFile(final String fileName) {
+        return modelHandlerFacade.saveToFile(fileName);
     }
 
     /**
@@ -799,8 +786,8 @@ public final class ApexModelImpl implements ApexModel {
      * {@inheritDoc}.
      */
     @Override
-    public ApexApiResult writeToUrl(final String urlString, final boolean xmlFlag) {
-        return modelHandlerFacade.writeToUrl(urlString, xmlFlag);
+    public ApexApiResult writeToUrl(final String urlString) {
+        return modelHandlerFacade.writeToUrl(urlString);
     }
 
     /**

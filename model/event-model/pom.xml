@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -36,30 +37,4 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-xml-schema</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>org.onap.policy.apex.model.basicmodel.handling.ApexSchemaGenerator</mainClass>
-                            <classpathScope>compile</classpathScope>
-                            <arguments>
-                                <argument>org.onap.policy.apex.model.eventmodel.concepts.AxEventModel</argument>
-                                <argument>${project.build.directory}/model/xml/apex-event-model.xsd</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

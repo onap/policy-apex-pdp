@@ -23,11 +23,6 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -52,19 +47,10 @@ import org.onap.policy.common.utils.validation.Assertions;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-
-@XmlRootElement(name = "apexContextModel", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxContextModel", namespace = "http://www.onap.org/policy/apex-pdp",
-        propOrder = { "schemas", "albums" })
-
 public class AxContextModel extends AxModel {
     private static final long serialVersionUID = 8800599637708309945L;
 
-    @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
-
-    @XmlElement(name = "albums", required = true)
     private AxContextAlbums albums;
 
     /**

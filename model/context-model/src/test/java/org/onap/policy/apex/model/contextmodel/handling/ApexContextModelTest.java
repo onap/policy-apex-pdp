@@ -118,11 +118,6 @@ public class ApexContextModelTest {
     }
 
     @Test
-    public void testModelWriteReadXml() throws Exception {
-        testApexModel.testApexModelWriteReadXml();
-    }
-
-    @Test
     public void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,24 +53,17 @@ public class ContextAlbumFacade {
     // Facade classes for working towards the real Apex model
     private final KeyInformationFacade keyInformationFacade;
 
-    // JSON output on list/delete if set
-    private final boolean jsonMode;
-
     /**
      * Constructor that creates a context album facade for the Apex Model API.
      *
      * @param apexModel the apex model
      * @param apexProperties Properties for the model
-     * @param jsonMode set to true to return JSON strings in list and delete operations, otherwise
-     *        set to false *  Modifications Copyright (C) 2019 Nordix Foundation.
-
      */
-    public ContextAlbumFacade(final ApexModel apexModel, final Properties apexProperties, final boolean jsonMode) {
+    public ContextAlbumFacade(final ApexModel apexModel, final Properties apexProperties) {
         this.apexModel = apexModel;
         this.apexProperties = apexProperties;
-        this.jsonMode = jsonMode;
 
-        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties, jsonMode);
+        keyInformationFacade = new KeyInformationFacade(apexModel, apexProperties);
     }
 
     /**
@@ -92,14 +85,14 @@ public class ContextAlbumFacade {
 
             if (apexModel.getPolicyModel().getAlbums().getAlbumsMap().containsKey(key)) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
-                        CONCEPT + key.getId() + " already exists");
+                    CONCEPT + key.getId() + " already exists");
             }
 
             final AxContextSchema schema = apexModel.getPolicyModel().getSchemas().get(builder.getContextSchemaName(),
-                    builder.getContextSchemaVersion());
+                builder.getContextSchemaVersion());
             if (schema == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, CONCEPT
-                        + builder.getContextSchemaName() + ':' + builder.getContextSchemaVersion() + DOES_NOT_EXIST);
+                    + builder.getContextSchemaName() + ':' + builder.getContextSchemaVersion() + DOES_NOT_EXIST);
             }
 
             final AxContextAlbum contextAlbum = new AxContextAlbum(key);
@@ -107,17 +100,17 @@ public class ContextAlbumFacade {
             contextAlbum.setItemSchema(schema.getKey());
 
             contextAlbum
-                    .setWritable(builder.getWritable() != null && ("true".equalsIgnoreCase(builder.getWritable().trim())
-                            || "t".equalsIgnoreCase(builder.getWritable().trim())));
+                .setWritable(builder.getWritable() != null && ("true".equalsIgnoreCase(builder.getWritable().trim())
+                    || "t".equalsIgnoreCase(builder.getWritable().trim())));
 
             apexModel.getPolicyModel().getAlbums().getAlbumsMap().put(key, contextAlbum);
 
             if (apexModel.getPolicyModel().getKeyInformation().getKeyInfoMap().containsKey(key)) {
                 return keyInformationFacade.updateKeyInformation(builder.getName(), builder.getVersion(),
-                        builder.getUuid(), builder.getDescription());
+                    builder.getUuid(), builder.getDescription());
             } else {
                 return keyInformationFacade.createKeyInformation(builder.getName(), builder.getVersion(),
-                        builder.getUuid(), builder.getDescription());
+                    builder.getUuid(), builder.getDescription());
             }
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
@@ -135,10 +128,10 @@ public class ContextAlbumFacade {
     public ApexApiResult updateContextAlbum(ContextAlbum builder) {
         try {
             final AxContextAlbum contextAlbum =
-                    apexModel.getPolicyModel().getAlbums().get(builder.getName(), builder.getVersion());
+                apexModel.getPolicyModel().getAlbums().get(builder.getName(), builder.getVersion());
             if (contextAlbum == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + builder.getName() + ':' + builder.getVersion() + DOES_NOT_EXIST);
+                    CONCEPT + builder.getName() + ':' + builder.getVersion() + DOES_NOT_EXIST);
             }
 
             if (builder.getScope() != null) {
@@ -146,22 +139,21 @@ public class ContextAlbumFacade {
             }
 
             contextAlbum
-                    .setWritable(builder.getWritable() != null && ("true".equalsIgnoreCase(builder.getWritable().trim())
-                            || "t".equalsIgnoreCase(builder.getWritable().trim())));
+                .setWritable(builder.getWritable() != null && ("true".equalsIgnoreCase(builder.getWritable().trim())
+                    || "t".equalsIgnoreCase(builder.getWritable().trim())));
 
             if (builder.getContextSchemaName() != null) {
                 final AxContextSchema schema = apexModel.getPolicyModel().getSchemas()
-                        .get(builder.getContextSchemaName(), builder.getContextSchemaVersion());
+                    .get(builder.getContextSchemaName(), builder.getContextSchemaVersion());
                 if (schema == null) {
-                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + builder.getContextSchemaName() + ':' + builder.getContextSchemaVersion()
-                                    + DOES_NOT_EXIST);
+                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, CONCEPT
+                        + builder.getContextSchemaName() + ':' + builder.getContextSchemaVersion() + DOES_NOT_EXIST);
                 }
                 contextAlbum.setItemSchema(schema.getKey());
             }
 
             return keyInformationFacade.updateKeyInformation(builder.getName(), builder.getVersion(), builder.getUuid(),
-                    builder.getDescription());
+                builder.getDescription());
         } catch (final Exception e) {
             return new ApexApiResult(ApexApiResult.Result.FAILED, e);
         }
@@ -180,13 +172,13 @@ public class ContextAlbumFacade {
             final Set<AxContextAlbum> contextAlbumSet = apexModel.getPolicyModel().getAlbums().getAll(name, version);
             if (name != null && contextAlbumSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxContextAlbum contextAlbum : contextAlbumSet) {
-                result.addMessage(new ApexModelStringWriter<AxContextAlbum>(false).writeString(contextAlbum,
-                        AxContextAlbum.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxContextAlbum>(false).writeString(contextAlbum, AxContextAlbum.class));
             }
             return result;
         } catch (final Exception e) {
@@ -209,20 +201,20 @@ public class ContextAlbumFacade {
                     return new ApexApiResult();
                 } else {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                            CONCEPT + key.getId() + DOES_NOT_EXIST);
+                        CONCEPT + key.getId() + DOES_NOT_EXIST);
                 }
             }
 
             final Set<AxContextAlbum> contextAlbumSet = apexModel.getPolicyModel().getAlbums().getAll(name, version);
             if (contextAlbumSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxContextAlbum contextAlbum : contextAlbumSet) {
-                result.addMessage(new ApexModelStringWriter<AxContextAlbum>(false).writeString(contextAlbum,
-                        AxContextAlbum.class, jsonMode));
+                result.addMessage(
+                    new ApexModelStringWriter<AxContextAlbum>(false).writeString(contextAlbum, AxContextAlbum.class));
                 apexModel.getPolicyModel().getAlbums().getAlbumsMap().remove(contextAlbum.getKey());
                 keyInformationFacade.deleteKeyInformation(name, version);
             }
@@ -244,14 +236,14 @@ public class ContextAlbumFacade {
             final Set<AxContextAlbum> contextAlbumSet = apexModel.getPolicyModel().getAlbums().getAll(name, version);
             if (contextAlbumSet.isEmpty()) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
+                    CONCEPT_S + name + ':' + version + DO_ES_NOT_EXIST);
             }
 
             final ApexApiResult result = new ApexApiResult();
             for (final AxContextAlbum contextAlbum : contextAlbumSet) {
                 final AxValidationResult validationResult = contextAlbum.validate(new AxValidationResult());
                 result.addMessage(new ApexModelStringWriter<AxArtifactKey>(false).writeString(contextAlbum.getKey(),
-                        AxArtifactKey.class, jsonMode));
+                    AxArtifactKey.class));
                 result.addMessage(validationResult.toString());
             }
             return result;

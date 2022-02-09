@@ -27,11 +27,6 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConceptGetter;
@@ -52,15 +47,10 @@ import org.onap.policy.common.utils.validation.Assertions;
  * in the container. Each task entry is checked to ensure that its key and value are not null and
  * that the key matches the key in the map value. Each task entry is then validated individually.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxTasks", namespace = "http://www.onap.org/policy/apex-pdp", propOrder = {"key", "taskMap"})
 public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     private static final long serialVersionUID = 4290442590545820316L;
 
-    @XmlElement(name = "key", required = true)
     private AxArtifactKey key;
-
-    @XmlElement(required = true)
     private Map<AxArtifactKey, AxTask> taskMap;
 
     /**
@@ -93,7 +83,7 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     /**
      * This Constructor creates a task container with all of its fields defined.
      *
-     * @param key the task container key
+     * @param key     the task container key
      * @param taskMap the tasks to be stored in the task container
      */
     public AxTasks(final AxArtifactKey key, final Map<AxArtifactKey, AxTask> taskMap) {
@@ -104,23 +94,6 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         this.key = key;
         this.taskMap = new TreeMap<>();
         this.taskMap.putAll(taskMap);
-    }
-
-    /**
-     * When a model is unmarshalled from disk or from the database, the task map is returned as a
-     * raw hash map. This method is called by JAXB after unmarshaling and is used to convert the
-     * hash map to a {@link NavigableMap} so that it will work with the {@link AxConceptGetter}
-     * interface.
-     *
-     * @param unmarshaler the unmarshaler that is unmarshaling the model
-     * @param parent the parent object of this object in the unmarshaler
-     */
-    public void afterUnmarshal(final Unmarshaller unmarshaler, final Object parent) {
-        // The map must be navigable to allow name and version searching, unmarshaling returns a
-        // hash map
-        final NavigableMap<AxArtifactKey, AxTask> navigableTaskMap = new TreeMap<>();
-        navigableTaskMap.putAll(taskMap);
-        taskMap = navigableTaskMap;
     }
 
     /**
@@ -143,6 +116,14 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
         }
 
         return keyList;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void buildReferences() {
+        taskMap.values().stream().forEach(task -> task.buildReferences());
     }
 
     /**
@@ -184,27 +165,27 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
 
         if (key.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+                new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
         }
 
         result = key.validate(result);
 
         if (taskMap.size() == 0) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "taskMap may not be empty"));
+                "taskMap may not be empty"));
         } else {
             for (final Entry<AxArtifactKey, AxTask> taskEntry : taskMap.entrySet()) {
                 if (taskEntry.getKey().equals(AxArtifactKey.getNullKey())) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key on task entry " + taskEntry.getKey() + " may not be the null key"));
+                        "key on task entry " + taskEntry.getKey() + " may not be the null key"));
                 } else if (taskEntry.getValue() == null) {
                     result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "value on task entry " + taskEntry.getKey() + " may not be null"));
+                        "value on task entry " + taskEntry.getKey() + " may not be null"));
                 } else {
                     if (!taskEntry.getKey().equals(taskEntry.getValue().getKey())) {
                         result.addValidationMessage(new AxValidationMessage(key, this.getClass(),
-                                ValidationResult.INVALID, "key on task entry key " + taskEntry.getKey()
-                                        + " does not equal task value key " + taskEntry.getValue().getKey()));
+                            ValidationResult.INVALID, "key on task entry key " + taskEntry.getKey()
+                            + " does not equal task value key " + taskEntry.getValue().getKey()));
                     }
 
                     result = taskEntry.getValue().validate(result);
@@ -348,7 +329,7 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     @Override
     public AxTask get(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxTask>) taskMap).get(conceptKeyName,
-                conceptKeyVersion);
+            conceptKeyVersion);
     }
 
     /**
@@ -365,6 +346,6 @@ public class AxTasks extends AxConcept implements AxConceptGetter<AxTask> {
     @Override
     public Set<AxTask> getAll(final String conceptKeyName, final String conceptKeyVersion) {
         return new AxConceptGetterImpl<>((NavigableMap<AxArtifactKey, AxTask>) taskMap).getAll(conceptKeyName,
-                conceptKeyVersion);
+            conceptKeyVersion);
     }
 }

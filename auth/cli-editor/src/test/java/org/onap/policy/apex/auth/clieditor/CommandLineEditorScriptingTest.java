@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,11 @@ import java.net.URL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
+import org.onap.policy.apex.model.basicmodel.handling.ApexModelStringWriter;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
@@ -61,10 +63,10 @@ public class CommandLineEditorScriptingTest {
         tempLogFile = File.createTempFile("SampleLBPolicyMap", ".log");
 
         samplePolicyArgs = new String[] {"-c", "src/test/resources/scripts/SampleLBPolicy.apex", "-o",
-                tempModelFile.getAbsolutePath(), "-l", tempLogFile.getAbsolutePath()};
+            tempModelFile.getAbsolutePath(), "-l", tempLogFile.getAbsolutePath()};
 
         samplePolicyMapArgs = new String[] {"-c", "src/test/resources/scripts/SampleLBPolicy_WithMap.apex", "-o",
-                tempModelFile.getAbsolutePath(), "-l", tempLogFile.getAbsolutePath()};
+            tempModelFile.getAbsolutePath(), "-l", tempLogFile.getAbsolutePath()};
     }
 
     /**
@@ -79,7 +81,7 @@ public class CommandLineEditorScriptingTest {
     /**
      * Test sample FLB policy script.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error
      */
     @Test
@@ -94,7 +96,7 @@ public class CommandLineEditorScriptingTest {
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
         final URL compareModelUrl =
-                ResourceUtils.getLocalFile("src/test/resources/compare/FLBPolicyModel_Compare.json");
+            ResourceUtils.getLocalFile("src/test/resources/compare/FLBPolicyModel_Compare.json");
         final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         final URL compareModelNoAlbumsUrl =
@@ -114,7 +116,7 @@ public class CommandLineEditorScriptingTest {
     /**
      * Test sample FLB map policy script.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error
      */
     @Test

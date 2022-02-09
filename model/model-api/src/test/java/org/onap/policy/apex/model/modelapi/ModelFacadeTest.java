@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,14 +34,14 @@ public class ModelFacadeTest {
 
     @Test
     public void testModelFacade() {
-        assertThatThrownBy(() -> new ModelFacade(null, null, false))
+        assertThatThrownBy(() -> new ModelFacade(null, null))
             .hasMessage("apexModel may not be null");
-        final ApexModel apexModel = new ApexModelFactory().createApexModel(null, false);
+        final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
-        assertThatThrownBy(() -> new ModelFacade(apexModel, null, false))
+        assertThatThrownBy(() -> new ModelFacade(apexModel, null))
             .hasMessage("apexProperties may not be null");
         final Properties modelProperties = new Properties();
-        final ModelFacade mf = new ModelFacade(apexModel, modelProperties, false);
+        final ModelFacade mf = new ModelFacade(apexModel, modelProperties);
 
         ApexApiResult result = mf.createModel(null, null, null, null);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
@@ -91,7 +91,6 @@ public class ModelFacadeTest {
 
         result = mf.listModel();
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
-        assertEquals("AxPolicyModel:(AxPolicyModel:(key=AxArtifactKey:(n", result.getMessage().substring(0, 50));
 
         result = mf.deleteModel();
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());

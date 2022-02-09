@@ -23,12 +23,6 @@
 package org.onap.policy.apex.model.eventmodel.concepts;
 
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -37,7 +31,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.xml.AxReferenceKeyAdapter;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -50,11 +43,6 @@ import org.onap.policy.common.utils.validation.Assertions;
  *
  * <p>Validation checks that the field key and the field schema reference key are not null.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "apexField", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlType(name = "AxField", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
-    { "key", "fieldSchemaKey", "optional" })
-
 public class AxField extends AxConcept {
     private static final String KEY_MAY_NOT_BE_NULL = "key may not be null";
     private static final String FIELD_SCHEMA_KEY_MAY_NOT_BE_NULL = "fieldSchemaKey may not be null";
@@ -64,14 +52,8 @@ public class AxField extends AxConcept {
     private static final int HASH_PRIME_0 = 1231;
     private static final int HASH_PRIME_1 = 1237;
 
-    @XmlElement(name = "key", required = true)
-    @XmlJavaTypeAdapter(AxReferenceKeyAdapter.class)
     private AxReferenceKey key;
-
-    @XmlElement(required = true)
     private AxArtifactKey fieldSchemaKey;
-
-    @XmlElement(required = false)
     private boolean optional;
 
     /**

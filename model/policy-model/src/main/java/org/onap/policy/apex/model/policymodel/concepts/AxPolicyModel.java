@@ -25,14 +25,6 @@ package org.onap.policy.apex.model.policymodel.concepts;
 
 import java.util.List;
 import java.util.Map.Entry;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -41,7 +33,6 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
-import org.onap.policy.apex.model.basicmodel.handling.KeyInfoMarshalFilter;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums;
@@ -50,7 +41,6 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
 import org.onap.policy.apex.model.eventmodel.concepts.AxEvents;
 import org.onap.policy.apex.model.eventmodel.concepts.AxField;
-import org.onap.policy.apex.model.policymodel.handling.EmptyAlbumsAdapter;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -98,30 +88,23 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <li>All events referred to on direct state outputs must exist
  * </ol>
  */
-@XmlRootElement(name = "apexPolicyModel", namespace = "http://www.onap.org/policy/apex-pdp")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AxPolicyModel", namespace = "http://www.onap.org/policy/apex-pdp",
-    propOrder = {"policies", "tasks", "events", "albums", "schemas"})
-
 public class AxPolicyModel extends AxModel {
+    // @formatter:off
+    private static final String SCHEMAS_TOKEN  = "_Schemas";
+    private static final String KEY_INFO_TOKEN  = "_KeyInfo";
+    private static final String EVENTS_TOKEN    = "_Events";
+    private static final String ALBUMS_TOKEN    = "_Albums";
+    private static final String TASKS_TOKEN     = "_Tasks";
+    private static final String POLICIESS_TOKEN = "_Policies";
+
     private static final String DOES_NOT_EXIST = " does not exist";
 
     private static final long serialVersionUID = 8800599637708309945L;
 
-    @XmlElement(name = "policies", required = true)
     private AxPolicies policies;
-
-    @XmlElement(name = "tasks", required = true)
     private AxTasks tasks;
-
-    @XmlElement(name = "events", required = true)
     private AxEvents events;
-
-    @XmlElement(name = "albums", required = false)
-    @XmlJavaTypeAdapter(EmptyAlbumsAdapter.class)
     private AxContextAlbums albums;
-
-    @XmlElement(name = "schemas", required = true)
     private AxContextSchemas schemas;
 
     /**
@@ -148,12 +131,13 @@ public class AxPolicyModel extends AxModel {
      * @param key the key
      */
     public AxPolicyModel(final AxArtifactKey key) {
-        this(key, new AxContextSchemas(new AxArtifactKey(key.getName() + "_Schemas", key.getVersion())),
-            new AxKeyInformation(new AxArtifactKey(key.getName() + "_KeyInfo", key.getVersion())),
-            new AxEvents(new AxArtifactKey(key.getName() + "_Events", key.getVersion())),
-            new AxContextAlbums(new AxArtifactKey(key.getName() + "_Albums", key.getVersion())),
-            new AxTasks(new AxArtifactKey(key.getName() + "_Tasks", key.getVersion())),
-            new AxPolicies(new AxArtifactKey(key.getName() + "_Policies", key.getVersion())));
+        this(key,
+            new AxContextSchemas(new AxArtifactKey(key.getName() + SCHEMAS_TOKEN, key.getVersion())),
+            new AxKeyInformation(new AxArtifactKey(key.getName() + KEY_INFO_TOKEN, key.getVersion())),
+            new AxEvents(new AxArtifactKey(key.getName() + EVENTS_TOKEN, key.getVersion())),
+            new AxContextAlbums(new AxArtifactKey(key.getName() + ALBUMS_TOKEN, key.getVersion())),
+            new AxTasks(new AxArtifactKey(key.getName() + TASKS_TOKEN,  key.getVersion())),
+            new AxPolicies(new AxArtifactKey(key.getName() + POLICIESS_TOKEN, key.getVersion())));
     }
 
     /**
@@ -168,7 +152,7 @@ public class AxPolicyModel extends AxModel {
      * @param policies the policy container for the policy model
      */
     public AxPolicyModel(final AxArtifactKey key, final AxContextSchemas schemas, final AxKeyInformation keyInformation,
-            final AxEvents events, final AxContextAlbums albums, final AxTasks tasks, final AxPolicies policies) {
+        final AxEvents events, final AxContextAlbums albums, final AxTasks tasks, final AxPolicies policies) {
         super(key, keyInformation);
         Assertions.argumentNotNull(schemas, "schemas may not be null");
         Assertions.argumentNotNull(events, "events may not be null");
@@ -334,7 +318,7 @@ public class AxPolicyModel extends AxModel {
 
         validateEventKeys(result);
         validateContextAlbumKeys(result);
-        result = validateAllTaskKeys(result);
+        validateAllTaskKeys(result);
         validatePolicyKeys(result);
 
         return result;
@@ -384,7 +368,7 @@ public class AxPolicyModel extends AxModel {
      */
     private AxValidationResult validateAllTaskKeys(AxValidationResult result) {
         for (final AxTask task : tasks.getAll(null)) {
-            result = validateTaskKeys(task, result);
+            validateTaskKeys(task, result);
         }
         return result;
     }
@@ -496,7 +480,7 @@ public class AxPolicyModel extends AxModel {
      * @param result the validation result to append to
      */
     private void validateEventTaskFieldCompatibilityOnStateOutput(final AxState state, final AxTask task,
-            final AxStateOutput stateOutput, AxValidationResult result) {
+        final AxStateOutput stateOutput, AxValidationResult result) {
         if (stateOutput == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
                 ValidationResult.INVALID, "state output on task reference for task " + task.getId() + " is null"));
@@ -512,38 +496,26 @@ public class AxPolicyModel extends AxModel {
     }
 
     /**
-     * When a model is unmarshalled from disk or from the database, if the albums field was missing a blank
-     * with a null key was added. This method is called by JAXB after unmarshalling and is
+     * When a model is deserialized, if the albums field was missing a blank
+     * with a null key was added. This method is called by JAXB after deserializing and is
      * used to insert an appropriate key
-     *
-     * @param unmarshaller the unmarshaller that is unmarshalling the model
-     * @param parent the parent object of this object in the unmarshaller
      */
-    public void afterUnmarshal(final Unmarshaller unmarshaller, final Object parent) {
-        new EmptyAlbumsAdapter().doAfterUnmarshal(this);
-    }
+    @Override
+    public void buildReferences() {
+        getSchemas().buildReferences();
+        getEvents().buildReferences();
+        getAlbums().buildReferences();
+        getTasks().buildReferences();
+        getPolicies().buildReferences();
+        getKeyInformation().buildReferences();
 
-    /**
-     * When a model is marshalled from disk or database, if the albums field is empty/null, then the albums field
-     * is not emitted. If the (empty) albums field is not emitted then it's keyinfo should also be suppressed
-     * This method is called by JAXB before marshaling and is used to insert the appropriate filters
-     *
-     * @param marshaller the marshaller that is marshaller the model
-     * @throws Exception if there is a problem with the marshalling
-     */
-    public void beforeMarshal(final Marshaller marshaller) throws Exception {
-        EmptyAlbumsAdapter albumsfilter = new EmptyAlbumsAdapter();
-        marshaller.setAdapter(EmptyAlbumsAdapter.class, albumsfilter);
-        //get/create the keyinfofilter
-        KeyInfoMarshalFilter keyinfoFilter = marshaller.getAdapter(KeyInfoMarshalFilter.class);
-        if (keyinfoFilter == null) {
-            keyinfoFilter = new KeyInfoMarshalFilter();
+        AxArtifactKey nullAlbumskey = new AxArtifactKey(AxKey.NULL_KEY_NAME + ALBUMS_TOKEN, AxKey.NULL_KEY_VERSION);
+
+        if (AxArtifactKey.getNullKey().equals(getAlbums().getKey())
+            || nullAlbumskey.equals(getAlbums().getKey())) {
+            getAlbums().setKey(new AxArtifactKey(getKey().getName() + ALBUMS_TOKEN, getKey().getVersion()));
+            getKeyInformation().generateKeyInfo(getAlbums());
         }
-        //if the albumsfilter would filter out this model's albums add the album's key to the keyinfofilter
-        if (albumsfilter.marshal(this.albums) == null && this.albums != null) {
-            keyinfoFilter.addFilterKey(this.albums.getKey());
-        }
-        marshaller.setAdapter(keyinfoFilter);
     }
 
     /**
