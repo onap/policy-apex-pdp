@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfa0560c_e7e6e781",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2022-02-09T16:43:12Z",
+      "side": 1,
+      "message": "So the root element \"apexPolicyModel\" will not be there from now when a policy is created?\n\nThis was the structure until now:\n....\n  engineServiceParameters:\n    policy_type_impl:\n      apexPolicyModel:\n        key: ...\n\nI guess with this change, it is going to be:\n....\n  engineServiceParameters:\n    policy_type_impl:\n        key: ...\n\nAnd we are maintaining the backward compatibility here by checking for the field and taking from there? Just making sure my understanding is correct.",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 63
+      },
+      "revId": "59b90519eda3b95b0cfc49b6349a591c7d0c78e2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
