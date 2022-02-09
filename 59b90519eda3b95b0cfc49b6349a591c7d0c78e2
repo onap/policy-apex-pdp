@@ -22,6 +22,30 @@
       "revId": "59b90519eda3b95b0cfc49b6349a591c7d0c78e2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01c7171e_258ae159",
+        "filename": "services/services-engine/src/main/java/org/onap/policy/apex/service/parameters/ApexParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2022-02-09T17:36:35Z",
+      "side": 1,
+      "message": "You can send an apex Policy model encapsulated in an apexPolicyModel: {} object in the TOSCA (just as today) or directly under the Policy_type_impl field.\n\nSo all of these work:\n1)\nengineServiceParameters:\n    policy_type_impl:\n      apexPolicyModel:\n        key: ...\n2)\nengineServiceParameters:\n    policy_type_impl:\n        key: ...\n\n3)\nengineServiceParameters:\n    policy_type_impl: \"path/to/model\"\n\nNumber 3 is for testing",
+      "parentUuid": "cfa0560c_e7e6e781",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 63
+      },
+      "revId": "59b90519eda3b95b0cfc49b6349a591c7d0c78e2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
