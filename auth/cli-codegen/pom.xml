@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.model</groupId>
-            <artifactId>model-api</artifactId>
+            <artifactId>model</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
