@@ -27,22 +27,40 @@
 
     <groupId>org.onap.policy.apex-pdp.model</groupId>
     <artifactId>model</artifactId>
-    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>The model for Apex, it comtains definitions of all Apex concepts and also has handling for Apex models.</description>
 
-    <modules>
-        <module>utilities</module>
-        <module>basic-model</module>
-        <module>context-model</module>
-        <module>event-model</module>
-        <module>policy-model</module>
-        <module>engine-model</module>
-        <module>model-api</module>
-    </modules>
-
     <dependencies>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.8-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
