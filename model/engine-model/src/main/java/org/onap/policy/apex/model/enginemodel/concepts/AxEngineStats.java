@@ -34,6 +34,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationMessage;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
+import org.onap.policy.common.utils.resources.PrometheusUtils;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
@@ -46,21 +47,22 @@ public class AxEngineStats extends AxConcept {
     private static final long serialVersionUID = -6981129081962785368L;
     private static final int HASH_CODE_PRIME = 32;
     static final String ENGINE_INSTANCE_ID = "engine_instance_id";
-    static final Gauge ENGINE_EVENTS_EXECUTED_COUNT = Gauge.build().name("apex_engine_events_executed_count")
-            .labelNames(ENGINE_INSTANCE_ID)
-            .help("Total number of APEX events processed by the engine.").register();
-    static final Gauge ENGINE_UPTIME = Gauge.build().name("apex_engine_uptime")
-            .labelNames(ENGINE_INSTANCE_ID)
-            .help("Time elapsed since the engine was started.").register();
-    static final Gauge ENGINE_START_TIMESTAMP = Gauge.build().name("apex_engine_last_start_timestamp_epoch")
-            .labelNames(ENGINE_INSTANCE_ID)
-            .help("Epoch timestamp of the instance when engine was last started.").register();
-    static final Gauge ENGINE_AVG_EXECUTION_TIME = Gauge.build().name("apex_engine_average_execution_time_seconds")
-            .labelNames(ENGINE_INSTANCE_ID)
-            .help("Average time taken to execute an APEX policy in seconds.").register();
+    static final Gauge ENGINE_EVENT_EXECUTIONS = Gauge.build().name("engine_event_executions")
+        .namespace(PrometheusUtils.PdpType.PDPA.getNamespace()).labelNames(ENGINE_INSTANCE_ID)
+        .help("Total number of APEX events processed by the engine.").register();
+    static final Gauge ENGINE_UPTIME = Gauge.build().name("engine_uptime")
+        .namespace(PrometheusUtils.PdpType.PDPA.getNamespace()).labelNames(ENGINE_INSTANCE_ID)
+        .help("Time elapsed since the engine was started.").register();
+    static final Gauge ENGINE_START_TIMESTAMP = Gauge.build().name("engine_last_start_timestamp_epoch")
+        .namespace(PrometheusUtils.PdpType.PDPA.getNamespace()).labelNames(ENGINE_INSTANCE_ID)
+        .help("Epoch timestamp of the instance when engine was last started.").register();
+    static final Gauge ENGINE_AVG_EXECUTION_TIME = Gauge.build().name("engine_average_execution_time_seconds")
+        .namespace(PrometheusUtils.PdpType.PDPA.getNamespace()).labelNames(ENGINE_INSTANCE_ID)
+        .help("Average time taken to execute an APEX policy in seconds.").register();
     static final Histogram ENGINE_LAST_EXECUTION_TIME = Histogram.build()
-            .name("apex_engine_last_execution_time").labelNames(ENGINE_INSTANCE_ID)
-            .help("Time taken to execute the last APEX policy in seconds.").register();
+        .namespace(PrometheusUtils.PdpType.PDPA.getNamespace())
+        .name("engine_last_execution_time").labelNames(ENGINE_INSTANCE_ID)
+        .help("Time taken to execute the last APEX policy in seconds.").register();
 
     private AxReferenceKey key;
     private long timeStamp;
@@ -97,7 +99,7 @@ public class AxEngineStats extends AxConcept {
             return;
         }
         ENGINE_UPTIME.labels(engineId).set(upTime / 1000d);
-        ENGINE_EVENTS_EXECUTED_COUNT.labels(engineId).set(this.eventCount);
+        ENGINE_EVENT_EXECUTIONS.labels(engineId).set(this.eventCount);
         ENGINE_START_TIMESTAMP.labels(engineId).set(this.lastStart);
         ENGINE_AVG_EXECUTION_TIME.labels(engineId).set(this.averageExecutionTime / 1000d);
         ENGINE_LAST_EXECUTION_TIME.labels(engineId).observe(this.lastExecutionTime / 1000d);
@@ -216,7 +218,7 @@ public class AxEngineStats extends AxConcept {
      */
     public void setEventCount(final long eventCount) {
         this.eventCount = eventCount;
-        ENGINE_EVENTS_EXECUTED_COUNT.labels(getKey().getParentArtifactKey().getId())
+        ENGINE_EVENT_EXECUTIONS.labels(getKey().getParentArtifactKey().getId())
                 .set(this.eventCount);
     }
 
@@ -328,7 +330,7 @@ public class AxEngineStats extends AxConcept {
         }
         lastEnterTime = now;
         timeStamp = now;
-        ENGINE_EVENTS_EXECUTED_COUNT.labels(getKey().getParentArtifactKey().getId()).set(this.eventCount);
+        ENGINE_EVENT_EXECUTIONS.labels(getKey().getParentArtifactKey().getId()).set(this.eventCount);
     }
 
     /**
