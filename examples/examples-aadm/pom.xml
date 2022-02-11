@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -37,13 +38,7 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-engine</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-infrastructure</artifactId>
+            <artifactId>core</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

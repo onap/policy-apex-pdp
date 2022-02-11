@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-engine</artifactId>
+            <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
