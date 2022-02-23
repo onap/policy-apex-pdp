@@ -1,0 +1,89 @@
+{
+  "tosca_definitions_version": "tosca_simple_yaml_1_1_0",
+  "topology_template": {
+    "policies": [
+      {
+        "onap.policies.apex.Simplecontrolloop": {
+          "type": "onap.policies.native.Apex",
+          "type_version": "1.0.0",
+          "name": "onap.policies.apex.Simplecontrolloop",
+          "version": "1.0.0",
+          "metadata": {
+            "metadataSetName": "dummyMetadataSet",
+            "metadataSetVersion": "1.0.0",
+            "metadataSet": {
+              "apexPolicyModel": {
+                "key": {
+                  "name": "dummy key1 provided in metadata",
+                  "version": "0.0.1"
+                },
+                "keyInformation": {
+                  "key": {
+                    "name": "dummy key2 provided in metadata",
+                    "version": "0.0.1"
+                  }
+                },
+                "threshold": 3.15,
+                "state": "passive"
+              }
+            }
+          },
+          "properties": {
+            "javaProperties": [
+              [
+                "property0",
+                "property0Value"
+              ],
+              [
+                "property1",
+                "property1Value"
+              ]
+            ],
+            "engineServiceParameters": {
+              "name": "MyApexEngine",
+              "version": "0.0.1",
+              "id": 45,
+              "instanceCount": 345,
+              "deploymentPort": 65522,
+              "engineParameters": {
+                "contextParameters": {
+                  "parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters"
+                },
+                "executorParameters": {
+                  "JAVASCRIPT": {
+                    "parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperExecutorParameters"
+                  }
+                }
+              }
+            },
+            "eventOutputParameters": {
+              "FirstProducer": {
+                "carrierTechnologyParameters": {
+                  "carrierTechnology": "FILE",
+                  "parameters": {
+                    "fileName": "target/aaa.json"
+                  }
+                },
+                "eventProtocolParameters": {
+                  "eventProtocol": "JSON"
+                }
+              }
+            },
+            "eventInputParameters": {
+              "MySuperDooperConsumer1": {
+                "carrierTechnologyParameters": {
+                  "carrierTechnology": "SUPER_DOOPER",
+                  "parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters"
+                },
+                "eventProtocolParameters": {
+                  "eventProtocol": "SUPER_TOK_DEL",
+                  "parameterClassName": "org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

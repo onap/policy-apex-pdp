@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -23,6 +23,7 @@
 
 package org.onap.policy.apex.service.engine.parameters;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -76,6 +77,51 @@ public class ApexParametersTest {
             .hasMessageContaining("must have one key and one value")
             .hasMessageContaining("\"key\" value \"null\" INVALID, is blank")
             .hasMessageContaining("\"value\" value \"null\" INVALID, is blank");
+    }
+
+    @Test
+    public void testPolicyModelFromMetadata() throws ParameterException {
+        // Policy Models provided only in metadata.
+        final String[] args = {"-p", "src/test/resources/parameters/policyModelFromMetadata.json"};
+        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
+
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+        assertThat(parameters.getEngineServiceParameters().getPolicyModel()).isNotEmpty();
+        assertThat(parameters.getEngineServiceParameters().getPolicyModel())
+            .contains("{\"key\":{\"name\":\"dummy key1 provided in metadata\",\"version\":\"0.0.1\"},\"keyInformation\""
+                + ":{\"key\":{\"name\":\"dummy key2 provided in metadata\",\"version\":\"0.0.1\"}},"
+                + "\"threshold\":3.15,\"state\":\"passive\"}");
+    }
+
+    @Test
+    public void testPolicyModelFromProperties() throws ParameterException {
+        // Policy models provided in properties under EngineServiceParameters for backward compatibility
+        final String[] args = {"-p", "src/test/resources/parameters/policyModelFromProperties.json"};
+        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
+
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+        assertThat(parameters.getEngineServiceParameters().getPolicyModel()).isNotEmpty();
+        assertThat(parameters.getEngineServiceParameters().getPolicyModel())
+            .contains("{\"key\":{\"name\":\"dummy key1 provided in properties\",\"version\":\"0.0.1\"},"
+                + "\"keyInformation\":{\"key\":{\"name\":\"dummy key2 provided in properties\","
+                + "\"version\":\"0.0.1\"}},\"threshold\":3.15,\"state\":\"passive\"}");
+    }
+
+    @Test
+    public void testPolicyModelFromPropertiesAndMetadata() throws ParameterException {
+        // Policy models provided in both properties and in metadata. policyModels in metadata takes precedence
+        final String[] args = {"-p", "src/test/resources/parameters/policyModelMultiple.json"};
+        final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
+
+        ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
+
+        assertThat(parameters.getEngineServiceParameters().getPolicyModel()).isNotEmpty();
+        assertThat(parameters.getEngineServiceParameters().getPolicyModel())
+            .contains("{\"key\":{\"name\":\"dummy key1 provided in metadata\",\"version\":\"0.0.1\"},"
+                + "\"keyInformation\":{\"key\":{\"name\":\"dummy key2 provided in metadata\","
+                + "\"version\":\"0.0.1\"}},\"threshold\":3.15,\"state\":\"passive\"}");
     }
 
     @Test

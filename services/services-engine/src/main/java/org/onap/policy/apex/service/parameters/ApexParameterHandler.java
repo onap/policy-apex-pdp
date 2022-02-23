@@ -29,7 +29,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
@@ -63,6 +65,7 @@ public class ApexParameterHandler {
 
     private static final String POLICY_TYPE_IMPL = "policy_type_impl";
     private static final String APEX_POLICY_MODEL = "apexPolicyModel";
+    private static final String METADATA_SET = "metadataSet";
 
     private String policyModel;
     private String apexConfig;
@@ -171,14 +174,28 @@ public class ApexParameterHandler {
                 apexConfigJsonObject.add(property.getKey(), body);
             }
             apexConfig = standardCoder.encode(apexConfigJsonObject);
+
+            // populate policyModel from metadata if present
+            Optional<Map<String, Object>> metadata =
+                Optional.ofNullable(toscaServiceTemplate.getToscaTopologyTemplate().getPolicies().get(0)
+                    .entrySet().iterator().next().getValue().getMetadata());
+            if (metadata.isPresent() && metadata.get().containsKey(METADATA_SET)) {
+                JsonElement body = standardCoder.convert(metadata.get(), JsonObject.class);
+                policyModel = extractPolicyModel(standardCoder, body);
+            }
         } catch (Exception e) {
             throw new ApexException("Parsing config and model from the tosca policy failed.", e);
         }
     }
 
     private String extractPolicyModel(StandardCoder standardCoder, JsonElement body) throws CoderException {
-        // Check for "policy_type_impl"
-        JsonElement policyTypeImplObject = ((JsonObject) body).get(POLICY_TYPE_IMPL);
+        JsonElement policyTypeImplObject = null;
+        // Check for "policy_type_impl, if not present check for "metadataSet"
+        if (body.getAsJsonObject().has(POLICY_TYPE_IMPL)) {
+            policyTypeImplObject = ((JsonObject) body).get(POLICY_TYPE_IMPL);
+        } else if (body.getAsJsonObject().has(METADATA_SET))  {
+            policyTypeImplObject = ((JsonObject) body).get(METADATA_SET);
+        }
         if (null == policyTypeImplObject) {
             return null;
         }
