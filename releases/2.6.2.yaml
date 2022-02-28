@@ -1,0 +1,5 @@
+distribution_type: 'maven'
+version: '2.6.2'
+project: 'policy-apex-pdp'
+tag_release: false
+log_dir: 'policy-apex-pdp-maven-stage-istanbul/138/'
