@@ -161,11 +161,6 @@
         <!-- Plugins for event protocols -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
-            <artifactId>plugins-event-protocol-xml</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
             <artifactId>plugins-event-protocol-jms</artifactId>
             <version>${project.version}</version>
         </dependency>
