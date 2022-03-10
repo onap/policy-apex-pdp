@@ -42,12 +42,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-infrastructure</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
             <artifactId>plugins-executor-mvel</artifactId>
             <version>${project.version}</version>
