@@ -108,13 +108,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Plugins for Persistence of Models over JPA -->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-persistence.plugins-persistence-jpa</groupId>
-            <artifactId>plugins-persistence-jpa-eclipselink</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- Plugins for event carrier technologies -->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
