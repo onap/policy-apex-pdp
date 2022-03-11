@@ -74,20 +74,6 @@ public class TestKafka2Kafka {
     }
 
     /**
-     * Test XML kafka events.
-     *
-     * @throws Exception the apex exception
-     */
-    @Test
-    public void testXmlKafkaEvents() throws Exception {
-        final String conditionedConfigFile = getConditionedConfigFile(
-            "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaXmlEvent.json");
-        final String[] args = {"-rfr", "target", "-p", conditionedConfigFile};
-
-        testKafkaEvents(args, true, "xml");
-    }
-
-    /**
      * Test kafka events.
      *
      * @param args the args

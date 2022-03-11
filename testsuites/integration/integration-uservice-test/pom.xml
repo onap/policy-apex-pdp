@@ -110,12 +110,6 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
-            <artifactId>plugins-event-protocol-xml</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
             <artifactId>plugins-event-protocol-jms</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
