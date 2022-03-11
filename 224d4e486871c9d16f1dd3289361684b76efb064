@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c0f18fd_2a1c188c",
+        "filename": "packages/apex-pdp-package-full/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2022-03-11T01:01:33Z",
+      "side": 1,
+      "message": "2022 ?",
+      "revId": "224d4e486871c9d16f1dd3289361684b76efb064",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
