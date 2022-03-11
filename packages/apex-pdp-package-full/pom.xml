@@ -123,11 +123,6 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
-            <artifactId>plugins-event-carrier-websocket</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
             <artifactId>plugins-event-carrier-jms</artifactId>
             <version>${project.version}</version>
         </dependency>
