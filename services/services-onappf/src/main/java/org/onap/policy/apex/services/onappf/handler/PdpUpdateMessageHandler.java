@@ -41,6 +41,7 @@ import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaWithTypeAndObjectProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,10 +158,12 @@ public class PdpUpdateMessageHandler {
         return pdpResponseDetails;
     }
 
+    // FIXME: What does empty policies list in PDP_UPDATE message mean in terms of deploy/undeploy counters?
     private PdpResponseDetails stopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
         final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
+            final var runningPolicies = apexEngineHandler.getRunningPolicies();
             try {
                 apexEngineHandler.shutdown();
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
@@ -170,7 +173,7 @@ public class PdpUpdateMessageHandler {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
             }
-            updateDeploymentCounts(pdpUpdateMsg, pdpResponseDetails);
+            updateDeploymentCounts(runningPolicies, pdpUpdateMsg);
         }
         return pdpResponseDetails;
     }
@@ -178,11 +181,12 @@ public class PdpUpdateMessageHandler {
     private PdpResponseDetails startApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
         final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
-
+        List<ToscaConceptIdentifier> runningPolicies = null;
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                 apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPoliciesToBeDeployed(),
                     pdpUpdateMsg.getPoliciesToBeUndeployed());
+                runningPolicies = apexEngineHandler.getRunningPolicies();
             } else {
                 apexEngineHandler = new ApexEngineHandler(pdpUpdateMsg.getPoliciesToBeDeployed());
                 Registry.registerOrReplace(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, apexEngineHandler);
@@ -190,6 +194,7 @@ public class PdpUpdateMessageHandler {
             if (apexEngineHandler.isApexEngineRunning()) {
                 pdpResponseDetails =
                     populateResponseForEngineInitiation(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
+                runningPolicies = apexEngineHandler.getRunningPolicies();
             } else {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine failed to start.");
@@ -199,7 +204,7 @@ public class PdpUpdateMessageHandler {
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
-        updateDeploymentCounts(pdpUpdateMsg, pdpResponseDetails);
+        updateDeploymentCounts(runningPolicies, pdpUpdateMsg);
         return pdpResponseDetails;
     }
 
@@ -286,22 +291,35 @@ public class PdpUpdateMessageHandler {
 
     /**
      * Update count values for deployment actions (deploy and undeploy) when applicable.
+     * @param runningPolicies the policies running in apex engine
      * @param pdpUpdateMsg the pdp update message from pap
-     * @param pdpResponseDetails the pdp response
      */
-    private void updateDeploymentCounts(final PdpUpdate pdpUpdateMsg, PdpResponseDetails pdpResponseDetails) {
+    private void updateDeploymentCounts(final List<ToscaConceptIdentifier> runningPolicies,
+        final PdpUpdate pdpUpdateMsg) {
         final var statisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
-
         if (statisticsManager != null) {
             if (pdpUpdateMsg.getPoliciesToBeDeployed() != null && !pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()) {
-                statisticsManager.updatePolicyDeployCounter(
-                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+                var policiesToDeploy = pdpUpdateMsg.getPoliciesToBeDeployed().stream()
+                    .map(ToscaWithTypeAndObjectProperties::getIdentifier).collect(Collectors.toList());
+
+                var policiesSuccessfullyDeployed = new ArrayList<>(policiesToDeploy);
+                policiesSuccessfullyDeployed.retainAll(runningPolicies);
+                policiesSuccessfullyDeployed.forEach(policy -> statisticsManager.updatePolicyDeployCounter(true));
+
+                var policiesFailedToDeploy =  new ArrayList<>(policiesToDeploy);
+                policiesFailedToDeploy.removeIf(runningPolicies::contains);
+                policiesFailedToDeploy.forEach(policy -> statisticsManager.updatePolicyDeployCounter(false));
             }
 
-            if (pdpUpdateMsg.getPoliciesToBeUndeployed() != null
-                    && !pdpUpdateMsg.getPoliciesToBeUndeployed().isEmpty()) {
-                statisticsManager.updatePolicyUndeployCounter(
-                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+            var policiesToUndeploy = pdpUpdateMsg.getPoliciesToBeUndeployed();
+            if (policiesToUndeploy != null && !policiesToUndeploy.isEmpty()) {
+                var policiesSuccessfullyUndeployed = new ArrayList<>(policiesToUndeploy);
+                policiesSuccessfullyUndeployed.retainAll(runningPolicies);
+                policiesSuccessfullyUndeployed.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(true));
+
+                var policiesFailedToUndeploy =  new ArrayList<>(policiesToUndeploy);
+                policiesFailedToUndeploy.removeIf(runningPolicies::contains);
+                policiesFailedToUndeploy.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(false));
             }
         }
     }

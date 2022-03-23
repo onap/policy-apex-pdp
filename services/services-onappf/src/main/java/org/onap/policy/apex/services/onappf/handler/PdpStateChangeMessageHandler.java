@@ -21,8 +21,10 @@
 
 package org.onap.policy.apex.services.onappf.handler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
@@ -35,6 +37,7 @@ import org.onap.policy.models.pdp.enums.PdpResponseStatus;
 import org.onap.policy.models.pdp.enums.PdpState;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifier;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaWithTypeAndObjectProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -139,6 +142,7 @@ public class PdpStateChangeMessageHandler {
                         pdpStateChangeMsg.getRequestId(), PdpResponseStatus.SUCCESS, message.toString());
                 }
                 pdpStatusContext.setState(PdpState.ACTIVE);
+                updateDeploymentCounts(runningPolicies, policies);
             } else {
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine failed to start. State cannot be changed to active.");
@@ -147,11 +151,6 @@ public class PdpStateChangeMessageHandler {
             LOGGER.error("Pdp State Change failed.", e);
             pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
-        }
-        final var apexPolicyStatisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
-        if (apexPolicyStatisticsManager != null) {
-            apexPolicyStatisticsManager
-                    .updatePolicyDeployCounter(pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
         }
         return pdpResponseDetails;
     }
@@ -192,5 +191,28 @@ public class PdpStateChangeMessageHandler {
             }
         }
         return pdpResponseDetails;
+    }
+
+    /**
+     * Update count values for deployment actions (deploy and undeploy) when applicable.
+     * @param runningPolicies the policies running in apex engine
+     * @param policies the list of policies to deploy in the PDP_STATE_CHANGE message from pap
+     */
+    private void updateDeploymentCounts(final List<ToscaConceptIdentifier> runningPolicies,
+        final List<ToscaPolicy> policies) {
+        final var statisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
+        if (statisticsManager == null || policies == null || policies.isEmpty()) {
+            return;
+        }
+        var policiesToDeploy = policies.stream()
+            .map(ToscaWithTypeAndObjectProperties::getIdentifier).collect(Collectors.toList());
+
+        var policiesSuccessfullyDeployed = new ArrayList<>(policiesToDeploy);
+        policiesSuccessfullyDeployed.retainAll(runningPolicies);
+        policiesSuccessfullyDeployed.forEach(policy -> statisticsManager.updatePolicyDeployCounter(true));
+
+        var policiesFailedToDeploy =  new ArrayList<>(policiesToDeploy);
+        policiesFailedToDeploy.removeIf(runningPolicies::contains);
+        policiesFailedToDeploy.forEach(policy -> statisticsManager.updatePolicyDeployCounter(false));
     }
 }
