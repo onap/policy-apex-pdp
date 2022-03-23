@@ -150,8 +150,8 @@ public class PdpStateChangeMessageHandler {
         }
         final var apexPolicyStatisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
         if (apexPolicyStatisticsManager != null) {
-            apexPolicyStatisticsManager
-                    .updatePolicyDeployCounter(pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+            boolean isSuccess = pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS;
+            policies.forEach(policy -> apexPolicyStatisticsManager.updatePolicyDeployCounter(isSuccess));
         }
         return pdpResponseDetails;
     }

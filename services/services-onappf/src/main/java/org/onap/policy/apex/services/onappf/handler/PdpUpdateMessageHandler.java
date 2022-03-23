@@ -294,14 +294,16 @@ public class PdpUpdateMessageHandler {
 
         if (statisticsManager != null) {
             if (pdpUpdateMsg.getPoliciesToBeDeployed() != null && !pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()) {
-                statisticsManager.updatePolicyDeployCounter(
-                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+                pdpUpdateMsg.getPoliciesToBeDeployed().forEach(policy ->
+                    statisticsManager.updatePolicyDeployCounter(
+                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS));
             }
 
             if (pdpUpdateMsg.getPoliciesToBeUndeployed() != null
-                    && !pdpUpdateMsg.getPoliciesToBeUndeployed().isEmpty()) {
-                statisticsManager.updatePolicyUndeployCounter(
-                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS);
+                && !pdpUpdateMsg.getPoliciesToBeUndeployed().isEmpty()) {
+                pdpUpdateMsg.getPoliciesToBeUndeployed().forEach(policy ->
+                    statisticsManager.updatePolicyUndeployCounter(
+                        pdpResponseDetails.getResponseStatus() == PdpResponseStatus.SUCCESS));
             }
         }
     }
