@@ -162,9 +162,10 @@ public class PdpUpdateMessageHandler {
         final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-            final var runningPolicies = apexEngineHandler.getRunningPolicies();
+            List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
             try {
                 apexEngineHandler.shutdown();
+                runningPolicies = apexEngineHandler.getRunningPolicies();
                 pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.SUCCESS, "Pdp update successful. No policies are running.");
             } catch (final ApexStarterException e) {
@@ -180,7 +181,7 @@ public class PdpUpdateMessageHandler {
     private PdpResponseDetails startApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
         final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
-        List<ToscaConceptIdentifier> runningPolicies = null;
+        List<ToscaConceptIdentifier> runningPolicies = new ArrayList<>();
         try {
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                 apexEngineHandler.updateApexEngine(pdpUpdateMsg.getPoliciesToBeDeployed(),
@@ -296,7 +297,7 @@ public class PdpUpdateMessageHandler {
     private void updateDeploymentCounts(final List<ToscaConceptIdentifier> runningPolicies,
         final PdpUpdate pdpUpdateMsg) {
         final var statisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
-        if (statisticsManager != null) {
+        if (statisticsManager != null && runningPolicies != null) {
             if (pdpUpdateMsg.getPoliciesToBeDeployed() != null && !pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()) {
                 var policiesToDeploy = pdpUpdateMsg.getPoliciesToBeDeployed().stream()
                     .map(ToscaWithTypeAndObjectProperties::getIdentifier).collect(Collectors.toList());
@@ -312,13 +313,13 @@ public class PdpUpdateMessageHandler {
 
             var policiesToUndeploy = pdpUpdateMsg.getPoliciesToBeUndeployed();
             if (policiesToUndeploy != null && !policiesToUndeploy.isEmpty()) {
-                var policiesSuccessfullyUndeployed = new ArrayList<>(policiesToUndeploy);
-                policiesSuccessfullyUndeployed.retainAll(runningPolicies);
-                policiesSuccessfullyUndeployed.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(true));
-
-                var policiesFailedToUndeploy =  new ArrayList<>(policiesToUndeploy);
-                policiesFailedToUndeploy.removeIf(runningPolicies::contains);
+                var policiesFailedToUndeploy = new ArrayList<>(policiesToUndeploy);
+                policiesFailedToUndeploy.retainAll(runningPolicies);
                 policiesFailedToUndeploy.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(false));
+
+                var policiesSuccessfullyUndeployed =  new ArrayList<>(policiesToUndeploy);
+                policiesSuccessfullyUndeployed.removeIf(runningPolicies::contains);
+                policiesSuccessfullyUndeployed.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(true));
             }
         }
     }
