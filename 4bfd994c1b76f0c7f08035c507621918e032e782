@@ -22,6 +22,30 @@
       "revId": "4bfd994c1b76f0c7f08035c507621918e032e782",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed6d70e5_0dfce686",
+        "filename": "services/services-onappf/src/main/java/org/onap/policy/apex/services/onappf/handler/PdpUpdateMessageHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 159
+      },
+      "writtenOn": "2022-03-31T16:48:44Z",
+      "side": 1,
+      "message": "Good catch Ajith. Fixed it in 2nd patchset.",
+      "parentUuid": "d1fdfb77_1260e319",
+      "range": {
+        "startLine": 168,
+        "startChar": 16,
+        "endLine": 168,
+        "endChar": 73
+      },
+      "revId": "4bfd994c1b76f0c7f08035c507621918e032e782",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
