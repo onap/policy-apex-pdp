@@ -62,16 +62,13 @@ public class EngineStatsTest {
 
         stats.setAverageExecutionTime(123.45);
         assertEquals(Double.valueOf(123.45), Double.valueOf(stats.getAverageExecutionTime()));
-        checkAvgExecTimeMetric(stats);
 
         stats.setEventCount(987);
         assertEquals(987, stats.getEventCount());
-        checkEventsCountMetric(stats);
 
         final long lastExecutionTime = System.currentTimeMillis();
         stats.setLastExecutionTime(lastExecutionTime);
         assertEquals(lastExecutionTime, stats.getLastExecutionTime());
-        checkLastExecTimeMetric(stats);
 
         final long timestamp = System.currentTimeMillis();
         stats.setTimeStamp(timestamp);
@@ -81,17 +78,14 @@ public class EngineStatsTest {
         final long upTime = System.currentTimeMillis() - timestamp;
         stats.setUpTime(upTime);
         assertEquals(upTime, stats.getUpTime());
-        checkUpTimeMetric(stats);
 
         stats.engineStart();
         assertTrue(stats.getUpTime() > -1);
         checkEngineStartTimestampMetric(stats);
-        checkLastExecTimeMetric(stats);
         stats.engineStop();
         assertTrue(stats.getUpTime() >= 0);
 
         stats.engineStop();
-        checkUpTimeMetric(stats);
         checkEngineStartTimestampMetric(stats);
 
         stats.reset();
@@ -104,15 +98,12 @@ public class EngineStatsTest {
         stats.setEventCount(10);
         stats.executionEnter(new AxArtifactKey());
         assertEquals(11, stats.getEventCount());
-        checkEventsCountMetric(stats);
 
         stats.reset();
         stats.engineStart();
-        stats.setEventCount(4);
-        checkUpTimeMetric(stats);
+        stats.setEventCount(3);
         stats.executionEnter(new AxArtifactKey());
         checkEventsCountMetric(stats);
-        checkAvgExecTimeMetric(stats);
         checkEngineStartTimestampMetric(stats);
 
         synchronized (WAIT_LOCK) {
@@ -124,10 +115,13 @@ public class EngineStatsTest {
         }
 
         stats.executionExit();
+        checkAvgExecTimeMetric(stats);
+        checkEventsCountMetric(stats);
+        checkLastExecTimeMetric(stats);
         final double avExecutionTime = stats.getAverageExecutionTime();
         assertTrue(avExecutionTime >= 2.0 && avExecutionTime < 10.0);
         stats.engineStop();
-        checkUpTimeMetric(stats);
+        checkEngineStartTimestampMetric(stats);
 
         AxValidationResult result = new AxValidationResult();
         result = stats.validate(result);
@@ -145,7 +139,6 @@ public class EngineStatsTest {
 
         stats.clean();
         stats.reset();
-        checkAllPrometheusMetrics(stats);
 
         final AxEngineStats clonedStats = new AxEngineStats(stats);
         assertEquals("AxEngineStats:(engineKey=AxReferenceKey:(parentKey", clonedStats.toString().substring(0, 50));
@@ -158,7 +151,6 @@ public class EngineStatsTest {
         assertEquals(stats, stats); // NOSONAR
         assertEquals(stats, clonedStats);
         assertNotNull(stats);
-        checkAllPrometheusMetrics(clonedStats);
 
         Object helloObject = "Hello";
         assertNotEquals(stats, helloObject);
@@ -176,7 +168,6 @@ public class EngineStatsTest {
         stats.setTimeStamp(0);
         assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
-        checkAllPrometheusMetrics(clonedStats);
 
         stats.setEventCount(1);
         assertNotEquals(stats, new AxEngineStats(statsKey));
@@ -210,23 +201,16 @@ public class EngineStatsTest {
 
         stats.engineStart();
         assertNotEquals(stats, new AxEngineStats(statsKey));
+        checkEngineStartTimestampMetric(stats);
         final AxEngineStats newStats = new AxEngineStats(statsKey);
         newStats.setTimeStamp(stats.getTimeStamp());
         assertNotEquals(stats, newStats);
         assertNotEquals(0, stats.compareTo(newStats));
         stats.engineStop();
-        checkUpTimeMetric(stats);
         checkEngineStartTimestampMetric(stats);
         stats.reset();
         assertEquals(stats, new AxEngineStats(statsKey));
         assertEquals(0, stats.compareTo(new AxEngineStats(statsKey)));
-        checkAllPrometheusMetrics(stats);
-    }
-
-    private void checkUpTimeMetric(AxEngineStats stats) {
-        Double upTimeMetric = CollectorRegistry.defaultRegistry.getSampleValue("pdpa_engine_uptime",
-            new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
-        assertEquals(upTimeMetric.longValue(), stats.getUpTime());
     }
 
     private void checkEventsCountMetric(AxEngineStats stats) {
@@ -255,13 +239,5 @@ public class EngineStatsTest {
                 new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
                 new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
         assertEquals(avgExecTimeMetric, Double.valueOf(stats.getAverageExecutionTime()));
-    }
-
-    private void checkAllPrometheusMetrics(AxEngineStats stats) {
-        checkEventsCountMetric(stats);
-        checkUpTimeMetric(stats);
-        checkAvgExecTimeMetric(stats);
-        checkEngineStartTimestampMetric(stats);
-        checkEngineStartTimestampMetric(stats);
     }
 }
