@@ -125,24 +125,6 @@
             <artifactId>kafka_2.12</artifactId>
             <version>${version.kafka}</version>
             <scope>test</scope>
-            <exclusions>
-                <!-- The default Zookeeper version in Kafka has vulnerabilities -->
-                <exclusion>
-                    <groupId>org.apache.zookeeper</groupId>
-                    <artifactId>zookeeper</artifactId>
-                </exclusion>
-                <!-- The default jackson module doesn't support the new jackson databind -->
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.module</groupId>
-                    <artifactId>jackson-module-scala_2.12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-scala_2.12</artifactId>
-            <version>${version.jackson}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.salesforce.kafka.test</groupId>
