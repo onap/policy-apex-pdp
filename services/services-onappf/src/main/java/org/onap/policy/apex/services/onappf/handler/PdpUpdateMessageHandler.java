@@ -103,6 +103,7 @@ public class PdpUpdateMessageHandler {
         List<ToscaPolicy> policies = Registry.getOrDefault(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
                 List.class, new ArrayList<>());
         policies.addAll(pdpUpdateMsg.getPoliciesToBeDeployed());
+        policies.removeIf(policy -> pdpUpdateMsg.getPoliciesToBeUndeployed().contains(policy.getIdentifier()));
         Set<ToscaConceptIdentifier> policiesInDeployment = policies.stream().map(ToscaPolicy::getIdentifier)
                 .collect(Collectors.toSet());
         policiesInDeployment.removeAll(pdpUpdateMsg.getPoliciesToBeUndeployed());
@@ -118,9 +119,12 @@ public class PdpUpdateMessageHandler {
             // if some policy fails, that shouldn't go in the heartbeat.
             // If no policies are running, then the policy list in the heartbeat can be empty
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
-                pdpStatusContext.setPolicies(apexEngineHandler.getRunningPolicies());
+                var runningPolicies = apexEngineHandler.getRunningPolicies();
+                pdpStatusContext.setPolicies(runningPolicies);
+                policies.removeIf(policy -> !runningPolicies.contains(policy.getIdentifier()));
             } else {
                 pdpStatusContext.setPolicies(Collections.emptyList());
+                policies.clear();
             }
         }
         if (null == pdpResponseDetails) {
