@@ -3,7 +3,7 @@
   ============LICENSE_START=======================================================
   ONAP Apex-PDP
   ================================================================================
-  Copyright (C) 2020-2021 Nordix Foundation.All rights reserved.
+  Copyright (C) 2020-2022 Nordix Foundation.All rights reserved.
   Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,7 @@
   limitations under the License.
   ============LICENSE_END=========================================================
   -->
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APEX PDP STABILITY TEST PLAN" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -79,17 +79,17 @@
           </elementProp>
           <elementProp name="PAP_PORT" elementType="Argument">
             <stringProp name="Argument.name">PAP_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(PAP_PORT,31262)}</stringProp>
+            <stringProp name="Argument.value">${__P(PAP_PORT,30442)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="API_PORT" elementType="Argument">
             <stringProp name="Argument.name">API_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(API_PORT,30421)}</stringProp>
+            <stringProp name="Argument.value">${__P(API_PORT,30240)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="APEX_PORT" elementType="Argument">
             <stringProp name="Argument.name">APEX_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(APEX_PORT,31151)}</stringProp>
+            <stringProp name="Argument.value">${__P(APEX_PORT,30237)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DMAAP_PORT" elementType="Argument">
@@ -97,19 +97,24 @@
             <stringProp name="Argument.value">${__P(DMAAP_PORT,31054)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
+          <elementProp name="CDS_PORT" elementType="Argument">
+            <stringProp name="Argument.name">CDS_PORT</stringProp>
+            <stringProp name="Argument.value">${__P(CDS_PORT,6680)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,172.16.2.18)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,172.16.1.39)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="LOG_PATH" elementType="Argument">
             <stringProp name="Argument.name">LOG_PATH</stringProp>
-            <stringProp name="Argument.value">${__P(LOG_PATH,/home/asreekumar/jmeter_results/apex_stability)}</stringProp>
+            <stringProp name="Argument.value">${__P(LOG_PATH,/home/dhanrahan/jmeter_results/apex_stability)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="SIM_HOST" elementType="Argument">
             <stringProp name="Argument.name">SIM_HOST</stringProp>
-            <stringProp name="Argument.value">${__P(SIM_HOST,172.16.2.18)}</stringProp>
+            <stringProp name="Argument.value">${__P(SIM_HOST,172.16.2.220)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -119,13 +124,27 @@
         <collectionProp name="AuthManager.auth_list">
           <elementProp name="" elementType="Authorization">
             <stringProp name="Authorization.url">https://${HOSTNAME}:${API_PORT}</stringProp>
-            <stringProp name="Authorization.username">healthcheck</stringProp>
+            <stringProp name="Authorization.username">policyadmin</stringProp>
             <stringProp name="Authorization.password">zb!XztG34</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
             <stringProp name="Authorization.url">https://${HOSTNAME}:${PAP_PORT}</stringProp>
+            <stringProp name="Authorization.username">policyadmin</stringProp>
+            <stringProp name="Authorization.password">zb!XztG34</stringProp>
+            <stringProp name="Authorization.domain"></stringProp>
+            <stringProp name="Authorization.realm"></stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Authorization">
+            <stringProp name="Authorization.url">https://${HOSTNAME}:${APEX_PORT}/policy/apex-pdp/v1/healthcheck</stringProp>
+            <stringProp name="Authorization.username">healthcheck</stringProp>
+            <stringProp name="Authorization.password">zb!XztG34</stringProp>
+            <stringProp name="Authorization.domain"></stringProp>
+            <stringProp name="Authorization.realm"></stringProp>
+          </elementProp>
+          <elementProp name="" elementType="Authorization">
+            <stringProp name="Authorization.url">https://${HOSTNAME}:${APEX_PORT}/metrics</stringProp>
             <stringProp name="Authorization.username">healthcheck</stringProp>
             <stringProp name="Authorization.password">zb!XztG34</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
@@ -133,7 +152,7 @@
           </elementProp>
           <elementProp name="" elementType="Authorization">
             <stringProp name="Authorization.url">https://${HOSTNAME}:${APEX_PORT}</stringProp>
-            <stringProp name="Authorization.username">healthcheck</stringProp>
+            <stringProp name="Authorization.username">policyadmin</stringProp>
             <stringProp name="Authorization.password">zb!XztG34</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
@@ -196,7 +215,7 @@
                 &quot;taskParameters&quot;: [&#xd;
                   {&#xd;
                     &quot;key&quot;: &quot;logUrl&quot;,&#xd;
-                    &quot;value&quot;: &quot;http://172.16.2.18:31054/events/APEX-CL-MGT&quot;&#xd;
+                    &quot;value&quot;: &quot;http://${SIM_HOST}:${DMAAP_PORT}/events/APEX-CL-MGT&quot;&#xd;
                   }&#xd;
                 ]&#xd;
               },&#xd;
@@ -1676,7 +1695,7 @@
                             &quot;taskLogic&quot;: {&#xd;
                               &quot;key&quot;: &quot;TaskLogic&quot;,&#xd;
                               &quot;logicFlavour&quot;: &quot;JAVASCRIPT&quot;,&#xd;
-                              &quot;logic&quot;: &quot;var uuidType = java.util.UUID;\nvar longType = java.lang.Long;\nvar HashMapType = java.util.HashMap;\n\nvar albumID = executor.getExecutionProperties().getProperty(\&quot;albumId\&quot;);\n\nvar eventDetailsAlbum = executor.getContextAlbum(\&quot;ApexExample_EventDetailsAlbum\&quot;).get(albumID.toString());\nvar commonEventHeader = eventDetailsAlbum.get(\&quot;commonEventHeader\&quot;);\nvar timestamp = longType(new Date().getTime())\nvar errorMessage = \&quot;CDS operation failed. Error message from CDS - \&quot; + executor.inFields.get(\&quot;status\&quot;).get(\&quot;errorMessage\&quot;);\nerrorMessage = errorMessage.replace(/\&quot;/g, &apos;\\\\\\\&quot;&apos;)\nsend(commonEventHeader.get(\&quot;eventId\&quot;), \&quot;VNF\&quot;, commonEventHeader.get(\&quot;sourceId\&quot;), timestamp, \&quot;FINAL_FAILURE\&quot;, \&quot;Failed to process VES event. Reason: \&quot; + errorMessage);\ntrue;\n\nfunction send(id, targetType, targetId, timestamp, status, message) {\n    var logData = &apos;{&apos;\n       +&apos;\&quot;id\&quot; : \&quot;&apos; + id + &apos;\&quot;,&apos;\n       +&apos;\&quot;target\&quot;  : {&apos;\n            +&apos;\&quot;targetType\&quot;  : \&quot;&apos; + targetType + &apos;\&quot;,&apos;\n            +&apos;\&quot;entityInfo\&quot;  : {&apos;\n                +&apos;\&quot;id\&quot;  : \&quot;&apos; + targetId + &apos;\&quot;&apos;\n            +&apos;}&apos;\n       +&apos;},&apos;\n       +&apos;\&quot;component\&quot;  : {&apos;\n            +&apos;\&quot;name\&quot;  : \&quot;Policy\&quot;,&apos;\n            +&apos;\&quot;flavour\&quot;  : \&quot;Apex-PDP\&quot;,&apos;\n            +&apos;\&quot;timestamp\&quot;  : &apos; + timestamp + &apos;,&apos;\n            +&apos;\&quot;status\&quot;  : \&quot;&apos; + status + &apos;\&quot;,&apos;\n            +&apos;\&quot;message\&quot;  : \&quot;&apos; + message + &apos;\&quot;,&apos;\n            +&apos;\&quot;artifacts\&quot;  : {&apos;\n                +&apos;\&quot;policyName\&quot;  : \&quot;onap.policies.apex.Example\&quot;,&apos;\n                +&apos;\&quot;policyVersion\&quot;  : \&quot;1.0.0\&quot;&apos;\n            +&apos;}&apos;\n       +&apos;},&apos;\n       +&apos;\&quot;otherFields\&quot;  : {&apos;\n            +&apos;\&quot;useCaseName\&quot;  : \&quot;apex-pdp-policy-example\&quot;&apos;\n       +&apos;}&apos;\n    +&apos;}&apos;;\n\n    executor.logger.info(\&quot;sending the status to log.\&quot;);\n    fireLogEvent(logData);\n}\n\nfunction fireLogEvent(logEvent){\n    var headers = new HashMapType();\n    executor.logger.info(\&quot;LogEvent:\&quot;+logEvent);\n    var response = new org.onap.policy.rest.RestManager().post(\n            executor.getParameters().get(\&quot;logUrl\&quot;),\n            \&quot;\&quot;,\n            \&quot;\&quot;,\n            headers,\n            \&quot;application/json\&quot;,\n            logEvent\n    );\n    executor.logger.info(\&quot;DMaaP Response after sending LogEvent: \&quot; + response);\n    return response;\n}&quot;&#xd;
+                              &quot;logic&quot;: &quot;var uuidType = java.util.UUID;\nvar longType = java.lang.Long;\nvar HashMapType = java.util.HashMap;\n\nvar albumID = executor.getExecutionProperties().getProperty(\&quot;albumId\&quot;);\n\nvar eventDetailsAlbum = executor.getContextAlbum(\&quot;ApexExample_EventDetailsAlbum\&quot;).get(albumID.toString());\nvar commonEventHeader = eventDetailsAlbum.get(\&quot;commonEventHeader\&quot;);\nvar timestamp = longType(new Date().getTime())\nvar errorMessage = \&quot;CDS operation failed. Error message from CDS - \&quot; + executor.inFields.get(\&quot;status\&quot;).get(\&quot;errorMessage\&quot;);\nerrorMessage = errorMessage.replace(/\&quot;/g, &apos;\\\\\\\\\\\\\&quot;&apos;)\nsend(commonEventHeader.get(\&quot;eventId\&quot;), \&quot;VNF\&quot;, commonEventHeader.get(\&quot;sourceId\&quot;), timestamp, \&quot;FINAL_FAILURE\&quot;, \&quot;Failed to process VES event. Reason: \&quot; + errorMessage);\ntrue;\n\nfunction send(id, targetType, targetId, timestamp, status, message) {\n    var logData = &apos;{&apos;\n       +&apos;\&quot;id\&quot; : \&quot;&apos; + id + &apos;\&quot;,&apos;\n       +&apos;\&quot;target\&quot;  : {&apos;\n            +&apos;\&quot;targetType\&quot;  : \&quot;&apos; + targetType + &apos;\&quot;,&apos;\n            +&apos;\&quot;entityInfo\&quot;  : {&apos;\n                +&apos;\&quot;id\&quot;  : \&quot;&apos; + targetId + &apos;\&quot;&apos;\n            +&apos;}&apos;\n       +&apos;},&apos;\n       +&apos;\&quot;component\&quot;  : {&apos;\n            +&apos;\&quot;name\&quot;  : \&quot;Policy\&quot;,&apos;\n            +&apos;\&quot;flavour\&quot;  : \&quot;Apex-PDP\&quot;,&apos;\n            +&apos;\&quot;timestamp\&quot;  : &apos; + timestamp + &apos;,&apos;\n            +&apos;\&quot;status\&quot;  : \&quot;&apos; + status + &apos;\&quot;,&apos;\n            +&apos;\&quot;message\&quot;  : \&quot;&apos; + message + &apos;\&quot;,&apos;\n            +&apos;\&quot;artifacts\&quot;  : {&apos;\n                +&apos;\&quot;policyName\&quot;  : \&quot;onap.policies.apex.Example\&quot;,&apos;\n                +&apos;\&quot;policyVersion\&quot;  : \&quot;1.0.0\&quot;&apos;\n            +&apos;}&apos;\n       +&apos;},&apos;\n       +&apos;\&quot;otherFields\&quot;  : {&apos;\n            +&apos;\&quot;useCaseName\&quot;  : \&quot;apex-pdp-policy-example\&quot;&apos;\n       +&apos;}&apos;\n    +&apos;}&apos;;\n\n    executor.logger.info(\&quot;sending the status to log.\&quot;);\n    fireLogEvent(logData);\n}\n\nfunction fireLogEvent(logEvent){\n    var headers = new HashMapType();\n    executor.logger.info(\&quot;LogEvent:\&quot;+logEvent);\n    var response = new org.onap.policy.rest.RestManager().post(\n            executor.getParameters().get(\&quot;logUrl\&quot;),\n            \&quot;\&quot;,\n            \&quot;\&quot;,\n            headers,\n            \&quot;application/json\&quot;,\n            logEvent\n    );\n    executor.logger.info(\&quot;DMaaP Response after sending LogEvent: \&quot; + response);\n    return response;\n}&quot;&#xd;
                             }&#xd;
                           }&#xd;
                         },&#xd;
@@ -3213,7 +3232,7 @@
                   &quot;carrierTechnology&quot;: &quot;RESTCLIENT&quot;,&#xd;
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;http://172.16.2.18:31054/events/unauthenticated.DCAE_POLICY_EXAMPLE_OUTPUT/ApexExampleCG1/1?timeout=30000&quot;&#xd;
+                    &quot;url&quot;: &quot;http://${SIM_HOST}:${DMAAP_PORT}/events/unauthenticated.DCAE_POLICY_EXAMPLE_OUTPUT/ApexExampleCG1/1?timeout=30000&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
@@ -3307,8 +3326,8 @@
                   &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;host&quot;: &quot;policy-models-simulator&quot;,&#xd;
-                    &quot;port&quot;: 6680,&#xd;
+                    &quot;host&quot;: &quot;${SIM_HOST}&quot;,&#xd;
+                    &quot;port&quot;: ${CDS_PORT},&#xd;
                     &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
                     &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
                     &quot;timeout&quot;: 10&#xd;
@@ -3327,8 +3346,8 @@
                   &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;host&quot;: &quot;policy-models-simulator&quot;,&#xd;
-                    &quot;port&quot;: 6680,&#xd;
+                    &quot;host&quot;: &quot;${SIM_HOST}&quot;,&#xd;
+                    &quot;port&quot;: ${CDS_PORT},&#xd;
                     &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
                     &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
                     &quot;timeout&quot;: 10&#xd;
@@ -6161,7 +6180,7 @@
                   &quot;carrierTechnology&quot;: &quot;RESTCLIENT&quot;,&#xd;
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;http://172.16.2.18:31054/events/unauthenticated.DCAE_CL_OUTPUT/cl/apex?timeout=30000&quot;&#xd;
+                    &quot;url&quot;: &quot;http://${SIM_HOST}:${DMAAP_PORT}/events/unauthenticated.DCAE_CL_OUTPUT/cl/apex?timeout=30000&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
@@ -6242,8 +6261,8 @@
                   &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;host&quot;: &quot;policy-models-simulator&quot;,&#xd;
-                    &quot;port&quot;: 6680,&#xd;
+                    &quot;host&quot;: &quot;${SIM_HOST}&quot;,&#xd;
+                    &quot;port&quot;: ${CDS_PORT},&#xd;
                     &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
                     &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
                     &quot;timeout&quot;: 60&#xd;
@@ -6262,7 +6281,7 @@
                   &quot;carrierTechnology&quot;: &quot;RESTCLIENT&quot;,&#xd;
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;http://172.16.2.18:31054/events/APEX-CL-MGT&quot;&#xd;
+                    &quot;url&quot;: &quot;http://${SIM_HOST}:${DMAAP_PORT}/events/APEX-CL-MGT&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
@@ -7047,7 +7066,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
       &quot;priority&quot;: &quot;High&quot;,&#xd;
       &quot;reportingEntityName&quot;: &quot;ibcx0001vm002oam001&quot;,&#xd;
       &quot;sequence&quot;: 1,&#xd;
-      &quot;sourceId&quot;: &quot;de305d54-75b4-431b-adb2-eb6b9e546014&quot;,&#xd;
+      &quot;sourceId&quot;: &quot;de305d54-75b4-431b-adb2-eb6b9e546014${__threadNum}&quot;,&#xd;
       &quot;sourceName&quot;: &quot;vfw-cnf-cds-test-2-vnf&quot;,&#xd;
       &quot;startEpochMicrosec&quot;: 1413378172000000,&#xd;
       &quot;timeZoneOffset&quot;: &quot;UTC-05:30&quot;,&#xd;
@@ -7392,7 +7411,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+            <stringProp name="HTTPSampler.domain">${SIM_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -7429,8 +7448,8 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">172.16.2.173</stringProp>
-            <stringProp name="HTTPSampler.port">3904</stringProp>
+            <stringProp name="HTTPSampler.domain">${SIM_HOST}</stringProp>
+            <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?timeout=30000</stringProp>
@@ -7483,7 +7502,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+            <stringProp name="HTTPSampler.domain">${SIM_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -7536,7 +7555,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+            <stringProp name="HTTPSampler.domain">${SIM_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -7602,7 +7621,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
+              <stringProp name="HTTPSampler.domain">${SIM_HOST}</stringProp>
               <stringProp name="HTTPSampler.port">${DMAAP_PORT}</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -7697,7 +7716,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/asreekumar/jmeter_results/apex_stability/summary.log</stringProp>
+        <stringProp name="filename">/home/dhanrahan/jmeter_results/apex_stability/summary.log</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
@@ -7734,7 +7753,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/asreekumar/jmeter_results/apex_stability/resultTree.log</stringProp>
+        <stringProp name="filename">/home/dhanrahan/jmeter_results/apex_stability/resultTree.log</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
@@ -7771,7 +7790,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/asreekumar/jmeter_results/apex_stability/resultTable.log</stringProp>
+        <stringProp name="filename">/home/dhanrahan/jmeter_results/apex_stability/resultTable.log</stringProp>
       </ResultCollector>
       <hashTree/>
     </hashTree>
