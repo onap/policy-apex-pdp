@@ -51,6 +51,18 @@
             </modules>
             <properties>
                 <docker.skip.push>false</docker.skip.push>
+                <dockerFile>Dockerfile</dockerFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>dockersuse</id>
+            <modules>
+                <module>apex-pdp-package-full</module>
+                <module>apex-pdp-docker</module>
+            </modules>
+            <properties>
+                <docker.skip.push>false</docker.skip.push>
+                <dockerFile>suse.Dockerfile</dockerFile>
             </properties>
         </profile>
 
