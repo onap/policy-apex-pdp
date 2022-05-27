@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2a0b021_b149fb11",
+        "filename": "packages/apex-pdp-docker/src/main/docker/suse.Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2022-05-27T12:00:36Z",
+      "side": 1,
+      "message": "new file - only need one Copyright",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 5,
+        "endChar": 48
+      },
+      "revId": "35229e5eefe44acdb5dc80b7d422a44cc0dfd4f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
