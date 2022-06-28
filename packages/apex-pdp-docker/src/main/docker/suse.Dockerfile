@@ -24,6 +24,14 @@
 FROM opensuse/leap:15.3
 
 LABEL maintainer="Policy Team"
+LABEL org.opencontainers.image.title="Policy APEX PDP"
+LABEL org.opencontainers.image.description="Policy APEX PDP image based on OpenSuse"
+LABEL org.opencontainers.image.url="https://github.com/onap/policy-apex-pdp"
+LABEL org.opencontainers.image.vendor="ONAP Policy Team"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.created="${git.build.time}"
+LABEL org.opencontainers.image.version="${git.build.version}"
+LABEL org.opencontainers.image.revision="${git.commit.id.abbrev}"
 
 ARG POLICY_LOGS=/var/log/onap/policy/apex-pdp
 ENV POLICY_HOME=/opt/app/policy/apex-pdp
