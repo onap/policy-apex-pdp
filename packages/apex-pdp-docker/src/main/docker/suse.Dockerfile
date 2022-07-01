@@ -18,9 +18,11 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
-#
-# Docker file to build an image that runs APEX on Java 11 or better in OpenSuse
-#
+FROM busybox AS tarball
+RUN mkdir /packages /extracted
+COPY /maven/apex-pdp-package-full.tar.gz /packages/
+RUN tar xvzf /packages/apex-pdp-package-full.tar.gz --directory /extracted/
+
 FROM opensuse/leap:15.4
 
 LABEL maintainer="Policy Team"
@@ -39,23 +41,14 @@ ENV POLICY_LOGS=$POLICY_LOGS
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 ENV JAVA_HOME=/usr/lib64/jvm/java-11-openjdk-11
 
-RUN zypper -n -q install --no-recommends gzip java-11-openjdk-devel netcat-openbsd tar \
+RUN zypper -n -q install --no-recommends java-11-openjdk-devel netcat-openbsd \
     && zypper -n -q update && zypper -n -q clean --all \
     && groupadd --system apexuser && useradd --system --shell /bin/sh -G apexuser apexuser \
-    && mkdir -p $POLICY_HOME \
-    && mkdir -p $POLICY_LOGS \
-    && chown -R apexuser:apexuser $POLICY_HOME $POLICY_LOGS \
-    && mkdir /packages
+    && mkdir -p $POLICY_HOME $POLICY_LOGS \
+    && chown -R apexuser:apexuser $POLICY_HOME $POLICY_LOGS
 
-COPY /maven/apex-pdp-package-full.tar.gz /packages
-RUN tar xvfz /packages/apex-pdp-package-full.tar.gz --directory $POLICY_HOME \
-    && rm /packages/apex-pdp-package-full.tar.gz \
-    && find /opt/app -type d -perm 755 \
-    && find /opt/app -type f -perm 644 \
-    && chmod 755 $POLICY_HOME/bin/* \
-    && cp -pr $POLICY_HOME/examples /home/apexuser \
-    && chown -R apexuser:apexuser /home/apexuser/* $POLICY_HOME \
-    && chmod 755 $POLICY_HOME/etc/*
+COPY --chown=apexuser:apexuser --from=tarball /extracted $POLICY_HOME
+RUN cp -pr $POLICY_HOME/examples /home/apexuser
 
 USER apexuser
 ENV PATH $POLICY_HOME/bin:$PATH
