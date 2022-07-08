@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ public final class CliUtils {
      * @param parameters containing paths to the apex config and tosca template skeleton file
      * @param policyModelFilePath path of apex policy model
      */
-    public static void createToscaServiceTemplate(ApexCliToscaParameters parameters, String policyModelFilePath)
+    public static void createToscaPolicy(ApexCliToscaParameters parameters, String policyModelFilePath)
             throws IOException, CoderException {
         final var standardCoder = new StandardCoder();
         var apexConfig = TextFileUtils.getTextFileAsString(parameters.getApexConfigFileName());
@@ -94,6 +94,36 @@ public final class CliUtils {
     }
 
     /**
+     * Method to create tosca metadataSet in TOSCA service template.
+     *
+     * @param parameters containing tosca node template skeleton file
+     * @param policyModelFilePath path of apex policy model
+     */
+    public static void createToscaMetadataSet(ApexCliToscaParameters parameters, String policyModelFilePath)
+            throws IOException, CoderException {
+        final var standardCoder = new StandardCoder();
+        var policyModel = TextFileUtils.getTextFileAsString(policyModelFilePath);
+        JsonObject policyModelJson = standardCoder.decode(policyModel, JsonObject.class);
+        var toscaTemplate = TextFileUtils.getTextFileAsString(parameters.getInputToscaTemplateFileName());
+        JsonObject toscaTemplateJson = standardCoder.decode(toscaTemplate, JsonObject.class);
+
+        var toscaTopologyTemplate = toscaTemplateJson.get("topology_template").getAsJsonObject();
+        var toscaNodeTemplate = toscaTopologyTemplate.get("node_templates").getAsJsonObject();
+        var toscaMetadata = toscaNodeTemplate.get(toscaNodeTemplate.keySet().toArray()[0].toString()).getAsJsonObject()
+                .get("metadata").getAsJsonObject();
+
+        toscaMetadata.add("policyModel", policyModelJson);
+
+        final var toscaMetadataString = standardCoder.encode(toscaTemplateJson);
+        final String toscaMetadataSetFileName = parameters.getOutputToscaPolicyFileName();
+        if (StringUtils.isNotBlank(toscaMetadataSetFileName)) {
+            TextFileUtils.putStringAsTextFile(toscaMetadataString, toscaMetadataSetFileName);
+        } else {
+            LOGGER.debug("Output file name not specified. Resulting tosca metadataSet is {}", toscaMetadataString);
+        }
+    }
+
+    /**
      * Validate that a file is readable.
      *
      * @param fileTag the file tag, a tag used for information and error messages
@@ -113,7 +143,7 @@ public final class CliUtils {
             throw new CommandLineException(prefixExceptionMessage + " is not a normal file");
         }
         if (!theFile.canRead()) {
-            throw new CommandLineException(prefixExceptionMessage + " is ureadable");
+            throw new CommandLineException(prefixExceptionMessage + " is unreadable");
         }
     }
 

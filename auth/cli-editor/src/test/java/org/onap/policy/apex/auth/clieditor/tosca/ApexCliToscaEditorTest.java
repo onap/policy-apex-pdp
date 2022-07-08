@@ -101,10 +101,9 @@ public class ApexCliToscaEditorTest {
     }
 
     @Test
-    public void testApexCliTosca_missing_commandfile() {
+    public void testApexCliTosca_missing_arguments() {
         String[] sampleArgs = new String[] {
             "-ac", CommonTestData.APEX_CONFIG_FILE_NAME,
-            "-t", CommonTestData.INPUT_TOSCA_TEMPLATE_FILE_NAME,
             "-ot", tempOutputToscaFile.getAbsolutePath(),
             "-l", tempLogFile.getAbsolutePath()
             };

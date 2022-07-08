@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,11 +46,10 @@ public class ApexCliToscaParameters extends CommandLineParameters {
      */
     @Override
     public void validate() {
-        if ((null == apexConfigFileName) || (null == inputToscaTemplateFileName) || (null == getCommandFileName())) {
+        if ((null == inputToscaTemplateFileName)) {
             throw new CommandLineException("Insufficient arguments provided.");
         }
         super.validate();
-        CliUtils.validateReadableFile("Apex Config File", apexConfigFileName);
         CliUtils.validateReadableFile("Input Tosca Template File", inputToscaTemplateFileName);
         CliUtils.validateWritableFile("Output Tosca Policy File", outputToscaPolicyFileName);
     }

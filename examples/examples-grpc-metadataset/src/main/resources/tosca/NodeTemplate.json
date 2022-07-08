@@ -1,0 +1,16 @@
+{
+  "tosca_definitions_version": "tosca_simple_yaml_1_1_0",
+  "topology_template": {
+    "node_templates": {
+      "apexMetadata_grpc": {
+        "version": "1.0.0",
+        "type": "org.onap.nodetypes.policy.MetadataSet",
+        "type_version": "1.0.0",
+        "description": "Metadata set for GRPC",
+        "metadata": {
+
+        }
+      }
+    }
+  }
+}

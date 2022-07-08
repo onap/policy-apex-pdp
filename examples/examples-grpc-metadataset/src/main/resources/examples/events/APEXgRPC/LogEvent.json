@@ -1,0 +1,10 @@
+{
+  "name": "LogEvent",
+  "version": "0.0.1",
+  "nameSpace": "org.onap.policy.apex.onap.pmcontrol",
+  "source": "APEX",
+  "target": "DCAE",
+  "toscaPolicyState": "",
+  "final_status": "FINAL_SUCCESS",
+  "message": "Operation successfully completed."
+}

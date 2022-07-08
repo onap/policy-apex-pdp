@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,24 +77,34 @@ public class ApexCliToscaEditorMain {
         cliArgsList.add(policyModelFilePath);
         String[] cliArgs = cliArgsList.toArray(new String[cliArgsList.size()]);
 
-        apexCliEditor = new ApexCommandLineEditorMain(cliArgs);
-        if (apexCliEditor.getErrorCount() == 0) {
-            LOGGER.info("Apex CLI editor completed execution. Creating the ToscaPolicy using the tosca template"
-                + "skeleton file, config file, and policy model created.");
-
-            // Create the ToscaPolicy using the tosca template skeleton file, config file, and policy model created.
-            try {
-                CliUtils.createToscaServiceTemplate(parameters, policyModelFilePath);
-                LOGGER.info("Apex CLI Tosca editor completed execution.");
-            } catch (IOException | CoderException e) {
+        // Generate policy models if command file is provided
+        if (parameters.getCommandFileName() != null) {
+            apexCliEditor = new ApexCommandLineEditorMain(cliArgs);
+            if (apexCliEditor.getErrorCount() == 0) {
+                LOGGER.info("Policy model created by APEX CLI editor.");
+            } else {
                 failure = true;
-                LOGGER.error("Failed to create the ToscaPolicy using the generated policy model, apex config file and"
-                    + " the tosca template skeleton file.");
+                LOGGER.error("Execution of Apex command line editor failed: {} command execution failure(s) occurred",
+                        apexCliEditor.getErrorCount());
+                return;
             }
-        } else {
+        }
+        // Create the Tosca service template using the tosca template skeleton file, config file, and
+        // policy model created.
+        try {
+            if (parameters.getApexConfigFileName() != null) {
+                CliUtils.createToscaPolicy(parameters, policyModelFilePath);
+                LOGGER.info("Apex CLI Tosca editor completed execution for Tosca policy.");
+            } else {
+                // Create node template if apex config file is not provided in the argument
+                CliUtils.createToscaMetadataSet(parameters, policyModelFilePath);
+                LOGGER.info("Apex CLI Tosca editor completed execution for Tosca node template.");
+            }
+
+        } catch (IOException | CoderException e) {
             failure = true;
-            LOGGER.error("execution of Apex command line editor failed: {} command execution failure(s) occurred",
-                apexCliEditor.getErrorCount());
+            LOGGER.error("Failed to create the Tosca template using the generated policy model, apex config file and"
+                    + " the tosca template skeleton file ." + e);
         }
 
     }

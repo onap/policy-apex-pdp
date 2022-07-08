@@ -1,0 +1,23 @@
+{
+    "type": "record",
+    "name": "CDSResponseCommonHeader_Type",
+    "namespace": "org.onap.policy.apex.onap.helloworld",
+    "fields": [
+        {
+            "name": "originatorId",
+            "type": "string"
+        },
+        {
+            "name": "requestId",
+            "type": "string"
+        },
+        {
+            "name": "subRequestId",
+            "type": "string"
+        },
+        {
+            "name": "timestamp",
+            "type": "string"
+        }
+    ]
+}

@@ -79,7 +79,7 @@ public class CliUtilsTest {
     @Test
     public void testCreateToscaServiceTemplate() throws IOException, CoderException {
         ApexCliToscaParameters params = new ApexCliToscaParameterParser().parse(sampleArgs);
-        CliUtils.createToscaServiceTemplate(params, policyModelFilePath);
+        CliUtils.createToscaPolicy(params, policyModelFilePath);
         String outputTosca = TextFileUtils.getTextFileAsString(tempOutputToscaFile.getAbsolutePath());
         String outputToscaCompare =
             TextFileUtils.getTextFileAsString("src/test/resources/tosca/ToscaPolicyOutput_compare_1.json").trim();

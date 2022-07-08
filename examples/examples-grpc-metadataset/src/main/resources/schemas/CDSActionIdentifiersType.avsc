@@ -1,0 +1,23 @@
+{
+    "type": "record",
+    "name": "CDSActionIdentifiers_Type",
+    "namespace": "org.onap.policy.apex.onap.helloworld",
+    "fields": [
+        {
+            "name": "actionName",
+            "type": "string"
+        },
+        {
+            "name": "blueprintName",
+            "type": "string"
+        },
+        {
+            "name": "blueprintVersion",
+            "type": "string"
+        },
+        {
+            "name": "mode",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "type": "record",
+    "name": "ActivateSubscriptionStatus_Type",
+    "namespace": "org.onap.policy.apex.onap.helloworld",
+    "fields": [
+        {
+            "name": "subscriptionName",
+            "type": "string"
+        },
+        {
+            "name": "nfName",
+            "type": "string"
+        },
+        {
+            "name": "changeType",
+            "type": "string"
+        },
+        {
+            "name": "message",
+            "type": "string"
+        }
+    ]
+}

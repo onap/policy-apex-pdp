@@ -1,0 +1,14 @@
+{
+  "name": "CDSResponseStatusEvent",
+  "version": "0.0.1",
+  "nameSpace": "org.onap.policy.apex.onap.pmcontrol",
+  "source": "APEX",
+  "target": "DCAE",
+  "toscaPolicyState": "EXIT_SUCCESS",
+  "status": {
+    "subscriptionName": "testPolicyB",
+    "nfName": "pnf300",
+    "changeType": "CREATE",
+    "message": "success"
+  }
+}
