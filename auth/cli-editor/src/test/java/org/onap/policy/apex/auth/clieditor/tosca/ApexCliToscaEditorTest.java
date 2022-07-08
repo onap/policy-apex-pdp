@@ -24,9 +24,12 @@ package org.onap.policy.apex.auth.clieditor.tosca;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +45,7 @@ public class ApexCliToscaEditorTest {
     private File tempOutputToscaFile;
     private File tempLogFile;
     String[] sampleArgs;
+    private File tempNodeTemplateFile;
 
     /**
      * Initialise args.
@@ -52,6 +56,7 @@ public class ApexCliToscaEditorTest {
     public void initialiseArgs() throws IOException {
 
         tempOutputToscaFile = File.createTempFile("ToscaPolicyOutput", ".json");
+        tempNodeTemplateFile = File.createTempFile("ToscaNodeTemplate", ".json");
         tempLogFile = File.createTempFile("ApexCliTosca", ".log");
         sampleArgs = new String[] {
             "-c", CommonTestData.COMMAND_FILE_NAME,
@@ -69,6 +74,7 @@ public class ApexCliToscaEditorTest {
     public void removeGeneratedFiles() {
         tempOutputToscaFile.delete();
         tempLogFile.delete();
+        tempNodeTemplateFile.delete();
     }
 
     @Test
@@ -109,5 +115,29 @@ public class ApexCliToscaEditorTest {
             "-l", tempLogFile.getAbsolutePath()
             };
         assertThatThrownBy(() -> new ApexCliToscaEditorMain(sampleArgs)).hasMessage("Insufficient arguments provided.");
+    }
+
+    @Test
+    public void testGenerateToscaPolicyMetadataSet() throws Exception {
+        // @formatter:off
+        final String[] cliArgs = new String[] {
+            "-c", CommonTestData.COMMAND_FILE_NAME,
+            "-l", tempLogFile.getAbsolutePath(),
+            "-ac", CommonTestData.APEX_CONFIG_FILE_NAME,
+            "-t", CommonTestData.INPUT_TOSCA_TEMPLATE_FILE_NAME,
+            "-ot", tempOutputToscaFile.getAbsolutePath(),
+            "-on", tempNodeTemplateFile.getAbsolutePath(),
+            "-nt", CommonTestData.NODE_TYPE
+        };
+        // @formatter:on
+
+        new ApexCliToscaEditorMain(cliArgs);
+
+        assertTrue(tempOutputToscaFile.length() > 0);
+        assertTrue(Files.lines(Paths.get(tempOutputToscaFile.toString()))
+                .noneMatch(l -> l.contains("policy_type_impl")));
+        assertTrue(tempNodeTemplateFile.length() > 0);
+        assertTrue(Files.lines(Paths.get(tempNodeTemplateFile.toString()))
+                .anyMatch(l -> l.contains("policyModel")));
     }
 }

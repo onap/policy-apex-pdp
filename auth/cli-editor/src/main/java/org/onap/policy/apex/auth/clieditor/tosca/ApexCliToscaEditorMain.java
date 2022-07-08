@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,7 @@ public class ApexCliToscaEditorMain {
         parameters.validate();
 
         String policyModelFilePath = null;
+        String nodeType = parameters.getNodeType();
         try {
             final var tempModelFile = TextFileUtils.createTempFile("policyModel", ".json");
             policyModelFilePath = tempModelFile.getAbsolutePath();
@@ -84,19 +85,19 @@ public class ApexCliToscaEditorMain {
 
             // Create the ToscaPolicy using the tosca template skeleton file, config file, and policy model created.
             try {
-                CliUtils.createToscaServiceTemplate(parameters, policyModelFilePath);
+                CliUtils.createToscaPolicy(parameters, policyModelFilePath, nodeType);
                 LOGGER.info("Apex CLI Tosca editor completed execution.");
             } catch (IOException | CoderException e) {
                 failure = true;
-                LOGGER.error("Failed to create the ToscaPolicy using the generated policy model, apex config file and"
-                    + " the tosca template skeleton file.");
+                LOGGER.error("Failed to create the Tosca template using the generated policy model,"
+                    + "apex config file and the tosca template skeleton file. " + e);
             }
+
         } else {
             failure = true;
             LOGGER.error("execution of Apex command line editor failed: {} command execution failure(s) occurred",
                 apexCliEditor.getErrorCount());
         }
-
     }
 
     /**
