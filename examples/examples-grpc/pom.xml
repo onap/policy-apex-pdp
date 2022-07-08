@@ -33,6 +33,8 @@
    <properties>
       <policymodel.name>APEXgRPCPolicy</policymodel.name>
       <toscapolicy.name>APEXgRPCToscaPolicy</toscapolicy.name>
+      <!-- Update the required node type value for generating a node template -->
+      <nodeType.name>org.onap.nodetypes.policy.MetadataSet</nodeType.name>
    </properties>
    <dependencies>
       <dependency>
@@ -125,6 +127,11 @@
                         <argument>--log-file=${project.build.directory}/${policymodel.name}_policygeneration.log</argument>
                         <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/APEXgRPC/ApexConfig.json</argument>
                         <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json</argument>
+                        <!-- Uncomment the following arguments to generate the ToscaPolicy JSON file without the embedded Policy model.
+                        This also generates a node template json file with policy model.
+                        <argument>&#45;&#45;node-type=${nodeType.name}</argument>
+                        <argument>&#45;&#45;output-node-template-file=${project.build.directory}/classes/${toscapolicy.name}.nodeTemplate.json</argument>
+                        -->
                      </arguments>
                   </configuration>
                </execution>

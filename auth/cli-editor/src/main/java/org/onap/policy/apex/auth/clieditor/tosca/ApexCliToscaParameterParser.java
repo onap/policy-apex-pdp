@@ -43,6 +43,12 @@ public class ApexCliToscaParameterParser extends CommandLineParameterParser {
         getOptions().addOption(Option.builder("ot").longOpt("output-tosca-file")
             .desc("name of a file that will contain the output model for the editor").hasArg()
             .argName("OUTPUT_TOSCA_FILE").required(false).type(String.class).build());
+        getOptions().addOption(Option.builder("nt").longOpt("node-type")
+                .desc("name of the node type to associate node template").hasArg()
+                .argName("NODE_TYPE").required(false).type(String.class).build());
+        getOptions().addOption(Option.builder("on").longOpt("output-node-template-file")
+                .desc("name of the node template file that will contain the output metadataSet").hasArg()
+                .argName("OUTPUT_NODE_TEMPLATE_FILE").required(false).type(String.class).build());
     }
 
     /**
@@ -67,6 +73,13 @@ public class ApexCliToscaParameterParser extends CommandLineParameterParser {
         if (commandLine.hasOption("ot")) {
             parameters.setOutputToscaPolicyFileName(commandLine.getOptionValue("ot"));
         }
+        if (commandLine.hasOption("nt")) {
+            parameters.setNodeType(commandLine.getOptionValue("nt"));
+        }
+        if (commandLine.hasOption("on")) {
+            parameters.setOutputNodeTemplateFileName(commandLine.getOptionValue("on"));
+        }
+
         return parameters;
     }
 

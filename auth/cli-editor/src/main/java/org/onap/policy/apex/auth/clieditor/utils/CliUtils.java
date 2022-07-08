@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,24 +62,35 @@ public final class CliUtils {
      *
      * @param parameters containing paths to the apex config and tosca template skeleton file
      * @param policyModelFilePath path of apex policy model
+     * @param nodeType node type name if node template is generated, null by default
      */
-    public static void createToscaServiceTemplate(ApexCliToscaParameters parameters, String policyModelFilePath)
+    public static void createToscaPolicy(ApexCliToscaParameters parameters, String policyModelFilePath, String nodeType)
             throws IOException, CoderException {
         final var standardCoder = new StandardCoder();
-        var apexConfig = TextFileUtils.getTextFileAsString(parameters.getApexConfigFileName());
-        JsonObject apexConfigJson = standardCoder.decode(apexConfig, JsonObject.class);
-        var policyModel = TextFileUtils.getTextFileAsString(policyModelFilePath);
-        JsonObject policyModelJson = standardCoder.decode(policyModel, JsonObject.class);
-        var toscaTemplate = TextFileUtils.getTextFileAsString(parameters.getInputToscaTemplateFileName());
-        JsonObject toscaTemplateJson = standardCoder.decode(toscaTemplate, JsonObject.class);
+        var apexConfigJson = getJsonObject(parameters.getApexConfigFileName());
+        var policyModelJson = getJsonObject(policyModelFilePath);
+        var toscaTemplateJson = getJsonObject(parameters.getInputToscaTemplateFileName());
 
         var toscaPolicyProperties = toscaTemplateJson.get("topology_template").getAsJsonObject();
         var toscaPolicy = toscaPolicyProperties.get("policies").getAsJsonArray().get(0).getAsJsonObject();
         var toscaProperties = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString()).getAsJsonObject()
                 .get("properties").getAsJsonObject();
 
+        // Populate metadataSet reference in Tosca policy and create node template file if nodeType is provided
+        if (nodeType != null) {
+            var metadataSetName = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString()).getAsJsonObject()
+                    .get("name").getAsString() + ".metadataSet";
+            var metadataSetVersion = toscaPolicy.get(toscaPolicy.keySet().toArray()[0].toString())
+                    .getAsJsonObject().get("version").getAsString();
+            JsonObject metadata = new JsonObject();
+            metadata.addProperty("metadataSetName", metadataSetName);
+            metadata.addProperty("metadataSetVersion", metadataSetVersion);
+            toscaPolicy.add("metadata", metadata);
+
+            createToscaNodeTemplate(parameters, policyModelJson, nodeType, metadataSetName, metadataSetVersion);
+        }
         apexConfigJson.entrySet().forEach(entry -> {
-            if ("engineServiceParameters".equals(entry.getKey())) {
+            if ("engineServiceParameters".equals(entry.getKey()) && nodeType == null) {
                 entry.getValue().getAsJsonObject().add("policy_type_impl", policyModelJson);
             }
             toscaProperties.add(entry.getKey(), entry.getValue());
@@ -90,6 +101,50 @@ public final class CliUtils {
             TextFileUtils.putStringAsTextFile(toscaPolicyString, toscaPolicyFileName);
         } else {
             LOGGER.debug("Output file name not specified. Resulting tosca policy is {}", toscaPolicyString);
+        }
+    }
+
+    /**
+     * Method to create tosca node template with metadataSet.
+     *
+     * @param parameters containing tosca node template skeleton file
+     * @param policyModelJson path of apex policy model
+     * @param nodeType node type name for the node template
+     * @param metadataSetName name of the node template
+     * @param metadataSetVersion version of the node template
+     */
+    public static void createToscaNodeTemplate(ApexCliToscaParameters parameters, JsonObject policyModelJson,
+                                               String nodeType, String metadataSetName, String metadataSetVersion)
+            throws IOException, CoderException {
+        final var standardCoder = new StandardCoder();
+
+        JsonObject nodeTemplateFile = new JsonObject();
+        nodeTemplateFile.addProperty("tosca_definitions_version", "tosca_simple_yaml_1_1_0");
+
+        JsonObject metadata = new JsonObject();
+        metadata.add("policyModel", policyModelJson);
+
+        JsonObject nodeTemplate = new JsonObject();
+        nodeTemplate.addProperty("type", nodeType);
+        nodeTemplate.addProperty("type_version", "1.0.0");
+        nodeTemplate.addProperty("version", metadataSetVersion);
+        nodeTemplate.addProperty("description", "MetadataSet for policy containing policy model");
+        nodeTemplate.add("metadata", metadata);
+
+        JsonObject metadataSet = new JsonObject();
+        metadataSet.add(metadataSetName, nodeTemplate);
+
+        JsonObject nodeTemplates = new JsonObject();
+        nodeTemplates.add("node_templates", metadataSet);
+
+        nodeTemplateFile.add("topology_template", nodeTemplates);
+
+        final var toscaNodeTemplateString = standardCoder.encode(nodeTemplateFile);
+        final String toscaNodeTemplateFileName = parameters.getOutputNodeTemplateFileName();
+        if (StringUtils.isNotBlank(toscaNodeTemplateFileName)) {
+            TextFileUtils.putStringAsTextFile(toscaNodeTemplateString, toscaNodeTemplateFileName);
+        } else {
+            LOGGER.debug("Output file name not specified. Resulting tosca node template: {}", toscaNodeTemplateString);
         }
     }
 
@@ -113,7 +168,7 @@ public final class CliUtils {
             throw new CommandLineException(prefixExceptionMessage + " is not a normal file");
         }
         if (!theFile.canRead()) {
-            throw new CommandLineException(prefixExceptionMessage + " is ureadable");
+            throw new CommandLineException(prefixExceptionMessage + " is unreadable");
         }
     }
 
@@ -222,5 +277,11 @@ public final class CliUtils {
             }
         }
         return cliArgsList;
+    }
+
+    private static JsonObject getJsonObject(String filePath) throws IOException, CoderException {
+        final var standardCoder = new StandardCoder();
+        var contentString = TextFileUtils.getTextFileAsString(filePath);
+        return standardCoder.decode(contentString, JsonObject.class);
     }
 }
