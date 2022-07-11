@@ -22,6 +22,30 @@
       "revId": "e33b59420730e74d345248c78d27dd318dd400fb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bb7a28c_996ea189",
+        "filename": "examples/examples-grpc-metadataset/src/main/resources/tosca/NodeTemplate.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2022-07-11T15:10:45Z",
+      "side": 1,
+      "message": "I agree, maybe we could meet for 15 minutes to discuss this?",
+      "parentUuid": "4fb6f28e_27e24a23",
+      "range": {
+        "startLine": 5,
+        "startChar": 7,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "e33b59420730e74d345248c78d27dd318dd400fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
