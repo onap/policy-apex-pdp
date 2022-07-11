@@ -46,6 +46,30 @@
       "revId": "e33b59420730e74d345248c78d27dd318dd400fb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f19a82_6324419e",
+        "filename": "examples/examples-grpc-metadataset/src/main/resources/tosca/NodeTemplate.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-07-11T15:40:29Z",
+      "side": 1,
+      "message": "Thanks Ajith for the suggestion. Yes we can add an argument for metadataSet and generate the node template file completely from the code without using a skeleton file. I assumed the node template can be of any node type similar to policy types, and hence provided those fields in the skeleton file. If we agree to maintain a single node_type for all metadataSets we can remove the usage of skeleton file here. I can update this change on this review, else we can have a quick discussion on this before doing this change.",
+      "parentUuid": "5bb7a28c_996ea189",
+      "range": {
+        "startLine": 5,
+        "startChar": 7,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "e33b59420730e74d345248c78d27dd318dd400fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
