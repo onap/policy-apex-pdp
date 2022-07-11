@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fb6f28e_27e24a23",
+        "filename": "examples/examples-grpc-metadataset/src/main/resources/tosca/NodeTemplate.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2022-07-11T12:15:17Z",
+      "side": 1,
+      "message": "Looking into an actual example now, I think if the type and type_version are not going to change in a metadataset file, isn\u0027t it better to just generate the metadata nodetemplate file directly in the code base without having to provide a template specifically?\nThe name of the metadata file can be something like \u003ctoscaPolicyName\u003e./_metadata.\nThis way, in the ToscaPolicy file also, the metadata section also can be populated at runtime in the code itself without having to tweak the template with the metadata name and version.\n\nThe ToscaCliEditor also could be much more simple this way. For e.g., to the existing ToscaCliEditor, just add another argument \"generateMetadataSet\" (or even metadataSetFileName which can then be used programmatically to generate the file and use the same name in ToscaPolicy metadata section). When this new argument is present, generate metadataset related artifacts (i.e, 1 extra nodetemplate metadataset file, and the toscaPolicy itself referring to this metadaset). If argument is not there, generate as how it is done today. This also avoids the need to separately generate both metadataSet and toscaPolicy separately by giving the inputs.\n\nAbove is my thought. What do you think? @Ram @Liam any comments?",
+      "range": {
+        "startLine": 5,
+        "startChar": 7,
+        "endLine": 5,
+        "endChar": 24
+      },
+      "revId": "e33b59420730e74d345248c78d27dd318dd400fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
