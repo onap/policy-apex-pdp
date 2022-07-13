@@ -30,6 +30,7 @@
     </parent>
 
     <artifactId>apex-pdp-package-full</artifactId>
+    <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] packaging, with all optional functionality, clients, servlets, and examples included</description>
 
@@ -472,94 +473,6 @@
                             </descriptors>
                             <finalName>${project.artifactId}-${project.version}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <configuration>
-                            <tasks>
-                                <untar
-                                    src="${project.build.directory}/${project.artifactId}-${project.version}.tar.gz"
-                                    dest="${project.build.directory}/install_hierarchy" compression="gzip" />
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>fix-permissions</id>
-                        <phase>package</phase>
-                        <configuration>
-                            <tasks>
-                                <chmod file="${project.build.directory}/install_hierarchy/bin/*" perm="755" />
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Build the dpkg distribution -->
-            <plugin>
-                <groupId>org.vafer</groupId>
-                <artifactId>jdeb</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jdeb</goal>
-                        </goals>
-                        <configuration>
-                            <deb>${project.build.directory}/${project.artifactId}-${project.version}.deb</deb>
-                            <controlDir>${basedir}/src/main/package/control</controlDir>
-                            <dataSet>
-                                <!-- Copy the Apex run time configuration -->
-                                <data>
-                                    <src>${project.build.directory}/install_hierarchy/lib</src>
-                                    <type>directory</type>
-                                    <dst>lib</dst>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/lib</prefix>
-                                        <filemode>755</filemode>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${project.build.directory}/install_hierarchy/bin</src>
-                                    <type>directory</type>
-                                    <dst>etc</dst>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/bin</prefix>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${project.build.directory}/install_hierarchy/etc</src>
-                                    <type>directory</type>
-                                    <dst>etc</dst>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/etc</prefix>
-                                    </mapper>
-                                </data>
-                                <data>
-                                    <src>${project.build.directory}/install_hierarchy/examples</src>
-                                    <type>directory</type>
-                                    <dst>etc</dst>
-                                    <mapper>
-                                        <type>perm</type>
-                                        <prefix>/opt/app/policy/${project.artifactId}-${project.version}/examples</prefix>
-                                    </mapper>
-                                </data>
-                            </dataSet>
                         </configuration>
                     </execution>
                 </executions>
