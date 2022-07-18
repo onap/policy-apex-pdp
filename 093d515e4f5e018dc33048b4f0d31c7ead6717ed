@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8512274a_9b022fb8",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-07-18T18:00:05Z",
+      "side": 1,
+      "message": "do you want to check if this is null (not provided as it is an optional parameter) before going for the validation check?",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 101
+      },
+      "revId": "093d515e4f5e018dc33048b4f0d31c7ead6717ed",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
