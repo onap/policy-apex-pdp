@@ -1,7 +1,6 @@
 <!--
   ============LICENSE_START=======================================================
-   Copyright (C) 2016-2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
+   Copyright (C) 2022 Bell Canada. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,22 +17,28 @@
   SPDX-License-Identifier: Apache-2.0
   ============LICENSE_END=========================================================
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.onap.policy.apex-pdp.plugins.plugins-context</groupId>
-        <artifactId>plugins-context</artifactId>
+        <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+        <artifactId>plugins-context-schema</artifactId>
         <version>2.7.4-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
-    <artifactId>plugins-context-schema</artifactId>
-    <packaging>pom</packaging>
-
+    <artifactId>plugins-context-schema-json</artifactId>
     <name>${project.artifactId}</name>
-    <description>Plugins for 3pps that handle context schemas</description>
-    <modules>
-        <module>plugins-context-schema-avro</module>
-        <module>plugins-context-schema-json</module>
-    </modules>
+    <description>[${project.parent.artifactId}] Plugin for schemas using JSON</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.worldturner.medeia</groupId>
+            <artifactId>medeia-validator-gson</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
