@@ -1,8 +1,13 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+<<<<<<< HEAD   (4ecdac update policy models references)
    Modifications Copyright (C) 2019-2020 Nordix Foundation
    Modifications Copyright (C) 2019-2020 Bell Canada.
+=======
+   Modifications Copyright (C) 2019-2020, 2022 Nordix Foundation
+   Modifications Copyright (C) 2019-2020, 2022 Bell Canada.
+>>>>>>> CHANGE (c354fb Adding JSON Schema support in APEX-PDP)
    Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -77,6 +82,11 @@
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
             <artifactId>plugins-context-schema-avro</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+            <artifactId>plugins-context-schema-json</artifactId>
             <version>${project.version}</version>
         </dependency>
 
