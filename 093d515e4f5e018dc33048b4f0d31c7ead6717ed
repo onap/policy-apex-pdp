@@ -22,6 +22,30 @@
       "revId": "093d515e4f5e018dc33048b4f0d31c7ead6717ed",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caf7a761_a03b9832",
+        "filename": "auth/cli-editor/src/main/java/org/onap/policy/apex/auth/clieditor/tosca/ApexCliToscaParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-07-19T09:06:46Z",
+      "side": 1,
+      "message": "As it is an optional parameter, I think we don\u0027t require a null check for this, it would be null incase the user doesn\u0027t want to generate a node template. validateWritableFile doesn\u0027t throw an error either if the file name is provided or it is null",
+      "parentUuid": "8512274a_9b022fb8",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 101
+      },
+      "revId": "093d515e4f5e018dc33048b4f0d31c7ead6717ed",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
