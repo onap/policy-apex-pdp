@@ -1,0 +1,34 @@
+[
+  {
+    "measurementGroup": {
+      "measurementTypes": [
+        {
+          "measurementType": "countera"
+        },
+        {
+          "measurementType": "counterb"
+        }
+      ],
+      "managedObjectDNsBasic": [
+        {
+          "DN": "dna"
+        },
+        {
+          "DN": "dnb"
+        }
+      ]
+    }
+  },
+  {
+    "measurementGroup": {
+      "measurementTypes": [
+        {
+          "measurementType": "counterc"
+        },
+        {
+          "measurementType": "counterd"
+        }
+      ]
+    }
+  }
+]

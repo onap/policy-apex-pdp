@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "requestId",
+    "subRequestId",
+    "originatorId",
+    "testId"
+  ],
+  "properties": {
+    "requestId": {
+      "$id": "#root/requestId",
+      "title": "Requestid",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "123456-1000"
+      ],
+      "pattern": "^[0-9]*-[0-9]*$"
+    },
+    "subRequestId": {
+      "$id": "#root/subRequestId",
+      "title": "Subrequestid",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "sub-123456-1000"
+      ],
+      "pattern": "^.*$"
+    },
+    "originatorId": {
+      "$id": "#root/originatorId",
+      "title": "Originatorid",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "sdnc"
+      ],
+      "pattern": "^.*$"
+    },
+    "testId": {
+      "$id": "#root/testId",
+      "title": "Testid",
+      "type": "number",
+      "examples": [
+        212.2
+      ],
+      "default": 0
+    }
+  }
+}

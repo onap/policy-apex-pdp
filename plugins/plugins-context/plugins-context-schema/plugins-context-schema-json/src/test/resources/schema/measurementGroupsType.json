@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "default": [],
+  "items": {
+    "type": "object",
+    "required": [
+      "measurementGroup"
+    ],
+    "properties": {
+      "measurementGroup": {
+        "type": "object",
+        "required": [
+          "measurementTypes"
+        ],
+        "properties": {
+          "measurementTypes": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "required": [
+                "measurementType"
+              ],
+              "properties": {
+                "measurementType": {
+                  "type": "string",
+                  "default": "",
+                  "examples": [
+                    "countera"
+                  ],
+                  "pattern": "^.*$"
+                }
+              }
+            }
+          },
+          "managedObjectDNsBasic": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "required": [
+                "DN"
+              ],
+              "properties": {
+                "DN": {
+                  "type": "string",
+                  "default": "",
+                  "examples": [
+                    "dna"
+                  ],
+                  "pattern": "^.*$"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

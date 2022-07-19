@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "requestId": {
+      "type": "string"
+    },
+    "subRequestId": {
+      "type": "string"
+    },
+    "originatorId": {
+      "type": "string"
+    },
+    "testId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "requestId",
+    "subRequestId",
+    "originatorId"
+  ]
+}
