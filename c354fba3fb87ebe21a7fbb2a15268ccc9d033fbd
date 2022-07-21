@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62b58fed_92af39df",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-json/src/main/java/org/onap/policy/apex/plugins/context/schema/json/JsonSchemaHelper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2022-07-21T09:00:34Z",
+      "side": 1,
+      "message": "I\u0027m surprised how straightforward this implementation is!",
+      "revId": "c354fba3fb87ebe21a7fbb2a15268ccc9d033fbd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
