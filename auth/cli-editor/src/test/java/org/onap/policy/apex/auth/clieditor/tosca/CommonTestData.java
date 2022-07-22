@@ -36,4 +36,5 @@ public final class CommonTestData {
     public static final String APEX_CONFIG_FILE_NAME = "src/test/resources/tosca/ApexConfig.json";
     public static final String COMMAND_FILE_NAME = "src/test/resources/tosca/PolicyModel.apex";
     public static final String POLICY_MODEL_FILE_NAME = "src/test/resources/tosca/PolicyModel.json";
+    public static final String NODE_TYPE = "org.onap.nodetypes.policy.MetadataSet";
 }

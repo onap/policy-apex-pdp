@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019,2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,8 @@ public class ApexCliToscaParameters extends CommandLineParameters {
     private String apexConfigFileName = null;
     private String inputToscaTemplateFileName = null;
     private String outputToscaPolicyFileName = null;
+    private String nodeType = null;
+    private String outputNodeTemplateFileName = null;
 
     /**
      * Validates the command line parameters.
@@ -53,5 +55,6 @@ public class ApexCliToscaParameters extends CommandLineParameters {
         CliUtils.validateReadableFile("Apex Config File", apexConfigFileName);
         CliUtils.validateReadableFile("Input Tosca Template File", inputToscaTemplateFileName);
         CliUtils.validateWritableFile("Output Tosca Policy File", outputToscaPolicyFileName);
+        CliUtils.validateWritableFile("Output Tosca Node Template File", outputNodeTemplateFileName);
     }
 }

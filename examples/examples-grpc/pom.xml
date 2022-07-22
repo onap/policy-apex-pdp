@@ -33,6 +33,8 @@
    <properties>
       <policymodel.name>APEXgRPCPolicy</policymodel.name>
       <toscapolicy.name>APEXgRPCToscaPolicy</toscapolicy.name>
+      <!-- Update the required node type value for generating a node template -->
+      <nodeType.name>org.onap.nodetypes.policy.MetadataSet</nodeType.name>
    </properties>
    <dependencies>
       <dependency>
@@ -125,6 +127,27 @@
                         <argument>--log-file=${project.build.directory}/${policymodel.name}_policygeneration.log</argument>
                         <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/APEXgRPC/ApexConfig.json</argument>
                         <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json</argument>
+                     </arguments>
+                  </configuration>
+               </execution>
+               <!-- Generate Tosca policy with metadataSet reference and a node template json file with policy model -->
+               <execution>
+                  <id>generate-tosca-policy-metadataSet</id>
+                  <phase>compile</phase>
+                  <goals>
+                     <goal>java</goal>
+                  </goals>
+                  <configuration>
+                     <mainClass>org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain</mainClass>
+                     <classpathScope>compile</classpathScope>
+                     <arguments>
+                        <argument>--command-file=${project.basedir}/src/main/resources/policy/${policymodel.name}.apex</argument>
+                        <argument>--output-tosca-file=${project.build.directory}/classes/${toscapolicy.name}.metadataSet.json</argument>
+                        <argument>--log-file=${project.build.directory}/${policymodel.name}_policygeneration.log</argument>
+                        <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/APEXgRPC/ApexConfig.json</argument>
+                        <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json</argument>
+                        <argument>--node-type=${nodeType.name}</argument>
+                        <argument>--output-node-template-file=${project.build.directory}/classes/${toscapolicy.name}.nodeTemplate.json</argument>
                      </arguments>
                   </configuration>
                </execution>
