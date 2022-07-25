@@ -29,44 +29,44 @@ schema create name=SimpleStringType flavour=Java schema=java.lang.String
 schema create name=UUIDType         flavour=Java schema=java.util.UUID
 schema create name=SimpleIntType    flavour=Java schema=java.lang.Integer
 
-schema create name=CDSRequestCommonHeaderType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/CDSRequestCommonHeaderType.avsc"
+schema create name=CDSRequestCommonHeaderType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/CDSRequestCommonHeaderType.json"
 LE
 
-schema create name=CDSResponseCommonHeaderType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/CDSResponseCommonHeaderType.avsc"
+schema create name=CDSResponseCommonHeaderType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/CDSResponseCommonHeaderType.json"
 LE
 
-schema create name=CDSActionIdentifiersType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/CDSActionIdentifiersType.avsc"
+schema create name=CDSActionIdentifiersType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/CDSActionIdentifiersType.json"
 LE
 
-schema create name=CDSResponseStatusType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/CDSResponseStatusType.avsc"
+schema create name=CDSResponseStatusType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/CDSResponseStatusType.json"
 LE
 
-schema create name=CDSCreateSubscriptionPayloadType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/CDSCreateSubscriptionPayloadType.avsc"
+schema create name=CDSCreateSubscriptionPayloadType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/CDSCreateSubscriptionPayloadType.json"
 LE
 
 schema create name=CDSDeleteSubscriptionPayloadType flavour=Avro schema=LS
 #MACROFILE:"src/main/resources/schemas/CDSDeleteSubscriptionPayloadType.avsc"
 LE
 
-schema create name=CDSResponsePayloadType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/CDSResponsePayloadType.avsc"
+schema create name=CDSResponsePayloadType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/CDSResponsePayloadType.json"
 LE
 
-schema create name=SubscriptionStatusType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/SubscriptionStatusType.avsc"
+schema create name=SubscriptionStatusType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/SubscriptionStatusType.json"
 LE
 
-schema create name=PMSubscriptionType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/PMSubscriptionType.avsc"
+schema create name=PMSubscriptionType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/PMSubscriptionType.json"
 LE
 
-schema create name=SubscriptionType flavour=Avro schema=LS
-#MACROFILE:"src/main/resources/schemas/SubscriptionType.avsc"
+schema create name=SubscriptionType flavour=Json schema=LS
+#MACROFILE:"src/main/resources/schemas/SubscriptionType.json"
 LE
 
 ##

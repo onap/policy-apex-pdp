@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@ executor.logger.info(executor.subject.id);
 
 var pmSubscriptionInfo = executor.getContextAlbum("PMSubscriptionAlbum").get(executor.inFields.get("albumID").toString())
 
-var payloadProperties = executor.subject.getOutFieldSchemaHelper("payload").createNewSubInstance("delete_DasH_subscription_DasH_properties_record");
+var payloadProperties = new java.util.HashMap();
 
 payloadProperties.put("nfName",  pmSubscriptionInfo.get("nfName"))
 payloadProperties.put("subscriptionName",  pmSubscriptionInfo.get("subscription").get("subscriptionName"))
@@ -31,10 +32,10 @@ payloadProperties.put("fileBasedGP",  pmSubscriptionInfo.get("subscription").get
 payloadProperties.put("fileLocation", pmSubscriptionInfo.get("subscription").get("fileLocation"))
 payloadProperties.put("measurementGroups", pmSubscriptionInfo.get("subscription").get("measurementGroups"))
 
-var payloadEntry = executor.subject.getOutFieldSchemaHelper("payload").createNewSubInstance("CDSRequestPayloadEntry");
+var payloadEntry = new java.util.HashMap();
 payloadEntry.put("delete_DasH_subscription_DasH_properties", payloadProperties)
 
-var payload = executor.subject.getOutFieldSchemaHelper("payload").createNewInstance();
+var payload = new java.util.HashMap();
 payload.put("delete_DasH_subscription_DasH_request", payloadEntry);
 
 executor.outFields.put("albumID", executor.inFields.get("albumID"))

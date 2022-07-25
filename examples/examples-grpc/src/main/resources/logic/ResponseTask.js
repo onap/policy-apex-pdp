@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix. All rights reserved.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ var albumID = uuidType.fromString("d0050623-18e5-46c9-9298-9a567990cd7c");
 
 var pmSubscriptionInfo = executor.getContextAlbum("PMSubscriptionAlbum").get(albumID.toString());
 
-var responseStatus = executor.subject.getOutFieldSchemaHelper("CDSResponseStatusEvent", "status").createNewInstance();
+var responseStatus = new java.util.HashMap();
 
 responseStatus.put("subscriptionName", pmSubscriptionInfo.get("subscription").get("subscriptionName"))
 responseStatus.put("nfName", pmSubscriptionInfo.get("nfName"))
@@ -34,7 +34,7 @@ responseStatus.put("changeType", pmSubscriptionInfo.get("changeType"))
 
 var response = executor.inFields.get("payload")
 
-if ("failure".equals(response.get("create_DasH_subscription_DasH_response").get("odl_DasH_response").get("status"))) {
+if ("failure".equals(response.get("create-subscription-response").get("odl-response").get("status"))) {
     responseStatus.put("message", "failed")
 } else {
     responseStatus.put("message", "success")

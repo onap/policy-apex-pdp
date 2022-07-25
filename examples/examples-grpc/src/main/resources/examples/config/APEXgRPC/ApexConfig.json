@@ -17,6 +17,9 @@
           "Avro": {
             "parameterClassName": "org.onap.policy.apex.plugins.context.schema.avro.AvroSchemaHelperParameters"
           },
+          "Json": {
+            "parameterClassName": "org.onap.policy.apex.plugins.context.schema.json.JsonSchemaHelperParameters"
+          },
           "Java": {
             "parameterClassName": "org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters",
             "jsonAdapters": {

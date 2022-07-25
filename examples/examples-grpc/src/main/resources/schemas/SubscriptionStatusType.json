@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "subscriptionName": {
+      "type": "string"
+    },
+    "nfName": {
+      "type": "string"
+    },
+    "changeType": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "subscriptionName",
+    "nfName",
+    "changeType",
+    "message"
+  ]
+}
