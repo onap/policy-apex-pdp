@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "changeType": {
+      "type": "string"
+    },
+    "closedLoopControlName": {
+      "type": "string"
+    },
+    "policyName": {
+      "type": "string"
+    },
+    "nfName": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "measurementGroup": {
+              "type": "object",
+              "properties": {
+                "measurementTypes": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "measurementType": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "measurementType"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "measurementType": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "measurementType"
+                      ]
+                    }
+                  ]
+                },
+                "managedObjectDNsBasic": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "DN": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "DN"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "DN": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "DN"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "measurementTypes",
+                "managedObjectDNsBasic"
+              ]
+            }
+          },
+          "required": [
+            "measurementGroup"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "changeType",
+    "closedLoopControlName",
+    "policyName",
+    "nfName",
+    "subscription"
+  ]
+}

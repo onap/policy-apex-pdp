@@ -33,7 +33,6 @@
         <dependency>
             <groupId>com.worldturner.medeia</groupId>
             <artifactId>medeia-validator-gson</artifactId>
-            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
