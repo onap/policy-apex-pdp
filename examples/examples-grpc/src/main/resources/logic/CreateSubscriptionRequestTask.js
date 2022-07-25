@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2020 Nordix. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +25,12 @@ var pmSubscriptionInfo = executor.getContextAlbum("PMSubscriptionAlbum").get(exe
 var payload = executor.inFields.get("payload")
 var actionName = "create-subscription"
 
-var commonHeader = executor.subject.getOutFieldSchemaHelper("commonHeader").createNewInstance();
+var commonHeader = new java.util.HashMap();
 commonHeader.put("originatorId", "sdnc");
 commonHeader.put("requestId", "123456-1000");
 commonHeader.put("subRequestId", "sub-123456-1000");
 
-var actionIdentifiers = executor.subject.getOutFieldSchemaHelper("actionIdentifiers").createNewInstance();
+var actionIdentifiers = new java.util.HashMap();
 actionIdentifiers.put("actionName", actionName);
 actionIdentifiers.put("blueprintName", "pm_control");
 actionIdentifiers.put("blueprintVersion", "1.0.0");

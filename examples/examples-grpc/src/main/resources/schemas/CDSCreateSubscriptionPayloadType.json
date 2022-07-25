@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "create-subscription-request"
+  ],
+  "properties": {
+    "create-subscription-request": {
+      "type": "object",
+      "required": [
+        "create-subscription-properties"
+      ],
+      "properties": {
+        "create-subscription-properties": {
+          "type": "object",
+          "required": [
+            "nfName",
+            "administrativeState",
+            "subscriptionName",
+            "measurementGroups",
+            "fileBasedGP",
+            "fileLocation"
+          ],
+          "properties": {
+            "nfName": {
+              "type": "string",
+              "default": "",
+              "examples": [
+                "pnf300"
+              ],
+              "pattern": "^.*$"
+            },
+            "administrativeState": {
+              "type": "string",
+              "default": "",
+              "examples": [
+                "UNLOCKED"
+              ],
+              "pattern": "^.*$"
+            },
+            "subscriptionName": {
+              "type": "string",
+              "default": "",
+              "examples": [
+                "testPolicyB"
+              ],
+              "pattern": "^.*$"
+            },
+            "measurementGroups": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "object",
+                "required": [
+                  "measurementGroup"
+                ],
+                "properties": {
+                  "measurementGroup": {
+                    "type": "object",
+                    "required": [
+                      "measurementTypes",
+                      "managedObjectDNsBasic"
+                    ],
+                    "properties": {
+                      "measurementTypes": {
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "measurementType"
+                          ],
+                          "properties": {
+                            "measurementType": {
+                              "type": "string",
+                              "default": "",
+                              "examples": [
+                                "countera"
+                              ],
+                              "pattern": "^.*$"
+                            }
+                          }
+                        }
+                      },
+                      "managedObjectDNsBasic": {
+                        "type": "array",
+                        "default": [],
+                        "items": {
+                          "$id": "#root/create-subscription-request/create-subscription-properties/measurementGroups/items/measurementGroup/managedObjectDNsBasic/items",
+                          "title": "Items",
+                          "type": "object",
+                          "required": [
+                            "DN"
+                          ],
+                          "properties": {
+                            "DN": {
+                              "type": "string",
+                              "default": "",
+                              "examples": [
+                                "dna"
+                              ],
+                              "pattern": "^.*$"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "fileBasedGP": {
+              "type": "string",
+              "default": "",
+              "examples": [
+                "15.0"
+              ],
+              "pattern": "^.*$"
+            },
+            "fileLocation": {
+              "type": "string",
+              "default": "",
+              "examples": [
+                "/pm/pm.xml"
+              ],
+              "pattern": "^.*$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

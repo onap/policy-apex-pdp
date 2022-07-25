@@ -3,6 +3,7 @@
   ============LICENSE_START=======================================================
    Copyright (C) 2020 Nordix Foundation.
    Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
+   Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -53,6 +54,11 @@
          <version>${project.version}</version>
       </dependency>
       <dependency>
+         <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
+         <artifactId>plugins-context-schema-json</artifactId>
+         <version>${project.version}</version>
+      </dependency>
+      <dependency>
          <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
          <artifactId>plugins-executor-javascript</artifactId>
          <version>${project.version}</version>
@@ -89,6 +95,13 @@
    </dependencies>
    <build>
       <plugins>
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-surefire-plugin</artifactId>
+           <configuration>
+             <argLine>-Xss1m</argLine>
+           </configuration>
+         </plugin>
          <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>

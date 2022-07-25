@@ -6,8 +6,8 @@
   "target": "DCAE",
   "toscaPolicyState": "EXIT_SUCCESS",
   "status": {
-    "subscriptionName": "testPolicyB",
     "nfName": "pnf300",
+    "subscriptionName": "testPolicyB",
     "changeType": "CREATE",
     "message": "success"
   }

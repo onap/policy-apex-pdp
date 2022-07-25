@@ -1,0 +1,133 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "subscriptionName",
+    "administrativeState",
+    "fileBasedGP",
+    "fileLocation",
+    "measurementGroups"
+  ],
+  "properties": {
+    "subscriptionName": {
+      "$id": "#root/subscriptionName",
+      "title": "Subscriptionname",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "testPolicyB"
+      ],
+      "pattern": "^.*$"
+    },
+    "administrativeState": {
+      "$id": "#root/administrativeState",
+      "title": "Administrativestate",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "UNLOCKED"
+      ],
+      "pattern": "^.*$"
+    },
+    "fileBasedGP": {
+      "$id": "#root/fileBasedGP",
+      "title": "Filebasedgp",
+      "type": "integer",
+      "examples": [
+        15
+      ],
+      "default": 0
+    },
+    "fileLocation": {
+      "$id": "#root/fileLocation",
+      "title": "Filelocation",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "/pm/pm.xml"
+      ],
+      "pattern": "^.*$"
+    },
+    "measurementGroups": {
+      "$id": "#root/measurementGroups",
+      "title": "Measurementgroups",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/measurementGroups/items",
+        "title": "Items",
+        "type": "object",
+        "required": [
+          "measurementGroup"
+        ],
+        "properties": {
+          "measurementGroup": {
+            "$id": "#root/measurementGroups/items/measurementGroup",
+            "title": "Measurementgroup",
+            "type": "object",
+            "required": [
+              "measurementTypes",
+              "managedObjectDNsBasic"
+            ],
+            "properties": {
+              "measurementTypes": {
+                "$id": "#root/measurementGroups/items/measurementGroup/measurementTypes",
+                "title": "Measurementtypes",
+                "type": "array",
+                "default": [],
+                "items": {
+                  "$id": "#root/measurementGroups/items/measurementGroup/measurementTypes/items",
+                  "title": "Items",
+                  "type": "object",
+                  "required": [
+                    "measurementType"
+                  ],
+                  "properties": {
+                    "measurementType": {
+                      "$id": "#root/measurementGroups/items/measurementGroup/measurementTypes/items/measurementType",
+                      "title": "Measurementtype",
+                      "type": "string",
+                      "default": "",
+                      "examples": [
+                        "countera"
+                      ],
+                      "pattern": "^.*$"
+                    }
+                  }
+                }
+              },
+              "managedObjectDNsBasic": {
+                "$id": "#root/measurementGroups/items/measurementGroup/managedObjectDNsBasic",
+                "title": "Managedobjectdnsbasic",
+                "type": "array",
+                "default": [],
+                "items": {
+                  "$id": "#root/measurementGroups/items/measurementGroup/managedObjectDNsBasic/items",
+                  "title": "Items",
+                  "type": "object",
+                  "required": [
+                    "DN"
+                  ],
+                  "properties": {
+                    "DN": {
+                      "$id": "#root/measurementGroups/items/measurementGroup/managedObjectDNsBasic/items/DN",
+                      "title": "Dn",
+                      "type": "string",
+                      "default": "",
+                      "examples": [
+                        "dna"
+                      ],
+                      "pattern": "^.*$"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
