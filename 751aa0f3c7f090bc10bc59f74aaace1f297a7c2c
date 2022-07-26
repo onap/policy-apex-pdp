@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2de15ecd_c2899c85",
+        "filename": "examples/examples-grpc/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2022-07-26T09:41:56Z",
+      "side": 1,
+      "message": "Without explicitly specifying the stack size like this, the junit that tests the end to end policy flow was failing while initializing the SchemaValidator with this schema https://gerrit.onap.org/r/c/policy/apex-pdp/+/130021/4/examples/examples-grpc/src/main/resources/schemas/CDSCreateSubscriptionPayloadType.json where too many nested JSON objects exist (If one or 2 nested objects are removed from this schema, the issue doesn\u0027t happen). StackOverflow exception was happening, and this issue happened ONLY while running the JUnit as part of maven build through command line in an Ubuntu machine. It worked alright on Windows and Mac environment.\nTo solve this, stack size is explicitly specified like this. Note that even specifying the stack size to the very minimum (175k to 180k, below this JVM doesn\u0027t start) here fixes the issue, so it is some strange issue with stack space while running maven in command line in an Ubuntu vm.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 18
+      },
+      "revId": "751aa0f3c7f090bc10bc59f74aaace1f297a7c2c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
