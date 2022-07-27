@@ -43,7 +43,7 @@
         <encoding>UTF-8</encoding>
         <file.encoding>UTF-8</file.encoding>
         <version.commons-cli>1.4</version.commons-cli>
-        <version.kafka>2.3.0</version.kafka>
+        <version.kafka>3.0.0</version.kafka>
         <version.hibernate>5.3.7.Final</version.hibernate>
         <version.policy.common>1.8.3-SNAPSHOT</version.policy.common>
         <version.policy.models>2.4.6-SNAPSHOT</version.policy.models>
@@ -129,7 +129,7 @@
 
     <profiles>
         <profile>
-            <!--This profile is used to store Eclipse m2e settings only. It has no 
+            <!--This profile is used to store Eclipse m2e settings only. It has no
                 influence on the Maven build itself. -->
             <id>only-eclipse</id>
             <activation>
