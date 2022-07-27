@@ -35,6 +35,7 @@ RUN apk add --no-cache \
         vim \
         iproute2 \
         iputils \
+        java-snappy-native \
     && addgroup -S apexuser && adduser -S apexuser -G apexuser \
     && mkdir -p $POLICY_HOME \
     && mkdir -p $POLICY_LOGS \

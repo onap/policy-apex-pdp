@@ -2,7 +2,7 @@
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications Copyright (C) 2019-2020 Nordix Foundation.
-   Modifications Copyright (C) 2020 Bell Canada.
+   Modifications Copyright (C) 2020, 2022 Bell Canada.
    Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -159,13 +159,30 @@
         <dependency>
             <groupId>com.salesforce.kafka.test</groupId>
             <artifactId>kafka-junit4</artifactId>
-            <version>3.2.1</version>
+            <version>3.2.3</version>
             <scope>test</scope>
             <exclusions>
             <!-- The default netty version in kafka-junit4 has vulnerabilities -->
                 <exclusion>
                     <groupId>io.netty</groupId>
                     <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.7.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <!-- The default netty version in kafka-junit4 has vulnerabilities -->
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
