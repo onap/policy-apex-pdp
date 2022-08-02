@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Ram Krishna Verma <ram_krishna.verma@bell.ca>
+Code-Review+1: Rashmi Pujar <rashmi.pujar1@bell.ca>
+Code-Review+1: Prakhar Pandey <prakhar.pandey@bell.ca>
+Code-Review+1: Jorge Hernandez <jorge.hernandez-herrero@att.com>
+Code-Review+2: Ramesh Murugan Iyer <ramesh.murugan.iyer@est.tech>
+Submitted-by: Ram Krishna Verma <ram_krishna.verma@bell.ca>
+Submitted-at: Tue, 02 Aug 2022 13:46:19 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/129751
+Project: policy/apex-pdp
+Branch: refs/heads/istanbul
