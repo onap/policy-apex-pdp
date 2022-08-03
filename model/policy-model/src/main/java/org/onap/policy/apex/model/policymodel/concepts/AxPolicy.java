@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2022 AT&T Intellectual Property.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,7 +104,7 @@ public class AxPolicy extends AxConcept {
     // @formatter:off
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = {@JoinColumn(name = "parentKeyName", referencedColumnName = "name"),
-            @JoinColumn(name = "parentKeyVersion", referencedColumnName = "version")})
+        @JoinColumn(name = "parentKeyVersion", referencedColumnName = "version")})
     @XmlElement(name = "state", required = true)
     private Map<String, AxState> stateMap;
     // @formatter:on

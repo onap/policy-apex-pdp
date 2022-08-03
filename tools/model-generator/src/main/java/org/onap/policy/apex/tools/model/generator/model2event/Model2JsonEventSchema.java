@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 AT&T Intellectual Property.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -300,7 +301,7 @@ public class Model2JsonEventSchema {
     /**
      * Process the state in the response.
      * @param eventKeys the event keys
-     * @param policies the policies to process
+     * @param policy the policy to process
      */
     private void processState(final Set<AxArtifactKey> eventKeys, final AxPolicy policy) {
         for (final AxState state : policy.getStateMap().values()) {
@@ -329,7 +330,8 @@ public class Model2JsonEventSchema {
     /**
      * Process the internal state.
      * @param eventKeys the event keys
-     * @param policies the policies to process
+     * @param firsState the first state
+     * @param state state
      */
     private void processInternalState(final Set<AxArtifactKey> eventKeys, final String firsState, final AxState state) {
         if (state.getKey().getLocalName().equals(firsState)) {

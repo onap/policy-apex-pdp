@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021,2022 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -279,7 +279,7 @@ public class AxModel extends AxConcept {
     /**
      * Check for consistent usage of a reference key in the model.
      *
-     * @param artifactKey The reference key to check
+     * @param referenceKey The reference key to check
      * @param referenceKeySet The set of reference keys encountered so far, this key is appended to the set
      * @param result The validation result to append to
      * @return the result of the validation

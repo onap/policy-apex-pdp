@@ -3,7 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2018 Samsung Electronics Co., Ltd.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,7 +127,7 @@ import org.onap.policy.common.utils.validation.Assertions;
 @XmlRootElement(name = "apexState", namespace = "http://www.onap.org/policy/apex-pdp")
 @XmlType(name = "AxState", namespace = "http://www.onap.org/policy/apex-pdp", propOrder =
     { "key", "trigger", "stateOutputs", "contextAlbumReferenceSet", "taskSelectionLogic", "stateFinalizerLogicMap",
-                    "defaultTask", "taskReferenceMap" })
+        "defaultTask", "taskReferenceMap" })
 
 public class AxState extends AxConcept {
     private static final String DOES_NOT_EQUAL_STATE_KEY = " does not equal state key";
@@ -149,34 +149,34 @@ public class AxState extends AxConcept {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "soParentKeyName", referencedColumnName = "parentKeyName"),
-                    @JoinColumn(name = "soParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                    @JoinColumn(name = "soParentLocalName", referencedColumnName = "parentLocalName"),
-                    @JoinColumn(name = "soLocalName", referencedColumnName = "localName")},
+                @JoinColumn(name = "soParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+                @JoinColumn(name = "soParentLocalName", referencedColumnName = "parentLocalName"),
+                @JoinColumn(name = "soLocalName", referencedColumnName = "localName")},
             inverseJoinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-                    @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                    @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-                    @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
+                @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+                @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
+                @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "stateOutputs", required = true)
     private Map<String, AxStateOutput> stateOutputs;
 
     @ElementCollection
     @CollectionTable(joinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-            @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-            @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-            @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
+        @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+        @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
+        @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "contextAlbumReference")
     private Set<AxArtifactKey> contextAlbumReferenceSet;
 
     @OneToOne
     @JoinTable(name = "STATE_TSL_JT",
             joinColumns = {
-                    @JoinColumn(name = "tslParentKeyName", referencedColumnName = "parentKeyName", updatable = false,
+                @JoinColumn(name = "tslParentKeyName", referencedColumnName = "parentKeyName", updatable = false,
                             insertable = false),
-                    @JoinColumn(name = "tslParentKeyVersion", referencedColumnName = "parentKeyVersion",
+                @JoinColumn(name = "tslParentKeyVersion", referencedColumnName = "parentKeyVersion",
                             updatable = false, insertable = false),
-                    @JoinColumn(name = "tslParentLocalName ", referencedColumnName = "parentLocalName",
+                @JoinColumn(name = "tslParentLocalName ", referencedColumnName = "parentLocalName",
                             updatable = false, insertable = false),
-                    @JoinColumn(name = "tslLocalName", referencedColumnName = "localName", updatable = false,
+                @JoinColumn(name = "tslLocalName", referencedColumnName = "localName", updatable = false,
                             insertable = false)})
     @XmlElement(required = true)
     private AxTaskSelectionLogic taskSelectionLogic;
@@ -184,13 +184,13 @@ public class AxState extends AxConcept {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "sflParentKeyName", referencedColumnName = "parentKeyName"),
-                    @JoinColumn(name = "sflParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                    @JoinColumn(name = "sflParentLocalName", referencedColumnName = "parentLocalName"),
-                    @JoinColumn(name = "sflLocalName", referencedColumnName = "localName")},
+                @JoinColumn(name = "sflParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+                @JoinColumn(name = "sflParentLocalName", referencedColumnName = "parentLocalName"),
+                @JoinColumn(name = "sflLocalName", referencedColumnName = "localName")},
             inverseJoinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-                    @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                    @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-                    @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
+                @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+                @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
+                @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "stateFinalizerLogicMap", required = true)
     private Map<String, AxStateFinalizerLogic> stateFinalizerLogicMap;
 
@@ -204,13 +204,13 @@ public class AxState extends AxConcept {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = {@JoinColumn(name = "trmParentKeyName", referencedColumnName = "parentKeyName"),
-                    @JoinColumn(name = "trmParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                    @JoinColumn(name = "trmParentLocalName", referencedColumnName = "parentLocalName"),
-                    @JoinColumn(name = "trmLocalName", referencedColumnName = "localName")},
+                @JoinColumn(name = "trmParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+                @JoinColumn(name = "trmParentLocalName", referencedColumnName = "parentLocalName"),
+                @JoinColumn(name = "trmLocalName", referencedColumnName = "localName")},
             inverseJoinColumns = {@JoinColumn(name = "stateParentKeyName", referencedColumnName = "parentKeyName"),
-                    @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
-                    @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
-                    @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
+                @JoinColumn(name = "stateParentKeyVersion", referencedColumnName = "parentKeyVersion"),
+                @JoinColumn(name = "stateParentLocalName", referencedColumnName = "parentLocalName"),
+                @JoinColumn(name = "stateLocalName", referencedColumnName = "localName")})
     @XmlElement(name = "taskReferences", required = true)
     private Map<AxArtifactKey, AxStateTaskReference> taskReferenceMap;
     // @formatter:on
@@ -937,7 +937,7 @@ public class AxState extends AxConcept {
     /**
      * Compare the object fields on this state to another state.
      *
-     * @param the other state to compare with
+     * @param other the other state to compare with
      * @return the result of the comparison
      */
     private int compareObjectFields(final AxState other) {

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 AT&T Intellectual Property.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -330,8 +331,9 @@ public class ApexParameters implements ParameterGroup {
      * 
      * @param handlerMapVariableName the variable name of the map on which the paired parameters are being checked
      * @param result The result object to which to append any error messages
-     * @param leftModeParameters The mode parameters being checked
-     * @param rightModeParameters The mode parameters being referenced by the checked parameters
+     * @param peeredMode The event peered mode
+     * @param leftModeParameterMap The mode parameters being checked
+     * @param rightModeParameterMap The mode parameters being referenced by the checked parameters
      */
     private void validatePeeredModePeers(final String handlerMapVariableName, final GroupValidationResult result,
         final EventHandlerPeeredMode peeredMode, final Map<String, EventHandlerParameters> leftModeParameterMap,
