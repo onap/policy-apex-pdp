@@ -22,6 +22,121 @@
       "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce16979_3e39a79a",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-08-19T18:16:38Z",
+      "side": 1,
+      "message": "I think you are not using this, please check.",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 19
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47d500b0_a418febe",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-08-19T18:16:38Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this one. Please check",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 126,
+        "endChar": 27
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ca57cb_f341338f",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-08-19T18:16:38Z",
+      "side": 1,
+      "message": "may be you want to use the metadata set option created by Ramesh recently?",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 145,
+        "endChar": 27
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d27451c6_93e28041",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-08-19T18:16:38Z",
+      "side": 1,
+      "message": "I don\u0027t think you are using Avro in this policy. If yes, please remove this section.",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 12
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c084d696_5fada7a0",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-08-19T18:16:38Z",
+      "side": 1,
+      "message": "same here, if you are not planning to use Java based schemas, please remove this as well.",
+      "range": {
+        "startLine": 23,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 13
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
