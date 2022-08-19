@@ -1,0 +1,10 @@
+{
+  "name": "LogEvent",
+  "version": "0.0.1",
+  "nameSpace": "org.onap.policy.apex.ac.element",
+  "source": "APEX",
+  "target": "Dmaap",
+  "toscaPolicyState": "",
+  "final_status": "FINAL_SUCCESS",
+  "message": "Operation successfully completed."
+}

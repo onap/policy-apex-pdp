@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "elementId": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "version"
+            ]
+        },
+        "message": {
+            "type": "string"
+        },
+        "messageType": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "elementId",
+        "message",
+        "messageType"
+    ]
+}
