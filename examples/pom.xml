@@ -36,6 +36,7 @@
     <modules>
         <module>examples-myfirstpolicy</module>
         <module>examples-aadm</module>
+        <module>examples-acm</module>
         <module>examples-adaptive</module>
         <module>examples-pcvs</module>
         <module>examples-decisionmaker</module>
