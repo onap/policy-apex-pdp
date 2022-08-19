@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "742c86f4_a1eb4fc4",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2022-08-19T16:35:13Z",
+      "side": 1,
+      "message": "If adding new files, probably want the Copyrights correct. See all files.",
+      "range": {
+        "startLine": 4,
+        "startChar": 3,
+        "endLine": 6,
+        "endChar": 61
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
