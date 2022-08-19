@@ -1,0 +1,72 @@
+{
+  "engineServiceParameters": {
+    "name": "MyApexEngine",
+    "version": "0.0.1",
+    "id": 45,
+    "instanceCount": 2,
+    "deploymentPort": 12561,
+    "engineParameters": {
+      "executorParameters": {
+        "JAVASCRIPT": {
+          "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+        }
+      },
+      "contextParameters": {
+        "parameterClassName": "org.onap.policy.apex.context.parameters.ContextParameters",
+        "schemaParameters": {
+          "Json": {
+            "parameterClassName": "org.onap.policy.apex.plugins.context.schema.json.JsonSchemaHelperParameters"
+          }
+        }
+      }
+    }
+  },
+  "eventInputParameters": {
+    "DmaapConsumer": {
+      "carrierTechnologyParameters": {
+        "carrierTechnology": "RESTCLIENT",
+        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+        "parameters": {
+          "url": "http://localhost:3904/events/AC_ELEMENT_MSG/APEX/1?timeout=30000"
+        }
+      },
+      "eventProtocolParameters": {
+        "eventProtocol": "JSON",
+        "parameters": {
+          "pojoField": "DmaapResponseEvent"
+        }
+      },
+      "eventName": "AcElementEvent",
+      "eventNameFilter": "AcElementEvent"
+    }
+  },
+  "eventOutputParameters": {
+    "logOutputter": {
+      "carrierTechnologyParameters": {
+        "carrierTechnology": "FILE",
+        "parameters": {
+          "fileName": "outputevents.log"
+        }
+      },
+      "eventProtocolParameters": {
+        "eventProtocol": "JSON"
+      }
+    },
+    "DmaapReplyProducer": {
+      "carrierTechnologyParameters": {
+        "carrierTechnology": "RESTCLIENT",
+        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+        "parameters": {
+          "url": "http://localhost:3904/events/POLICY_UPDATE_MSG"
+        }
+      },
+      "eventProtocolParameters": {
+        "eventProtocol": "JSON",
+        "parameters": {
+          "pojoField": "DmaapResponseStatusEvent"
+        }
+      },
+      "eventNameFilter": "(LogEvent|DmaapResponseStatusEvent)"
+    }
+  }
+}
