@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e8b9367c_c3e38ae7",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-23T15:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9982e579_f30b483c",
+      "range": {
+        "startLine": 127,
+        "startChar": 20,
+        "endLine": 127,
+        "endChar": 62
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00ca57cb_f341338f",
         "filename": "examples/examples-acm/pom.xml",
         "patchSetId": 1
@@ -201,6 +225,30 @@
       "side": 1,
       "message": "Done, removed because not need",
       "parentUuid": "00ca57cb_f341338f",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 145,
+        "endChar": 27
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3623d375_6a6f7778",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-23T15:44:19Z",
+      "side": 1,
+      "message": "reinsert using the metadata set option",
+      "parentUuid": "61facc17_41efd971",
       "range": {
         "startLine": 127,
         "startChar": 15,

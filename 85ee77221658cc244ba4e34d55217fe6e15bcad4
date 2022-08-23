@@ -16,6 +16,24 @@
       "revId": "85ee77221658cc244ba4e34d55217fe6e15bcad4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e0b8bea_2c9e1aba",
+        "filename": "examples/examples-acm/src/main/java/org/onap/policy/apex/examples/acm/AcmTestServerDmaap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-23T15:44:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1008d04b_e4ee24e4",
+      "revId": "85ee77221658cc244ba4e34d55217fe6e15bcad4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
