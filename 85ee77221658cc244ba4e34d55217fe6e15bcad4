@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1008d04b_e4ee24e4",
+        "filename": "examples/examples-acm/src/main/java/org/onap/policy/apex/examples/acm/AcmTestServerDmaap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2022-08-23T14:08:03Z",
+      "side": 1,
+      "message": "Given this is a public method as well as callable from public close() method, should you set restServer to null after you stop it? Or is it ok to call stop() more than once? Not that a user of the class should do that.",
+      "revId": "85ee77221658cc244ba4e34d55217fe6e15bcad4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
