@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "16e598c1_05a3b34b",
+        "filename": "examples/examples-acm/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-08-26T16:48:09Z",
+      "side": 1,
+      "message": "We may not require to use metadataSet approach here since it is a simple policy only for testing ACM workflow. The policy model may not be used anywhere else apart from this one. So metadataSet would be an extra step in this case.",
+      "parentUuid": "3623d375_6a6f7778",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 145,
+        "endChar": 27
+      },
+      "revId": "46f521ecef6e735c6aea0e1d414431f6de9662df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d27451c6_93e28041",
         "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
         "patchSetId": 1
