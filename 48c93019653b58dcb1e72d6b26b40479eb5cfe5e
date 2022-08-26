@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb6502f1_df4205d0",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-08-26T07:55:55Z",
+      "side": 1,
+      "message": "Should we change this to message-router?",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba54e29_d419ab94",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-08-26T07:55:55Z",
+      "side": 1,
+      "message": "message-router?",
+      "range": {
+        "startLine": 60,
+        "startChar": 25,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
