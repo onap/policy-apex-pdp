@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1441cd9e_426c8d74",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-08-26T08:11:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cd3ccdf9_26233c03",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ba54e29_d419ab94",
         "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
         "patchSetId": 3
@@ -93,6 +117,30 @@
       "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd7d7030_6f10b85f",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2022-08-26T08:11:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5f570a16_26952c4e",
+      "range": {
+        "startLine": 60,
+        "startChar": 25,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
