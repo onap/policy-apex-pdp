@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd3ccdf9_26233c03",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-26T08:10:01Z",
+      "side": 1,
+      "message": "Unit tests work with localhost as other examples",
+      "parentUuid": "eb6502f1_df4205d0",
+      "range": {
+        "startLine": 30,
+        "startChar": 25,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ba54e29_d419ab94",
         "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2022-08-26T07:55:55Z",
       "side": 1,
       "message": "message-router?",
+      "range": {
+        "startLine": 60,
+        "startChar": 25,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "48c93019653b58dcb1e72d6b26b40479eb5cfe5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f570a16_26952c4e",
+        "filename": "examples/examples-acm/src/main/resources/examples/config/apexACM/ApexConfig.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-26T08:10:01Z",
+      "side": 1,
+      "message": "Unit tests work with localhost as other examples",
+      "parentUuid": "1ba54e29_d419ab94",
       "range": {
         "startLine": 60,
         "startChar": 25,
