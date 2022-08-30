@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "90607934_030c158f",
+        "filename": "examples/examples-acm/src/main/java/org/onap/policy/apex/examples/acm/AcmTestServerDmaap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-30T09:07:17Z",
+      "side": 1,
+      "message": "it doesn\u0027t, and should be not used as singleton",
+      "parentUuid": "32db9837_48620d05",
+      "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2331bcf_53a6858d",
         "filename": "examples/examples-acm/src/main/resources/logic/ForwardPayloadTask.js",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2022-08-29T20:32:12Z",
       "side": 1,
       "message": "is this intended?",
+      "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de552abf_e4028755",
+        "filename": "examples/examples-acm/src/main/resources/logic/ForwardPayloadTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-30T09:07:17Z",
+      "side": 1,
+      "message": "yes, javascript tasks are implemented as boolean function",
+      "parentUuid": "e2331bcf_53a6858d",
       "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf31003a_00cb959d",
+        "filename": "examples/pom.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-30T09:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e00aa75_f4b7642a",
+      "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
