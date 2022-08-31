@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "82fa8b10_7bde36aa",
+        "filename": "examples/examples-acm/src/main/java/org/onap/policy/apex/examples/acm/AcmTestServerDmaap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-31T11:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90607934_030c158f",
+      "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2331bcf_53a6858d",
         "filename": "examples/examples-acm/src/main/resources/logic/ForwardPayloadTask.js",
         "patchSetId": 4
@@ -69,6 +87,24 @@
       "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662286d5_861861ba",
+        "filename": "examples/examples-acm/src/main/resources/logic/ForwardPayloadTask.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2022-08-31T11:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de552abf_e4028755",
+      "revId": "8a27fddbf215495b412434fd29a329bf3c1c0114",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
