@@ -40,6 +40,7 @@
         <docker.skip>false</docker.skip>
         <docker.skip.build>false</docker.skip.build>
         <docker.skip.push>false</docker.skip.push>
+        <docker.contextDir>${project.basedir}/src/main/docker</docker.contextDir>
         <maven.build.timestamp.format>yyyyMMdd'T'HHmm</maven.build.timestamp.format>
     </properties>
 
@@ -101,6 +102,7 @@
                             <build>
                                 <cleanup>try</cleanup>
                                 <dockerFile>${dockerFile}</dockerFile>
+                                <contextDir>${docker.contextDir}</contextDir>
                                 <tags>
                                     <tag>${project.version}</tag>
                                     <tag>${project.version}-${maven.build.timestamp}</tag>
