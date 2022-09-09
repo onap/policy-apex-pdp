@@ -117,6 +117,6 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
      * @return true if it's a straight pass through
      */
     private boolean passThroughObject(final Object object) {
-        return (object instanceof Map || object instanceof List);
+        return (object instanceof JsonElement || object instanceof Map || object instanceof List);
     }
 }
