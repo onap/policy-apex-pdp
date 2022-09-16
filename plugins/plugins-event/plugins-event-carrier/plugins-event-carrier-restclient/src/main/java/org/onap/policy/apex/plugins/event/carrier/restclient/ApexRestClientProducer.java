@@ -41,8 +41,6 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParamete
 import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
 import org.onap.policy.common.endpoints.utils.NetLoggerUtil;
 import org.onap.policy.common.endpoints.utils.NetLoggerUtil.EventType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Concrete implementation of an Apex event producer that sends events using REST.
@@ -51,8 +49,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class ApexRestClientProducer extends ApexPluginsEventProducer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApexRestClientProducer.class);
-
     // The HTTP client that makes a REST call with an event from Apex
     @Setter(AccessLevel.PROTECTED)
     private Client client;

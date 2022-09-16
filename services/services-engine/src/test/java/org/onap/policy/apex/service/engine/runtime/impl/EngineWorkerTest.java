@@ -218,7 +218,6 @@ public class EngineWorkerTest {
 
         assertEquals(AxEngineState.STOPPED, worker.getState());
 
-        String status = worker.getStatus(worker.getEngineKeys().iterator().next());
         assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
 
         assertFalse(worker.isStarted());

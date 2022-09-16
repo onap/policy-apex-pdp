@@ -45,7 +45,6 @@ import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.core.infrastructure.messaging.util.MessagingUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.plugins.context.distribution.hazelcast.HazelcastContextDistributor;
@@ -146,7 +145,7 @@ public class TestConcurrentContext {
         final File zookeeperDirectory = folder.newFolder("zookeeperDirectory");
 
         zookeeperPort = nextZookeeperPort++;
-        final InetSocketAddress addr = new InetSocketAddress(MessagingUtils.findPort(zookeeperPort));
+        final InetSocketAddress addr = new InetSocketAddress(zookeeperPort);
         zooKeeperServerServiceProvider = new ZooKeeperServerServiceProvider(zookeeperDirectory, addr);
         zooKeeperServerServiceProvider.startZookeeperServer();
     }
