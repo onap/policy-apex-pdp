@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>3.6.0-SNAPSHOT</version>
+        <version>3.6.0</version>
         <relativePath />
     </parent>
 
@@ -44,8 +44,8 @@
         <file.encoding>UTF-8</file.encoding>
         <version.commons-cli>1.4</version.commons-cli>
         <version.hibernate>5.3.7.Final</version.hibernate>
-        <version.policy.common>1.11.0-SNAPSHOT</version.policy.common>
-        <version.policy.models>2.7.0-SNAPSHOT</version.policy.models>
+        <version.policy.common>1.11.0</version.policy.common>
+        <version.policy.models>2.7.0</version.policy.models>
         <version.jgroups>4.1.5.Final</version.jgroups>
         <version.caffeine>2.8.0</version.caffeine>
         <sonar.javascript.lcov.reportPaths>${project.basedir}/target/code-coverage/lcov.info</sonar.javascript.lcov.reportPaths>
