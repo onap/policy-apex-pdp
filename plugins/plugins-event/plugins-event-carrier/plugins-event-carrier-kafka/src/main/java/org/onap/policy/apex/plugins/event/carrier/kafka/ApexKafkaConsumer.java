@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ public class ApexKafkaConsumer extends ApexPluginsEventConsumer {
     @Override
     public void run() {
         // Kick off the Kafka consumer
-        try (KafkaConsumer<String, String> kafkaConsumer =
+        try (KafkaConsumer<String, Object> kafkaConsumer =
             new KafkaConsumer<>(kafkaConsumerProperties.getKafkaConsumerProperties())) {
             kafkaConsumer.subscribe(kafkaConsumerProperties.getConsumerTopicListAsCollection());
             if (LOGGER.isDebugEnabled()) {
@@ -85,11 +85,11 @@ public class ApexKafkaConsumer extends ApexPluginsEventConsumer {
             // The endless loop that receives events over Kafka
             while (consumerThread.isAlive() && !stopOrderedFlag) {
                 try {
-                    final ConsumerRecords<String, String> records =
+                    final ConsumerRecords<String, Object> records =
                         kafkaConsumer.poll(kafkaConsumerProperties.getConsumerPollDuration());
-                    for (final ConsumerRecord<String, String> record : records) {
+                    for (final ConsumerRecord<String, Object> record : records) {
                         traceIfTraceEnabled(record);
-                        eventReceiver.receiveEvent(new Properties(), record.value());
+                        eventReceiver.receiveEvent(new Properties(), record.value().toString());
                     }
                 } catch (final Exception e) {
                     LOGGER.debug("error receiving events on thread {}", consumerThread.getName(), e);
@@ -103,7 +103,7 @@ public class ApexKafkaConsumer extends ApexPluginsEventConsumer {
      *
      * @param record the record to trace
      */
-    private void traceIfTraceEnabled(final ConsumerRecord<String, String> record) {
+    private void traceIfTraceEnabled(final ConsumerRecord<String, Object> record) {
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("event received for {} for forwarding to Apex engine : {} {}",
                 this.getClass().getName() + ":" + this.name, record.key(), record.value());
