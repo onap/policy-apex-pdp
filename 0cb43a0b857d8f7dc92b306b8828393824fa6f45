@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9aaa487_d4acd8ab",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/main/java/org/onap/policy/apex/plugins/event/carrier/kafka/ApexKafkaConsumer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-09-29T15:45:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b850779c_1a3821e5",
+      "range": {
+        "startLine": 5,
+        "startChar": 32,
+        "endLine": 5,
+        "endChar": 36
+      },
+      "revId": "0cb43a0b857d8f7dc92b306b8828393824fa6f45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2333f5f_bf4d3a73",
         "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/main/java/org/onap/policy/apex/plugins/event/carrier/kafka/ApexKafkaConsumer.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "0cb43a0b857d8f7dc92b306b8828393824fa6f45",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7b2b3b_985b7f6a",
+        "filename": "plugins/plugins-event/plugins-event-carrier/plugins-event-carrier-kafka/src/main/java/org/onap/policy/apex/plugins/event/carrier/kafka/ApexKafkaConsumer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-09-29T15:45:07Z",
+      "side": 1,
+      "message": "Agree, it\u0027s better to convert to string and then let is float through the other layers.",
+      "parentUuid": "e2333f5f_bf4d3a73",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "0cb43a0b857d8f7dc92b306b8828393824fa6f45",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
