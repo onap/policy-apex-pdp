@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,9 +39,12 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 
 public class ApexKafkaConsumerTest {
     ApexKafkaConsumer apexKafkaConsumer = null;
+    ApexKafkaConsumer apexKafkaConsumer2 = null;
     EventHandlerParameters consumerParameters = null;
+    EventHandlerParameters consumerParameters2 = null;
     ApexEventReceiver incomingEventReceiver = null;
     ApexEventProducer apexKafkaProducer = null;
+    KafkaCarrierTechnologyParameters kafkaParameters = null;
 
     /**
      * Set up testing.
@@ -55,21 +59,37 @@ public class ApexKafkaConsumerTest {
         consumerParameters
                 .setCarrierTechnologyParameters(new KafkaCarrierTechnologyParameters() {});
         apexKafkaConsumer.init("TestApexKafkaConsumer", consumerParameters, incomingEventReceiver);
+
+        apexKafkaConsumer2 = new ApexKafkaConsumer();
+        consumerParameters2 = new EventHandlerParameters();
+        kafkaParameters = new KafkaCarrierTechnologyParameters();
+        String[][] kafkaProperties = {
+            {"value.deserializer", "io.confluent.kafka.serializers.KafkaAvroDeserializer"},
+            {"schema.registry.url", "[http://test-registory:8080]"}
+        };
+        kafkaParameters.setKafkaProperties(kafkaProperties);
+
+        consumerParameters2
+                .setCarrierTechnologyParameters(kafkaParameters);
+        apexKafkaConsumer2.init("TestApexKafkaConsumer2", consumerParameters2, incomingEventReceiver);
     }
 
     @Test
     public void testStart() {
         assertThatCode(apexKafkaConsumer::start).doesNotThrowAnyException();
+        assertThatCode(apexKafkaConsumer2::start).doesNotThrowAnyException();
     }
 
     @Test
     public void testGetName() {
         assertEquals("TestApexKafkaConsumer", apexKafkaConsumer.getName());
+        assertEquals("TestApexKafkaConsumer2", apexKafkaConsumer2.getName());
     }
 
     @Test
     public void testGetPeeredReference() {
         assertNull(apexKafkaConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
+        assertNull(apexKafkaConsumer2.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test
@@ -78,22 +98,30 @@ public class ApexKafkaConsumerTest {
                 apexKafkaConsumer, apexKafkaProducer);
         apexKafkaConsumer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR, peeredReference);
         assertNotNull(apexKafkaConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
+
+        PeeredReference peeredReference2 = new PeeredReference(EventHandlerPeeredMode.REQUESTOR,
+                        apexKafkaConsumer2, apexKafkaProducer);
+        apexKafkaConsumer2.setPeeredReference(EventHandlerPeeredMode.REQUESTOR, peeredReference2);
+        assertNotNull(apexKafkaConsumer2.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test(expected = java.lang.NullPointerException.class)
     public void testRun() {
         apexKafkaConsumer.run();
+        apexKafkaConsumer2.run();
     }
 
     @Test(expected = java.lang.NullPointerException.class)
     public void testStop() {
         apexKafkaConsumer.stop();
+        apexKafkaConsumer2.stop();
     }
 
     @Test(expected = ApexEventException.class)
     public void testInitWithNonKafkaCarrierTechnologyParameters() throws ApexEventException {
         consumerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {});
         apexKafkaConsumer.init("TestApexKafkaConsumer", consumerParameters, incomingEventReceiver);
+        apexKafkaConsumer2.init("TestApexKafkaConsumer2", consumerParameters, incomingEventReceiver);
     }
 
 }
