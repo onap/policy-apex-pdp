@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.5.6'
+project: 'policy-apex-pdp'
+log_dir: 'policy-apex-pdp-maven-docker-stage-honolulu/585'
+ref: 3c4b815da77bb22ce72a8ad307f4ed3f58ee3a08
+containers:
+    - name: 'policy-apex-pdp'
+      version: '2.5.6-20221019T1959'
