@@ -46,6 +46,30 @@
       "revId": "9b752b79316362ed39103088314e6fcac7f35009",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fd54d62_0f911499",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2022-10-19T16:11:43Z",
+      "side": 1,
+      "message": "OK but don;t you have to release the artifacts as well?",
+      "parentUuid": "c6dc259e_22c17718",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "9b752b79316362ed39103088314e6fcac7f35009",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
