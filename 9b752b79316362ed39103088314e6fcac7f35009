@@ -22,6 +22,30 @@
       "revId": "9b752b79316362ed39103088314e6fcac7f35009",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6dc259e_22c17718",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-10-19T16:09:04Z",
+      "side": 1,
+      "message": "As this is only the apex-pdp image release, I was thinking of doing manually.",
+      "parentUuid": "07eb15ad_494c1390",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "9b752b79316362ed39103088314e6fcac7f35009",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
