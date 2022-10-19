@@ -70,6 +70,30 @@
       "revId": "9b752b79316362ed39103088314e6fcac7f35009",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cebd57f4_18e912df",
+        "filename": "packages/apex-pdp-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-10-19T16:14:55Z",
+      "side": 1,
+      "message": "yes, will release the maven artifacts and then docker image only for apex-pdp",
+      "parentUuid": "4fd54d62_0f911499",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 5
+      },
+      "revId": "9b752b79316362ed39103088314e6fcac7f35009",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
