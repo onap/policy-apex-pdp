@@ -38,19 +38,21 @@ LABEL org.opencontainers.image.revision="${git.commit.id.abbrev}"
 ARG POLICY_LOGS=/var/log/onap/policy/apex-pdp
 ENV POLICY_HOME=/opt/app/policy/apex-pdp
 ENV POLICY_LOGS=$POLICY_LOGS
+ENV APEX_HOME=$POLICY_HOME
+ENV APEX_USER=policy
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 ENV JAVA_HOME=/usr/lib64/jvm/java-11-openjdk-11
 
-RUN zypper -n -q install --no-recommends java-11-openjdk-devel netcat-openbsd \
-    && zypper -n -q update && zypper -n -q clean --all \
-    && groupadd --system apexuser && useradd --system --shell /bin/sh -G apexuser apexuser \
-    && mkdir -p $POLICY_HOME $POLICY_LOGS \
-    && chown -R apexuser:apexuser $POLICY_HOME $POLICY_LOGS
+RUN zypper -n -q install --no-recommends java-11-openjdk-headless netcat-openbsd && \
+    zypper -n -q update && zypper -n -q clean --all && \
+    groupadd --system policy && \
+    useradd --system --shell /bin/sh -G policy policy && \
+    mkdir -p $POLICY_HOME $POLICY_LOGS && \
+    chown -R policy:policy $POLICY_HOME $POLICY_LOGS
 
-COPY --chown=apexuser:apexuser --from=tarball /extracted $POLICY_HOME
-RUN cp -pr $POLICY_HOME/examples /home/apexuser
+COPY --chown=policy:policy --from=tarball /extracted $POLICY_HOME
 
-USER apexuser
+USER $APEX_USER
 ENV PATH $POLICY_HOME/bin:$PATH
-WORKDIR /home/apexuser
+WORKDIR $APEX_HOME
 ENTRYPOINT [ "/bin/sh" ]
