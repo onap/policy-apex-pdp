@@ -40,19 +40,15 @@ LABEL org.opencontainers.image.revision="${git.commit.id.abbrev}"
 ARG POLICY_LOGS=/var/log/onap/policy/apex-pdp
 ENV POLICY_HOME=/opt/app/policy/apex-pdp
 ENV POLICY_LOGS=$POLICY_LOGS
+ENV APEX_HOME=$POLICY_HOME
+ENV APEX_USER=policy
 
-RUN apk update \
-    && apk add --no-cache \
-        vim \
-        iputils \
-    && addgroup -S apexuser && adduser -S apexuser -G apexuser \
-    && mkdir -p $POLICY_HOME $POLICY_LOGS \
-    && chown -R apexuser:apexuser $POLICY_HOME $POLICY_LOGS
+RUN mkdir -p $POLICY_HOME $POLICY_LOGS && \
+    chown -R policy:policy $POLICY_HOME $POLICY_LOGS
 
-COPY --chown=apexuser:apexuser --from=tarball /extracted $POLICY_HOME
-RUN cp -pr $POLICY_HOME/examples /home/apexuser
+COPY --chown=policy:policy --from=tarball /extracted $POLICY_HOME
 
-USER apexuser
+USER $APEX_USER
 ENV PATH $POLICY_HOME/bin:$PATH
-WORKDIR /home/apexuser
+WORKDIR $APEX_HOME
 ENTRYPOINT [ "/bin/sh" ]

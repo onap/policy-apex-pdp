@@ -2,7 +2,7 @@
 
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+#  Copyright (C) 2016-2022 Ericsson. All rights reserved.
 #  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,12 +21,28 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
-# Run from the Apex home directory
-if [ ! -d /home/apexuser ]; then
-    echo Apex user home directory "/home/apexuser" not found
-    exit
+if [ -z $APEX_HOME ]; then
+   APEX_HOME="/opt/app/policy/apex-pdp"
 fi
 
+if [ ! -d $APEX_HOME ]; then
+   echo
+   echo 'Apex directory "'$APEX_HOME'" not set or not a directory'
+   echo "Please set environment for 'APEX_HOME'"
+   exit
+fi
+
+if [ -z "$APEX_USER" ]; then
+   APEX_USER="apexuser"
+fi
+
+id $APEX_USER > /dev/null 2>& 1
+if [ "$?" != "0" ]; then
+   echo 'cannot run apex, user "'$APEX_USER'" does not exit'
+   exit
+fi
+
+# Run from the Apex home directory
+cd $APEX_HOME
 # Run the command as "apexuser"
-cd /home/apexuser
-su apexuser
+su $APEX_USER
