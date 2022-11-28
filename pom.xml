@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.5-SNAPSHOT</version>
         <relativePath />
     </parent>
 
     <groupId>org.onap.policy.apex-pdp</groupId>
     <artifactId>apex-pdp</artifactId>
-    <version>2.7.5-SNAPSHOT</version>
+    <version>2.7.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>policy-apex-pdp</name>
@@ -45,8 +45,8 @@
         <version.commons-cli>1.4</version.commons-cli>
         <version.kafka>3.0.0</version.kafka>
         <version.hibernate>5.3.7.Final</version.hibernate>
-        <version.policy.common>1.10.4</version.policy.common>
-        <version.policy.models>2.6.5</version.policy.models>
+        <version.policy.common>1.10.5-SNAPSHOT</version.policy.common>
+        <version.policy.models>2.6.6-SNAPSHOT</version.policy.models>
         <version.jgroups>4.1.5.Final</version.jgroups>
         <version.caffeine>2.8.0</version.caffeine>
         <sonar.javascript.lcov.reportPaths>${project.basedir}/target/code-coverage/lcov.info</sonar.javascript.lcov.reportPaths>
