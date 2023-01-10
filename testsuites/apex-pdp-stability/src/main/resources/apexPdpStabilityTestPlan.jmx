@@ -79,22 +79,22 @@
           </elementProp>
           <elementProp name="PAP_PORT" elementType="Argument">
             <stringProp name="Argument.name">PAP_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(PAP_PORT,30442)}</stringProp>
+            <stringProp name="Argument.value">${__P(PAP_PORT,30003)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="API_PORT" elementType="Argument">
             <stringProp name="Argument.name">API_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(API_PORT,30240)}</stringProp>
+            <stringProp name="Argument.value">${__P(API_PORT,30002)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="APEX_PORT" elementType="Argument">
             <stringProp name="Argument.name">APEX_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(APEX_PORT,30237)}</stringProp>
+            <stringProp name="Argument.value">${__P(APEX_PORT,30001)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DMAAP_PORT" elementType="Argument">
             <stringProp name="Argument.name">DMAAP_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(DMAAP_PORT,31054)}</stringProp>
+            <stringProp name="Argument.value">${__P(DMAAP_PORT,30904)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CDS_PORT" elementType="Argument">
@@ -104,17 +104,17 @@
           </elementProp>
           <elementProp name="HOSTNAME" elementType="Argument">
             <stringProp name="Argument.name">HOSTNAME</stringProp>
-            <stringProp name="Argument.value">${__P(HOSTNAME,172.16.1.39)}</stringProp>
+            <stringProp name="Argument.value">${__P(HOSTNAME,localhost)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="LOG_PATH" elementType="Argument">
             <stringProp name="Argument.name">LOG_PATH</stringProp>
-            <stringProp name="Argument.value">${__P(LOG_PATH,/home/dhanrahan/jmeter_results/apex_stability)}</stringProp>
+            <stringProp name="Argument.value">${__P(LOG_PATH,/jmeter_results/apex_stability)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="SIM_HOST" elementType="Argument">
             <stringProp name="Argument.name">SIM_HOST</stringProp>
-            <stringProp name="Argument.value">${__P(SIM_HOST,172.16.2.220)}</stringProp>
+            <stringProp name="Argument.value">${__P(SIM_HOST,localhost)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
