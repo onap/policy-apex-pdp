@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,9 +54,9 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.security.SelfSignedKeyStore;
 import org.onap.policy.common.utils.services.Registry;
-import org.powermock.reflect.Whitebox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Class to perform unit test of {@link ApexStarterRestServer}.
@@ -208,9 +208,9 @@ public class CommonApexStarterRestServer {
     }
 
     private void markActivator(final boolean wasAlive) {
-        final Object manager = Whitebox.getInternalState(
+        final Object manager = ReflectionTestUtils.getField(
                 Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class), "manager");
-        AtomicBoolean running = Whitebox.getInternalState(manager, "running");
+        AtomicBoolean running = (AtomicBoolean) ReflectionTestUtils.getField(manager, "running");
         running.set(wasAlive);
     }
 

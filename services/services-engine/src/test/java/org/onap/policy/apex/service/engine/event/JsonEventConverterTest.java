@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2023 Nordix Foundation
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,6 +34,7 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  *
  */
 public class JsonEventConverterTest {
+    @SuppressWarnings("deprecation")
     @Test
     public void testJsonEventConverter() {
         Apex2JsonEventConverter converter = new Apex2JsonEventConverter();
