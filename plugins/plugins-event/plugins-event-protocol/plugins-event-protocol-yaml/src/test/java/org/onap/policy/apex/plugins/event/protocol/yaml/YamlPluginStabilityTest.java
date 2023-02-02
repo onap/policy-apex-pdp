@@ -112,6 +112,7 @@ public class YamlPluginStabilityTest {
      *
      * @throws ApexEventException the apex event exception
      */
+    @SuppressWarnings("deprecation")
     @Test
     public void testStability() throws ApexEventException {
         Apex2YamlEventConverter converter = new Apex2YamlEventConverter();

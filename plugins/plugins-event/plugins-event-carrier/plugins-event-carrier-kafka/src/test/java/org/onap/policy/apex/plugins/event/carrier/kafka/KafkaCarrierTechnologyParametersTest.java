@@ -140,12 +140,6 @@ public class KafkaCarrierTechnologyParametersTest {
         kafkaCarrierTechnologyParameters.setProducerTopic(origStringValue);
         assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
 
-        origStringValue = kafkaCarrierTechnologyParameters.getPartitionerClass();
-        kafkaCarrierTechnologyParameters.setPartitionerClass(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setPartitionerClass(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
         int origIntValue = kafkaCarrierTechnologyParameters.getRetries();
         kafkaCarrierTechnologyParameters.setRetries(-1);
         assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
@@ -333,8 +327,6 @@ public class KafkaCarrierTechnologyParametersTest {
                 kafkaCtp.getKafkaConsumerProperties().get("key.deserializer"));
         assertEquals("org.apache.kafka.common.serialization.StringDeserializer",
                 kafkaCtp.getKafkaConsumerProperties().get("value.deserializer"));
-        assertEquals("org.apache.kafka.clients.producer.internals.DefaultPartitioner",
-                kafkaCtp.getKafkaProducerProperties().get("partitioner.class"));
 
         // @formatter:off
         String[][] kafkaProperties0 = {
