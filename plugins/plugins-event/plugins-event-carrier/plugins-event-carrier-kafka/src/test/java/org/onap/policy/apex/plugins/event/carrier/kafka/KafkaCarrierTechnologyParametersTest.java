@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -138,12 +138,6 @@ public class KafkaCarrierTechnologyParametersTest {
         kafkaCarrierTechnologyParameters.setProducerTopic(" ");
         assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
         kafkaCarrierTechnologyParameters.setProducerTopic(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origStringValue = kafkaCarrierTechnologyParameters.getPartitionerClass();
-        kafkaCarrierTechnologyParameters.setPartitionerClass(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setPartitionerClass(origStringValue);
         assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
 
         int origIntValue = kafkaCarrierTechnologyParameters.getRetries();
@@ -333,8 +327,6 @@ public class KafkaCarrierTechnologyParametersTest {
                 kafkaCtp.getKafkaConsumerProperties().get("key.deserializer"));
         assertEquals("org.apache.kafka.common.serialization.StringDeserializer",
                 kafkaCtp.getKafkaConsumerProperties().get("value.deserializer"));
-        assertEquals("org.apache.kafka.clients.producer.internals.DefaultPartitioner",
-                kafkaCtp.getKafkaProducerProperties().get("partitioner.class"));
 
         // @formatter:off
         String[][] kafkaProperties0 = {

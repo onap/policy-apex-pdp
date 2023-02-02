@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -31,7 +31,6 @@ import java.util.Properties;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.ObjectValidationResult;
@@ -79,7 +78,6 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
     private static final String[] DEFAULT_CONS_TOPICLIST   = {"apex-in"};
     private static final String   DEFAULT_STRING_SERZER    = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String   DEFAULT_STRING_DESZER    = "org.apache.kafka.common.serialization.StringDeserializer";
-    private static final String   DEFAULT_PARTITIONR_CLASS = DefaultPartitioner.class.getName();
 
     // Parameter property map tokens
     private static final String PROPERTY_BOOTSTRAP_SERVERS  = "bootstrap.servers";
@@ -96,7 +94,6 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
     private static final String PROPERTY_VALUE_SERIALIZER   = "value.serializer";
     private static final String PROPERTY_KEY_DESERIALIZER   = "key.deserializer";
     private static final String PROPERTY_VALUE_DESERIALIZER = "value.deserializer";
-    private static final String PROPERTY_PARTITIONER_CLASS  = "partitioner.class";
 
     // kafka carrier parameters
     @NotBlank
@@ -131,8 +128,6 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
     private String   keyDeserializer   = DEFAULT_STRING_DESZER;
     @NotBlank
     private String   valueDeserializer = DEFAULT_STRING_DESZER;
-    @NotBlank
-    private String   partitionerClass  = DEFAULT_PARTITIONR_CLASS;
 
     // All Kafka properties can be specified as an array of key-value pairs
     private String[][] kafkaProperties = null;
@@ -176,7 +171,6 @@ public class KafkaCarrierTechnologyParameters extends CarrierTechnologyParameter
         putExplicitProperty(retKafkaProps, PROPERTY_BUFFER_MEMORY,     bufferMemory,     DEFAULT_BUFFER_MEMORY);
         putExplicitProperty(retKafkaProps, PROPERTY_KEY_SERIALIZER,    keySerializer,    DEFAULT_STRING_SERZER);
         putExplicitProperty(retKafkaProps, PROPERTY_VALUE_SERIALIZER,  valueSerializer,  DEFAULT_STRING_SERZER);
-        putExplicitProperty(retKafkaProps, PROPERTY_PARTITIONER_CLASS, partitionerClass, DEFAULT_PARTITIONR_CLASS);
         // @formatter:on
 
         return retKafkaProps;

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020,2023 Nordix Foundation
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
@@ -112,6 +112,7 @@ public class YamlPluginStabilityTest {
      *
      * @throws ApexEventException the apex event exception
      */
+    @SuppressWarnings("deprecation")
     @Test
     public void testStability() throws ApexEventException {
         Apex2YamlEventConverter converter = new Apex2YamlEventConverter();
