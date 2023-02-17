@@ -33,16 +33,12 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for execution of Javascript logic in Apex</description>
 
-    <properties>
-        <graalvm.version>20.0.0</graalvm.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.mozilla</groupId>
             <artifactId>rhino</artifactId>
-            <version>1.7.12</version>
-        </dependency>
+            <version>${version.rhino}</version>
+       </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>

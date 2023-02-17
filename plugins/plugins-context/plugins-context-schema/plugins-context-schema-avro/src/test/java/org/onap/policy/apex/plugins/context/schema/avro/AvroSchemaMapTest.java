@@ -21,9 +21,9 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 
 import java.io.File;
@@ -111,7 +111,8 @@ public class AvroSchemaMapTest {
                 .createSchemaHelper(testKey, avroSubstSchema1.getKey());
         final GenericRecord subst1A = (GenericRecord) schemaHelperSubst1.unmarshal("{\"A-B\":\"foo\"}");
         assertEquals(new Utf8("foo"), subst1A.get("A_DasH_B"));
-        assertNull(subst1A.get("A-B"));
+        assertThatThrownBy(() -> subst1A.get("A-B")).hasMessage("Not a valid schema field: A-B");
+
         final Throwable exception1 = assertThrows(ContextRuntimeException.class,
             () -> schemaHelperSubst1.unmarshal("{\"A-B\":123}"));
         assertNotNull(exception1.getCause());
@@ -127,7 +128,8 @@ public class AvroSchemaMapTest {
                 .createSchemaHelper(testKey, avroSubstSchema2.getKey());
         final GenericRecord subst2A = (GenericRecord) schemaHelperSubst2.unmarshal("{\"C.D\":123}");
         assertEquals(123, subst2A.get("C_DoT_D"));
-        assertNull(subst2A.get("C.D"));
+        assertThatThrownBy(() -> subst2A.get("C.D")).hasMessage("Not a valid schema field: C.D");
+
         final Throwable exception2 = assertThrows(ContextRuntimeException.class,
             () -> schemaHelperSubst2.unmarshal("{\"C_DoT_D\":\"bar\"}"));
         assertNotNull(exception2.getCause());
@@ -143,7 +145,8 @@ public class AvroSchemaMapTest {
                 .createSchemaHelper(testKey, avroSubstSchema3.getKey());
         final GenericRecord subst3A = (GenericRecord) schemaHelperSubst3.unmarshal("{\"E:F\":true}");
         assertEquals(true, subst3A.get("E_ColoN_F"));
-        assertNull(subst3A.get("E:F"));
+        assertThatThrownBy(() -> subst3A.get("E:F")).hasMessage("Not a valid schema field: E:F");
+
         final Throwable exception3 = assertThrows(ContextRuntimeException.class,
             () -> schemaHelperSubst3.unmarshal("{\"E_ColoN_F\":\"gaz\"}"));
         assertNotNull(exception3.getCause());
@@ -264,8 +267,9 @@ public class AvroSchemaMapTest {
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
-        GenericRecord subRecord = (GenericRecord) schemaHelper.createNewSubInstance("AddressUSRecord");
-        assertNull(subRecord.get("streetAddress"));
+        final GenericRecord subRecord = (GenericRecord) schemaHelper.createNewSubInstance("AddressUSRecord");
+        assertThatThrownBy(() -> subRecord.get("streetAddress")).hasMessage("Not a valid schema field: streetAddress");
+
     }
 
     /**

@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.python</groupId>
             <artifactId>jython-standalone</artifactId>
-            <version>2.7.1</version>
+	    <version>${version.jython-standalone}</version>
         </dependency>
     </dependencies>
 </project>

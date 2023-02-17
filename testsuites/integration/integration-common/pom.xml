@@ -43,8 +43,8 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.10.0</version>
                 <configuration>
                     <excludes>
                         <exclude>**/test/common/**/*.java</exclude>
@@ -55,7 +55,6 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
-                    <goalPrefix>jacoco</goalPrefix>
                     <excludes>
                         <exclude>**/test/common/**/*..class</exclude>
                     </excludes>

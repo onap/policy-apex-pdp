@@ -143,11 +143,11 @@ public class AvroSchemaRecordTest {
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
-        GenericRecord subRecord = (GenericRecord) schemaHelper.createNewSubInstance("AddressUSRecord");
-        assertEquals(null, subRecord.get("streetAddress"));
+        final GenericRecord subRecord0 = (GenericRecord) schemaHelper.createNewSubInstance("AddressUSRecord");
+        assertThatThrownBy(() -> subRecord0.get("address")).hasMessage("Not a valid schema field: address");
 
-        subRecord = (GenericRecord) schemaHelper.createNewSubInstance("EmailAddress");
-        assertEquals(null, subRecord.get("address"));
+        final GenericRecord subRecord1 = (GenericRecord) schemaHelper.createNewSubInstance("EmailAddress");
+        assertThatThrownBy(() -> subRecord0.get("address")).hasMessage("Not a valid schema field: address");
 
         assertThatThrownBy(() -> schemaHelper.createNewSubInstance("IDontExist"))
             .hasMessage("AvroTest:0.0.1: the schema \"User\" does not have a subtype of type \"IDontExist\"");

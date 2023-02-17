@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>artemis-jms-client</artifactId>
-            <version>2.21.0</version>
+            <version>${version.artemis-jms-client}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
