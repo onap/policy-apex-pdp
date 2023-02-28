@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp</groupId>
         <artifactId>apex-pdp</artifactId>
-        <version>2.9.1-SNAPSHOT</version>
+        <version>2.9.1</version>
     </parent>
 
     <groupId>org.onap.policy.apex-pdp.context</groupId>
