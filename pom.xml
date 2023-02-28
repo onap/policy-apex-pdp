@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>3.7.1-SNAPSHOT</version>
+        <version>3.7.1</version>
         <relativePath />
     </parent>
 
@@ -45,8 +45,8 @@
         <sonar.javascript.lcov.reportPaths>${project.basedir}/target/code-coverage/lcov.info</sonar.javascript.lcov.reportPaths>
 
         <!-- Policy framework dependencies -->
-        <version.policy.common>1.12.1-SNAPSHOT</version.policy.common>
-        <version.policy.models>2.8.1-SNAPSHOT</version.policy.models>
+        <version.policy.common>1.12.1</version.policy.common>
+        <version.policy.models>2.8.1</version.policy.models>
 
         <!-- Apex-specific dependencies -->
         <version.activemq>5.17.3</version.activemq>
