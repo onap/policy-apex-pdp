@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,6 +72,7 @@ public class RestServerCarrierTechnologyParameters extends CarrierTechnologyPara
     private String userName;
     private String password;
     private boolean https;
+    private boolean sniHostCheck;
     private boolean aaf;
     // @formatter:on
 

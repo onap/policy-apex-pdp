@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020 Nordix Foundation.
+ *  Copyright (C) 2020,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,7 +56,6 @@ public class TestTaskParameters {
     private static final int PORT = 32801;
     private static final String HOST = "localhost";
 
-
     /**
      * Sets up a server for testing.
      *
@@ -68,8 +67,9 @@ public class TestTaskParameters {
             throw new IllegalStateException("port " + PORT + " is still in use");
         }
 
-        server = HttpServletServerFactoryInstance.getServerFactory().build("TestTaskParameters", false, null, PORT,
-            "/TestTaskParametersRest", false, false);
+        server =
+            HttpServletServerFactoryInstance.getServerFactory().build("TestTaskParameters", false, null, PORT, false,
+                "/TestTaskParametersRest", false, false);
 
         server.addServletClass(null, RestClientEndpointForTaskParameters.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -153,7 +153,9 @@ public class TestTaskParameters {
         // @formatter:on
 
         new ApexCliToscaEditorMain(cliArgs);
-        final String[] args = {"target/classes/APEXPolicy.json"};
+        final String[] args = {
+            "target/classes/APEXPolicy.json"
+        };
         // clear the details set in server
         client.target("http://" + HOST + ":" + PORT + "/TestTaskParametersRest/apex/event/clearDetails")
             .request("application/json").get();

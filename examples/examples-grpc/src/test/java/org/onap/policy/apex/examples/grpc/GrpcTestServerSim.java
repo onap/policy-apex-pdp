@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020 Nordix Foundation.
+ *  Copyright (C) 2020,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,7 +45,7 @@ public class GrpcTestServerSim {
     public GrpcTestServerSim() throws InterruptedException, IOException {
         int restServerPort = 54321;
         restServer = HttpServletServerFactoryInstance.getServerFactory().build("GrpcTestRestSimEndpoint", false, HOST,
-            restServerPort, "/GrpcTestRestSim", false, false);
+            restServerPort, false, "/GrpcTestRestSim", false, false);
         restServer.addServletClass(null, GrpcTestRestSimEndpoint.class.getName());
         restServer.setSerializationProvider(GsonMessageBodyHandler.class.getName());
         restServer.start();

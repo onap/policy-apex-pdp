@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -78,7 +78,7 @@ public class TestRest2File {
      */
     @Before
     public void setUp() throws Exception {
-        server = HttpServletServerFactoryInstance.getServerFactory().build("TestRest2File", false, null, PORT,
+        server = HttpServletServerFactoryInstance.getServerFactory().build("TestRest2File", false, null, PORT, false,
             "/TestRest2File", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());

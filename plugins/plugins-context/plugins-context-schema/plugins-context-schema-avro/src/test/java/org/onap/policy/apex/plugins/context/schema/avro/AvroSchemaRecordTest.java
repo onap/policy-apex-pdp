@@ -147,7 +147,7 @@ public class AvroSchemaRecordTest {
         assertThatThrownBy(() -> subRecord0.get("address")).hasMessage("Not a valid schema field: address");
 
         final GenericRecord subRecord1 = (GenericRecord) schemaHelper.createNewSubInstance("EmailAddress");
-        assertThatThrownBy(() -> subRecord0.get("address")).hasMessage("Not a valid schema field: address");
+        assertThatThrownBy(() -> subRecord1.get("EmailAddress")).hasMessage("Not a valid schema field: EmailAddress");
 
         assertThatThrownBy(() -> schemaHelper.createNewSubInstance("IDontExist"))
             .hasMessage("AvroTest:0.0.1: the schema \"User\" does not have a subtype of type \"IDontExist\"");

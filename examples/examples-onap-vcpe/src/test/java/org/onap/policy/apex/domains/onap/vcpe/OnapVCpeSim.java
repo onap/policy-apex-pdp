@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019,2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,8 @@ public class OnapVCpeSim {
      */
     public OnapVCpeSim(final String[] args) throws Exception {
         server = HttpServletServerFactoryInstance.getServerFactory().build(
-            "OnapVCpeSimEndpoint", false, args[0], Integer.valueOf(args[1]).intValue(), "/OnapVCpeSim", false, false);
+            "OnapVCpeSimEndpoint", false, args[0], Integer.valueOf(args[1]).intValue(), false, "/OnapVCpeSim", false,
+            false);
 
         server.addServletClass(null, OnapVCpeSimEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -74,7 +75,7 @@ public class OnapVCpeSim {
         for (int index = 0; index < MAX_LOOPS; index++) {
             ThreadUtilities.sleep(100);
         }
-        
+
         sim.tearDown();
     }
 }

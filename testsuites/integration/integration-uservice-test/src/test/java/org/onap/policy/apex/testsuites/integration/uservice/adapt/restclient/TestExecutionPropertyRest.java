@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2020,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -77,7 +77,7 @@ public class TestExecutionPropertyRest {
         }
 
         server = HttpServletServerFactoryInstance.getServerFactory().build("TestExecutionPropertyRest", false, null,
-            PORT, "/TestExecutionRest", false, false);
+            PORT, false, "/TestExecutionRest", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
