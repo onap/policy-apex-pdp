@@ -1,8 +1,0 @@
-{
-    "type": "enum",
-    "name": "Status",
-    "symbols" : [
-        "UP",
-        "DOWN"
-    ]
-}

@@ -38,7 +38,6 @@
         <module>examples-aadm</module>
         <module>examples-acm</module>
         <module>examples-adaptive</module>
-        <module>examples-pcvs</module>
         <module>examples-decisionmaker</module>
         <module>examples-periodic</module>
         <module>examples-onap-vcpe</module>
