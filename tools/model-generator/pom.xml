@@ -114,15 +114,6 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.onap.policy.apex-pdp.examples</groupId>
-                                    <artifactId>examples-pcvs</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <includes>examples/**/*</includes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.onap.policy.apex-pdp.examples</groupId>
                                     <artifactId>examples-myfirstpolicy</artifactId>
                                     <version>${project.version}</version>
                                     <type>jar</type>

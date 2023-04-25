@@ -68,14 +68,14 @@ public class SchemaUtilsTest {
      */
     @BeforeClass
     public static void readSimpleModel() throws IOException, ApexModelException {
-        String avroModelString = TextFileUtils.getTextFileAsString("target/examples/models/pcvs/vpnsla/vpnsla.json");
+        String avroModelString = TextFileUtils.getTextFileAsString("src/test/resources/vpnsla.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         avroModel = modelReader.read(new ByteArrayInputStream(avroModelString.getBytes()));
     }
 
     @Test
-    public void testSchemaUtilsErrors() throws ApexEventException {
+    public void testSchemaUtilsErrors() {
         AxEvent event = avroModel.getEvents().get("CustomerContextEventIn");
 
         assertThatThrownBy(() -> SchemaUtils.getEventSchema(event))

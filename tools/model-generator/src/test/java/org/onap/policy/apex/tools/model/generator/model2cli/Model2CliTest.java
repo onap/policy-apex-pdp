@@ -80,11 +80,6 @@ public class Model2CliTest {
     }
 
     @Test
-    public void testModel2CliAvro() throws IOException {
-        testModel2CliModel("target/examples/models/pcvs/vpnsla", "vpnsla");
-    }
-
-    @Test
     public void testModel2CliAadm() throws IOException {
         testModel2CliModel("target/examples/models/AADM", "AADMPolicyModel");
     }
