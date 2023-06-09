@@ -38,6 +38,7 @@
     <policymodel1j.name>MyFirstPolicyModelJavascript_0.0.1</policymodel1j.name>
     <policymodel2.name>MyFirstPolicyModel_0.0.1</policymodel2.name>
     <policymodel3.name>MyFirstPolicyModelSFL_0.0.1</policymodel3.name>
+    <policymodel4.name>MyFirstPolicyModelAvro_0.0.1</policymodel4.name>
   </properties>
 
   <dependencies>
@@ -165,6 +166,29 @@
                 </argument>
                 <argument>
                   --log-file=${project.build.directory}/${policymodel3.name}_policygeneration.log
+                </argument>
+                <argument>--working-dir=${project.basedir}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-policy4</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <mainClass>org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain</mainClass>
+              <classpathScope>compile</classpathScope>
+              <arguments>
+                <argument>
+                  --command-file=${project.basedir}/src/main/resources/examples/models/MyFirstPolicy/4/${policymodel4.name}.apex
+                </argument>
+                <argument>
+                  --output-model-file=${project.build.directory}/classes/examples/models/MyFirstPolicy/4/${policymodel4.name}.json
+                </argument>
+                <argument>
+                  --log-file=${project.build.directory}/${policymodel4.name}_policygeneration.log
                 </argument>
                 <argument>--working-dir=${project.basedir}</argument>
               </arguments>

@@ -1,0 +1,49 @@
+{
+  "engineServiceParameters": {
+    "name": "MyFirstPolicyApexEngine",
+    "version": "0.0.1",
+    "id": 101,
+    "instanceCount": 4,
+    "deploymentPort": 12345,
+    "engineParameters": {
+      "executorParameters": {
+        "MVEL": {
+          "parameterClassName": "org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters"
+        },
+        "JAVASCRIPT": {
+          "parameterClassName": "org.onap.policy.apex.plugins.executor.javascript.JavascriptExecutorParameters"
+        }
+      }
+    }
+  },
+  "eventOutputParameters": {
+    "aProducer": {
+      "carrierTechnologyParameters": {
+        "carrierTechnology": "WEBSOCKET",
+        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.websocket.WebSocketCarrierTechnologyParameters",
+        "parameters": {
+          "wsClient": false,
+          "port": 4000
+        }
+      },
+      "eventProtocolParameters": {
+        "eventProtocol": "JSON"
+      }
+    }
+  },
+  "eventInputParameters": {
+    "aConsumer": {
+      "carrierTechnologyParameters": {
+        "carrierTechnology": "WEBSOCKET",
+        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.websocket.WebSocketCarrierTechnologyParameters",
+        "parameters": {
+          "wsClient": false,
+          "port": 3000
+        }
+      },
+      "eventProtocolParameters": {
+        "eventProtocol": "JSON"
+      }
+    }
+  }
+}
