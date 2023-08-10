@@ -22,9 +22,9 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
+import jakarta.ws.rs.core.Response;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.ws.rs.core.Response;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

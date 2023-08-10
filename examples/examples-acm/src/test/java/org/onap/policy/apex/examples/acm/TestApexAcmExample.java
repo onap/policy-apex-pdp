@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- * Copyright (C) 2022 Nordix Foundation.
+ * Copyright (C) 2022-2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ package org.onap.policy.apex.examples.acm;
 
 import static org.awaitility.Awaitility.await;
 
+import jakarta.ws.rs.client.ClientBuilder;
 import java.util.concurrent.TimeUnit;
-import javax.ws.rs.client.ClientBuilder;
 import org.junit.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;

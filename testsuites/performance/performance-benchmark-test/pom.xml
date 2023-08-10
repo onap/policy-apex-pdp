@@ -39,6 +39,7 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
+            <version>${version.jersey.container}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
@@ -91,7 +92,7 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

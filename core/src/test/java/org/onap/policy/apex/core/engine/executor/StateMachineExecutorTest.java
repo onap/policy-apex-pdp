@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -35,9 +35,10 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
@@ -65,6 +66,7 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test task executor.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class StateMachineExecutorTest {
     @Mock
     private ApexInternalContext internalContextMock;
@@ -89,8 +91,6 @@ public class StateMachineExecutorTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
-
         axPolicy.setKey(new AxArtifactKey("Policy:0.0.1"));
 
         AxReferenceKey state0Key = new AxReferenceKey(axPolicy.getKey(), "state0");
@@ -169,16 +169,16 @@ public class StateMachineExecutorTest {
         AxStateTaskReference str1 = new AxStateTaskReference(str1Key, AxStateTaskOutputType.LOGIC, sflKey);
         state1.getTaskReferences().put(task1Key, str1);
 
-        Mockito.doReturn(new DummyTaskExecutor(true)).when(executorFactoryMock).getTaskExecutor(Mockito.anyObject(),
-            Mockito.anyObject(), Mockito.anyObject());
+        Mockito.doReturn(new DummyTaskExecutor(true)).when(executorFactoryMock).getTaskExecutor(Mockito.any(),
+            Mockito.any(), Mockito.any());
 
         dummyTsle = new DummyTaskSelectExecutor(true);
-        Mockito.doReturn(dummyTsle).when(executorFactoryMock).getTaskSelectionExecutor(Mockito.anyObject(),
-            Mockito.anyObject(), Mockito.anyObject());
+        Mockito.doReturn(dummyTsle).when(executorFactoryMock).getTaskSelectionExecutor(Mockito.any(),
+            Mockito.any(), Mockito.any());
 
         dummySfle = new DummyStateFinalizerExecutor(true);
-        Mockito.doReturn(dummySfle).when(executorFactoryMock).getStateFinalizerExecutor(Mockito.anyObject(),
-            Mockito.anyObject(), Mockito.anyObject());
+        Mockito.doReturn(dummySfle).when(executorFactoryMock).getStateFinalizerExecutor(Mockito.any(),
+            Mockito.any(), Mockito.any());
     }
 
     @After

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,17 @@
 
 package org.onap.policy.apex.tools.simple.wsclient;
 
+import jakarta.websocket.ClientEndpoint;
+import jakarta.websocket.CloseReason;
+import jakarta.websocket.CloseReason.CloseCodes;
+import jakarta.websocket.ContainerProvider;
+import jakarta.websocket.DeploymentException;
+import jakarta.websocket.OnClose;
+import jakarta.websocket.OnError;
+import jakarta.websocket.OnMessage;
+import jakarta.websocket.OnOpen;
+import jakarta.websocket.Session;
+import jakarta.websocket.WebSocketContainer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,16 +41,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.channels.NotYetConnectedException;
 import org.apache.commons.lang3.Validate;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.framing.CloseFrame;
-import org.java_websocket.handshake.ServerHandshake;
 
 /**
  * Simple WS client with a console for events.
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class SimpleConsole extends WebSocketClient {
+@ClientEndpoint
+public class SimpleConsole {
 
     /** Application name, used as prompt. */
     private final String appName;
@@ -46,6 +56,8 @@ public class SimpleConsole extends WebSocketClient {
     // Output and error streams
     private PrintStream outStream;
     private PrintStream errStream;
+    // The Websocket Session
+    private Session userSession;
 
     /**
      * Creates a new simple echo object.
@@ -56,42 +68,54 @@ public class SimpleConsole extends WebSocketClient {
      * @param outStream the stream for message output
      * @param errStream the stream for error messages
      * @throws URISyntaxException is URI could not be created from server/port settings
+     * @throws IOException on IO exceptions
+     * @throws DeploymentException on deployment exceptions
      * @throws RuntimeException if server or port where blank
      */
     public SimpleConsole(final String server, final String port, final String appName, PrintStream outStream,
-                    PrintStream errStream) throws URISyntaxException {
-        super(new URI("ws://" + server + ":" + port));
+                         PrintStream errStream) throws URISyntaxException, DeploymentException, IOException {
         Validate.notBlank(appName, "SimpleConsole: given application name was blank");
+
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        container.connectToServer(this, new URI("ws://" + server + ":" + port));
 
         this.appName = appName;
         this.outStream = outStream;
         this.errStream = errStream;
     }
 
-    @Override
-    public void onClose(final int code, final String reason, final boolean remote) {
-        outStream.println(this.appName + ": Connection closed by " + (remote ? "APEX" : "me"));
+    /**
+     * Callback hook for Connection close events.
+     *
+     * @param userSession the userSession which is getting closed.
+     * @param reason the reason for connection close
+     */
+    @OnClose
+    public void onClose(Session userSession, CloseReason reason) {
+        outStream.println(this.appName + ": Connection closed");
+
         outStream.print(" ==-->> ");
-        switch (code) {
-            case CloseFrame.NORMAL:
+        CloseCodes reasonCloseCode = CloseCodes.valueOf(reason.getCloseCode().toString());
+        switch (reasonCloseCode) {
+            case NORMAL_CLOSURE:
                 outStream.println("normal");
                 break;
-            case CloseFrame.GOING_AWAY:
+            case GOING_AWAY:
                 outStream.println("APEX going away");
                 break;
-            case CloseFrame.PROTOCOL_ERROR:
+            case PROTOCOL_ERROR:
                 outStream.println("some protocol error");
                 break;
-            case CloseFrame.REFUSE:
+            case CANNOT_ACCEPT:
                 outStream.println("received unacceptable type of data");
                 break;
-            case CloseFrame.NO_UTF8:
+            case CLOSED_ABNORMALLY:
                 outStream.println("expected UTF-8, found something else");
                 break;
-            case CloseFrame.TOOBIG:
+            case TOO_BIG:
                 outStream.println("message too big");
                 break;
-            case CloseFrame.UNEXPECTED_CONDITION:
+            case UNEXPECTED_CONDITION:
                 outStream.println("unexpected server condition");
                 break;
             default:
@@ -101,19 +125,32 @@ public class SimpleConsole extends WebSocketClient {
         outStream.print(" ==-->> " + reason);
     }
 
-    @Override
+
+    @OnError
     public void onError(final Exception ex) {
         errStream.println(this.appName + ": " + ex.getMessage());
     }
 
-    @Override
-    public void onMessage(final String message) {
+    /**
+     * Callback hook for Message Events. This method will be invoked when a client send a message.
+     *
+     * @param message The text message
+     */
+    @OnMessage
+    public void onMessage(String message) {
         // this client does not expect messages
     }
 
-    @Override
-    public void onOpen(final ServerHandshake handshakedata) {
-        outStream.println(this.appName + ": opened connection to APEX (" + handshakedata.getHttpStatusMessage() + ")");
+    /**
+     * Callback hook for Connection open events.
+     *
+     * @param userSession the userSession which is opened.
+     */
+    @OnOpen
+    public void onOpen(Session userSession) {
+        outStream.println(this.appName + ": opened connection to APEX (" + userSession.getRequestURI() + ")");
+
+        this.userSession = userSession;
     }
 
     /**
@@ -124,15 +161,6 @@ public class SimpleConsole extends WebSocketClient {
      * @throws IOException on an IO problem on standard in
      */
     public void runClient() throws IOException {
-        final Thread thread = new Thread() {
-            @Override
-            public void run() {
-                connect();
-            }
-        };
-        thread.setName("ClientThread");
-        thread.start();
-
         final var in = new BufferedReader(new InputStreamReader(System.in));
         var event = new StringBuilder();
         String line;
@@ -143,15 +171,15 @@ public class SimpleConsole extends WebSocketClient {
 
             final String current = line.trim();
             if ("".equals(current)) {
-                this.send(event.toString());
+                this.userSession.getBasicRemote().sendText(event.toString());
                 event = new StringBuilder();
             } else {
                 event.append(current);
             }
         }
 
-        thread.interrupt();
-        this.close(CloseFrame.NORMAL);
+        this.userSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Normal Closure"));
     }
+
 
 }

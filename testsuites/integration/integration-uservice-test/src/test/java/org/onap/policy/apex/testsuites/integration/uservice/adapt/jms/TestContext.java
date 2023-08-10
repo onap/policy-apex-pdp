@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ import static org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.Tes
 import static org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestJms2Jms.JMS_TOPIC_APEX_IN;
 import static org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestJms2Jms.JMS_TOPIC_APEX_OUT;
 import static org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestJms2Jms.PORT;
-import static org.onap.policy.apex.testsuites.integration.uservice.adapt.jms.TestJms2Jms.connectionFactory;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -37,7 +37,8 @@ import javax.naming.NameClassPair;
 import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import org.apache.activemq.command.ActiveMQTopic;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 
 /**
@@ -59,7 +60,7 @@ public class TestContext implements Context {
             final Map<String, Object> params = new HashMap<String, Object>();
             params.put("host", HOST);
             params.put("port", PORT);
-            testProperties.put("ConnectionFactory", connectionFactory);
+            testProperties.put("ConnectionFactory", new ActiveMQConnectionFactory(TestJms2Jms.SERVER_URI));
             testProperties.put(JMS_TOPIC_APEX_IN, new ActiveMQTopic(JMS_TOPIC_APEX_IN));
             testProperties.put(JMS_TOPIC_APEX_OUT, new ActiveMQTopic(JMS_TOPIC_APEX_OUT));
         } catch (final Exception e) {

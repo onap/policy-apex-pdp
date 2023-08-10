@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,9 +31,10 @@ import java.util.TreeMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -51,6 +52,7 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the state facade.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class AxTaskFacadeTest {
     @Mock
     private AxTask axTaskMock;
@@ -79,8 +81,6 @@ public class AxTaskFacadeTest {
         schemas.getSchemasMap().put(stringTypeKey, stringType);
 
         ModelService.registerModel(AxContextSchemas.class, schemas);
-
-        MockitoAnnotations.initMocks(this);
 
         AxArtifactKey task0Key = new AxArtifactKey("Task0:0.0.1");
         Mockito.doReturn(task0Key).when(axTaskMock).getKey();

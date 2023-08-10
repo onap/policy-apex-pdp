@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,10 @@ import java.util.Map;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -45,6 +46,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 /**
  * Test Task Execution Context.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TaskSelectionExecutionContextTest {
     @Mock
     private TaskSelectExecutor taskSelectExecutorMock;
@@ -66,7 +68,6 @@ public class TaskSelectionExecutionContextTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
 
         Set<AxArtifactKey> contextAlbumReferences = new LinkedHashSet<>();
         contextAlbumReferences.add(new AxArtifactKey(("AlbumKey0:0.0.1")));

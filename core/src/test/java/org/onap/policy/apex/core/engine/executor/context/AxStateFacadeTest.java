@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +28,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -40,6 +42,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTasks;
 /**
  * Test the state facade.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class AxStateFacadeTest {
     @Mock
     private AxState axStateMock;
@@ -52,8 +55,6 @@ public class AxStateFacadeTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
-        
         AxReferenceKey stateKey = new AxReferenceKey("StateParent:0.0.1:ParentName:StateName");
         Mockito.doReturn(stateKey).when(axStateMock).getKey();
 
