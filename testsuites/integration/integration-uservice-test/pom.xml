@@ -22,12 +22,12 @@
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
         <artifactId>apex-integration</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>integration-uservice-test</artifactId>
@@ -127,17 +127,6 @@
             <artifactId>kafka-junit4</artifactId>
             <version>${version.kafka-junit4}</version>
             <scope>test</scope>
-            <exclusions>
-            <!-- The default netty version in kafka-junit4 has vulnerabilities -->
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
@@ -145,14 +134,10 @@
             <version>${version.zookeeper}</version>
             <scope>test</scope>
             <exclusions>
-            <!-- The default netty version in kafka-junit4 has vulnerabilities -->
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
+                <!-- The default netty version in kafka-junit4 has vulnerabilities -->
                 <exclusion>
                     <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
+                    <artifactId>slf4j-reload4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -162,33 +147,39 @@
             <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.activemq.tooling</groupId>
-            <artifactId>activemq-junit</artifactId>
-            <version>${version.activemq}</version>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-core-client</artifactId>
+            <version>${version.artemis}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-            <version>${version.activemq}</version>
+            <artifactId>artemis-jakarta-client</artifactId>
+            <version>${version.artemis}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-jaas</artifactId>
-            <version>${version.activemq}</version>
+            <artifactId>artemis-server</artifactId>
+            <version>${version.artemis}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+            <version>${version.jms}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson-databind}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-             <!-- Copy required resources and examples -->
+            <!-- Copy required resources and examples -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -254,7 +245,7 @@
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
-                                                <ignore />
+                                                <ignore/>
                                             </action>
                                         </pluginExecution>
                                     </pluginExecutions>

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins</groupId>
         <artifactId>plugins</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.onap.policy.apex-pdp.plugins.plugins-event</groupId>
@@ -32,19 +32,6 @@
 
     <name>${project.artifactId}</name>
     <description>Plugins for 3pps that carry events and protocol formats of events</description>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.services</groupId>
-            <artifactId>services-engine</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <modules>
         <module>plugins-event-carrier</module>

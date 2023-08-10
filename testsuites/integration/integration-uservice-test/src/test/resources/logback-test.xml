@@ -2,7 +2,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2016-2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2020 Nordix Foundation.
+   Modifications Copyright (C) 2020, 2023 Nordix Foundation.
    Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,13 +41,16 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="org.onap.policy.apex.core" level="INFO" additivity="false">
+    <logger name="org.onap.policy.apex.core" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="org.onap.policy.apex.plugins.executor" level="INFO" additivity="false">
+    <logger name="org.onap.policy.apex.plugins.executor" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
+    <logger name="org.onap.policy.apex.testsuites.integration.uservice.adapt" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
 
 </configuration>

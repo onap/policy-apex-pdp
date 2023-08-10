@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.apex.tools.simple.wsclient;
 
+import jakarta.websocket.DeploymentException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -141,8 +143,7 @@ public final class WsClientMain {
         outStream.println();
 
         try {
-            final var simpleEcho = new SimpleEcho(server, port, APP_NAME, outStream, outStream);
-            simpleEcho.connect();
+            new SimpleEcho(server, port, APP_NAME, outStream, outStream);
         } catch (final URISyntaxException uex) {
             String message = APP_NAME + ": URI exception, could not create URI from server and port settings";
             outStream.println(message);
@@ -155,6 +156,18 @@ public final class WsClientMain {
             String message = APP_NAME + ": illegal argument, server or port were blank";
             outStream.println(message);
             LOGGER.warn(message, iex);
+        } catch (DeploymentException dex) {
+            String message = APP_NAME + ": could not deploy client";
+            outStream.println(message);
+            LOGGER.warn(message, dex);
+        } catch (IOException iox) {
+            String message = APP_NAME + ": illegal argument, IO execption on client";
+            outStream.println(message);
+            LOGGER.warn(message, iox);
+        } catch (Exception xex) {
+            String message = APP_NAME + ": Unknown execption on client";
+            outStream.println(message);
+            LOGGER.warn(message, xex);
         }
     }
 
@@ -199,10 +212,18 @@ public final class WsClientMain {
             String message = APP_NAME + ": not yet connected, connection to server took too long";
             outStream.println(message);
             LOGGER.warn(message, nex);
+        } catch (DeploymentException dex) {
+            String message = APP_NAME + ": could not deploy client";
+            outStream.println(message);
+            LOGGER.warn(message, dex);
         } catch (final IOException ioe) {
             String message = APP_NAME + ": IO exception, something went wrong on the standard input";
             outStream.println(message);
             LOGGER.warn(message, ioe);
+        } catch (Exception xex) {
+            String message = APP_NAME + ": Unknown execption on client";
+            outStream.println(message);
+            LOGGER.warn(message, xex);
         }
     }
 

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -23,10 +23,10 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import java.util.Properties;
 import java.util.regex.Pattern;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import lombok.AccessLevel;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;

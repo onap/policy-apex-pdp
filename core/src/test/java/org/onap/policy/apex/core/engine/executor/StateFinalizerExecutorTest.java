@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,10 @@ import java.util.Map;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -43,6 +44,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
 /**
  * Test task executor.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class StateFinalizerExecutorTest {
     @Mock
     private Executor<?, ?, ?, ?> parentMock;
@@ -64,7 +66,6 @@ public class StateFinalizerExecutorTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
 
         AxState state = new AxState();
         state.getStateOutputs().put("ValidOutput", null);

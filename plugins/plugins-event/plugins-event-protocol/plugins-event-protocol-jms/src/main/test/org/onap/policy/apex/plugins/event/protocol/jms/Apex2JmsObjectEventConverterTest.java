@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021 Nordix Foundation.
+ *  Copyright (C) 2021, 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,11 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-
+import jakarta.jms.JMSException;
+import jakarta.jms.ObjectMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
-import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
 import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;

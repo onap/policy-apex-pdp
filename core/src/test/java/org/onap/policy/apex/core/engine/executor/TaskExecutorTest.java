@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,9 +36,10 @@ import java.util.Properties;
 import java.util.TreeMap;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.TaskParameters;
@@ -57,6 +58,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTaskParameter;
 /**
  * Test task excutor.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TaskExecutorTest {
     @Mock
     private AxTask axTaskMock;
@@ -96,7 +98,6 @@ public class TaskExecutorTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
 
         AxArtifactKey task0Key = new AxArtifactKey("Task0:0.0.1");
         Mockito.doReturn(task0Key).when(axTaskMock).getKey();
@@ -117,12 +118,9 @@ public class TaskExecutorTest {
         AxArtifactKey schemaKey = new AxArtifactKey("Schema:0.0.1");
         Mockito.doReturn(schemaKey).when(axInputFieldMock).getSchema();
         Mockito.doReturn(schemaKey).when(axOptionalInputFieldMock).getSchema();
-        Mockito.doReturn(schemaKey).when(axOutputFieldMock).getSchema();
-        Mockito.doReturn(schemaKey).when(axOptionalOutputFieldMock).getSchema();
         Mockito.doReturn(schemaKey).when(axMissingOutputFieldMock).getSchema();
 
         Mockito.doReturn(true).when(axOptionalInputFieldMock).getOptional();
-        Mockito.doReturn(true).when(axOptionalOutputFieldMock).getOptional();
         Mockito.doReturn(false).when(axMissingOutputFieldMock).getOptional();
 
         Mockito.doReturn(taskLogicMock).when(axTaskMock).getTaskLogic();

@@ -24,32 +24,17 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
         <artifactId>plugins-event-carrier</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-event-carrier-jms</artifactId>
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Plugin for handling events being transported over JMS</description>
-
     <dependencies>
         <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-jms-client</artifactId>
-            <version>${version.artemis-jms-client}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+            <version>${version.jms}</version>
         </dependency>
     </dependencies>
 </project>

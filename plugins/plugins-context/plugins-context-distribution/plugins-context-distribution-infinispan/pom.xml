@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2023 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,7 +24,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
         <artifactId>plugins-context-distribution</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-context-distribution-infinispan</artifactId>
@@ -34,7 +35,7 @@
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-core</artifactId>
-            <version>11.0.0.Final</version>
+            <version>${version.infinispan}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jboss.slf4j</groupId>

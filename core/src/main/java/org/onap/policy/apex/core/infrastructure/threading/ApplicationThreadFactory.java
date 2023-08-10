@@ -3,6 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,7 +72,11 @@ public class ApplicationThreadFactory implements ThreadFactory {
      * @param stackSize the stack size
      * @param threadPriority the thread priority
      */
+    @SuppressWarnings({
+        "deprecation", "removal"
+    })
     public ApplicationThreadFactory(final String nameLocal, final long stackSize, final int threadPriority) {
+        @SuppressWarnings("removal")
         final var s = System.getSecurityManager();
         group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
         name = APPLICATION_NAME + nameLocal + HYPHEN + NEXT_POOL_NUMBER.getAndIncrement();

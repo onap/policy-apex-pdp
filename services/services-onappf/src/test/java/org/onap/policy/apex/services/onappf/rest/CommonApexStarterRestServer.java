@@ -24,6 +24,12 @@ package org.onap.policy.apex.services.onappf.rest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.Map;
@@ -31,12 +37,6 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import javax.net.ssl.SSLContext;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.After;
@@ -141,7 +141,7 @@ public class CommonApexStarterRestServer {
      * @throws Exception if an error occurs
      */
     protected void testSwagger(final String endpoint) throws Exception {
-        final Invocation.Builder invocationBuilder = sendFqeRequest(httpsPrefix + "swagger.yaml", true);
+        final Invocation.Builder invocationBuilder = sendFqeRequest(httpsPrefix + "swagger", true);
         final String resp = invocationBuilder.get(String.class);
 
         assertTrue(resp.contains(ENDPOINT_PREFIX + endpoint + ":"));
