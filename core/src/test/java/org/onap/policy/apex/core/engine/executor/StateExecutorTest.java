@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -38,6 +39,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 /**
  * Test task executor.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class StateExecutorTest {
     @Mock
     private ApexInternalContext internalContextMock;
@@ -56,7 +58,6 @@ public class StateExecutorTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
 
         Mockito.doReturn(new AxReferenceKey("Policy:0.0.1:PolName:State0")).when(axStateMock).getKey();
     }

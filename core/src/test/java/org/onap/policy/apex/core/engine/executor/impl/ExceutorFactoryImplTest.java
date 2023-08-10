@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,10 @@ import static org.junit.Assert.assertNull;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -47,6 +48,7 @@ import org.onap.policy.common.parameters.ParameterService;
  * Test the executor factory implementation.
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ExceutorFactoryImplTest {
     @Mock
     private ApexInternalContext internalContextMock;
@@ -76,7 +78,6 @@ public class ExceutorFactoryImplTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
 
         Mockito.doReturn(tslMock).when(stateMock).getTaskSelectionLogic();
         Mockito.doReturn("Dummy").when(tslMock).getLogicFlavour();
@@ -162,8 +163,6 @@ public class ExceutorFactoryImplTest {
         executorPars.setTaskExecutorPluginClass(null);
 
         final ExecutorFactoryImpl factory = new ExecutorFactoryImpl();
-
-        Mockito.doReturn(true).when(stateMock).checkSetTaskSelectionLogic();
 
         assertThatThrownBy(() -> factory.getTaskExecutor(null, taskMock, internalContextMock))
             .hasMessage("Executor plugin class not defined for \"Dummy\" executor of type "

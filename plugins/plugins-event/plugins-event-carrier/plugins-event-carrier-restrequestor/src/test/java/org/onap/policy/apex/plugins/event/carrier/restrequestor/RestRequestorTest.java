@@ -27,14 +27,14 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 
 import com.google.gson.Gson;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

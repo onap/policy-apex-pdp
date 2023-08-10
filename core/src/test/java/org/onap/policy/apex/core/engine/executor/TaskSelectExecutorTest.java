@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,10 @@ import java.util.Map;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -45,6 +46,7 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 /**
  * Test task executor.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TaskSelectExecutorTest {
     @Mock
     private AxState axStateMock;
@@ -66,11 +68,9 @@ public class TaskSelectExecutorTest {
      */
     @Before
     public void startMocking() {
-        MockitoAnnotations.initMocks(this);
 
         AxReferenceKey state0Key = new AxReferenceKey("State0Parent:0.0.1:Parent:State0");
         Mockito.doReturn(state0Key).when(axStateMock).getKey();
-        Mockito.doReturn(state0Key.getId()).when(axStateMock).getId();
 
         Map<AxArtifactKey, AxStateTaskReference> taskReferences = new LinkedHashMap<>();
         taskReferences.put(new AxArtifactKey("Task0:0.0.0"), null);
@@ -79,8 +79,6 @@ public class TaskSelectExecutorTest {
         Mockito.doReturn(new AxArtifactKey("Task1:0.0.0")).when(axStateMock).getDefaultTask();
 
         Mockito.doReturn(taskSelectionLogicMock).when(axStateMock).getTaskSelectionLogic();
-
-        Mockito.doReturn(new AxArtifactKey("Context:0.0.1")).when(internalContextMock).getKey();
     }
 
     @Test

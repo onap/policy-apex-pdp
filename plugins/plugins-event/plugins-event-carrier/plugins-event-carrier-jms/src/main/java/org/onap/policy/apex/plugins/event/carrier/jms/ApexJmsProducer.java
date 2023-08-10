@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,16 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
+import jakarta.jms.Connection;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.Message;
+import jakarta.jms.MessageProducer;
+import jakarta.jms.Session;
+import jakarta.jms.Topic;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Properties;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Message;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import lombok.Getter;

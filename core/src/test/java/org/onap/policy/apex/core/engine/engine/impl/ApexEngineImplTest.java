@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,9 +39,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
@@ -70,6 +71,7 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the engine implementation.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ApexEngineImplTest {
     private static final String ENGINE_ID = "Engine:0.0.1";
 
@@ -97,10 +99,8 @@ public class ApexEngineImplTest {
      */
     @Before
     public void initializeMocking() throws ApexException {
-        MockitoAnnotations.initMocks(this);
-
         Mockito.doThrow(new StateMachineException("mocked state machine exception",
-                        new IOException("nexted exception"))).when(smHandlerMock).execute(Mockito.anyObject());
+                        new IOException("nexted exception"))).when(smHandlerMock).execute(Mockito.any());
     }
 
     /**

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import javax.ws.rs.core.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

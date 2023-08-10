@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,75 +25,49 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.jms;
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertEquals;
 
+import jakarta.jms.JMSException;
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import javax.jms.JMSException;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.broker.BrokerPlugin;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.security.AuthenticationUser;
-import org.apache.activemq.security.SimpleAuthenticationPlugin;
+import java.util.concurrent.atomic.AtomicBoolean;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class TestJms2Jms.
  */
 public class TestJms2Jms {
-    public static final String PORT = "5445";
-    public static final String HOST = "localhost";
-    public static final String JMS_TOPIC_APEX_IN = "jms/topic/apexIn";
-    public static final String JMS_TOPIC_APEX_OUT = "jms/topic/apexOut";
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestJms2Jms.class);
 
-    private static final String GROUP_ROLE = "guests";
-    private static final String PACKAGE_NAME = "org.onap.policy.apex.testsuites.integration.common.testclasses";
-    private static final String USERNAME = "guest";
-    private static final String PASSWORD = "IAmAGuest";
-    private static final String URL = "tcp://" + HOST + ":" + PORT;
-
-    private static final String DATA_PARENT_DIR = Paths.get("target", "activemq-data").toString();
-
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestJms2Jms.class);
+    protected static final String SERVER_NAME = "JmsTestServer";
+    protected static final String PORT = "5445";
+    protected static final String HOST = "localhost";
+    protected static final String JMS_TOPIC_APEX_IN = "jms/topic/apexIn";
+    protected static final String JMS_TOPIC_APEX_OUT = "jms/topic/apexOut";
+    protected static final String SERVER_URI = "tcp://" + HOST + ":" + PORT;
 
     private static final int EVENT_COUNT = 100;
     private static final int EVENT_INTERVAL = 20;
 
-    private static BrokerService broker;
-
-    public static ActiveMQConnectionFactory connectionFactory;
+    // Embedded JMS server for testing
+    private static JmsServerRunner jmsServerRunner;
 
     /**
-     * Setup embedded jms server.
+     * Setup embedded JMS server.
      *
      * @throws Exception the exception
      */
     @BeforeClass
     public static void setupEmbeddedJmsServer() throws Exception {
-        final ArrayList<BrokerPlugin> plugins = new ArrayList<BrokerPlugin>();
-        final BrokerPlugin authenticationPlugin = getAuthenticationBrokerPlugin();
-        plugins.add(authenticationPlugin);
+        jmsServerRunner = new JmsServerRunner(SERVER_NAME, SERVER_URI);
 
-        broker = new BrokerService();
-        broker.setUseJmx(false);
-        broker.setPersistent(false);
-        broker.addConnector(URL);
-        broker.setDeleteAllMessagesOnStartup(true);
-        broker.setPlugins(plugins.toArray(new BrokerPlugin[0]));
-        broker.setDataDirectory(DATA_PARENT_DIR);
-        broker.start();
-        broker.waitUntilStarted();
-        connectionFactory = new ActiveMQConnectionFactory(URL);
-        connectionFactory.setTrustedPackages(Arrays.asList(PACKAGE_NAME));
+        await().pollDelay(3L, TimeUnit.SECONDS).until(() -> new AtomicBoolean(true).get() == true);
     }
 
     /**
@@ -105,18 +79,6 @@ public class TestJms2Jms {
     }
 
     /**
-     * Gets the authentication broker plugin.
-     *
-     * @return the authentication broker plugin
-     */
-    private static BrokerPlugin getAuthenticationBrokerPlugin() {
-        final List<AuthenticationUser> users = new ArrayList<AuthenticationUser>();
-        users.add(new AuthenticationUser(USERNAME, PASSWORD, GROUP_ROLE));
-        final SimpleAuthenticationPlugin authenticationPlugin = new SimpleAuthenticationPlugin(users);
-        return authenticationPlugin;
-    }
-
-    /**
      * Shutdown embedded jms server.
      *
      * @throws IOException Signals that an I/O exception has occurred.
@@ -124,8 +86,8 @@ public class TestJms2Jms {
     @AfterClass
     public static void shutdownEmbeddedJmsServer() throws IOException {
         try {
-            if (broker != null) {
-                broker.stop();
+            if (jmsServerRunner != null) {
+                jmsServerRunner.stop();
             }
         } catch (final Exception e) {
             LOGGER.warn("Failed to stop JMS server", e);
@@ -141,7 +103,9 @@ public class TestJms2Jms {
      */
     @Test
     public void testJmsObjectEvents() throws ApexException, JMSException {
-        final String[] args = {"-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSObjectEvent.json"};
+        final String[] args = {
+            "-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSObjectEvent.json"
+        };
         testJmsEvents(args, true);
     }
 
@@ -153,7 +117,9 @@ public class TestJms2Jms {
      */
     @Test
     public void testJmsJsonEvents() throws ApexException, JMSException {
-        final String[] args = {"-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSJsonEvent.json"};
+        final String[] args = {
+            "-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSJsonEvent.json"
+        };
         testJmsEvents(args, false);
     }
 
@@ -167,10 +133,11 @@ public class TestJms2Jms {
      */
     private void testJmsEvents(final String[] args, final Boolean sendObjects) throws ApexException, JMSException {
         final JmsEventSubscriber subscriber =
-                new JmsEventSubscriber(JMS_TOPIC_APEX_OUT, connectionFactory, USERNAME, PASSWORD);
+                new JmsEventSubscriber(JMS_TOPIC_APEX_OUT, new ActiveMQConnectionFactory(SERVER_URI), null, null);
 
-        final JmsEventProducer producer = new JmsEventProducer(JMS_TOPIC_APEX_IN, connectionFactory, USERNAME, PASSWORD,
-                EVENT_COUNT, sendObjects, EVENT_INTERVAL);
+        final JmsEventProducer producer =
+                new JmsEventProducer(JMS_TOPIC_APEX_IN, new ActiveMQConnectionFactory(SERVER_URI), null, null,
+                        EVENT_COUNT, sendObjects, EVENT_INTERVAL);
 
         final ApexMain apexMain = new ApexMain(args);
 

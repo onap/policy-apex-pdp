@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020 Nordix Foundation.
+ *  Copyright (C) 2020-2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,12 +24,12 @@ package org.onap.policy.apex.examples.grpc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.Response;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
 import org.junit.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;

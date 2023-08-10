@@ -127,17 +127,6 @@
             <artifactId>kafka-junit4</artifactId>
             <version>${version.kafka-junit4}</version>
             <scope>test</scope>
-            <exclusions>
-            <!-- The default netty version in kafka-junit4 has vulnerabilities -->
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
@@ -147,12 +136,8 @@
             <exclusions>
             <!-- The default netty version in kafka-junit4 has vulnerabilities -->
                 <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
+                    <artifactId>slf4j-reload4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -162,27 +147,38 @@
             <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.activemq.tooling</groupId>
-            <artifactId>activemq-junit</artifactId>
-            <version>${version.activemq}</version>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-core-client</artifactId>
+            <version>${version.artemis}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-            <version>${version.activemq}</version>
+            <artifactId>artemis-jakarta-client</artifactId>
+            <version>${version.artemis}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-jaas</artifactId>
-            <version>${version.activemq}</version>
+            <artifactId>artemis-server</artifactId>
+            <version>${version.artemis}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+            <version>${version.jms}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson-databind}</version>
         </dependency>
     </dependencies>
 
