@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f80c0e_80bb20e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2023-09-25T15:50:07Z",
+      "side": 1,
+      "message": "There\u0027s some trailing white space :-)",
+      "revId": "31a8ff448ff2ea5b412fe6d7cf96e5ad7bc5fee2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
