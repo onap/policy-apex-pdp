@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85725d53_c28abd98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2023-09-25T12:47:47Z",
+      "side": 1,
+      "message": "needs rebase from master. also pom.xml version needs to be updated to x.x.1",
+      "revId": "34979cfcf3893e4820bbc940e386621c16c61508",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
