@@ -62,7 +62,7 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
     private HttpServletServer server;
 
     // Holds the next identifier for event execution.
-    private static AtomicLong nextExecutionID = new AtomicLong(0L);
+    private static final AtomicLong nextExecutionID = new AtomicLong(0L);
 
     /**
      * Private utility to get the next candidate value for a Execution ID. This value will always be unique in a single
@@ -84,16 +84,15 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
         this.name = consumerName;
 
         // Check and get the REST Properties
-        if (!(consumerParameters.getCarrierTechnologyParameters() instanceof RestServerCarrierTechnologyParameters)) {
+        // The REST parameters read from the parameter service
+        if (!(consumerParameters.getCarrierTechnologyParameters()
+            instanceof RestServerCarrierTechnologyParameters restConsumerProperties)) {
             final String errorMessage =
                     "specified consumer properties are not applicable to REST Server consumer (" + this.name + ")";
             LOGGER.warn(errorMessage);
             throw new ApexEventException(errorMessage);
         }
 
-        // The REST parameters read from the parameter service
-        RestServerCarrierTechnologyParameters restConsumerProperties =
-                (RestServerCarrierTechnologyParameters) consumerParameters.getCarrierTechnologyParameters();
 
         // Check if we are in synchronous mode
         if (!consumerParameters.isPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS)) {
@@ -140,9 +139,6 @@ public class ApexRestServerConsumer extends ApexPluginsEventConsumer {
             false
         );
 
-        if (restConsumerProperties.isAaf()) {
-            server.addFilterClass(null, ApexRestServerAafFilter.class.getName());
-        }
         server.addServletClass(null, RestServerEndpoint.class.getName());
         server.addServletClass(null, AccessControlFilter.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());

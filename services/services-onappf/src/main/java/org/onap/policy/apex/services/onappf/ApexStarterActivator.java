@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -32,7 +32,6 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
-import org.onap.policy.apex.services.onappf.rest.ApexStarterAafFilter;
 import org.onap.policy.apex.services.onappf.rest.HealthCheckRestControllerV1;
 import org.onap.policy.common.endpoints.event.comm.TopicEndpointManager;
 import org.onap.policy.common.endpoints.event.comm.TopicSink;
@@ -58,8 +57,8 @@ public class ApexStarterActivator {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexStarterActivator.class);
     @Getter
     private final ApexStarterParameterGroup parameterGroup;
-    private List<TopicSink> topicSinks; // topics to which apex-pdp sends pdp status
-    private List<TopicSource> topicSources; // topics to which apex-pdp listens to for messages from pap.
+    private final List<TopicSink> topicSinks; // topics to which apex-pdp sends pdp status
+    private final List<TopicSource> topicSources; // topics to which apex-pdp listens to for messages from pap.
     private static final String[] MSG_TYPE_NAMES = { "messageName" };
 
     /**
@@ -70,7 +69,7 @@ public class ApexStarterActivator {
     /**
      * Used to manage the services.
      */
-    private ServiceManager manager;
+    private final ServiceManager manager;
 
     /**
      * The ApexStarter REST API server.
@@ -147,7 +146,7 @@ public class ApexStarterActivator {
                     this::unregisterMsgDispatcher)
                 .addAction("Create REST server",
                     () -> restServer = new RestServer(apexStarterParameterGroup.getRestServerParameters(),
-                                ApexStarterAafFilter.class, HealthCheckRestControllerV1.class),
+                                List.of(), List.of(HealthCheckRestControllerV1.class)),
                     () -> restServer = null)
                 .addAction("Rest Server",
                     () -> restServer.start(),
