@@ -32,7 +32,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
         <artifactId>plugins-event-protocol</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-event-protocol-jms</artifactId>
