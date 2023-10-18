@@ -28,7 +28,7 @@
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
         <version>4.0.1-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>org.onap.policy.apex-pdp</groupId>
