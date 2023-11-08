@@ -68,12 +68,12 @@
         <version.jruby-joni>2.2.1</version.jruby-joni>
         <version.jruby-extras-bytelist>1.0.15</version.jruby-extras-bytelist>
         <version.jython-standalone>2.7.3</version.jython-standalone>
-        <version.kafka>3.5.1</version.kafka>
-        <version.kafka-avro-serializer>7.4.0</version.kafka-avro-serializer>
+        <version.kafka>3.6.0</version.kafka>
+        <version.kafka-avro-serializer>7.5.1</version.kafka-avro-serializer>
         <version.kafka-junit4>3.2.5</version.kafka-junit4>
         <version.rhino>1.7.14</version.rhino>
         <version.websocket.jakarta>2.1.1</version.websocket.jakarta>
-        <version.zookeeper>3.9.0</version.zookeeper>
+        <version.zookeeper>3.9.1</version.zookeeper>
     </properties>
 
     <distributionManagement>
