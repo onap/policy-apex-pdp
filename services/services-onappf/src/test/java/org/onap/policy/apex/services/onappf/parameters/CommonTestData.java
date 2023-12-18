@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.services.onappf.parameters;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,8 +46,8 @@ public class CommonTestData {
     public static final String POLICY_NAME = "onap.controllloop.operational.apex.BBS";
     public static final String POLICY_VERSION = "0.0.1";
     public static final List<ToscaPolicyTypeIdentifierParameters> SUPPORTED_POLICY_TYPES =
-            Arrays.asList(getSupportedPolicyTypes(POLICY_NAME, POLICY_VERSION));
-    public static final List<TopicParameters> TOPIC_PARAMS = Arrays.asList(getTopicParams());
+        List.of(getSupportedPolicyTypes(POLICY_NAME, POLICY_VERSION));
+    public static final List<TopicParameters> TOPIC_PARAMS = List.of(getTopicParams());
     private static final String REST_SERVER_PASSWORD = "zb!XztG34";
     private static final String REST_SERVER_USER = "healthcheck";
     private static final int REST_SERVER_PORT = 6969;
@@ -77,9 +76,9 @@ public class CommonTestData {
      */
     public static TopicParameters getTopicParams() {
         final TopicParameters topicParams = new TopicParameters();
-        topicParams.setTopic("POLICY-PDP-PAP");
+        topicParams.setTopic("policy-pdp-pap");
         topicParams.setTopicCommInfrastructure("noop");
-        topicParams.setServers(Arrays.asList("message-router"));
+        topicParams.setServers(List.of("message-router"));
         return topicParams;
     }
 
