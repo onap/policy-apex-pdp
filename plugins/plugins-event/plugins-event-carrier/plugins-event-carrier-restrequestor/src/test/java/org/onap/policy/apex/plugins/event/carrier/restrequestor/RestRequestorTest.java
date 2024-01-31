@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,6 @@ import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -84,10 +83,9 @@ public class RestRequestorTest {
     /**
      * Tear down.
      *
-     * @throws Exception the exception
      */
     @AfterClass
-    public static void tearDown() throws Exception {
+    public static void tearDown() {
         if (server != null) {
             server.stop();
         }
@@ -124,7 +122,7 @@ public class RestRequestorTest {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGet.json"};
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(2, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
             .until(() -> getStatsFromServer(client, "GET") >= 50.0);
@@ -138,17 +136,15 @@ public class RestRequestorTest {
     /**
      * Test rest requestor get empty.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorGetEmpty() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorGetEmpty() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetEmpty.json"};
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(2, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         Response response = null;
 
@@ -184,17 +180,15 @@ public class RestRequestorTest {
     /**
      * Test REST requestor put.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorPut() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorPut() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePut.json"};
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(2, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
             .until(() -> getStatsFromServer(client, "PUT") >= 50.0);
@@ -208,17 +202,15 @@ public class RestRequestorTest {
     /**
      * Test REST requestor post.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorPost() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorPost() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePost.json"};
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(2, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
             .until(() -> getStatsFromServer(client, "POST") >= 50.0);
@@ -232,17 +224,15 @@ public class RestRequestorTest {
     /**
      * Test REST requestor delete.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorDelete() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorDelete() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileDelete.json"};
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(2, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(2, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         // Wait for the required amount of events to be received
         await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
@@ -257,17 +247,15 @@ public class RestRequestorTest {
     /**
      * Test REST requestor multi inputs.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorMultiInputs() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorMultiInputs() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetMulti.json"};
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(10, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(10, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         await().pollInterval(300, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS)
             .until(() -> getStatsFromServer(client, "GET") >= 8.0);
@@ -281,12 +269,10 @@ public class RestRequestorTest {
     /**
      * Test REST requestor producer alone.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorProducerAlone() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorProducerAlone() throws ApexException {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json"};
 
@@ -302,12 +288,10 @@ public class RestRequestorTest {
     /**
      * Test REST requestor consumer alone.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestRequestorConsumerAlone() throws MessagingException, ApexException, IOException {
+    public void testRestRequestorConsumerAlone() throws ApexException {
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json"};
         ApexMain apexMain = new ApexMain(args);
         apexMain.shutdown();

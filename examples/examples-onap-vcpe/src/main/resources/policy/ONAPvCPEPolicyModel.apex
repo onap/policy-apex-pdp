@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2016-2018 Ericsson. All rights reserved.
-#  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+#  Modifications Copyright (C) 2019-2020,2024 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ schema create name=UUIDType          flavour=Java schema=java.util.UUID
 schema create name=VirtualControlLoopEventType flavour=Java schema=org.onap.policy.controlloop.VirtualControlLoopEvent
 schema create name=VirtualControlLoopNotificationType flavour=Java schema=org.onap.policy.controlloop.VirtualControlLoopNotification
 
-schema create name=APPCLCMRequestType flavour=Java schema=org.onap.policy.appclcm.AppcLcmDmaapWrapper
-schema create name=APPCLCMResponseType flavour=Java schema=org.onap.policy.appclcm.AppcLcmDmaapWrapper
+schema create name=APPCLCMRequestType flavour=Java schema=org.onap.policy.appclcm.AppcLcmMessageWrapper
+schema create name=APPCLCMResponseType flavour=Java schema=org.onap.policy.appclcm.AppcLcmMessageWrapper
 
 schema create name=GuardDecisionAttributesType flavour=Avro schema=LS
 #MACROFILE:"src/main/resources/schemas/definitive/GuardDecisionAttributesType.avsc"

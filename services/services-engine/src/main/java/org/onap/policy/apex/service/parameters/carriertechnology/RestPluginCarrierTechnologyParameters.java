@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -95,6 +95,7 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
     // variable
     protected String url = null;
     protected HttpMethod httpMethod = null;
+    @Setter
     protected String[][] httpHeaders = null;
     protected String httpCodeFilter = DEFAULT_HTTP_CODE_FILTER;
 
@@ -125,15 +126,6 @@ public class RestPluginCarrierTechnologyParameters extends CarrierTechnologyPara
         }
 
         return httpHeaderMap;
-    }
-
-    /**
-     * Sets the header for the REST request.
-     *
-     * @param httpHeaders the incoming HTTP headers
-     */
-    public void setHttpHeaders(final String[][] httpHeaders) {
-        this.httpHeaders = httpHeaders;
     }
 
     /**

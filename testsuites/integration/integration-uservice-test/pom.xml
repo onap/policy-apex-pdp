@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019-2020,2022-2023 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020,2022-2024 Nordix Foundation.
    Modifications Copyright (C) 2020 Bell Canada.
    Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
   ================================================================================
@@ -118,7 +118,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.12</artifactId>
+            <artifactId>kafka_2.13</artifactId>
             <version>${version.kafka}</version>
             <scope>test</scope>
         </dependency>
@@ -173,7 +173,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${version.jackson-databind}</version>
+            <version>2.13.5</version> <!-- version different from parent specifically for kafka_2.13 compatibility-->
         </dependency>
     </dependencies>
 

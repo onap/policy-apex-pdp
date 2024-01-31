@@ -30,25 +30,25 @@
             "topicCommInfrastructure" : "ueb"
         },{
             "topic" : "POLICY-PDP-PAP1",
-            "servers" : [ "message-router1, message-router2" ],
-            "topicCommInfrastructure" : "dmaap"
+            "servers" : [ "kafka1, kafka2" ],
+            "topicCommInfrastructure" : "noop"
         },{
-            "topic" : "POLICY-PDP-PAP2",
-            "servers" : [ "message-router2, message-router3" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topic" : "policy-pdp-pap2",
+            "servers" : [ "kafka2, kafka3" ],
+            "topicCommInfrastructure" : "noop"
         }],
         "topicSinks" : [ {
             "topic" : "ueb-sink",
             "servers" : [ "my-server" ],
             "topicCommInfrastructure" : "ueb"
         },{
-            "topic" : "POLICY-PDP-PAP2",
-            "servers" : [ "message-router1, message-router2" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topic" : "policy-pdp-pap2",
+            "servers" : [ "kafka1, kafka2" ],
+            "topicCommInfrastructure" : "noop"
         },{
-            "topic" : "POLICY-PDP-PAP3",
-            "servers" : [ "message-router2, message-router3" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topic" : "policy-pdp-pap3",
+            "servers" : [ "kafka2, kafka3" ],
+            "topicCommInfrastructure" : "noop"
         }]
     }
 }

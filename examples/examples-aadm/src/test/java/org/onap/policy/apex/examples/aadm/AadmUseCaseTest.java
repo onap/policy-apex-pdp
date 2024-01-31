@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -112,11 +111,9 @@ public class AadmUseCaseTest {
      * Test aadm case.
      *
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testAadmCase() throws ApexException, InterruptedException, IOException {
+    public void testAadmCase() throws ApexException {
         final AxPolicyModel apexPolicyModel = new AadmDomainModelFactory().getAadmPolicyModel();
         assertNotNull(apexPolicyModel);
         final AxArtifactKey key = new AxArtifactKey("AADMApexEngine", "0.0.1");
@@ -133,9 +130,9 @@ public class AadmUseCaseTest {
         // getting number of connections send it to policy, expecting probe action
         logger.info("Sending too many connections trigger ");
         EnEvent event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
+        event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("ENODEB_ID", 123L);
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -155,12 +152,7 @@ public class AadmUseCaseTest {
         event.put("protocol_group", "");
         apexEngine.handleEvent(event);
         EnEvent result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        // no DOS_IN_eNodeB set so return probe action
-        assertEquals("probe", result.get("ACTTASK"));
-        assertTrue((boolean) result.get("TCP_ON"));
-        assertTrue((boolean) result.get("PROBE_ON"));
+        assertProbe(result, event);
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
 
         final ContextAlbum eNodeBStatusAlbum = apexEngine.getInternalContext().get("ENodeBStatusAlbum");
@@ -170,9 +162,9 @@ public class AadmUseCaseTest {
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
+        event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("ENODEB_ID", 123L);
         event.put("SERVICE_REQUEST_COUNT", 101);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 99.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -193,24 +185,16 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        // DOS_IN_eNodeB set to be more than throughput so return act action
-        assertEquals("act", result.get("ACTTASK"));
-        // only one imsi was sent to process, so stop probe and tcp
-        assertTrue(!(boolean) result.get("TCP_ON"));
-        assertTrue(!(boolean) result.get("PROBE_ON"));
-        assertEquals(100, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        assertProbeDone(result, event, 100, eNodeBStatusAlbum);
 
         ((ENodeBStatus) eNodeBStatusAlbum.get("123")).setDosCount(99);
 
         // getting number of connections send it to policy, expecting probe action
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
+        event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("ENODEB_ID", 123L);
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -231,11 +215,7 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertEquals("probe", result.get("ACTTASK"));
-        assertTrue((boolean) result.get("TCP_ON"));
-        assertTrue((boolean) result.get("PROBE_ON"));
+        assertProbe(result, event);
         assertEquals(99, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
 
         ((ENodeBStatus) eNodeBStatusAlbum.get("123")).setDosCount(99);
@@ -243,9 +223,9 @@ public class AadmUseCaseTest {
         // tcp correlation return positive dos
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
+        event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("ENODEB_ID", 123L);
         event.put("TCP_UE_SIDE_AVG_THROUGHPUT", 101.0);
         event.put("ACTTASK", "");
         event.put("APPLICATION", "");
@@ -266,24 +246,17 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertEquals("act", result.get("ACTTASK"));
-        assertTrue(!(boolean) result.get("TCP_ON"));
-        assertTrue(!(boolean) result.get("PROBE_ON"));
-        assertEquals(98, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        assertProbeDone(result, event, 98, eNodeBStatusAlbum);
 
         ((ENodeBStatus) eNodeBStatusAlbum.get("123")).setDosCount(101);
 
         // user moving enodeB
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
+        event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("ENODEB_ID", 123L);
         event.put("SERVICE_REQUEST_COUNT", 99);
-        event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
         event.put("NUM_SUBSCRIBERS", 101);
         event.put("ACTTASK", "");
@@ -303,18 +276,13 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertEquals("act", result.get("ACTTASK"));
-        assertTrue(!(boolean) result.get("TCP_ON"));
-        assertTrue(!(boolean) result.get("PROBE_ON"));
-        assertEquals(100, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
+        assertProbeDone(result, event, 100, eNodeBStatusAlbum);
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
-        event.put("ENODEB_ID", Long.valueOf(124));
+        event.put("IMSI", 123456L);
+        event.put("ENODEB_ID", 124L);
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -336,11 +304,7 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertEquals("probe", result.get("ACTTASK"));
-        assertTrue((boolean) result.get("TCP_ON"));
-        assertTrue((boolean) result.get("PROBE_ON"));
+        assertProbe(result, event);
         assertEquals(99, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
         assertEquals(1, ((ENodeBStatus) eNodeBStatusAlbum.get("124")).getDosCount());
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
@@ -351,9 +315,9 @@ public class AadmUseCaseTest {
         // user becomes non anomalous
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
+        event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("ENODEB_ID", 123L);
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("AVG_SUBSCRIBER_SERVICE_REQUEST", 101.0);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
@@ -374,18 +338,14 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertEquals("probe", result.get("ACTTASK"));
-        assertTrue((boolean) result.get("TCP_ON"));
-        assertTrue((boolean) result.get("PROBE_ON"));
+        assertProbe(result, event);
         assertEquals(102, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
-        event.put("IMSI", Long.valueOf(123456));
-        event.put("ENODEB_ID", Long.valueOf(123));
+        event.put("IMSI", 123456L);
+        event.put("ENODEB_ID", 123L);
         event.put("SERVICE_REQUEST_COUNT", 99);
         event.put("UE_IP_ADDRESS", "101.111.121.131");
         event.put("ACTTASK", "");
@@ -407,11 +367,7 @@ public class AadmUseCaseTest {
 
         apexEngine.handleEvent(event);
         result = listener.getResult();
-        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
-        assertEquals("probe", result.get("ACTTASK"));
-        assertTrue((boolean) result.get("TCP_ON"));
-        assertTrue((boolean) result.get("PROBE_ON"));
+        assertProbe(result, event);
         assertEquals(102, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
         // End of user becomes non anomalous
@@ -438,12 +394,25 @@ public class AadmUseCaseTest {
         apexEngine.stop();
     }
 
-    /**
-     * Test vpn cleardown.
-     */
-    @After
-    public void testAadmCleardown() {
-        // Not used
+    private static void assertProbe(EnEvent result, EnEvent event) {
+        logger.info("Result name: {}", result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
+        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
+        assertEquals("probe", result.get("ACTTASK"));
+        assertTrue((boolean) result.get("TCP_ON"));
+        assertTrue((boolean) result.get("PROBE_ON"));
+    }
+
+    private static void assertProbeDone(EnEvent result, EnEvent event, int expected, ContextAlbum contextAlbum) {
+        assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
+        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
+        // DOS_IN_eNodeB set to be more than throughput so return act action
+        assertEquals("act", result.get("ACTTASK"));
+        // only one imsi was sent to process, so stop probe and tcp
+        assertFalse((boolean) result.get("TCP_ON"));
+        assertFalse((boolean) result.get("PROBE_ON"));
+        assertEquals(expected, ((ENodeBStatus) contextAlbum.get("123")).getDosCount());
+        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
     }
 
     /**

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -90,7 +90,7 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
     private final Map<ApexRestRequest, RestRequestRunner> ongoingRestRequestMap = new ConcurrentHashMap<>();
 
     // The number of events received to date
-    private Object eventsReceivedLock = new Object();
+    private final Object eventsReceivedLock = new Object();
     @Getter
     private int eventsReceived = 0;
 
@@ -303,18 +303,20 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
                     NetLoggerUtil.log(EventType.OUT, CommInfrastructure.REST, url, request.getEvent().toString());
                 }
                 // Execute the REST request
-                final var response = sendEventAsRestRequest(url);
-                // Get the event we received
-                final var eventJsonString = response.readEntity(String.class);
-                NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, url, eventJsonString);
-                // Match the return code
-                var isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
+                final String eventJsonString;
+                try (var response = sendEventAsRestRequest(url)) {
+                    // Get the event we received
+                    eventJsonString = response.readEntity(String.class);
+                    NetLoggerUtil.log(EventType.IN, CommInfrastructure.REST, url, eventJsonString);
+                    // Match the return code
+                    var isPass = httpCodeFilterPattern.matcher(String.valueOf(response.getStatus()));
 
-                // Check that the request worked
-                if (!isPass.matches()) {
-                    final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
-                        + "\" failed with status code " + response.getStatus();
-                    throw new ApexEventRuntimeException(errorMessage);
+                    // Check that the request worked
+                    if (!isPass.matches()) {
+                        final String errorMessage = "reception of event from URL \"" + restConsumerProperties.getUrl()
+                            + "\" failed with status code " + response.getStatus();
+                        throw new ApexEventRuntimeException(errorMessage);
+                    }
                 }
 
                 // Check there is content
@@ -354,24 +356,14 @@ public class ApexRestRequestorConsumer extends ApexPluginsEventConsumer {
         public Response sendEventAsRestRequest(String url) {
             Builder headers = client.target(url).request(APPLICATION_JSON)
                 .headers(restConsumerProperties.getHttpHeadersAsMultivaluedMap());
-            switch (restConsumerProperties.getHttpMethod()) {
-                case GET:
-                    return headers.get();
+            LOGGER.info("event from request: {}", request.getEvent());
+            return switch (restConsumerProperties.getHttpMethod()) {
+                case GET -> headers.get();
+                case PUT -> headers.put(Entity.json(request.getEvent()));
+                case POST -> headers.post(Entity.json(request.getEvent()));
+                case DELETE -> headers.delete();
+            };
 
-                case PUT:
-                    return headers.put(Entity.json(request.getEvent()));
-
-                case POST:
-                    return headers.post(Entity.json(request.getEvent()));
-
-                case DELETE:
-                    return headers.delete();
-
-                default:
-                    break;
-            }
-
-            return null;
         }
     }
 }

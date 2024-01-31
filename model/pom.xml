@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2023 Nordix Foundation.
+   Modifications Copyright (C) 2023-2024 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@
     <artifactId>model</artifactId>
 
     <name>${project.artifactId}</name>
-    <description>The model for Apex, it comtains definitions of all Apex concepts and also has handling for Apex
+    <description>The model for Apex, it contains definitions of all Apex concepts and also has handling for Apex
         models.
     </description>
 

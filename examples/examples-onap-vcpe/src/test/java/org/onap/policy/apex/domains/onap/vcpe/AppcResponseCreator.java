@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020,2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,8 +29,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.BlockingQueue;
 import org.onap.policy.appclcm.AppcLcmBody;
-import org.onap.policy.appclcm.AppcLcmDmaapWrapper;
 import org.onap.policy.appclcm.AppcLcmInput;
+import org.onap.policy.appclcm.AppcLcmMessageWrapper;
 import org.onap.policy.appclcm.AppcLcmOutput;
 import org.onap.policy.common.gson.InstantAsMillisTypeAdapter;
 
@@ -75,8 +75,8 @@ public class AppcResponseCreator {
         @Override
         public void run() {
 
-            AppcLcmDmaapWrapper requestWrapper = null;
-            requestWrapper = gson.fromJson(jsonRequestString, AppcLcmDmaapWrapper.class);
+            AppcLcmMessageWrapper requestWrapper = null;
+            requestWrapper = gson.fromJson(jsonRequestString, AppcLcmMessageWrapper.class);
 
             AppcLcmInput request = requestWrapper.getBody().getInput();
 
@@ -96,7 +96,7 @@ public class AppcResponseCreator {
 
             response.setPayload("");
 
-            AppcLcmDmaapWrapper responseWrapper = new AppcLcmDmaapWrapper();
+            AppcLcmMessageWrapper responseWrapper = new AppcLcmMessageWrapper();
             responseWrapper.setBody(new AppcLcmBody());
             responseWrapper.getBody().setOutput(response);
 

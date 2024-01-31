@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import java.util.Map;
 @Path("/apex")
 public class SupportRestRequestorEndpoint {
 
-    private static Object counterLock = new Object();
+    private static final Object counterLock = new Object();
     private static int postMessagesReceived = 0;
     private static int putMessagesReceived = 0;
     private static int statMessagesReceived = 0;

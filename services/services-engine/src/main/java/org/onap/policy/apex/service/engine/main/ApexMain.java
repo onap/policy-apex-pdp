@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021,2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -70,7 +69,6 @@ public class ApexMain {
      * Instantiates the Apex service.
      *
      * @param args the command line arguments
-     * @throws ApexException the apex exception.
      */
     public ApexMain(final String[] args) {
         LOGGER.entry("Starting Apex service with parameters " + Arrays.toString(args) + " . . .");
@@ -152,9 +150,9 @@ public class ApexMain {
             apexParameterHandler.registerParameters(aggregatedParameters);
         }
         List<String> duplicateInputParameters = aggregatedParameters.getEventInputParameters().keySet().stream()
-            .filter(apexParameters.getEventInputParameters()::containsKey).collect(Collectors.toList());
+            .filter(apexParameters.getEventInputParameters()::containsKey).toList();
         List<String> duplicateOutputParameters = aggregatedParameters.getEventOutputParameters().keySet().stream()
-            .filter(apexParameters.getEventOutputParameters()::containsKey).collect(Collectors.toList());
+            .filter(apexParameters.getEventOutputParameters()::containsKey).toList();
         if (!(duplicateInputParameters.isEmpty() && duplicateOutputParameters.isEmpty())) {
             throw new ApexException(
                 "start of Apex service failed because this policy has the following duplicate I/O parameters: "
@@ -209,7 +207,7 @@ public class ApexMain {
                 activator.terminate();
                 setAlive(false);
             } catch (final ApexException e) {
-                LOGGER.warn("error occured during shut down of the Apex service", e);
+                LOGGER.warn("error occurred during shut down of the Apex service", e);
             }
         }
     }
@@ -243,7 +241,6 @@ public class ApexMain {
      * The main method.
      *
      * @param args the arguments
-     * @throws ApexException the apex exception.
      */
     public static void main(final String[] args) {
         new ApexMain(args);

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021,2024 Nordix Foundation.
  *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
@@ -128,7 +128,7 @@ public class ApexStarterMain {
                     activator.terminate();
                 }
             } catch (final ApexStarterException e) {
-                LOGGER.warn("error occured during shut down of the apex starter service", e);
+                LOGGER.warn("error occurred during shut down of the apex starter service", e);
             }
         }
     }

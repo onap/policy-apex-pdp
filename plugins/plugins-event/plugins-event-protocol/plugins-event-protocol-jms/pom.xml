@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2021,2023 Nordix Foundation.
+   Modifications Copyright (C) 2021,2023-2024 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,6 +21,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>plugins-event-protocol-jms</artifactId>
+    <name>${project.artifactId}</name>
+    <description>[${project.parent.artifactId}] Plugins for handling events that are being transported as JMS messages
+    </description>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -34,9 +39,4 @@
         <artifactId>plugins-event-protocol</artifactId>
         <version>3.1.1-SNAPSHOT</version>
     </parent>
-
-    <artifactId>plugins-event-protocol-jms</artifactId>
-    <name>${project.artifactId}</name>
-    <description>[${project.parent.artifactId}] Plugins for handling events that are being transported as JMS messages
-    </description>
 </project>

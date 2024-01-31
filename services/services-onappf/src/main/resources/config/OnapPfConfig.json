@@ -26,14 +26,14 @@
     },
     "topicParameterGroup": {
         "topicSources" : [{
-            "topic" : "POLICY-PDP-PAP",
-            "servers" : [ "message-router" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topic" : "policy-pdp-pap",
+            "servers" : [ "localhost" ],
+            "topicCommInfrastructure" : "NOOP"
         }],
         "topicSinks" : [{
-            "topic" : "POLICY-PDP-PAP",
-            "servers" : [ "message-router" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topic" : "policy-pdp-pap",
+            "servers" : [ "localhost" ],
+            "topicCommInfrastructure" : "NOOP"
         }]
     }
 }

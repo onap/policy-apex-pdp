@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019, 2023 Nordix Foundation.
+ *  Copyright (C) 2019, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ public class CommonTestData {
         final TopicParameters topicParams = new TopicParameters();
         topicParams.setTopic("policy-pdp-pap");
         topicParams.setTopicCommInfrastructure("noop");
-        topicParams.setServers(List.of("message-router"));
+        topicParams.setServers(List.of("localhost"));
         return topicParams;
     }
 

@@ -25,14 +25,14 @@
     },
     "topicParameterGroup": {
         "topicSources" : [{
-            "topic" : "POLICY-PDP-PAP",
+            "topic" : "policy-pdp-pap",
             "servers" : [ "localhost:6845" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topicCommInfrastructure" : "noop"
         }],
         "topicSinks" : [{
-            "topic" : "POLICY-PDP-PAP",
+            "topic" : "policy-pdp-pap",
             "servers" : [ "localhost:6845" ],
-            "topicCommInfrastructure" : "dmaap"
+            "topicCommInfrastructure" : "noop"
         }]
     }
 }
