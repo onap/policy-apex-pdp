@@ -1,0 +1,9 @@
+Code-Review+2: Adheli Tavares <adheli.tavares@est.tech>
+Code-Review+1: Francesco Fiora <francesco.fiora@est.tech>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Submitted-by: Adheli Tavares <adheli.tavares@est.tech>
+Submitted-at: Fri, 09 Feb 2024 14:23:06 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/137199
+Project: policy/apex-pdp
+Branch: refs/heads/master
