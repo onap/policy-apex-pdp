@@ -39,6 +39,7 @@
         <module>examples-acm</module>
         <module>examples-adaptive</module>
         <module>examples-decisionmaker</module>
+        <module>examples-decisionmaker-sharedcontext</module>
         <module>examples-periodic</module>
         <module>examples-onap-vcpe</module>
         <module>examples-onap-bbs</module>
