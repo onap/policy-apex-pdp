@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -172,7 +172,6 @@ public class Apex2JsonEventConverter implements ApexEventProtocolConverter {
      *
      * @param apexEvent the event to Serialise
      * @return the Serialise event as JSON
-     * @throws ApexEventException exceptions on marshaling to JSON
      */
     private Object fromApexEventWithFields(final ApexEvent apexEvent) {
         // Get the event definition for the event from the model service

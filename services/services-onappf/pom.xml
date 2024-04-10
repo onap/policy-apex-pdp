@@ -1,6 +1,6 @@
 <!--
   ============LICENSE_START=======================================================
-   Copyright (C) 2019-2020,2023 Nordix Foundation.
+   Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -49,18 +49,17 @@
         </dependency>
         <dependency>
             <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+            <version>${version.policy.common}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
             <artifactId>utils-test</artifactId>
             <version>${version.policy.common}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.models</groupId>
             <artifactId>policy-models-pdp</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.ws.rs</groupId>
-                    <artifactId>javax.ws.rs-api</artifactId>
-                </exclusion>
-            </exclusions>
             <version>${version.policy.models}</version>
         </dependency>
         <dependency>
@@ -68,6 +67,20 @@
             <artifactId>kafka-clients</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_hotspot</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-fips</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+        </dependency>
+
 
         <!--test dependencies -->
         <dependency>
