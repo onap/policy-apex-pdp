@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2020,2022 Nordix Foundation.
+   Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,55 +20,55 @@
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
         <artifactId>apex-integration</artifactId>
-        <version>3.1.3-SNAPSHOT</version>
+        <version>3.1.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>integration-executor-test</artifactId>
+    <artifactId>integration-context-test</artifactId>
     <name>${project.artifactId}</name>
-    <description>[${project.parent.artifactId}] module to run executor tests using various executor script plugins
-    </description>
+    <description>[${project.parent.artifactId}] module to run context tests using various plugins, multi-threads and multi-JVMs</description>
+
 
     <dependencies>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
             <artifactId>integration-common</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-mvel</artifactId>
-            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-jruby</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-hazelcast</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Jython support disabled due to security concerns -->
-        <!-- dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-jython</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency-->
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-javascript</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-java</artifactId>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
+            <artifactId>plugins-context-distribution-infinispan</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
+            <artifactId>plugins-context-locking-curator</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-locking</groupId>
+            <artifactId>plugins-context-locking-hazelcast</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
