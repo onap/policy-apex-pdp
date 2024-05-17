@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>4.1.4</version>
+        <version>4.1.5-SNAPSHOT</version>
         <relativePath />
     </parent>
 
     <groupId>org.onap.policy.apex-pdp</groupId>
     <artifactId>apex-pdp</artifactId>
-    <version>3.1.3-SNAPSHOT</version>
+    <version>3.1.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>policy-apex-pdp</name>
@@ -46,8 +46,8 @@
         </sonar.javascript.lcov.reportPaths>
 
         <!-- Policy framework dependencies -->
-        <version.policy.common>2.1.3</version.policy.common>
-        <version.policy.models>3.1.3</version.policy.models>
+        <version.policy.common>2.1.4-SNAPSHOT</version.policy.common>
+        <version.policy.models>3.1.4-SNAPSHOT</version.policy.models>
 
         <!-- Apex-specific dependencies -->
         <version.activemq>5.18.3</version.activemq>
