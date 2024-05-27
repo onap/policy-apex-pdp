@@ -22,11 +22,10 @@
   -->
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APEX PDP STABILITY TEST PLAN" enabled="true">
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="APEX PDP STABILITY TEST PLAN">
       <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
-      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
     </TestPlan>
@@ -88,7 +87,7 @@
           </elementProp>
           <elementProp name="KAFKA_PORT" elementType="Argument">
             <stringProp name="Argument.name">KAFKA_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(KAFKA_PORT,29092)}</stringProp>
+            <stringProp name="Argument.value">${__P(KAFKA_PORT,9092)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CDS_PORT" elementType="Argument">
@@ -132,14 +131,14 @@
           </elementProp>
           <elementProp name="" elementType="Authorization">
             <stringProp name="Authorization.url">http://${HOSTNAME}:${APEX_PORT}/policy/apex-pdp/v1/healthcheck</stringProp>
-            <stringProp name="Authorization.username">healthcheck</stringProp>
+            <stringProp name="Authorization.username">policyadmin</stringProp>
             <stringProp name="Authorization.password">zb!XztG34</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
             <stringProp name="Authorization.url">http://${HOSTNAME}:${APEX_PORT}/metrics</stringProp>
-            <stringProp name="Authorization.username">healthcheck</stringProp>
+            <stringProp name="Authorization.username">policyadmin</stringProp>
             <stringProp name="Authorization.password">zb!XztG34</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
@@ -155,7 +154,7 @@
         <boolProp name="AuthManager.controlledByThreadGroup">false</boolProp>
       </AuthManager>
       <hashTree/>
-      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group">
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -3232,91 +3231,20 @@
                   &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
                     &quot;bootstrapServers&quot;: &quot;kafka:9092&quot;,&#xd;
-                    &quot;groupId&quot;: &quot;apex-grp2&quot;,&#xd;
+                    &quot;groupId&quot;: &quot;apex-group&quot;,&#xd;
                     &quot;enableAutoCommit&quot;: true,&#xd;
-                    &quot;autoCommitTime&quot;: 1000,&#xd;
-                    &quot;sessionTimeout&quot;: 30000,&#xd;
-                    &quot;consumerPollTime&quot;: 100,&#xd;
-                    &quot;consumerTopicList&quot;: [&#xd;
-                      &quot;unauthenticated.dcae_cl_output&quot;&#xd;
-                    ],&#xd;
-                    &quot;keyDeserializer&quot;: &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;,&#xd;
-                    &quot;valueDeserializer&quot;: &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;,&#xd;
-                    &quot;kafkaProperties&quot;: [&#xd;
-&#xd;
-                    ]&#xd;
+			     &quot;autoCommitTime&quot;: 1000,&#xd;
+			     &quot;sessionTimeout&quot;: 30000,&#xd;
+			     &quot;consumerPollTime&quot;: 100,&#xd;
+			     &quot;consumerTopicList&quot;: [&quot;unauthenticated.dcae_policy_example_output&quot;],&#xd;
+			     &quot;keyDeserializer&quot;: &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;,&#xd;
+			     &quot;valueDeserializer&quot;: &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
                   &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
                 },&#xd;
                 &quot;eventName&quot;: &quot;ApexExample_VesEvent&quot;&#xd;
-              },&#xd;
-              &quot;ApexExample_AAIResponseConsumer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;RESTREQUESTOR&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters&quot;,&#xd;
-                  &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;https://aai:8443/aai/v14/network/generic-vnfs/generic-vnf?vnf-name={vnf-name}&quot;,&#xd;
-                    &quot;httpMethod&quot;: &quot;GET&quot;,&#xd;
-                    &quot;httpCodeFilter&quot;: &quot;[245][0-9][0-9]&quot;,&#xd;
-                    &quot;httpHeaders&quot;: [&#xd;
-                      [&#xd;
-                        &quot;Accept&quot;,&#xd;
-                        &quot;application/json&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;Content-Type&quot;,&#xd;
-                        &quot;application/json&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;X-FromAppId&quot;,&#xd;
-                        &quot;dcae-curl&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;x-transactionId&quot;,&#xd;
-                        &quot;9998&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;Authorization&quot;,&#xd;
-                        &quot;Basic QUFJOkFBSQ==&quot;&#xd;
-                      ]&#xd;
-                    ]&#xd;
-                  }&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventName&quot;: &quot;ApexExample_AAISuccessResponseEvent|ApexExample_AAIFailureResponseEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;ApexExample_AAIProducer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 2000&#xd;
-              },&#xd;
-              &quot;ApexExample_CDSConfigModifyResponseConsumer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventName&quot;: &quot;ApexExample_CDSConfigModifySuccessResponseEvent|ApexExample_CDSConfigModifyFailureResponseEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;ApexExample_CDSConfigModifyRequestProducer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 500&#xd;
-              },&#xd;
-              &quot;ApexExample_CDSRestartResponseConsumer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventName&quot;: &quot;ApexExample_CDSRestartSuccessResponseEvent|ApexExample_CDSRestartFailureResponseEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;ApexExample_CDSRestartRequestProducer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 500&#xd;
               }&#xd;
             },&#xd;
             &quot;eventOutputParameters&quot;: {&#xd;
@@ -3331,61 +3259,14 @@
                     &quot;batchSize&quot;: 16384,&#xd;
                     &quot;lingerTime&quot;: 1,&#xd;
                     &quot;bufferMemory&quot;: 33554432,&#xd;
-                    &quot;producerTopic&quot;: &quot;apex-cl-mgt2&quot;,&#xd;
+                    &quot;producerTopic&quot;: &quot;apex-cl-mgt&quot;,&#xd;
                     &quot;keySerializer&quot;: &quot;org.apache.kafka.common.serialization.StringSerializer&quot;,&#xd;
-                    &quot;valueSerializer&quot;: &quot;org.apache.kafka.common.serialization.StringSerializer&quot;,&#xd;
-                    &quot;kafkaProperties&quot;: [&#xd;
-&#xd;
-                    ]&#xd;
+                    &quot;valueSerializer&quot;: &quot;org.apache.kafka.common.serialization.StringSerializer&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
                   &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventNameFilter&quot;: &quot;ApexExample_AAIRequestEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;ApexExample_AAIResponseConsumer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 2000&#xd;
-              },&#xd;
-              &quot;ApexExample_CDSConfigModifyRequestProducer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
-                  &quot;parameters&quot;: {&#xd;
-                    &quot;host&quot;: &quot;${KAFKA_HOST}&quot;,&#xd;
-                    &quot;port&quot;: ${CDS_PORT},&#xd;
-                    &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
-                    &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
-                    &quot;timeout&quot;: 10&#xd;
-                  }&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventNameFilter&quot;: &quot;ApexExample_CDSConfigModifyRequestEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;ApexExample_CDSConfigModifyResponseConsumer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 500&#xd;
-              },&#xd;
-              &quot;ApexExample_CDSRestartRequestProducer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
-                  &quot;parameters&quot;: {&#xd;
-                    &quot;host&quot;: &quot;${KAFKA_HOST}&quot;,&#xd;
-                    &quot;port&quot;: ${CDS_PORT},&#xd;
-                    &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
-                    &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
-                    &quot;timeout&quot;: 10&#xd;
-                  }&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventNameFilter&quot;: &quot;ApexExample_CDSRestartRequestEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;ApexExample_CDSRestartResponseConsumer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 500&#xd;
+                }&#xd;
               }&#xd;
             }&#xd;
           }&#xd;
@@ -3411,7 +3292,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="CreatePolicy-SimpleCL" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="CreatePolicy-SimpleCL">
           <intProp name="HTTPSampler.concurrentPool">6</intProp>
           <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
           <stringProp name="HTTPSampler.port">${API_PORT}</stringProp>
@@ -6198,117 +6079,46 @@
             &quot;eventInputParameters&quot;: {&#xd;
               &quot;SimpleCL_DCAEConsumer&quot;: {&#xd;
                 &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;RESTCLIENT&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters&quot;,&#xd;
+                  &quot;carrierTechnology&quot;: &quot;KAFKA&quot;,&#xd;
+                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;http://${KAFKA_HOST}:${KAFKA_PORT}/events/unauthenticated.DCAE_CL_OUTPUT/cl/apex?timeout=30000&quot;&#xd;
+                    &quot;bootstrapServers&quot;: &quot;kafka:9092&quot;,&#xd;
+                    &quot;groupId&quot;: &quot;apex-group&quot;,&#xd;
+                    &quot;enableAutoCommit&quot;: true,&#xd;
+			     &quot;autoCommitTime&quot;: 1000,&#xd;
+			     &quot;sessionTimeout&quot;: 30000,&#xd;
+			     &quot;consumerPollTime&quot;: 100,&#xd;
+			     &quot;consumerTopicList&quot;: [&quot;unauthenticated.dcae_cl_output&quot;],&#xd;
+			     &quot;keyDeserializer&quot;: &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;,&#xd;
+			     &quot;valueDeserializer&quot;: &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
                   &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
                 },&#xd;
                 &quot;eventName&quot;: &quot;SimpleCL_VesEvent&quot;&#xd;
-              },&#xd;
-              &quot;SimpleCL_AAIResponseConsumer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;RESTREQUESTOR&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters&quot;,&#xd;
-                  &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;https://aai:8443/aai/v14/network/pnfs/pnf/{pnfName}&quot;,&#xd;
-                    &quot;httpMethod&quot;: &quot;GET&quot;,&#xd;
-                    &quot;httpCodeFilter&quot;: &quot;[2-5][0-1][0-9]&quot;,&#xd;
-                    &quot;httpHeaders&quot;: [&#xd;
-                      [&#xd;
-                        &quot;Accept&quot;,&#xd;
-                        &quot;application/json&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;Content-Type&quot;,&#xd;
-                        &quot;application/json&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;X-FromAppId&quot;,&#xd;
-                        &quot;dcae-curl&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;x-transactionId&quot;,&#xd;
-                        &quot;9998&quot;&#xd;
-                      ],&#xd;
-                      [&#xd;
-                        &quot;Authorization&quot;,&#xd;
-                        &quot;Basic QUFJOkFBSQ==&quot;&#xd;
-                      ]&#xd;
-                    ]&#xd;
-                  }&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventName&quot;: &quot;SimpleCL_AAISuccessResponseEvent|SimpleCL_AAIFailureResponseEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;SimpleCL_AAIProducer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 2000&#xd;
-              },&#xd;
-              &quot;SimpleCL_CDSConfigModifyResponseConsumer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventName&quot;: &quot;SimpleCL_CDSConfigModifySuccessResponseEvent|SimpleCL_CDSConfigModifyFailureResponseEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;SimpleCL_CDSConfigModifyRequestProducer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 500&#xd;
               }&#xd;
             },&#xd;
             &quot;eventOutputParameters&quot;: {&#xd;
-              &quot;SimpleCL_AAIProducer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;RESTREQUESTOR&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restrequestor.RestRequestorCarrierTechnologyParameters&quot;&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventNameFilter&quot;: &quot;SimpleCL_AAIRequestEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;SimpleCL_AAIResponseConsumer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 2000&#xd;
-              },&#xd;
-              &quot;SimpleCL_CDSConfigModifyRequestProducer&quot;: {&#xd;
-                &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;GRPC&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.grpc.GrpcCarrierTechnologyParameters&quot;,&#xd;
-                  &quot;parameters&quot;: {&#xd;
-                    &quot;host&quot;: &quot;${KAFKA_HOST}&quot;,&#xd;
-                    &quot;port&quot;: ${CDS_PORT},&#xd;
-                    &quot;username&quot;: &quot;ccsdkapps&quot;,&#xd;
-                    &quot;password&quot;: &quot;ccsdkapps&quot;,&#xd;
-                    &quot;timeout&quot;: 60&#xd;
-                  }&#xd;
-                },&#xd;
-                &quot;eventProtocolParameters&quot;: {&#xd;
-                  &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventNameFilter&quot;: &quot;SimpleCL_CDSConfigModifyRequestEvent&quot;,&#xd;
-                &quot;requestorMode&quot;: true,&#xd;
-                &quot;requestorPeer&quot;: &quot;SimpleCL_CDSConfigModifyResponseConsumer&quot;,&#xd;
-                &quot;requestorTimeout&quot;: 500&#xd;
-              },&#xd;
               &quot;SimpleCL_LogEventProducer&quot;: {&#xd;
                 &quot;carrierTechnologyParameters&quot;: {&#xd;
-                  &quot;carrierTechnology&quot;: &quot;RESTCLIENT&quot;,&#xd;
-                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters&quot;,&#xd;
+                  &quot;carrierTechnology&quot;: &quot;KAFKA&quot;,&#xd;
+                  &quot;parameterClassName&quot;: &quot;org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters&quot;,&#xd;
                   &quot;parameters&quot;: {&#xd;
-                    &quot;url&quot;: &quot;http://${KAFKA_HOST}:${KAFKA_PORT}/events/APEX-CL-MGT&quot;&#xd;
+                    &quot;bootstrapServers&quot;: &quot;kafka:9092&quot;,&#xd;
+                    &quot;acks&quot;: &quot;all&quot;,&#xd;
+                    &quot;retries&quot;: 0,&#xd;
+                    &quot;batchSize&quot;: 16384,&#xd;
+                    &quot;lingerTime&quot;: 1,&#xd;
+                    &quot;bufferMemory&quot;: 33554432,&#xd;
+                    &quot;producerTopic&quot;: &quot;apex-cl-mgt&quot;,&#xd;
+                    &quot;keySerializer&quot;: &quot;org.apache.kafka.common.serialization.StringSerializer&quot;,&#xd;
+                    &quot;valueSerializer&quot;: &quot;org.apache.kafka.common.serialization.StringSerializer&quot;&#xd;
                   }&#xd;
                 },&#xd;
                 &quot;eventProtocolParameters&quot;: {&#xd;
                   &quot;eventProtocol&quot;: &quot;JSON&quot;&#xd;
-                },&#xd;
-                &quot;eventNameFilter&quot;: &quot;SimpleCL_LogEvent&quot;&#xd;
+                }&#xd;
               }&#xd;
             }&#xd;
           }&#xd;
@@ -6392,7 +6202,7 @@
         </ConstantTimer>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group">
         <stringProp name="ThreadGroup.num_threads">${threads}</stringProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <longProp name="ThreadGroup.duration">259200</longProp>
@@ -6420,25 +6230,6 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="false">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">import groovy.json.JsonSlurper;
-
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    res = jsonSlurper.parseText(prev.getResponseDataAsString());
-
-    assert res instanceof Map;
-    assert res.healthy == true;
-    assert res.message == &apos;alive&apos;;
-}
-</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223Assertion>
-          <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -6450,7 +6241,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Prometheus Metrics" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Prometheus Metrics">
           <intProp name="HTTPSampler.concurrentPool">6</intProp>
           <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
           <stringProp name="HTTPSampler.port">${APEX_PORT}</stringProp>
@@ -6477,684 +6268,527 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <stringProp name="TestPlan.comments">Assert response coming back from apex-pdp</stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="false">
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test simple-cl policy - success"/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Send Trigger Event - simple-cl success">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
-            <stringProp name="script">import groovy.json.JsonSlurper;
+            <stringProp name="script">import org.apache.kafka.clients.producer.Callback
+import org.apache.kafka.clients.producer.RecordMetadata
+import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.ProducerRecord
+import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.common.serialization.StringSerializer
 
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    res = jsonSlurper.parseText(prev.getResponseDataAsString());
+def props = new Properties()
+props.put(&quot;bootstrap.servers&quot;, &quot;kafka:9092&quot;)
+props.put(&quot;group.id&quot;, &quot;new-group&quot;)
+props.put(&quot;acks&quot;, &quot;all&quot;)
+props.put(&quot;retries&quot;, 0)
+props.put(&quot;batch.size&quot;, 16384)
+props.put(&quot;linger.ms&quot;, 1)
+props.put(&quot;buffer.memory&quot;, 33554432)
+props.put(&quot;key.serializer&quot;, StringSerializer.class.getName())
+props.put(&quot;value.serializer&quot;, StringSerializer.class.getName())
 
-    assert res instanceof Map;
-    assert res.healthy == true;
-    assert res.message == &apos;alive&apos;;
-}
+def producer = new KafkaProducer&lt;&gt;(props)
+
+def jsonString = &apos;&apos;&apos;{
+    &quot;event&quot;: {
+        &quot;commonEventHeader&quot;: {
+            &quot;startEpochMicrosec&quot;: 1597953057126,
+            &quot;sourceId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57${__threadNum}&quot;,
+            &quot;eventId&quot;: &quot;8c7935a4-79d8-4ec0-b661-dcca3cd6800${__threadNum}&quot;,
+            &quot;lastEpochMicrosec&quot;: 1597952499468,
+            &quot;eventName&quot;: &quot;Report hostname &amp; IP&quot;,
+            &quot;sourceName&quot;: &quot;PNF101&quot;,
+            &quot;reportingEntityName&quot;: &quot;DCAE&quot;,
+            &quot;vesEventListenerVersion&quot;: &quot;7.1&quot;,
+            &quot;internalHeaderFields&quot;: {},
+            &quot;version&quot;: &quot;4.0.1&quot;,
+            &quot;priority&quot;: &quot;Normal&quot;,
+            &quot;sequence&quot;: 1,
+            &quot;domain&quot;: &quot;other&quot;
+        },
+        &quot;otherFields&quot;: {
+            &quot;hashMap&quot;: {
+                &quot;hostname&quot;: &quot;UNDEFINED&quot;,
+                &quot;pnfId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57e&quot;,
+                &quot;pnfName&quot;: &quot;PNF101&quot;,
+                &quot;ip&quot;: &quot;10.101.200.10&quot;
+            },
+            &quot;otherFieldsVersion&quot;: &quot;3.0&quot;
+        }
+    }
+}&apos;&apos;&apos;
+
+def record = new ProducerRecord&lt;&gt;(&quot;unauthenticated.dcae_cl_output&quot;, jsonString)
+
+producer.send(record, new Callback() {
+    @Override
+    void onCompletion(RecordMetadata metadata, Exception exception) {
+        if (exception != null) {
+            exception.printStackTrace()
+        } else {
+            println(&quot;Sent message to topic ${metadata.topic()} partition ${metadata.partition()} with offset ${metadata.offset()}&quot;)
+        }
+    }
+})
+
+producer.close()
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223Assertion>
+          </JSR223Sampler>
           <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Clean up DMaaP notification topic" enabled="true"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Clean up DMaaP notification topic" enabled="true">
-            <stringProp name="TestPlan.comments">Clean up DMaaP notification topic</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=100&amp;timeout=500</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test simple-cl policy - success" enabled="true"/>
-        <hashTree>
-          <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
-            <stringProp name="groupSize">${threads}</stringProp>
-            <stringProp name="timeoutInMs">${threadsTimeOutInMs}</stringProp>
-          </SyncTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Trigger Event - simplecl success" enabled="true">
-            <stringProp name="TestPlan.comments">Send Trigger Event - simplecl success</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/unauthenticated.DCAE_CL_OUTPUT</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-  &quot;event&quot;: {&#xd;
-    &quot;commonEventHeader&quot;: {&#xd;
-      &quot;startEpochMicrosec&quot;: 1597953057126,&#xd;
-      &quot;sourceId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57${__threadNum}&quot;,&#xd;
-      &quot;eventId&quot;: &quot;8c7935a4-79d8-4ec0-b661-dcca3cd6800${__threadNum}&quot;,&#xd;
-      &quot;lastEpochMicrosec&quot;: 1597952499468,&#xd;
-      &quot;eventName&quot;: &quot;Report hostname &amp; IP&quot;,&#xd;
-      &quot;sourceName&quot;: &quot;PNF101&quot;,&#xd;
-      &quot;reportingEntityName&quot;: &quot;DCAE&quot;,&#xd;
-      &quot;vesEventListenerVersion&quot;: &quot;7.1&quot;,&#xd;
-      &quot;internalHeaderFields&quot;: {},&#xd;
-      &quot;version&quot;: &quot;4.0.1&quot;,&#xd;
-      &quot;priority&quot;: &quot;Normal&quot;,&#xd;
-      &quot;sequence&quot;: 1,&#xd;
-      &quot;domain&quot;: &quot;other&quot;&#xd;
-    },&#xd;
-    &quot;otherFields&quot;: {&#xd;
-      &quot;hashMap&quot;: {&#xd;
-        &quot;hostname&quot;: &quot;UNDEFINED&quot;,&#xd;
-        &quot;pnfId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57e&quot;,&#xd;
-        &quot;pnfName&quot;: &quot;PNF101&quot;,&#xd;
-        &quot;ip&quot;: &quot;10.101.200.10&quot;&#xd;
-      },&#xd;
-      &quot;otherFieldsVersion&quot;: &quot;3.0&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="true">
-            <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-          </ConstantTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Read notification events  - simplecl success" enabled="true">
-            <stringProp name="TestPlan.comments">Read notification events  - simplecl success</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=50&amp;timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="false">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">import groovy.json.JsonSlurper;
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Read  notification events - simplecl success">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import org.apache.kafka.clients.consumer.ConsumerRecords
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.common.serialization.StringDeserializer
+import groovy.json.JsonSlurper
 
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    def responseString = prev.getResponseDataAsString();
-    res = jsonSlurper.parseText(responseString);
-    def expectedNumberOfNotifications = ${threads} * 3;
-    assert res instanceof List;
-    assert res.size() == expectedNumberOfNotifications;
-    assert responseString.contains(&quot;ACTIVE&quot;)
-    assert responseString.contains(&quot;SUCCESS&quot;)
-    assert responseString.contains(&quot;FINAL_SUCCESS&quot;)
-    assert !responseString.contains(&quot;FAILURE&quot;)
-}
-</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223Assertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Clean up DMaaP notification topic" enabled="true"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Clean up DMaaP notification topic" enabled="true">
-            <stringProp name="TestPlan.comments">Clean up DMaaP notification topic</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=100&amp;timeout=500</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test simple-cl policy - failure" enabled="true"/>
-        <hashTree>
-          <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
-            <stringProp name="groupSize">${threads}</stringProp>
-            <stringProp name="timeoutInMs">${threadsTimeOutInMs}</stringProp>
-          </SyncTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Trigger Event - simplecl failure" enabled="true">
-            <stringProp name="TestPlan.comments">Send Trigger Event - simplecl failure</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/unauthenticated.DCAE_CL_OUTPUT</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-  &quot;event&quot;: {&#xd;
-    &quot;commonEventHeader&quot;: {&#xd;
-      &quot;startEpochMicrosec&quot;: 1597953057126,&#xd;
-      &quot;sourceId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57${__threadNum}&quot;,&#xd;
-      &quot;eventId&quot;: &quot;8c7935a4-79d8-4ec0-b661-dcca3cd6800${__threadNum}&quot;,&#xd;
-      &quot;lastEpochMicrosec&quot;: 1597952499468,&#xd;
-      &quot;eventName&quot;: &quot;Report hostname &amp; IP&quot;,&#xd;
-      &quot;sourceName&quot;: &quot;PNF101&quot;,&#xd;
-      &quot;reportingEntityName&quot;: &quot;DCAE&quot;,&#xd;
-      &quot;vesEventListenerVersion&quot;: &quot;7.1&quot;,&#xd;
-      &quot;internalHeaderFields&quot;: {},&#xd;
-      &quot;version&quot;: &quot;4.0.1&quot;,&#xd;
-      &quot;priority&quot;: &quot;Normal&quot;,&#xd;
-      &quot;sequence&quot;: 1,&#xd;
-      &quot;domain&quot;: &quot;other&quot;&#xd;
-    },&#xd;
-    &quot;otherFields&quot;: {&#xd;
-      &quot;hashMap&quot;: {&#xd;
-        &quot;hostname&quot;: &quot;UNDEFINED&quot;,&#xd;
-        &quot;pnfId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57e&quot;,&#xd;
-        &quot;pnfName&quot;: &quot;PNF_INVALID&quot;,&#xd;
-        &quot;ip&quot;: &quot;10.101.200.10&quot;&#xd;
-      },&#xd;
-      &quot;otherFieldsVersion&quot;: &quot;3.0&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="true">
-            <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-          </ConstantTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Read notification events  - simplecl failure" enabled="true">
-            <stringProp name="TestPlan.comments">Read notification events  - simplecl failure</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=50&amp;timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="false">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">import groovy.json.JsonSlurper;
+// Consumer properties
+def props = new Properties()
+props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;kafka:9092&quot;)  // Adjust to your Kafka bootstrap server
+props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;apex-group&quot;)
+props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, &quot;earliest&quot;)
 
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    def responseString = prev.getResponseDataAsString();
-    res = jsonSlurper.parseText(responseString);
-    def expectedNumberOfNotifications = ${threads} * 2;
-    assert res instanceof List;
-    assert res.size() == expectedNumberOfNotifications;
-    assert responseString.contains(&quot;ACTIVE&quot;)
-    assert responseString.contains(&quot;FINAL_FAILURE&quot;)
-    assert !responseString.contains(&quot;FINAL_SUCCESS&quot;)
-}
-</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223Assertion>
-            <hashTree/>
-            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
-              <stringProp name="scriptLanguage">groovy</stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="script">import groovy.json.JsonSlurper;
+// Create the Kafka consumer
+def consumer = new KafkaConsumer&lt;&gt;(props)
 
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    def responseString = prev.getResponseDataAsString();
-    res = jsonSlurper.parseText(responseString);
-    def expectedNumberOfNotifications = ${threads} * 2;
-    assert res instanceof List;
-    assert res.size() == expectedNumberOfNotifications;
-    assert responseString.contains(&quot;ACTIVE&quot;)
-    assert responseString.contains(&quot;FINAL_FAILURE&quot;)
-    assert !responseString.contains(&quot;FINAL_SUCCESS&quot;)
-}
-</stringProp>
-            </JSR223Assertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Clean up DMaaP notification topic" enabled="true"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Clean up DMaaP notification topic" enabled="true">
-            <stringProp name="TestPlan.comments">Clean up DMaaP notification topic</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=100&amp;timeout=500</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test example policy - success" enabled="true"/>
-        <hashTree>
-          <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
-            <stringProp name="groupSize">${threads}</stringProp>
-            <stringProp name="timeoutInMs">${threadsTimeOutInMs}</stringProp>
-          </SyncTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Trigger Event - example success" enabled="true">
-            <stringProp name="TestPlan.comments">Send Trigger Event - example success</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/unauthenticated.DCAE_POLICY_EXAMPLE_OUTPUT</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-  &quot;event&quot;: {&#xd;
-    &quot;commonEventHeader&quot;: {&#xd;
-      &quot;domain&quot;: &quot;fault&quot;,&#xd;
-      &quot;eventId&quot;: &quot;fault0000245&quot;,&#xd;
-      &quot;eventName&quot;: &quot;Fault_Vscf:PilotNumberPoolExhaustion&quot;,&#xd;
-      &quot;lastEpochMicrosec&quot;: 1413378172000000,&#xd;
-      &quot;priority&quot;: &quot;High&quot;,&#xd;
-      &quot;reportingEntityName&quot;: &quot;ibcx0001vm002oam001&quot;,&#xd;
-      &quot;sequence&quot;: 1,&#xd;
-      &quot;sourceId&quot;: &quot;de305d54-75b4-431b-adb2-eb6b9e546014${__threadNum}&quot;,&#xd;
-      &quot;sourceName&quot;: &quot;vfw-cnf-cds-test-1-vnf&quot;,&#xd;
-      &quot;startEpochMicrosec&quot;: 1413378172000000,&#xd;
-      &quot;timeZoneOffset&quot;: &quot;UTC-05:30&quot;,&#xd;
-      &quot;version&quot;: &quot;4.0.1&quot;,&#xd;
-      &quot;vesEventListenerVersion&quot;: &quot;7.0.1&quot;&#xd;
-    },&#xd;
-    &quot;faultFields&quot;: {&#xd;
-      &quot;alarmAdditionalInformation&quot;: {&#xd;
-        &quot;PilotNumberPoolSize&quot;: &quot;1000&quot;&#xd;
-      },&#xd;
-      &quot;alarmCondition&quot;: &quot;PilotNumberPoolExhaustion&quot;,&#xd;
-      &quot;eventSeverity&quot;: &quot;CRITICAL&quot;,&#xd;
-      &quot;eventSourceType&quot;: &quot;other&quot;,&#xd;
-      &quot;faultFieldsVersion&quot;: 4,&#xd;
-      &quot;specificProblem&quot;: &quot;Calls cannot complete - pilot numbers are unavailable&quot;,&#xd;
-      &quot;vfStatus&quot;: &quot;Active&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="true">
-            <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-          </ConstantTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Read notification events  - example success" enabled="true">
-            <stringProp name="TestPlan.comments">Read notification events  - example success</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=50&amp;timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="false">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">import groovy.json.JsonSlurper;
+// Subscribe to the topic
+consumer.subscribe([&quot;apex-cl-mgt&quot;])
 
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    def responseString = prev.getResponseDataAsString();
-    res = jsonSlurper.parseText(responseString);
-    def expectedNumberOfNotifications = ${threads} * 4;
-    assert res instanceof List;
-    assert res.size() == expectedNumberOfNotifications;
-    assert responseString.contains(&quot;ACTIVE&quot;)
-    assert responseString.contains(&quot;SUCCESS&quot;)
-    assert responseString.contains(&quot;FINAL_SUCCESS&quot;)
-    assert !responseString.contains(&quot;FAILURE&quot;)
-}
-</stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223Assertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Clean up DMaaP notification topic" enabled="true"/>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Clean up DMaaP notification topic" enabled="true">
-            <stringProp name="TestPlan.comments">Clean up DMaaP notification topic</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=100&amp;timeout=500</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test example policy - failure" enabled="true"/>
-        <hashTree>
-          <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="true">
-            <stringProp name="groupSize">${threads}</stringProp>
-            <stringProp name="timeoutInMs">${threadsTimeOutInMs}</stringProp>
-          </SyncTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Trigger Event - example failure" enabled="true">
-            <stringProp name="TestPlan.comments">Send Trigger Event - example failure</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/unauthenticated.DCAE_POLICY_EXAMPLE_OUTPUT</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-  &quot;event&quot;: {&#xd;
-    &quot;commonEventHeader&quot;: {&#xd;
-      &quot;domain&quot;: &quot;fault&quot;,&#xd;
-      &quot;eventId&quot;: &quot;fault0000245&quot;,&#xd;
-      &quot;eventName&quot;: &quot;Fault_Vscf:PilotNumberPoolExhaustion&quot;,&#xd;
-      &quot;lastEpochMicrosec&quot;: 1413378172000000,&#xd;
-      &quot;priority&quot;: &quot;High&quot;,&#xd;
-      &quot;reportingEntityName&quot;: &quot;ibcx0001vm002oam001&quot;,&#xd;
-      &quot;sequence&quot;: 1,&#xd;
-      &quot;sourceId&quot;: &quot;de305d54-75b4-431b-adb2-eb6b9e546014${__threadNum}&quot;,&#xd;
-      &quot;sourceName&quot;: &quot;vfw-cnf-cds-test-2-vnf&quot;,&#xd;
-      &quot;startEpochMicrosec&quot;: 1413378172000000,&#xd;
-      &quot;timeZoneOffset&quot;: &quot;UTC-05:30&quot;,&#xd;
-      &quot;version&quot;: &quot;4.0.1&quot;,&#xd;
-      &quot;vesEventListenerVersion&quot;: &quot;7.0.1&quot;&#xd;
-    },&#xd;
-    &quot;faultFields&quot;: {&#xd;
-      &quot;alarmAdditionalInformation&quot;: {&#xd;
-        &quot;PilotNumberPoolSize&quot;: &quot;1000&quot;&#xd;
-      },&#xd;
-      &quot;alarmCondition&quot;: &quot;PilotNumberPoolExhaustion&quot;,&#xd;
-      &quot;eventSeverity&quot;: &quot;CRITICAL&quot;,&#xd;
-      &quot;eventSourceType&quot;: &quot;other&quot;,&#xd;
-      &quot;faultFieldsVersion&quot;: 4,&#xd;
-      &quot;specificProblem&quot;: &quot;Calls cannot complete - pilot numbers are unavailable&quot;,&#xd;
-      &quot;vfStatus&quot;: &quot;InActive&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="true">
-            <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-          </ConstantTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Read notification events  - example failure" enabled="true">
-            <stringProp name="TestPlan.comments">Read notification events  - example failure</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=50&amp;timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="false">
-              <stringProp name="cacheKey">true</stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="script">import groovy.json.JsonSlurper;
+// Poll for messages and assert the value
+def found = false
+def timeout = 10000 // timeout in milliseconds
+def startTime = System.currentTimeMillis()
 
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    def responseString = prev.getResponseDataAsString();
-    res = jsonSlurper.parseText(responseString);
-    def expectedNumberOfNotifications = ${threads} * 2;
-    assert res instanceof List;
-    assert res.size() == expectedNumberOfNotifications;
-    assert responseString.contains(&quot;ACTIVE&quot;)
-    assert responseString.contains(&quot;FINAL_FAILURE&quot;)
-    assert !responseString.contains(&quot;FINAL_SUCCESS&quot;)
+while (!found &amp;&amp; (System.currentTimeMillis() - startTime) &lt; timeout) {
+    println(&quot;Inside while loop&quot;)
+    ConsumerRecords&lt;String, String&gt; records = consumer.poll(1000)
+    for (ConsumerRecord&lt;String, String&gt; record : records) {
+        println(&quot;Received message: Key=${record.key()}, Value=${record.value()}, Partition=${record.partition()}, Offset=${record.offset()}&quot;)
+        
+        // Parse the JSON value
+        def jsonSlurper = new JsonSlurper()
+        def message = jsonSlurper.parseText(record.value())
+        
+        // Perform assertion on specific fields in the JSON
+        if ((message?.source == &quot;APEX&quot;) || (message?.component?.status == &quot;ACTIVE&quot;)) {
+            found = true
+            println(&quot;Assertion passed: source is &apos;APEX&apos; or status is &apos;ACTIVE&apos;&quot;)
+            break
+        }
+    }
 }
+
+// Close the consumer
+consumer.close()
 </stringProp>
-              <stringProp name="scriptLanguage">groovy</stringProp>
-            </JSR223Assertion>
-            <hashTree/>
-          </hashTree>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test example policy - success"/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.producer.Callback
+import org.apache.kafka.clients.producer.RecordMetadata
+import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.ProducerRecord
+import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.common.serialization.StringSerializer
+
+def props = new Properties()
+props.put(&quot;bootstrap.servers&quot;, &quot;kafka:9092&quot;)
+props.put(&quot;group.id&quot;, &quot;new-group&quot;)
+props.put(&quot;acks&quot;, &quot;all&quot;)
+props.put(&quot;retries&quot;, 0)
+props.put(&quot;batch.size&quot;, 16384)
+props.put(&quot;linger.ms&quot;, 1)
+props.put(&quot;buffer.memory&quot;, 33554432)
+props.put(&quot;key.serializer&quot;, StringSerializer.class.getName())
+props.put(&quot;value.serializer&quot;, StringSerializer.class.getName())
+
+def producer = new KafkaProducer&lt;&gt;(props)
+
+def jsonString = &apos;&apos;&apos;{
+  &quot;event&quot;: {
+    &quot;commonEventHeader&quot;: {
+      &quot;domain&quot;: &quot;fault&quot;,
+      &quot;eventId&quot;: &quot;fault0000245&quot;,
+      &quot;eventName&quot;: &quot;Fault_Vscf:PilotNumberPoolExhaustion&quot;,
+      &quot;lastEpochMicrosec&quot;: 1413378172000000,
+      &quot;priority&quot;: &quot;High&quot;,
+      &quot;reportingEntityName&quot;: &quot;ibcx0001vm002oam001&quot;,
+      &quot;sequence&quot;: 1,
+      &quot;sourceId&quot;: &quot;de305d54-75b4-431b-adb2-eb6b9e546014${__threadNum}&quot;,
+      &quot;sourceName&quot;: &quot;vfw-cnf-cds-test-1-vnf&quot;,
+      &quot;startEpochMicrosec&quot;: 1413378172000000,
+      &quot;timeZoneOffset&quot;: &quot;UTC-05:30&quot;,
+      &quot;version&quot;: &quot;4.0.1&quot;,
+      &quot;vesEventListenerVersion&quot;: &quot;7.0.1&quot;
+    },
+    &quot;faultFields&quot;: {
+      &quot;alarmAdditionalInformation&quot;: {
+        &quot;PilotNumberPoolSize&quot;: &quot;1000&quot;
+      },
+      &quot;alarmCondition&quot;: &quot;PilotNumberPoolExhaustion&quot;,
+      &quot;eventSeverity&quot;: &quot;CRITICAL&quot;,
+      &quot;eventSourceType&quot;: &quot;other&quot;,
+      &quot;faultFieldsVersion&quot;: 4,
+      &quot;specificProblem&quot;: &quot;Calls cannot complete - pilot numbers are unavailable&quot;,
+      &quot;vfStatus&quot;: &quot;Active&quot;
+    }
+  }
+}&apos;&apos;&apos;
+
+def record = new ProducerRecord&lt;&gt;(&quot;unauthenticated.dcae_policy_example_output&quot;, jsonString)
+
+producer.send(record, new Callback() {
+    @Override
+    void onCompletion(RecordMetadata metadata, Exception exception) {
+        if (exception != null) {
+            exception.printStackTrace()
+        } else {
+            println(&quot;Sent message to topic ${metadata.topic()} partition ${metadata.partition()} with offset ${metadata.offset()}&quot;)
+        }
+    }
+})
+
+producer.close()
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Read  notification events - simplecl success">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import org.apache.kafka.clients.consumer.ConsumerRecords
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.common.serialization.StringDeserializer
+import groovy.json.JsonSlurper
+
+// Consumer properties
+def props = new Properties()
+props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;kafka:9092&quot;)  // Adjust to your Kafka bootstrap server
+props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;apex-group&quot;)
+props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, &quot;earliest&quot;)
+
+// Create the Kafka consumer
+def consumer = new KafkaConsumer&lt;&gt;(props)
+
+// Subscribe to the topic
+consumer.subscribe([&quot;apex-cl-mgt&quot;])
+
+// Poll for messages and assert the value
+def found = false
+def timeout = 10000 // timeout in milliseconds
+def startTime = System.currentTimeMillis()
+
+while (!found &amp;&amp; (System.currentTimeMillis() - startTime) &lt; timeout) {
+    println(&quot;Inside while loop&quot;)
+    ConsumerRecords&lt;String, String&gt; records = consumer.poll(1000)
+    for (ConsumerRecord&lt;String, String&gt; record : records) {
+        println(&quot;Received message: Key=${record.key()}, Value=${record.value()}, Partition=${record.partition()}, Offset=${record.offset()}&quot;)
+        
+        // Parse the JSON value
+        def jsonSlurper = new JsonSlurper()
+        def message = jsonSlurper.parseText(record.value())
+        
+        // Perform assertion on specific fields in the JSON
+        if ((message?.source == &quot;APEX&quot;) || (message?.component?.status == &quot;ACTIVE&quot;)) {
+            found = true
+            println(&quot;Assertion passed: source is &apos;APEX&apos; or status is &apos;ACTIVE&apos;&quot;)
+            break
+        }
+    }
+}
+
+// Close the consumer
+consumer.close()
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test simple-cl policy - failure"/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Send Trigger Event - simple-cl failure">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.producer.Callback
+import org.apache.kafka.clients.producer.RecordMetadata
+import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.ProducerRecord
+import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.common.serialization.StringSerializer
+
+def props = new Properties()
+props.put(&quot;bootstrap.servers&quot;, &quot;kafka:9092&quot;)
+props.put(&quot;group.id&quot;, &quot;new-group&quot;)
+props.put(&quot;acks&quot;, &quot;all&quot;)
+props.put(&quot;retries&quot;, 0)
+props.put(&quot;batch.size&quot;, 16384)
+props.put(&quot;linger.ms&quot;, 1)
+props.put(&quot;buffer.memory&quot;, 33554432)
+props.put(&quot;key.serializer&quot;, StringSerializer.class.getName())
+props.put(&quot;value.serializer&quot;, StringSerializer.class.getName())
+
+def producer = new KafkaProducer&lt;&gt;(props)
+
+def jsonString = &apos;&apos;&apos;{
+  &quot;event&quot;: {
+    &quot;commonEventHeader&quot;: {
+      &quot;startEpochMicrosec&quot;: 1597953057126,
+      &quot;sourceId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57${__threadNum}&quot;,
+      &quot;eventId&quot;: &quot;8c7935a4-79d8-4ec0-b661-dcca3cd6800${__threadNum}&quot;,
+      &quot;lastEpochMicrosec&quot;: 1597952499468,
+      &quot;eventName&quot;: &quot;Report hostname &amp; IP&quot;,
+      &quot;sourceName&quot;: &quot;PNF101&quot;,
+      &quot;reportingEntityName&quot;: &quot;DCAE&quot;,
+      &quot;vesEventListenerVersion&quot;: &quot;7.1&quot;,
+      &quot;internalHeaderFields&quot;: {},
+      &quot;version&quot;: &quot;4.0.1&quot;,
+      &quot;priority&quot;: &quot;Normal&quot;,
+      &quot;sequence&quot;: 1,
+      &quot;domain&quot;: &quot;other&quot;
+    },
+    &quot;otherFields&quot;: {
+      &quot;hashMap&quot;: {
+        &quot;hostname&quot;: &quot;UNDEFINED&quot;,
+        &quot;pnfId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57e&quot;,
+        &quot;pnfName&quot;: &quot;PNF_INVALID&quot;,
+        &quot;ip&quot;: &quot;10.101.200.10&quot;
+      },
+      &quot;otherFieldsVersion&quot;: &quot;3.0&quot;
+    }
+  }
+}&apos;&apos;&apos;
+
+def record = new ProducerRecord&lt;&gt;(&quot;unauthenticated.dcae_cl_output&quot;, jsonString)
+
+producer.send(record, new Callback() {
+    @Override
+    void onCompletion(RecordMetadata metadata, Exception exception) {
+        if (exception != null) {
+            exception.printStackTrace()
+        } else {
+            println(&quot;Sent message to topic ${metadata.topic()} partition ${metadata.partition()} with offset ${metadata.offset()}&quot;)
+        }
+    }
+})
+
+producer.close()
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Read  notification events - simplecl success">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import org.apache.kafka.clients.consumer.ConsumerRecords
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.common.serialization.StringDeserializer
+import groovy.json.JsonSlurper
+
+// Consumer properties
+def props = new Properties()
+props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;kafka:9092&quot;)  // Adjust to your Kafka bootstrap server
+props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;apex-group&quot;)
+props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, &quot;earliest&quot;)
+
+// Create the Kafka consumer
+def consumer = new KafkaConsumer&lt;&gt;(props)
+
+// Subscribe to the topic
+consumer.subscribe([&quot;apex-cl-mgt&quot;])
+
+// Poll for messages and assert the value
+def found = false
+def timeout = 10000 // timeout in milliseconds
+def startTime = System.currentTimeMillis()
+
+while (!found &amp;&amp; (System.currentTimeMillis() - startTime) &lt; timeout) {
+    println(&quot;Inside while loop&quot;)
+    ConsumerRecords&lt;String, String&gt; records = consumer.poll(1000)
+    for (ConsumerRecord&lt;String, String&gt; record : records) {
+        println(&quot;Received message: Key=${record.key()}, Value=${record.value()}, Partition=${record.partition()}, Offset=${record.offset()}&quot;)
+        
+        // Parse the JSON value
+        def jsonSlurper = new JsonSlurper()
+        def message = jsonSlurper.parseText(record.value())
+        
+        // Perform assertion on specific fields in the JSON
+        if (!(message?.name != &quot;SUCCESS&quot;)) {
+            found = true
+            println(&quot;Assertion passed&quot;)
+            break
+        }
+    }
+}
+
+// Close the consumer
+consumer.close()
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test example policy - failure"/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Send Trigger Event - example failure">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.producer.Callback
+import org.apache.kafka.clients.producer.RecordMetadata
+import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.ProducerRecord
+import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.common.serialization.StringSerializer
+
+def props = new Properties()
+props.put(&quot;bootstrap.servers&quot;, &quot;kafka:9092&quot;)
+props.put(&quot;group.id&quot;, &quot;new-group&quot;)
+props.put(&quot;acks&quot;, &quot;all&quot;)
+props.put(&quot;retries&quot;, 0)
+props.put(&quot;batch.size&quot;, 16384)
+props.put(&quot;linger.ms&quot;, 1)
+props.put(&quot;buffer.memory&quot;, 33554432)
+props.put(&quot;key.serializer&quot;, StringSerializer.class.getName())
+props.put(&quot;value.serializer&quot;, StringSerializer.class.getName())
+
+def producer = new KafkaProducer&lt;&gt;(props)
+
+def jsonString = &apos;&apos;&apos;{
+    &quot;event&quot;: {
+        &quot;commonEventHeader&quot;: {
+            &quot;startEpochMicrosec&quot;: 1597953057126,
+            &quot;sourceId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57${__threadNum}&quot;,
+            &quot;eventId&quot;: &quot;8c7935a4-79d8-4ec0-b661-dcca3cd6800${__threadNum}&quot;,
+            &quot;lastEpochMicrosec&quot;: 1597952499468,
+            &quot;eventName&quot;: &quot;Report hostname &amp; IP&quot;,
+            &quot;sourceName&quot;: &quot;PNF101&quot;,
+            &quot;reportingEntityName&quot;: &quot;DCAE&quot;,
+            &quot;vesEventListenerVersion&quot;: &quot;7.1&quot;,
+            &quot;internalHeaderFields&quot;: {},
+            &quot;version&quot;: &quot;4.0.1&quot;,
+            &quot;priority&quot;: &quot;Normal&quot;,
+            &quot;sequence&quot;: 1,
+            &quot;domain&quot;: &quot;other&quot;
+        },
+        &quot;otherFields&quot;: {
+            &quot;hashMap&quot;: {
+                &quot;hostname&quot;: &quot;UNDEFINED&quot;,
+                &quot;pnfId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57e&quot;,
+                &quot;pnfName&quot;: &quot;PNF101&quot;,
+                &quot;ip&quot;: &quot;10.101.200.10&quot;
+            },
+            &quot;otherFieldsVersion&quot;: &quot;3.0&quot;
+        }
+    }
+}&apos;&apos;&apos;
+
+def record = new ProducerRecord&lt;&gt;(&quot;unauthenticated.dcae_policy_example_output&quot;, jsonString)
+
+producer.send(record, new Callback() {
+    @Override
+    void onCompletion(RecordMetadata metadata, Exception exception) {
+        if (exception != null) {
+            exception.printStackTrace()
+        } else {
+            println(&quot;Sent message to topic ${metadata.topic()} partition ${metadata.partition()} with offset ${metadata.offset()}&quot;)
+        }
+    }
+})
+
+producer.close()
+</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Read  notification events - simplecl success">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import org.apache.kafka.clients.consumer.ConsumerRecords
+import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.common.serialization.StringDeserializer
+import groovy.json.JsonSlurper
+
+// Consumer properties
+def props = new Properties()
+props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;kafka:9092&quot;)  // Adjust to your Kafka bootstrap server
+props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;apex-group&quot;)
+props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
+props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, &quot;earliest&quot;)
+
+// Create the Kafka consumer
+def consumer = new KafkaConsumer&lt;&gt;(props)
+
+// Subscribe to the topic
+consumer.subscribe([&quot;apex-cl-mgt&quot;])
+
+// Poll for messages and assert the value
+def found = false
+def timeout = 10000 // timeout in milliseconds
+def startTime = System.currentTimeMillis()
+
+while (!found &amp;&amp; (System.currentTimeMillis() - startTime) &lt; timeout) {
+    println(&quot;Inside while loop&quot;)
+    ConsumerRecords&lt;String, String&gt; records = consumer.poll(1000)
+    for (ConsumerRecord&lt;String, String&gt; record : records) {
+        println(&quot;Received message: Key=${record.key()}, Value=${record.value()}, Partition=${record.partition()}, Offset=${record.offset()}&quot;)
+        
+        // Parse the JSON value
+        def jsonSlurper = new JsonSlurper()
+        def message = jsonSlurper.parseText(record.value())
+        
+        // Perform assertion on specific fields in the JSON
+        if (!(message?.name == &quot;SUCCESS&quot;)) {
+            found = true
+            println(&quot;Assertion passed: source is &apos;APEX&apos; or status is &apos;ACTIVE&apos;&quot;)
+            break
+        }
+    }
+}
+
+// Close the consumer
+consumer.close()
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
         </hashTree>
       </hashTree>
-      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group" enabled="false">
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -7165,7 +6799,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
         </elementProp>
       </PostThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Un deploy policy" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Un deploy policy" enabled="true">
           <intProp name="HTTPSampler.concurrentPool">6</intProp>
           <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
           <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
@@ -7207,7 +6841,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49588">202</stringProp>
             </collectionProp>
@@ -7218,7 +6852,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Policy" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Policy" enabled="true">
           <intProp name="HTTPSampler.concurrentPool">6</intProp>
           <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
           <stringProp name="HTTPSampler.port">${API_PORT}</stringProp>
@@ -7233,7 +6867,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -7244,7 +6878,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Policy" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Delete Policy">
           <intProp name="HTTPSampler.concurrentPool">6</intProp>
           <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
           <stringProp name="HTTPSampler.port">${API_PORT}</stringProp>
@@ -7259,7 +6893,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -7269,349 +6903,6 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <intProp name="Assertion.test_type">1</intProp>
           </ResponseAssertion>
           <hashTree/>
-        </hashTree>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Clear DMaaP" enabled="false">
-        <stringProp name="ThreadGroup.num_threads">${threads}</stringProp>
-        <intProp name="ThreadGroup.ramp_time">1</intProp>
-        <longProp name="ThreadGroup.duration">259200</longProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
-          <intProp name="LoopController.loops">-1</intProp>
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-        </elementProp>
-      </ThreadGroup>
-      <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Health Check" enabled="false">
-          <intProp name="HTTPSampler.concurrentPool">6</intProp>
-          <stringProp name="HTTPSampler.domain">${HOSTNAME}</stringProp>
-          <stringProp name="HTTPSampler.port">${APEX_PORT}</stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/policy/apex-pdp/v1/healthcheck</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-        </HTTPSamplerProxy>
-        <hashTree>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="script">import groovy.json.JsonSlurper;
-
-def res = [];
-if (prev.getResponseCode() == &apos;200&apos;) {
-    def jsonSlurper = new JsonSlurper();
-    res = jsonSlurper.parseText(prev.getResponseDataAsString());
-
-    assert res instanceof Map;
-    assert res.healthy == true;
-    assert res.message == &apos;alive&apos;;
-}
-</stringProp>
-            <stringProp name="scriptLanguage">groovy</stringProp>
-          </JSR223Assertion>
-          <hashTree/>
-        </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Test Controller" enabled="false"/>
-        <hashTree>
-          <SyncTimer guiclass="TestBeanGUI" testclass="SyncTimer" testname="Synchronizing Timer" enabled="false">
-            <stringProp name="groupSize">${threads}</stringProp>
-            <stringProp name="timeoutInMs">${threadsTimeOutInMs}</stringProp>
-          </SyncTimer>
-          <hashTree/>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Send Input Event" enabled="false">
-            <stringProp name="TestPlan.comments">Send input event to apex-pdp</stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/unauthenticated.DCAE_CL_OUTPUT</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-  &quot;event&quot;: {&#xd;
-    &quot;commonEventHeader&quot;: {&#xd;
-      &quot;startEpochMicrosec&quot;: 1597953057126,&#xd;
-      &quot;sourceId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57${__threadNum}&quot;,&#xd;
-      &quot;eventId&quot;: &quot;8c7935a4-79d8-4ec0-b661-dcca3cd6800${__threadNum}&quot;,&#xd;
-      &quot;lastEpochMicrosec&quot;: 1597952499468,&#xd;
-      &quot;eventName&quot;: &quot;Report hostname &amp; IP&quot;,&#xd;
-      &quot;sourceName&quot;: &quot;PNF101&quot;,&#xd;
-      &quot;reportingEntityName&quot;: &quot;DCAE&quot;,&#xd;
-      &quot;vesEventListenerVersion&quot;: &quot;7.1&quot;,&#xd;
-      &quot;internalHeaderFields&quot;: {},&#xd;
-      &quot;version&quot;: &quot;4.0.1&quot;,&#xd;
-      &quot;priority&quot;: &quot;Normal&quot;,&#xd;
-      &quot;sequence&quot;: 1,&#xd;
-      &quot;domain&quot;: &quot;other&quot;&#xd;
-    },&#xd;
-    &quot;otherFields&quot;: {&#xd;
-      &quot;hashMap&quot;: {&#xd;
-        &quot;hostname&quot;: &quot;UNDEFINED&quot;,&#xd;
-        &quot;pnfId&quot;: &quot;927b2580-36d9-4f13-8421-3c9d43b7a57e&quot;,&#xd;
-        &quot;pnfName&quot;: &quot;PNF101&quot;,&#xd;
-        &quot;ip&quot;: &quot;10.101.200.10&quot;&#xd;
-      },&#xd;
-      &quot;otherFieldsVersion&quot;: &quot;3.0&quot;&#xd;
-    }&#xd;
-  }&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">1000</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get the ouput event response" enabled="false">
-            <stringProp name="TestPlan.comments">Check output event </stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">1000</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Message" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="1925346054">ACTIVE</stringProp>
-                <stringProp name="-310150889">VES event has been received. Going to fetch details from AAI.</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">2</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response message coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get the ouput event response" enabled="false">
-            <stringProp name="TestPlan.comments">Check output event </stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=1&amp;timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">1000</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Message" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1149187101">SUCCESS</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">2</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response message coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get the ouput event response" enabled="false">
-            <stringProp name="TestPlan.comments">Check output event </stringProp>
-            <intProp name="HTTPSampler.concurrentPool">6</intProp>
-            <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-            <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?limit=1&amp;timeout=30000</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">1000</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="49586">200</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Message" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="439453178">FINAL_SUCCESS</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">2</intProp>
-              <stringProp name="Scope.variable">Response code</stringProp>
-              <stringProp name="TestPlan.comments">Assert response message coming back from apex-pdp</stringProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-              <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-            </ConstantTimer>
-            <hashTree/>
-          </hashTree>
-          <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="false">
-            <stringProp name="WhileController.condition">${__javaScript((&quot;${response}&quot;.indexOf(&quot;VES event has been received. Going to fetch details from AAI&quot;) == -1 &amp;&amp; ${counter} &lt; 5),)}</stringProp>
-          </WhileController>
-          <hashTree>
-            <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
-              <stringProp name="CounterConfig.start">0</stringProp>
-              <stringProp name="CounterConfig.end">1</stringProp>
-              <stringProp name="CounterConfig.incr">1</stringProp>
-              <stringProp name="CounterConfig.name"></stringProp>
-              <stringProp name="CounterConfig.format"></stringProp>
-              <boolProp name="CounterConfig.per_user">false</boolProp>
-            </CounterConfig>
-            <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get the ouput event response" enabled="true">
-              <stringProp name="TestPlan.comments">Check output event </stringProp>
-              <intProp name="HTTPSampler.concurrentPool">6</intProp>
-              <stringProp name="HTTPSampler.domain">${KAFKA_HOST}</stringProp>
-              <stringProp name="HTTPSampler.port">${KAFKA_PORT}</stringProp>
-              <stringProp name="HTTPSampler.protocol">http</stringProp>
-              <stringProp name="HTTPSampler.path">/events/APEX-CL-MGT/cg${__threadNum}/c1?timeout=30000</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-                <stringProp name="ConstantTimer.delay">1000</stringProp>
-              </ConstantTimer>
-              <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Code" enabled="true">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="49586">200</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">8</intProp>
-                <stringProp name="Scope.variable">Response code</stringProp>
-                <stringProp name="TestPlan.comments">Assert response code coming back from apex-pdp</stringProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Response Message" enabled="false">
-                <collectionProp name="Asserion.test_strings">
-                  <stringProp name="1925346054">ACTIVE</stringProp>
-                  <stringProp name="-310150889">VES event has been received. Going to fetch details from AAI.</stringProp>
-                </collectionProp>
-                <stringProp name="Assertion.custom_message"></stringProp>
-                <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-                <boolProp name="Assertion.assume_success">false</boolProp>
-                <intProp name="Assertion.test_type">2</intProp>
-                <stringProp name="Scope.variable">Response code</stringProp>
-                <stringProp name="TestPlan.comments">Assert response message coming back from apex-pdp</stringProp>
-              </ResponseAssertion>
-              <hashTree/>
-              <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="WAIT" enabled="false">
-                <stringProp name="ConstantTimer.delay">${wait}</stringProp>
-              </ConstantTimer>
-              <hashTree/>
-              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-                <stringProp name="cacheKey">true</stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="script">vars.put(&quot;response&quot;, prev.getResponseDataAsString());</stringProp>
-                <stringProp name="scriptLanguage">groovy</stringProp>
-              </JSR223PostProcessor>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
         </hashTree>
       </hashTree>
       <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -7648,7 +6939,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/dhanrahan/jmeter_results/apex_stability/summary.log</stringProp>
+        <stringProp name="filename">/home/wayne/dev/s3ps/apex-pdp/testsuites/apex-pdp-stability/src/main/resources/s3pTestResults.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
@@ -7685,10 +6976,10 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/dhanrahan/jmeter_results/apex_stability/resultTree.log</stringProp>
+        <stringProp name="filename">/home/wayne/dev/s3ps/apex-pdp/testsuites/apex-pdp-stability/src/main/resources/s3pTestResults.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -7722,7 +7013,7 @@ if (prev.getResponseCode() == &apos;200&apos;) {
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">/home/dhanrahan/jmeter_results/apex_stability/resultTable.log</stringProp>
+        <stringProp name="filename">/home/wayne/dev/s3ps/apex-pdp/testsuites/apex-pdp-stability/src/main/resources/s3pTestResults.jtl</stringProp>
       </ResultCollector>
       <hashTree/>
     </hashTree>
