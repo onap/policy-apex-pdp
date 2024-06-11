@@ -36,18 +36,18 @@ public class TestApexContextModelCreator implements TestApexModelCreator<AxConte
     @Override
     public AxContextModel getModel() {
         final AxContextSchema schema0 = new AxContextSchema(new AxArtifactKey("StringType", "0.0.1"), "Java",
-                "org.onap.policy.apex.concept.TestContextItem000");
+            "org.onap.policy.apex.concept.TestContextItem000");
         final AxContextSchema schema1 = new AxContextSchema(new AxArtifactKey("MapType", "0.0.1"), "Java",
-                "org.onap.policy.apex.concept.TestContextItem00A");
+            "org.onap.policy.apex.concept.TestContextItem00A");
 
         final AxContextSchemas contextSchemas = new AxContextSchemas(new AxArtifactKey("ContextSchemas", "0.0.1"));
         contextSchemas.getSchemasMap().put(schema0.getKey(), schema0);
         contextSchemas.getSchemasMap().put(schema1.getKey(), schema1);
 
         final AxContextAlbum contextAlbum0 =
-                new AxContextAlbum(new AxArtifactKey("contextAlbum0", "0.0.1"), "APPLICATION", true, schema0.getKey());
+            new AxContextAlbum(new AxArtifactKey("contextAlbum0", "0.0.1"), "APPLICATION", true, schema0.getKey());
         final AxContextAlbum contextAlbum1 =
-                new AxContextAlbum(new AxArtifactKey("contextAlbum1", "0.0.1"), "GLOBAL", false, schema1.getKey());
+            new AxContextAlbum(new AxArtifactKey("contextAlbum1", "0.0.1"), "GLOBAL", false, schema1.getKey());
 
         final AxContextAlbums axContext = new AxContextAlbums(new AxArtifactKey("contextAlbums", "0.0.1"));
         axContext.getAlbumsMap().put(contextAlbum0.getKey(), contextAlbum0);
@@ -55,25 +55,25 @@ public class TestApexContextModelCreator implements TestApexModelCreator<AxConte
 
         final AxKeyInformation keyInformation = new AxKeyInformation(new AxArtifactKey("KeyInfoMapKey", "0.0.1"));
         final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("ContextModel", "0.0.1"),
-                contextSchemas, axContext, keyInformation);
+            contextSchemas, axContext, keyInformation);
 
         contextModel.setKeyInformation(keyInformation);
         contextModel.getKeyInformation().getKeyInfoMap().put(schema0.getKey(), new AxKeyInfo(schema0.getKey(),
-                UUID.fromString("00000000-0000-0000-0000-000000000001"), "axContextSchema0"));
+            UUID.fromString("00000000-0000-0000-0000-000000000001"), "axContextSchema0"));
         contextModel.getKeyInformation().getKeyInfoMap().put(schema1.getKey(), new AxKeyInfo(schema1.getKey(),
-                UUID.fromString("00000000-0000-0000-0000-000000000002"), "axContextSchema1"));
+            UUID.fromString("00000000-0000-0000-0000-000000000002"), "axContextSchema1"));
         contextModel.getKeyInformation().getKeyInfoMap().put(contextSchemas.getKey(), new AxKeyInfo(
-                contextSchemas.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000003"), "ContextSchemas"));
+            contextSchemas.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000003"), "ContextSchemas"));
         contextModel.getKeyInformation().getKeyInfoMap().put(contextAlbum0.getKey(), new AxKeyInfo(
-                contextAlbum0.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000004"), "contextAlbum0"));
+            contextAlbum0.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000004"), "contextAlbum0"));
         contextModel.getKeyInformation().getKeyInfoMap().put(contextAlbum1.getKey(), new AxKeyInfo(
-                contextAlbum1.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000005"), "contextAlbum1"));
+            contextAlbum1.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000005"), "contextAlbum1"));
         contextModel.getKeyInformation().getKeyInfoMap().put(axContext.getKey(), new AxKeyInfo(axContext.getKey(),
-                UUID.fromString("00000000-0000-0000-0000-000000000006"), "axContext"));
+            UUID.fromString("00000000-0000-0000-0000-000000000006"), "axContext"));
         contextModel.getKeyInformation().getKeyInfoMap().put(contextModel.getKey(), new AxKeyInfo(contextModel.getKey(),
-                UUID.fromString("00000000-0000-0000-0000-000000000007"), "contextModel"));
+            UUID.fromString("00000000-0000-0000-0000-000000000007"), "contextModel"));
         contextModel.getKeyInformation().getKeyInfoMap().put(keyInformation.getKey(), new AxKeyInfo(
-                keyInformation.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000008"), "keyInformation"));
+            keyInformation.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000008"), "keyInformation"));
 
         return contextModel;
     }
@@ -81,42 +81,33 @@ public class TestApexContextModelCreator implements TestApexModelCreator<AxConte
     @Override
     public AxContextModel getInvalidModel() {
         final AxContextModel contextModel = getModel();
-
         contextModel.getAlbums().get(new AxArtifactKey("contextAlbum0", "0.0.1")).setScope("UNDEFINED");
-
         contextModel.getSchemas().get(new AxArtifactKey("StringType", "0.0.1")).setSchema("");
-
         return contextModel;
     }
 
     @Override
     public AxContextModel getMalstructuredModel() {
         final AxContextModel contextModel = getModel();
-
         contextModel.getAlbums().get(new AxArtifactKey("contextAlbum1", "0.0.1"))
-                .setKey(new AxArtifactKey("contextAlbum1", "0.0.2"));;
+            .setKey(new AxArtifactKey("contextAlbum1", "0.0.2"));
         contextModel.getSchemas().get(new AxArtifactKey("MapType", "0.0.1"))
-                .setKey(new AxArtifactKey("MapType", "0.0.2"));;
-
+            .setKey(new AxArtifactKey("MapType", "0.0.2"));
         return contextModel;
     }
 
     @Override
     public AxContextModel getObservationModel() {
         final AxContextModel contextModel = getModel();
-
         contextModel.getKeyInformation().get("contextAlbum1", "0.0.1").setDescription("");
-
         return contextModel;
     }
 
     @Override
     public AxContextModel getWarningModel() {
         final AxContextModel contextModel = getModel();
-
         contextModel.getKeyInformation().get("contextAlbum1", "0.0.1")
-                .setUuid(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-
+            .setUuid(UUID.fromString("00000000-0000-0000-0000-000000000000"));
         return contextModel;
     }
 }

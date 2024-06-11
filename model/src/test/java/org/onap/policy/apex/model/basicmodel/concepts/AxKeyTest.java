@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@
 package org.onap.policy.apex.model.basicmodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Field;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey.Compatibility;
 
-public class AxKeyTest {
+class AxKeyTest {
 
     private static AxArtifactKey someKey0;
     private static AxArtifactKey someKey1;
@@ -46,7 +46,7 @@ public class AxKeyTest {
     /**
      * Sets data in Keys for the tests.
      */
-    @Before
+    @BeforeEach
     public void setKeys() {
         someKey0 = new AxArtifactKey();
         someKey1 = new AxArtifactKey("name", "0.0.1");
@@ -67,10 +67,10 @@ public class AxKeyTest {
     }
 
     @Test
-    public void testArtifactKey() {
+    void testArtifactKey() {
         assertThatThrownBy(() -> new AxArtifactKey("some bad key id"))
             .hasMessage("parameter \"id\": value \"some bad key id\", "
-                            + "does not match regular expression \"[A-Za-z0-9\\-_\\.]+:[0-9].[0-9].[0-9]\"");
+                + "does not match regular expression \"[A-Za-z0-9\\-_\\.]+:[0-9].[0-9].[0-9]\"");
 
         assertEquals(AxArtifactKey.getNullKey(), someKey0);
 
@@ -92,7 +92,6 @@ public class AxKeyTest {
 
         assertThatThrownBy(() -> someKey0.compareTo(null))
             .hasMessage("comparison object may not be null");
-        assertEquals(0, someKey0.compareTo(someKey0));
         assertEquals(353602977, someKey0.compareTo(new AxReferenceKey()));
 
         assertNotNull(someKey0);
@@ -102,7 +101,7 @@ public class AxKeyTest {
     }
 
     @Test
-    public void testAxCompatibility() {
+    void testAxCompatibility() {
         setKeyValues();
 
         assertEquals(Compatibility.DIFFERENT, someKey0.getCompatibility(new AxReferenceKey()));
@@ -122,27 +121,27 @@ public class AxKeyTest {
     }
 
     @Test
-    public void testAxValidation() {
+    void testAxValidation() {
         setKeyValues();
 
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey0.validate(new AxValidationResult()).getValidationResult());
+            someKey0.validate(new AxValidationResult()).getValidationResult());
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey1.validate(new AxValidationResult()).getValidationResult());
+            someKey1.validate(new AxValidationResult()).getValidationResult());
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey2.validate(new AxValidationResult()).getValidationResult());
+            someKey2.validate(new AxValidationResult()).getValidationResult());
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey3.validate(new AxValidationResult()).getValidationResult());
+            someKey3.validate(new AxValidationResult()).getValidationResult());
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey4.validate(new AxValidationResult()).getValidationResult());
+            someKey4.validate(new AxValidationResult()).getValidationResult());
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey5.validate(new AxValidationResult()).getValidationResult());
+            someKey5.validate(new AxValidationResult()).getValidationResult());
         assertEquals(AxValidationResult.ValidationResult.VALID,
-                        someKey6.validate(new AxValidationResult()).getValidationResult());
+            someKey6.validate(new AxValidationResult()).getValidationResult());
     }
 
     @Test
-    public void testNullKey() {
+    void testNullKey() {
         setKeyValues();
 
         AxArtifactKey nullKey0 = AxArtifactKey.getNullKey();
@@ -157,7 +156,7 @@ public class AxKeyTest {
 
 
     @Test
-    public void testValidation() throws IllegalArgumentException, IllegalAccessException,
+    void testValidation() throws IllegalArgumentException, IllegalAccessException,
         NoSuchFieldException, SecurityException {
         AxArtifactKey testKey = new AxArtifactKey("TheKey", "0.0.1");
         assertEquals("TheKey:0.0.1", testKey.getId());

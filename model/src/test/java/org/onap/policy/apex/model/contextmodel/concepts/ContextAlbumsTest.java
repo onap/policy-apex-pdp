@@ -24,11 +24,13 @@ package org.onap.policy.apex.model.contextmodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
@@ -38,17 +40,17 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ContextAlbumsTest {
+class ContextAlbumsTest {
 
     @Test
-    public void testNewAxContectAlbum() {
+    void testNewAxContextAlbum() {
         assertNotNull(new AxContextAlbum());
         assertNotNull(new AxContextAlbum(new AxArtifactKey()));
         assertNotNull(new AxContextAlbum(new AxArtifactKey(), "AlbumScope", false, new AxArtifactKey()));
     }
 
     @Test
-    public void testContextAlbums() {
+    void testContextAlbums() {
         final AxArtifactKey albumKey = new AxArtifactKey("AlbumName", "0.0.1");
         final AxArtifactKey albumSchemaKey = new AxArtifactKey("AlbumSchemaName", "0.0.1");
 
@@ -68,9 +70,9 @@ public class ContextAlbumsTest {
         album.setScope("NewAlbumScope");
         assertEquals("NewAlbumScope", album.getScope());
 
-        assertEquals(false, album.isWritable());
+        assertFalse(album.isWritable());
         album.setWritable(true);
-        assertEquals(true, album.isWritable());
+        assertTrue(album.isWritable());
 
         final AxArtifactKey newSchemaKey = new AxArtifactKey("NewAlbumSchemaName", "0.0.1");
         album.setItemSchema(newSchemaKey);
@@ -91,7 +93,7 @@ public class ContextAlbumsTest {
     }
 
     @Test
-    public void testAxvalidationAlbum() {
+    void testAxValidationAlbum() {
         final AxContextAlbum album = setTestAlbum();
         AxValidationResult result = new AxValidationResult();
         result = album.validate(result);
@@ -132,7 +134,7 @@ public class ContextAlbumsTest {
     }
 
     @Test
-    public void testEqualsAlbum() {
+    void testEqualsAlbum() {
         final AxContextAlbum album = setTestAlbum();
         final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
         final AxArtifactKey albumSchemaKey = new AxArtifactKey("AlbumSchemaName", "0.0.1");
@@ -170,7 +172,7 @@ public class ContextAlbumsTest {
     }
 
     @Test
-    public void testMultipleAlbums() {
+    void testMultipleAlbums() {
         final AxContextAlbums albums = new AxContextAlbums();
         final AxContextAlbum album = setTestAlbum();
         final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
@@ -212,7 +214,7 @@ public class ContextAlbumsTest {
     }
 
     @Test
-    public void testClonedAlbums() {
+    void testClonedAlbums() {
         final AxContextAlbums albums = new AxContextAlbums();
         final AxContextAlbum album = setTestAlbum();
         final AxArtifactKey newKey = new AxArtifactKey("NewAlbumName", "0.0.1");
@@ -243,6 +245,6 @@ public class ContextAlbumsTest {
         assertEquals("NewAlbumName", albums.get("NewAlbumName").getKey().getName());
         assertEquals("NewAlbumName", albums.get("NewAlbumName", "0.0.1").getKey().getName());
         assertEquals(1, albums.getAll("NewAlbumName", "0.0.1").size());
-        assertEquals(0, albums.getAll("NonExistantAlbumName").size());
+        assertEquals(0, albums.getAll("NonExistentAlbumName").size());
     }
 }

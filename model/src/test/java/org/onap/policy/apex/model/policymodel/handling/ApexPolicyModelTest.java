@@ -22,10 +22,10 @@
 
 package org.onap.policy.apex.model.policymodel.handling;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -96,7 +96,7 @@ public class ApexPolicyModelTest {
      *
      * @throws Exception on setup errors
      */
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new SupportApexPolicyModelCreator());
     }
@@ -109,25 +109,25 @@ public class ApexPolicyModelTest {
 
     @Test
     public void testApexModelVaidateObservation() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateObservation();
+        final AxValidationResult result = testApexModel.testApexModelValidateObservation();
         assertEquals(OBSERVATION_MODEL_STRING, result.toString());
     }
 
     @Test
     public void testApexModelVaidateWarning() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
+        final AxValidationResult result = testApexModel.testApexModelValidateWarning();
         assertEquals(WARNING_MODEL_STRING, result.toString());
     }
 
     @Test
     public void testModelVaidateInvalidModel() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
+        final AxValidationResult result = testApexModel.testApexModelValidateInvalidModel();
         assertEquals(INVALID_MODEL_STRING, result.toString());
     }
 
     @Test
     public void testModelVaidateMalstructured() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
+        final AxValidationResult result = testApexModel.testApexModelValidateMalstructured();
         assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
     }
 

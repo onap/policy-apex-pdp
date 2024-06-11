@@ -34,27 +34,28 @@ public class TestContextComparisonFactory {
 
     /**
      * Get a full context model.
+     *
      * @return the model
      */
     public AxContextModel getFullModel() {
         final AxContextSchema testContextSchema000 =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema000");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema000");
         final AxContextSchema testContextSchema00A =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema00A", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema00A");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema00A", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema00A");
         final AxContextSchema testContextSchema00C =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema00C", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema00C");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema00C", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema00C");
 
         final AxContextAlbum externalContextAlbum = new AxContextAlbum(
-                new AxArtifactKey("ExternalContextAlbum", "0.0.1"), "EXTERNAL", false, testContextSchema000.getKey());
+            new AxArtifactKey("ExternalContextAlbum", "0.0.1"), "EXTERNAL", false, testContextSchema000.getKey());
         final AxContextAlbum globalContextAlbum = new AxContextAlbum(new AxArtifactKey("GlobalContextAlbum", "0.0.1"),
-                "GLOBAL", true, testContextSchema00A.getKey());
+            "GLOBAL", true, testContextSchema00A.getKey());
         final AxContextAlbum policy0ContextAlbum = new AxContextAlbum(new AxArtifactKey("Policy0ContextAlbum", "0.0.1"),
-                "APPLICATION", true, testContextSchema00C.getKey());
+            "APPLICATION", true, testContextSchema00C.getKey());
         final AxContextAlbum policy1ContextAlbum = new AxContextAlbum(
-                new AxArtifactKey("Policy1ContextAlbum ", "0.0.1"), "APPLICATION", true, testContextSchema00C.getKey());
+            new AxArtifactKey("Policy1ContextAlbum ", "0.0.1"), "APPLICATION", true, testContextSchema00C.getKey());
 
         final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("ContextModel", "0.0.1"));
         contextModel.getSchemas().getSchemasMap().put(testContextSchema000.getKey(), testContextSchema000);
@@ -75,18 +76,19 @@ public class TestContextComparisonFactory {
 
     /**
      * Get a skeleton model.
+     *
      * @return The model
      */
     public AxContextModel getShellModel() {
         final AxContextSchema testContextSchema000 =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema000");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema000");
         final AxContextSchema testContextSchema00A =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema00A", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema00A");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema00A", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema00A");
         final AxContextSchema testContextSchema00C =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema00C", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema00C");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema00C", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema00C");
 
         final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("ContextModel", "0.0.1"));
         contextModel.getSchemas().getSchemasMap().put(testContextSchema000.getKey(), testContextSchema000);
@@ -98,15 +100,16 @@ public class TestContextComparisonFactory {
 
     /**
      * Get a single entry model.
+     *
      * @return The single entry model
      */
     public AxContextModel getSingleEntryModel() {
         final AxContextSchema testContextSchema000 =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema000");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema000");
 
         final AxContextAlbum policy1ContextAlbum = new AxContextAlbum(
-                new AxArtifactKey("Policy1ContextAlbum ", "0.0.1"), "APPLICATION", true, testContextSchema000.getKey());
+            new AxArtifactKey("Policy1ContextAlbum ", "0.0.1"), "APPLICATION", true, testContextSchema000.getKey());
 
         final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("ContextModel", "0.0.1"));
         contextModel.getSchemas().getSchemasMap().put(testContextSchema000.getKey(), testContextSchema000);
@@ -118,22 +121,23 @@ public class TestContextComparisonFactory {
 
     /**
      * Get a model with no global entries.
+     *
      * @return the model
      */
     public AxContextModel getNoGlobalContextModel() {
         final AxContextSchema testContextSchema000 =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema000");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema000", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema000");
         final AxContextSchema testContextSchema00C =
-                new AxContextSchema(new AxArtifactKey("TestContextSchema00C", "0.0.1"), "JAVA",
-                        "org.onap.policy.apex.concept.TestContextSchema00C");
+            new AxContextSchema(new AxArtifactKey("TestContextSchema00C", "0.0.1"), "JAVA",
+                "org.onap.policy.apex.concept.TestContextSchema00C");
 
         final AxContextAlbum externalContextAlbum = new AxContextAlbum(
-                new AxArtifactKey("ExternalContextAlbum", "0.0.1"), "EXTERNAL", false, testContextSchema000.getKey());
+            new AxArtifactKey("ExternalContextAlbum", "0.0.1"), "EXTERNAL", false, testContextSchema000.getKey());
         final AxContextAlbum policy0ContextAlbum = new AxContextAlbum(new AxArtifactKey("Policy0ContextAlbum", "0.0.1"),
-                "APPLICATION", true, testContextSchema00C.getKey());
+            "APPLICATION", true, testContextSchema00C.getKey());
         final AxContextAlbum policy1ContextAlbum = new AxContextAlbum(
-                new AxArtifactKey("Policy1ContextAlbum ", "0.0.1"), "APPLICATION", true, testContextSchema00C.getKey());
+            new AxArtifactKey("Policy1ContextAlbum ", "0.0.1"), "APPLICATION", true, testContextSchema00C.getKey());
 
         final AxContextModel contextModel = new AxContextModel(new AxArtifactKey("ContextModel", "0.0.1"));
         contextModel.getSchemas().getSchemasMap().put(testContextSchema000.getKey(), testContextSchema000);

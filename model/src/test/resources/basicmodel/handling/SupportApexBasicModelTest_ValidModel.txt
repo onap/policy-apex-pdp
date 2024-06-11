@@ -1,0 +1,5 @@
+
+***warnings issued during validation of model***
+AxArtifactKey:(name=FloatKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry
+AxArtifactKey:(name=IntegerKIKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:WARNING:key not found for key information entry
+********************************

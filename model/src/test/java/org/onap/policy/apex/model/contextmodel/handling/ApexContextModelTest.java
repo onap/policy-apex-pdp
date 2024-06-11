@@ -21,10 +21,10 @@
 
 package org.onap.policy.apex.model.contextmodel.handling;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
@@ -33,47 +33,52 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextModel;
  * Apex context model tests.
  *
  * @author liam
- *
  */
-public class ApexContextModelTest {
+class ApexContextModelTest {
 
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
+    private static final String POLICY_APEX_BASICMODEL_PACKAGE = "org.onap.policy.apex.model.basicmodel.concepts.";
+    private static final String APEX_MODEL_CONTEXTMODEL_PACKAGE = "org.onap.policy.apex.model.contextmodel.concepts.";
+    private static final String END_OF_MESSAGE = "********************************";
 
     private static final String OBSERVATION_MODEL_STRING = "\n"
-                    + "***observations noted during validation of model***\n"
-                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
-                    + "org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:OBSERVATION:description is blank\n"
-                    + "********************************";
+        + "***observations noted during validation of model***\n"
+        + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+        + POLICY_APEX_BASICMODEL_PACKAGE + "AxKeyInfo:OBSERVATION:description is blank\n"
+        + END_OF_MESSAGE;
 
-    private static final String WARNING_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
-                    + "org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:"
-                    + "UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
-                    + "********************************";
+    private static final String WARNING_MODEL_STRING = "\n"
+        + "***warnings issued during validation of model***\n"
+        + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+        + POLICY_APEX_BASICMODEL_PACKAGE + "AxKeyInfo:WARNING:"
+        + "UUID is a zero UUID: 00000000-0000-0000-0000-000000000000\n"
+        + END_OF_MESSAGE;
 
-    private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=StringType,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema:INVALID:"
-                    + "no schemaDefinition specified, schemaDefinition may not be blank\n"
-                    + "AxArtifactKey:(name=contextAlbum0,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:"
-                    + "scope is not defined\n" + "********************************";
 
-    private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=ContextModel,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
-                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:WARNING:"
-                    + "key not found for key information entry\n" + "AxArtifactKey:(name=ContextSchemas,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:"
-                    + "key on schemas entry AxArtifactKey:(name=MapType,version=0.0.1) "
-                    + "does not equal entry key AxArtifactKey:(name=MapType,version=0.0.2)\n"
-                    + "AxArtifactKey:(name=contextAlbums,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:INVALID:"
-                    + "key on context album entry key AxArtifactKey:(name=contextAlbum1,version=0.0.1) "
-                    + "does not equal context album value key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
-                    + "********************************";
+    private static final String INVALID_MODEL_STRING = "\n"
+        + "***validation of model failed***\n"
+        + "AxArtifactKey:(name=StringType,version=0.0.1):"
+        + APEX_MODEL_CONTEXTMODEL_PACKAGE + "AxContextSchema:INVALID:"
+        + "no schemaDefinition specified, schemaDefinition may not be blank\n"
+        + "AxArtifactKey:(name=contextAlbum0,version=0.0.1):"
+        + APEX_MODEL_CONTEXTMODEL_PACKAGE + "AxContextAlbum:INVALID:"
+        + "scope is not defined\n" + END_OF_MESSAGE;
+
+    private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n"
+        + "***validation of model failed***\nAxArtifactKey:(name=ContextModel,version=0.0.1):"
+        + APEX_MODEL_CONTEXTMODEL_PACKAGE + "AxContextModel:INVALID:"
+        + "key information not found for key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
+        + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
+        + APEX_MODEL_CONTEXTMODEL_PACKAGE + "AxContextModel:WARNING:"
+        + "key not found for key information entry\nAxArtifactKey:(name=ContextSchemas,version=0.0.1):"
+        + APEX_MODEL_CONTEXTMODEL_PACKAGE + "AxContextSchemas:INVALID:"
+        + "key on schemas entry AxArtifactKey:(name=MapType,version=0.0.1) "
+        + "does not equal entry key AxArtifactKey:(name=MapType,version=0.0.2)\n"
+        + "AxArtifactKey:(name=contextAlbums,version=0.0.1):"
+        + APEX_MODEL_CONTEXTMODEL_PACKAGE + "AxContextAlbums:INVALID:"
+        + "key on context album entry key AxArtifactKey:(name=contextAlbum1,version=0.0.1) "
+        + "does not equal context album value key AxArtifactKey:(name=contextAlbum1,version=0.0.2)\n"
+        + END_OF_MESSAGE;
 
     TestApexModel<AxContextModel> testApexModel;
 
@@ -82,43 +87,43 @@ public class ApexContextModelTest {
      *
      * @throws Exception a testing exception
      */
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
-        testApexModel = new TestApexModel<AxContextModel>(AxContextModel.class, new TestApexContextModelCreator());
+        testApexModel = new TestApexModel<>(AxContextModel.class, new TestApexContextModelCreator());
     }
 
     @Test
-    public void testModelValid() throws Exception {
+    void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
         assertEquals(VALID_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testApexModelVaidateObservation() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateObservation();
+    void testApexModelValidateObservation() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateObservation();
         assertEquals(OBSERVATION_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testApexModelVaidateWarning() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
+    void testApexModelValidateWarning() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateWarning();
         assertEquals(WARNING_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testModelVaidateInvalidModel() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
+    void testModelValidateInvalidModel() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateInvalidModel();
         assertEquals(INVALID_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testModelVaidateMalstructured() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
+    void testModelValidateMalstructured() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateMalstructured();
         assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
     }
 
     @Test
-    public void testModelWriteReadJson() throws Exception {
+    void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 }

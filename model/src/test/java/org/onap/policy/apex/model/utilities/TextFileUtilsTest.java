@@ -21,12 +21,12 @@
 
 package org.onap.policy.apex.model.utilities;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
@@ -34,12 +34,12 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TextFileUtilsTest {
+class TextFileUtilsTest {
 
     private static final String FILE_CONTENT = "This is the contents of a text file";
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         final File tempTextFile = File.createTempFile("Test", "txt");
 
         TextFileUtils.putStringAsTextFile(FILE_CONTENT, tempTextFile.getAbsolutePath());

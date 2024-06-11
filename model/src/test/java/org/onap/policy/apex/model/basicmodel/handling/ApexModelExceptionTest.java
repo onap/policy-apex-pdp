@@ -20,16 +20,16 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ApexModelExceptionTest {
+class ApexModelExceptionTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(new ApexModelException("Message"));
         assertNotNull(new ApexModelException("Message", new IOException()));
 

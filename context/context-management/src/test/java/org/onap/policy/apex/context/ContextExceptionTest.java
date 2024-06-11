@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +21,25 @@
 
 package org.onap.policy.apex.context;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ContextExceptionTest {
+class ContextExceptionTest {
 
     @Test
-    public void testContextException() {
+    void testContextException() {
         assertEquals("context exception message", new ContextException("context exception message").getMessage());
         assertEquals("context exception message",
-                new ContextException("context exception message", new IOException()).getMessage());
+            new ContextException("context exception message", new IOException()).getMessage());
     }
 
     @Test
-    public void testContextRuntimeException() {
+    void testContextRuntimeException() {
         assertEquals("context exception message",
-                new ContextRuntimeException("context exception message").getMessage());
+            new ContextRuntimeException("context exception message").getMessage());
         assertEquals("context exception message",
-                new ContextRuntimeException("context exception message", new IOException()).getMessage());
+            new ContextRuntimeException("context exception message", new IOException()).getMessage());
     }
 }

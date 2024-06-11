@@ -21,11 +21,11 @@
 
 package org.onap.policy.apex.model.utilities;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.TreeMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
 

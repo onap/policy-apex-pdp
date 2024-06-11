@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,26 +22,26 @@
 
 package org.onap.policy.apex.context.impl.schema.java;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test Java schema helper parameters.
  */
-public class JavaSchemaHelperParametersTest {
+class JavaSchemaHelperParametersTest {
 
     @Test
-    public void testJavaSchemaHelperParameters() {
+    void testJavaSchemaHelperParameters() {
         JavaSchemaHelperParameters pars = new JavaSchemaHelperParameters();
 
         assertEquals("org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelper",
-                        pars.getSchemaHelperPluginClass());
+            pars.getSchemaHelperPluginClass());
 
         assertEquals(0, pars.getJsonAdapters().size());
 
@@ -84,7 +85,7 @@ public class JavaSchemaHelperParametersTest {
     }
 
     @Test
-    public void testJavaSchemaHelperJsonAdapterParameters() {
+    void testJavaSchemaHelperJsonAdapterParameters() {
         JavaSchemaHelperJsonAdapterParameters pars = new JavaSchemaHelperJsonAdapterParameters();
 
         assertNull(pars.getName());

@@ -23,9 +23,9 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -34,20 +34,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ApexModelReaderTest {
+@ExtendWith(MockitoExtension.class)
+class ApexModelReaderTest {
+
     @Test
-    public void testModelReader() throws IOException, ApexException {
+    void testModelReader() throws IOException, ApexException {
         AxModel model = new DummyApexBasicModelCreator().getModel();
         AxModel invalidModel = new DummyApexBasicModelCreator().getInvalidModel();
 
-        ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
+        ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<>(AxModel.class);
         modelWriter.setValidate(true);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -57,7 +58,7 @@ public class ApexModelReaderTest {
         modelWriter.setValidate(false);
         modelWriter.write(invalidModel, baosInvalid);
 
-        ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class, true);
+        ApexModelReader<AxModel> modelReader = new ApexModelReader<>(AxModel.class, true);
 
         modelReader.setValidate(true);
         assertTrue(modelReader.isValidate());
@@ -87,19 +88,17 @@ public class ApexModelReaderTest {
         ByteArrayInputStream baisDummy = new ByteArrayInputStream(dummyString.getBytes());
         assertThatThrownBy(() -> modelReader.read(baisDummy))
             .hasMessageContaining("Unable to unmarshal Apex concept");
-        ByteArrayInputStream nullBais = null;
-        assertThatThrownBy(() -> modelReader.read(nullBais))
+        assertThatThrownBy(() -> modelReader.read((java.io.InputStream) null))
             .hasMessage("concept stream may not be null");
 
         assertThatThrownBy(() -> {
-            FileInputStream fis = new FileInputStream(new File("somewhere/over/the/rainbow"));
+            FileInputStream fis = new FileInputStream("somewhere/over/the/rainbow");
             modelReader.read(fis);
         }).hasMessageContaining("rainbow");
         final File tempFile = File.createTempFile("Apex", "Dummy");
         BufferedReader br = new BufferedReader(new FileReader(tempFile));
         br.close();
-        assertThatThrownBy(() -> modelReader.read(br))
-             .hasMessage("Unable to read Apex concept ");
-        tempFile.delete();
+        assertThatThrownBy(() -> modelReader.read(br)).hasMessage("Unable to read Apex concept ");
+        assertTrue(tempFile.delete());
     }
 }

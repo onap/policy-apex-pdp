@@ -21,15 +21,15 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
@@ -42,16 +42,16 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-public class SupportApexBasicModelConceptsTest {
+class SupportApexBasicModelConceptsTest {
     TestApexModel<AxModel> testApexModel;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
-        testApexModel = new TestApexModel<AxModel>(AxModel.class, new DummyApexBasicModelCreator());
+        testApexModel = new TestApexModel<>(AxModel.class, new DummyApexBasicModelCreator());
     }
 
     @Test
-    public void testModelConcepts() {
+    void testModelConcepts() {
         final AxModel model = testApexModel.getModel();
         assertNotNull(model);
         model.clean();
@@ -94,7 +94,7 @@ public class SupportApexBasicModelConceptsTest {
     }
 
     @Test
-    public void testKeyInformation() {
+    void testKeyInformation() {
 
         final AxModel model = testApexModel.getModel();
         final AxKeyInformation keyI = model.getKeyInformation();
@@ -147,11 +147,11 @@ public class SupportApexBasicModelConceptsTest {
     }
 
     @Test
-    public void testClonedKey() {
+    void testClonedKey() {
         final AxModel model = testApexModel.getModel();
         final AxKeyInformation keyI = model.getKeyInformation();
         final AxKeyInformation clonedKeyI = new AxKeyInformation(keyI);
-        AxValidationResult result = new AxValidationResult();
+        AxValidationResult result;
 
         clonedKeyI.setKey(AxArtifactKey.getNullKey());
         result = new AxValidationResult();
@@ -217,7 +217,7 @@ public class SupportApexBasicModelConceptsTest {
     }
 
     @Test
-    public void testModelConceptsWithReferences() {
+    void testModelConceptsWithReferences() {
         final DummyAxModelWithReferences mwr = new DummyApexBasicModelCreator().getModelWithReferences();
         assertNotNull(mwr);
         mwr.getKeyInformation().getKeyInfoMap().clear();

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,13 @@
 package org.onap.policy.apex.model.modelapi;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.modelapi.impl.ModelHandlerFacade;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
@@ -37,10 +37,10 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ModelHandlerFacadeTest {
+class ModelHandlerFacadeTest {
 
     @Test
-    public void testModelHandlerFacade() throws IOException {
+    void testModelHandlerFacade() throws IOException {
         assertThatThrownBy(() -> new ModelHandlerFacade(null, null))
             .hasMessage("apexModel may not be null");
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null);

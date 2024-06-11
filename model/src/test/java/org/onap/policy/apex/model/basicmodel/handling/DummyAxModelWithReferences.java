@@ -20,17 +20,21 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 
+@Getter
 public class DummyAxModelWithReferences extends AxModel {
+    @Serial
     private static final long serialVersionUID = -8194956638511120008L;
 
-    private List<AxKey> extrakeyList = new ArrayList<>();
+    private final List<AxKey> extrakeyList = new ArrayList<>();
     
     public DummyAxModelWithReferences(final AxArtifactKey key) {
         super(key);
@@ -42,10 +46,6 @@ public class DummyAxModelWithReferences extends AxModel {
         keys.addAll(extrakeyList);
 
         return keys;
-    }
-
-    public List<AxKey> getExtrakeyList() {
-        return extrakeyList;
     }
 
     /**

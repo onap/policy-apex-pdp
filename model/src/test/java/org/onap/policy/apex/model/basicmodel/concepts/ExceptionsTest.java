@@ -1,6 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,31 +21,23 @@
 
 package org.onap.policy.apex.model.basicmodel.concepts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
-public class ExceptionsTest {
+class ExceptionsTest {
 
     @Test
-    public void test() {
-        assertNotNull(new ApexException("Message"));
-        assertNotNull(new ApexException("Message", new AxArtifactKey()));
-        assertNotNull(new ApexException("Message", new IOException()));
-        assertNotNull(new ApexException("Message", new IOException(), new AxArtifactKey()));
+    void test() {
+        assertConstructors();
 
         AxArtifactKey key = new AxArtifactKey();
         ApexException ae = new ApexException("Message", new IOException("IO exception message"), key);
         assertEquals("Message\ncaused by: Message\ncaused by: IO exception message", ae.getCascadedMessage());
         assertEquals(key, ae.getObject());
-
-        assertNotNull(new ApexRuntimeException("Message"));
-        assertNotNull(new ApexRuntimeException("Message", new AxArtifactKey()));
-        assertNotNull(new ApexRuntimeException("Message", new IOException()));
-        assertNotNull(new ApexRuntimeException("Message", new IOException(), new AxArtifactKey()));
 
         AxArtifactKey rkey = new AxArtifactKey();
         ApexRuntimeException re = new ApexRuntimeException("Runtime Message",
@@ -53,14 +46,26 @@ public class ExceptionsTest {
                         re.getCascadedMessage());
         assertEquals(key, re.getObject());
 
-        assertNotNull(new ApexConceptException("Message"));
-        assertNotNull(new ApexConceptException("Message", new IOException()));
-
         AxArtifactKey ckey = new AxArtifactKey();
         ApexException ace = new ApexException("Concept Message", new IOException("IO concept exception message"), ckey);
         assertEquals("Concept Message\ncaused by: Concept Message\ncaused by: IO concept exception message",
                         ace.getCascadedMessage());
         assertEquals(ckey, ace.getObject());
+    }
+
+    private static void assertConstructors() {
+        assertNotNull(new ApexException("Message"));
+        assertNotNull(new ApexException("Message", new AxArtifactKey()));
+        assertNotNull(new ApexException("Message", new IOException()));
+        assertNotNull(new ApexException("Message", new IOException(), new AxArtifactKey()));
+
+        assertNotNull(new ApexRuntimeException("Message"));
+        assertNotNull(new ApexRuntimeException("Message", new AxArtifactKey()));
+        assertNotNull(new ApexRuntimeException("Message", new IOException()));
+        assertNotNull(new ApexRuntimeException("Message", new IOException(), new AxArtifactKey()));
+
+        assertNotNull(new ApexConceptException("Message"));
+        assertNotNull(new ApexConceptException("Message", new IOException()));
     }
 
 }

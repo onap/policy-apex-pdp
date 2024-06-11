@@ -21,20 +21,20 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
-public class ApexModelSaverTest {
+class ApexModelSaverTest {
 
     @Test
-    public void testModelSaver() throws IOException, ApexException {
+    void testModelSaver() throws IOException, ApexException {
         AxModel model = new DummyApexBasicModelCreator().getModel();
         assertNotNull(model);
 

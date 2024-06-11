@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -39,16 +39,16 @@ public class DummyTestApexEngineModelCreator implements TestApexModelCreator<AxE
     @Override
     public AxEngineModel getModel() {
         final AxContextSchema schema0 = new AxContextSchema(new AxArtifactKey("StringType", "0.0.1"), "Java",
-                "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem000");
+            "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem000");
         final AxContextSchema schema1 = new AxContextSchema(new AxArtifactKey("MapType", "0.0.1"), "Java",
-                "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem00A");
+            "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem00A");
 
         final AxContextSchemas schemas = new AxContextSchemas(new AxArtifactKey("ContextSchemas", "0.0.1"));
         schemas.getSchemasMap().put(schema0.getKey(), schema0);
         schemas.getSchemasMap().put(schema1.getKey(), schema1);
 
         final AxContextAlbum album0 =
-                new AxContextAlbum(new AxArtifactKey("contextAlbum0", "0.0.1"), "APPLICATION", true, schema1.getKey());
+            new AxContextAlbum(new AxArtifactKey("contextAlbum0", "0.0.1"), "APPLICATION", true, schema1.getKey());
 
         final AxContextAlbums albums = new AxContextAlbums(new AxArtifactKey("context", "0.0.1"));
         albums.getAlbumsMap().put(album0.getKey(), album0);
@@ -59,7 +59,7 @@ public class DummyTestApexEngineModelCreator implements TestApexModelCreator<AxE
         engineModel.setTimestamp(System.currentTimeMillis());
         engineModel.setState(AxEngineState.EXECUTING);
         engineModel.setStats(new AxEngineStats(new AxReferenceKey(engineModel.getKey(), "EngineStats"),
-                System.currentTimeMillis(), 100, 205, 200, 12345, 9876));
+            System.currentTimeMillis(), 100, 205, 200, 12345, 9876));
         engineModel.getKeyInformation().generateKeyInfo(engineModel);
 
         final AxValidationResult result = new AxValidationResult();
@@ -75,7 +75,7 @@ public class DummyTestApexEngineModelCreator implements TestApexModelCreator<AxE
         engineModel.setTimestamp(System.currentTimeMillis());
         engineModel.setState(AxEngineState.UNDEFINED);
         engineModel.setStats(new AxEngineStats(new AxReferenceKey(engineModel.getKey(), "EngineStats"),
-                System.currentTimeMillis(), 100, 205, 200, 12345, 9876));
+            System.currentTimeMillis(), 100, 205, 200, 12345, 9876));
         engineModel.getKeyInformation().generateKeyInfo(engineModel);
 
         return engineModel;
@@ -98,14 +98,14 @@ public class DummyTestApexEngineModelCreator implements TestApexModelCreator<AxE
         final AxEngineModel engineModel = getModel();
 
         final AxContextSchema schema0 = new AxContextSchema(new AxArtifactKey("StringType", "0.0.1"), "Java",
-                "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem000");
+            "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem000");
         final AxContextSchema schema1 = new AxContextSchema(new AxArtifactKey("MapType", "0.0.1"), "Java",
-                "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem00A");
+            "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem00A");
 
         engineModel.getKeyInformation().getKeyInfoMap().put(schema0.getKey(),
-                new AxKeyInfo(schema0.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000001"), ""));
+            new AxKeyInfo(schema0.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000001"), ""));
         engineModel.getKeyInformation().getKeyInfoMap().put(schema1.getKey(),
-                new AxKeyInfo(schema1.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000002"), ""));
+            new AxKeyInfo(schema1.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000002"), ""));
 
         return engineModel;
     }
@@ -115,14 +115,14 @@ public class DummyTestApexEngineModelCreator implements TestApexModelCreator<AxE
         final AxEngineModel engineModel = getModel();
 
         final AxContextSchema schema0 = new AxContextSchema(new AxArtifactKey("StringType", "0.0.1"), "Java",
-                "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem000");
+            "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem000");
         final AxContextSchema schema1 = new AxContextSchema(new AxArtifactKey("MapType", "0.0.1"), "Java",
-                "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem00A");
+            "org.onap.policy.apex.model.enginemodel.concepts.TestContextItem00A");
 
         engineModel.getKeyInformation().getKeyInfoMap().put(schema0.getKey(),
-                new AxKeyInfo(schema0.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000000"), ""));
+            new AxKeyInfo(schema0.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000000"), ""));
         engineModel.getKeyInformation().getKeyInfoMap().put(schema1.getKey(),
-                new AxKeyInfo(schema1.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000001"), ""));
+            new AxKeyInfo(schema1.getKey(), UUID.fromString("00000000-0000-0000-0000-000000000001"), ""));
 
         return engineModel;
     }

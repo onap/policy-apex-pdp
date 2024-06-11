@@ -23,21 +23,20 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
 @ExtendWith(MockitoExtension.class)
-public class ApexModelWriterTest {
+class ApexModelWriterTest {
     @Test
-    public void testModelWriter() throws IOException, ApexException {
-        ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<AxModel>(AxModel.class);
+    void testModelWriter() throws ApexException {
+        ApexModelWriter<AxModel> modelWriter = new ApexModelWriter<>(AxModel.class);
 
         modelWriter.setValidate(true);
         assertTrue(modelWriter.isValidate());

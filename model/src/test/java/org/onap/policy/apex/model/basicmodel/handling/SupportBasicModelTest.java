@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2022 Nordix Foundation
+ *  Modifications Copyright (C) 2020-2022, 2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,33 +23,33 @@ package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 
-public class SupportBasicModelTest {
+class SupportBasicModelTest {
 
     @Test
-    public void testNormalModelCreator() throws ApexException {
-        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+    void testNormalModelCreator() throws ApexException {
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<>(AxModel.class,
             new DummyApexBasicModelCreator());
 
         testApexModel.testApexModelValid();
-        assertThatThrownBy(testApexModel::testApexModelVaidateObservation)
+        assertThatThrownBy(testApexModel::testApexModelValidateObservation)
             .hasMessage("model should have observations");
-        testApexModel.testApexModelVaidateWarning();
-        testApexModel.testApexModelVaidateInvalidModel();
-        testApexModel.testApexModelVaidateMalstructured();
+        testApexModel.testApexModelValidateWarning();
+        testApexModel.testApexModelValidateInvalidModel();
+        testApexModel.testApexModelValidateMalstructured();
 
         testApexModel.testApexModelWriteReadJson();
     }
 
     @Test
-    public void testModelsUnequal() throws ApexException {
-        final TestApexModel<AxModel> testApexModel0 = new TestApexModel<AxModel>(AxModel.class,
+    void testModelsUnequal() {
+        final TestApexModel<AxModel> testApexModel0 = new TestApexModel<>(AxModel.class,
             new DummyApexBasicModelCreator());
-        final TestApexModel<AxModel> testApexModel1 = new TestApexModel<AxModel>(AxModel.class,
+        final TestApexModel<AxModel> testApexModel1 = new TestApexModel<>(AxModel.class,
             new DummyApexBasicModelCreator());
 
         testApexModel1.getModel().getKey().setVersion("0.0.2");
@@ -59,53 +59,53 @@ public class SupportBasicModelTest {
     }
 
     @Test
-    public void testModelCreator0() throws ApexException {
-        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+    void testModelCreator0() throws ApexException {
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<>(AxModel.class,
             new SupportApexModelCreator0());
 
         testApexModel.testApexModelValid();
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateObservation())
+        assertThatThrownBy(testApexModel::testApexModelValidateObservation)
             .hasMessage("model should have observations");
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateWarning())
+        assertThatThrownBy(testApexModel::testApexModelValidateWarning)
             .hasMessage("model should have warnings");
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateInvalidModel())
+        assertThatThrownBy(testApexModel::testApexModelValidateInvalidModel)
             .hasMessage("model should not be valid ***validation of model successful***");
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateMalstructured())
+        assertThatThrownBy(testApexModel::testApexModelValidateMalstructured)
             .hasMessage("model should not be valid ***validation of model successful***");
     }
 
     @Test
-    public void testModelCreator1() throws ApexException {
+    void testModelCreator1() throws ApexException {
         final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
             new SupportApexModelCreator1());
 
-        assertThatThrownBy(() -> testApexModel.testApexModelValid())
+        assertThatThrownBy(testApexModel::testApexModelValid)
             .hasMessageStartingWith("model is invalid");
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateObservation())
+        assertThatThrownBy(testApexModel::testApexModelValidateObservation)
             .hasMessageStartingWith("model is invalid");
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateWarning())
+        assertThatThrownBy(testApexModel::testApexModelValidateWarning)
             .hasMessageStartingWith("model is invalid");
-        testApexModel.testApexModelVaidateInvalidModel();
-        testApexModel.testApexModelVaidateMalstructured();
+        testApexModel.testApexModelValidateInvalidModel();
+        testApexModel.testApexModelValidateMalstructured();
     }
 
     @Test
-    public void testModelCreator2() throws ApexException {
-        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+    void testModelCreator2() throws ApexException {
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<>(AxModel.class,
             new SupportApexModelCreator2());
 
         testApexModel.testApexModelValid();
-        testApexModel.testApexModelVaidateObservation();
-        assertThatThrownBy(() -> testApexModel.testApexModelVaidateWarning())
+        testApexModel.testApexModelValidateObservation();
+        assertThatThrownBy(testApexModel::testApexModelValidateWarning)
             .hasMessage("model should have warnings");
     }
 
     @Test
-    public void testModelCreator1Json() throws ApexException {
-        final TestApexModel<AxModel> testApexModel = new TestApexModel<AxModel>(AxModel.class,
+    void testModelCreator1Json() {
+        final TestApexModel<AxModel> testApexModel = new TestApexModel<>(AxModel.class,
             new SupportApexModelCreator1());
 
-        assertThatThrownBy(() -> testApexModel.testApexModelWriteReadJson())
+        assertThatThrownBy(testApexModel::testApexModelWriteReadJson)
             .hasMessageStartingWith("error processing file");
     }
 }

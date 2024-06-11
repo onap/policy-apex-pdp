@@ -1,0 +1,5 @@
+
+***validation of model failed***
+AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000
+AxArtifactKey:(name=BasicModelKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxModel:INVALID:key information not found for key AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)
+********************************

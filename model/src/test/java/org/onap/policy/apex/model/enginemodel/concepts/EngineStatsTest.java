@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,14 +23,14 @@
 package org.onap.policy.apex.model.enginemodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import io.prometheus.client.CollectorRegistry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -41,25 +41,61 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class EngineStatsTest {
+class EngineStatsTest {
     private static final Object WAIT_LOCK = new Object();
     private static final String ENGINE_KEY = "EngineKey";
     private static final String ENGINE_VERSION = "0.0.1";
 
     @Test
-    public void testEngineStats() {
-        assertNotNull(new AxEngineStats());
-        assertNotNull(new AxEngineStats(new AxReferenceKey()));
-
+    void testEngineStats() {
         final AxReferenceKey statsKey = new AxReferenceKey(ENGINE_KEY, ENGINE_VERSION, "EngineStats");
         final AxEngineStats stats = new AxEngineStats(statsKey);
 
-        assertThatThrownBy(() -> stats.setKey(null))
-            .hasMessage("key may not be null");
+        assertThatThrownBy(() -> stats.setKey(null)).hasMessage("key may not be null");
         stats.setKey(statsKey);
         assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKey().getId());
         assertEquals("EngineKey:0.0.1:NULL:EngineStats", stats.getKeys().get(0).getId());
 
+        assertSetValuesToStats(stats);
+
+        synchronized (WAIT_LOCK) {
+            try {
+                WAIT_LOCK.wait(10);
+            } catch (InterruptedException e) {
+                fail("test should not throw an exception");
+            }
+        }
+
+        stats.executionExit();
+        checkAvgExecTimeMetric(stats);
+        checkEventsCountMetric(stats);
+        checkLastExecTimeMetric(stats);
+        final double avExecutionTime = stats.getAverageExecutionTime();
+        assertTrue(avExecutionTime >= 2.0 && avExecutionTime < 10.0);
+        stats.engineStop();
+        checkEngineStartTimestampMetric(stats);
+
+        AxValidationResult result = new AxValidationResult();
+        result = stats.validate(result);
+        assertEquals(ValidationResult.VALID, result.getValidationResult());
+
+        stats.setKey(new AxReferenceKey());
+        result = new AxValidationResult();
+        result = stats.validate(result);
+        assertEquals(ValidationResult.INVALID, result.getValidationResult());
+
+        stats.setKey(statsKey);
+        result = new AxValidationResult();
+        result = stats.validate(result);
+        assertEquals(ValidationResult.VALID, result.getValidationResult());
+
+        stats.clean();
+        stats.reset();
+
+        assertCompareTo(stats, statsKey);
+    }
+
+    private void assertSetValuesToStats(AxEngineStats stats) {
         stats.setAverageExecutionTime(123.45);
         assertEquals(Double.valueOf(123.45), Double.valueOf(stats.getAverageExecutionTime()));
 
@@ -105,41 +141,9 @@ public class EngineStatsTest {
         stats.executionEnter(new AxArtifactKey());
         checkEventsCountMetric(stats);
         checkEngineStartTimestampMetric(stats);
+    }
 
-        synchronized (WAIT_LOCK) {
-            try {
-                WAIT_LOCK.wait(10);
-            } catch (InterruptedException e) {
-                fail("test should not throw an exception");
-            }
-        }
-
-        stats.executionExit();
-        checkAvgExecTimeMetric(stats);
-        checkEventsCountMetric(stats);
-        checkLastExecTimeMetric(stats);
-        final double avExecutionTime = stats.getAverageExecutionTime();
-        assertTrue(avExecutionTime >= 2.0 && avExecutionTime < 10.0);
-        stats.engineStop();
-        checkEngineStartTimestampMetric(stats);
-
-        AxValidationResult result = new AxValidationResult();
-        result = stats.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        stats.setKey(new AxReferenceKey());
-        result = new AxValidationResult();
-        result = stats.validate(result);
-        assertEquals(ValidationResult.INVALID, result.getValidationResult());
-
-        stats.setKey(statsKey);
-        result = new AxValidationResult();
-        result = stats.validate(result);
-        assertEquals(ValidationResult.VALID, result.getValidationResult());
-
-        stats.clean();
-        stats.reset();
-
+    private void assertCompareTo(AxEngineStats stats, AxReferenceKey statsKey) {
         final AxEngineStats clonedStats = new AxEngineStats(stats);
         assertEquals("AxEngineStats:(engineKey=AxReferenceKey:(parentKey", clonedStats.toString().substring(0, 50));
 
@@ -220,10 +224,10 @@ public class EngineStatsTest {
     }
 
     private void checkLastExecTimeMetric(AxEngineStats stats) {
-        Double lastExecTimeMetric = CollectorRegistry.defaultRegistry
+        double lastExecTimeMetric = CollectorRegistry.defaultRegistry
             .getSampleValue("pdpa_engine_last_execution_time_sum", new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
                 new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
-        assertEquals(lastExecTimeMetric.longValue(), stats.getLastExecutionTime());
+        assertEquals(lastExecTimeMetric, stats.getLastExecutionTime());
     }
 
     private void checkEngineStartTimestampMetric(AxEngineStats stats) {

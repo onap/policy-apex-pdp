@@ -1,0 +1,37 @@
+
+***validation of model failed***
+AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation:INVALID:keyInfoMap may not be empty
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=smallEventModel,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=KeyInfoMapKey,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=Schemas,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=BigIntType,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=BooleanType,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=IntType,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=MapType,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=SetType,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=StringType,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=smallEventMap,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=event0,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par0)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par2)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par3)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par4)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par5)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=par6)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=event1,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=theOnlyPar)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:duplicate key AxArtifactKey:(name=event1,version=0.0.1) found
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for key AxArtifactKey:(name=event1,version=0.0.1)
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:duplicate key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=theOnlyPar) found
+AxArtifactKey:(name=smallEventModel,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEventModel:INVALID:key information not found for parent key of key AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=theOnlyPar)
+AxArtifactKey:(name=event0,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:source on event is blank
+AxArtifactKey:(name=event0,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:target on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:source on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:target on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:INVALID:parent key on parameter field AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=theOnlyPar) does not equal event key
+AxArtifactKey:(name=smallEventMap,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvents:INVALID:key on event entry key AxArtifactKey:(name=event2,version=0.0.1) does not equal event value key AxArtifactKey:(name=event1,version=0.0.1)
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:source on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:target on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:INVALID:parent key on parameter field AxReferenceKey:(parentKeyName=event0,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=theOnlyPar) does not equal event key
+********************************

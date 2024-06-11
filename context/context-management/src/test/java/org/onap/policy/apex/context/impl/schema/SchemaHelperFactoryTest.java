@@ -22,11 +22,11 @@
 package org.onap.policy.apex.context.impl.schema;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
@@ -42,9 +42,9 @@ public class SchemaHelperFactoryTest {
     private static AxContextSchema badSchema;
 
     /**
-     * Set ups schema for the test.
+     * Set-ups schema for the test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setupSchema() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
@@ -53,13 +53,13 @@ public class SchemaHelperFactoryTest {
         badSchema = new AxContextSchema(new AxArtifactKey("IntSchema", "0.0.1"), "JAVA", "java.lang.Bad");
     }
 
-    @AfterClass
+    @AfterAll
     public static void clearParameters() {
         ParameterService.clear();
     }
 
     @Test
-    public void testSchemaHelperFactory() {
+    void testSchemaHelperFactory() {
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(null, null))
             .hasMessage("Parameter \"owningEntityKey\" may not be null");
         AxArtifactKey ownerKey = new AxArtifactKey("Owner", "0.0.1");

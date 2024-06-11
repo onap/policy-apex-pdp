@@ -1,0 +1,9 @@
+
+***observations noted during validation of model***
+AxArtifactKey:(name=event0,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:source on event is blank
+AxArtifactKey:(name=event0,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:target on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:source on event is blank
+AxArtifactKey:(name=event1,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:target on event is blank
+AxArtifactKey:(name=event2,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:source on event is blank
+AxArtifactKey:(name=event2,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvent:OBSERVATION:target on event is blank
+********************************

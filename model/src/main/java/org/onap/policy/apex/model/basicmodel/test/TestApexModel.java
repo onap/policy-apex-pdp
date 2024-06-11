@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2021-2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +38,8 @@ import org.slf4j.ext.XLoggerFactory;
  * This class tests reading and writing of Apex models to file and to a database using JPA. It also tests validation of
  * Apex models. This class is designed for use in unit tests in modules that define Apex models.
  *
- * @author Liam Fallon (liam.fallon@ericsson.com)
  * @param <M> the generic type
+ * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class TestApexModel<M extends AxModel> {
     private static final String MODEL_IS_INVALID = "model is invalid ";
@@ -53,14 +53,14 @@ public class TestApexModel<M extends AxModel> {
     private final Class<M> rootModelClass;
 
     // The class that provides the model
-    private TestApexModelCreator<M> modelCreator = null;
+    private final TestApexModelCreator<M> modelCreator;
 
     /**
      * Constructor, defines the subclass of {@link AxModel} that is being tested and the {@link TestApexModelCreator}
      * object that is used to generate Apex models.
      *
-     * @param rootModelClass the Apex model class, a sub class of {@link AxModel}
-     * @param modelCreator the @link TestApexModelCreator} that will generate Apex models of various types for testing
+     * @param rootModelClass the Apex model class, a subclass of {@link AxModel}
+     * @param modelCreator   {@link TestApexModelCreator} that will generate Apex models of various types for testing
      */
     public TestApexModel(final Class<M> rootModelClass, final TestApexModelCreator<M> modelCreator) {
         this.rootModelClass = rootModelClass;
@@ -105,7 +105,7 @@ public class TestApexModel<M extends AxModel> {
             final var fileModel = modelReader.read(apexModelUrl.openStream());
             checkModelEquality(model, fileModel, TEST_MODEL_UNEQUAL_STR + jsonFile.getAbsolutePath());
         } catch (final Exception e) {
-            LOGGER.warn(ERROR_PROCESSING_FILE + jsonFile.getAbsolutePath(), e);
+            LOGGER.warn(ERROR_PROCESSING_FILE + "{}", jsonFile.getAbsolutePath(), e);
             throw new ApexException(ERROR_PROCESSING_FILE + jsonFile.getAbsolutePath(), e);
         }
 
@@ -128,18 +128,18 @@ public class TestApexModel<M extends AxModel> {
      * @throws ApexException thrown on errors validating the Apex model
      */
     public final AxValidationResult testApexModelValid() throws ApexException {
-        LOGGER.debug("running testApexModelVaid . . .");
+        LOGGER.debug("running testApexModelValid . . .");
 
         final var model = modelCreator.getModel();
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (!result.isValid()) {
-            String message = MODEL_IS_INVALID + result.toString();
+            String message = MODEL_IS_INVALID + result;
             LOGGER.warn(message);
             throw new ApexException(message);
         }
 
-        LOGGER.debug("ran testApexModelVaid");
+        LOGGER.debug("ran testApexModelValid");
         return result;
     }
 
@@ -149,19 +149,19 @@ public class TestApexModel<M extends AxModel> {
      * @return the result of the validation
      * @throws ApexException thrown on errors validating the Apex model
      */
-    public final AxValidationResult testApexModelVaidateMalstructured() throws ApexException {
-        LOGGER.debug("running testApexModelVaidateMalstructured . . .");
+    public final AxValidationResult testApexModelValidateMalstructured() throws ApexException {
+        LOGGER.debug("running testApexModelValidateMalstructured . . .");
 
         final var model = modelCreator.getMalstructuredModel();
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (result.isValid()) {
-            String message = "model should not be valid " + result.toString();
+            String message = "model should not be valid " + result;
             LOGGER.warn(message);
             throw new ApexException(message);
         }
 
-        LOGGER.debug("ran testApexModelVaidateMalstructured");
+        LOGGER.debug("ran testApexModelValidateMalstructured");
         return result;
     }
 
@@ -171,8 +171,8 @@ public class TestApexModel<M extends AxModel> {
      * @return the result of the validation
      * @throws ApexException thrown on errors validating the Apex model
      */
-    public final AxValidationResult testApexModelVaidateObservation() throws ApexException {
-        LOGGER.debug("running testApexModelVaidateObservation . . .");
+    public final AxValidationResult testApexModelValidateObservation() throws ApexException {
+        LOGGER.debug("running testApexModelValidateObservation . . .");
 
         final var model = modelCreator.getObservationModel();
         final AxValidationResult result = model.validate(new AxValidationResult());
@@ -188,7 +188,7 @@ public class TestApexModel<M extends AxModel> {
             throw new ApexException("model should have observations");
         }
 
-        LOGGER.debug("ran testApexModelVaidateObservation");
+        LOGGER.debug("ran testApexModelValidateObservation");
         return result;
     }
 
@@ -198,8 +198,8 @@ public class TestApexModel<M extends AxModel> {
      * @return the result of the validation
      * @throws ApexException thrown on errors validating the Apex model
      */
-    public final AxValidationResult testApexModelVaidateWarning() throws ApexException {
-        LOGGER.debug("running testApexModelVaidateWarning . . .");
+    public final AxValidationResult testApexModelValidateWarning() throws ApexException {
+        LOGGER.debug("running testApexModelValidateWarning . . .");
 
         final var model = modelCreator.getWarningModel();
         final AxValidationResult result = model.validate(new AxValidationResult());
@@ -215,7 +215,7 @@ public class TestApexModel<M extends AxModel> {
             throw new ApexException("model should have warnings");
         }
 
-        LOGGER.debug("ran testApexModelVaidateWarning");
+        LOGGER.debug("ran testApexModelValidateWarning");
         return result;
     }
 
@@ -225,27 +225,27 @@ public class TestApexModel<M extends AxModel> {
      * @return the result of the validation
      * @throws ApexException thrown on errors validating the Apex model
      */
-    public final AxValidationResult testApexModelVaidateInvalidModel() throws ApexException {
-        LOGGER.debug("running testApexModelVaidateInvalidModel . . .");
+    public final AxValidationResult testApexModelValidateInvalidModel() throws ApexException {
+        LOGGER.debug("running testApexModelValidateInvalidModel . . .");
 
         final var model = modelCreator.getInvalidModel();
         final AxValidationResult result = model.validate(new AxValidationResult());
 
         if (result.isValid()) {
-            String message = "model should not be valid " + result.toString();
+            String message = "model should not be valid " + result;
             LOGGER.warn(message);
             throw new ApexException(message);
         }
 
-        LOGGER.debug("ran testApexModelVaidateInvalidModel");
+        LOGGER.debug("ran testApexModelValidateInvalidModel");
         return result;
     }
 
     /**
      * Check if two models are equal.
      *
-     * @param leftModel the left model
-     * @param rightModel the right model
+     * @param leftModel    the left model
+     * @param rightModel   the right model
      * @param errorMessage the error message to output on inequality
      * @throws ApexException the exception to throw on inequality
      */

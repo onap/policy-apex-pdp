@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,14 @@
 
 package org.onap.policy.apex.model.eventmodel.concepts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -42,19 +42,12 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class EventsTest {
+class EventsTest {
 
     @Test
-    public void testEvents() {
+    void testEvents() {
         final TreeMap<String, AxField> parameterMap = new TreeMap<>();
         final TreeMap<String, AxField> parameterMapEmpty = new TreeMap<>();
-
-        assertNotNull(new AxEvent());
-        assertNotNull(new AxEvent(new AxArtifactKey()));
-        assertNotNull(new AxEvent(new AxArtifactKey(), "namespace"));
-        assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target"));
-        assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target"));
-        assertNotNull(new AxEvent(new AxArtifactKey(), "namespace", "source", "target", parameterMap, ""));
 
         final AxEvent event = new AxEvent();
 
@@ -97,12 +90,36 @@ public class EventsTest {
         assertEquals("EventName:0.0.1", event.getKey().getId());
         assertEquals("EventName:0.0.1", event.getKeys().get(0).getId());
 
-        assertTrue("Field0", event.getFields().contains(eventField));
-        assertTrue(event.hasFields(new TreeSet<AxField>(parameterMap.values())));
+        assertTrue(event.getFields().contains(eventField));
+        assertTrue(event.hasFields(new TreeSet<>(parameterMap.values())));
 
+        assertValidationResults_SingleEvent(event, eventKey, eventField, eventFieldBadParent);
+
+        event.clean();
+        event.buildReferences();
+        assertNotEquals(AxKey.NULL_KEY_NAME,
+            event.getParameterMap().values().iterator().next().getKey().getParentKeyName());
+
+        assertCompareTo(event, parameterMap, eventKey, parameterMapEmpty);
+
+        assertNotNull(event.getKeys());
+
+        final AxEvents events = new AxEvents();
+        assertValidationResult_GroupEvents(events, eventKey, event);
+
+        events.clean();
+        event.buildReferences();
+        assertNotEquals(AxKey.NULL_KEY_NAME,
+            event.getParameterMap().values().iterator().next().getKey().getParentKeyName());
+
+        assertCompareToSpecificEvents(events, event, eventKey);
+    }
+
+    private static void assertValidationResults_SingleEvent(AxEvent event, AxArtifactKey eventKey, AxField eventField,
+                                  AxField eventFieldBadParent) {
         AxValidationResult result = new AxValidationResult();
         result = event.validate(result);
-        assertEquals(AxValidationResult.ValidationResult.VALID, result.getValidationResult());
+        assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         event.setKey(AxArtifactKey.getNullKey());
         result = new AxValidationResult();
@@ -189,12 +206,10 @@ public class EventsTest {
         result = event.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
         event.setToscaPolicyState(AxToscaPolicyProcessingStatus.ENTRY.name());
+    }
 
-        event.clean();
-        event.buildReferences();
-        assertNotEquals(AxKey.NULL_KEY_NAME,
-            event.getParameterMap().values().iterator().next().getKey().getParentKeyName());
-
+    private static void assertCompareTo(AxEvent event, TreeMap<String, AxField> parameterMap,
+                                        AxArtifactKey eventKey, TreeMap<String, AxField> parameterMapEmpty) {
         final AxEvent clonedEvent = new AxEvent(event);
         assertEquals("AxEvent:(key=AxArtifactKey:(name=EventName,version=0.0.1),nameSpace=namespace",
             clonedEvent.toString().substring(0, 77));
@@ -237,10 +252,10 @@ public class EventsTest {
             AxToscaPolicyProcessingStatus.ENTRY.name())));
         assertEquals(0, event.compareTo(new AxEvent(eventKey, "namespace", "source", "target", parameterMap,
             AxToscaPolicyProcessingStatus.ENTRY.name())));
+    }
 
-        assertNotNull(event.getKeys());
-
-        final AxEvents events = new AxEvents();
+    private static void assertValidationResult_GroupEvents(AxEvents events, AxArtifactKey eventKey, AxEvent event) {
+        AxValidationResult result;
         result = new AxValidationResult();
         result = events.validate(result);
         assertEquals(ValidationResult.INVALID, result.getValidationResult());
@@ -287,18 +302,16 @@ public class EventsTest {
         result = new AxValidationResult();
         result = events.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
+    }
 
-        events.clean();
-        event.buildReferences();
-        assertNotEquals(AxKey.NULL_KEY_NAME,
-            event.getParameterMap().values().iterator().next().getKey().getParentKeyName());
-
+    private static void assertCompareToSpecificEvents(AxEvents events, AxEvent event, AxArtifactKey eventKey) {
         final AxEvents clonedEvents = new AxEvents(events);
         assertEquals("AxEvents:(key=AxArtifactKey:(name=EventsKey,version=0.0.1),e",
             clonedEvents.toString().substring(0, 60));
 
         assertNotEquals(0, events.hashCode());
 
+        Object helloObj = "Hello";
         assertEquals(events, clonedEvents);
         assertNotNull(events);
         assertNotEquals(event, helloObj);
@@ -318,6 +331,6 @@ public class EventsTest {
         assertEquals("EventName", events.get("EventName").getKey().getName());
         assertEquals("EventName", events.get("EventName", "0.0.1").getKey().getName());
         assertEquals(1, events.getAll("EventName", "0.0.1").size());
-        assertEquals(0, events.getAll("NonExistantEventsName").size());
+        assertEquals(0, events.getAll("NonExistentEventsName").size());
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,18 @@
 
 package org.onap.policy.apex.model.modelapi;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Key information for API tests.
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexEditorApiKeyInfoTest {
+class ApexEditorApiKeyInfoTest {
 
     @Test
-    public void testKeyInfoCrud() {
+    void testKeyInfoCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.validateKeyInformation(null, null);
