@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,22 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
-public class SupportConceptGetterTest {
+class SupportConceptGetterTest {
 
     private static final AxKeyInfo intKI01 = new AxKeyInfo(new AxArtifactKey("IntegerKIKey01", "0.0.1"),
             UUID.randomUUID(), "IntegerKIKey01 description");
@@ -109,7 +110,7 @@ public class SupportConceptGetterTest {
             UUID.randomUUID(), "IntegerKIKey93 description");
 
     @Test
-    public void testConceptGetterInteger() {
+    void testConceptGetterInteger() {
         AxModel basicModel = setTestBasicModel();
 
         assertNull(basicModel.getKeyInformation().get("NonExistantKey", "0.0.6"));
@@ -133,7 +134,7 @@ public class SupportConceptGetterTest {
     }
 
     @Test
-    public void testConceptGetterFloat() {
+    void testConceptGetterFloat() {
         AxModel basicModel = setTestBasicModel();
 
         assertEquals(floatKI01, basicModel.getKeyInformation().get("FloatKIKey01"));
@@ -149,12 +150,12 @@ public class SupportConceptGetterTest {
     }
 
     @Test
-    public void testMarshalling() throws IOException, ApexException {
+    void testMarshalling() throws IOException, ApexException {
         AxModel basicModel = setTestBasicModel();
 
         // Ensure marshalling and unmarshalling is OK
-        ApexModelReader<AxModel> modelReader = new ApexModelReader<AxModel>(AxModel.class);
-        ApexModelFileWriter<AxModel> modelWriter = new ApexModelFileWriter<AxModel>(true);
+        ApexModelReader<AxModel> modelReader = new ApexModelReader<>(AxModel.class);
+        ApexModelFileWriter<AxModel> modelWriter = new ApexModelFileWriter<>(true);
 
         modelReader.setValidate(false);
         modelWriter.setValidate(false);
@@ -168,7 +169,7 @@ public class SupportConceptGetterTest {
         assertEquals(basicModel, readJsonModel);
         assertEquals(intKI91, readJsonModel.getKeyInformation().get("IntegerKIKey91"));
         assertNotNull(readJsonModel.getKeyInformation().get("FloatKIKey"));
-        tempJsonFile.delete();
+        assertTrue(tempJsonFile.delete());
     }
 
     private AxModel setTestBasicModel() {

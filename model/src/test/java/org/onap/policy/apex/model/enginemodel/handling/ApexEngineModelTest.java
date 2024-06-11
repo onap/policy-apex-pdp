@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,61 +21,66 @@
 
 package org.onap.policy.apex.model.enginemodel.handling;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel;
 
-public class ApexEngineModelTest {
+class ApexEngineModelTest {
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
+    private static final String AX_ARTIFACT_KEY = "AxArtifactKey:(name=AnEngine,version=0.0.1)";
+    private static final String ENGINE_MODEL_CLASS = "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel";
 
-    private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=AnEngine,version=0.0.1):"
-                    + "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:"
-                    + "AxEngineModel - state is UNDEFINED\n" + "********************************";
+    private static final String INVALID_MODEL_STRING =
+        "\n" + "***validation of model failed***\n"
+            + AX_ARTIFACT_KEY + ":"
+            + ENGINE_MODEL_CLASS + ":INVALID:"
+            + "AxEngineModel - state is UNDEFINED\n"
+            + "********************************";
 
-    private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=AnEngine,version=0.0.1):"
-                    + "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:"
-                    + "AxEngineModel - timestamp is not set\n" + "AxArtifactKey:(name=AnEngine,version=0.0.1):"
-                    + "org.onap.policy.apex.model.enginemodel.concepts.AxEngineModel:INVALID:"
-                    + "AxEngineModel - state is UNDEFINED\n" + "********************************";
+    private static final String INVALID_MODEL_MALSTRUCTURED_STRING =
+        "\n" + "***validation of model failed***\n"
+            + AX_ARTIFACT_KEY + ":"
+            + ENGINE_MODEL_CLASS + ":INVALID:"
+            + "AxEngineModel - timestamp is not set\n" + AX_ARTIFACT_KEY + ":"
+            + ENGINE_MODEL_CLASS + ":INVALID:"
+            + "AxEngineModel - state is UNDEFINED\n"
+            + "********************************";
 
     TestApexModel<AxEngineModel> testApexModel;
 
     /**
      * Set up the test.
      *
-     * @throws Exception errors from test setup
      */
-    @Before
-    public void setup() throws Exception {
-        testApexModel = new TestApexModel<AxEngineModel>(AxEngineModel.class, new DummyTestApexEngineModelCreator());
+    @BeforeEach
+    void setup() {
+        testApexModel = new TestApexModel<>(AxEngineModel.class, new DummyTestApexEngineModelCreator());
     }
 
     @Test
-    public void testModelValid() throws Exception {
+    void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
         assertEquals(VALID_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testModelVaidateInvalidModel() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
+    void testModelValidateInvalidModel() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateInvalidModel();
         assertEquals(INVALID_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testModelVaidateMalstructured() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
+    void testModelValidateMalstructured() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateMalstructured();
         assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
     }
 
     @Test
-    public void testModelWriteReadJson() throws Exception {
+    void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 }

@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
-public class ApexModelFileWriterTest {
+class ApexModelFileWriterTest {
 
     @Test
-    public void testModelFileWriter() throws IOException, ApexException {
+    void testModelFileWriter() throws IOException, ApexException {
         ApexModelFileWriter<AxModel> modelFileWriter = new ApexModelFileWriter<>(true);
 
         modelFileWriter.setValidate(true);
@@ -48,25 +48,20 @@ public class ApexModelFileWriterTest {
 
         modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
 
-        jsonTempFile.delete();
-        new File(tempDir.getAbsolutePath() + "/aaa").delete();
-        new File(tempDir.getAbsolutePath() + "/ccc").delete();
+        assertFileDeleted(jsonTempFile);
+        assertFileDeleted(new File(tempDir.getAbsolutePath() + "/aaa"));
 
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.json");
 
         modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile.getAbsolutePath());
 
-        jsonTempFile.delete();
+        assertFileDeleted(jsonTempFile);
 
-        new File(tempDir.getAbsolutePath() + "/aaa/bbb").delete();
-        new File(tempDir.getAbsolutePath() + "/aaa").delete();
-        new File(tempDir.getAbsolutePath() + "/ccc/ddd").delete();
-        new File(tempDir.getAbsolutePath() + "/ccc").delete();
+        assertFileDeleted(new File(tempDir.getAbsolutePath() + "/aaa/bbb"));
+        assertFileDeleted(new File(tempDir.getAbsolutePath() + "/aaa"));
 
         File dirA = new File(tempDir.getAbsolutePath() + "/aaa");
-        // File dirB = new File(tempDir.getAbsolutePath() + "/aaa/bbb");
-        dirA.createNewFile();
-        // dirB.createNewFile();
+        assertTrue(dirA.createNewFile());
 
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.json");
         final File jsonTempFile01 = jsonTempFile;
@@ -74,12 +69,12 @@ public class ApexModelFileWriterTest {
             () -> modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile01.getAbsolutePath()))
                 .hasMessageContaining("could not create directory");
 
-        dirA.delete();
+        assertFileDeleted(dirA);
 
         dirA = new File(tempDir.getAbsolutePath() + "/aaa");
         File fileB = new File(tempDir.getAbsolutePath() + "/aaa/bbb");
-        dirA.mkdir();
-        fileB.createNewFile();
+        assertTrue(dirA.mkdir());
+        assertTrue(fileB.createNewFile());
 
         jsonTempFile = new File(tempDir.getAbsolutePath() + "/aaa/bbb/ApexFileWriterTest.json");
 
@@ -88,7 +83,11 @@ public class ApexModelFileWriterTest {
             () -> modelFileWriter.apexModelWriteJsonFile(model, AxModel.class, jsonTempFile02.getAbsolutePath()))
                 .hasMessageContaining("error processing file");
 
-        fileB.delete();
-        dirA.delete();
+        assertFileDeleted(fileB);
+        assertFileDeleted(dirA);
+    }
+
+    private void assertFileDeleted(File file) {
+        assertTrue(file.delete());
     }
 }

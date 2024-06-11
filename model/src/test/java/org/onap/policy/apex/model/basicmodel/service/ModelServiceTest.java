@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,26 +22,26 @@
 package org.onap.policy.apex.model.basicmodel.service;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 import org.onap.policy.apex.model.basicmodel.handling.DummyApexBasicModelCreator;
 
-public class ModelServiceTest {
+class ModelServiceTest {
 
     @Test
-    public void testModelService() {
+    void testModelService() {
         ModelService.clear();
 
         assertFalse(ModelService.existsModel(AxKeyInformation.class));
         assertThatThrownBy(() -> ModelService.getModel(AxKeyInformation.class))
             .hasMessage("Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation "
-                            + "not found in model service");
+                + "not found in model service");
         ModelService.registerModel(AxKeyInformation.class,
-                        new DummyApexBasicModelCreator().getModel().getKeyInformation());
+            new DummyApexBasicModelCreator().getModel().getKeyInformation());
         assertTrue(ModelService.existsModel(AxKeyInformation.class));
         assertNotNull(ModelService.getModel(AxKeyInformation.class));
 
@@ -50,9 +50,9 @@ public class ModelServiceTest {
         assertFalse(ModelService.existsModel(AxKeyInformation.class));
         assertThatThrownBy(() -> ModelService.getModel(AxKeyInformation.class))
             .hasMessage("Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation "
-                            + "not found in model service");
+                + "not found in model service");
         ModelService.registerModel(AxKeyInformation.class,
-                        new DummyApexBasicModelCreator().getModel().getKeyInformation());
+            new DummyApexBasicModelCreator().getModel().getKeyInformation());
         assertTrue(ModelService.existsModel(AxKeyInformation.class));
         assertNotNull(ModelService.getModel(AxKeyInformation.class));
 
@@ -60,6 +60,6 @@ public class ModelServiceTest {
         assertFalse(ModelService.existsModel(AxKeyInformation.class));
         assertThatThrownBy(() -> ModelService.getModel(AxKeyInformation.class))
             .hasMessage("Model for org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation "
-                            + "not found in model service");
+                + "not found in model service");
     }
 }

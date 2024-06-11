@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,14 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -41,10 +41,10 @@ import org.onap.policy.apex.model.eventmodel.concepts.AxEvent;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TasksTest {
+class TasksTest {
 
     @Test
-    public void testTasks() {
+    void testTasks() {
         final TreeMap<String, AxTaskParameter> tpEmptyMap = new TreeMap<>();
         final TreeSet<AxArtifactKey> ctxtEmptySet = new TreeSet<>();
 

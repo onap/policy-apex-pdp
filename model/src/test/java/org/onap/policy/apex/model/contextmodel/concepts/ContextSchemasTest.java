@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,11 +24,11 @@ package org.onap.policy.apex.model.contextmodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
@@ -36,19 +36,19 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
 /**
  * Context schema tests.
  */
-public class ContextSchemasTest {
+class ContextSchemasTest {
 
     @Test
-    public void testNewAxContextSchema() {
+    void testNewAxContextSchema() {
         assertNotNull(new AxContextSchema());
         assertNotNull(new AxContextSchema(new AxArtifactKey(), "SchemaFlavour", "SchemaDefinition"));
 
     }
 
     @Test
-    public void testContextSchemas() {
+    void testContextSchemas() {
         final AxContextSchema schema = new AxContextSchema(new AxArtifactKey("SchemaName", "0.0.1"), "SchemaFlavour",
-                        "SchemaDefinition");
+            "SchemaDefinition");
         assertNotNull(schema);
 
         final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
@@ -58,7 +58,7 @@ public class ContextSchemasTest {
 
         assertThatThrownBy(() -> schema.setSchemaFlavour(""))
             .hasMessage("parameter \"schemaFlavour\": value \"\", "
-                            + "does not match regular expression \"[A-Za-z0-9\\-_]+\"");
+                + "does not match regular expression \"[A-Za-z0-9\\-_]+\"");
         schema.setSchemaFlavour("NewSchemaFlavour");
         assertEquals("NewSchemaFlavour", schema.getSchemaFlavour());
 
@@ -68,7 +68,7 @@ public class ContextSchemasTest {
 
     private AxContextSchema setTestSchema() {
         final AxContextSchema schema = new AxContextSchema(new AxArtifactKey("SchemaName", "0.0.1"), "SchemaFlavour",
-                "SchemaDefinition");
+            "SchemaDefinition");
         final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
         schema.setKey(newKey);
         schema.setSchemaFlavour("NewSchemaFlavour");
@@ -78,7 +78,7 @@ public class ContextSchemasTest {
     }
 
     @Test
-    public void testAxvalidationSchema() {
+    void testAxvalidationSchema() {
         AxContextSchema schema = setTestSchema();
         AxValidationResult result = new AxValidationResult();
         result = schema.validate(result);
@@ -117,14 +117,14 @@ public class ContextSchemasTest {
     }
 
     @Test
-    public void testEqualsSchema() {
+    void testEqualsSchema() {
         AxContextSchema schema = setTestSchema();
         schema.clean();
 
         final AxContextSchema clonedSchema = new AxContextSchema(schema);
         assertEquals("AxContextSchema(key=AxArtifactKey:(name=NewSchemaName,version=0.0.1), "
-                        + "schemaFlavour=NewSchemaFlavour, schemaDefinition=NewSchemaDefinition)",
-                        clonedSchema.toString());
+                + "schemaFlavour=NewSchemaFlavour, schemaDefinition=NewSchemaDefinition)",
+            clonedSchema.toString());
 
         assertNotEquals(0, schema.hashCode());
 
@@ -151,7 +151,7 @@ public class ContextSchemasTest {
     }
 
     @Test
-    public void testMultipleSchemas() {
+    void testMultipleSchemas() {
         final AxContextSchemas schemas = new AxContextSchemas();
         AxValidationResult result = new AxValidationResult();
         result = schemas.validate(result);
@@ -193,7 +193,7 @@ public class ContextSchemasTest {
     }
 
     @Test
-    public void testClonedSchemas() {
+    void testClonedSchemas() {
         final AxContextSchemas schemas = new AxContextSchemas();
         AxContextSchema schema = setTestSchema();
         final AxArtifactKey newKey = new AxArtifactKey("NewSchemaName", "0.0.1");
@@ -203,7 +203,7 @@ public class ContextSchemasTest {
 
         final AxContextSchemas clonedSchemas = new AxContextSchemas(schemas);
         assertThat(clonedSchemas.toString())
-                        .startsWith("AxContextSchemas(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),");
+            .startsWith("AxContextSchemas(key=AxArtifactKey:(name=SchemasKey,version=0.0.1),");
 
         assertNotEquals(0, schemas.hashCode());
 

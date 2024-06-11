@@ -1,0 +1,4 @@
+
+***observations noted during validation of model***
+AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:OBSERVATION:description is blank
+********************************

@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@
 
 package org.onap.policy.apex.model.utilities;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.utilities.comparison.KeyComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyDifference;
 
@@ -33,15 +33,15 @@ import org.onap.policy.apex.model.utilities.comparison.KeyDifference;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class KeyComparerTest {
+class KeyComparerTest {
 
     @Test
-    public void test() {
+    void test() {
         KeyDifference<String> keyDifference = new KeyComparer<String>().compareKeys("Hello", "Goodbye");
 
         assertFalse(keyDifference.isEqual());
-        assertEquals("Hello", keyDifference.getLeftKey().toString());
-        assertEquals("Goodbye", keyDifference.getRightKey().toString());
+        assertEquals("Hello", keyDifference.getLeftKey());
+        assertEquals("Goodbye", keyDifference.getRightKey());
 
         assertEquals("left key Hello and right key Goodbye differ\n", keyDifference.asString(true));
         assertEquals("left key Hello and right key Goodbye differ\n", keyDifference.asString(false));

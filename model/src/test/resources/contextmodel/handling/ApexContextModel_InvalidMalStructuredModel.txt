@@ -1,0 +1,7 @@
+
+***validation of model failed***
+AxArtifactKey:(name=ContextModel,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:INVALID:key information not found for key AxArtifactKey:(name=contextAlbum1,version=0.0.2)
+AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextModel:WARNING:key not found for key information entry
+AxArtifactKey:(name=ContextSchemas,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:key on schemas entry AxArtifactKey:(name=MapType,version=0.0.1) does not equal entry key AxArtifactKey:(name=MapType,version=0.0.2)
+AxArtifactKey:(name=contextAlbums,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:INVALID:key on context album entry key AxArtifactKey:(name=contextAlbum1,version=0.0.1) does not equal context album value key AxArtifactKey:(name=contextAlbum1,version=0.0.2)
+********************************

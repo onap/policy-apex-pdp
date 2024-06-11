@@ -1,0 +1,4 @@
+
+***observations noted during validation of model***
+AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=state):org.onap.policy.apex.model.policymodel.concepts.AxState:OBSERVATION:state output stateOutput0 is not used directly by any task
+********************************

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@
 package org.onap.policy.apex.context.impl.schema.java;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -40,17 +40,17 @@ import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * JavaSchemaHelperInstanceCreationTest.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
  */
-public class JavaSchemaHelperInstanceCreationTest {
+class JavaSchemaHelperInstanceCreationTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
 
     /**
-     * Set ups everything for the test.
+     * Set-ups everything for the test.
      */
-    @Before
+    @BeforeEach
     public void initTest() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
@@ -62,40 +62,40 @@ public class JavaSchemaHelperInstanceCreationTest {
         ParameterService.register(schemaParameters);
     }
 
-    @AfterClass
+    @AfterAll
     public static void cleanUpAfterTest() {
         ParameterService.clear();
     }
 
 
     @Test
-    public void testNullEncoding() {
+    void testNullEncoding() {
         final AxContextSchema javaBooleanSchema =
-                new AxContextSchema(new AxArtifactKey("Boolean", "0.0.1"), "Java", "java.lang.Boolean");
+            new AxContextSchema(new AxArtifactKey("Boolean", "0.0.1"), "Java", "java.lang.Boolean");
         final AxContextSchema javaLongSchema =
-                new AxContextSchema(new AxArtifactKey("Long", "0.0.1"), "Java", "java.lang.Long");
+            new AxContextSchema(new AxArtifactKey("Long", "0.0.1"), "Java", "java.lang.Long");
         final AxContextSchema javaStringSchema =
-                new AxContextSchema(new AxArtifactKey("String", "0.0.1"), "Java", "java.lang.String");
+            new AxContextSchema(new AxArtifactKey("String", "0.0.1"), "Java", "java.lang.String");
 
         schemas.getSchemasMap().put(javaBooleanSchema.getKey(), javaBooleanSchema);
         schemas.getSchemasMap().put(javaLongSchema.getKey(), javaLongSchema);
         schemas.getSchemasMap().put(javaStringSchema.getKey(), javaStringSchema);
 
         final SchemaHelper schemaHelper0 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, javaBooleanSchema.getKey());
+            new SchemaHelperFactory().createSchemaHelper(testKey, javaBooleanSchema.getKey());
         final SchemaHelper schemaHelper1 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, javaLongSchema.getKey());
+            new SchemaHelperFactory().createSchemaHelper(testKey, javaLongSchema.getKey());
         final SchemaHelper schemaHelper2 =
-                new SchemaHelperFactory().createSchemaHelper(testKey, javaStringSchema.getKey());
+            new SchemaHelperFactory().createSchemaHelper(testKey, javaStringSchema.getKey());
 
         assertThatThrownBy(schemaHelper0::createNewInstance)
             .hasMessage("AvroTest:0.0.1: could not create an instance of class \"java.lang.Boolean\""
-                    + " using the default constructor \"Boolean()\"");
+                + " using the default constructor \"Boolean()\"");
         assertEquals(true, schemaHelper0.createNewInstance("true"));
 
         assertThatThrownBy(schemaHelper1::createNewInstance)
             .hasMessage("AvroTest:0.0.1: could not create an instance of class \"java.lang.Long\""
-                    + " using the default constructor \"Long()\"");
+                + " using the default constructor \"Long()\"");
         assertEquals(65536L, schemaHelper1.createNewInstance("65536"));
 
         assertEquals("", schemaHelper2.createNewInstance());

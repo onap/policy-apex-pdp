@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@
 package org.onap.policy.apex.model.modelapi;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.UUID;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.modelapi.impl.ApexModelImpl;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
@@ -42,23 +42,23 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexModelApiTest {
+class ApexModelApiTest {
     private Connection connection;
 
-    @Before
-    public void setup() throws Exception {
+    @BeforeEach
+    void setup() throws Exception {
         // Hold the h2 database up for entire tests
         connection = DriverManager.getConnection("jdbc:h2:mem:testdb");
     }
 
-    @After
-    public void teardown() throws Exception {
+    @AfterEach
+    void teardown() throws Exception {
         // Close the h2 database after tests
         connection.close();
     }
 
     @Test
-    public void testApexModelLoadFromFile() {
+    void testApexModelLoadFromFile() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.loadFromFile("src/main/resources/models/PolicyModel.json");
@@ -82,7 +82,7 @@ public class ApexModelApiTest {
     }
 
     @Test
-    public void testApexModelSaveToFile() throws IOException {
+    void testApexModelSaveToFile() throws IOException {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.loadFromFile("src/test/resources/models/PolicyModel.json");
@@ -108,7 +108,7 @@ public class ApexModelApiTest {
     }
 
     @Test
-    public void testApexModelUrl() throws IOException {
+    void testApexModelUrl() throws IOException {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         assertThatThrownBy(() -> apexModel.readFromUrl(null)).isInstanceOf(IllegalArgumentException.class);
@@ -143,7 +143,7 @@ public class ApexModelApiTest {
     }
 
     @Test
-    public void testApexModelMisc() throws IOException {
+    void testApexModelMisc() throws IOException {
         final ApexModelImpl apexModelImpl = (ApexModelImpl) new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = null;

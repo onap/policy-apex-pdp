@@ -1,0 +1,16 @@
+
+***validation of model failed***
+AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation:INVALID:keyInfoMap may not be empty
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel,version=0.0.1)
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1)
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel_Schemas,version=0.0.1)
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel_Events,version=0.0.1)
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel_Albums,version=0.0.1)
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel_Tasks,version=0.0.1)
+AxArtifactKey:(name=policyModel,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:key information not found for key AxArtifactKey:(name=policyModel_Policies,version=0.0.1)
+AxArtifactKey:(name=policyModel_Schemas,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:contextSchemas may not be empty
+AxArtifactKey:(name=policyModel_Events,version=0.0.1):org.onap.policy.apex.model.eventmodel.concepts.AxEvents:INVALID:eventMap may not be empty
+AxArtifactKey:(name=policyModel_Albums,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:OBSERVATION:albums are empty
+AxArtifactKey:(name=policyModel_Tasks,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxTasks:INVALID:taskMap may not be empty
+AxArtifactKey:(name=policyModel_Policies,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicies:INVALID:policyMap may not be empty
+********************************

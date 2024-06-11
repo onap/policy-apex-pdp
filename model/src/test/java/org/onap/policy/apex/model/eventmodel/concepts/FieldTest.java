@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,13 @@
 
 package org.onap.policy.apex.model.eventmodel.concepts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
@@ -36,32 +38,10 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.Validat
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class FieldTest {
+class FieldTest {
 
     @Test
-    public void testField() {
-        assertNotNull(new AxField());
-        assertNotNull(new AxField(new AxReferenceKey()));
-        assertNotNull(new AxField(new AxReferenceKey(), new AxArtifactKey()));
-        assertNotNull(new AxField(new AxReferenceKey(), new AxArtifactKey(), false));
-        assertNotNull(new AxField("LocalName", new AxArtifactKey(), false));
-        assertNotNull(new AxField("LocalName", new AxArtifactKey()));
-        assertNotNull(new AxField("LocalName", new AxArtifactKey(), false));
-
-        assertNotNull(new AxInputField());
-        assertNotNull(new AxInputField(new AxReferenceKey()));
-        assertNotNull(new AxInputField(new AxReferenceKey(), new AxArtifactKey()));
-        assertNotNull(new AxInputField(new AxReferenceKey(), new AxArtifactKey(), true));
-        assertNotNull(new AxInputField("LocalName", new AxArtifactKey()));
-        assertNotNull(new AxInputField(new AxInputField()));
-
-        assertNotNull(new AxOutputField());
-        assertNotNull(new AxOutputField(new AxReferenceKey()));
-        assertNotNull(new AxOutputField(new AxReferenceKey(), new AxArtifactKey()));
-        assertNotNull(new AxOutputField(new AxReferenceKey(), new AxArtifactKey(), false));
-        assertNotNull(new AxOutputField("LocalName", new AxArtifactKey()));
-        assertNotNull(new AxOutputField(new AxOutputField()));
-
+    void testField() {
         final AxField field = new AxField();
 
         final AxReferenceKey fieldKey = new AxReferenceKey("FieldName", "0.0.1", "PLN", "LN");
@@ -73,13 +53,21 @@ public class FieldTest {
         field.setSchema(schemaKey);
         assertEquals("SchemaName:0.0.1", field.getSchema().getId());
 
-        assertEquals(false, field.getOptional());
+        assertFalse(field.getOptional());
         field.setOptional(true);
-        assertEquals(true, field.getOptional());
+        assertTrue(field.getOptional());
 
+        assertValidationResult(field, fieldKey, schemaKey);
+
+        field.clean();
+
+        assertCompareTo(field, fieldKey, schemaKey);
+    }
+
+    private static void assertValidationResult(AxField field, AxReferenceKey fieldKey, AxArtifactKey schemaKey) {
         AxValidationResult result = new AxValidationResult();
         result = field.validate(result);
-        assertEquals(AxValidationResult.ValidationResult.VALID, result.getValidationResult());
+        assertEquals(ValidationResult.VALID, result.getValidationResult());
 
         field.setKey(AxReferenceKey.getNullKey());
         result = new AxValidationResult();
@@ -100,13 +88,13 @@ public class FieldTest {
         result = new AxValidationResult();
         result = field.validate(result);
         assertEquals(ValidationResult.VALID, result.getValidationResult());
+    }
 
-        field.clean();
-
+    private static void assertCompareTo(AxField field, AxReferenceKey fieldKey, AxArtifactKey schemaKey) {
         final AxField clonedField = new AxField(field);
         assertEquals("AxField:(key=AxReferenceKey:(parentKeyName=FieldName,parentKeyVersion=0.0.1,"
-                        + "parentLocalName=PLN,localName=LN),fieldSchemaKey="
-                        + "AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)", clonedField.toString());
+            + "parentLocalName=PLN,localName=LN),fieldSchemaKey="
+            + "AxArtifactKey:(name=SchemaName,version=0.0.1),optional=true)", clonedField.toString());
 
         assertNotEquals(0, field.hashCode());
         // disabling sonar because this code tests the equals() method
@@ -124,7 +112,7 @@ public class FieldTest {
         assertNotEquals(0, field.compareTo(new AxArtifactKey()));
         assertNotEquals(0, field.compareTo(null));
         assertNotEquals(0,
-                        field.compareTo(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
+            field.compareTo(new AxField(AxReferenceKey.getNullKey(), AxArtifactKey.getNullKey(), false)));
         assertNotEquals(0, field.compareTo(new AxField(fieldKey, AxArtifactKey.getNullKey(), false)));
         assertNotEquals(0, field.compareTo(new AxField(fieldKey, schemaKey, false)));
         assertEquals(0, field.compareTo(new AxField(fieldKey, schemaKey, true)));

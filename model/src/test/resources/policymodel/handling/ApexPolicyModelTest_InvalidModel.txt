@@ -1,0 +1,5 @@
+
+***validation of model failed***
+AxArtifactKey:(name=contextAlbum0,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined
+AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined
+********************************

@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,19 +22,18 @@
 package org.onap.policy.apex.model.basicmodel.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
-public class ApexModelStringWriterTest {
+class ApexModelStringWriterTest {
 
     @Test
-    public void testModelStringWriter() throws IOException, ApexException {
+    void testModelStringWriter() throws ApexException {
         AxModel basicModel = new DummyApexBasicModelCreator().getModel();
         assertNotNull(basicModel);
 

@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@
 
 package org.onap.policy.apex.model.basicmodel.handling;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxModel;
 
-public class ApexModelSaverTest {
+class ApexModelSaverTest {
 
     @Test
-    public void testModelSaver() throws IOException, ApexException {
+    void testModelSaver() throws IOException, ApexException {
         AxModel model = new DummyApexBasicModelCreator().getModel();
         assertNotNull(model);
 
@@ -42,7 +42,7 @@ public class ApexModelSaverTest {
         assertNotNull(tempPath);
 
         ApexModelSaver<AxModel> modelSaver =
-            new ApexModelSaver<AxModel>(AxModel.class, model, tempPath.toAbsolutePath().toString());
+            new ApexModelSaver<>(AxModel.class, model, tempPath.toAbsolutePath().toString());
         assertNotNull(modelSaver);
         modelSaver.apexModelWriteJson();
 

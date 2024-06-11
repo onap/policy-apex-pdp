@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +85,7 @@ public interface ContextAlbum extends Map<String, Object> {
     SchemaHelper getSchemaHelper();
 
     /**
-     * Place a read lock on a key in this album across the entire cluster.
+     * Place a read lock on a key on this album across the entire cluster.
      *
      * @param key The key to lock
      * @throws ContextException on locking errors
@@ -92,7 +93,7 @@ public interface ContextAlbum extends Map<String, Object> {
     void lockForReading(String key) throws ContextException;
 
     /**
-     * Place a write lock on a key in this album across the entire cluster.
+     * Place a write lock on a key on this album across the entire cluster.
      *
      * @param key The key to lock
      * @throws ContextException on locking errors
@@ -100,7 +101,7 @@ public interface ContextAlbum extends Map<String, Object> {
     void lockForWriting(String key) throws ContextException;
 
     /**
-     * Release the the read lock on a key in this album across the entire cluster.
+     * Release the read lock on a key on this album across the entire cluster.
      *
      * @param key The key to unlock
      * @throws ContextException on locking errors
@@ -108,7 +109,7 @@ public interface ContextAlbum extends Map<String, Object> {
     void unlockForReading(String key) throws ContextException;
 
     /**
-     * Release the the write lock on a key in this album across the entire cluster.
+     * Release the write lock on a key on this album across the entire cluster.
      *
      * @param key The key to unlock
      * @throws ContextException on locking errors

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,72 +22,23 @@
 
 package org.onap.policy.apex.model.policymodel.handling;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
+import org.onap.policy.common.utils.resources.ResourceUtils;
 
-public class ApexPolicyModelTest {
+class ApexPolicyModelTest {
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
 
-    private static final String OBSERVATION_MODEL_STRING = "\n"
-                    + "***observations noted during validation of model***\n"
-                    + "AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,"
-                    + "localName=state):org.onap.policy.apex.model.policymodel.concepts.AxState:OBSERVATION:"
-                    + "state output stateOutput0 is not used directly by any task\n"
-                    + "********************************";
-
-    private static final String WARNING_MODEL_STRING = "\n" + "***warnings issued during validation of model***\n"
-                    + "AxArtifactKey:(name=policy,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicy:WARNING:state AxReferenceKey:"
-                    + "(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=anotherState) "
-                    + "is not referenced in the policy execution tree\n" + "********************************";
-
-    private static final String INVALID_MODEL_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=contextAlbum0,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
-                    + "AxArtifactKey:(name=contextAlbum1,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined\n"
-                    + "********************************";
-
-    private static final String INVALID_MODEL_MALSTRUCTURED_STRING = "\n" + "***validation of model failed***\n"
-                    + "AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1):"
-                    + "org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation:INVALID:"
-                    + "keyInfoMap may not be empty\n" + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_KeyInfo,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Schemas,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Events,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Albums,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Tasks,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel:INVALID:"
-                    + "key information not found for key AxArtifactKey:(name=policyModel_Policies,version=0.0.1)\n"
-                    + "AxArtifactKey:(name=policyModel_Schemas,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas:INVALID:"
-                    + "contextSchemas may not be empty\n" + "AxArtifactKey:(name=policyModel_Events,version=0.0.1):"
-                    + "org.onap.policy.apex.model.eventmodel.concepts.AxEvents:INVALID:eventMap may not be empty\n"
-                    + "AxArtifactKey:(name=policyModel_Albums,version=0.0.1):"
-                    + "org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbums:OBSERVATION:albums are empty\n"
-                    + "AxArtifactKey:(name=policyModel_Tasks,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxTasks:INVALID:taskMap may not be empty\n"
-                    + "AxArtifactKey:(name=policyModel_Policies,version=0.0.1)"
-                    + ":org.onap.policy.apex.model.policymodel.concepts.AxPolicies:INVALID:policyMap may not be empty\n"
-                    + "********************************";
+    private static final String OBSERVATION_MODEL_STRING = "policymodel/handling/ApexPolicyModel_ObservationModel.txt";
+    private static final String WARNING_MODEL_STRING = "policymodel/handling/ApexPolicyModel_WarningModel.txt";
+    private static final String INVALID_MODEL_STRING = "policymodel/handling/ApexPolicyModelTest_InvalidModel.txt";
+    private static final String INVALID_MODEL_MALSTRUCTURED_STRING =
+        "policymodel/handling/ApexPolicyModelTest_InvalidMalStructuredModel.txt";
 
     TestApexModel<AxPolicyModel> testApexModel;
 
@@ -96,43 +47,43 @@ public class ApexPolicyModelTest {
      *
      * @throws Exception on setup errors
      */
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
-        testApexModel = new TestApexModel<AxPolicyModel>(AxPolicyModel.class, new SupportApexPolicyModelCreator());
+        testApexModel = new TestApexModel<>(AxPolicyModel.class, new SupportApexPolicyModelCreator());
     }
 
     @Test
-    public void testModelValid() throws Exception {
+    void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
         assertEquals(VALID_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testApexModelVaidateObservation() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateObservation();
-        assertEquals(OBSERVATION_MODEL_STRING, result.toString());
+    void testApexModelValidateObservation() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateObservation();
+        assertEquals(ResourceUtils.getResourceAsString(OBSERVATION_MODEL_STRING), result.toString());
     }
 
     @Test
-    public void testApexModelVaidateWarning() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateWarning();
-        assertEquals(WARNING_MODEL_STRING, result.toString());
+    void testApexModelValidateWarning() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateWarning();
+        assertEquals(ResourceUtils.getResourceAsString(WARNING_MODEL_STRING), result.toString());
     }
 
     @Test
-    public void testModelVaidateInvalidModel() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateInvalidModel();
-        assertEquals(INVALID_MODEL_STRING, result.toString());
+    void testModelValidateInvalidModel() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateInvalidModel();
+        assertEquals(ResourceUtils.getResourceAsString(INVALID_MODEL_STRING), result.toString());
     }
 
     @Test
-    public void testModelVaidateMalstructured() throws Exception {
-        final AxValidationResult result = testApexModel.testApexModelVaidateMalstructured();
-        assertEquals(INVALID_MODEL_MALSTRUCTURED_STRING, result.toString());
+    void testModelValidateMalstructured() throws Exception {
+        final AxValidationResult result = testApexModel.testApexModelValidateMalstructured();
+        assertEquals(ResourceUtils.getResourceAsString(INVALID_MODEL_MALSTRUCTURED_STRING), result.toString());
     }
 
     @Test
-    public void testModelWriteReadJson() throws Exception {
+    void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 }

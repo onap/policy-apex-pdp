@@ -1,0 +1,4 @@
+
+***warnings issued during validation of model***
+AxArtifactKey:(name=contextAlbum1,version=0.0.1):org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo:WARNING:UUID is a zero UUID: 00000000-0000-0000-0000-000000000000
+********************************

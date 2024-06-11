@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,21 @@
 
 package org.onap.policy.apex.model.policymodel.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInfo;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class PolicyModelComparerTest {
+class PolicyModelComparerTest {
 
     @Test
-    public void testPolicyComparer() throws IOException {
+    void testPolicyComparer() throws IOException {
         final AxPolicyModel leftApexModel = new SupportApexPolicyModelCreator().getModel();
         final AxPolicyModel rightApexModel = new AxPolicyModel(leftApexModel);
 

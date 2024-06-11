@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,11 +23,11 @@
 package org.onap.policy.apex.model.contextmodel.concepts;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
 
@@ -36,22 +36,22 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxKeyInformation;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ContextModelTest {
+class ContextModelTest {
 
     @Test
-    public void test() {
+    void test() {
         assertNotNull(new AxContextModel());
         assertNotNull(new AxContextModel(new AxArtifactKey()));
         assertNotNull(new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxKeyInformation()));
         assertNotNull(new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
-                        new AxKeyInformation()));
+            new AxKeyInformation()));
 
         final AxArtifactKey modelKey = new AxArtifactKey("ModelKey", "0.0.1");
         final AxArtifactKey schemasKey = new AxArtifactKey("SchemasKey", "0.0.1");
         final AxArtifactKey albumsKey = new AxArtifactKey("SchemasKey", "0.0.1");
         final AxArtifactKey keyInfoKey = new AxArtifactKey("SchemasKey", "0.0.1");
         final AxContextModel model = new AxContextModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxContextAlbums(albumsKey), new AxKeyInformation(keyInfoKey));
+            new AxContextAlbums(albumsKey), new AxKeyInformation(keyInfoKey));
         model.register();
 
         model.clean();
@@ -68,28 +68,28 @@ public class ContextModelTest {
         assertNotEquals(model, (Object) "Hello");
         assertNotEquals(model, new AxContextModel(new AxArtifactKey()));
         assertNotEquals(model, new AxContextModel(new AxArtifactKey(), new AxContextSchemas(), new AxContextAlbums(),
-                        new AxKeyInformation()));
+            new AxKeyInformation()));
         assertNotEquals(model, new AxContextModel(modelKey, new AxContextSchemas(), new AxContextAlbums(),
-                        new AxKeyInformation()));
+            new AxKeyInformation()));
         assertNotEquals(model, new AxContextModel(modelKey, new AxContextSchemas(), new AxContextAlbums(),
-                        new AxKeyInformation(keyInfoKey)));
+            new AxKeyInformation(keyInfoKey)));
         assertNotEquals(model, new AxContextModel(modelKey, new AxContextSchemas(schemasKey), new AxContextAlbums(),
-                        new AxKeyInformation(keyInfoKey)));
+            new AxKeyInformation(keyInfoKey)));
         assertEquals(model, new AxContextModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxContextAlbums(albumsKey), new AxKeyInformation(keyInfoKey)));
+            new AxContextAlbums(albumsKey), new AxKeyInformation(keyInfoKey)));
 
         assertEquals(0, model.compareTo(model));
         assertEquals(0, model.compareTo(clonedModel));
         assertNotEquals(0, model.compareTo(new AxArtifactKey()));
         assertNotEquals(0, model.compareTo(new AxContextModel(new AxArtifactKey(), new AxContextSchemas(),
-                        new AxContextAlbums(), new AxKeyInformation())));
+            new AxContextAlbums(), new AxKeyInformation())));
         assertNotEquals(0, model.compareTo(new AxContextModel(modelKey, new AxContextSchemas(), new AxContextAlbums(),
-                        new AxKeyInformation())));
+            new AxKeyInformation())));
         assertNotEquals(0, model.compareTo(new AxContextModel(modelKey, new AxContextSchemas(), new AxContextAlbums(),
-                        new AxKeyInformation(keyInfoKey))));
+            new AxKeyInformation(keyInfoKey))));
         assertNotEquals(0, model.compareTo(new AxContextModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxContextAlbums(), new AxKeyInformation(keyInfoKey))));
+            new AxContextAlbums(), new AxKeyInformation(keyInfoKey))));
         assertEquals(0, model.compareTo(new AxContextModel(modelKey, new AxContextSchemas(schemasKey),
-                        new AxContextAlbums(albumsKey), new AxKeyInformation(keyInfoKey))));
+            new AxContextAlbums(albumsKey), new AxKeyInformation(keyInfoKey))));
     }
 }

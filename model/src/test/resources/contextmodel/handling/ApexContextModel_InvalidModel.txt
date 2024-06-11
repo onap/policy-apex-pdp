@@ -1,0 +1,5 @@
+
+***validation of model failed***
+AxArtifactKey:(name=StringType,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema:INVALID:no schemaDefinition specified, schemaDefinition may not be blank
+AxArtifactKey:(name=contextAlbum0,version=0.0.1):org.onap.policy.apex.model.contextmodel.concepts.AxContextAlbum:INVALID:scope is not defined
+********************************

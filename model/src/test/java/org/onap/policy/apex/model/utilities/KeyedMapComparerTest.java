@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@
 
 package org.onap.policy.apex.model.utilities;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.TreeMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapComparer;
 import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
 
@@ -34,10 +34,10 @@ import org.onap.policy.apex.model.utilities.comparison.KeyedMapDifference;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class KeyedMapComparerTest {
+class KeyedMapComparerTest {
 
     @Test
-    public void test() {
+    void test() {
         TreeMap<String, String> leftMap = new TreeMap<String, String>();
         leftMap.put("B", "BBBBB");
         leftMap.put("C", "CCCCC");

@@ -1,0 +1,4 @@
+
+***warnings issued during validation of model***
+AxArtifactKey:(name=policy,version=0.0.1):org.onap.policy.apex.model.policymodel.concepts.AxPolicy:WARNING:state AxReferenceKey:(parentKeyName=policy,parentKeyVersion=0.0.1,parentLocalName=NULL,localName=anotherState) is not referenced in the policy execution tree
+********************************

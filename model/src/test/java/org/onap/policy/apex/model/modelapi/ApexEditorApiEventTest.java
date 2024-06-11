@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,18 +22,19 @@
 
 package org.onap.policy.apex.model.modelapi;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test events for API tests.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexEditorApiEventTest {
+class ApexEditorApiEventTest {
+
     @Test
-    public void testEventCrud() {
+    void testEventCrud() {
         final ApexModel apexModel = new ApexModelFactory().createApexModel(null);
 
         ApexApiResult result = apexModel.validateEvent(null, null);
@@ -141,7 +142,7 @@ public class ApexEditorApiEventTest {
         result = apexModel.createEventPar("MyEvent002", "0.0.2", "NewPar00", null, null, true);
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
 
-        result = apexModel.createContextSchema("eventContextItem0", "0.0.1", "Java", "java.lang.Integer",
+        apexModel.createContextSchema("eventContextItem0", "0.0.1", "Java", "java.lang.Integer",
             "1fa2e430-f2b2-11e6-bc64-92361f002673", "A further updated description of hola");
         result = apexModel.createEventPar("MyEvent002", "0.0.2", "NewPar00", "eventContextItem0", null, false);
         assertEquals(ApexApiResult.Result.SUCCESS, result.getResult());
@@ -173,7 +174,7 @@ public class ApexEditorApiEventTest {
 
         result = apexModel.deleteEventPar("@££%%%", "0.0.2", "NewPar04");
         assertEquals(ApexApiResult.Result.FAILED, result.getResult());
-        result = apexModel.deleteEventPar("NonExistantEvent", "0.0.2", "NewPar04");
+        result = apexModel.deleteEventPar("NonExistentEvent", "0.0.2", "NewPar04");
         assertEquals(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST, result.getResult());
         assertEquals(4, apexModel.listEventPar("MyEvent002", null, null).getMessages().size());
         result = apexModel.deleteEventPar("MyEvent002", "0.0.2", "NewPar04");

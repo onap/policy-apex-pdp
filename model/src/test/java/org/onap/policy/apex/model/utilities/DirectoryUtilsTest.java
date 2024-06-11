@@ -1,7 +1,7 @@
 /*
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,19 @@
 
 package org.onap.policy.apex.model.utilities;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class DirectoryUtilsTest {
+class DirectoryUtilsTest {
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         DirectoryUtils.emptyDirectory(new File("/i/dont/exist"));
 
         File tempDir = Files.createTempDirectory("test").toFile();
