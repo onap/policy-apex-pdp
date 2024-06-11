@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@
 package org.onap.policy.apex.core.engine.context;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -42,20 +42,19 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the Apex engine internal context class.
  */
-public class ApexInternalContextTest {
+class ApexInternalContextTest {
 
     private AxPolicyModel policyModel;
     private AxPolicyModel newVersionPolicyModel;
     private AxPolicyModel newPolicyModel;
     private AxContextAlbum album;
-    private AxContextAlbum newAlbum;
     private AxPolicyModel incompatiblePolicyModel;
 
     /**
      * Initialize parameters.
      */
-    @Before
-    public void registerParameters() {
+    @BeforeEach
+    void registerParameters() {
         ParameterService.register(new SchemaParameters());
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
@@ -65,8 +64,8 @@ public class ApexInternalContextTest {
     /**
      * Create policy model.
      */
-    @Before
-    public void createPolicyModels() {
+    @BeforeEach
+    void createPolicyModels() {
         AxArtifactKey modelKey = new AxArtifactKey("PolicyModel:0.0.1");
         policyModel = new AxPolicyModel(modelKey);
 
@@ -109,7 +108,7 @@ public class ApexInternalContextTest {
         newPolicyModel.getSchemas().getSchemasMap().put(newSchemaKey, newSchema);
 
         AxArtifactKey newAlbumKey = new AxArtifactKey("NewAlbum:0.0.1");
-        newAlbum = new AxContextAlbum(newAlbumKey, "Policy", true, newSchemaKey);
+        AxContextAlbum newAlbum = new AxContextAlbum(newAlbumKey, "Policy", true, newSchemaKey);
 
         newPolicyModel.getAlbums().getAlbumsMap().put(newAlbumKey, newAlbum);
     }
@@ -117,8 +116,8 @@ public class ApexInternalContextTest {
     /**
      * Deregister parameters.
      */
-    @After
-    public void deregisterParameters() {
+    @AfterEach
+    void deregisterParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
@@ -126,7 +125,7 @@ public class ApexInternalContextTest {
     }
 
     @Test
-    public void testAlbumInit() throws ContextException {
+    void testAlbumInit() throws ContextException {
         assertThatThrownBy(() -> new ApexInternalContext(null))
             .hasMessage("internal context update failed, supplied model is null");
         ApexInternalContext context = new ApexInternalContext(policyModel);
@@ -140,17 +139,17 @@ public class ApexInternalContextTest {
         assertEquals(album.getId(), context.get(albumKey.getName(), albumKey.getVersion()).getKey().getId());
         assertEquals(album.getId(), context.getAll(albumKey.getName()).iterator().next().getKey().getId());
         assertEquals(album.getId(),
-                        context.getAll(albumKey.getName(), albumKey.getVersion()).iterator().next().getKey().getId());
+            context.getAll(albumKey.getName(), albumKey.getVersion()).iterator().next().getKey().getId());
 
         context.clear();
         assertEquals(1, context.getContextAlbums().size());
 
         assertEquals("ApexInternalContext [contextAlbums={AxArtifactKey:(name=Album,version=0.0.1)",
-                        context.toString().substring(0, 76));
+            context.toString().substring(0, 76));
     }
 
     @Test
-    public void testAlbumUpdate() throws ContextException {
+    void testAlbumUpdate() throws ContextException {
         ApexInternalContext context = new ApexInternalContext(policyModel);
         assertThatThrownBy(() -> context.update(null, false))
             .hasMessage("internal context update failed, supplied model is null");

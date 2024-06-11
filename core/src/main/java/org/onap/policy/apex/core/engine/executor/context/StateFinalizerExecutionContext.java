@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -86,7 +86,7 @@ public class StateFinalizerExecutionContext extends AbstractExecutionContext {
     /**
      * Logger for state finalizer execution, state finalizer logic can use this field to access and log to Apex logging.
      */
-    public final XLogger logger = EXCEUTION_LOGGER;
+    public static final XLogger logger = EXCEUTION_LOGGER;
 
     // CHECKSTYLE:ON: checkstyle:visibilityModifier
 

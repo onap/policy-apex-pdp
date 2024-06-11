@@ -54,7 +54,7 @@ public class DummyTaskSelectExecutor extends TaskSelectExecutor {
      */
     @Override
     public AxArtifactKey execute(final long executionId, final Properties executionProperties,
-            final EnEvent newIncomingEvent) throws StateMachineException, ContextException {
+                                 final EnEvent newIncomingEvent) throws StateMachineException, ContextException {
         if (!override) {
             return super.execute(executionId, executionProperties, newIncomingEvent);
         }

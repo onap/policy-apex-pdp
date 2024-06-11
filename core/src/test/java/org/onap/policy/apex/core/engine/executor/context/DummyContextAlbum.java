@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +28,6 @@ import java.util.Set;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.apex.context.ContextAlbum;
-import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
@@ -172,7 +172,7 @@ public class DummyContextAlbum implements ContextAlbum {
      * {@inheritDoc}.
      */
     @Override
-    public void lockForReading(String key) throws ContextException {
+    public void lockForReading(String key) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
@@ -180,7 +180,7 @@ public class DummyContextAlbum implements ContextAlbum {
      * {@inheritDoc}.
      */
     @Override
-    public void lockForWriting(String key) throws ContextException {
+    public void lockForWriting(String key) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
@@ -188,7 +188,7 @@ public class DummyContextAlbum implements ContextAlbum {
      * {@inheritDoc}.
      */
     @Override
-    public void unlockForReading(String key) throws ContextException {
+    public void unlockForReading(String key) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
@@ -196,7 +196,7 @@ public class DummyContextAlbum implements ContextAlbum {
      * {@inheritDoc}.
      */
     @Override
-    public void unlockForWriting(String key) throws ContextException {
+    public void unlockForWriting(String key) {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 
@@ -220,7 +220,7 @@ public class DummyContextAlbum implements ContextAlbum {
      * {@inheritDoc}.
      */
     @Override
-    public void flush() throws ContextException {
+    public void flush() {
         throw new NotImplementedException("Not implemented on dummy class");
     }
 }

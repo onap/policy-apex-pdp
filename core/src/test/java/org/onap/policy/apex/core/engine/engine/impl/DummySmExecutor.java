@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ public class DummySmExecutor extends StateMachineExecutor {
      * Constructor.
      *
      * @param executorFactory the factory for executors
-     * @param owner the owner key
+     * @param owner           the owner key
      */
     public DummySmExecutor(ExecutorFactory executorFactory, AxArtifactKey owner) {
         super(executorFactory, owner);
@@ -66,7 +66,7 @@ public class DummySmExecutor extends StateMachineExecutor {
      */
     @Override
     public Collection<EnEvent> execute(final long executionId, final Properties executionProperties,
-        final EnEvent incomingEvent) {
+                                       final EnEvent incomingEvent) {
         return List.of(incomingEvent);
     }
 

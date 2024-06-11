@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,18 +23,18 @@
 package org.onap.policy.apex.core.engine.event;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -51,12 +51,12 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the engine event class.
  */
-public class EnEventTest {
+class EnEventTest {
     /**
      * Set up the services.
      */
-    @Before
-    public void setupServices() {
+    @BeforeEach
+    void setupServices() {
         ModelService.registerModel(AxContextSchemas.class, new AxContextSchemas());
         ModelService.registerModel(AxEvents.class, new AxEvents());
         ParameterService.register(new SchemaParameters());
@@ -65,15 +65,15 @@ public class EnEventTest {
     /**
      * Tear down the services.
      */
-    @After
-    public void teardownServices() {
+    @AfterEach
+    void teardownServices() {
         ModelService.deregisterModel(AxContextSchema.class);
         ModelService.deregisterModel(AxEvents.class);
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
     @Test
-    public void testEnEvent() {
+    void testEnEvent() {
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         assertThatThrownBy(() -> new EnEvent(eventKey))
             .hasMessage("event definition is null or was not found in model service");
@@ -92,12 +92,12 @@ public class EnEventTest {
         event.setExceptionMessage("Something happened");
         assertEquals("Something happened", event.getExceptionMessage());
         AxConcept[] usedArtifactStackArray =
-            { eventKey };
+            {eventKey};
         event.setUserArtifactStack(usedArtifactStackArray);
         assertEquals(usedArtifactStackArray.length, event.getUserArtifactStack().length);
         assertEquals("EnEvent [axEvent=AxEvent:(key=AxArtifactKey:(name=Event,version=0.0.1),nameSpace=a.name.space,"
-                        + "source=some source,target=some target,parameter={},toscaPolicyState=), "
-                        + "userArtifactStack=[AxArtifactKey:(name=Event,version=0.0.1)], map={}]", event.toString());
+            + "source=some source,target=some target,parameter={},toscaPolicyState=), "
+            + "userArtifactStack=[AxArtifactKey:(name=Event,version=0.0.1)], map={}]", event.toString());
         assertThatThrownBy(() -> event.put(null, null))
             .hasMessage("null keys are illegal on method parameter \"key\"");
         assertThatThrownBy(() -> event.put("NonField", null))
@@ -105,7 +105,7 @@ public class EnEventTest {
     }
 
     @Test
-    public void testAxEvent() {
+    void testAxEvent() {
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         AxEvent axEvent = new AxEvent(eventKey, "a.name.space", "some source", "some target");
         ModelService.getModel(AxEvents.class).getEventMap().put(eventKey, axEvent);
@@ -116,7 +116,7 @@ public class EnEventTest {
         AxField axField = new AxField(fieldKey, fieldSchemaKey);
 
         AxConcept[] usedArtifactStackArrayMultiple =
-            { eventKey, fieldKey, new DummyAxKey() };
+            {eventKey, fieldKey, new DummyAxKey()};
         event.setUserArtifactStack(usedArtifactStackArrayMultiple);
 
         AxContextSchema schema = new AxContextSchema(fieldSchemaKey, "Java", "java.lang.Integer");
@@ -131,12 +131,12 @@ public class EnEventTest {
 
         assertThatThrownBy(() -> event.put("MyField", "Hello"))
             .hasMessage("Parent:0.0.1:MyParent:MyField: object \"Hello\" of class \"java.lang.String\" "
-                            + "not compatible with class \"java.lang.Integer\"");
+                + "not compatible with class \"java.lang.Integer\"");
         event.put("MyField", 123);
         assertEquals(123, event.get("MyField"));
 
-        assertTrue(event.keySet().contains("MyField"));
-        assertTrue(event.values().contains(123));
+        assertTrue(event.containsKey("MyField"));
+        assertTrue(event.containsValue(123));
         assertEquals("MyField", event.entrySet().iterator().next().getKey());
 
         event.putAll(event);

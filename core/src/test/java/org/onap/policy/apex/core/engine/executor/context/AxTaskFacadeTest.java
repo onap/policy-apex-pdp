@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,18 +23,18 @@
 package org.onap.policy.apex.core.engine.executor.context;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -52,8 +52,8 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the state facade.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class AxTaskFacadeTest {
+@ExtendWith(MockitoExtension.class)
+class AxTaskFacadeTest {
     @Mock
     private AxTask axTaskMock;
 
@@ -72,8 +72,8 @@ public class AxTaskFacadeTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
+    @BeforeEach
+    void startMocking() {
         AxContextSchemas schemas = new AxContextSchemas();
 
         AxArtifactKey stringTypeKey = new AxArtifactKey("StringType:0.0.1");
@@ -108,14 +108,14 @@ public class AxTaskFacadeTest {
         ParameterService.register(new SchemaParameters());
     }
 
-    @After
-    public void teardown() {
+    @AfterEach
+    void teardown() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ModelService.clear();
     }
 
     @Test
-    public void testAxStateFacade() {
+    void testAxStateFacade() {
         AxTaskFacade taskFacade = new AxTaskFacade(axTaskMock);
 
         assertEquals("Task0", taskFacade.getTaskName());
@@ -123,18 +123,18 @@ public class AxTaskFacadeTest {
 
         assertThatThrownBy(() -> taskFacade.getInFieldSchemaHelper("InFieldDoesntExist"))
             .hasMessage("no incoming field with name \"InFieldDoesntExist\" " + "defined on task "
-                    + "\"Task0:0.0.1\"");
+                + "\"Task0:0.0.1\"");
         assertThatThrownBy(() -> taskFacade.getOutFieldSchemaHelper("OutFieldDoesntExist"))
             .hasMessage("no outgoing field with name \"OutFieldDoesntExist\" " + "defined on task "
-                    + "\"Task0:0.0.1\"");
+                + "\"Task0:0.0.1\"");
         assertNotNull(taskFacade.getInFieldSchemaHelper("InField0"));
         assertNotNull(taskFacade.getOutFieldSchemaHelper("OutField0"));
 
         assertThatThrownBy(() -> taskFacade.getInFieldSchemaHelper("InFieldBad"))
             .hasMessage("schema helper cannot be created for task field \"InFieldBad\" "
-                    + "with key \"null\" with schema \"null\"");
+                + "with key \"null\" with schema \"null\"");
         assertThatThrownBy(() -> taskFacade.getOutFieldSchemaHelper("OutFieldBad"))
             .hasMessage("schema helper cannot be created for task field \"OutFieldBad\" "
-                    + "with key \"null\" with schema \"null\"");
+                + "with key \"null\" with schema \"null\"");
     }
 }

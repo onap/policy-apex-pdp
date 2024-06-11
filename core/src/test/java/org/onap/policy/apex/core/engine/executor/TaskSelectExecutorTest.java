@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +22,18 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -46,8 +47,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTaskSelectionLogic;
 /**
  * Test task executor.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class TaskSelectExecutorTest {
+@ExtendWith(MockitoExtension.class)
+class TaskSelectExecutorTest {
     @Mock
     private AxState axStateMock;
 
@@ -66,8 +67,8 @@ public class TaskSelectExecutorTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
+    @BeforeEach
+    void startMocking() {
 
         AxReferenceKey state0Key = new AxReferenceKey("State0Parent:0.0.1:Parent:State0");
         Mockito.doReturn(state0Key).when(axStateMock).getKey();
@@ -82,24 +83,24 @@ public class TaskSelectExecutorTest {
     }
 
     @Test
-    public void testTaskSelectionExecutor() throws StateMachineException {
+    void testTaskSelectionExecutor() throws StateMachineException {
         DummyTaskSelectExecutor executor = new DummyTaskSelectExecutor();
 
         executor.setContext(null, axStateMock, internalContextMock);
         assertEquals("State0Parent:0.0.1:Parent:State0", executor.getKey().getId());
-        assertEquals(null, executor.getExecutionContext());
-        assertEquals(null, executor.getParent());
+        assertNull(executor.getExecutionContext());
+        assertNull(executor.getParent());
         assertEquals(internalContextMock, executor.getContext());
-        assertEquals(null, executor.getNext());
-        assertEquals(null, executor.getIncoming());
-        assertEquals(null, executor.getOutgoing());
+        assertNull(executor.getNext());
+        assertNull(executor.getIncoming());
+        assertNull(executor.getOutgoing());
         assertEquals(axStateMock, executor.getSubject());
 
         executor.setParameters(new ExecutorParameters());
         executor.setNext(nextExecutorMock);
         assertEquals(nextExecutorMock, executor.getNext());
         executor.setNext(null);
-        assertEquals(null, executor.getNext());
+        assertNull(executor.getNext());
 
         assertThatThrownBy(executor::cleanUp)
             .hasMessage("cleanUp() not implemented on class");

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,26 +23,25 @@
 package org.onap.policy.apex.core.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * Test the executor parameters.
- *
  */
-public class EngineParametersTest {
+class EngineParametersTest {
 
     @Test
-    public void test() {
+    void test() {
         EngineParameters pars = new EngineParameters();
         pars.setName("Name");
         assertEquals("Name", pars.getName());
@@ -70,7 +69,7 @@ public class EngineParametersTest {
     }
 
     @Test
-    public void test_invalid() {
+    void test_invalid() {
         EngineParameters pars = new EngineParameters();
         pars.setName("Name");
         assertEquals("Name", pars.getName());

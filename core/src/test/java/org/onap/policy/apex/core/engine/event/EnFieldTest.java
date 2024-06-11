@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,13 @@
 package org.onap.policy.apex.core.engine.event;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -42,12 +42,12 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the EnField class.
  */
-public class EnFieldTest {
+class EnFieldTest {
     /**
      * Set up the services.
      */
-    @Before
-    public void setupServices() {
+    @BeforeEach
+    void setupServices() {
         AxContextSchemas schemas = new AxContextSchemas();
         ModelService.registerModel(AxContextSchemas.class, schemas);
         ParameterService.register(new SchemaParameters());
@@ -56,14 +56,14 @@ public class EnFieldTest {
     /**
      * Tear down the services.
      */
-    @After
-    public void teardownServices() {
+    @AfterEach
+    void teardownServices() {
         ModelService.deregisterModel(AxContextSchemas.class);
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
     @Test
-    public void testEnField() {
+    void testEnField() {
         AxReferenceKey fieldKey = new AxReferenceKey("Parent", "0.0.1", "MyParent", "MyField");
         AxArtifactKey fieldSchemaKey = new AxArtifactKey("FieldSchema:0.0.1");
         AxField axField = new AxField(fieldKey, fieldSchemaKey);

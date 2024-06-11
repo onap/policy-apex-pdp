@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,25 +24,25 @@ package org.onap.policy.apex.core.engine.engine.impl;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.prometheus.client.CollectorRegistry;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
@@ -71,8 +71,8 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test the engine implementation.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class ApexEngineImplTest {
+@ExtendWith(MockitoExtension.class)
+class ApexEngineImplTest {
     private static final String ENGINE_ID = "Engine:0.0.1";
 
     private AxPolicyModel policyModel;
@@ -85,8 +85,8 @@ public class ApexEngineImplTest {
     /**
      * Set up services.
      */
-    @BeforeClass
-    public static void setup() {
+    @BeforeAll
+    static void setup() {
         ParameterService.register(new SchemaParameters());
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
@@ -97,17 +97,17 @@ public class ApexEngineImplTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void initializeMocking() throws ApexException {
-        Mockito.doThrow(new StateMachineException("mocked state machine exception",
-                        new IOException("nexted exception"))).when(smHandlerMock).execute(Mockito.any());
+    @BeforeEach
+    void initializeMocking() throws ApexException {
+        Mockito.lenient().doThrow(new StateMachineException("mocked state machine exception",
+            new IOException("nexted exception"))).when(smHandlerMock).execute(Mockito.any());
     }
 
     /**
      * Create policy models.
      */
-    @Before
-    public void createPolicyModels() {
+    @BeforeEach
+    void createPolicyModels() {
         AxArtifactKey modelKey = new AxArtifactKey("PolicyModel:0.0.1");
         policyModel = new AxPolicyModel(modelKey);
 
@@ -162,8 +162,8 @@ public class ApexEngineImplTest {
     /**
      * Clear registrations.
      */
-    @AfterClass
-    public static void teardown() {
+    @AfterAll
+    static void teardown() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
@@ -172,14 +172,14 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testSanity() throws ApexException  {
+    void testSanity() throws ApexException {
         AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
         assertEquals(engineKey, engine.getKey());
 
         assertThatThrownBy(engine::start).hasMessage("start()<-Engine:0.0.1,STOPPED,  cannot start engine, "
-                            + "engine has not been initialized, its model is not loaded");
+            + "engine has not been initialized, its model is not loaded");
 
         assertThatThrownBy(engine::stop)
             .hasMessage("stop()<-Engine:0.0.1,STOPPED, cannot stop engine, " + "engine is already stopped");
@@ -203,7 +203,7 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testListener() throws ApexException {
+    void testListener() throws ApexException {
         AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
 
@@ -262,7 +262,7 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testEventKey() throws ApexException {
+    void testEventKey() throws ApexException {
         AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         engine.updateModel(policyModel, false);
@@ -315,7 +315,7 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testState() throws InterruptedException, ApexException {
+    void testState() throws ApexException {
         AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
@@ -332,21 +332,13 @@ public class ApexEngineImplTest {
         assertEquals(AxEngineState.READY, engine.getState());
         checkAxEngineStateMetric(AxEngineState.READY);
 
-        assertEquals(AxEngineState.READY, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.READY);
-
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         EnEvent event = engine.createEvent(eventKey);
         assertEquals(eventKey, event.getKey());
 
-        // 1 second is less than the 3 second wait on engine stopping
+        // 1 second is less than the 3 seconds wait on engine stopping
         slowListener.setWaitTime(1000);
-        (new Thread() {
-            @Override
-            public void run() {
-                engine.handleEvent(event);
-            }
-        }).start();
+        (new Thread(() -> engine.handleEvent(event))).start();
         await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
         checkAxEngineStateMetric(AxEngineState.EXECUTING);
@@ -362,14 +354,9 @@ public class ApexEngineImplTest {
         assertEquals(AxEngineState.READY, engine.getState());
         checkAxEngineStateMetric(AxEngineState.READY);
 
-        // 4 seconds is more than the 3 second wait on engine stopping
+        // 4 seconds is more than the 3 seconds wait on engine stopping
         slowListener.setWaitTime(4000);
-        (new Thread() {
-            @Override
-            public void run() {
-                engine.handleEvent(event);
-            }
-        }).start();
+        (new Thread(() -> engine.handleEvent(event))).start();
 
         await().atLeast(50, TimeUnit.MILLISECONDS).until(() -> engine.getState().equals(AxEngineState.EXECUTING));
         assertEquals(AxEngineState.EXECUTING, engine.getState());
@@ -384,8 +371,8 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testStateMachineError() throws InterruptedException, IllegalArgumentException, IllegalAccessException,
-                    NoSuchFieldException, SecurityException, ApexException {
+    void testStateMachineError() throws IllegalArgumentException, IllegalAccessException,
+        NoSuchFieldException, SecurityException, ApexException {
 
         AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
@@ -404,9 +391,6 @@ public class ApexEngineImplTest {
         assertEquals(AxEngineState.READY, engine.getState());
         checkAxEngineStateMetric(AxEngineState.READY);
 
-        assertEquals(AxEngineState.READY, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.READY);
-
         AxArtifactKey eventKey = new AxArtifactKey("Event:0.0.1");
         EnEvent event = engine.createEvent(eventKey);
         assertEquals(eventKey, event.getKey());
@@ -419,9 +403,9 @@ public class ApexEngineImplTest {
         assertEquals(AxEngineState.STOPPED, engine.getState());
         checkAxEngineStateMetric(AxEngineState.STOPPED);
         Mockito.doThrow(new StateMachineException("mocked state machine exception",
-                new IOException("nexted exception"))).when(smHandlerMock).start();
+            new IOException("nexted exception"))).when(smHandlerMock).start();
         assertThatThrownBy(engine::start).hasMessage("updateModel()<-Engine:0.0.1, error starting the engine state "
-                + "machines \"Engine:0.0.1\"");
+            + "machines \"Engine:0.0.1\"");
         assertEquals(AxEngineState.STOPPED, engine.getState());
         checkAxEngineStateMetric(AxEngineState.STOPPED);
 
@@ -431,8 +415,8 @@ public class ApexEngineImplTest {
     }
 
     @Test
-    public void testStateMachineHandler() throws InterruptedException, IllegalArgumentException, IllegalAccessException,
-                    NoSuchFieldException, SecurityException, ApexException {
+    void testStateMachineHandler() throws IllegalArgumentException, IllegalAccessException,
+        NoSuchFieldException, SecurityException, ApexException {
         AxArtifactKey engineKey = new AxArtifactKey(ENGINE_ID);
         ApexEngineImpl engine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(engineKey);
         assertNotNull(engine);
@@ -450,34 +434,10 @@ public class ApexEngineImplTest {
         EnEvent event = engine.createEvent(eventKey);
         assertEquals(eventKey, event.getKey());
 
-        engine.stop();
-        assertEquals(AxEngineState.STOPPED, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.STOPPED);
+        assertEngineStopStartState(engine, event);
 
-        assertEquals(AxEngineState.STOPPED, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.STOPPED);
-
-        engine.start();
-        assertEquals(AxEngineState.READY, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.READY);
-
-        assertEquals(AxEngineState.READY, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.READY);
-
-        // Can't work, state is not fully defined
-        assertFalse(engine.handleEvent(event));
-        assertEquals(AxEngineState.READY, engine.getState());
-        checkAxEngineStateMetric(AxEngineState.READY);
-
-        final Field smHandlerField = engine.getClass().getDeclaredField("stateMachineHandler");
-        smHandlerField.setAccessible(true);
-        StateMachineHandler smHandler = (StateMachineHandler) smHandlerField.get(engine);
-
-        final Field smExecutorMapField = smHandler.getClass().getDeclaredField("stateMachineExecutorMap");
-        smExecutorMapField.setAccessible(true);
-        @SuppressWarnings("unchecked")
-        HashMap<AxEvent, StateMachineExecutor> smExMap = (HashMap<AxEvent, StateMachineExecutor>) smExecutorMapField
-                        .get(smHandler);
+        HashMap<AxEvent, StateMachineExecutor>
+            smExMap = getAxEventStateMachineExecutorHashMap(engine);
 
         assertEquals(1, smExMap.size());
         DummySmExecutor dummyExecutor = new DummySmExecutor(null, event.getKey());
@@ -491,7 +451,7 @@ public class ApexEngineImplTest {
         checkAxEngineStateMetric(AxEngineState.STOPPED);
 
         assertThatThrownBy(engine::start).hasMessageContaining("updateModel()<-Engine:0.0.1, error starting the "
-                    + "engine state machines \"Engine:0.0.1\"");
+            + "engine state machines \"Engine:0.0.1\"");
         assertEquals(AxEngineState.STOPPED, engine.getState());
         checkAxEngineStateMetric(AxEngineState.STOPPED);
 
@@ -513,9 +473,38 @@ public class ApexEngineImplTest {
         checkAxEngineStateMetric(AxEngineState.STOPPED);
     }
 
+    private static HashMap<AxEvent, StateMachineExecutor> getAxEventStateMachineExecutorHashMap(ApexEngineImpl engine)
+        throws NoSuchFieldException, IllegalAccessException {
+        final Field smHandlerField = engine.getClass().getDeclaredField("stateMachineHandler");
+        smHandlerField.setAccessible(true);
+        StateMachineHandler smHandler = (StateMachineHandler) smHandlerField.get(engine);
+
+        final Field smExecutorMapField = smHandler.getClass().getDeclaredField("stateMachineExecutorMap");
+        smExecutorMapField.setAccessible(true);
+        @SuppressWarnings("unchecked")
+        HashMap<AxEvent, StateMachineExecutor> smExMap = (HashMap<AxEvent, StateMachineExecutor>) smExecutorMapField
+            .get(smHandler);
+        return smExMap;
+    }
+
+    private void assertEngineStopStartState(ApexEngineImpl engine, EnEvent event) throws ApexException {
+        engine.stop();
+        assertEquals(AxEngineState.STOPPED, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.STOPPED);
+
+        engine.start();
+        assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
+
+        // Can't work, state is not fully defined
+        assertFalse(engine.handleEvent(event));
+        assertEquals(AxEngineState.READY, engine.getState());
+        checkAxEngineStateMetric(AxEngineState.READY);
+    }
+
     private void checkAxEngineStateMetric(AxEngineState state) {
         Double stateMetric = CollectorRegistry.defaultRegistry
-            .getSampleValue("pdpa_engine_state", new String[]{"engine_instance_id"}, new String[]{ENGINE_ID});
+            .getSampleValue("pdpa_engine_state", new String[] {"engine_instance_id"}, new String[] {ENGINE_ID});
         assertEquals(stateMetric.intValue(), state.getStateIdentifier());
     }
 }

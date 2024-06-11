@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -73,7 +73,7 @@ public class TaskSelectionExecutionContext extends AbstractExecutionContext {
     /**
      * Logger for task selection execution, task selection logic can use this field to access and log to Apex logging.
      */
-    public final XLogger logger = EXECUTION_LOGGER;
+    public static final XLogger logger = EXECUTION_LOGGER;
 
     // CHECKSTYLE:ON: checkstyle:VisibilityModifier
 

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -157,21 +157,21 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         }
 
         // Get the class for the executor using reflection
-        Class<? extends Object> executorPluginClass = null;
+        Class<?> executorPluginClass;
         try {
             executorPluginClass = Class.forName(executorClassName);
         } catch (final ClassNotFoundException e) {
-            LOGGER.error("Apex executor class not found for executor plugin \"" + executorClassName + "\"", e);
+            LOGGER.error("Apex executor class not found for executor plugin \"{}\"", executorClassName, e);
             throw new StateMachineException(
                     "Apex executor class not found for executor plugin \"" + executorClassName + "\"", e);
         }
 
         // Check the class is an executor
         if (!Executor.class.isAssignableFrom(executorPluginClass)) {
-            LOGGER.error("Specified Apex executor plugin class \"{}\" does not implment the Executor interface",
+            LOGGER.error("Specified Apex executor plugin class \"{}\" does not implement the Executor interface",
                     executorClassName);
             throw new StateMachineException("Specified Apex executor plugin class \"" + executorClassName
-                    + "\" does not implment the Executor interface");
+                    + "\" does not implement the Executor interface");
         }
 
         return (Class<Executor<?, ?, ?, ?>>) executorPluginClass;
@@ -181,14 +181,14 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
      * Get an instance of an executor plugin class of the specified type and super type.
      *
      * @param logicFlavour The logic flavour of the logic
-     * @param executorClass The sub-class of the executor type to be instantiated
+     * @param executorClass The subclass of the executor type to be instantiated
      * @param executorSuperClass The super type of the class of executor to be instantiated
      * @return The instantiated class
      */
     private Executor<?, ?, ?, ?> createExecutor(final String logicFlavour,
             final Class<Executor<?, ?, ?, ?>> executorClass,
             final Class<? extends Executor<?, ?, ?, ?>> executorSuperClass) {
-        // It's OK for an executor class not to be defined but it's not all right to try and create
+        // It's OK for an executor class not to be defined, but it's not all right to try and create
         // a non-defined
         // executor class
         if (executorClass == null) {
@@ -199,7 +199,7 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
         }
 
         // Create an executor for the specified logic flavour
-        Object executorObject = null;
+        Executor<?, ?, ?, ?> executorObject;
         try {
             executorObject = executorClass.getDeclaredConstructor().newInstance();
         } catch (final Exception e) {
@@ -218,6 +218,6 @@ public class ExecutorFactoryImpl implements ExecutorFactory {
             throw new StateMachineRuntimeException(errorMessage);
         }
 
-        return (Executor<?, ?, ?, ?>) executorObject;
+        return executorObject;
     }
 }
