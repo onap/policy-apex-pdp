@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +22,15 @@
 package org.onap.policy.apex.tools.model.generator.model2event;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
@@ -42,17 +42,20 @@ import org.stringtemplate.v4.STGroupFile;
 /**
  * Test the Model2EventSchema.
  */
-public class Model2EventSchemaTest {
+class Model2EventSchemaTest {
     String modelFile = "src/test/resources/blankSchema.json";
     String type = "stimuli";
-    /** The name of the application. */
-    public static final String APP_NAME = "gen-model2eventSchema";
 
     /**
-     * Set ups parameterService for the test.
+     * The name of the application.
      */
-    @BeforeClass
-    public static void prepareForTest() {
+    private static final String APP_NAME = "gen-model2eventSchema";
+
+    /**
+     * Set-ups parameterService for the test.
+     */
+    @BeforeAll
+    static void prepareForTest() {
         final SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
@@ -62,7 +65,7 @@ public class Model2EventSchemaTest {
     }
 
     @Test
-    public void testEventSchemaBadModelFile() {
+    void testEventSchemaBadModelFile() {
         Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
         assertThatCode(() -> {
             int ret = app.runApp();
@@ -72,7 +75,7 @@ public class Model2EventSchemaTest {
     }
 
     @Test
-    public void testEventSchemaBadType() {
+    void testEventSchemaBadType() {
         modelFile = "src/test/resources/SmallModel.json";
         type = "default";
         Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
@@ -83,19 +86,19 @@ public class Model2EventSchemaTest {
     }
 
     @Test
-    public void testEventSchemaStimuli() throws ApexException {
+    void testEventSchemaStimuli() throws ApexException {
         modelFile = "src/test/resources/SmallModel.json";
 
         String[] types = {"stimuli", "response", "internal"};
-        for (String type2: types) {
+        for (String type2 : types) {
             type = type2;
             Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
-            assertEquals(type, 0, app.runApp());
+            assertEquals(0, app.runApp(), type);
         }
     }
 
     @Test
-    public void testEventSchemaNotSimpleType() {
+    void testEventSchemaNotSimpleType() {
         modelFile = "src/test/resources/ExecutionPropertiesRestTestPolicyModel.json";
         type = "internal";
         Model2JsonEventSchema app = new Model2JsonEventSchema(modelFile, type, APP_NAME);
@@ -103,7 +106,7 @@ public class Model2EventSchemaTest {
 
         Field stringField = new Field("string", Schema.create(Type.STRING), null, null);
         Field enumField =
-                new Field("enum", Schema.createEnum("my_enum", "doc", null, Arrays.asList("a", "b", "c")), null, null);
+            new Field("enum", Schema.createEnum("my_enum", "doc", null, Arrays.asList("a", "b", "c")), null, null);
         Schema schema = Schema.createRecord("my_record", "doc", "mytest", false);
         schema.setFields(Arrays.asList(stringField, enumField));
         Schema arrayOut = Schema.createArray(schema);
@@ -115,8 +118,8 @@ public class Model2EventSchemaTest {
         }).doesNotThrowAnyException();
     }
 
-    @AfterClass
-    public static void cleanTest() {
+    @AfterAll
+    static void cleanTest() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ModelService.clear();
     }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,27 +24,27 @@ package org.onap.policy.apex.tools.model.generator.model2cli;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Model2Cli utility.
  */
-public class Model2CliTest {
+class Model2CliTest {
     @Test
-    public void testModel2Cli() {
+    void testModel2Cli() {
         final String[] cliArgs = {"-h"};
 
         assertThatCode(() -> Model2CliMain.main(cliArgs)).doesNotThrowAnyException();
     }
 
     @Test
-    public void testModel2CliNoOptions() {
+    void testModel2CliNoOptions() {
         final String[] cliArgs = new String[] {};
 
         final String outputString = runModel2Cli(cliArgs);
@@ -53,22 +53,22 @@ public class Model2CliTest {
     }
 
     @Test
-    public void testModel2CliBadOptions() {
+    void testModel2CliBadOptions() {
         assertThat(runModel2Cli(new String[] {"-zabbu"})).contains("usage: gen-model2cli");
     }
 
     @Test
-    public void testModel2CliHelp() {
+    void testModel2CliHelp() {
         assertThat(runModel2Cli(new String[] {"-h"})).contains("usage: gen-model2cli");
     }
 
     @Test
-    public void testModel2CliVersion() {
+    void testModel2CliVersion() {
         assertThat(runModel2Cli(new String[] {"-v"})).contains("gen-model2cli").doesNotContain("usage:");
     }
 
     @Test
-    public void testModel2CliOverwrite() throws IOException {
+    void testModel2CliOverwrite() throws IOException {
         File tempFile = File.createTempFile("AvroModel", ".apex");
         tempFile.deleteOnExit();
 
@@ -80,32 +80,32 @@ public class Model2CliTest {
     }
 
     @Test
-    public void testModel2CliAadm() throws IOException {
+    void testModel2CliAadm() throws IOException {
         testModel2CliModel("target/examples/models/AADM", "AADMPolicyModel");
     }
 
     @Test
-    public void testModel2CliAnomaly() throws IOException {
+    void testModel2CliAnomaly() throws IOException {
         testModel2CliModel("target/examples/models/Adaptive", "AnomalyDetectionPolicyModel");
     }
 
     @Test
-    public void testModel2CliAutoLearn() throws IOException {
+    void testModel2CliAutoLearn() throws IOException {
         testModel2CliModel("target/examples/models/Adaptive", "AutoLearnPolicyModel");
     }
 
     @Test
-    public void testModel2CliJms() throws IOException {
+    void testModel2CliJms() throws IOException {
         testModel2CliModel("target/examples/models/JMS", "JMSTestModel");
     }
 
     @Test
-    public void testModel2CliMfp() throws IOException {
+    void testModel2CliMfp() throws IOException {
         testModel2CliModel("target/examples/models/MyFirstPolicy/2", "MyFirstPolicyModel_0.0.1");
     }
 
     @Test
-    public void testModel2CliSample() throws IOException {
+    void testModel2CliSample() throws IOException {
         testModel2CliModel("target/examples/models/SampleDomain", "SamplePolicyModelJAVASCRIPT");
     }
 

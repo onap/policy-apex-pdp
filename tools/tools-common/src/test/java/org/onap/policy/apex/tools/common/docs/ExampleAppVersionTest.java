@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 package org.onap.policy.apex.tools.common.docs;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 ////
 //// NOTE: This file contains tags for ASCIIDOC
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
 ////// end::**
 ////
 import org.apache.commons.cli.CommandLine;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.tools.common.CliOptions;
 import org.onap.policy.apex.tools.common.CliParser;
 import org.slf4j.ext.XLogger;
@@ -41,14 +41,16 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class ExampleAppVersionTest {
+class ExampleAppVersionTest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ExampleAppVersionTest.class);
 
-    /** Test example app version. */
+    /**
+     * Test example app version.
+     */
     @Test
-    public void testExampleAppVersion() {
-        final String[] args = new String[] { "-v" };
+    void testExampleAppVersion() {
+        final String[] args = new String[] {"-v"};
 
         // tag::setupParser[]
         final CliParser cli = new CliParser();
@@ -60,7 +62,7 @@ public class ExampleAppVersionTest {
         // tag::processCliVersion[]
         // version is an exit option, print version and exit
         if (cmd.hasOption('v') || cmd.hasOption("version")) {
-            LOGGER.info("myApp" + " " + cli.getAppVersion());
+            LOGGER.info("myApp {}", cli.getAppVersion());
             return;
         }
         // end::processCliVersion[]

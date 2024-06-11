@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,31 +24,27 @@ package org.onap.policy.apex.tools.model.generator.model2event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the Model2Event utility.
  */
-public class Model2EventTest {
+class Model2EventTest {
     @Test
-    public void testModel2Event() {
-        final String[] EventArgs =
-            { "-h" };
-
+    void testModel2Event() {
+        final String[] EventArgs = {"-h"};
         assertThatCode(() -> Model2EventMain.main(EventArgs)).doesNotThrowAnyException();
-
     }
 
     @Test
-    public void testModel2EventNoOptions() {
-        final String[] EventArgs = new String[]
-            {};
+    void testModel2EventNoOptions() {
+        final String[] EventArgs = new String[] {};
 
         final String outputString = runModel2Event(EventArgs);
 
@@ -56,24 +52,24 @@ public class Model2EventTest {
     }
 
     @Test
-    public void testModel2EventBadOptions() {
+    void testModel2EventBadOptions() {
         assertThat(runModel2Event(new String[] {"-zabbu"})).contains("usage: gen-model2event");
     }
 
     @Test
-    public void testModel2EventHelp() {
+    void testModel2EventHelp() {
         assertThat(runModel2Event(new String[] {"-h"})).contains("usage: gen-model2event");
     }
 
     @Test
-    public void testModel2EventVersion() {
+    void testModel2EventVersion() {
         assertThat(runModel2Event(new String[] {"-v"})).contains("gen-model2event").doesNotContain("usage:");
     }
 
     @Test
-    public void testModel2EventNoType() {
+    void testModel2EventNoType() {
         final String[] EventArgs =
-            { "-m", "src/test/resources/models/AvroModel.json" };
+            {"-m", "src/test/resources/models/AvroModel.json"};
 
         final String outputString = runModel2Event(EventArgs);
 
@@ -81,9 +77,9 @@ public class Model2EventTest {
     }
 
     @Test
-    public void testModel2EventBadType() {
+    void testModel2EventBadType() {
         final String[] EventArgs =
-            { "-m", "src/test/resources/models/AvroModel.json", "-t", "Zooby" };
+            {"-m", "src/test/resources/models/AvroModel.json", "-t", "Zooby"};
 
         final String outputString = runModel2Event(EventArgs);
 
@@ -91,27 +87,27 @@ public class Model2EventTest {
     }
 
     @Test
-    public void testModel2EventAadm() throws IOException {
+    void testModel2EventAadm() throws IOException {
         testModel2EventModel("AADMPolicyModel");
     }
 
     @Test
-    public void testModel2EventAnomaly() throws IOException {
+    void testModel2EventAnomaly() throws IOException {
         testModel2EventModel("AnomalyDetectionPolicyModel");
     }
 
     @Test
-    public void testModel2EventAutoLearn() throws IOException {
+    void testModel2EventAutoLearn() throws IOException {
         testModel2EventModel("AutoLearnPolicyModel");
     }
 
     @Test
-    public void testModel2EventMfp() throws IOException {
+    void testModel2EventMfp() throws IOException {
         testModel2EventModel("MyFirstPolicyModel");
     }
 
     @Test
-    public void testModel2EventSample() throws IOException {
+    void testModel2EventSample() throws IOException {
         testModel2EventModel("SamplePolicyModelJAVASCRIPT");
     }
 
@@ -143,17 +139,17 @@ public class Model2EventTest {
         tempFile.deleteOnExit();
 
         final String[] eventArgs0 =
-            { "-m", "src/test/resources/models/" + modelName + ".json", "-t", "stimuli" };
+            {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "stimuli"};
         final String outputString0 = runModel2Event(eventArgs0);
 
         assertTrue(outputString0.contains("type: stimuli"));
 
-        final String[] eventArgs1 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "response" };
+        final String[] eventArgs1 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "response"};
         final String outputString1 = runModel2Event(eventArgs1);
 
         assertTrue(outputString1.contains("type: response"));
 
-        final String[] eventArgs2 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "internal" };
+        final String[] eventArgs2 = {"-m", "src/test/resources/models/" + modelName + ".json", "-t", "internal"};
         final String outputString2 = runModel2Event(eventArgs2);
 
         assertTrue(outputString2.contains("type: internal"));

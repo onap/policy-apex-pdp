@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 package org.onap.policy.apex.tools.common.docs;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 ////
 ////NOTE: This file contains tags for ASCIIDOC
@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 ////
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 //tag::import[]
 import org.onap.policy.apex.tools.common.CliOptions;
 import org.onap.policy.apex.tools.common.CliParser;
@@ -46,7 +46,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class ExampleCliParserTest {
+class ExampleCliParserTest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ExampleCliParserTest.class);
 
@@ -54,8 +54,8 @@ public class ExampleCliParserTest {
      * Test example parser.
      */
     @Test
-    public void testExampleParser() {
-        final String[] args = new String[] { "-h" };
+    void testExampleParser() {
+        final String[] args = new String[] {"-h"};
 
         // tag::setApp[]
         final String appName = "test-app";
@@ -79,7 +79,7 @@ public class ExampleCliParserTest {
         // help is an exit option, print usage and exit
         if (cmd.hasOption('h') || cmd.hasOption("help")) {
             final HelpFormatter formatter = new HelpFormatter();
-            LOGGER.info(appName + " v" + cli.getAppVersion() + " - " + appDescription);
+            LOGGER.info(appName + " v{} - " + appDescription, cli.getAppVersion());
             formatter.printHelp(appName, cli.getOptions());
             return;
         }
@@ -88,7 +88,7 @@ public class ExampleCliParserTest {
         // tag::processCliVersion[]
         // version is an exit option, print version and exit
         if (cmd.hasOption('v') || cmd.hasOption("version")) {
-            LOGGER.info(appName + " " + cli.getAppVersion());
+            LOGGER.info(appName + " {}", cli.getAppVersion());
             return;
         }
         // end::processCliVersion[]
@@ -106,7 +106,7 @@ public class ExampleCliParserTest {
 
         // tag::someStartPrint[]
         LOGGER.info(appName + ": starting");
-        LOGGER.info(" --> model file: " + modelFile);
+        LOGGER.info(" --> model file: {}", modelFile);
         // end::someStartPrint[]
 
         // tag::yourApp[]
