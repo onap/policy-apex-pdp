@@ -16,6 +16,207 @@
       "message": "recheck",
       "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f4ddb5_72918210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "license stuff and sonar stuff. I didn\u0027t mark all the license issues.",
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acdf223b_d5b3f75f",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/ContextAlbum.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "update license",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4891303b_c6ead610",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "update 2024",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25dbf5d4_cdc72ce8",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/schema/SchemaHelperFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "update license",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0a5907_743e41dd",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyUseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "license",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1d745c4_f4fa956a",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "update license",
+      "range": {
+        "startLine": 3,
+        "startChar": 28,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c074bb4_eb7080b4",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "add 2024",
+      "range": {
+        "startLine": 4,
+        "startChar": 42,
+        "endLine": 4,
+        "endChar": 46
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778628e8_0665fb49",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelSaverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "add 2024",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec5b09c_e8f03f70",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/utilities/json/JsonHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7603
+      },
+      "writtenOn": "2024-06-12T09:19:21Z",
+      "side": 1,
+      "message": "Sonar doesn\u0027t like having the public modifier on these tests. It throws up 49 issues on different files",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 6
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
