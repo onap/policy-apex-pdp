@@ -58,6 +58,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26836b15_1ab644ee",
+        "filename": "context/context-management/src/main/java/org/onap/policy/apex/context/ContextAlbum.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acdf223b_d5b3f75f",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4891303b_c6ead610",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-06-12T09:19:21Z",
       "side": 1,
       "message": "update 2024",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9c270cf_0d9d650a",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/ContextAlbumImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4891303b_c6ead610",
       "range": {
         "startLine": 4,
         "startChar": 32,
@@ -104,6 +152,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ee7947_60ce1577",
+        "filename": "context/context-management/src/test/java/org/onap/policy/apex/context/impl/schema/SchemaHelperFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25dbf5d4_cdc72ce8",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a0a5907_743e41dd",
@@ -117,6 +189,30 @@
       "writtenOn": "2024-06-12T09:19:21Z",
       "side": 1,
       "message": "license",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbdb7241_306e11a0",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/concepts/AxKeyUseTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a0a5907_743e41dd",
       "range": {
         "startLine": 4,
         "startChar": 32,
@@ -150,6 +246,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde952b3_ea1148d0",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1d745c4_f4fa956a",
+      "range": {
+        "startLine": 3,
+        "startChar": 28,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c074bb4_eb7080b4",
@@ -163,6 +283,30 @@
       "writtenOn": "2024-06-12T09:19:21Z",
       "side": 1,
       "message": "add 2024",
+      "range": {
+        "startLine": 4,
+        "startChar": 42,
+        "endLine": 4,
+        "endChar": 46
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3fc4f81_14c379ae",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelReaderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c074bb4_eb7080b4",
       "range": {
         "startLine": 4,
         "startChar": 42,
@@ -196,6 +340,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5cb6d89_ee83846e",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/basicmodel/handling/ApexModelSaverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "778628e8_0665fb49",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ec5b09c_e8f03f70",
@@ -209,6 +377,30 @@
       "writtenOn": "2024-06-12T09:19:21Z",
       "side": 1,
       "message": "Sonar doesn\u0027t like having the public modifier on these tests. It throws up 49 issues on different files",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 6
+      },
+      "revId": "99b4e0c09e402e423b27b8e266bd37b41d82f89f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3806acc_7ada6413",
+        "filename": "model/src/test/java/org/onap/policy/apex/model/utilities/json/JsonHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-06-12T15:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ec5b09c_e8f03f70",
       "range": {
         "startLine": 32,
         "startChar": 0,
