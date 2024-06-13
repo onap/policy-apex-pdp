@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019,2022 Nordix Foundation.
+ *  Copyright (C) 2019, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,17 +22,17 @@
 package org.onap.policy.apex.auth.clieditor.tosca;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
@@ -40,7 +40,7 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class ApexCliToscaEditorTest {
+class ApexCliToscaEditorTest {
 
     private File tempOutputToscaFile;
     private File tempLogFile;
@@ -52,7 +52,7 @@ public class ApexCliToscaEditorTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
+    @BeforeEach
     public void initialiseArgs() throws IOException {
 
         tempOutputToscaFile = File.createTempFile("ToscaPolicyOutput", ".json");
@@ -64,21 +64,21 @@ public class ApexCliToscaEditorTest {
             "-t", CommonTestData.INPUT_TOSCA_TEMPLATE_FILE_NAME,
             "-ot", tempOutputToscaFile.getAbsolutePath(),
             "-l", tempLogFile.getAbsolutePath()
-            };
+        };
     }
 
     /**
      * Removes the generated files.
      */
-    @After
+    @AfterEach
     public void removeGeneratedFiles() {
-        tempOutputToscaFile.delete();
-        tempLogFile.delete();
-        tempNodeTemplateFile.delete();
+        assertTrue(tempOutputToscaFile.delete());
+        assertTrue(tempLogFile.delete());
+        assertTrue(tempNodeTemplateFile.delete());
     }
 
     @Test
-    public void testApexCliToscaParameterParser() {
+    void testApexCliToscaParameterParser() {
         ApexCliToscaParameters params = new ApexCliToscaParameterParser().parse(sampleArgs);
         assertEquals(CommonTestData.APEX_CONFIG_FILE_NAME, params.getApexConfigFileName());
         assertEquals(CommonTestData.COMMAND_FILE_NAME, params.getCommandFileName());
@@ -88,7 +88,7 @@ public class ApexCliToscaEditorTest {
     }
 
     @Test
-    public void testApexCliTosca_success() throws IOException {
+    void testApexCliTosca_success() throws IOException {
         final ApexCliToscaEditorMain cliEditor = new ApexCliToscaEditorMain(sampleArgs);
 
 
@@ -101,24 +101,26 @@ public class ApexCliToscaEditorTest {
     }
 
     @Test
-    public void testApexCliTosca_no_args() {
+    void testApexCliTosca_no_args() {
         String[] noArgs = new String[] {};
         assertThatThrownBy(() -> new ApexCliToscaEditorMain(noArgs)).hasMessage("Insufficient arguments provided.");
     }
 
     @Test
-    public void testApexCliTosca_missing_commandfile() {
-        String[] sampleArgs = new String[] {
-            "-ac", CommonTestData.APEX_CONFIG_FILE_NAME,
-            "-t", CommonTestData.INPUT_TOSCA_TEMPLATE_FILE_NAME,
-            "-ot", tempOutputToscaFile.getAbsolutePath(),
-            "-l", tempLogFile.getAbsolutePath()
+    void testApexCliTosca_missing_commandFile() {
+        assertThatThrownBy(() -> {
+            String[] sampleArgs = new String[] {
+                "-ac", CommonTestData.APEX_CONFIG_FILE_NAME,
+                "-t", CommonTestData.INPUT_TOSCA_TEMPLATE_FILE_NAME,
+                "-ot", tempOutputToscaFile.getAbsolutePath(),
+                "-l", tempLogFile.getAbsolutePath()
             };
-        assertThatThrownBy(() -> new ApexCliToscaEditorMain(sampleArgs)).hasMessage("Insufficient arguments provided.");
+            new ApexCliToscaEditorMain(sampleArgs);
+        }).hasMessage("Insufficient arguments provided.");
     }
 
     @Test
-    public void testGenerateToscaPolicyMetadataSet() throws Exception {
+    void testGenerateToscaPolicyMetadataSet() throws Exception {
         // @formatter:off
         final String[] cliArgs = new String[] {
             "-c", CommonTestData.COMMAND_FILE_NAME,
@@ -135,9 +137,9 @@ public class ApexCliToscaEditorTest {
 
         assertTrue(tempOutputToscaFile.length() > 0);
         assertTrue(Files.lines(Paths.get(tempOutputToscaFile.toString()))
-                .noneMatch(l -> l.contains("policy_type_impl")));
+            .noneMatch(l -> l.contains("policy_type_impl")));
         assertTrue(tempNodeTemplateFile.length() > 0);
         assertTrue(Files.lines(Paths.get(tempNodeTemplateFile.toString()))
-                .anyMatch(l -> l.contains("policyModel")));
+            .anyMatch(l -> l.contains("policyModel")));
     }
 }

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019,2022 Nordix Foundation.
+ *  Copyright (C) 2019, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,17 +22,17 @@
 package org.onap.policy.apex.auth.clieditor.utils;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaParameterParser;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaParameters;
 import org.onap.policy.apex.auth.clieditor.tosca.CommonTestData;
@@ -44,7 +44,7 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class CliUtilsTest {
+class CliUtilsTest {
 
     private File tempOutputToscaFile;
     private File tempLogFile;
@@ -56,7 +56,7 @@ public class CliUtilsTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
+    @BeforeEach
     public void initialiseArgs() throws IOException {
 
         tempOutputToscaFile = File.createTempFile("ToscaPolicyOutput", ".json");
@@ -70,14 +70,14 @@ public class CliUtilsTest {
     /**
      * Removes the generated files.
      */
-    @After
+    @AfterEach
     public void removeGeneratedFiles() {
-        tempOutputToscaFile.delete();
-        tempLogFile.delete();
+        assertTrue(tempOutputToscaFile.delete());
+        assertTrue(tempLogFile.delete());
     }
 
     @Test
-    public void testCreateToscaServiceTemplate() throws IOException, CoderException {
+    void testCreateToscaServiceTemplate() throws IOException, CoderException {
         ApexCliToscaParameters params = new ApexCliToscaParameterParser().parse(sampleArgs);
         CliUtils.createToscaPolicy(params, policyModelFilePath, null);
         String outputTosca = TextFileUtils.getTextFileAsString(tempOutputToscaFile.getAbsolutePath());
@@ -87,43 +87,43 @@ public class CliUtilsTest {
     }
 
     @Test
-    public void testValidateReadableFile_validfile() {
+    void testValidateReadableFile_validFile() {
         CliUtils.validateReadableFile("Apex Config File", CommonTestData.APEX_CONFIG_FILE_NAME);
     }
 
     @Test
-    public void testValidateReadableFile_invalidfile() {
+    void testValidateReadableFile_invalidFile() {
         String invalidFileName = "src/test/resources/tosca/ApexConfigxyz.json";
         assertThatThrownBy(() -> CliUtils.validateReadableFile("Apex Config File", invalidFileName))
             .hasMessage("File " + invalidFileName + " of type Apex Config File does not exist");
     }
 
     @Test
-    public void testValidateWritableFile_validfile() {
+    void testValidateWritableFile_validFile() {
         CliUtils.validateWritableFile("Output Tosca Policy File", tempOutputToscaFile.getAbsolutePath());
     }
 
     @Test
-    public void testValidateWritableFile_invalidfile() {
+    void testValidateWritableFile_invalidFile() {
         String invalidFileName = "src/test/resources/tosca";
         assertThatThrownBy(() -> CliUtils.validateWritableFile("Output Tosca Policy File", invalidFileName))
             .hasMessage("File " + invalidFileName + " of type Output Tosca Policy File is not a normal file");
     }
 
     @Test
-    public void testValidateWritableDirectory_validdirectory() {
+    void testValidateWritableDirectory_validDirectory() {
         CliUtils.validateWritableDirectory("Working Directory", "src/test/resources/tosca");
     }
 
     @Test
-    public void testValidateWritableDirectory_invaliddirectory() {
+    void testValidateWritableDirectory_invalidDirectory() {
         assertThatThrownBy(() -> CliUtils.validateWritableDirectory("Working Directory",
             CommonTestData.APEX_CONFIG_FILE_NAME)).hasMessage("directory " + CommonTestData.APEX_CONFIG_FILE_NAME
-                + " of type Working Directory is not a directory");
+            + " of type Working Directory is not a directory");
     }
 
     @Test
-    public void testGenerateArgumentsForCliEditor_success() {
+    void testGenerateArgumentsForCliEditor_success() {
         ApexCliToscaParameters params = new ApexCliToscaParameterParser().parse(sampleArgs);
         Properties optionVariableMap = new Properties();
         optionVariableMap.setProperty("c", "commandFileName");
@@ -137,7 +137,7 @@ public class CliUtilsTest {
     }
 
     @Test
-    public void testGenerateArgumentsForCliEditor_invalidvariable() {
+    void testGenerateArgumentsForCliEditor_invalidVariable() {
         ApexCliToscaParameters params = new ApexCliToscaParameterParser().parse(sampleArgs);
         Properties optionVariableMap = new Properties();
         optionVariableMap.setProperty("c", "invalidFileName");
@@ -147,7 +147,7 @@ public class CliUtilsTest {
     }
 
     @Test
-    public void testGenerateArgumentsForCliEditor_missingoption() {
+    void testGenerateArgumentsForCliEditor_missingOption() {
         ApexCliToscaParameters params = new ApexCliToscaParameterParser().parse(sampleArgs);
         Properties optionVariableMap = new Properties();
         List<String> cliArgsList =

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +21,24 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestLogicBlock.
  */
-public class LogicBlockTest {
+class LogicBlockTest {
     private String[] logicBlockArgs;
     private String[] avroSchemaArgs;
 
@@ -50,35 +50,35 @@ public class LogicBlockTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
-    public void createTempFiles() throws IOException {
+    @BeforeEach
+    void createTempFiles() throws IOException {
         tempLogicModelFile = File.createTempFile("TestLogicPolicyModel", ".json");
         tempAvroModelFile = File.createTempFile("TestAvroPolicyModel", ".json");
 
         logicBlockArgs = new String[] {"-c", "src/test/resources/scripts/LogicBlock.apex", "-o",
-                tempLogicModelFile.getCanonicalPath(), "-if", "true", "-nl"};
+            tempLogicModelFile.getCanonicalPath(), "-if", "true", "-nl"};
 
         avroSchemaArgs = new String[] {"-c", "src/test/resources/scripts/AvroSchema.apex", "-o",
-                tempAvroModelFile.getCanonicalPath(), "-nl"};
+            tempAvroModelFile.getCanonicalPath(), "-nl"};
     }
 
     /**
      * Removes the temp files.
      */
-    @After
-    public void removeTempFiles() {
-        tempLogicModelFile.delete();
-        tempAvroModelFile.delete();
+    @AfterEach
+    void removeTempFiles() {
+        assertTrue(tempLogicModelFile.delete());
+        assertTrue(tempAvroModelFile.delete());
     }
 
     /**
      * Test logic block.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testLogicBlock() throws IOException, ApexModelException {
+    void testLogicBlock() throws IOException, ApexModelException {
         new ApexCommandLineEditorMain(logicBlockArgs);
 
         // Read the file from disk
@@ -89,7 +89,7 @@ public class LogicBlockTest {
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
         final URL compareModelUrl =
-                ResourceUtils.getLocalFile("src/test/resources/compare/LogicBlockModel_Compare.json");
+            ResourceUtils.getLocalFile("src/test/resources/compare/LogicBlockModel_Compare.json");
         final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs
@@ -102,11 +102,11 @@ public class LogicBlockTest {
     /**
      * Test avro schema.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testAvroSchema() throws IOException, ApexModelException {
+    void testAvroSchema() throws IOException, ApexModelException {
         new ApexCommandLineEditorMain(avroSchemaArgs);
 
         // Read the file from disk
@@ -117,7 +117,7 @@ public class LogicBlockTest {
         final AxPolicyModel writtenModel = modelReader.read(writtenModelUrl.openStream());
 
         final URL compareModelUrl =
-                ResourceUtils.getLocalFile("src/test/resources/compare/AvroSchemaModel_Compare.json");
+            ResourceUtils.getLocalFile("src/test/resources/compare/AvroSchemaModel_Compare.json");
         final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021-2022 Nordix Foundation
+ *  Modifications Copyright (C) 2021-2022, 2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 package org.onap.policy.apex.auth.clicodegen;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 
@@ -38,7 +38,7 @@ import org.stringtemplate.v4.STGroupFile;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class SupportGenerationTest {
+class SupportGenerationTest {
 
     /**
      * Get the chunks for the codegen.
@@ -51,44 +51,46 @@ public class SupportGenerationTest {
         final Map<String, List<String>> chunks = new LinkedHashMap<>();
 
         chunks.put("/policyModel",
-                Arrays.asList("name", "version", "uuid", "description", "declarations", "definitions"));
+            Arrays.asList("name", "version", "uuid", "description", "declarations", "definitions"));
         chunks.put("/schemaDecl", Arrays.asList("name", "version", "uuid", "description", "flavour", "schema"));
         chunks.put("/ctxAlbumDecl", Arrays.asList("name", "version", "uuid", "description", "scope", "writable",
-                "schemaName", "schemaVersion"));
+            "schemaName", "schemaVersion"));
         chunks.put("/eventDecl",
-                Arrays.asList("name", "version", "uuid", "description", "nameSpace", "source", "target", "fields"));
+            Arrays.asList("name", "version", "uuid", "description", "nameSpace", "source", "target", "fields"));
         chunks.put("/eventDefField",
-                Arrays.asList("eventName", "version", "fieldName", "fieldSchema", "fieldSchemaVersion", "optional"));
+            Arrays.asList("eventName", "version", "fieldName", "fieldSchema", "fieldSchemaVersion", "optional"));
         chunks.put("/taskDecl",
-                Arrays.asList("name", "version", "uuid", "description", "infields", "outfields", "logic"));
+            Arrays.asList("name", "version", "uuid", "description", "infields", "outfields", "logic"));
         chunks.put("/taskDefInputFields",
-                Arrays.asList("taskName", "version", "fieldName", "fieldSchema", "fieldSchemaVersion"));
+            Arrays.asList("taskName", "version", "fieldName", "fieldSchema", "fieldSchemaVersion"));
         chunks.put("/taskDefOutputFields",
-                Arrays.asList("taskName", "version", "fieldName", "fieldSchema", "fieldSchemaVersion"));
+            Arrays.asList("taskName", "version", "fieldName", "fieldSchema", "fieldSchemaVersion"));
         chunks.put("/taskDefLogic", Arrays.asList("taskName", "version", "flavour", "logic"));
         chunks.put("/taskDefParameter", Arrays.asList("name", "version", "parName", "defaultValue"));
         chunks.put("/taskDefCtxRef", Arrays.asList("name", "version", "albumName", "albumVersion"));
         chunks.put("/policyDef", Arrays.asList("name", "version", "uuid", "description", "template", "firstState"));
         chunks.put("/policyStateDef", Arrays.asList("policyName", "version", "stateName", "triggerName",
-                "triggerVersion", "defaultTask", "defaultTaskVersion", "outputs", "tasks"));
+            "triggerVersion", "defaultTask", "defaultTaskVersion", "outputs", "tasks"));
         chunks.put("/policyStateOutput", Arrays.asList("policyName", "version", "stateName", "outputName", "eventName",
-                "eventVersion", "nextState"));
+            "eventVersion", "nextState"));
         chunks.put("/policyStateTaskSelectionLogic",
-                Arrays.asList("name", "version", "stateName", "logicFlavour", "logic"));
+            Arrays.asList("name", "version", "stateName", "logicFlavour", "logic"));
         chunks.put("/policyStateTask", Arrays.asList("policyName", "version", "stateName", "taskLocalName", "taskName",
-                "taskVersion", "outputType", "outputName"));
+            "taskVersion", "outputType", "outputName"));
         chunks.put("/policyStateFinalizerLogic",
-                Arrays.asList("name", "version", "stateName", "finalizerLogicName", "logicFlavour", "logic"));
+            Arrays.asList("name", "version", "stateName", "finalizerLogicName", "logicFlavour", "logic"));
         chunks.put("/policyStateContextRef",
-                Arrays.asList("name", "version", "stateName", "albumName", "albumVersion"));
+            Arrays.asList("name", "version", "stateName", "albumName", "albumVersion"));
 
         return chunks;
         // CHECKSTYLE:ON: LineLength
     }
 
-    /** Test STG load. */
+    /**
+     * Test STG load.
+     */
     @Test
-    public void testGenerationLoad() {
+    void testGenerationLoad() {
         final DummyStErrorListener errListener = new DummyStErrorListener();
         final STGroupFile stg = new STGroupFile(CodeGeneratorCliEditor.STG_FILE);
         stg.setListener(errListener);
@@ -97,16 +99,18 @@ public class SupportGenerationTest {
         assertEquals(0, errListener.getErrorCount());
     }
 
-    /** Test STG chunks. */
+    /**
+     * Test STG chunks.
+     */
     @Test
-    public void testGenerationChunks() {
+    void testGenerationChunks() {
         final DummyStErrorListener errListener = new DummyStErrorListener();
         final STGroupFile stg = new STGroupFile(CodeGeneratorCliEditor.STG_FILE);
         stg.setListener(errListener);
 
         stg.getTemplateNames(); // dummy to compile group and get errors
         final Map<String, List<String>> chunks = getCodeGenChunks();
-        String error = "";
+        StringBuilder error = new StringBuilder();
         final Set<String> definedNames = stg.getTemplateNames();
         for (final STGroup group : stg.getImportedGroups()) {
             definedNames.addAll(group.getTemplateNames());
@@ -115,15 +119,15 @@ public class SupportGenerationTest {
 
         for (final String required : requiredNames) {
             if (!definedNames.contains(required)) {
-                error += " - target STG does not define template for <" + required + ">\n";
+                error.append(" - target STG does not define template for <").append(required).append(">\n");
             } else {
                 final Set<String> definedParams = ((stg.getInstanceOf(required).getAttributes() == null)
-                        ? new TreeSet<String>() : stg.getInstanceOf(required).getAttributes().keySet());
+                    ? new TreeSet<>() : stg.getInstanceOf(required).getAttributes().keySet());
                 final List<String> requiredParams = chunks.get(required);
                 for (final String reqArg : requiredParams) {
                     if (!definedParams.contains(reqArg)) {
-                        error += " - target STG with template <" + required + "> does not define argument <" + reqArg
-                                + ">\n";
+                        error.append(" - target STG with template <").append(required)
+                            .append("> does not define argument <").append(reqArg).append(">\n");
                     }
                 }
             }

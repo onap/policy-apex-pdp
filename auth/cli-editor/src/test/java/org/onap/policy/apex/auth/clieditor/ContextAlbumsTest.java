@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,16 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -38,7 +39,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
 /**
  * The Class TestContextAlbums.
  */
-public class ContextAlbumsTest {
+class ContextAlbumsTest {
     private String[] logicBlockArgs;
 
     private File tempModelFile;
@@ -48,30 +49,30 @@ public class ContextAlbumsTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
-    public void createTempFiles() throws IOException {
+    @BeforeEach
+    void createTempFiles() throws IOException {
         tempModelFile = File.createTempFile("TestPolicyModel", ".json");
 
         logicBlockArgs = new String[] {"-c", "src/test/resources/scripts/ContextAlbums.apex", "-o",
-                tempModelFile.getAbsolutePath(), "-nl"};
+            tempModelFile.getAbsolutePath(), "-nl"};
     }
 
     /**
      * Removes the generated models.
      */
-    @After
-    public void removeGeneratedModels() {
-        tempModelFile.delete();
+    @AfterEach
+    void removeGeneratedModels() {
+        assertTrue(tempModelFile.delete());
     }
 
     /**
      * Test logic block.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testLogicBlock() throws IOException, ApexModelException {
+    void testLogicBlock() throws IOException, ApexModelException {
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(logicBlockArgs);
         assertEquals(1, cliEditor.getErrorCount());
 
@@ -84,7 +85,7 @@ public class ContextAlbumsTest {
         assertNotNull(writtenModel);
 
         final URL compareModelUrl =
-                ResourceUtils.getLocalFile("src/test/resources/compare/ContextAlbumsModel_Compare.json");
+            ResourceUtils.getLocalFile("src/test/resources/compare/ContextAlbumsModel_Compare.json");
         final AxPolicyModel compareModel = modelReader.read(compareModelUrl.openStream());
 
         // Ignore key info UUIDs

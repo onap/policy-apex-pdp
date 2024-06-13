@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (c) 2020-2021 Nordix Foundation.
+ *  Copyright (c) 2020-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,26 +22,26 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class CommandLineCommandTest {
+class CommandLineCommandTest {
 
     CommandLineCommand commandLineCommand = null;
 
-    @Before
-    public void initializeCommandLineCommand() {
+    @BeforeEach
+    void initializeCommandLineCommand() {
         commandLineCommand = new CommandLineCommand();
     }
 
     @Test
-    public void testCommandLine() {
+    void testCommandLine() {
         commandLineCommand.setName("TestName");
         commandLineCommand.setDescription("testDescription");
         commandLineCommand.setSystemCommand(true);
@@ -50,40 +50,40 @@ public class CommandLineCommandTest {
         assertEquals("TestName", commandLineCommand.getName());
         assertEquals(
             "CommandLineCommand(name=TestName, keywordlist=[], argumentList=[], apiMethod=, systemCommand=true,"
-            + " description=testDescription)", commandLineCommand.toString());
-    }
-
-    @Test(expected = CommandLineException.class)
-    public void testInvalidApiClassName() {
-        commandLineCommand.getApiClassName();
+                + " description=testDescription)", commandLineCommand.toString());
     }
 
     @Test
-    public void testGetValidApiClassName() {
+    void testInvalidApiClassName() {
+        assertThrows(CommandLineException.class, () -> commandLineCommand.getApiClassName());
+    }
+
+    @Test
+    void testGetValidApiClassName() {
         commandLineCommand.setApiMethod("Java.Get");
         assertEquals("Java", commandLineCommand.getApiClassName());
     }
 
-    @Test(expected = CommandLineException.class)
-    public void testInvalidApiMethodName() {
-        commandLineCommand.getApiMethodName();
+    @Test
+    void testInvalidApiMethodName() {
+        assertThrows(CommandLineException.class, () -> commandLineCommand.getApiMethodName());
     }
 
     @Test()
-    public void testInvalidApiMethod() {
+    void testInvalidApiMethod() {
         commandLineCommand.setApiMethod("fail.");
         assertEquals("fail.", commandLineCommand.getApiMethod());
         assertThrows(CommandLineException.class, () -> commandLineCommand.getApiMethodName());
     }
 
     @Test
-    public void testValidApiMethodName() {
+    void testValidApiMethodName() {
         commandLineCommand.setApiMethod("Java.Get");
         assertEquals("Get", commandLineCommand.getApiMethodName());
     }
 
     @Test
-    public void testGetHelp() {
+    void testGetHelp() {
         List<String> keywordList = commandLineCommand.getKeywordlist();
         List<CommandLineArgument> argumentList = commandLineCommand.getArgumentList();
         assertEquals("{}: ", commandLineCommand.getHelp());
@@ -94,8 +94,7 @@ public class CommandLineCommandTest {
     }
 
     @Test
-    public void testCompareTo() {
-        assertEquals(0, commandLineCommand.compareTo(commandLineCommand));
+    void testCompareTo() {
         CommandLineCommand otherCommand = new CommandLineCommand();
         otherCommand.setSystemCommand(true);
         assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
@@ -104,7 +103,7 @@ public class CommandLineCommandTest {
     }
 
     @Test
-    public void testCompareKeywordList() {
+    void testCompareKeywordList() {
         CommandLineCommand otherCommand = new CommandLineCommand();
         otherCommand.getKeywordlist().add("test");
         assertThat(commandLineCommand).isNotEqualByComparingTo(otherCommand);
@@ -117,7 +116,7 @@ public class CommandLineCommandTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         CommandLineCommand otherCommand = new CommandLineCommand();
         assertEquals(commandLineCommand.hashCode(), otherCommand.hashCode());
         commandLineCommand.getKeywordlist().add("Test");
@@ -128,10 +127,9 @@ public class CommandLineCommandTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         assertNotEquals(commandLineCommand, new Object());
-        assertEquals(commandLineCommand, commandLineCommand);
-        assertNotEquals(commandLineCommand, null);
+        assertNotEquals(null, commandLineCommand);
 
         CommandLineCommand otherCommand = new CommandLineCommand();
         assertEquals(commandLineCommand, otherCommand);

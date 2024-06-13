@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 Samsung Electronics Co., Ltd.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,7 +24,7 @@
 
 package org.onap.policy.apex.auth.clicodegen;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +36,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
@@ -60,13 +60,13 @@ import org.stringtemplate.v4.ST;
 /**
  * Test CLI code generation.
  */
-public class CodeGeneratorCliEditorTest {
+class CodeGeneratorCliEditorTest {
 
     private SupportKeyInfoGetter kig;
     private File outFile = null;
 
     @Test
-    public void test() throws IOException, ApexModelException {
+    void test() throws IOException, ApexModelException {
         final CodeGeneratorCliEditor codeGen = new CodeGeneratorCliEditor();
 
         outFile = File.createTempFile("ApexTestGenerated", ".apex");
@@ -76,8 +76,7 @@ public class CodeGeneratorCliEditorTest {
 
         modelReader.setValidate(false);
         AxPolicyModel apexPolicyModel = null;
-        apexPolicyModel = modelReader
-                            .read(new FileInputStream(new File("src/test/resources/models/TestPolicyModel.json")));
+        apexPolicyModel = modelReader.read(new FileInputStream("src/test/resources/models/TestPolicyModel.json"));
 
         assertEquals(0, generateCli(codeGen, apexPolicyModel));
     }
@@ -85,9 +84,9 @@ public class CodeGeneratorCliEditorTest {
     /**
      * Generate the CLI from the model.
      *
-     * @param codeGen the code generator
+     * @param codeGen     the code generator
      * @param policyModel the policy model
-     * @throws IOException  on generation exceptions
+     * @throws IOException on generation exceptions
      */
     private int generateCli(final CodeGeneratorCliEditor codeGen, final AxPolicyModel policyModel) throws IOException {
         kig = new SupportKeyInfoGetter(policyModel);
@@ -102,7 +101,7 @@ public class CodeGeneratorCliEditorTest {
             final AxArtifactKey key = s.getKey();
 
             codeGen.addSchemaDeclaration(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            s.getSchemaFlavour(), s.getSchema());
+                s.getSchemaFlavour(), s.getSchema());
         }
 
         // 2: tasks
@@ -123,16 +122,16 @@ public class CodeGeneratorCliEditorTest {
             final List<ST> fields = getParametersForEvent(codeGen, e);
 
             codeGen.addEventDeclaration(
-                    EventDeclaration.builder()
-                            .name(kig.getName(key))
-                            .version(kig.getVersion(key))
-                            .uuid(kig.getUuid(key))
-                            .description(kig.getDesc(key))
-                            .nameSpace(e.getNameSpace())
-                            .source(e.getSource())
-                            .target(e.getTarget())
-                            .fields(fields)
-                            .build());
+                EventDeclaration.builder()
+                    .name(kig.getName(key))
+                    .version(kig.getVersion(key))
+                    .uuid(kig.getUuid(key))
+                    .description(kig.getDesc(key))
+                    .nameSpace(e.getNameSpace())
+                    .source(e.getSource())
+                    .target(e.getTarget())
+                    .fields(fields)
+                    .build());
         }
 
         // 4: context albums
@@ -140,16 +139,16 @@ public class CodeGeneratorCliEditorTest {
             final AxArtifactKey key = a.getKey();
 
             codeGen.addContextAlbumDeclaration(
-                    CodeGenCliEditor.builder()
-                            .name(kig.getName(key))
-                            .version(kig.getVersion(key))
-                            .uuid(kig.getUuid(key))
-                            .description(kig.getDesc(key))
-                            .scope(a.getScope())
-                            .writable(a.isWritable())
-                            .schemaName(kig.getName(a.getItemSchema()))
-                            .schemaVersion(kig.getVersion(a.getItemSchema()))
-                            .build());
+                CodeGenCliEditor.builder()
+                    .name(kig.getName(key))
+                    .version(kig.getVersion(key))
+                    .uuid(kig.getUuid(key))
+                    .description(kig.getDesc(key))
+                    .scope(a.getScope())
+                    .writable(a.isWritable())
+                    .schemaName(kig.getName(a.getItemSchema()))
+                    .schemaVersion(kig.getVersion(a.getItemSchema()))
+                    .build());
         }
 
         // 5: policies
@@ -157,7 +156,7 @@ public class CodeGeneratorCliEditorTest {
             final AxArtifactKey key = p.getKey();
             final List<ST> states = getStatesForPolicy(codeGen, p);
             codeGen.addPolicyDefinition(kig.getName(key), kig.getVersion(key), kig.getUuid(key), kig.getDesc(key),
-                            p.getTemplate(), p.getFirstState(), states);
+                p.getTemplate(), p.getFirstState(), states);
         }
 
         final String out = codeGen.getModel().render();
@@ -172,7 +171,7 @@ public class CodeGeneratorCliEditorTest {
     /**
      * Gets the parameters for event.
      *
-     * @param cg the code generator
+     * @param cg    the code generator
      * @param event the event
      * @return the parameters for event
      */
@@ -183,7 +182,7 @@ public class CodeGeneratorCliEditorTest {
             final AxReferenceKey fkey = f.getKey();
 
             final ST val = cg.createEventFieldDefinition(kig.getPName(fkey), kig.getPVersion(fkey), kig.getLName(fkey),
-                            kig.getName(f.getSchema()), kig.getVersion(f.getSchema()), f.getOptional());
+                kig.getName(f.getSchema()), kig.getVersion(f.getSchema()), f.getOptional());
 
             ret.add(val);
         }
@@ -193,7 +192,7 @@ public class CodeGeneratorCliEditorTest {
     /**
      * Gets the context references for task.
      *
-     * @param cg the code generator
+     * @param cg   the code generator
      * @param task the task
      * @return the context references for task
      */
@@ -204,7 +203,7 @@ public class CodeGeneratorCliEditorTest {
         for (final AxArtifactKey ckey : ctxs) {
 
             final ST val = cg.createTaskDefinitionContextRef(kig.getName(tkey), kig.getVersion(tkey), kig.getName(ckey),
-                            kig.getVersion(ckey));
+                kig.getVersion(ckey));
 
             ret.add(val);
         }
@@ -214,7 +213,7 @@ public class CodeGeneratorCliEditorTest {
     /**
      * Gets the parameters for task.
      *
-     * @param cg the code generator
+     * @param cg   the code generator
      * @param task the task
      * @return the parameters for task
      */
@@ -225,7 +224,7 @@ public class CodeGeneratorCliEditorTest {
             final AxReferenceKey pkey = p.getKey();
 
             final ST val = cg.createTaskDefinitionParameters(kig.getPName(pkey), kig.getPVersion(pkey),
-                            kig.getLName(pkey), p.getTaskParameterValue());
+                kig.getLName(pkey), p.getTaskParameterValue());
 
             ret.add(val);
         }
@@ -235,7 +234,7 @@ public class CodeGeneratorCliEditorTest {
     /**
      * Gets the logic for task.
      *
-     * @param cg the code generator
+     * @param cg   the code generator
      * @param task the task
      * @return the logic for task
      */
@@ -249,7 +248,7 @@ public class CodeGeneratorCliEditorTest {
     /**
      * Gets the states for policy.
      *
-     * @param cg the code generator
+     * @param cg  the code generator
      * @param pol the policy
      * @return the states for policy
      */
@@ -265,13 +264,13 @@ public class CodeGeneratorCliEditorTest {
             final List<ST> ctxRefs = getCtxtRefsForState(cg, st);
 
             final ST val = cg.createPolicyStateDef(PolicyStateDef.builder()
-                    .policyName(kig.getPName(skey)).version(kig.getPVersion(skey))
-                    .stateName(kig.getLName(skey)).triggerName(kig.getName(st.getTrigger()))
-                    .triggerVersion(kig.getVersion(st.getTrigger()))
-                    .defaultTask(kig.getName(st.getDefaultTask()))
-                    .defaultTaskVersion(kig.getVersion(st.getDefaultTask())).outputs(outputs)
-                    .tasks(tasks).tsLogic(tsLogic).finalizerLogics(finalizerLogics)
-                    .ctxRefs(ctxRefs).build());
+                .policyName(kig.getPName(skey)).version(kig.getPVersion(skey))
+                .stateName(kig.getLName(skey)).triggerName(kig.getName(st.getTrigger()))
+                .triggerVersion(kig.getVersion(st.getTrigger()))
+                .defaultTask(kig.getName(st.getDefaultTask()))
+                .defaultTaskVersion(kig.getVersion(st.getDefaultTask())).outputs(outputs)
+                .tasks(tasks).tsLogic(tsLogic).finalizerLogics(finalizerLogics)
+                .ctxRefs(ctxRefs).build());
 
             ret.add(val);
         }
@@ -293,7 +292,7 @@ public class CodeGeneratorCliEditorTest {
             final AxReferenceKey finkey = fin.getKey();
 
             final ST val = cg.createPolicyStateDefFinalizerLogic(kig.getPName(skey), kig.getPVersion(skey),
-                            kig.getLName(skey), kig.getLName(finkey), fin.getLogicFlavour(), fin.getLogic());
+                kig.getLName(skey), kig.getLName(finkey), fin.getLogicFlavour(), fin.getLogic());
 
             ret.add(val);
         }
@@ -314,7 +313,7 @@ public class CodeGeneratorCliEditorTest {
         for (final AxArtifactKey ctx : ctxs) {
 
             final ST val = cg.createPolicyStateDefContextRef(kig.getPName(skey), kig.getPVersion(skey),
-                            kig.getLName(skey), kig.getName(ctx), kig.getVersion(ctx));
+                kig.getLName(skey), kig.getName(ctx), kig.getVersion(ctx));
 
             ret.add(val);
         }
@@ -333,7 +332,7 @@ public class CodeGeneratorCliEditorTest {
         if (st.checkSetTaskSelectionLogic()) {
             final AxTaskSelectionLogic tsl = st.getTaskSelectionLogic();
             final ST val = cg.createPolicyStateDefTaskSelLogic(kig.getPName(skey), kig.getPVersion(skey),
-                            kig.getLName(skey), tsl.getLogicFlavour(), tsl.getLogic());
+                kig.getLName(skey), tsl.getLogicFlavour(), tsl.getLogic());
             return Collections.singletonList(val);
         } else {
             return Collections.emptyList();
@@ -357,12 +356,12 @@ public class CodeGeneratorCliEditorTest {
             final AxReferenceKey trkey = tr.getKey();
 
             final ST val = cg.createPolicyStateTask(PolicyStateTask.builder()
-                    .policyName(kig.getPName(skey)).version(kig.getPVersion(skey))
-                    .stateName(kig.getLName(skey)).taskLocalName(kig.getLName(trkey))
-                    .taskName(kig.getName(tkey)).taskVersion(kig.getVersion(tkey))
-                    .outputType(tr.getStateTaskOutputType().name())
-                    .outputName(kig.getLName(tr.getOutput()))
-                    .build());
+                .policyName(kig.getPName(skey)).version(kig.getPVersion(skey))
+                .stateName(kig.getLName(skey)).taskLocalName(kig.getLName(trkey))
+                .taskName(kig.getName(tkey)).taskVersion(kig.getVersion(tkey))
+                .outputType(tr.getStateTaskOutputType().name())
+                .outputName(kig.getLName(tr.getOutput()))
+                .build());
 
             ret.add(val);
         }

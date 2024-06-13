@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,22 +23,20 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestCLIEditorEventsContext.
  */
-public class CommandLineEditorEventsContextTest {
+class CommandLineEditorEventsContextTest {
     // CHECKSTYLE:OFF: MagicNumber
 
     private static final Path SRC_MAIN_FOLDER = Paths.get("src/main/resources/");
@@ -56,20 +54,19 @@ public class CommandLineEditorEventsContextTest {
     private static final String JSON_FILE = FILE_NAME + ".json";
     private static final String LOG_FILE = FILE_NAME + ".log";
 
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    @TempDir
+    static Path temporaryFolder;
 
     /**
      * Test java context model.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if an Apex error happens
      */
     @Test
-    public void testJavaContextModel() throws IOException, ApexModelException {
+    void testJavaContextModel() throws IOException {
 
-        final File tempLogFile = temporaryFolder.newFile(LOG_FILE);
-        final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
+        final File tempLogFile = temporaryFolder.resolve(LOG_FILE).toFile();
+        final File tempModelFile = temporaryFolder.resolve(JSON_FILE).toFile();
 
         final String[] cliArgs = new String[] {"-c", APEX_JAVA_POLICY_FILE.toString(), "-l",
             tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
@@ -81,7 +78,7 @@ public class CommandLineEditorEventsContextTest {
         final String logString = TextFileUtils.getTextFileAsString(tempLogFile.getCanonicalPath());
         final String modelString = TextFileUtils.getTextFileAsString(tempModelFile.getCanonicalPath());
 
-        // As a sanity check, count the number of non white space characters in log and model files
+        // As a sanity check, count the number of non-white space characters in log and model files
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
@@ -93,13 +90,12 @@ public class CommandLineEditorEventsContextTest {
      * Test avro context model.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if an Apex error happens
      */
     @Test
-    public void testAvroContextModel() throws IOException, ApexModelException {
+    void testAvroContextModel() throws IOException {
 
-        final File tempLogFile = temporaryFolder.newFile(LOG_FILE);
-        final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
+        final File tempLogFile = temporaryFolder.resolve(LOG_FILE).toFile();
+        final File tempModelFile = temporaryFolder.resolve(JSON_FILE).toFile();
 
         final String[] cliArgs = new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l",
             tempLogFile.getAbsolutePath(), "-o", tempModelFile.getAbsolutePath()};
@@ -111,7 +107,7 @@ public class CommandLineEditorEventsContextTest {
         final String logString = TextFileUtils.getTextFileAsString(tempLogFile.getCanonicalPath());
         final String modelString = TextFileUtils.getTextFileAsString(tempModelFile.getCanonicalPath());
 
-        // As a sanity check, count the number of non white space characters in log and model files
+        // As a sanity check, count the number of non-white space characters in log and model files
         final int logCharCount = logString.replaceAll(SPACES, EMPTY_STRING).length();
         final int modelCharCount = modelString.replaceAll(SPACES, EMPTY_STRING).length();
 
@@ -121,18 +117,18 @@ public class CommandLineEditorEventsContextTest {
     }
 
     @Test
-    public void test_emptyMetadataCommandFileWithEmptyJsonTag_errorcountGreaterThanOne() throws IOException {
+    void test_emptyMetadataCommandFileWithEmptyJsonTag_errorCountGreaterThanOne() {
 
-        final File tempLogFile = temporaryFolder.newFile(LOG_FILE);
-        final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
+        final File tempLogFile = temporaryFolder.resolve(LOG_FILE).toFile();
+        final File tempModelFile = temporaryFolder.resolve(JSON_FILE).toFile();
 
         final String modelFile = SRC_TEST_FOLDER.resolve("model").resolve("empty_commands.json").toString();
         final String apexPropertiesLocation =
-                SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json").toString();
+            SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json").toString();
 
         final String[] cliArgs =
-                new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
-                    tempModelFile.getAbsolutePath(), "-m", modelFile, "-a", apexPropertiesLocation};
+            new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
+                tempModelFile.getAbsolutePath(), "-m", modelFile, "-a", apexPropertiesLocation};
 
         final ApexCommandLineEditorMain objUnderTest = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(1, objUnderTest.getErrorCount());
@@ -140,19 +136,19 @@ public class CommandLineEditorEventsContextTest {
     }
 
     @Test
-    public void test_emptyMetadataCommandFile_errorcountGreaterThanOne() throws IOException {
+    void test_emptyMetadataCommandFile_errorCountGreaterThanOne() {
 
-        final File tempLogFile = temporaryFolder.newFile(LOG_FILE);
-        final File tempModelFile = temporaryFolder.newFile(JSON_FILE);
+        final File tempLogFile = temporaryFolder.resolve(LOG_FILE).toFile();
+        final File tempModelFile = temporaryFolder.resolve(JSON_FILE).toFile();
 
-        final File modelFile = temporaryFolder.newFile("empty_commands.json");
+        final File modelFile = temporaryFolder.resolve("empty_commands.json").toFile();
 
         final String apexPropertiesLocation =
-                SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json").toString();
+            SRC_MAIN_FOLDER.resolve("etc/editor").resolve("ApexModelProperties.json").toString();
 
         final String[] cliArgs =
-                new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
-                    tempModelFile.getAbsolutePath(), "-m", modelFile.getAbsolutePath(), "-a", apexPropertiesLocation};
+            new String[] {"-c", APEX_AVRO_POLICY_FILE.toString(), "-l", tempLogFile.getAbsolutePath(), "-o",
+                tempModelFile.getAbsolutePath(), "-m", modelFile.getAbsolutePath(), "-a", apexPropertiesLocation};
 
         final ApexCommandLineEditorMain objUnderTest = new ApexCommandLineEditorMain(cliArgs);
         assertEquals(1, objUnderTest.getErrorCount());

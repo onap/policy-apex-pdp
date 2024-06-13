@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +35,9 @@ import org.stringtemplate.v4.misc.STMessage;
  */
 public class DummyStErrorListener implements STErrorListener {
 
-    /** Counts errors of the listener. */
+    /**
+     * Counts errors of the listener.
+     */
     @Getter(AccessLevel.PROTECTED)
     @Setter(AccessLevel.PROTECTED)
     private int errorCount;
@@ -44,10 +47,7 @@ public class DummyStErrorListener implements STErrorListener {
      */
     @Override
     public void IOError(final STMessage msg) {
-        switch (msg.error) {
-            default:
-                this.registerErrors(msg);
-        }
+        this.registerErrors(msg);
     }
 
     /**
@@ -55,10 +55,7 @@ public class DummyStErrorListener implements STErrorListener {
      */
     @Override
     public void compileTimeError(final STMessage msg) {
-        switch (msg.error) {
-            default:
-                this.registerErrors(msg);
-        }
+        this.registerErrors(msg);
     }
 
     /**
@@ -66,10 +63,7 @@ public class DummyStErrorListener implements STErrorListener {
      */
     @Override
     public void internalError(final STMessage msg) {
-        switch (msg.error) {
-            default:
-                this.registerErrors(msg);
-        }
+        this.registerErrors(msg);
     }
 
     /**
@@ -78,9 +72,7 @@ public class DummyStErrorListener implements STErrorListener {
     @Override
     public void runTimeError(final STMessage msg) {
         switch (msg.error) {
-            case NO_SUCH_PROPERTY:
-            case ARGUMENT_COUNT_MISMATCH:
-            case ANON_ARGUMENT_MISMATCH:
+            case NO_SUCH_PROPERTY, ARGUMENT_COUNT_MISMATCH, ANON_ARGUMENT_MISMATCH:
                 break;
             default:
                 this.registerErrors(msg);

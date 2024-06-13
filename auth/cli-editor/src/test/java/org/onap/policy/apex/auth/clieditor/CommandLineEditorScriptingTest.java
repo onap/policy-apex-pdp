@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
@@ -41,7 +41,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class CommandLineEditorScriptingTest {
+class CommandLineEditorScriptingTest {
 
     private File tempModelFile;
     private File tempLogFile;
@@ -55,7 +55,7 @@ public class CommandLineEditorScriptingTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
+    @BeforeEach
     public void initialiseArgs() throws IOException {
         tempModelFile = File.createTempFile("SampleLBPolicyMap", ".json");
         tempLogFile = File.createTempFile("SampleLBPolicyMap", ".log");
@@ -70,10 +70,10 @@ public class CommandLineEditorScriptingTest {
     /**
      * Removes the generated files.
      */
-    @After
+    @AfterEach
     public void removeGeneratedFiles() {
-        tempModelFile.delete();
-        tempLogFile.delete();
+        assertTrue(tempModelFile.delete());
+        assertTrue(tempLogFile.delete());
     }
 
     /**
@@ -83,7 +83,7 @@ public class CommandLineEditorScriptingTest {
      * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testSamplePolicyScript() throws IOException, ApexModelException {
+    void testSamplePolicyScript() throws IOException, ApexModelException {
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(samplePolicyArgs);
         assertEquals(0, cliEditor.getErrorCount());
 
@@ -118,8 +118,8 @@ public class CommandLineEditorScriptingTest {
      * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testSampleMapPolicyScript() throws IOException, ApexModelException {
-        tempModelFile.delete();
+    void testSampleMapPolicyScript() throws IOException, ApexModelException {
+        assertTrue(tempModelFile.delete());
 
         final ApexCommandLineEditorMain cliEditor = new ApexCommandLineEditorMain(samplePolicyMapArgs);
         assertEquals(0, cliEditor.getErrorCount());

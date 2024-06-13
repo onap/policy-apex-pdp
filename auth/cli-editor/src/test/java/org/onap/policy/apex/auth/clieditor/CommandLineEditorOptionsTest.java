@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,15 @@
 
 package org.onap.policy.apex.auth.clieditor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
@@ -38,17 +37,16 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class CommandLineEditorOptionsTest {
+class CommandLineEditorOptionsTest {
     // CHECKSTYLE:OFF: MagicNumber
 
     /**
      * Test script options log model.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsLogModel() throws IOException, ApexModelException {
+    void testScriptOptionsLogModel() throws IOException {
         final File tempLogFile = File.createTempFile("ShellPolicyModel", ".log");
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
@@ -62,25 +60,24 @@ public class CommandLineEditorOptionsTest {
         final String logString = TextFileUtils.getTextFileAsString(tempLogFile.getCanonicalPath());
         final String modelString = TextFileUtils.getTextFileAsString(tempModelFile.getCanonicalPath());
 
-        // As a sanity check, count the number of non white space characters in log and model files
+        // As a sanity check, count the number of non-white space characters in log and model files
         final int logCharCount = logString.replaceAll("\\s+", "").length();
         final int modelCharCount = modelString.replaceAll("\\s+", "").length();
 
         assertEquals(1204, logCharCount);
         assertEquals(2904, modelCharCount);
 
-        tempLogFile.delete();
-        tempModelFile.delete();
+        assertTrue(tempLogFile.delete());
+        assertTrue(tempModelFile.delete());
     }
 
     /**
      * Test script options no log no model spec.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsNoLogNoModelSpec() throws IOException, ApexModelException {
+    void testScriptOptionsNoLogNoModelSpec() throws IOException {
         final File tempLogFile = File.createTempFile("ShellPolicyModel", ".log");
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
@@ -101,18 +98,17 @@ public class CommandLineEditorOptionsTest {
         assertEquals(0, logCharCount);
         assertEquals(0, modelCharCount);
 
-        tempLogFile.delete();
-        tempModelFile.delete();
+        assertTrue(tempLogFile.delete());
+        assertTrue(tempModelFile.delete());
     }
 
     /**
      * Test script options log no model spec.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsLogNoModelSpec() throws IOException, ApexModelException {
+    void testScriptOptionsLogNoModelSpec() throws IOException {
         final File tempLogFile = File.createTempFile("ShellPolicyModel", ".log");
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
@@ -133,18 +129,17 @@ public class CommandLineEditorOptionsTest {
         assertEquals(1204, logCharCount);
         assertEquals(0, modelCharCount);
 
-        tempLogFile.delete();
-        tempModelFile.delete();
+        assertTrue(tempLogFile.delete());
+        assertTrue(tempModelFile.delete());
     }
 
     /**
      * Test script options no log model spec.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsNoLogModelSpec() throws IOException, ApexModelException {
+    void testScriptOptionsNoLogModelSpec() throws IOException {
         final File tempLogFile = File.createTempFile("ShellPolicyModel", ".log");
         final File tempModelFile = File.createTempFile("ShellPolicyModel", ".json");
 
@@ -165,20 +160,17 @@ public class CommandLineEditorOptionsTest {
         assertEquals(0, logCharCount);
         assertEquals(2904, modelCharCount);
 
-        tempLogFile.delete();
-        tempModelFile.delete();
+        assertTrue(tempLogFile.delete());
+        assertTrue(tempModelFile.delete());
     }
 
     /**
      * Test script options no log no model no spec.
-     *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsNoLogNoModelNoSpec() throws IOException, ApexModelException {
+    void testScriptOptionsNoLogNoModelNoSpec() {
         final String[] cliArgs =
-                new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex", "-nl", "-nm"};
+            new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex", "-nl", "-nm"};
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -195,12 +187,9 @@ public class CommandLineEditorOptionsTest {
 
     /**
      * Test script options log model no spec.
-     *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsLogModelNoSpec() throws IOException, ApexModelException {
+    void testScriptOptionsLogModelNoSpec() {
         final String[] cliArgs = new String[] {"-c", "src/main/resources/examples/scripts/ShellPolicyModel.apex"};
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -223,10 +212,9 @@ public class CommandLineEditorOptionsTest {
      * Test script options input output model.
      *
      * @throws IOException Signals that an I/O exception has occurred.
-     * @throws ApexModelException if there is an Apex error
      */
     @Test
-    public void testScriptOptionsInputOutputModel() throws IOException, ApexModelException {
+    void testScriptOptionsInputOutputModel() throws IOException {
         final File tempLogFileIn = File.createTempFile("ShellPolicyModelIn", ".log");
         final File tempLogFileOut = File.createTempFile("ShellPolicyModelOut", ".log");
         final File tempModelFileIn = File.createTempFile("ShellPolicyModelIn", ".json");
@@ -243,7 +231,7 @@ public class CommandLineEditorOptionsTest {
         final String tempLogFileInString = TextFileUtils.getTextFileAsString(tempLogFileIn.getCanonicalPath());
         final String tempModelFileInString = TextFileUtils.getTextFileAsString(tempModelFileIn.getCanonicalPath());
 
-        // As a sanity check, count the number of non white space characters in log and model files
+        // As a sanity check, count the number of non-white space characters in log and model files
         final int tempLogFileInCharCount = tempLogFileInString.replaceAll("\\s+", "").length();
         final int tempModelFileInCharCount = tempModelFileInString.replaceAll("\\s+", "").length();
 
@@ -268,9 +256,9 @@ public class CommandLineEditorOptionsTest {
         assertEquals(1154, tempLogFileOutCharCount);
         assertEquals(3336, tempModelFileOutCharCount);
 
-        tempLogFileIn.delete();
-        tempModelFileIn.delete();
-        tempLogFileOut.delete();
-        tempModelFileOut.delete();
+        assertTrue(tempLogFileIn.delete());
+        assertTrue(tempModelFileIn.delete());
+        assertTrue(tempLogFileOut.delete());
+        assertTrue(tempModelFileOut.delete());
     }
 }

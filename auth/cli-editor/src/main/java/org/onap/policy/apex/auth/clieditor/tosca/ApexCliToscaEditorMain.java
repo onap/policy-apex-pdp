@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2022 Nordix Foundation.
+ *  Copyright (C) 2019-2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,14 +37,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
+@Getter
 public class ApexCliToscaEditorMain {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexCliToscaEditorMain.class);
 
-    @Getter
     private boolean failure;
-    private ApexCliToscaParameters parameters;
-    private ApexCommandLineEditorMain apexCliEditor;
 
     /**
      * Instantiates the Apex CLI Tosca editor.
@@ -56,7 +54,7 @@ public class ApexCliToscaEditorMain {
         LOGGER.info("Starting Apex CLI Tosca editor with arguments - {}", argumentString);
 
         final var parser = new ApexCliToscaParameterParser();
-        parameters = parser.parse(args);
+        ApexCliToscaParameters parameters = parser.parse(args);
         if (parameters.isHelpSet()) {
             CliUtils.help(ApexCliToscaEditorMain.class.getName(), parser.getOptions());
             return;
@@ -78,7 +76,7 @@ public class ApexCliToscaEditorMain {
         cliArgsList.add(policyModelFilePath);
         String[] cliArgs = cliArgsList.toArray(new String[cliArgsList.size()]);
 
-        apexCliEditor = new ApexCommandLineEditorMain(cliArgs);
+        ApexCommandLineEditorMain apexCliEditor = new ApexCommandLineEditorMain(cliArgs);
         if (apexCliEditor.getErrorCount() == 0) {
             LOGGER.info("Apex CLI editor completed execution. Creating the ToscaPolicy using the tosca template"
                 + "skeleton file, config file, and policy model created.");
@@ -90,7 +88,7 @@ public class ApexCliToscaEditorMain {
             } catch (IOException | CoderException e) {
                 failure = true;
                 LOGGER.error("Failed to create the Tosca template using the generated policy model,"
-                    + "apex config file and the tosca template skeleton file. " + e);
+                    + "apex config file and the tosca template skeleton file. {}", e.getMessage());
             }
 
         } else {
