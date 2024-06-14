@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.File;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters;
@@ -36,7 +36,7 @@ import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnolo
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolTextTokenDelimitedParameters;
 
-public class ApexFileEventConsumerTest {
+class ApexFileEventConsumerTest {
     private ApexFileEventConsumer consumer;
     private EventHandlerParameters handlerParameters;
     private File tempFile;
@@ -46,8 +46,8 @@ public class ApexFileEventConsumerTest {
      *
      * @throws Exception while file cannot be created
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         consumer = new ApexFileEventConsumer();
         handlerParameters = new EventHandlerParameters();
         tempFile = File.createTempFile("afec", ".tmp");
@@ -55,14 +55,14 @@ public class ApexFileEventConsumerTest {
     }
 
     @Test
-    public void initNoConsumerParameters() {
+    void initNoConsumerParameters() {
         final String name = RandomStringUtils.randomAlphanumeric(4);
         assertThatThrownBy(() -> consumer.init(name, null, null))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void initWrongCarrier() {
+    void initWrongCarrier() {
         final String name = RandomStringUtils.randomAlphanumeric(4);
         final CarrierTechnologyParameters technologyParameters = new SuperDooperCarrierTechnologyParameters();
         handlerParameters.setCarrierTechnologyParameters(technologyParameters);
@@ -72,32 +72,32 @@ public class ApexFileEventConsumerTest {
     }
 
     @Test
-    public void initWithoutReceiver() {
+    void initWithoutReceiver() {
         final String name = RandomStringUtils.randomAlphanumeric(4);
-        final EventHandlerParameters handlerParameters = new EventHandlerParameters();
+        final EventHandlerParameters parameters = new EventHandlerParameters();
         final FileCarrierTechnologyParameters technologyParameters = new FileCarrierTechnologyParameters();
         technologyParameters.setFileName(tempFile.getAbsolutePath());
         final EventProtocolTextTokenDelimitedParameters params = new SuperTokenDelimitedEventProtocolParameters();
 
-        handlerParameters.setCarrierTechnologyParameters(technologyParameters);
-        handlerParameters.setEventProtocolParameters(params);
+        parameters.setCarrierTechnologyParameters(technologyParameters);
+        parameters.setEventProtocolParameters(params);
 
-        assertThatCode(() -> consumer.init(name, handlerParameters, null))
+        assertThatCode(() -> consumer.init(name, parameters, null))
             .doesNotThrowAnyException();
     }
 
     @Test
-    public void getName() throws ApexEventException {
+    void getName() throws ApexEventException {
         final String name = RandomStringUtils.randomAlphabetic(5);
-        final EventHandlerParameters handlerParameters = new EventHandlerParameters();
+        final EventHandlerParameters parameters = new EventHandlerParameters();
         final FileCarrierTechnologyParameters technologyParameters = new FileCarrierTechnologyParameters();
         technologyParameters.setFileName(tempFile.getAbsolutePath());
         final EventProtocolTextTokenDelimitedParameters params = new SuperTokenDelimitedEventProtocolParameters();
 
-        handlerParameters.setCarrierTechnologyParameters(technologyParameters);
-        handlerParameters.setEventProtocolParameters(params);
+        parameters.setCarrierTechnologyParameters(technologyParameters);
+        parameters.setEventProtocolParameters(params);
 
-        consumer.init(name, handlerParameters, null);
+        consumer.init(name, parameters, null);
         assertThat(consumer.getName()).isEqualTo(name);
     }
 }

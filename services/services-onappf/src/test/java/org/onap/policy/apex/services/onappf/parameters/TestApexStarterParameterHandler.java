@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,11 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.common.utils.cmd.CommandLineException;
@@ -37,11 +37,11 @@ import org.onap.policy.common.utils.coder.CoderException;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestApexStarterParameterHandler {
+class TestApexStarterParameterHandler {
 
     @Test
-    public void testParameterHandlerNoParameterFile() throws ApexStarterException, CommandLineException {
-        final String[] emptyArgumentString = { "-c", "src/test/resources/NoParametersFile.json" };
+    void testParameterHandlerNoParameterFile() throws CommandLineException {
+        final String[] emptyArgumentString = {"-c", "src/test/resources/NoParametersFile.json"};
 
         final ApexStarterCommandLineArguments emptyArguments = new ApexStarterCommandLineArguments();
         emptyArguments.parse(emptyArgumentString);
@@ -52,8 +52,8 @@ public class TestApexStarterParameterHandler {
     }
 
     @Test
-    public void testParameterHandlerEmptyParameters() throws ApexStarterException, CommandLineException {
-        final String[] noArgumentString = { "-c", "src/test/resources/NoParameters.json" };
+    void testParameterHandlerEmptyParameters() throws CommandLineException {
+        final String[] noArgumentString = {"-c", "src/test/resources/NoParameters.json"};
 
         final ApexStarterCommandLineArguments noArguments = new ApexStarterCommandLineArguments();
         noArguments.parse(noArgumentString);
@@ -63,8 +63,8 @@ public class TestApexStarterParameterHandler {
     }
 
     @Test
-    public void testParameterHandlerInvalidParameters() throws ApexStarterException, CommandLineException {
-        final String[] invalidArgumentString = { "-c", "src/test/resources/InvalidParameters.json" };
+    void testParameterHandlerInvalidParameters() throws CommandLineException {
+        final String[] invalidArgumentString = {"-c", "src/test/resources/InvalidParameters.json"};
 
         final ApexStarterCommandLineArguments invalidArguments = new ApexStarterCommandLineArguments();
         invalidArguments.parse(invalidArgumentString);
@@ -75,8 +75,8 @@ public class TestApexStarterParameterHandler {
     }
 
     @Test
-    public void testParameterHandlerNoParameters() throws ApexStarterException, CommandLineException {
-        final String[] noArgumentString = { "-c", "src/test/resources/EmptyConfigParameters.json" };
+    void testParameterHandlerNoParameters() throws CommandLineException {
+        final String[] noArgumentString = {"-c", "src/test/resources/EmptyConfigParameters.json"};
 
         final ApexStarterCommandLineArguments noArguments = new ApexStarterCommandLineArguments();
         noArguments.parse(noArgumentString);
@@ -86,8 +86,8 @@ public class TestApexStarterParameterHandler {
     }
 
     @Test
-    public void testApexStarterParameterGroup() throws ApexStarterException, CommandLineException {
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParameters.json" };
+    void testApexStarterParameterGroup() throws ApexStarterException, CommandLineException {
+        final String[] apexStarterConfigParameters = {"-c", "src/test/resources/ApexStarterConfigParameters.json"};
 
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         arguments.parse(apexStarterConfigParameters);
@@ -98,9 +98,9 @@ public class TestApexStarterParameterHandler {
     }
 
     @Test
-    public void testApexStarterParameterGroup_InvalidName() throws ApexStarterException, CommandLineException {
+    void testApexStarterParameterGroup_InvalidName() throws CommandLineException {
         final String[] apexStarterConfigParameters =
-        { "-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json" };
+            {"-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json"};
 
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         arguments.parse(apexStarterConfigParameters);
@@ -110,24 +110,24 @@ public class TestApexStarterParameterHandler {
     }
 
     @Test
-    public void testApexStarterVersion() throws ApexStarterException, CommandLineException {
-        final String[] apexStarterConfigParameters = { "-v" };
+    void testApexStarterVersion() throws CommandLineException {
+        final String[] apexStarterConfigParameters = {"-v"};
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         final String version = arguments.parse(apexStarterConfigParameters);
         assertTrue(version.startsWith("ONAP Policy Framework Apex Starter Service"));
     }
 
     @Test
-    public void testApexStarterHelp() throws ApexStarterException, CommandLineException {
-        final String[] apexStarterConfigParameters = { "-h" };
+    void testApexStarterHelp() throws CommandLineException {
+        final String[] apexStarterConfigParameters = {"-h"};
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         final String help = arguments.parse(apexStarterConfigParameters);
         assertTrue(help.startsWith("usage:"));
     }
 
     @Test
-    public void testApexStarterInvalidOption() throws ApexStarterException {
-        final String[] apexStarterConfigParameters = { "-d" };
+    void testApexStarterInvalidOption() {
+        final String[] apexStarterConfigParameters = {"-d"};
         final ApexStarterCommandLineArguments arguments = new ApexStarterCommandLineArguments();
         assertThatThrownBy(() -> arguments.parse(apexStarterConfigParameters))
             .hasMessageStartingWith("invalid command line arguments specified");

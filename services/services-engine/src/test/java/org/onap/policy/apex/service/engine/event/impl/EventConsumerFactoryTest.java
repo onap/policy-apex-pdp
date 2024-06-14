@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,27 +20,27 @@
 package org.onap.policy.apex.service.engine.event.impl;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 
-public class EventConsumerFactoryTest {
+class EventConsumerFactoryTest {
     private EventConsumerFactory factory;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         factory = new EventConsumerFactory();
     }
 
     @Test
-    public void createConsumerNoTechnologyParameter() {
+    void createConsumerNoTechnologyParameter() {
         final String name = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters parameters = new EventHandlerParameters();
 
@@ -49,7 +49,7 @@ public class EventConsumerFactoryTest {
     }
 
     @Test
-    public void createConsumerNoConsumerPlugin() {
+    void createConsumerNoConsumerPlugin() {
         final String name = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters parameters = new EventHandlerParameters();
         parameters.setCarrierTechnologyParameters(new RestPluginCarrierTechnologyParameters());
@@ -59,7 +59,7 @@ public class EventConsumerFactoryTest {
     }
 
     @Test
-    public void createConsumerWrongPluginClassName() {
+    void createConsumerWrongPluginClassName() {
         final String name = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters parameters = new EventHandlerParameters();
         final RestPluginCarrierTechnologyParameters technologyParameters =
@@ -72,7 +72,7 @@ public class EventConsumerFactoryTest {
     }
 
     @Test
-    public void createConsumer() throws ApexEventException {
+    void createConsumer() throws ApexEventException {
         final String name = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters parameters = new EventHandlerParameters();
         parameters.setCarrierTechnologyParameters(new SuperDooperCarrierTechnologyParameters());

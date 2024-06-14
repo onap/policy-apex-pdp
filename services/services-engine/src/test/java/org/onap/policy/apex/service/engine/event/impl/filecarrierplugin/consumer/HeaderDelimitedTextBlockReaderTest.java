@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,23 +27,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
-public class HeaderDelimitedTextBlockReaderTest {
+class HeaderDelimitedTextBlockReaderTest {
 
     @Test
-    public void readTextBlockWithDelimeter() throws IOException {
+    void readTextBlockWithDelimiter() throws IOException {
         final String startToken = RandomStringUtils.randomAlphabetic(5);
         final String endToken = RandomStringUtils.randomAlphabetic(6);
-        final boolean delimeter = true;
+        final boolean delimiter = true;
         final String text = RandomStringUtils.randomAlphanumeric(20);
         final String expected = startToken + text;
         // Prepare the stream
         final InputStream stream = new ByteArrayInputStream(expected.getBytes(StandardCharsets.UTF_8));
 
         final HeaderDelimitedTextBlockReader reader =
-            new HeaderDelimitedTextBlockReader(startToken, endToken, delimeter);
+            new HeaderDelimitedTextBlockReader(startToken, endToken, delimiter);
         reader.init(stream);
 
         final TextBlock textBlock = reader.readTextBlock();
@@ -51,10 +51,10 @@ public class HeaderDelimitedTextBlockReaderTest {
     }
 
     @Test
-    public void readTextBlockWithEndTokenDelimeter() throws IOException {
+    void readTextBlockWithEndTokenDelimiter() throws IOException {
         final String startToken = RandomStringUtils.randomAlphabetic(5);
         final String endToken = RandomStringUtils.randomAlphabetic(6);
-        final boolean delimeter = true;
+        final boolean delimiter = true;
         final String text = RandomStringUtils.randomAlphanumeric(20);
         final String input = startToken + "\n" + text + "\n" + endToken + "\n" + text;
         final String expected = startToken + "\n" + text + "\n" + endToken;
@@ -62,7 +62,7 @@ public class HeaderDelimitedTextBlockReaderTest {
         final InputStream stream = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
 
         final HeaderDelimitedTextBlockReader reader =
-            new HeaderDelimitedTextBlockReader(startToken, endToken, delimeter);
+            new HeaderDelimitedTextBlockReader(startToken, endToken, delimiter);
         reader.init(stream);
 
         final TextBlock textBlock = reader.readTextBlock();
@@ -70,16 +70,16 @@ public class HeaderDelimitedTextBlockReaderTest {
     }
 
     @Test
-    public void readTextBlockWithoutDelimeter() throws IOException {
+    void readTextBlockWithoutDelimiter() throws IOException {
         final String startToken = RandomStringUtils.randomAlphabetic(5);
         final String endToken = RandomStringUtils.randomAlphabetic(6);
-        final boolean delimeter = false;
+        final boolean delimiter = false;
         final String text = RandomStringUtils.randomAlphanumeric(20);
         // Prepare the stream
         final InputStream stream = new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8));
 
         final HeaderDelimitedTextBlockReader reader =
-            new HeaderDelimitedTextBlockReader(startToken, endToken, delimeter);
+            new HeaderDelimitedTextBlockReader(startToken, endToken, delimiter);
         reader.init(stream);
 
         final TextBlock textBlock = reader.readTextBlock();
@@ -87,10 +87,10 @@ public class HeaderDelimitedTextBlockReaderTest {
     }
 
     @Test
-    public void readTextBlockWithEndTokenWithoutDelimeter() throws IOException {
+    void readTextBlockWithEndTokenWithoutDelimiter() throws IOException {
         final String startToken = RandomStringUtils.randomAlphabetic(5);
         final String endToken = RandomStringUtils.randomAlphabetic(6);
-        final boolean delimeter = false;
+        final boolean delimiter = false;
         final String text = RandomStringUtils.randomAlphanumeric(20);
         final String input = startToken + "\n" + text + "\n" + endToken + "\n" + text;
         final String expected = startToken + "\n" + text + "\n" + endToken;
@@ -98,7 +98,7 @@ public class HeaderDelimitedTextBlockReaderTest {
         final InputStream stream = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
 
         final HeaderDelimitedTextBlockReader reader =
-            new HeaderDelimitedTextBlockReader(startToken, endToken, delimeter);
+            new HeaderDelimitedTextBlockReader(startToken, endToken, delimiter);
         reader.init(stream);
 
         final TextBlock textBlock = reader.readTextBlock();

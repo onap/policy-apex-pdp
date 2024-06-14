@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,21 +22,23 @@
 
 package org.onap.policy.apex.service.engine.runtime.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -63,7 +65,7 @@ import org.onap.policy.common.utils.services.Registry;
 /**
  * Test the engine worker class.
  */
-public class EngineWorkerTest {
+class EngineWorkerTest {
     private final ApplicationThreadFactory atFactory = new ApplicationThreadFactory("apex-engine-service", 512);
 
     private static String simpleModelString;
@@ -73,15 +75,15 @@ public class EngineWorkerTest {
     /**
      * Read the models into strings.
      *
-     * @throws IOException on model reading errors
+     * @throws IOException        on model reading errors
      * @throws ApexModelException on model reading exceptions
      */
-    @BeforeClass
-    public static void readSimpleModel() throws IOException, ApexModelException {
+    @BeforeAll
+    static void readSimpleModel() throws IOException, ApexModelException {
         simpleModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
         differentModelString =
-                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModelDifferent.json");
 
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<>(AxPolicyModel.class);
         simpleModel = modelReader.read(new ByteArrayInputStream(simpleModelString.getBytes()));
@@ -90,8 +92,8 @@ public class EngineWorkerTest {
     /**
      * Initialize default parameters.
      */
-    @BeforeClass
-    public static void initializeDefaultParameters() {
+    @BeforeAll
+    static void initializeDefaultParameters() {
         ParameterService.clear();
         final SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -115,31 +117,30 @@ public class EngineWorkerTest {
 
         final EngineParameters engineParameters = new EngineParameters();
         engineParameters.setName(EngineParameterConstants.MAIN_GROUP_NAME);
-        ExecutorParameters jsExecutorParameters = new ExecutorParameters();
-        jsExecutorParameters.setName("JAVASCRIPT");
-        jsExecutorParameters
-                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
-        jsExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        jsExecutorParameters
-                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        ExecutorParameters jsExecutorParameters = getExecutorParameters("JAVASCRIPT");
         engineParameters.getExecutorParameterMap().put("JAVASCRIPT", jsExecutorParameters);
-        ExecutorParameters mvvelExecutorParameters = new ExecutorParameters();
-        mvvelExecutorParameters.setName("MVEL");
-        mvvelExecutorParameters
-                .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
-        mvvelExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        mvvelExecutorParameters
-                .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        getExecutorParameters("MVEL");
         engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
         ParameterService.register(engineParameters);
 
     }
 
+    private static @NotNull ExecutorParameters getExecutorParameters(String lang) {
+        ExecutorParameters jsExecutorParameters = new ExecutorParameters();
+        jsExecutorParameters.setName(lang);
+        jsExecutorParameters
+            .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
+        jsExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
+        jsExecutorParameters
+            .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
+        return jsExecutorParameters;
+    }
+
     /**
      * Teardown default parameters.
      */
-    @AfterClass
-    public static void teardownDefaultParameters() {
+    @AfterAll
+    static void teardownDefaultParameters() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
@@ -148,71 +149,119 @@ public class EngineWorkerTest {
         ParameterService.deregister(EngineParameterConstants.MAIN_GROUP_NAME);
     }
 
-    @After
-    public void cleardownTest() {
+    @AfterEach
+    void clearDownTest() {
         ModelService.clear();
     }
 
     @Test
-    public void testEngineWorker() {
+    void testEngineWorker() {
 
         BlockingQueue<ApexEvent> eventQueue = new LinkedBlockingQueue<>();
 
         EngineWorker worker = new EngineWorker(new AxArtifactKey("Worker", "0.0.1"), eventQueue, atFactory);
 
-        try {
-            worker.registerActionListener(null, null);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.registerActionListener(null, null))
+            .hasMessageContaining("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null");
 
         worker.registerActionListener("DummyListener", null);
 
-        try {
-            worker.registerActionListener(null, new DummyApexEventListener());
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.registerActionListener(null, new DummyApexEventListener()))
+            .hasMessageContaining("addEventListener()<-Worker:0.0.1,STOPPED, listenerName is null");
 
         worker.registerActionListener("DummyListener", new DummyApexEventListener());
 
-        try {
-            worker.deregisterActionListener(null);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("removeEventListener()<-Worker:0.0.1,STOPPED, listenerName is null", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.deregisterActionListener(null))
+            .hasMessageContaining("removeEventListener()<-Worker:0.0.1,STOPPED, listenerName is null");
 
         worker.deregisterActionListener("DummyListener");
 
-        try {
-            worker.getEngineServiceEventInterface();
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("getEngineServiceEventInterface() call is not allowed on an Apex Engine Worker",
-                    apEx.getMessage());
-        }
+        assertThatThrownBy(worker::getEngineServiceEventInterface)
+            .hasMessageContaining("getEngineServiceEventInterface() call is not allowed on an Apex Engine Worker");
 
-        try {
-            worker.startPeriodicEvents(100000);
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("startPeriodicEvents() call is not allowed on an Apex Engine Worker", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.startPeriodicEvents(100000))
+            .hasMessageContaining("startPeriodicEvents() call is not allowed on an Apex Engine Worker");
 
-        try {
-            worker.stopPeriodicEvents();
-            fail("test should throw an exception");
-        } catch (Exception apEx) {
-            assertEquals("stopPeriodicEvents() call is not allowed on an Apex Engine Worker", apEx.getMessage());
-        }
+        assertThatThrownBy(worker::stopPeriodicEvents)
+            .hasMessageContaining("stopPeriodicEvents() call is not allowed on an Apex Engine Worker");
 
         assertEquals("Worker:0.0.1", worker.getEngineKeys().iterator().next().getId());
 
         assertNull(worker.getApexModelKey());
 
+        assertEngineWorkerStartStop(worker);
+
+        assertThatThrownBy(() -> worker.clear(new AxArtifactKey("DummyKey", "0.0.1")))
+            .hasMessageContaining("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine");
+
+        assertDoesNotThrow(() -> worker.clear(worker.getEngineKeys().iterator().next()));
+        assertDoesNotThrow(() -> worker.clear());
+
+        assertUpdateEngineModel(worker);
+    }
+
+    @Test
+    void testApexImplModelWIthModel() throws ApexException {
+        Registry.newRegistry();
+        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, new ApexPolicyStatisticsManager());
+        BlockingQueue<ApexEvent> eventQueue = new LinkedBlockingQueue<>();
+
+        EngineWorker worker = new EngineWorker(new AxArtifactKey("Worker", "0.0.1"), eventQueue, atFactory);
+        assertEquals("Worker:0.0.1", worker.getKey().getId());
+
+        assertDoesNotThrow(() -> worker.updateModel(worker.getKey(), simpleModelString, false));
+
+        eventQueue.add(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget", ""));
+
+        assertThatThrownBy(() -> worker.updateModel(worker.getKey(), differentModelString, false))
+            .hasMessageContaining("apex model update failed, supplied model with key "
+                + "\"SmallModelDifferent:0.0.1\" is not a compatible model update "
+                + "from the existing engine model with key \"SmallModel:0.0.1\"");
+
+        assertDoesNotThrow(() -> worker.updateModel(worker.getKey(), differentModelString, true));
+
+        assertDoesNotThrow(() -> worker.updateModel(worker.getKey(), simpleModelString, true));
+
+        String runtimeInfo = worker.getRuntimeInfo(worker.getEngineKeys().iterator().next());
+        assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
+
+        assertEquals(AxEngineState.STOPPED, worker.getState());
+        worker.startAll();
+
+        assertEquals(AxEngineState.READY, worker.getState());
+
+        String status = worker.getStatus(worker.getEngineKeys().iterator().next());
+        assertNotNull(status);
+        assertEquals("{\"timestamp\":", status.replaceAll("\\s+", "").substring(0, 13));
+
+        assertTrue(worker.isStarted());
+        assertTrue(worker.isStarted(worker.getEngineKeys().iterator().next()));
+        assertFalse(worker.isStopped());
+        assertFalse(worker.isStopped(worker.getEngineKeys().iterator().next()));
+
+        assertWorkerStartStopWithModel(worker);
+    }
+
+    private static void assertUpdateEngineModel(EngineWorker worker) {
+        assertThatThrownBy(() -> worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "", true))
+            .hasMessageContaining("failed to unmarshal the apex model on engine DummyKey:0.0.1");
+
+        assertThatThrownBy(
+            () -> worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "I am not an Apex model", true))
+            .hasMessageContaining("failed to unmarshal the apex model on engine DummyKey:0.0.1");
+
+        assertThatThrownBy(() -> worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModelString, true))
+            .hasMessageContaining("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine");
+
+        assertThatThrownBy(
+            () -> worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), (AxPolicyModel) null, true))
+            .hasMessageContaining("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine");
+
+        assertThatThrownBy(() -> worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModel, true))
+            .hasMessageContaining("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine");
+    }
+
+    private static void assertEngineWorkerStartStop(EngineWorker worker) {
         String runtimeInfo = worker.getRuntimeInfo(worker.getEngineKeys().iterator().next());
         assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
 
@@ -229,231 +278,53 @@ public class EngineWorkerTest {
         assertTrue(worker.isStopped(new AxArtifactKey("DummyKey", "0.0.1")));
         assertTrue(worker.isStopped(worker.getEngineKeys().iterator().next()));
 
-        try {
-            worker.start(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                    apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.start(new AxArtifactKey("DummyKey", "0.0.1")))
+            .hasMessageContaining("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine");
 
-        try {
-            worker.start(worker.getEngineKeys().iterator().next());
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("start()<-Worker:0.0.1,STOPPED,  cannot start engine, engine has not been initialized, "
-                    + "its model is not loaded", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.start(worker.getEngineKeys().iterator().next()))
+            .hasMessageContaining(
+                "start()<-Worker:0.0.1,STOPPED,  cannot start engine, engine has not been initialized, "
+                    + "its model is not loaded");
 
-        try {
-            worker.startAll();
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("start()<-Worker:0.0.1,STOPPED,  cannot start engine, "
-                    + "engine has not been initialized, its model is not loaded", apEx.getMessage());
-        }
+        assertThatThrownBy(worker::startAll).hasMessageContaining(
+            "start()<-Worker:0.0.1,STOPPED,  cannot start engine, engine has not been initialized, its "
+                + "model is not loaded");
 
-        try {
-            worker.stop(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                    apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.stop(new AxArtifactKey("DummyKey", "0.0.1")))
+            .hasMessageContaining("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine");
 
-        try {
-            worker.stop(worker.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        assertDoesNotThrow(() -> worker.stop(worker.getEngineKeys().iterator().next()));
 
-        try {
-            worker.stop();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.clear(new AxArtifactKey("DummyKey", "0.0.1"));
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                    apEx.getMessage());
-        }
-
-        try {
-            worker.clear(worker.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.clear();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "", true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("failed to unmarshal the apex model on engine DummyKey:0.0.1", apEx.getMessage());
-        }
-
-        try {
-            worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), "I am not an Apex model", true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("failed to unmarshal the apex model on engine DummyKey:0.0.1", apEx.getMessage());
-        }
-
-        try {
-            worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModelString, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                    apEx.getMessage());
-        }
-
-        try {
-            worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), (AxPolicyModel) null, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                    apEx.getMessage());
-        }
-
-        try {
-            worker.updateModel(new AxArtifactKey("DummyKey", "0.0.1"), simpleModel, true);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("engine key DummyKey:0.0.1 does not match the keyWorker:0.0.1 of this engine",
-                    apEx.getMessage());
-        }
+        assertDoesNotThrow(() -> worker.stop());
     }
 
-    @Test
-    public void testApexImplModelWIthModel() throws ApexException {
-        Registry.newRegistry();
-        Registry.register(ApexPolicyStatisticsManager.REG_APEX_PDP_POLICY_COUNTER, new ApexPolicyStatisticsManager());
-        BlockingQueue<ApexEvent> eventQueue = new LinkedBlockingQueue<>();
+    private static void assertWorkerStartStopWithModel(EngineWorker worker) throws ApexException {
+        assertThatThrownBy(() -> worker.start(worker.getEngineKeys().iterator().next()))
+            .hasMessageContaining("apex engine for engine key Worker:0.0.1 is already running with state READY");
 
-        EngineWorker worker = new EngineWorker(new AxArtifactKey("Worker", "0.0.1"), eventQueue, atFactory);
-        assertEquals("Worker:0.0.1", worker.getKey().getId());
+        assertThatThrownBy(worker::startAll)
+            .hasMessageContaining("apex engine for engine key Worker:0.0.1 is already running with state READY");
 
-        try {
-            worker.updateModel(worker.getKey(), simpleModelString, false);
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        eventQueue.add(new ApexEvent("SomeEvent", "0.0.1", "the.event.namespace", "EventSource", "EventTarget", ""));
-
-        try {
-            worker.updateModel(worker.getKey(), differentModelString, false);
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("apex model update failed, supplied model with key \"SmallModelDifferent:0.0.1\" is not a "
-                    + "compatible model update " + "from the existing engine model with key \"SmallModel:0.0.1\"",
-                    apEx.getMessage());
-        }
-
-        try {
-            worker.updateModel(worker.getKey(), differentModelString, true);
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.updateModel(worker.getKey(), simpleModelString, true);
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        String runtimeInfo = worker.getRuntimeInfo(worker.getEngineKeys().iterator().next());
-        assertEquals("{\"TimeStamp\":", runtimeInfo.replaceAll("\\s+", "").substring(0, 13));
-
-        assertEquals(AxEngineState.STOPPED, worker.getState());
-        worker.startAll();
-
-        assertEquals(AxEngineState.READY, worker.getState());
-
-        String status = worker.getStatus(worker.getEngineKeys().iterator().next());
-        assertEquals("{\"timestamp\":", status.replaceAll("\\s+", "").substring(0, 13));
-
-        assertTrue(worker.isStarted());
-        assertTrue(worker.isStarted(worker.getEngineKeys().iterator().next()));
-        assertFalse(worker.isStopped());
-        assertFalse(worker.isStopped(worker.getEngineKeys().iterator().next()));
-
-        try {
-            worker.start(worker.getEngineKeys().iterator().next());
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("apex engine for engine key Worker:0.0.1 is already running with state READY",
-                    apEx.getMessage());
-        }
-
-        try {
-            worker.startAll();
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("apex engine for engine key Worker:0.0.1 is already running with state READY",
-                    apEx.getMessage());
-        }
-
-        try {
-            worker.stop(worker.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.start(worker.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.stop();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.startAll();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        assertDoesNotThrow(() -> worker.stop(worker.getEngineKeys().iterator().next()));
+        assertDoesNotThrow(() -> worker.start(worker.getEngineKeys().iterator().next()));
+        assertDoesNotThrow(() -> worker.stop());
+        assertDoesNotThrow(worker::startAll);
 
         worker.stop();
         worker.startAll();
 
-        try {
-            worker.clear(worker.getEngineKeys().iterator().next());
-            fail("test should throw an exception");
-        } catch (ApexException apEx) {
-            assertEquals("clear()<-Worker:0.0.1,READY, cannot clear engine, engine is not stopped", apEx.getMessage());
-        }
+        assertThatThrownBy(() -> worker.clear(worker.getEngineKeys().iterator().next()))
+            .hasMessageContaining("clear()<-Worker:0.0.1,READY, cannot clear engine, engine is not stopped");
 
-        try {
-            worker.stop(worker.getEngineKeys().iterator().next());
-            worker.clear(worker.getEngineKeys().iterator().next());
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
-
-        try {
-            worker.clear();
-        } catch (ApexException apEx) {
-            fail("test should not throw an exception");
-        }
+        assertDoesNotThrow(() -> worker.stop(worker.getEngineKeys().iterator().next()));
+        assertDoesNotThrow(() -> worker.clear(worker.getEngineKeys().iterator().next()));
+        assertDoesNotThrow(() -> worker.clear());
 
         assertNotNull(worker.getApexModelKey());
 
         final ApexPolicyStatisticsManager policyCounter = ApexPolicyStatisticsManager.getInstanceFromRegistry();
         assertNotNull(policyCounter);
         assertEquals(policyCounter.getPolicyExecutedCount(),
-                policyCounter.getPolicyExecutedFailCount() + policyCounter.getPolicyExecutedSuccessCount());
+            policyCounter.getPolicyExecutedFailCount() + policyCounter.getPolicyExecutedSuccessCount());
     }
 }

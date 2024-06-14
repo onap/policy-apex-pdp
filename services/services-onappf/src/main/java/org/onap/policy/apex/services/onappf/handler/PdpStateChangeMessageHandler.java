@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
@@ -93,13 +93,13 @@ public class PdpStateChangeMessageHandler {
             final PdpStatus pdpStatusContext, final PdpMessageHandler pdpMessageHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.SUCCESS, "Pdp already in active state");
         } else {
             final List<ToscaPolicy> policies = Registry.get(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST);
             if (policies.isEmpty()) {
                 pdpStatusContext.setState(PdpState.ACTIVE);
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "State changed to active. No policies found.");
             } else {
                 pdpResponseDetails = startApexEngine(pdpStateChangeMsg, pdpStatusContext, pdpMessageHandler, policies);
@@ -130,7 +130,7 @@ public class PdpStateChangeMessageHandler {
                 if (new HashSet<>(runningPolicies)
                     .equals(new HashSet<>(pdpMessageHandler.getToscaPolicyIdentifiers(policies)))) {
                     pdpResponseDetails =
-                        pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                        pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                             PdpResponseStatus.SUCCESS, "Apex engine started. State changed to active.");
                 } else {
                     var message = new StringBuilder(
@@ -139,18 +139,18 @@ public class PdpStateChangeMessageHandler {
                         message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
                     }
                     message.append(". Other policies failed execution. Please see the logs for more details.");
-                    pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(
+                    pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(
                         pdpStateChangeMsg.getRequestId(), PdpResponseStatus.SUCCESS, message.toString());
                 }
                 pdpStatusContext.setState(PdpState.ACTIVE);
                 updateDeploymentCounts(runningPolicies, policies);
             } else {
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine failed to start. State cannot be changed to active.");
             }
         } catch (final ApexStarterException e) {
             LOGGER.error("Pdp State Change failed.", e);
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
         return pdpResponseDetails;
@@ -168,7 +168,7 @@ public class PdpStateChangeMessageHandler {
             final PdpStatus pdpStatusContext, final PdpMessageHandler pdpMessageHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         if (pdpStatusContext.getState().equals(PdpState.PASSIVE)) {
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                     PdpResponseStatus.SUCCESS, "Pdp already in passive state");
         } else {
             ApexEngineHandler apexEngineHandler = null;
@@ -181,12 +181,12 @@ public class PdpStateChangeMessageHandler {
                 if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
                     apexEngineHandler.shutdown();
                 }
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Apex pdp state changed from Active to Passive.");
                 pdpStatusContext.setState(PdpState.PASSIVE);
             } catch (final Exception e) {
                 LOGGER.error("Stopping apex engine failed. State cannot be changed to Passive.", e);
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpStateChangeMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpStateChangeMsg.getRequestId(),
                         PdpResponseStatus.FAIL,
                         "Stopping apex engine failed. State cannot be changed to Passive." + e.getMessage());
             }
@@ -206,7 +206,7 @@ public class PdpStateChangeMessageHandler {
             return;
         }
         var policiesToDeploy = policies.stream()
-            .map(ToscaWithTypeAndObjectProperties::getIdentifier).collect(Collectors.toList());
+            .map(ToscaWithTypeAndObjectProperties::getIdentifier).toList();
 
         var policiesSuccessfullyDeployed = new ArrayList<>(policiesToDeploy);
         policiesSuccessfullyDeployed.retainAll(runningPolicies);

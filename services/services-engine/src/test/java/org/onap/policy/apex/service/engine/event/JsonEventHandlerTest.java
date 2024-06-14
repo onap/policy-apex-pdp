@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,19 +23,19 @@
 package org.onap.policy.apex.service.engine.event;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -58,19 +58,19 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class JsonEventHandlerTest {
+class JsonEventHandlerTest {
     private static final XLogger logger = XLoggerFactory.getXLogger(JsonEventHandlerTest.class);
 
     /**
      * Setup event model.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException the apex model exception
      */
-    @BeforeClass
-    public static void setupEventModel() throws IOException, ApexModelException {
+    @BeforeAll
+    static void setupEventModel() throws IOException, ApexModelException {
         final String policyModelString =
-                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<AxPolicyModel>(AxPolicyModel.class);
         final AxPolicyModel apexPolicyModel = modelReader.read(new ByteArrayInputStream(policyModelString.getBytes()));
 
@@ -81,8 +81,8 @@ public class JsonEventHandlerTest {
     /**
      * Initialize default schema parameters.
      */
-    @BeforeClass
-    public static void initializeDefaultSchemaParameters() {
+    @BeforeAll
+    static void initializeDefaultSchemaParameters() {
         ParameterService.clear();
         final SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -92,8 +92,8 @@ public class JsonEventHandlerTest {
     /**
      * Teardown default schema parameters.
      */
-    @AfterClass
-    public static void teardownDefaultSchemaParameters() {
+    @AfterAll
+    static void teardownDefaultSchemaParameters() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ModelService.clear();
     }
@@ -104,7 +104,7 @@ public class JsonEventHandlerTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testJsontoApexEvent() throws ApexException {
+    void testJsontoApexEvent() throws ApexException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
         assertNotNull(jsonEventConverter);
         jsonEventConverter.init(new JsonEventProtocolParameters());
@@ -138,7 +138,7 @@ public class JsonEventHandlerTest {
      */
     @SuppressWarnings("deprecation")
     @Test
-    public void testJsontoApexBadEvent() throws ApexException {
+    void testJsontoApexBadEvent() throws ApexException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
         assertNotNull(jsonEventConverter);
         jsonEventConverter.init(new JsonEventProtocolParameters());
@@ -222,7 +222,7 @@ public class JsonEventHandlerTest {
             jsonEventConverter.toApexEvent(null, apexEventJsonStringIn);
         }).hasMessageStartingWith("Failed to unmarshal JSON event")
             .getCause().hasMessageStartingWith("error parsing BasicEvent:0.0.1 "
-               + "event from Json. Field \"intPar\" is missing, but is mandatory.");
+                + "event from Json. Field \"intPar\" is missing, but is mandatory.");
         apexEventJsonStringIn1 = SupportJsonEventGenerator.jsonEventNullFields();
         event = jsonEventConverter.toApexEvent(null, apexEventJsonStringIn1).get(0);
         assertEquals(null, event.get("TestSlogan"));
@@ -244,7 +244,7 @@ public class JsonEventHandlerTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testApexEventToJson() throws ApexException {
+    void testApexEventToJson() throws ApexException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
         jsonEventConverter.init(new JsonEventProtocolParameters());
         assertNotNull(jsonEventConverter);
@@ -253,8 +253,8 @@ public class JsonEventHandlerTest {
         basicEventMap.put("intPar", 12345);
 
         final ApexEvent basicEvent =
-               new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test", "apex",
-                       AxToscaPolicyProcessingStatus.ENTRY.name());
+            new ApexEvent("BasicEvent", "0.0.1", "org.onap.policy.apex.events", "test", "apex",
+                AxToscaPolicyProcessingStatus.ENTRY.name());
         basicEvent.putAll(basicEventMap);
 
         final String apexEvent0000JsonString = (String) jsonEventConverter.fromApexEvent(basicEvent);

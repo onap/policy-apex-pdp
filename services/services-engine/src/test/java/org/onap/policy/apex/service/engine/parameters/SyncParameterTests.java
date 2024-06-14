@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,11 +24,12 @@
 package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters;
@@ -44,9 +45,10 @@ import org.onap.policy.common.parameters.ParameterException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class SyncParameterTests {
+class SyncParameterTests {
+
     @Test
-    public void testSyncBadNoSyncWithPeer() throws ParameterException {
+    void testSyncBadNoSyncWithPeer() {
         final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsNoSyncWithPeer.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -58,7 +60,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncBadNotSyncWithPeer() throws ParameterException {
+    void testSyncBadNotSyncWithPeer() {
         final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsNotSyncWithPeer.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -70,7 +72,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncBadSyncBadPeers() throws ParameterException {
+    void testSyncBadSyncBadPeers() {
         final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsBadPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -85,7 +87,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncBadSyncInvalidTimeout() throws ParameterException {
+    void testSyncBadSyncInvalidTimeout() {
         final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsInvalidTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -103,7 +105,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncBadSyncBadTimeout() throws ParameterException {
+    void testSyncBadSyncBadTimeout() {
         final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsBadTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -115,7 +117,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncBadSyncUnpairedTimeout() throws ParameterException {
+    void testSyncBadSyncUnpairedTimeout() {
         final String[] args = {"-p", "src/test/resources/parameters/syncBadParamsUnpairedTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -133,17 +135,17 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncGoodSyncGoodTimeoutProducer() throws ParameterException {
+    void testSyncGoodSyncGoodTimeoutProducer() throws ParameterException {
         verifySyncGoodSyncGoodTimeout("src/test/resources/parameters/syncGoodParamsProducerTimeout.json");
     }
 
     @Test
-    public void testSyncGoodSyncGoodTimeoutConsumer() throws ParameterException {
+    void testSyncGoodSyncGoodTimeoutConsumer() throws ParameterException {
         verifySyncGoodSyncGoodTimeout("src/test/resources/parameters/syncGoodParamsConsumerTimeout.json");
     }
 
     @Test
-    public void testSyncGoodSyncGoodTimeoutBoth() throws ParameterException {
+    void testSyncGoodSyncGoodTimeoutBoth() throws ParameterException {
         verifySyncGoodSyncGoodTimeout("src/test/resources/parameters/syncGoodParamsBothTimeout.json");
     }
 
@@ -152,18 +154,18 @@ public class SyncParameterTests {
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
-        assertEquals(fileName, 12345, parameters.getEventInputParameters().get("SyncConsumer0")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(fileName, 1, parameters.getEventInputParameters().get("SyncConsumer1")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(fileName, 12345, parameters.getEventOutputParameters().get("SyncProducer0")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
-        assertEquals(fileName, 1, parameters.getEventOutputParameters().get("SyncProducer1")
-                .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertEquals(12345, parameters.getEventInputParameters().get("SyncConsumer0")
+            .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertEquals(1, parameters.getEventInputParameters().get("SyncConsumer1")
+            .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertEquals(12345, parameters.getEventOutputParameters().get("SyncProducer0")
+            .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertEquals(1, parameters.getEventOutputParameters().get("SyncProducer1")
+            .getPeerTimeout(EventHandlerPeeredMode.SYNCHRONOUS));
     }
 
     @Test
-    public void testSyncUnusedConsumerPeers() throws ParameterException {
+    void testSyncUnusedConsumerPeers() {
         final String[] args = {"-p", "src/test/resources/parameters/syncUnusedConsumerPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -177,7 +179,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncMismatchedPeers() throws ParameterException {
+    void testSyncMismatchedPeers() {
         final String[] args = {"-p", "src/test/resources/parameters/syncMismatchedPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -195,7 +197,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncUnusedProducerPeers() throws ParameterException {
+    void testSyncUnusedProducerPeers() {
         final String[] args = {"-p", "src/test/resources/parameters/syncUnusedProducerPeers.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -209,7 +211,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncMismatchedTimeout() throws ParameterException {
+    void testSyncMismatchedTimeout() {
         final String[] args = {"-p", "src/test/resources/parameters/syncMismatchedTimeout.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -223,7 +225,7 @@ public class SyncParameterTests {
     }
 
     @Test
-    public void testSyncGoodParametersTest() throws ParameterException {
+    void testSyncGoodParametersTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/syncGoodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -236,21 +238,21 @@ public class SyncParameterTests {
         assertEquals(65522, parameters.getEngineServiceParameters().getDeploymentPort());
 
         final CarrierTechnologyParameters prodCT0 =
-                parameters.getEventOutputParameters().get("SyncProducer0").getCarrierTechnologyParameters();
+            parameters.getEventOutputParameters().get("SyncProducer0").getCarrierTechnologyParameters();
         final EventProtocolParameters prodEP0 =
-                parameters.getEventOutputParameters().get("SyncProducer0").getEventProtocolParameters();
+            parameters.getEventOutputParameters().get("SyncProducer0").getEventProtocolParameters();
         final CarrierTechnologyParameters consCT0 =
-                parameters.getEventInputParameters().get("SyncConsumer0").getCarrierTechnologyParameters();
+            parameters.getEventInputParameters().get("SyncConsumer0").getCarrierTechnologyParameters();
         final EventProtocolParameters consEP0 =
-                parameters.getEventInputParameters().get("SyncConsumer0").getEventProtocolParameters();
+            parameters.getEventInputParameters().get("SyncConsumer0").getEventProtocolParameters();
         final CarrierTechnologyParameters prodCT1 =
-                parameters.getEventOutputParameters().get("SyncProducer1").getCarrierTechnologyParameters();
+            parameters.getEventOutputParameters().get("SyncProducer1").getCarrierTechnologyParameters();
         final EventProtocolParameters prodEP1 =
-                parameters.getEventOutputParameters().get("SyncProducer1").getEventProtocolParameters();
+            parameters.getEventOutputParameters().get("SyncProducer1").getEventProtocolParameters();
         final CarrierTechnologyParameters consCT1 =
-                parameters.getEventInputParameters().get("SyncConsumer1").getCarrierTechnologyParameters();
+            parameters.getEventInputParameters().get("SyncConsumer1").getCarrierTechnologyParameters();
         final EventProtocolParameters consEP1 =
-                parameters.getEventInputParameters().get("SyncConsumer1").getEventProtocolParameters();
+            parameters.getEventInputParameters().get("SyncConsumer1").getEventProtocolParameters();
 
         assertEquals("FILE", prodCT0.getLabel());
         assertEquals("JSON", prodEP0.getLabel());
@@ -261,11 +263,18 @@ public class SyncParameterTests {
         assertEquals("SUPER_DOOPER", consCT1.getLabel());
         assertEquals("SUPER_TOK_DEL", consEP1.getLabel());
 
-        assertTrue(consCT1 instanceof SuperDooperCarrierTechnologyParameters);
-        assertTrue(consEP1 instanceof SuperTokenDelimitedEventProtocolParameters);
+        assertInstanceOf(SuperDooperCarrierTechnologyParameters.class, consCT1);
+        assertInstanceOf(SuperTokenDelimitedEventProtocolParameters.class, consEP1);
 
         final SuperDooperCarrierTechnologyParameters superDooperParameters =
-                (SuperDooperCarrierTechnologyParameters) consCT1;
+            (SuperDooperCarrierTechnologyParameters) consCT1;
+        assertEqualsOnFields(superDooperParameters);
+
+        final String[] consumerTopics = {"apex-in"};
+        assertEquals(Arrays.asList(consumerTopics), superDooperParameters.getConsumerTopicList());
+    }
+
+    private static void assertEqualsOnFields(SuperDooperCarrierTechnologyParameters superDooperParameters) {
         assertEquals("localhost:9092", superDooperParameters.getBootstrapServers());
         assertEquals("all", superDooperParameters.getAcks());
         assertEquals(0, superDooperParameters.getRetries());
@@ -279,15 +288,12 @@ public class SyncParameterTests {
         assertEquals("apex-out", superDooperParameters.getProducerTopic());
         assertEquals(100, superDooperParameters.getConsumerPollTime());
         assertEquals("org.apache.superDooper.common.serialization.StringSerializer",
-                superDooperParameters.getKeySerializer());
+            superDooperParameters.getKeySerializer());
         assertEquals("org.apache.superDooper.common.serialization.StringSerializer",
-                superDooperParameters.getValueSerializer());
+            superDooperParameters.getValueSerializer());
         assertEquals("org.apache.superDooper.common.serialization.StringDeserializer",
-                superDooperParameters.getKeyDeserializer());
+            superDooperParameters.getKeyDeserializer());
         assertEquals("org.apache.superDooper.common.serialization.StringDeserializer",
-                superDooperParameters.getValueDeserializer());
-
-        final String[] consumerTopics = {"apex-in"};
-        assertEquals(Arrays.asList(consumerTopics), superDooperParameters.getConsumerTopicList());
+            superDooperParameters.getValueDeserializer());
     }
 }

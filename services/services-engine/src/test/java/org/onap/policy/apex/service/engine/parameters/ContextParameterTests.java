@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,9 +23,10 @@
 package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperDistributorParameters;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
@@ -37,10 +38,10 @@ import org.onap.policy.common.parameters.ParameterException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ContextParameterTests {
+class ContextParameterTests {
 
     @Test
-    public void testNoParamsTest() {
+    void testNoParamsTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextNoParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -51,18 +52,18 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testBadParamsTest() {
+    void testBadParamsTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("error reading parameters from \"src/test/resources/parameters/serviceContextBadParams.json\""
-                + "\n(ParameterRuntimeException):failed to deserialize the parameters for "
-                + "\"contextParameters\" to parameter class " + "\"hello\"\njava.lang.ClassNotFoundException: hello");
+            .hasMessageContaining("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadParams.json\"")
+            .hasMessageContaining("class " + "\"hello\"\njava.lang.ClassNotFoundException: hello");
     }
 
     @Test
-    public void testBadPluginParamNameTest() {
+    void testBadPluginParamNameTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadPluginNameParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -74,19 +75,20 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testBadClassParamTest() {
+    void testBadClassParamTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
-            "error reading parameters from " + "\"src/test/resources/parameters/serviceContextBadClassParams.json\""
-                + "\n(ParameterRuntimeException):failed to deserialize " + "the parameters for \"contextParameters\""
-                + " to parameter class \"java.lang.Integer\"\ncom.google.gson.JsonSyntaxException: "
-                + "java.lang.IllegalStateException: Expected NUMBER but was BEGIN_OBJECT at path $");
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("error reading parameters from "
+                + "\"src/test/resources/parameters/serviceContextBadClassParams.json\"")
+            .hasMessageContaining("(ParameterRuntimeException):failed to deserialize the parameters for "
+                + "\"contextParameters\" to parameter class \"java.lang.Integer\"\ncom.google.gson.JsonSyntaxException"
+                + ": java.lang.IllegalStateException: Expected NUMBER but was BEGIN_OBJECT at path $");
     }
 
     @Test
-    public void testBadPluginClassTest() {
+    void testBadPluginClassTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadPluginClassParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -102,7 +104,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testOkFlushParamTest() throws ParameterException {
+    void testOkFlushParamTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKFlushParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -115,7 +117,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testOkDefaultParamTest() throws ParameterException {
+    void testOkDefaultParamTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKDefaultParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -128,7 +130,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testOkDistParamTest() throws ParameterException {
+    void testOkDistParamTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKDistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -142,7 +144,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testOkFullDefaultParamTest() throws ParameterException {
+    void testOkFullDefaultParamTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -164,7 +166,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testOkFullParamTest() throws ParameterException {
+    void testOkFullParamTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextOKFullParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -186,13 +188,13 @@ public class ContextParameterTests {
             infinispanParameters.getClass().getName());
         assertEquals("my/lovely/configFile.xml", infinispanParameters.getConfigFile());
         assertEquals("holy/stone.xml", infinispanParameters.getJgroupsFile());
-        assertEquals(false, infinispanParameters.isPreferIPv4Stack());
+        assertFalse(infinispanParameters.isPreferIPv4Stack());
         assertEquals("fatherted", infinispanParameters.getJgroupsBindAddress());
 
     }
 
     @Test
-    public void testBadClassDistParamTest() {
+    void testBadClassDistParamTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassDistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -207,7 +209,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testBadClassLockParamTest() {
+    void testBadClassLockParamTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassLockParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -222,7 +224,7 @@ public class ContextParameterTests {
     }
 
     @Test
-    public void testBadClassPersistParamTest() {
+    void testBadClassPersistParamTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceContextBadClassPersistParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 

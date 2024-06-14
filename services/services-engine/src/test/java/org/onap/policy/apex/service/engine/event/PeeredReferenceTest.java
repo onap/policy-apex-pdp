@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,18 +19,18 @@
 
 package org.onap.policy.apex.service.engine.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer.ApexFileEventProducer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-public class PeeredReferenceTest {
+class PeeredReferenceTest {
 
     @Test
-    public void getPeeredConsumer() {
+    void getPeeredConsumer() {
         final ApexFileEventConsumer eventConsumer = new ApexFileEventConsumer();
         final ApexFileEventProducer eventProducer = new ApexFileEventProducer();
         final EventHandlerPeeredMode peeredMode = EventHandlerPeeredMode.REQUESTOR;
@@ -43,7 +43,7 @@ public class PeeredReferenceTest {
     }
 
     @Test
-    public void getPeeredProducer() {
+    void getPeeredProducer() {
         final ApexEventConsumer eventConsumer = new ApexFileEventConsumer();
         final ApexEventProducer eventProducer = new ApexFileEventProducer();
         final EventHandlerPeeredMode peeredMode = EventHandlerPeeredMode.SYNCHRONOUS;

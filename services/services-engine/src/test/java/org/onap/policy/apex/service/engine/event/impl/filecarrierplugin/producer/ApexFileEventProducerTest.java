@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,16 +28,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperDooperCarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 
-public class ApexFileEventProducerTest {
+class ApexFileEventProducerTest {
     private final PrintStream out = System.out;
     private final Random random = new Random();
     private ApexFileEventProducer eventProducer;
@@ -47,27 +47,27 @@ public class ApexFileEventProducerTest {
     /**
      * Prepare for testing.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         eventProducer = new ApexFileEventProducer();
         parameters = new EventHandlerParameters();
         technologyParameters = new FileCarrierTechnologyParameters();
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         System.setOut(out);
     }
 
     @Test
-    public void initNullParams() {
+    void initNullParams() {
         final String name = RandomStringUtils.randomAlphabetic(5);
         assertThatThrownBy(() -> eventProducer.init(name, null))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void initParamsInvalidCarrier() {
+    void initParamsInvalidCarrier() {
         final String name = RandomStringUtils.randomAlphabetic(5);
         parameters.setCarrierTechnologyParameters(new SuperDooperCarrierTechnologyParameters());
         assertThatThrownBy(() -> eventProducer.init(name, parameters))
@@ -75,7 +75,7 @@ public class ApexFileEventProducerTest {
     }
 
     @Test
-    public void initParamsWithStandardError() {
+    void initParamsWithStandardError() {
         final String name = RandomStringUtils.randomAlphabetic(5);
         technologyParameters.setStandardError(true);
 
@@ -86,7 +86,7 @@ public class ApexFileEventProducerTest {
     }
 
     @Test
-    public void initParamsWithStandardIo() {
+    void initParamsWithStandardIo() {
         final String name = RandomStringUtils.randomAlphabetic(5);
         technologyParameters.setStandardIo(true);
 
@@ -96,7 +96,7 @@ public class ApexFileEventProducerTest {
     }
 
     @Test
-    public void initParamsWithFileIsDirectory() {
+    void initParamsWithFileIsDirectory() {
         final String name = RandomStringUtils.randomAlphabetic(5);
         final String fileName = System.getProperty("user.dir");
 
@@ -108,24 +108,14 @@ public class ApexFileEventProducerTest {
     }
 
     @Test
-    public void initParamsWithDelay() {
-        final String name = RandomStringUtils.randomAlphabetic(5);
-        technologyParameters.setStandardIo(true);
-        parameters.setCarrierTechnologyParameters(technologyParameters);
-
-        assertThatCode(() -> eventProducer.init(name, parameters))
-            .doesNotThrowAnyException();
-    }
-
-    @Test
-    public void sendEventWrongEvent() throws ApexEventException {
+    void sendEventWrongEvent() throws ApexEventException {
         final long executionId = random.nextLong();
         final String eventName = RandomStringUtils.randomAlphanumeric(4);
         final String producerName = RandomStringUtils.randomAlphanumeric(5);
         final Object event = new Object();
 
         technologyParameters.setStandardIo(true);
-        final EventHandlerParameters parameters = new EventHandlerParameters();
+        parameters = new EventHandlerParameters();
         parameters.setCarrierTechnologyParameters(technologyParameters);
 
         ApexFileEventProducer apexFileEventProducer = new ApexFileEventProducer();
@@ -135,7 +125,7 @@ public class ApexFileEventProducerTest {
     }
 
     @Test
-    public void sendEvent() throws ApexEventException {
+    void sendEvent() throws ApexEventException {
         // Prepare output stream to read data
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -143,7 +133,7 @@ public class ApexFileEventProducerTest {
         // Prepare producer
         final String producerName = RandomStringUtils.randomAlphanumeric(5);
         technologyParameters.setStandardIo(true);
-        final EventHandlerParameters parameters = new EventHandlerParameters();
+        parameters = new EventHandlerParameters();
         parameters.setCarrierTechnologyParameters(technologyParameters);
         eventProducer.init(producerName, parameters);
 

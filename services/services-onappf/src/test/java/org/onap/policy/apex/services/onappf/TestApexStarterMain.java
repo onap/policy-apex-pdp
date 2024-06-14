@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Nordix Foundation
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
@@ -24,13 +24,13 @@ package org.onap.policy.apex.services.onappf;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeException;
@@ -39,18 +39,17 @@ import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.common.utils.services.Registry;
 
 /**
- * Class to perform unit test of {@link ApexStarterMain}}.
+ * Class to perform unit test of {@link ApexStarterMain}.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestApexStarterMain {
-    private ApexStarterMain apexStarter;
+class TestApexStarterMain {
 
     /**
      * Set up.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         Registry.newRegistry();
     }
 
@@ -59,8 +58,8 @@ public class TestApexStarterMain {
      *
      * @throws Exception if an error occurs
      */
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() throws Exception {
         // shut down activator
         final ApexStarterActivator activator =
             Registry.getOrDefault(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class, null);
@@ -70,9 +69,9 @@ public class TestApexStarterMain {
     }
 
     @Test
-    public void testApexStarter() throws ApexStarterException {
+    void testApexStarter() throws ApexStarterException {
         final String[] apexStarterConfigParameters = {"-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
-        apexStarter = new ApexStarterMain(apexStarterConfigParameters);
+        ApexStarterMain apexStarter = new ApexStarterMain(apexStarterConfigParameters);
         assertTrue(apexStarter.getParameters().isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarter.getParameters().getName());
 
@@ -84,7 +83,7 @@ public class TestApexStarterMain {
     }
 
     @Test
-    public void testApexStarter_NoArguments() {
+    void testApexStarter_NoArguments() {
         final String[] apexStarterConfigParameters = {};
         assertThatThrownBy(() -> new ApexStarterMain(apexStarterConfigParameters))
             .isInstanceOf(ApexStarterRunTimeException.class)
@@ -92,7 +91,7 @@ public class TestApexStarterMain {
     }
 
     @Test
-    public void testApexStarter_InvalidArguments() {
+    void testApexStarter_InvalidArguments() {
         final String[] apexStarterConfigParameters = {"src/test/resources/ApexStarterConfigParameters.json"};
         assertThatThrownBy(() -> new ApexStarterMain(apexStarterConfigParameters))
             .isInstanceOf(ApexStarterRunTimeException.class)
@@ -100,13 +99,13 @@ public class TestApexStarterMain {
     }
 
     @Test
-    public void testApexStarter_Help() {
+    void testApexStarter_Help() {
         final String[] apexStarterConfigParameters = {"-h"};
         assertThatCode(() -> ApexStarterMain.main(apexStarterConfigParameters)).doesNotThrowAnyException();
     }
 
     @Test
-    public void testApexStarter_InvalidParameters() {
+    void testApexStarter_InvalidParameters() {
         final String[] apexStarterConfigParameters =
             {"-c", "src/test/resources/ApexStarterConfigParameters_InvalidName.json"};
         assertThatThrownBy(() -> new ApexStarterMain(apexStarterConfigParameters))

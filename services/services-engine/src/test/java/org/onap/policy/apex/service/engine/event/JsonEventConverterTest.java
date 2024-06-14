@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2023 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ package org.onap.policy.apex.service.engine.event;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.Apex2JsonEventConverter;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
@@ -33,10 +33,10 @@ import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParame
  * Test the JSON event converter corner cases.
  *
  */
-public class JsonEventConverterTest {
-    @SuppressWarnings("deprecation")
+class JsonEventConverterTest {
+
     @Test
-    public void testJsonEventConverter() {
+    void testJsonEventConverter() {
         Apex2JsonEventConverter converter = new Apex2JsonEventConverter();
 
         assertThatThrownBy(() -> converter.init(null))
@@ -52,11 +52,11 @@ public class JsonEventConverterTest {
             .hasMessage("error converting event \"1\" to a string");
         assertThatThrownBy(() -> converter.toApexEvent(null, "[{\"aKey\": 1},{\"aKey\": 2}]"))
             .hasMessageStartingWith("Failed to unmarshal JSON event")
-            .getCause().hasMessageStartingWith("event received without mandatory parameter \"name\" "
+            .cause().hasMessageContaining("event received without mandatory parameter \"name\" "
                             + "on configuration or on event");
         assertThatThrownBy(() -> converter.toApexEvent(null, "[1,2,3]"))
             .hasMessageStartingWith("Failed to unmarshal JSON event")
-            .getCause().hasMessageStartingWith("incoming event ([1,2,3]) is a JSON object array "
+            .cause().hasMessageContaining("incoming event ([1,2,3]) is a JSON object array "
                     + "containing an invalid object 1.0");
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .hasMessage("event processing failed, Apex event is null");

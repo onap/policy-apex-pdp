@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +23,10 @@
 package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
@@ -37,37 +37,38 @@ import org.onap.policy.common.parameters.ParameterException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ExecutorParameterTests {
-    @After
-    public void resetRelativeFileRoot() {
+class ExecutorParameterTests {
+
+    @AfterEach
+    void resetRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     @Test
-    public void testNoParamsTest() throws ParameterException {
+    void testNoParamsTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorNoParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         final ApexParameters parameters = new ApexParameterHandler().getParameters(arguments);
         assertEquals(0,
-               parameters.getEngineServiceParameters().getEngineParameters().getExecutorParameterMap().size());
+            parameters.getEngineServiceParameters().getEngineParameters().getExecutorParameterMap().size());
 
     }
 
     @Test
-    public void testBadParamsTest() {
+    void testBadParamsTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
             .hasMessage("error reading parameters from "
-                    + "\"src/test/resources/parameters/serviceExecutorBadParams.json\"\n"
-                    + "(ParameterRuntimeException):value of \"executorParameters:ZOOBY\" entry is not "
-                    + "a parameter JSON object");
+                + "\"src/test/resources/parameters/serviceExecutorBadParams.json\"\n"
+                + "(ParameterRuntimeException):value of \"executorParameters:ZOOBY\" entry is not "
+                + "a parameter JSON object");
     }
 
     @Test
-    public void testNoExecutorParamsTest() {
+    void testNoExecutorParamsTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorNoExecutorParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -79,7 +80,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void testEmptyParamsTest() {
+    void testEmptyParamsTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorEmptyParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -91,7 +92,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void testBadPluginParamNameTest() {
+    void testBadPluginParamNameTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginNameParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -103,7 +104,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void testBadPluginParamObjectTest() {
+    void testBadPluginParamObjectTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginValueObjectParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -115,7 +116,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void testBadPluginParamBlankTest() {
+    void testBadPluginParamBlankTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginValueBlankParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -127,20 +128,20 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void testBadPluginParamValueTest() {
+    void testBadPluginParamValueTest() {
         final String[] args = {"-p", "src/test/resources/parameters/serviceExecutorBadPluginValueParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
-            .hasMessage("error reading parameters from"
-                + " \"src/test/resources/parameters/serviceExecutorBadPluginValueParams.json\"\n"
-                + "(ParameterRuntimeException):failed to deserialize the parameters "
+            .hasMessageContaining("error reading parameters from"
+                + " \"src/test/resources/parameters/serviceExecutorBadPluginValueParams.json\"\n")
+            .hasMessageContaining("(ParameterRuntimeException):failed to deserialize the parameters "
                 + "for \"executorParameters:LOOBY\" to parameter class \"helloworld\"\n"
                 + "java.lang.ClassNotFoundException: helloworld");
     }
 
     @Test
-    public void testGoodParametersTest() throws ParameterException {
+    void testGoodParametersTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -155,7 +156,7 @@ public class ExecutorParameterTests {
     }
 
     @Test
-    public void testRelativeParametersTest() throws ParameterException {
+    void testRelativeParametersTest() throws ParameterException {
         // @formatter:off
         final String[] args = {
             "-rfr",

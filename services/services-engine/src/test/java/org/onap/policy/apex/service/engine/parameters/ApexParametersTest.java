@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -25,13 +25,13 @@ package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
@@ -40,10 +40,10 @@ import org.onap.policy.common.parameters.ParameterException;
 /**
  * Test the ApexParameters class.
  */
-public class ApexParametersTest {
+class ApexParametersTest {
 
     @Test
-    public void testJavaPropertiesOk() throws ParameterException {
+    void testJavaPropertiesOk() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesOK.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -57,7 +57,7 @@ public class ApexParametersTest {
     }
 
     @Test
-    public void testJavaPropertiesEmpty() throws ParameterException {
+    void testJavaPropertiesEmpty() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesEmpty.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -67,7 +67,7 @@ public class ApexParametersTest {
     }
 
     @Test
-    public void testJavaPropertiesBad() throws ParameterException {
+    void testJavaPropertiesBad() {
         final String[] args = {"-p", "src/test/resources/parameters/javaPropertiesBad.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -80,7 +80,7 @@ public class ApexParametersTest {
     }
 
     @Test
-    public void testPolicyModelFromMetadata() throws ParameterException {
+    void testPolicyModelFromMetadata() throws ParameterException {
         // Policy Models provided only in metadata.
         final String[] args = {"-p", "src/test/resources/parameters/policyModelFromMetadata.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
@@ -95,7 +95,7 @@ public class ApexParametersTest {
     }
 
     @Test
-    public void testPolicyModelFromProperties() throws ParameterException {
+    void testPolicyModelFromProperties() throws ParameterException {
         // Policy models provided in properties under EngineServiceParameters for backward compatibility
         final String[] args = {"-p", "src/test/resources/parameters/policyModelFromProperties.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
@@ -110,7 +110,7 @@ public class ApexParametersTest {
     }
 
     @Test
-    public void testPolicyModelFromPropertiesAndMetadata() throws ParameterException {
+    void testPolicyModelFromPropertiesAndMetadata() throws ParameterException {
         // Policy models provided in both properties and in metadata. policyModels in metadata takes precedence
         final String[] args = {"-p", "src/test/resources/parameters/policyModelMultiple.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
@@ -125,7 +125,7 @@ public class ApexParametersTest {
     }
 
     @Test
-    public void testGettersSetters() {
+    void testGettersSetters() {
         ApexParameters pars = new ApexParameters();
         assertNotNull(pars);
 

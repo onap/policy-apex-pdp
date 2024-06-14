@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,38 +22,40 @@ package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.common.parameters.ValidationResult;
 
-public class FileCarrierTechnologyParametersTest {
+class FileCarrierTechnologyParametersTest {
+
     private final Random random = new Random();
     private static final String APEX_RELATIVE_FILE_ROOT = "APEX_RELATIVE_FILE_ROOT";
     private final String defaultApesRelativeFileRoot = System.getProperty(APEX_RELATIVE_FILE_ROOT);
     private FileCarrierTechnologyParameters parameters;
     private File tempFile;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         parameters = new FileCarrierTechnologyParameters();
     }
 
     /**
      * Cleaning after testing.
      */
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         if (tempFile != null) {
-            tempFile.delete();
+            assertTrue(tempFile.delete());
         }
         if (defaultApesRelativeFileRoot != null) {
             System.setProperty(APEX_RELATIVE_FILE_ROOT, defaultApesRelativeFileRoot);
@@ -63,7 +65,7 @@ public class FileCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void getSetFileName() {
+    void getSetFileName() {
         final String fileName = RandomStringUtils.random(10);
         parameters.setFileName(fileName);
         assertThat(parameters.getFileName())
@@ -71,86 +73,86 @@ public class FileCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void isStandardIo() {
+    void isStandardIo() {
         assertThat(parameters.isStandardIo()).isFalse();
     }
 
     @Test
-    public void isStandardError() {
+    void isStandardError() {
         assertThat(parameters.isStandardError()).isFalse();
     }
 
     @Test
-    public void isStreamingMode() {
+    void isStreamingMode() {
         assertThat(parameters.isStreamingMode()).isFalse();
     }
 
     @Test
-    public void setStandardIo() {
+    void setStandardIo() {
         final boolean standardIo = random.nextBoolean();
         parameters.setStandardIo(standardIo);
         assertThat(parameters.isStandardIo()).isEqualTo(standardIo);
     }
 
     @Test
-    public void setStandardError() {
+    void setStandardError() {
         final boolean standardError = random.nextBoolean();
         parameters.setStandardError(standardError);
         assertThat(parameters.isStandardError()).isEqualTo(standardError);
     }
 
     @Test
-    public void getStartDelay() {
+    void getStartDelay() {
         assertThat(parameters.getStartDelay()).isZero();
     }
 
     @Test
-    public void setStartDelay() {
+    void setStartDelay() {
         final long delay = random.nextInt();
         parameters.setStartDelay(delay);
         assertThat(parameters.getStartDelay()).isEqualTo(delay);
     }
 
     @Test
-    public void getLabel() {
+    void getLabel() {
         final String label = RandomStringUtils.random(10);
         parameters.setLabel(label);
         assertThat(parameters.getLabel()).isEqualTo(label);
     }
 
     @Test
-    public void setName() {
+    void setName() {
         final String name = RandomStringUtils.random(10);
         assertThatThrownBy(() -> parameters.setName(name)).isInstanceOf(ParameterRuntimeException.class);
     }
 
     @Test
-    public void getName() {
+    void getName() {
         final String label = RandomStringUtils.random(10);
         parameters.setLabel(label);
         assertThat(parameters.getName()).isEqualTo(label);
     }
 
     @Test
-    public void getStreamingMode() {
+    void getStreamingMode() {
         assertThat(parameters.isStreamingMode()).isFalse();
     }
 
     @Test
-    public void setStreamingMode() {
+    void setStreamingMode() {
         final boolean streamingMode = random.nextBoolean();
         parameters.setStreamingMode(streamingMode);
         assertThat(parameters.isStreamingMode()).isEqualTo(streamingMode);
     }
 
     @Test
-    public void validateFileNameNull() {
+    void validateFileNameNull() {
         final ValidationResult result = parameters.validate();
         assertThat(result.isValid()).isFalse();
     }
 
     @Test
-    public void validateFileNameAbsolutePath() throws IOException {
+    void validateFileNameAbsolutePath() throws IOException {
         tempFile = File.createTempFile("test_", ".tmp");
         parameters.setFileName(tempFile.getAbsolutePath());
         final ValidationResult result = parameters.validate();
@@ -158,7 +160,7 @@ public class FileCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void validateFileNameAbsolutePathNotExisting() {
+    void validateFileNameAbsolutePathNotExisting() {
         parameters.setFileName(RandomStringUtils.randomAlphabetic(5) + ".tmp");
         System.setProperty(APEX_RELATIVE_FILE_ROOT, System.getProperty("user.home"));
         final ValidationResult result = parameters.validate();
@@ -166,14 +168,14 @@ public class FileCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void validateDirectoryName() {
+    void validateDirectoryName() {
         parameters.setFileName(System.getProperty("user.dir"));
         final ValidationResult result = parameters.validate();
         assertThat(result.isValid()).isFalse();
     }
 
     @Test
-    public void validateParentNotDirectory() {
+    void validateParentNotDirectory() {
         final URL resource = FileCarrierTechnologyParameters.class
             .getResource("FileCarrierTechnologyParameters.class");
         assumeTrue(resource != null && "file".equalsIgnoreCase(resource.getProtocol()));
@@ -186,7 +188,7 @@ public class FileCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void validateParentDoesNOtExists() {
+    void validateParentDoesNOtExists() {
         final File fileParent = new File(System.getProperty("user.home"), RandomStringUtils.randomAlphabetic(6));
         final String fileName = RandomStringUtils.randomAlphabetic(5);
         final String absolutePath = new File(fileParent, fileName).getAbsolutePath();
@@ -196,27 +198,21 @@ public class FileCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void validateDirectorNoSystemVariableSet() {
-        final ValidationResult result = parameters.validate();
-        assertThat(result.isValid()).isFalse();
-    }
-
-    @Test
-    public void validateStandardIo() {
+    void validateStandardIo() {
         parameters.setStandardIo(true);
         final ValidationResult result = parameters.validate();
         assertThat(result.isValid()).isTrue();
     }
 
     @Test
-    public void validateStandardError() {
+    void validateStandardError() {
         parameters.setStandardError(true);
         final ValidationResult result = parameters.validate();
         assertThat(result.isValid()).isTrue();
     }
 
     @Test
-    public void validateNegativeDelay() {
+    void validateNegativeDelay() {
         final long delay = random.nextInt() * -1;
         parameters.setStartDelay(delay);
         final ValidationResult result = parameters.validate();

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019, 2023 Nordix Foundation.
+ *  Copyright (C) 2019, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,44 +22,39 @@
 package org.onap.policy.apex.services.onappf.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.Invocation;
-import org.junit.Ignore;
-import org.junit.Test;
+import jakarta.ws.rs.client.SyncInvoker;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 
 /**
- * Class to perform unit test of {@link ApexStarterRestServer}.
+ * Class to perform unit test of {@link HealthCheckRestControllerV1}.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestHealthCheckRestControllerV1 extends CommonApexStarterRestServer {
+class TestHealthCheckRestControllerV1 extends CommonApexStarterRestServer {
 
     private static final String HEALTHCHECK_ENDPOINT = "healthcheck";
 
-    @Ignore
     @Test
-    public void testSwagger() throws Exception {
-        super.testSwagger(HEALTHCHECK_ENDPOINT);
-    }
-
-    @Test
-    public void testHealthCheckSuccess() throws Exception {
+    void testHealthCheckSuccess() throws Exception {
         final Invocation.Builder invocationBuilder = sendRequest(HEALTHCHECK_ENDPOINT);
         final HealthCheckReport report = invocationBuilder.get(HealthCheckReport.class);
-        validateHealthCheckReport(SELF, true, 200, ALIVE, report);
+        validateHealthCheckReport(report);
 
         // verify it fails when no authorization info is included
-        checkUnauthRequest(HEALTHCHECK_ENDPOINT, req -> req.get());
+        checkUnauthorizedRequest(HEALTHCHECK_ENDPOINT, SyncInvoker::get);
     }
 
-    private void validateHealthCheckReport(final String url, final boolean healthy, final int code,
-            final String message, final HealthCheckReport report) {
+    private void validateHealthCheckReport(final HealthCheckReport report) {
         assertThat(report.getName()).isNotBlank();
-        assertEquals(url, report.getUrl());
-        assertEquals(healthy, report.isHealthy());
-        assertEquals(code, report.getCode());
-        assertEquals(message, report.getMessage());
+        assertEquals(CommonApexStarterRestServer.SELF, report.getUrl());
+        assertTrue(report.isHealthy());
+        assertEquals(200, report.getCode());
+        assertEquals(CommonApexStarterRestServer.ALIVE, report.getMessage());
     }
 }

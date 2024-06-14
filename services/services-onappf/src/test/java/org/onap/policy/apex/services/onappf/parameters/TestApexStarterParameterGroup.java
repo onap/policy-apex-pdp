@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +22,13 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.endpoints.parameters.TopicParameterGroup;
 import org.onap.policy.common.parameters.ValidationResult;
@@ -37,23 +38,23 @@ import org.onap.policy.common.parameters.ValidationResult;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestApexStarterParameterGroup {
+class TestApexStarterParameterGroup {
     CommonTestData commonTestData = new CommonTestData();
 
     @Test
-    public void testApexStarterParameterGroup_Named() {
+    void testApexStarterParameterGroup_Named() {
         final ApexStarterParameterGroup apexStarterParameters = new ApexStarterParameterGroup("my-name");
         assertEquals("my-name", apexStarterParameters.getName());
     }
 
     @Test
-    public void testApexStarterParameterGroup() {
+    void testApexStarterParameterGroup() {
         final ApexStarterParameterGroup apexStarterParameters = commonTestData.toObject(
-                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME),
-                ApexStarterParameterGroup.class);
+            commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME),
+            ApexStarterParameterGroup.class);
         final RestServerParameters restServerParameters = apexStarterParameters.getRestServerParameters();
         final PdpStatusParameters pdpStatusParameters = apexStarterParameters.getPdpStatusParameters();
-        final TopicParameterGroup topicParameterGroup  = apexStarterParameters.getTopicParameterGroup();
+        final TopicParameterGroup topicParameterGroup = apexStarterParameters.getTopicParameterGroup();
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(CommonTestData.APEX_STARTER_GROUP_NAME, apexStarterParameters.getName());
@@ -72,19 +73,19 @@ public class TestApexStarterParameterGroup {
     }
 
     @Test
-    public void testApexStarterParameterGroup_NullName() {
+    void testApexStarterParameterGroup_NullName() {
         final ApexStarterParameterGroup apexStarterParameters = commonTestData
-                .toObject(commonTestData.getApexStarterParameterGroupMap(null), ApexStarterParameterGroup.class);
+            .toObject(commonTestData.getApexStarterParameterGroupMap(null), ApexStarterParameterGroup.class);
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertFalse(validationResult.isValid());
-        assertEquals(null, apexStarterParameters.getName());
+        assertNull(apexStarterParameters.getName());
         assertTrue(validationResult.getResult().contains("is null"));
     }
 
     @Test
-    public void testApexStarterParameterGroup_EmptyName() {
+    void testApexStarterParameterGroup_EmptyName() {
         final ApexStarterParameterGroup apexStarterParameters = commonTestData
-                .toObject(commonTestData.getApexStarterParameterGroupMap(""), ApexStarterParameterGroup.class);
+            .toObject(commonTestData.getApexStarterParameterGroupMap(""), ApexStarterParameterGroup.class);
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertThat(validationResult.getResult()).contains("\"name\" value \"\" INVALID, is blank");
         assertFalse(validationResult.isValid());
@@ -92,10 +93,10 @@ public class TestApexStarterParameterGroup {
     }
 
     @Test
-    public void testApexStarterParameterGroup_SetName() {
+    void testApexStarterParameterGroup_SetName() {
         final ApexStarterParameterGroup apexStarterParameters = commonTestData.toObject(
-                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME),
-                ApexStarterParameterGroup.class);
+            commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME),
+            ApexStarterParameterGroup.class);
         apexStarterParameters.setName("ApexStarterNewGroup");
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertTrue(validationResult.isValid());
@@ -103,26 +104,26 @@ public class TestApexStarterParameterGroup {
     }
 
     @Test
-    public void testApexStarterParameterGroup_EmptyPdpStatusParameters() {
+    void testApexStarterParameterGroup_EmptyPdpStatusParameters() {
         final Map<String, Object> map =
-                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
+            commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
         map.put("pdpStatusParameters", commonTestData.getPdpStatusParametersMap(true));
         final ApexStarterParameterGroup apexStarterParameters =
-                commonTestData.toObject(map, ApexStarterParameterGroup.class);
+            commonTestData.toObject(map, ApexStarterParameterGroup.class);
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertThat(validationResult.getResult())
-                .contains("\"ApexStarterParameterGroup\" INVALID, item has status INVALID");
+            .contains("\"ApexStarterParameterGroup\" INVALID, item has status INVALID");
         assertFalse(validationResult.isValid());
     }
 
     @Test
-    public void testApexStarterParameterGroupp_EmptyRestServerParameters() {
+    void testApexStarterParameterGroupp_EmptyRestServerParameters() {
         final Map<String, Object> map =
-                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
+            commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
         map.put("restServerParameters", commonTestData.getRestServerParametersMap(true));
 
         final ApexStarterParameterGroup apexStarterParameters =
-                commonTestData.toObject(map, ApexStarterParameterGroup.class);
+            commonTestData.toObject(map, ApexStarterParameterGroup.class);
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertThat(validationResult.getResult()).contains("\"RestServerParameters\" INVALID, item has status INVALID");
         assertFalse(validationResult.isValid());
@@ -130,13 +131,13 @@ public class TestApexStarterParameterGroup {
 
 
     @Test
-    public void testApexStarterParameterGroupp_EmptyTopicParameters() {
+    void testApexStarterParameterGroup_EmptyTopicParameters() {
         final Map<String, Object> map =
-                commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
+            commonTestData.getApexStarterParameterGroupMap(CommonTestData.APEX_STARTER_GROUP_NAME);
         map.put("topicParameterGroup", commonTestData.getTopicParametersMap(true));
 
         final ApexStarterParameterGroup apexStarterParameters =
-                commonTestData.toObject(map, ApexStarterParameterGroup.class);
+            commonTestData.toObject(map, ApexStarterParameterGroup.class);
         final ValidationResult validationResult = apexStarterParameters.validate();
         assertThat(validationResult.getResult()).contains("\"TopicParameterGroup\" INVALID, item has status INVALID");
         assertFalse(validationResult.isValid());

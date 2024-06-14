@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,13 +22,13 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationResult;
 
 /**
@@ -36,13 +36,13 @@ import org.onap.policy.common.parameters.ValidationResult;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestPdpStatusParameters {
-    private static CommonTestData testData = new CommonTestData();
+class TestPdpStatusParameters {
+    private static final CommonTestData testData = new CommonTestData();
 
     @Test
-    public void test() throws Exception {
+    void test() {
         final PdpStatusParameters pdpStatusParameters =
-                testData.toObject(testData.getPdpStatusParametersMap(false), PdpStatusParameters.class);
+            testData.toObject(testData.getPdpStatusParametersMap(false), PdpStatusParameters.class);
         final ValidationResult validationResult = pdpStatusParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(CommonTestData.TIME_INTERVAL, pdpStatusParameters.getTimeIntervalMs());
@@ -53,31 +53,31 @@ public class TestPdpStatusParameters {
     }
 
     @Test
-    public void testValidate() throws Exception {
+    void testValidate() {
         final PdpStatusParameters pdpStatusParameters =
-                testData.toObject(testData.getPdpStatusParametersMap(false), PdpStatusParameters.class);
+            testData.toObject(testData.getPdpStatusParametersMap(false), PdpStatusParameters.class);
         final ValidationResult result = pdpStatusParameters.validate();
         assertNull(result.getResult());
         assertTrue(result.isValid());
     }
 
     @Test
-    public void testPdpStatusParameters_nullPdpGroup() throws Exception {
+    void testPdpStatusParameters_nullPdpGroup() {
         Map<String, Object> pdpStatusParametersMap = testData.getPdpStatusParametersMap(false);
         pdpStatusParametersMap.remove("pdpGroup");
         final PdpStatusParameters pdpStatusParameters =
-                testData.toObject(pdpStatusParametersMap, PdpStatusParameters.class);
+            testData.toObject(pdpStatusParametersMap, PdpStatusParameters.class);
         final ValidationResult validationResult = pdpStatusParameters.validate();
         assertFalse(validationResult.isValid());
         assertThat(validationResult.getResult()).contains("\"pdpGroup\" value \"null\" INVALID");
     }
 
     @Test
-    public void testPdpStatusParameters_emptyPdpGroup() throws Exception {
+    void testPdpStatusParameters_emptyPdpGroup() {
         Map<String, Object> pdpStatusParametersMap = testData.getPdpStatusParametersMap(false);
         pdpStatusParametersMap.put("pdpGroup", "");
         final PdpStatusParameters pdpStatusParameters =
-                testData.toObject(pdpStatusParametersMap, PdpStatusParameters.class);
+            testData.toObject(pdpStatusParametersMap, PdpStatusParameters.class);
         final ValidationResult validationResult = pdpStatusParameters.validate();
         assertFalse(validationResult.isValid());
         assertThat(validationResult.getResult()).contains("\"pdpGroup\" value \"\" INVALID");

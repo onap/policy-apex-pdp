@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019,2023 Nordix Foundation.
+ *  Copyright (C) 2019, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,16 +24,17 @@ package org.onap.policy.apex.services.onappf;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.lang.reflect.Constructor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class to perform unit test of {@link ApexStarterConstants}}.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestApexStarterConstants {
+class TestApexStarterConstants {
+
     @Test
-    public void test() throws Exception {
+    void test() {
         // verify that constructor does not throw an exception
         assertThatCode(() -> {
             Constructor<ApexStarterConstants> c = ApexStarterConstants.class.getDeclaredConstructor();

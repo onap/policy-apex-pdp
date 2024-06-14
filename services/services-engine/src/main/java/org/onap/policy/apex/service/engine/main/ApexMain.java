@@ -59,7 +59,7 @@ public class ApexMain {
     @Getter
     private ApexParameters apexParameters;
 
-    private ApexParameterHandler apexParameterHandler = new ApexParameterHandler();
+    private final ApexParameterHandler apexParameterHandler = new ApexParameterHandler();
 
     @Getter
     @Setter(lombok.AccessLevel.PRIVATE)

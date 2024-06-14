@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021 Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@
 package org.onap.policy.apex.services.onappf;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TestApexStarterCommandLineArguments {
+class TestApexStarterCommandLineArguments {
 
     /**
      * Test method for {@link org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments
@@ -33,7 +33,7 @@ public class TestApexStarterCommandLineArguments {
      * Assert custom option was added to options object from super.
      */
     @Test
-    public void testCommandLineHasPropertyFileOption() {
+    void testCommandLineHasPropertyFileOption() {
         String[] args = {"-p", "someFile.json"};
         ApexStarterCommandLineArguments sut = new ApexStarterCommandLineArguments(args);
         assertEquals("someFile.json", sut.getPropertyFilePath());
@@ -44,7 +44,7 @@ public class TestApexStarterCommandLineArguments {
      * Assert method consults version.txt from Apex module.
      */
     @Test
-    public void testVersion() {
+    void testVersion() {
         String[] args = {"-v"};
         ApexStarterCommandLineArguments sut = new ApexStarterCommandLineArguments(args);
         assertThat(sut.version()).startsWith("ONAP Policy Framework Apex Starter Service");

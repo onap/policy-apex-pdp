@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -25,10 +25,8 @@ package org.onap.policy.apex.services.onappf.parameters.dummyclasses;
 
 import java.util.Map;
 import java.util.Properties;
-import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.TaskExecutor;
-import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 
@@ -38,13 +36,13 @@ import org.onap.policy.apex.model.policymodel.concepts.AxTask;
 public class DummyTaskExecutor extends TaskExecutor {
 
     @Override
-    public void prepare() throws StateMachineException {
+    public void prepare() {
         // Not used
     }
 
     @Override
     public Map<String, Map<String, Object>> execute(final long executionId, final Properties executorProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+                                                    final Map<String, Object> newIncomingFields) {
 
         AxArtifactKey event0Key = new AxArtifactKey("Event0:0.0.1");
         return Map.of(event0Key.getName(), new EnEvent(event0Key));
@@ -57,7 +55,7 @@ public class DummyTaskExecutor extends TaskExecutor {
     }
 
     @Override
-    public void cleanUp() throws StateMachineException {
+    public void cleanUp() {
         // Not used
     }
 }

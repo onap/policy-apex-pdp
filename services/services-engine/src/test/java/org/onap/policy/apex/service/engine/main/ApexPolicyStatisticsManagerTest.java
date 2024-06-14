@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021 Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,27 +21,27 @@
 
 package org.onap.policy.apex.service.engine.main;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.prometheus.client.CollectorRegistry;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.resources.PrometheusUtils;
 
-public class ApexPolicyStatisticsManagerTest {
+class ApexPolicyStatisticsManagerTest {
 
     private ApexPolicyStatisticsManager statisticsManager;
 
     /**
      * Starts the statisticsManager object for tests.
      */
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         statisticsManager = new ApexPolicyStatisticsManager();
     }
 
     @Test
-    public void testUpdatePolicyDeployCounter() {
+    void testUpdatePolicyDeployCounter() {
         statisticsManager.updatePolicyDeployCounter(false);
         assertDeploys(1, 0, 1);
 
@@ -52,7 +52,7 @@ public class ApexPolicyStatisticsManagerTest {
     }
 
     @Test
-    public void testUpdatePolicyExecutedCounter() {
+    void testUpdatePolicyExecutedCounter() {
         statisticsManager.updatePolicyExecutedCounter(true);
         assertExecuted(1, 1, 0);
 
@@ -61,7 +61,7 @@ public class ApexPolicyStatisticsManagerTest {
     }
 
     @Test
-    public void testUpdatePolicyUndeployCounter() {
+    void testUpdatePolicyUndeployCounter() {
         statisticsManager.updatePolicyUndeployCounter(false);
         assertUndeploys(1, 0, 1);
 
@@ -91,11 +91,11 @@ public class ApexPolicyStatisticsManagerTest {
     private void checkDeploymentsMetrics(String operation) {
         final var defaultRegistry = CollectorRegistry.defaultRegistry;
         Double totalCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
-            new String[]{"operation", "status"}, new String[]{operation, "TOTAL"});
+            new String[] {"operation", "status"}, new String[] {operation, "TOTAL"});
         Double successCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
-            new String[]{"operation", "status"}, new String[]{operation, "SUCCESS"});
+            new String[] {"operation", "status"}, new String[] {operation, "SUCCESS"});
         Double failCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
-            new String[]{"operation", "status"}, new String[]{operation, "FAIL"});
+            new String[] {"operation", "status"}, new String[] {operation, "FAIL"});
 
         if (PrometheusUtils.DEPLOY_OPERATION.equals(operation)) {
             assertEquals(totalCount.intValue(), statisticsManager.getPolicyDeployCount());

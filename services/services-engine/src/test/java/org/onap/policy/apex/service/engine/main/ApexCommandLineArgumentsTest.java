@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,11 +24,10 @@ package org.onap.policy.apex.service.engine.main;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.cmd.CommandLineException;
 
 /**
@@ -36,14 +35,15 @@ import org.onap.policy.common.utils.cmd.CommandLineException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ApexCommandLineArgumentsTest {
-    @After
-    public void clearRelativeFileRoot() {
+class ApexCommandLineArgumentsTest {
+
+    @AfterEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     @Test
-    public void testCommandLineArguments() throws ApexException, CommandLineException {
+    void testCommandLineArguments() throws CommandLineException {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
         final String[] args01 = {"-h"};
@@ -68,74 +68,74 @@ public class ApexCommandLineArgumentsTest {
     }
 
     @Test
-    public void testCommandLineArgumentsExceptions() throws ApexException, CommandLineException {
+    void testCommandLineArgumentsExceptions() throws CommandLineException {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
         final String[] args00 = {""};
         apexArguments.parse(args00);
-        assertThatThrownBy(() -> apexArguments.validateInputFiles())
-                .hasMessage("Tosca Policy file was not specified as an argument");
+        assertThatThrownBy(apexArguments::validateInputFiles)
+            .hasMessage("Tosca Policy file was not specified as an argument");
 
         final String[] args05 = {"-a"};
         assertThatThrownBy(() -> apexArguments.parse(args05)).hasMessage("invalid command line arguments specified")
-                .hasRootCauseMessage("Unrecognized option: -a");
+            .hasRootCauseMessage("Unrecognized option: -a");
 
         final String[] args07 = {"-p", "goodbye", "-h", "aaa"};
         assertThatThrownBy(() -> apexArguments.parse(args07))
-                .hasMessage("too many command line arguments specified: [-p, goodbye, -h, aaa]");
+            .hasMessage("too many command line arguments specified: [-p, goodbye, -h, aaa]");
     }
 
     @Test
-    public void testCommandLineFileParameters() throws ApexException, CommandLineException {
+    void testCommandLineFileParameters() throws CommandLineException {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
         final String[] args02 = {"-p", "src/test/resources/parameters/goodParams.json"};
         apexArguments.parse(args02);
-        assertThatCode(() -> apexArguments.validateInputFiles()).doesNotThrowAnyException();
+        assertThatCode(apexArguments::validateInputFiles).doesNotThrowAnyException();
     }
 
     @Test
-    public void testCommandLineFileParametersExceptions() throws ApexException, CommandLineException {
+    void testCommandLineFileParametersExceptions() {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
         final String[] args00 = {"-c", "zooby"};
         assertThatThrownBy(() -> apexArguments.parse(args00)).hasMessage("invalid command line arguments specified")
-                .hasRootCauseMessage("Unrecognized option: -c");
+            .hasRootCauseMessage("Unrecognized option: -c");
 
         final String[] args01 = {"-p"};
         assertThatThrownBy(() -> apexArguments.parse(args01)).hasMessage("invalid command line arguments specified")
-                .hasRootCauseMessage("Missing argument for option: p");
+            .hasRootCauseMessage("Missing argument for option: p");
 
         final String[] args03 = {"-p", "src/test/resources/parameters/goodParams.json", "-m", "zooby"};
         assertThatThrownBy(() -> apexArguments.parse(args03)).hasMessage("invalid command line arguments specified")
-                .hasRootCauseMessage("Unrecognized option: -m");
+            .hasRootCauseMessage("Unrecognized option: -m");
     }
 
     @Test
-    public void testCommandLineRelativeRootParameters() throws ApexException, CommandLineException {
+    void testCommandLineRelativeRootParameters() throws CommandLineException {
         final ApexCommandLineArguments apexArguments = new ApexCommandLineArguments();
 
         final String[] args00 = {"-p", "src/test/resources/parameters/goodParams.json", "-rfr", "zooby"};
         apexArguments.parse(args00);
-        assertThatThrownBy(() -> apexArguments.validateInputFiles())
-                .hasMessageContaining("zooby\" does not exist or is not a directory");
+        assertThatThrownBy(apexArguments::validateInputFiles)
+            .hasMessageContaining("zooby\" does not exist or is not a directory");
 
         final String[] args01 = {"-rfr"};
         assertThatThrownBy(() -> apexArguments.parse(args01)).hasMessage("invalid command line arguments specified")
-                .hasRootCauseMessage("Missing argument for option: rfr");
+            .hasRootCauseMessage("Missing argument for option: rfr");
 
         final String[] args02 = {"-p", "src/test/resources/parameters/goodParams.json", "-rfr", "pom.xml"};
         apexArguments.parse(args02);
-        assertThatThrownBy(() -> apexArguments.validateInputFiles())
-                .hasMessageContaining("pom.xml\" does not exist or is not a directory");
+        assertThatThrownBy(apexArguments::validateInputFiles)
+            .hasMessageContaining("pom.xml\" does not exist or is not a directory");
 
         final String[] args03 = {"-p", "src/test/resources/parameters/goodParams.json", "-rfr", "target"};
         apexArguments.parse(args03);
-        assertThatCode(() -> apexArguments.validateInputFiles()).doesNotThrowAnyException();
+        assertThatCode(apexArguments::validateInputFiles).doesNotThrowAnyException();
 
         final String[] args04 = {"-p", "parameters/goodParamsRelative.json", "-rfr", "src/test/resources"};
         apexArguments.parse(args04);
-        assertThatCode(() -> apexArguments.validateInputFiles()).doesNotThrowAnyException();
+        assertThatCode(apexArguments::validateInputFiles).doesNotThrowAnyException();
 
     }
 }

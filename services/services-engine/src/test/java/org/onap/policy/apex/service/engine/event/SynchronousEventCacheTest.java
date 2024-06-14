@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,25 +25,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.util.Random;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.impl.eventrequestor.EventRequestorConsumer;
 import org.onap.policy.apex.service.engine.event.impl.eventrequestor.EventRequestorProducer;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-public class SynchronousEventCacheTest {
+class SynchronousEventCacheTest {
+
     private final Random random = new Random();
     private ApexEventConsumer consumer;
     private ApexEventProducer producer;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         consumer = new EventRequestorConsumer();
         producer = new EventRequestorProducer();
     }
 
     @Test
-    public void removedCachedFromApexNotExists() {
+    void removedCachedFromApexNotExists() {
         int timeout = random.nextInt(100);
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
@@ -54,7 +55,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void removeCachedFromApex() {
+    void removeCachedFromApex() {
         int timeout = random.nextInt(100);
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
@@ -67,7 +68,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void removedCachedToApexNotExists() {
+    void removedCachedToApexNotExists() {
         int timeout = random.nextInt(100);
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
@@ -78,7 +79,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void removeCachedToApex() {
+    void removeCachedToApex() {
         int timeout = random.nextInt(100);
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
@@ -91,7 +92,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void apexExistsFromApexNo() {
+    void apexExistsFromApexNo() {
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
             new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, 0);
@@ -101,7 +102,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void apexExistsFromApexYes() {
+    void apexExistsFromApexYes() {
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
             new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, 0);
@@ -112,7 +113,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void apexExistsToApexNo() {
+    void apexExistsToApexNo() {
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
             new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, 0);
@@ -122,7 +123,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void apexExistsToApexYes() {
+    void apexExistsToApexYes() {
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
             new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, 0);
@@ -133,7 +134,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void addEventsFromApexDuplicatedExecutionId() {
+    void addEventsFromApexDuplicatedExecutionId() {
         int timeout = random.nextInt(100);
         int executionId = random.nextInt();
         final SynchronousEventCache cache =
@@ -144,11 +145,11 @@ public class SynchronousEventCacheTest {
 
         final var obj2 = new Object();
         assertThatCode(() -> cache.cacheSynchronizedEventFromApex(executionId, obj2))
-                        .isInstanceOf(ApexEventRuntimeException.class);
+            .isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
-    public void stop() {
+    void stop() {
         int timeout = random.nextInt(100);
         final SynchronousEventCache cache =
             new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, timeout);
@@ -157,7 +158,7 @@ public class SynchronousEventCacheTest {
     }
 
     @Test
-    public void stopNotEmpty() {
+    void stopNotEmpty() {
         final SynchronousEventCache cache =
             new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, producer, 2000);
         assertThatCode(() -> {

@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,23 @@
 
 package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationResult;
 
-public class EventRequestorCarrierTechnologyParametersTest {
+class EventRequestorCarrierTechnologyParametersTest {
 
     @Test
-    public void getName() {
+    void getName() {
         final EventRequestorCarrierTechnologyParameters parameters = new EventRequestorCarrierTechnologyParameters();
         final String actual = parameters.getName();
         assertEquals(EventRequestorCarrierTechnologyParameters.EVENT_REQUESTOR_CARRIER_TECHNOLOGY_LABEL, actual);
     }
 
     @Test
-    public void validate() {
+    void validate() {
         final EventRequestorCarrierTechnologyParameters parameters = new EventRequestorCarrierTechnologyParameters();
         final ValidationResult actual = parameters.validate();
         assertNotNull(actual);

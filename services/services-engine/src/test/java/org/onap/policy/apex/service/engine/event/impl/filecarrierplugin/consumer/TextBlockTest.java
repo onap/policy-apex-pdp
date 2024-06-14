@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,17 +19,17 @@
 
 package org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TextBlockTest {
+class TextBlockTest {
     private final Random random = new Random();
 
     @Test
-    public void isEndOfText() {
+    void isEndOfText() {
         final boolean endOfText = random.nextBoolean();
         final TextBlock textBlock = new TextBlock(endOfText, null);
 
@@ -37,7 +37,7 @@ public class TextBlockTest {
     }
 
     @Test
-    public void getText() {
+    void getText() {
         final boolean endOfText = random.nextBoolean();
         final String text = RandomStringUtils.randomAlphanumeric(8);
         final TextBlock textBlock = new TextBlock(endOfText, text);
@@ -46,7 +46,7 @@ public class TextBlockTest {
     }
 
     @Test
-    public void setText() {
+    void setText() {
         final boolean endOfText = random.nextBoolean();
         final String text = RandomStringUtils.randomAlphanumeric(8);
         final TextBlock textBlock = new TextBlock(endOfText, null);

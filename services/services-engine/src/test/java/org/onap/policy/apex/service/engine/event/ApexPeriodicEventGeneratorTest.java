@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,16 @@
 package org.onap.policy.apex.service.engine.event;
 
 import java.util.Random;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.onap.policy.apex.service.engine.runtime.EngineServiceEventInterface;
 
-public class ApexPeriodicEventGeneratorTest {
+class ApexPeriodicEventGeneratorTest {
     private final Random random = new Random();
 
     @Test
-    public void run() throws ApexEventException {
+    void run() {
 
         final EngineServiceEventInterface engineServiceEventInterface = Mockito.mock(EngineServiceEventInterface.class);
         // don't want the timer to fire, so make it wait at least two seconds
