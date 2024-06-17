@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2024 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -44,6 +45,5 @@
         <module>plugins-context-schema</module>
         <module>plugins-context-distribution</module>
         <module>plugins-context-locking</module>
-        <module>plugins-context-persistence</module>
     </modules>
 </project>

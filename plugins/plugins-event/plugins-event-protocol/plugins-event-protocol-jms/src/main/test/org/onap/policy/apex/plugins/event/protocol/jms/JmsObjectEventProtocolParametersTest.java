@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021 Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,15 @@
 
 package org.onap.policy.apex.plugins.event.protocol.jms;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 
-import org.junit.Test;
-
-public class JmsObjectEventProtocolParametersTest {
+class JmsObjectEventProtocolParametersTest {
 
     @Test
-    public void getIncomingEventVersion() {
+    void getIncomingEventVersion() {
         final JmsObjectEventProtocolParameters jmsObjectEventProtocolParameters =
             new JmsObjectEventProtocolParameters();
         final String actual = jmsObjectEventProtocolParameters.getIncomingEventVersion();
@@ -36,7 +36,7 @@ public class JmsObjectEventProtocolParametersTest {
     }
 
     @Test
-    public void getIncomingEventSource() {
+    void getIncomingEventSource() {
         final JmsObjectEventProtocolParameters jmsObjectEventProtocolParameters =
             new JmsObjectEventProtocolParameters();
         final String actual = jmsObjectEventProtocolParameters.getIncomingEventSource();
@@ -44,7 +44,7 @@ public class JmsObjectEventProtocolParametersTest {
     }
 
     @Test
-    public void getIncomingEventTarget() {
+    void getIncomingEventTarget() {
         final JmsObjectEventProtocolParameters jmsObjectEventProtocolParameters =
             new JmsObjectEventProtocolParameters();
         final String actual = jmsObjectEventProtocolParameters.getIncomingEventTarget();

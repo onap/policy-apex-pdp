@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021 Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,14 @@
 package org.onap.policy.apex.plugins.event.protocol.jms;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -45,40 +44,41 @@ import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.common.parameters.ParameterService;
 
-public class Apex2JmsTextEventConverterTest {
+class Apex2JmsTextEventConverterTest {
     private Apex2JmsTextEventConverter converter;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         converter = new Apex2JmsTextEventConverter();
         ModelService.registerModel(AxContextSchemas.class, new AxContextSchemas());
         ModelService.registerModel(AxEvents.class, new AxEvents());
         ParameterService.register(new SchemaParameters());
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         ModelService.deregisterModel(AxContextSchema.class);
         ModelService.deregisterModel(AxEvents.class);
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
     @Test
-    public void toApexEventNull() {
+    void toApexEventNull() {
         final String eventName = RandomStringUtils.randomAlphabetic(4);
         assertThatThrownBy(() -> converter.toApexEvent(eventName, null))
             .isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
-    public void toApexEventObject() {
+    void toApexEventObject() {
         final String eventName = RandomStringUtils.randomAlphabetic(4);
-        assertThatThrownBy(() -> converter.toApexEvent(eventName, new Object()))
-            .isInstanceOf(ApexEventRuntimeException.class);
+        var object = new Object();
+        assertThatThrownBy(() -> converter.toApexEvent(eventName, object)).isInstanceOf(
+            ApexEventRuntimeException.class);
     }
 
     @Test
-    public void toApexEventJsonString() throws ApexEventException {
+    void toApexEventJsonString() throws ApexEventException {
         final String eventName = RandomStringUtils.randomAlphabetic(4);
         final String eventVersion = "0.0.1";
         final String source = RandomStringUtils.randomAlphabetic(5);
@@ -113,12 +113,12 @@ public class Apex2JmsTextEventConverterTest {
     }
 
     @Test
-    public void fromApexNull() {
+    void fromApexNull() {
         assertThatThrownBy(() -> converter.fromApexEvent(null)).isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void fromApex() throws ApexEventException {
+    void fromApex() throws ApexEventException {
         final String name = RandomStringUtils.randomAlphabetic(4);
         final String version = "0.2.3";
         final String nameSpace = "a.name.space";

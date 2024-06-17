@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019,2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,32 +22,31 @@
 
 package org.onap.policy.apex.plugins.event.carrier.jms;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Properties;
 import javax.naming.Context;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.common.parameters.ValidationResult;
 
-public class JmsCarrierTechnologyParametersTest {
+class JmsCarrierTechnologyParametersTest {
 
     JmsCarrierTechnologyParameters jmsCarrierTechnologyParameters = null;
-    Properties jmsProducerProperties = null;
-    Properties jmsConsumerProperties = null;
     ValidationResult result = null;
 
-    public static final String JMS_CARRIER_TECHNOLOGY_LABEL = "JMS";
+    static final String JMS_CARRIER_TECHNOLOGY_LABEL = "JMS";
 
-    public static final String JMS_EVENT_PRODUCER_PLUGIN_CLASS = ApexJmsProducer.class.getName();
+    static final String JMS_EVENT_PRODUCER_PLUGIN_CLASS = ApexJmsProducer.class.getName();
 
-    public static final String JMS_EVENT_CONSUMER_PLUGIN_CLASS = ApexJmsConsumer.class.getName();
+    static final String JMS_EVENT_CONSUMER_PLUGIN_CLASS = ApexJmsConsumer.class.getName();
 
     private static final String DEFAULT_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
     private static final String DEFAULT_INITIAL_CTXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
@@ -61,13 +60,13 @@ public class JmsCarrierTechnologyParametersTest {
      *
      * @throws Exception on test set up errors.
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
     }
 
     @Test
-    public void testValidate() {
+    void testValidate() {
         result = jmsCarrierTechnologyParameters.validate();
         assertNotNull(result);
         assertFalse(result.getStatus().isValid());
@@ -82,12 +81,12 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testJmsCarrierTechnologyParameters() {
+    void testJmsCarrierTechnologyParameters() {
         assertNotNull(jmsCarrierTechnologyParameters);
     }
 
     @Test
-    public void testGetJmsProducerProperties() {
+    void testGetJmsProducerProperties() {
         Properties producerProperties = jmsCarrierTechnologyParameters.getJmsProducerProperties();
         assertNotNull(producerProperties);
 
@@ -117,7 +116,7 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testGetJmsConsumerProperties() {
+    void testGetJmsConsumerProperties() {
         Properties consumerProperties = jmsCarrierTechnologyParameters.getJmsConsumerProperties();
         assertNotNull(consumerProperties);
         assertNull(consumerProperties.get(Context.SECURITY_CREDENTIALS));
@@ -128,24 +127,24 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testEqualityOfJmsConsumerAndProducerProperties() {
+    void testEqualityOfJmsConsumerAndProducerProperties() {
         assertEquals(jmsCarrierTechnologyParameters.getJmsProducerProperties(),
-                jmsCarrierTechnologyParameters.getJmsConsumerProperties());
+            jmsCarrierTechnologyParameters.getJmsConsumerProperties());
     }
 
     @Test
-    public void testGetConnectionFactory() {
+    void testGetConnectionFactory() {
         assertEquals(DEFAULT_CONNECTION_FACTORY, jmsCarrierTechnologyParameters.getConnectionFactory());
     }
 
     @Test
-    public void testSetConnectionFactory() {
+    void testSetConnectionFactory() {
         jmsCarrierTechnologyParameters.setConnectionFactory("QueueConnectionFactory");
         assertNotEquals(DEFAULT_CONNECTION_FACTORY, jmsCarrierTechnologyParameters.getConnectionFactory());
     }
 
     @Test
-    public void testSetConsumerTopic() {
+    void testSetConsumerTopic() {
         assertEquals(DEFAULT_CONSUMER_TOPIC, jmsCarrierTechnologyParameters.getConsumerTopic());
         jmsCarrierTechnologyParameters.setConsumerTopic(null);
         result = jmsCarrierTechnologyParameters.validate();
@@ -153,28 +152,28 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testSetConsumerWaitTime() {
+    void testSetConsumerWaitTime() {
         assertEquals(DEFAULT_CONSUMER_WAIT_TIME, jmsCarrierTechnologyParameters.getConsumerWaitTime());
         jmsCarrierTechnologyParameters.setConsumerWaitTime(-1);
         assertNotEquals(DEFAULT_CONSUMER_WAIT_TIME, jmsCarrierTechnologyParameters.getConsumerWaitTime());
     }
 
     @Test
-    public void testSetEventConsumerPluginClass() {
+    void testSetEventConsumerPluginClass() {
         assertEquals(JMS_EVENT_CONSUMER_PLUGIN_CLASS, jmsCarrierTechnologyParameters.getEventConsumerPluginClass());
         jmsCarrierTechnologyParameters.setEventConsumerPluginClass("TestEventConsumerPluginClass");
         assertNotEquals(JMS_EVENT_CONSUMER_PLUGIN_CLASS, jmsCarrierTechnologyParameters.getEventConsumerPluginClass());
     }
 
     @Test
-    public void testSetEventProducerPluginClass() {
+    void testSetEventProducerPluginClass() {
         assertEquals(JMS_EVENT_PRODUCER_PLUGIN_CLASS, jmsCarrierTechnologyParameters.getEventProducerPluginClass());
         jmsCarrierTechnologyParameters.setEventProducerPluginClass("TestEventProducerPluginClass");
         assertNotEquals(JMS_EVENT_PRODUCER_PLUGIN_CLASS, jmsCarrierTechnologyParameters.getEventProducerPluginClass());
     }
 
     @Test
-    public void testSetLabel() {
+    void testSetLabel() {
         assertEquals(JMS_CARRIER_TECHNOLOGY_LABEL, jmsCarrierTechnologyParameters.getLabel());
         jmsCarrierTechnologyParameters.setLabel("TestLable");
         assertNotEquals(JMS_CARRIER_TECHNOLOGY_LABEL, jmsCarrierTechnologyParameters.getLabel());
@@ -182,14 +181,14 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testSetObjectMessageSending() {
+    void testSetObjectMessageSending() {
         assertTrue(jmsCarrierTechnologyParameters.isObjectMessageSending());
         jmsCarrierTechnologyParameters.setObjectMessageSending(!DEFAULT_TO_OBJECT_MSG_SENDING);
         assertFalse(jmsCarrierTechnologyParameters.isObjectMessageSending());
     }
 
     @Test
-    public void testSetProducerTopic() {
+    void testSetProducerTopic() {
         assertEquals(DEFAULT_PRODUCER_TOPIC, jmsCarrierTechnologyParameters.getProducerTopic());
         jmsCarrierTechnologyParameters.setProducerTopic("");
         result = jmsCarrierTechnologyParameters.validate();
@@ -197,7 +196,7 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testSetProviderUrl() {
+    void testSetProviderUrl() {
         assertNull(jmsCarrierTechnologyParameters.getProviderUrl());
         jmsCarrierTechnologyParameters.setProviderUrl(null);
         result = jmsCarrierTechnologyParameters.validate();
@@ -205,7 +204,7 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testSetSecurityCredentials() {
+    void testSetSecurityCredentials() {
         assertNull(jmsCarrierTechnologyParameters.getSecurityCredentials());
         jmsCarrierTechnologyParameters.setSecurityCredentials("");
         result = jmsCarrierTechnologyParameters.validate();
@@ -213,7 +212,7 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testSetSecurityPrincipal() {
+    void testSetSecurityPrincipal() {
         assertNull(jmsCarrierTechnologyParameters.getSecurityPrincipal());
         jmsCarrierTechnologyParameters.setSecurityPrincipal(null);
         result = jmsCarrierTechnologyParameters.validate();
@@ -221,7 +220,7 @@ public class JmsCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testSetInitialContextFactory() {
+    void testSetInitialContextFactory() {
 
         assertEquals(DEFAULT_INITIAL_CTXT_FACTORY, jmsCarrierTechnologyParameters.getInitialContextFactory());
 
@@ -233,8 +232,8 @@ public class JmsCarrierTechnologyParametersTest {
         assertNotEquals(DEFAULT_INITIAL_CTXT_FACTORY, jmsCarrierTechnologyParameters.getInitialContextFactory());
     }
 
-    @Test(expected = ParameterRuntimeException.class)
-    public void testSetName() {
-        jmsCarrierTechnologyParameters.setName("TestName");
+    @Test
+    void testSetName() {
+        assertThrows(ParameterRuntimeException.class, () -> jmsCarrierTechnologyParameters.setName("TestName"));
     }
 }

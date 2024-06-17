@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +21,14 @@
 package org.onap.policy.apex.plugins.executor.jruby;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.lang.reflect.Field;
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -46,14 +45,13 @@ import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * Test the JrubyTaskSelectExecutor class.
- *
  */
-public class JrubyTaskSelectExecutorTest {
+class JrubyTaskSelectExecutorTest {
     /**
      * Initiate Parameters.
      */
-    @Before
-    public void initiateParameters() {
+    @BeforeEach
+    void initiateParameters() {
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
         ParameterService.register(new PersistorParameters());
@@ -62,15 +60,15 @@ public class JrubyTaskSelectExecutorTest {
     /**
      * Clear Parameters.
      */
-    @After
-    public void clearParameters() {
+    @AfterEach
+    void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
     }
 
     @Test
-    public void testJrubyTaskSelectExecutor() throws StateMachineException, ContextException,
+    void testJrubyTaskSelectExecutor() throws StateMachineException, ContextException,
         NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         JrubyTaskSelectExecutor jtse = new JrubyTaskSelectExecutor();
         assertNotNull(jtse);
@@ -93,8 +91,12 @@ public class JrubyTaskSelectExecutorTest {
         EnEvent event = new EnEvent(axEvent);
         assertThatThrownBy(() -> jtse.execute(-1, new Properties(), event))
             .hasMessage("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
-        final String jrubyLogic =
-                "if executor.executionId == -1" + "\n return false" + "\n else " + "\n return true" + "\n end";
+        final String jrubyLogic = """
+            if executor.executionId == -1
+             return false
+            else
+             return true
+            end""";
         state.getTaskSelectionLogic().setLogic(jrubyLogic);
 
         jtse.prepare();

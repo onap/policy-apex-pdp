@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,20 @@
 
 package org.onap.policy.apex.plugins.executor.jruby;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the JrubyExecutorParameters class.
  */
-public class JrubyExecutorParametersTest {
+class JrubyExecutorParametersTest {
     @Test
-    public void testJrubyExecutorParameters() {
-        assertNotNull(new JrubyExecutorParameters());
+    void testJrubyExecutorParameters() {
+        var executorType = "Jruby";
+        var jrubyExecutor = new JrubyExecutorParameters();
+        assertTrue(jrubyExecutor.getTaskExecutorPluginClass().contains(executorType));
+        assertTrue(jrubyExecutor.getTaskSelectionExecutorPluginClass().contains(executorType));
+        assertTrue(jrubyExecutor.getStateFinalizerExecutorPluginClass().contains(executorType));
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,18 +22,18 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the ApexRestRequest class.
  */
-public class ApexRestRequestTest {
+class ApexRestRequestTest {
 
     @Test
-    public void testApexRestRequest() {
+    void testApexRestRequest() {
         final String eventName = "EventName";
         final String eventString = "The Event String";
 
@@ -50,6 +50,6 @@ public class ApexRestRequestTest {
         assertEquals(1234567, rr.getTimestamp());
 
         assertEquals("ApexRestRequest(executionId=1, eventName=EventName, event=The Event String, timestamp=1234567)",
-                        rr.toString());
+            rr.toString());
     }
 }

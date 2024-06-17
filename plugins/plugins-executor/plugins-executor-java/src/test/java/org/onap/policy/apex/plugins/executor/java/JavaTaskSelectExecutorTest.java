@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,13 @@
 package org.onap.policy.apex.plugins.executor.java;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -47,12 +47,12 @@ import org.onap.policy.common.parameters.ParameterService;
  * Test the JavaTaskSelectExecutor class.
  *
  */
-public class JavaTaskSelectExecutorTest {
+class JavaTaskSelectExecutorTest {
     /**
      * Initiate Parameters.
      */
-    @Before
-    public void initiateParameters() {
+    @BeforeEach
+    void initiateParameters() {
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
         ParameterService.register(new PersistorParameters());
@@ -61,22 +61,22 @@ public class JavaTaskSelectExecutorTest {
     /**
      * Clear Parameters.
      */
-    @After
-    public void clearParameters() {
+    @AfterEach
+    void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
     }
 
     @Test
-    public void testJavaTaskSelectExecutor() throws StateMachineException, ContextException {
+    void testJavaTaskSelectExecutor() throws StateMachineException, ContextException {
         JavaTaskSelectExecutor jtse = new JavaTaskSelectExecutor();
         assertNotNull(jtse);
 
         assertThatThrownBy(jtse::prepare)
             .isInstanceOf(java.lang.NullPointerException.class);
         AxState state = new AxState();
-        ApexInternalContext internalContext = null;
+        ApexInternalContext internalContext;
         internalContext = new ApexInternalContext(new AxPolicyModel());
         jtse.setContext(null, state, internalContext);
 
@@ -96,9 +96,8 @@ public class JavaTaskSelectExecutorTest {
                         .setLogic("org.onap.policy.apex.plugins.executor.java.DummyJavaTaskSelectionLogic");
 
         jtse.prepare();
-        assertThatThrownBy(() -> {
-            jtse.execute(-1, new Properties(), event);
-        }).hasMessage("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
+        assertThatThrownBy(() -> jtse.execute(-1, new Properties(), event))
+            .hasMessage("execute-post: task selection logic failed on state \"NULL:0.0.0:NULL:NULL\"");
 
         jtse.prepare();
         AxArtifactKey taskKey = jtse.execute(0, new Properties(), event);

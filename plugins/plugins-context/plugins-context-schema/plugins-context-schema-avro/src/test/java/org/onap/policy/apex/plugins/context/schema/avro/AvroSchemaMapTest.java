@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021,2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,19 @@
 package org.onap.policy.apex.plugins.context.schema.avro;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.util.Utf8;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
@@ -51,9 +52,8 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  * The Class TestAvroSchemaMap.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
  */
-public class AvroSchemaMapTest {
+class AvroSchemaMapTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
     private String longMapSchema;
@@ -65,21 +65,21 @@ public class AvroSchemaMapTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
-    public void initTest() throws IOException {
+    @BeforeEach
+    void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
         longMapSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleLong.avsc");
         addressMapSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleAddress.avsc");
         addressMapSchemaInvalidFields =
-                TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleAddressInvalidFields.avsc");
+            TextFileUtils.getTextFileAsString("src/test/resources/avsc/MapExampleAddressInvalidFields.avsc");
     }
 
     /**
      * Inits the context.
      */
-    @Before
-    public void initContext() {
+    @BeforeEach
+    void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
@@ -89,8 +89,8 @@ public class AvroSchemaMapTest {
     /**
      * Clear context.
      */
-    @After
-    public void clearContext() {
+    @AfterEach
+    void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
@@ -100,15 +100,15 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testValidSubstitutions() throws IOException {
+    void testValidSubstitutions() throws IOException {
         final String subst1 = "{\"type\":\"record\",\"name\":\"Subst1\","
-                + "\"fields\":[{\"name\": \"A_DasH_B\",\"type\":\"string\"}]}";
+            + "\"fields\":[{\"name\": \"A_DasH_B\",\"type\":\"string\"}]}";
         final AxContextSchema avroSubstSchema1 = new AxContextSchema(
-                new AxArtifactKey("AvroSubst1", "0.0.1"), "AVRO", subst1);
+            new AxArtifactKey("AvroSubst1", "0.0.1"), "AVRO", subst1);
         schemas.getSchemasMap().put(avroSubstSchema1.getKey(), avroSubstSchema1);
 
         SchemaHelper schemaHelperSubst1 = new SchemaHelperFactory()
-                .createSchemaHelper(testKey, avroSubstSchema1.getKey());
+            .createSchemaHelper(testKey, avroSubstSchema1.getKey());
         final GenericRecord subst1A = (GenericRecord) schemaHelperSubst1.unmarshal("{\"A-B\":\"foo\"}");
         assertEquals(new Utf8("foo"), subst1A.get("A_DasH_B"));
         assertThatThrownBy(() -> subst1A.get("A-B")).hasMessage("Not a valid schema field: A-B");
@@ -119,13 +119,13 @@ public class AvroSchemaMapTest {
         assertEquals("Expected string. Got VALUE_NUMBER_INT", exception1.getCause().getMessage());
 
         final String subst2 = "{\"type\":\"record\",\"name\":\"Subst2\","
-                + "\"fields\":[{\"name\": \"C_DoT_D\",\"type\":\"int\"}]}";
+            + "\"fields\":[{\"name\": \"C_DoT_D\",\"type\":\"int\"}]}";
         final AxContextSchema avroSubstSchema2 = new AxContextSchema(
-                new AxArtifactKey("AvroSubst2", "0.0.1"), "AVRO", subst2);
+            new AxArtifactKey("AvroSubst2", "0.0.1"), "AVRO", subst2);
         schemas.getSchemasMap().put(avroSubstSchema2.getKey(), avroSubstSchema2);
 
         final SchemaHelper schemaHelperSubst2 = new SchemaHelperFactory()
-                .createSchemaHelper(testKey, avroSubstSchema2.getKey());
+            .createSchemaHelper(testKey, avroSubstSchema2.getKey());
         final GenericRecord subst2A = (GenericRecord) schemaHelperSubst2.unmarshal("{\"C.D\":123}");
         assertEquals(123, subst2A.get("C_DoT_D"));
         assertThatThrownBy(() -> subst2A.get("C.D")).hasMessage("Not a valid schema field: C.D");
@@ -136,13 +136,13 @@ public class AvroSchemaMapTest {
         assertEquals("Expected int. Got VALUE_STRING", exception2.getCause().getMessage());
 
         final String subst3 = "{\"type\":\"record\",\"name\":\"Subst3\","
-                + "\"fields\":[{\"name\": \"E_ColoN_F\",\"type\":\"boolean\"}]}";
+            + "\"fields\":[{\"name\": \"E_ColoN_F\",\"type\":\"boolean\"}]}";
         final AxContextSchema avroSubstSchema3 = new AxContextSchema(
-                new AxArtifactKey("AvroSubst3", "0.0.1"), "AVRO", subst3);
+            new AxArtifactKey("AvroSubst3", "0.0.1"), "AVRO", subst3);
         schemas.getSchemasMap().put(avroSubstSchema3.getKey(), avroSubstSchema3);
 
         final SchemaHelper schemaHelperSubst3 = new SchemaHelperFactory()
-                .createSchemaHelper(testKey, avroSubstSchema3.getKey());
+            .createSchemaHelper(testKey, avroSubstSchema3.getKey());
         final GenericRecord subst3A = (GenericRecord) schemaHelperSubst3.unmarshal("{\"E:F\":true}");
         assertEquals(true, subst3A.get("E_ColoN_F"));
         assertThatThrownBy(() -> subst3A.get("E:F")).hasMessage("Not a valid schema field: E:F");
@@ -159,11 +159,11 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testInValidSubstitutions() throws IOException {
+    void testInValidSubstitutions() throws IOException {
         final String fail1 = "{\"type\":\"record\",\"name\":\"Fail1\","
-                + "\"fields\":[{\"name\": \"A-B\",\"type\":\"string\"}]}";
+            + "\"fields\":[{\"name\": \"A-B\",\"type\":\"string\"}]}";
         final AxContextSchema avroFailSchema1 = new AxContextSchema(
-                new AxArtifactKey("AvroFail1", "0.0.1"), "AVRO", fail1);
+            new AxArtifactKey("AvroFail1", "0.0.1"), "AVRO", fail1);
         schemas.getSchemasMap().put(avroFailSchema1.getKey(), avroFailSchema1);
 
         SchemaHelperFactory sh = new SchemaHelperFactory();
@@ -174,9 +174,9 @@ public class AvroSchemaMapTest {
         assertEquals("Illegal character in: A-B", exception1.getCause().getMessage());
 
         final String fail2 = "{\"type\":\"record\",\"name\":\"Fail2\","
-                + "\"fields\":[{\"name\": \"C.D\",\"type\":\"int\"}]}";
+            + "\"fields\":[{\"name\": \"C.D\",\"type\":\"int\"}]}";
         final AxContextSchema avroFailSchema2 = new AxContextSchema(
-                new AxArtifactKey("AvroFail2", "0.0.1"), "AVRO", fail2);
+            new AxArtifactKey("AvroFail2", "0.0.1"), "AVRO", fail2);
         schemas.getSchemasMap().put(avroFailSchema2.getKey(), avroFailSchema2);
 
         AxArtifactKey ak2 = avroFailSchema2.getKey();
@@ -186,9 +186,9 @@ public class AvroSchemaMapTest {
         assertEquals("Illegal character in: C.D", exception2.getCause().getMessage());
 
         final String fail3 = "{\"type\":\"record\",\"name\":\"Fail3\","
-                + "\"fields\":[{\"name\": \"E:F\",\"type\":\"boolean\"}]}";
+            + "\"fields\":[{\"name\": \"E:F\",\"type\":\"boolean\"}]}";
         final AxContextSchema avroFailSchema3 = new AxContextSchema(
-                new AxArtifactKey("AvroFail3", "0.0.1"), "AVRO", fail3);
+            new AxArtifactKey("AvroFail3", "0.0.1"), "AVRO", fail3);
         schemas.getSchemasMap().put(avroFailSchema3.getKey(), avroFailSchema3);
         AxArtifactKey ak3 = avroFailSchema3.getKey();
         final Throwable exception3 = assertThrows(ContextRuntimeException.class,
@@ -203,9 +203,9 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testMapInit() throws IOException {
+    void testMapInit() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", addressMapSchema);
+            new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", addressMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -217,7 +217,7 @@ public class AvroSchemaMapTest {
         final HashMap<?, ?> newMapFull = (HashMap<?, ?>) schemaHelper.createNewInstance(inString);
 
         assertEquals("{\"streetaddress\": \"221 B Baker St.\", \"city\": \"London\"}",
-                newMapFull.get(new Utf8("address2")).toString());
+            newMapFull.get(new Utf8("address2")).toString());
     }
 
     /**
@@ -226,9 +226,9 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testLongMapUnmarshalMarshal() throws IOException {
+    void testLongMapUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", longMapSchema);
+            new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", longMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -243,9 +243,9 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testAddressMapUnmarshalMarshal() throws IOException {
+    void testAddressMapUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchema);
+            new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -260,9 +260,9 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testSubRecordCreateRecord() throws IOException {
+    void testSubRecordCreateRecord() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchema);
+            new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -278,9 +278,9 @@ public class AvroSchemaMapTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testAddressMapUnmarshalMarshalInvalidFields() throws IOException {
+    void testAddressMapUnmarshalMarshalInvalidFields() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchemaInvalidFields);
+            new AxContextSchema(new AxArtifactKey("AvroMap", "0.0.1"), "AVRO", addressMapSchemaInvalidFields);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -290,7 +290,7 @@ public class AvroSchemaMapTest {
         String vals = TextFileUtils.getTextFileAsString("src/test/resources/data/MapExampleAddressInvalidFields.json");
         final HashMap<?, ?> newMapFull = (HashMap<?, ?>) schemaHelper.createNewInstance(vals);
         final String expect = "{\"street_DasH_address\": \"Wayne Manor\", \"the_DoT_city\": \"Gotham City\", "
-                + "\"the_ColoN_code\": \"BatCave7\"}";
+            + "\"the_ColoN_code\": \"BatCave7\"}";
         assertEquals(expect, newMapFull.get(new Utf8("address_DoT_3")).toString());
     }
 
@@ -298,7 +298,7 @@ public class AvroSchemaMapTest {
      * Test unmarshal marshal.
      *
      * @param schemaHelper the schema helper
-     * @param fileName the file name
+     * @param fileName     the file name
      * @throws IOException Signals that an I/O exception has occurred.
      */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {
@@ -311,7 +311,7 @@ public class AvroSchemaMapTest {
         TextFileUtils.putStringAsFile(outString, tempOutFile);
 
         final String decodeEncodeInString = TextFileUtils.getTextFileAsString(fileName);
-        tempOutFile.delete();
+        assertTrue(tempOutFile.delete());
 
         final HashMap<?, ?> secondDecodedMap = (HashMap<?, ?>) schemaHelper.unmarshal(decodeEncodeInString);
 

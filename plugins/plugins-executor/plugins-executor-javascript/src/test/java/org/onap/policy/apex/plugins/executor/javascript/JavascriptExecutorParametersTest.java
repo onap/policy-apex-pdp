@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,21 @@
 
 package org.onap.policy.apex.plugins.executor.javascript;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the JavaExecutorParameters class.
  */
-public class JavascriptExecutorParametersTest {
+class JavascriptExecutorParametersTest {
 
     @Test
-    public void testJavascriptExecutorParameters() {
-        assertNotNull(new JavascriptExecutorParameters());
+    void testJavascriptExecutorParameters() {
+        var executorType = "Javascript";
+        var javascriptExecutor = new JavascriptExecutorParameters();
+        assertTrue(javascriptExecutor.getStateFinalizerExecutorPluginClass().contains(executorType));
+        assertTrue(javascriptExecutor.getTaskExecutorPluginClass().contains(executorType));
+        assertTrue(javascriptExecutor.getTaskSelectionExecutorPluginClass().contains(executorType));
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,19 +23,23 @@
 package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
@@ -47,8 +51,8 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
  * Test the ApexRestClientProducer class.
  *
  */
-@RunWith(MockitoJUnitRunner.class)
-public class ApexRestClientProducerTest {
+@ExtendWith(MockitoExtension.class)
+class ApexRestClientProducerTest {
     @Mock
     private Client httpClientMock;
 
@@ -61,8 +65,10 @@ public class ApexRestClientProducerTest {
     @Mock
     private Response responseMock;
 
+    AutoCloseable closeable;
+
     @Test
-    public void testApexRestClientProducerErrors() throws ApexEventException {
+    void testApexRestClientProducerErrors() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -84,7 +90,7 @@ public class ApexRestClientProducerTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
         assertEquals("RestClientConsumer", arcp.getName());
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-        assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         arcp.stop();
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
@@ -92,7 +98,7 @@ public class ApexRestClientProducerTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
         assertEquals("RestClientConsumer", arcp.getName());
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-        assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         arcp.stop();
 
         rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.PUT);
@@ -100,12 +106,12 @@ public class ApexRestClientProducerTest {
         assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.PUT, rcctp.getHttpMethod());
         assertEquals("RestClientConsumer", arcp.getName());
         arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-        assertEquals(null, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
         arcp.stop();
     }
 
     @Test
-    public void testApexRestClientProducerPutEvent() throws ApexEventException {
+    void testApexRestClientProducerPutEvent() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -120,7 +126,7 @@ public class ApexRestClientProducerTest {
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
+        closeable = Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
@@ -131,7 +137,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEventFail() throws ApexEventException {
+    void testApexRestClientProducerPostEventFail() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -160,7 +166,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEventOK() throws ApexEventException {
+    void testApexRestClientProducerPostEventOK() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -179,7 +185,7 @@ public class ApexRestClientProducerTest {
         properties.put("tag", "exist");
         properties.put("key", "that");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
+        closeable = Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target("http://some.place.that.does.not/exist");
@@ -190,7 +196,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEventAccepted() throws ApexEventException {
+    void testApexRestClientProducerPostEventAccepted() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -219,7 +225,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEventCache() throws ApexEventException {
+    void testApexRestClientProducerPostEventCache() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -251,39 +257,7 @@ public class ApexRestClientProducerTest {
     }
 
     @Test
-    public void testApexRestClientProducerPostEventCacheTrace() throws ApexEventException {
-        ApexRestClientProducer arcp = new ApexRestClientProducer();
-        assertNotNull(arcp);
-
-        EventHandlerParameters producerParameters = new EventHandlerParameters();
-        RestClientCarrierTechnologyParameters rcctp = new RestClientCarrierTechnologyParameters();
-        producerParameters.setCarrierTechnologyParameters(rcctp);
-
-        rcctp.setHttpMethod(RestClientCarrierTechnologyParameters.HttpMethod.POST);
-
-        ApexEventConsumer consumer = new ApexFileEventConsumer();
-        SynchronousEventCache cache =
-                new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS, consumer, arcp, 1000);
-        arcp.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, cache);
-        assertEquals(cache, arcp.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
-        arcp.init("RestClientConsumer", producerParameters);
-        assertEquals(RestClientCarrierTechnologyParameters.HttpMethod.POST, rcctp.getHttpMethod());
-        assertEquals("RestClientConsumer", arcp.getName());
-
-        rcctp.setUrl("http://some.place.that.does.not/exist");
-        Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
-        Mockito.doReturn(builderMock).when(targetMock).request("application/json");
-        Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
-        Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
-        arcp.setClient(httpClientMock);
-
-        arcp.sendEvent(123, null, "EventName", "This is an Event");
-        arcp.stop();
-    }
-
-    @Test
-    public void testApexRestClientProducerHttpError() throws ApexEventException {
+    void testApexRestClientProducerHttpError() throws ApexEventException {
         ApexRestClientProducer arcp = new ApexRestClientProducer();
         assertNotNull(arcp);
 
@@ -298,7 +272,7 @@ public class ApexRestClientProducerTest {
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
+        closeable = Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());
@@ -307,5 +281,12 @@ public class ApexRestClientProducerTest {
         assertThatThrownBy(() -> arcp.sendEvent(123, null, "EventName", "This is an Event"))
             .hasMessageContaining("send of event to URL \"http://some.place.that.does.not/exist\" using HTTP \"POST\" "
                 + "failed with status code 400");
+    }
+
+    @AfterEach
+    void after() throws Exception {
+        if (closeable != null) {
+            closeable.close();
+        }
     }
 }

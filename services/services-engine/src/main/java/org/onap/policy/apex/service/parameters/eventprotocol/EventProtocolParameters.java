@@ -66,9 +66,9 @@ public abstract class EventProtocolParameters extends ParameterGroupImpl {
     }
 
     /**
-     * Sets the event event protocol plugin class.
+     * Sets the event protocol plugin class.
      *
-     * @param eventProtocolPluginClass the event event protocol plugin class
+     * @param eventProtocolPluginClass the event protocol plugin class
      */
     public void setEventProtocolPluginClass(final String eventProtocolPluginClass) {
         this.eventProtocolPluginClass = eventProtocolPluginClass.replaceAll("\\s+", "");

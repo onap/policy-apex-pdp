@@ -46,9 +46,9 @@ public class SupportRestRequestorEndpoint {
     private static int getMessagesReceived = 0;
     private static int deleteMessagesReceived = 0;
 
-    private static String EVENT_STRING = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.events\",\n"
-            + "\"name\": \"ResponseEvent\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_"
-            + getMessagesReceived + "\",\n" + "\"target\": \"apex\",\n" + "\"intPar\": 9080\n" + "}";
+    private static final String EVENT_STRING = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.events\",\n"
+        + "\"name\": \"ResponseEvent\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_"
+        + getMessagesReceived + "\",\n" + "\"target\": \"apex\",\n" + "\"intPar\": 9080\n" + "}";
 
     /**
      * Reset counters.
@@ -73,10 +73,10 @@ public class SupportRestRequestorEndpoint {
             statMessagesReceived++;
         }
         return Response.status(200)
-                .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
-                        + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + ",\"DELETE\": "
-                        + deleteMessagesReceived + "}")
-                .build();
+            .entity("{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
+                + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + ",\"DELETE\": "
+                + deleteMessagesReceived + "}")
+            .build();
     }
 
     /**
@@ -129,8 +129,7 @@ public class SupportRestRequestorEndpoint {
             postMessagesReceived++;
         }
 
-        @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
+        @SuppressWarnings("unchecked") final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
         assertEquals("org.onap.policy.apex.events", jsonMap.get("nameSpace"));
@@ -165,8 +164,7 @@ public class SupportRestRequestorEndpoint {
             putMessagesReceived++;
         }
 
-        @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
+        @SuppressWarnings("unchecked") final Map<String, Object> jsonMap = new Gson().fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
         assertEquals("org.onap.policy.apex.events", jsonMap.get("nameSpace"));

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,16 +23,16 @@
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Field;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationResult;
 
-public class RestServerCarrierTechnologyParametersTest {
+class RestServerCarrierTechnologyParametersTest {
 
     RestServerCarrierTechnologyParameters restServerCarrierTechnologyParameters = null;
     ValidationResult result = null;
@@ -40,28 +40,27 @@ public class RestServerCarrierTechnologyParametersTest {
     /**
      * Set up testing.
      *
-     * @throws Exception on test set up errors.
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         restServerCarrierTechnologyParameters = new RestServerCarrierTechnologyParameters();
     }
 
     @Test
-    public void testRestServerCarrierTechnologyParameters() {
+    void testRestServerCarrierTechnologyParameters() {
         assertNotNull(restServerCarrierTechnologyParameters);
         assertFalse(restServerCarrierTechnologyParameters.isStandalone());
     }
 
     @Test
-    public void testValidate() {
+    void testValidate() {
         result = restServerCarrierTechnologyParameters.validate();
         assertNotNull(result);
         assertTrue(result.isValid());
     }
 
     @Test
-    public void testValidateWithNonDefaultValues() throws NoSuchFieldException, SecurityException,
+    void testValidateWithNonDefaultValues() throws NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException {
 
         Field field = RestServerCarrierTechnologyParameters.class.getDeclaredField("standalone");
@@ -89,7 +88,7 @@ public class RestServerCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testValidateWithValidValues() throws NoSuchFieldException, SecurityException,
+    void testValidateWithValidValues() throws NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException {
 
         Field field = RestServerCarrierTechnologyParameters.class.getDeclaredField("standalone");
@@ -119,7 +118,7 @@ public class RestServerCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testValidateWithInvalidValues() throws NoSuchFieldException, SecurityException,
+    void testValidateWithInvalidValues() throws NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException {
 
         Field field = RestServerCarrierTechnologyParameters.class.getDeclaredField("standalone");

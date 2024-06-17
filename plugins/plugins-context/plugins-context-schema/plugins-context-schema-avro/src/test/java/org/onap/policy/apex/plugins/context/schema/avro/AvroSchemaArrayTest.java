@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@
 
 package org.onap.policy.apex.plugins.context.schema.avro;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import org.apache.avro.generic.GenericData.Array;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -40,14 +40,12 @@ import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchemas;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestAvroSchemaArray.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
  */
-public class AvroSchemaArrayTest {
+class AvroSchemaArrayTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
     private String longArraySchema;
@@ -58,8 +56,8 @@ public class AvroSchemaArrayTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
-    public void initTest() throws IOException {
+    @BeforeEach
+    void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
         longArraySchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/ArrayExampleLong.avsc");
@@ -69,8 +67,8 @@ public class AvroSchemaArrayTest {
     /**
      * Inits the context.
      */
-    @Before
-    public void initContext() {
+    @BeforeEach
+    void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
@@ -81,8 +79,8 @@ public class AvroSchemaArrayTest {
     /**
      * Clear context.
      */
-    @After
-    public void clearContext() {
+    @AfterEach
+    void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
@@ -92,9 +90,9 @@ public class AvroSchemaArrayTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testArrayInit() throws IOException {
+    void testArrayInit() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", addressArraySchema);
+            new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", addressArraySchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -103,10 +101,10 @@ public class AvroSchemaArrayTest {
         assertEquals(0, newArrayEmpty.size());
 
         final String inString =
-                TextFileUtils.getTextFileAsString("src/test/resources/data/ArrayExampleAddressFull.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/data/ArrayExampleAddressFull.json");
         final Array<?> newArrayFull = (Array<?>) schemaHelper.createNewInstance(inString);
         assertEquals("{\"streetaddress\": \"1600 Pennsylvania Avenue\", \"city\": \"Washington DC\"}",
-                newArrayFull.get(0).toString());
+            newArrayFull.get(0).toString());
     }
 
     /**
@@ -115,9 +113,9 @@ public class AvroSchemaArrayTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testLongArrayUnmarshalMarshal() throws IOException {
+    void testLongArrayUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", longArraySchema);
+            new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", longArraySchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -132,9 +130,9 @@ public class AvroSchemaArrayTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testAddressArrayUnmarshalMarshal() throws IOException {
+    void testAddressArrayUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", addressArraySchema);
+            new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", addressArraySchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -147,7 +145,7 @@ public class AvroSchemaArrayTest {
      * Test unmarshal marshal.
      *
      * @param schemaHelper the schema helper
-     * @param fileName the file name
+     * @param fileName     the file name
      * @throws IOException Signals that an I/O exception has occurred.
      */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {

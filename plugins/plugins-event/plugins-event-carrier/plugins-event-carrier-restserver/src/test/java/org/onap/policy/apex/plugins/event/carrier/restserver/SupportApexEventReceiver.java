@@ -27,7 +27,7 @@ import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
 
 /**
- * Support Apex event reveiver for unit test.
+ * Support Apex event receiver for unit test.
  *
  */
 @Getter

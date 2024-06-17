@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- * Copyright (C) 2020 Nordix Foundation.
+ * Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,21 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class JavascriptExecutorFullApexTest {
+class JavascriptExecutorFullApexTest {
 
     @Test
-    public void testFullApexPolicy() throws ApexException {
+    void testFullApexPolicy() throws ApexException {
         final String[] args = {"src/test/resources/prodcons/File2File.json"};
 
         final File outFile0 = new File("src/test/resources/events/EventsOut0.json");
@@ -46,19 +46,17 @@ public class JavascriptExecutorFullApexTest {
         final ApexMain apexMain = new ApexMain(args);
         assertNotNull(apexMain);
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> outFile0.exists());
-        await().atMost(10, TimeUnit.SECONDS).until(() -> outFile1.exists());
+        await().atMost(10, TimeUnit.SECONDS).until(outFile0::exists);
+        await().atMost(10, TimeUnit.SECONDS).until(outFile1::exists);
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> fileHasOccurencesOf(outFile0, "BasicEventOut0", 50));
-        await().atMost(10, TimeUnit.SECONDS).until(() -> fileHasOccurencesOf(outFile1, "BasicEventOut1", 50));
+        await().atMost(10, TimeUnit.SECONDS).until(() -> fileHasOccurrencesOf(outFile0, "BasicEventOut0"));
+        await().atMost(10, TimeUnit.SECONDS).until(() -> fileHasOccurrencesOf(outFile1, "BasicEventOut1"));
 
         apexMain.shutdown();
     }
 
-    private boolean fileHasOccurencesOf(final File file, final String token, final int occurenceCount)
-            throws IOException {
-
-        return occurenceCount == StringUtils.countMatches(TextFileUtils.getTextFileAsString(file.getAbsolutePath()),
-                token);
+    private boolean fileHasOccurrencesOf(final File file, final String token)
+        throws IOException {
+        return 50 == StringUtils.countMatches(TextFileUtils.getTextFileAsString(file.getAbsolutePath()), token);
     }
 }

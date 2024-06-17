@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
@@ -46,14 +46,13 @@ import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * Test the JavascriptStateFinalizerExecutor class.
- *
  */
-public class JavascriptStateFinalizerExecutorTest {
+class JavascriptStateFinalizerExecutorTest {
     /**
      * Initiate Parameters.
      */
-    @Before
-    public void initiateParameters() {
+    @BeforeEach
+    void initiateParameters() {
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
         ParameterService.register(new PersistorParameters());
@@ -63,8 +62,8 @@ public class JavascriptStateFinalizerExecutorTest {
     /**
      * Clear down Parameters.
      */
-    @After
-    public void clearParameters() {
+    @AfterEach
+    void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
@@ -72,12 +71,10 @@ public class JavascriptStateFinalizerExecutorTest {
     }
 
     @Test
-    public void testJavaStateFinalizerExecutor() throws Exception {
+    void testJavaStateFinalizerExecutor() throws Exception {
         JavascriptStateFinalizerExecutor jsfe = new JavascriptStateFinalizerExecutor();
 
-        assertThatThrownBy(() -> {
-            jsfe.prepare();
-        }).isInstanceOf(java.lang.NullPointerException.class);
+        assertThatThrownBy(jsfe::prepare).isInstanceOf(java.lang.NullPointerException.class);
 
         ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
         StateExecutor parentStateExcutor = new StateExecutor(new ExecutorFactoryImpl());
@@ -88,9 +85,7 @@ public class JavascriptStateFinalizerExecutorTest {
         jsfe.setContext(parentStateExcutor, stateFinalizerLogic, internalContext);
 
         stateFinalizerLogic.setLogic("return false");
-        assertThatThrownBy(() -> {
-            jsfe.prepare();
-        }).hasMessage("logic failed to compile for NULL:0.0.0:NULL:NULL "
+        assertThatThrownBy(jsfe::prepare).hasMessage("logic failed to compile for NULL:0.0.0:NULL:NULL "
             + "with message: invalid return (NULL:0.0.0:NULL:NULL#1)");
 
         stateFinalizerLogic.setLogic("java.lang.String");
@@ -98,11 +93,19 @@ public class JavascriptStateFinalizerExecutorTest {
 
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
-        stateFinalizerLogic.setLogic("if(executor.executionId==-1)" + "{\r\n"
-            + "var returnValueType = java.lang.Boolean;" + "var returnValue = new returnValueType(false); }\n"
-            + "else{\n" + "executor.setSelectedStateOutputName(\"SelectedOutputIsMe\");\n"
-            + "var returnValueType = java.lang.Boolean;\n" + "\n"
-            + "var returnValue = new returnValueType(true);} true;");
+        var logic = """
+            if(executor.executionId==-1)
+            {
+                var returnValueType = java.lang.Boolean;
+                var returnValue = new returnValueType(false);
+            }
+            else
+            {
+                executor.setSelectedStateOutputName("SelectedOutputIsMe");
+                var returnValueType = java.lang.Boolean;
+                var returnValue = new returnValueType(true);
+            } true;""";
+        stateFinalizerLogic.setLogic(logic);
 
         assertThatThrownBy(() -> {
             jsfe.prepare();

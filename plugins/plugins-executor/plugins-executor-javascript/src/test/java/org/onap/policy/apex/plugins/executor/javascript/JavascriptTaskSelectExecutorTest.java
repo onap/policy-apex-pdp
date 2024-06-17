@@ -22,13 +22,13 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
 import org.onap.policy.apex.context.parameters.LockManagerParameters;
@@ -43,14 +43,13 @@ import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * Test the JavaTaskSelectExecutor class.
- *
  */
-public class JavascriptTaskSelectExecutorTest {
+class JavascriptTaskSelectExecutorTest {
     /**
      * Initiate Parameters.
      */
-    @Before
-    public void initiateParameters() {
+    @BeforeEach
+    void initiateParameters() {
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
         ParameterService.register(new PersistorParameters());
@@ -59,15 +58,15 @@ public class JavascriptTaskSelectExecutorTest {
     /**
      * Clear Parameters.
      */
-    @After
-    public void clearParameters() {
+    @AfterEach
+    void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
     }
 
     @Test
-    public void testJavascriptTaskSelectExecutor() throws Exception {
+    void testJavascriptTaskSelectExecutor() throws Exception {
         JavascriptTaskSelectExecutor jtse = new JavascriptTaskSelectExecutor();
 
         assertThatThrownBy(() -> {
@@ -79,9 +78,7 @@ public class JavascriptTaskSelectExecutorTest {
         ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
         jtse.setContext(null, state, internalContext);
 
-        assertThatThrownBy(() -> {
-            jtse.prepare();
-        }).hasMessage("no logic specified for NULL:0.0.0:NULL:NULL");
+        assertThatThrownBy(jtse::prepare).hasMessage("no logic specified for NULL:0.0.0:NULL:NULL");
 
         state.getTaskSelectionLogic().setLogic("java.lang.String");
         jtse.prepare();
@@ -92,9 +89,7 @@ public class JavascriptTaskSelectExecutorTest {
         AxEvent axEvent = new AxEvent(new AxArtifactKey("Event", "0.0.1"));
         EnEvent event = new EnEvent(axEvent);
 
-        assertThatThrownBy(() -> {
-            jtse.execute(-1, new Properties(), event);
-        }).hasMessage(
+        assertThatThrownBy(() -> jtse.execute(-1, new Properties(), event)).hasMessage(
             "execute: logic for NULL:0.0.0:NULL:NULL returned a non-boolean value [JavaClass java.lang.String]");
 
         state.getTaskSelectionLogic().setLogic("var x=1;\n" + "false; ");

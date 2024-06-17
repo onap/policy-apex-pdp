@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import jakarta.jms.Connection;
 import jakarta.jms.ConnectionFactory;
@@ -34,8 +34,9 @@ import jakarta.jms.Topic;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -47,7 +48,7 @@ import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnolo
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-public class ApexJmsConsumerTest {
+class ApexJmsConsumerTest {
 
     private static final String CONSUMER_NAME = "TestApexJmsConsumer";
     private ApexJmsConsumer apexJmsConsumer = null;
@@ -56,38 +57,36 @@ public class ApexJmsConsumerTest {
     private ApexEventProducer apexJmsProducer = null;
     private JmsCarrierTechnologyParameters jmsCarrierTechnologyParameters = null;
 
+    AutoCloseable closeable;
+
     /**
      * Set up testing.
      */
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         apexJmsConsumer = Mockito.spy(new ApexJmsConsumer());
         consumerParameters = new EventHandlerParameters();
         apexJmsProducer = new ApexJmsProducer();
     }
 
     @Test
-    public void testInitWithNonJmsCarrierTechnologyParameters() {
+    void testInitWithNonJmsCarrierTechnologyParameters() {
         consumerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {
         });
-        assertThatThrownBy(
-            () -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver)
-        )
+        assertThatThrownBy(() -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInitWithJmsCarrierTechnologyParameters() {
+    void testInitWithJmsCarrierTechnologyParameters() {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
-        assertThatThrownBy(
-            () -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver)
-        )
+        assertThatThrownBy(() -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInitNoConnectionFactory() throws NamingException {
+    void testInitNoConnectionFactory() throws NamingException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
 
@@ -95,14 +94,12 @@ public class ApexJmsConsumerTest {
         Mockito.doReturn(null).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(context).when(apexJmsConsumer).getInitialContext();
 
-        assertThatThrownBy(
-            () -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver)
-        )
+        assertThatThrownBy(() -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInitNoConsumerTopic() throws NamingException {
+    void testInitNoConsumerTopic() throws NamingException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
 
@@ -113,14 +110,12 @@ public class ApexJmsConsumerTest {
         Mockito.doReturn(null).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
         Mockito.doReturn(context).when(apexJmsConsumer).getInitialContext();
 
-        assertThatThrownBy(
-            () -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver)
-        )
+        assertThatThrownBy(() -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInitNoConnection() throws NamingException, JMSException {
+    void testInitNoConnection() throws NamingException, JMSException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
 
@@ -130,21 +125,18 @@ public class ApexJmsConsumerTest {
 
         Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
-        Mockito.doThrow(JMSException.class)
-            .when(connectionFactory)
+        closeable = Mockito.doThrow(JMSException.class).when(connectionFactory)
             .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
                 jmsCarrierTechnologyParameters.getSecurityCredentials());
 
         Mockito.doReturn(context).when(apexJmsConsumer).getInitialContext();
 
-        assertThatThrownBy(
-            () -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver)
-        )
+        assertThatThrownBy(() -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInitConnectionError() throws NamingException, JMSException {
+    void testInitConnectionError() throws NamingException, JMSException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
 
@@ -155,21 +147,18 @@ public class ApexJmsConsumerTest {
 
         Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
-        Mockito.doReturn(connection)
-            .when(connectionFactory)
+        closeable = Mockito.doReturn(connection).when(connectionFactory)
             .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
                 jmsCarrierTechnologyParameters.getSecurityCredentials());
         Mockito.doThrow(JMSException.class).when(connection).start();
         Mockito.doReturn(context).when(apexJmsConsumer).getInitialContext();
 
-        assertThatThrownBy(
-            () -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver)
-        )
+        assertThatThrownBy(() -> apexJmsConsumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void testInit() throws NamingException, JMSException, ApexEventException {
+    void testInit() throws NamingException, JMSException, ApexEventException {
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
 
@@ -180,8 +169,7 @@ public class ApexJmsConsumerTest {
 
         Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
-        Mockito.doReturn(connection)
-            .when(connectionFactory)
+        closeable = Mockito.doReturn(connection).when(connectionFactory)
             .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
                 jmsCarrierTechnologyParameters.getSecurityCredentials());
         Mockito.doNothing().when(connection).start();
@@ -193,22 +181,22 @@ public class ApexJmsConsumerTest {
     }
 
     @Test
-    public void testStart() {
+    void testStart() {
         assertThatCode(apexJmsConsumer::start).doesNotThrowAnyException();
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertNull(apexJmsConsumer.getName());
     }
 
     @Test
-    public void testGetPeeredReference() {
+    void testGetPeeredReference() {
         assertNull(apexJmsConsumer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test
-    public void testSetPeeredReference() {
+    void testSetPeeredReference() {
         PeeredReference peeredReference = new PeeredReference(EventHandlerPeeredMode.REQUESTOR,
             apexJmsConsumer, apexJmsProducer);
         apexJmsConsumer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR, peeredReference);
@@ -216,19 +204,19 @@ public class ApexJmsConsumerTest {
     }
 
     @Test
-    public void testRun() {
+    void testRun() {
         assertThatThrownBy(apexJmsConsumer::run).isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
-    public void testOnMessageUninitialized() {
+    void testOnMessageUninitialized() {
         Message jmsMessage = null;
         assertThatThrownBy(() -> apexJmsConsumer.onMessage(jmsMessage))
             .isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
-    public void testOnMessage() throws JMSException, NamingException, ApexEventException {
+    void testOnMessage() throws JMSException, NamingException, ApexEventException {
         // prepare ApexJmsConsumer
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
@@ -242,8 +230,7 @@ public class ApexJmsConsumerTest {
 
         Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
-        Mockito.doReturn(connection)
-            .when(connectionFactory)
+        closeable = Mockito.doReturn(connection).when(connectionFactory)
             .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
                 jmsCarrierTechnologyParameters.getSecurityCredentials());
         Mockito.doNothing().when(connection).start();
@@ -260,7 +247,7 @@ public class ApexJmsConsumerTest {
     }
 
     @Test
-    public void testConnectionError() throws NamingException, JMSException, ApexEventException {
+    void testConnectionError() throws NamingException, JMSException, ApexEventException {
         // prepare ApexJmsConsumer
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
@@ -272,8 +259,7 @@ public class ApexJmsConsumerTest {
 
         Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
-        Mockito.doReturn(connection)
-            .when(connectionFactory)
+        closeable = Mockito.doReturn(connection).when(connectionFactory)
             .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
                 jmsCarrierTechnologyParameters.getSecurityCredentials());
         Mockito.doNothing().when(connection).start();
@@ -290,7 +276,7 @@ public class ApexJmsConsumerTest {
     }
 
     @Test
-    public void testStop() throws NamingException, JMSException, ApexEventException {
+    void testStop() throws NamingException, JMSException, ApexEventException {
         // prepare ApexJmsConsumer
         jmsCarrierTechnologyParameters = new JmsCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(jmsCarrierTechnologyParameters);
@@ -302,8 +288,7 @@ public class ApexJmsConsumerTest {
 
         Mockito.doReturn(connectionFactory).when(context).lookup(jmsCarrierTechnologyParameters.getConnectionFactory());
         Mockito.doReturn(topic).when(context).lookup(jmsCarrierTechnologyParameters.getConsumerTopic());
-        Mockito.doReturn(connection)
-            .when(connectionFactory)
+        closeable = Mockito.doReturn(connection).when(connectionFactory)
             .createConnection(jmsCarrierTechnologyParameters.getSecurityPrincipal(),
                 jmsCarrierTechnologyParameters.getSecurityCredentials());
         Mockito.doNothing().when(connection).start();
@@ -321,7 +306,14 @@ public class ApexJmsConsumerTest {
     }
 
     @Test
-    public void testStopNoJmsProperties() {
+    void testStopNoJmsProperties() {
         assertThatThrownBy(apexJmsConsumer::stop).isInstanceOf(NullPointerException.class);
+    }
+
+    @AfterEach
+    void after() throws Exception {
+        if (closeable != null) {
+            closeable.close();
+        }
     }
 }

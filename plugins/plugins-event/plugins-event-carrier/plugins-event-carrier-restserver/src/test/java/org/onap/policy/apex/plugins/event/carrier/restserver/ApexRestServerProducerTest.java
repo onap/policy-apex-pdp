@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,34 +21,32 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.reflect.Field;
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
-import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-public class ApexRestServerProducerTest {
+class ApexRestServerProducerTest {
 
     ApexRestServerProducer apexRestServerProducer = null;
     EventHandlerParameters producerParameters = null;
-    ApexEventReceiver incomingEventReceiver = null;
     ApexRestServerConsumer apexRestServerConsumer = null;
     RestServerCarrierTechnologyParameters restServerCarrierTechnologyParameters = null;
-    SynchronousEventCache synchronousEventCache = null;
     Random random = new Random();
 
     /**
@@ -56,35 +54,38 @@ public class ApexRestServerProducerTest {
      *
      * @throws Exception on test set up errors.
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         apexRestServerConsumer = new ApexRestServerConsumer();
         producerParameters = new EventHandlerParameters();
         apexRestServerProducer = new ApexRestServerProducer();
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         apexRestServerProducer.stop();
     }
 
-    @Test(expected = ApexEventException.class)
-    public void testInitWithNonWebSocketCarrierTechnologyParameters() throws ApexEventException {
-        producerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {});
-        apexRestServerProducer.init("TestApexRestServerProducer", producerParameters);
+    @Test
+    void testInitWithNonWebSocketCarrierTechnologyParameters() {
+        producerParameters.setCarrierTechnologyParameters(new CarrierTechnologyParameters() {
+        });
+        assertThrows(ApexEventException.class, () ->
+            apexRestServerProducer.init("TestApexRestServerProducer", producerParameters));
     }
 
-    @Test(expected = ApexEventException.class)
-    public void testInitWithWebSocketCarrierTechnologyParameters() throws ApexEventException {
+    @Test
+    void testInitWithWebSocketCarrierTechnologyParameters() {
         restServerCarrierTechnologyParameters = new RestServerCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(restServerCarrierTechnologyParameters);
-        apexRestServerProducer.init("TestApexRestServerProducer", producerParameters);
+        assertThrows(ApexEventException.class, () ->
+            apexRestServerProducer.init("TestApexRestServerProducer", producerParameters));
     }
 
 
-    @Test(expected = ApexEventException.class)
-    public void testInitWithNonDefaultValue() throws ApexEventException, NoSuchFieldException,
-            SecurityException, IllegalArgumentException, IllegalAccessException {
+    @Test
+    void testInitWithNonDefaultValue() throws NoSuchFieldException,
+        SecurityException, IllegalArgumentException, IllegalAccessException {
         restServerCarrierTechnologyParameters = new RestServerCarrierTechnologyParameters();
         Field field = RestServerCarrierTechnologyParameters.class.getDeclaredField("host");
         field.setAccessible(true);
@@ -93,11 +94,12 @@ public class ApexRestServerProducerTest {
         field.setAccessible(true);
         field.set(restServerCarrierTechnologyParameters, 65535);
         producerParameters.setCarrierTechnologyParameters(restServerCarrierTechnologyParameters);
-        apexRestServerProducer.init("TestApexRestServerProducer", producerParameters);
+        assertThrows(ApexEventException.class, () ->
+            apexRestServerProducer.init("TestApexRestServerProducer", producerParameters));
     }
 
     @Test
-    public void testInitWithSynchronousMode() throws ApexEventException {
+    void testInitWithSynchronousMode() throws ApexEventException {
         restServerCarrierTechnologyParameters = new RestServerCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(restServerCarrierTechnologyParameters);
         producerParameters.setPeeredMode(EventHandlerPeeredMode.SYNCHRONOUS, true);
@@ -106,26 +108,26 @@ public class ApexRestServerProducerTest {
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertNull(apexRestServerProducer.getName());
     }
 
     @Test
-    public void testGetPeeredReference() {
+    void testGetPeeredReference() {
         assertNull(apexRestServerProducer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test
-    public void testSetPeeredReference() {
+    void testSetPeeredReference() {
         PeeredReference peeredReference = new PeeredReference(EventHandlerPeeredMode.REQUESTOR,
-                apexRestServerConsumer, apexRestServerProducer);
+            apexRestServerConsumer, apexRestServerProducer);
         apexRestServerProducer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR,
-                peeredReference);
+            peeredReference);
         assertNotNull(apexRestServerProducer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test
-    public void testSendEventNotExistingEventToApex() {
+    void testSendEventNotExistingEventToApex() {
         final long executionId = random.nextLong();
         final String eventName = RandomStringUtils.randomAlphabetic(7);
         final Object event = new Object();
@@ -143,7 +145,7 @@ public class ApexRestServerProducerTest {
     }
 
     @Test
-    public void testSendEvent() {
+    void testSendEvent() {
         final long executionId = random.nextLong();
         final String eventName = RandomStringUtils.randomAlphabetic(7);
         final Object expected = new Object();

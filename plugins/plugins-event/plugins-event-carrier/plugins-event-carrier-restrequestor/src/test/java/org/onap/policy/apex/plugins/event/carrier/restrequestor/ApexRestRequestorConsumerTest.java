@@ -23,13 +23,13 @@ package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventReceiver;
@@ -38,45 +38,40 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 
 /**
  * Test the ApexRestRequestorConsumer class.
- *
  */
-public class ApexRestRequestorConsumerTest {
+class ApexRestRequestorConsumerTest {
     // String constants
     private static final String CONSUMER_NAME = "ConsumerName";
     private static final String EVENT_NAME = "EventName";
     private static final String EVENT_BODY = "Event body";
 
     @Test
-    public void testApexRestRequestorConsumerSetup() throws ApexEventException {
+    void testApexRestRequestorConsumerSetup() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
         EventHandlerParameters consumerParameters = new EventHandlerParameters();
         ApexEventReceiver incomingEventReceiver = null;
 
-        assertThatThrownBy(() -> {
-            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-        }).hasMessage("specified consumer properties are not applicable to REST Requestor consumer (ConsumerName)");
+        assertThatThrownBy(() -> consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .hasMessage("specified consumer properties are not applicable to REST Requestor consumer (ConsumerName)");
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         consumerParameters.setCarrierTechnologyParameters(rrctp);
-        assertThatThrownBy(() -> {
-            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-        }).hasMessage("REST Requestor consumer (ConsumerName) must run in peered requestor mode "
-            + "with a REST Requestor producer");
+        assertThatThrownBy(() -> consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .hasMessage("REST Requestor consumer (ConsumerName) must run in peered requestor mode "
+                + "with a REST Requestor producer");
 
         consumerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setHttpMethod(null);
 
-        assertThatThrownBy(() -> {
-            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-        }).hasMessage("no URL has been specified on REST Requestor consumer (ConsumerName)");
+        assertThatThrownBy(() -> consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .hasMessage("no URL has been specified on REST Requestor consumer (ConsumerName)");
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("ZZZZ");
-        assertThatThrownBy(() -> {
-            consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
-        }).hasMessage("invalid URL has been specified on REST Requestor consumer (ConsumerName)");
+        assertThatThrownBy(() -> consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver))
+            .hasMessage("invalid URL has been specified on REST Requestor consumer (ConsumerName)");
 
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
         rrctp.setUrl("http://www.onap.org");
@@ -85,9 +80,8 @@ public class ApexRestRequestorConsumerTest {
 
         consumer.init(CONSUMER_NAME, consumerParameters, incomingEventReceiver);
 
-        assertThatThrownBy(() -> {
-            consumer.processRestRequest(null);
-        }).hasMessage("could not queue request \"null\" on REST Requestor consumer (ConsumerName)");
+        assertThatThrownBy(() -> consumer.processRestRequest(null))
+            .hasMessage("could not queue request \"null\" on REST Requestor consumer (ConsumerName)");
 
         assertEquals(CONSUMER_NAME, consumer.getName());
         assertEquals(0, consumer.getEventsReceived());
@@ -95,7 +89,7 @@ public class ApexRestRequestorConsumerTest {
     }
 
     @Test
-    public void testApexRestRequestorConsumerRequest() throws ApexEventException {
+    void testApexRestRequestorConsumerRequest() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
@@ -119,7 +113,7 @@ public class ApexRestRequestorConsumerTest {
     }
 
     @Test
-    public void testApexRestRequestorConsumerUrlUpdate() throws ApexEventException {
+    void testApexRestRequestorConsumerUrlUpdate() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 
@@ -145,7 +139,7 @@ public class ApexRestRequestorConsumerTest {
     }
 
     @Test
-    public void testApexRestRequestorConsumerUrlUpdateError() throws ApexEventException {
+    void testApexRestRequestorConsumerUrlUpdateError() throws ApexEventException {
         ApexRestRequestorConsumer consumer = new ApexRestRequestorConsumer();
         assertNotNull(consumer);
 

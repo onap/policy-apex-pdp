@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019,2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,17 +22,18 @@
 
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class KafkaCarrierTechnologyParametersTest {
+class KafkaCarrierTechnologyParametersTest {
     @Test
-    public void testKafkaCarrierTechnologyParameters() {
+    void testKafkaCarrierTechnologyParameters() {
         KafkaCarrierTechnologyParameters kafkaCarrierTechnologyParameters = new KafkaCarrierTechnologyParameters();
         assertNotNull(kafkaCarrierTechnologyParameters);
 
@@ -40,17 +41,17 @@ public class KafkaCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testGetKafkaProducerProperties() {
+    void testGetKafkaProducerProperties() {
         KafkaCarrierTechnologyParameters kafkaCarrierTechnologyParameters = new KafkaCarrierTechnologyParameters();
 
         Properties kafkaProducerProperties = kafkaCarrierTechnologyParameters.getKafkaProducerProperties();
         assertNotNull(kafkaProducerProperties);
         assertEquals("localhost:9092", kafkaProducerProperties.get("bootstrap.servers"));
         assertEquals("1", kafkaProducerProperties.get("linger.ms"));
-        assertEquals(null, kafkaProducerProperties.get("group.id"));
-        assertEquals(null, kafkaProducerProperties.get("Property0"));
-        assertEquals(null, kafkaProducerProperties.get("Property1"));
-        assertEquals(null, kafkaProducerProperties.get("Property2"));
+        assertNull(kafkaProducerProperties.get("group.id"));
+        assertNull(kafkaProducerProperties.get("Property0"));
+        assertNull(kafkaProducerProperties.get("Property1"));
+        assertNull(kafkaProducerProperties.get("Property2"));
 
         // @formatter:off
         String[][] kafkaProperties = {
@@ -68,24 +69,24 @@ public class KafkaCarrierTechnologyParametersTest {
         assertNotNull(kafkaProducerProperties);
         assertEquals("localhost:9092", kafkaProducerProperties.get("bootstrap.servers"));
         assertEquals("1", kafkaProducerProperties.get("linger.ms"));
-        assertEquals(null, kafkaProducerProperties.get("group.id"));
+        assertNull(kafkaProducerProperties.get("group.id"));
         assertEquals("Value0", kafkaProducerProperties.get("Property0"));
         assertEquals("Value1", kafkaProducerProperties.get("Property1"));
-        assertEquals(null, kafkaProducerProperties.get("Property2"));
+        assertNull(kafkaProducerProperties.get("Property2"));
     }
 
     @Test
-    public void testGetKafkaConsumerProperties() {
+    void testGetKafkaConsumerProperties() {
         KafkaCarrierTechnologyParameters kafkaCarrierTechnologyParameters = new KafkaCarrierTechnologyParameters();
 
         Properties kafkaConsumerProperties = kafkaCarrierTechnologyParameters.getKafkaConsumerProperties();
         assertNotNull(kafkaConsumerProperties);
         assertEquals("localhost:9092", kafkaConsumerProperties.get("bootstrap.servers"));
         assertEquals("default-group-id", kafkaConsumerProperties.get("group.id"));
-        assertEquals(null, kafkaConsumerProperties.get("linger.ms"));
-        assertEquals(null, kafkaConsumerProperties.get("Property0"));
-        assertEquals(null, kafkaConsumerProperties.get("Property1"));
-        assertEquals(null, kafkaConsumerProperties.get("Property2"));
+        assertNull(kafkaConsumerProperties.get("linger.ms"));
+        assertNull(kafkaConsumerProperties.get("Property0"));
+        assertNull(kafkaConsumerProperties.get("Property1"));
+        assertNull(kafkaConsumerProperties.get("Property2"));
 
         // @formatter:off
         String[][] kafkaProperties = {
@@ -103,204 +104,30 @@ public class KafkaCarrierTechnologyParametersTest {
         assertNotNull(kafkaConsumerProperties);
         assertEquals("localhost:9092", kafkaConsumerProperties.get("bootstrap.servers"));
         assertEquals("default-group-id", kafkaConsumerProperties.get("group.id"));
-        assertEquals(null, kafkaConsumerProperties.get("linger.ms"));
+        assertNull(kafkaConsumerProperties.get("linger.ms"));
         assertEquals("Value0", kafkaConsumerProperties.get("Property0"));
         assertEquals("Value1", kafkaConsumerProperties.get("Property1"));
-        assertEquals(null, kafkaConsumerProperties.get("Property2"));
+        assertNull(kafkaConsumerProperties.get("Property2"));
     }
 
     @Test
-    public void testValidate() {
+    void testValidate() {
         KafkaCarrierTechnologyParameters kafkaCarrierTechnologyParameters = new KafkaCarrierTechnologyParameters();
         assertNotNull(kafkaCarrierTechnologyParameters);
 
         assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
 
-        String origStringValue = kafkaCarrierTechnologyParameters.getBootstrapServers();
-        kafkaCarrierTechnologyParameters.setBootstrapServers(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setBootstrapServers(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
+        assertValidateStringProperties(kafkaCarrierTechnologyParameters);
 
-        origStringValue = kafkaCarrierTechnologyParameters.getAcks();
-        kafkaCarrierTechnologyParameters.setAcks(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setAcks(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
+        assertValidateNumberProperties(kafkaCarrierTechnologyParameters);
 
-        origStringValue = kafkaCarrierTechnologyParameters.getGroupId();
-        kafkaCarrierTechnologyParameters.setGroupId(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setGroupId(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
+        assertValidateTopicList(kafkaCarrierTechnologyParameters);
 
-        origStringValue = kafkaCarrierTechnologyParameters.getProducerTopic();
-        kafkaCarrierTechnologyParameters.setProducerTopic(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setProducerTopic(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        int origIntValue = kafkaCarrierTechnologyParameters.getRetries();
-        kafkaCarrierTechnologyParameters.setRetries(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setRetries(origIntValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origIntValue = kafkaCarrierTechnologyParameters.getBatchSize();
-        kafkaCarrierTechnologyParameters.setBatchSize(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setBatchSize(origIntValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origIntValue = kafkaCarrierTechnologyParameters.getLingerTime();
-        kafkaCarrierTechnologyParameters.setLingerTime(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setLingerTime(origIntValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        long origLongValue = kafkaCarrierTechnologyParameters.getBufferMemory();
-        kafkaCarrierTechnologyParameters.setBufferMemory(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setBufferMemory(origLongValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origIntValue = kafkaCarrierTechnologyParameters.getAutoCommitTime();
-        kafkaCarrierTechnologyParameters.setAutoCommitTime(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setAutoCommitTime(origIntValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origIntValue = kafkaCarrierTechnologyParameters.getSessionTimeout();
-        kafkaCarrierTechnologyParameters.setSessionTimeout(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setSessionTimeout(origIntValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origIntValue = kafkaCarrierTechnologyParameters.getConsumerPollTime();
-        kafkaCarrierTechnologyParameters.setConsumerPollTime(-1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setConsumerPollTime(origIntValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origStringValue = kafkaCarrierTechnologyParameters.getKeySerializer();
-        kafkaCarrierTechnologyParameters.setKeySerializer(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKeySerializer(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origStringValue = kafkaCarrierTechnologyParameters.getValueSerializer();
-        kafkaCarrierTechnologyParameters.setValueSerializer(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setValueSerializer(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origStringValue = kafkaCarrierTechnologyParameters.getKeyDeserializer();
-        kafkaCarrierTechnologyParameters.setKeyDeserializer(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKeyDeserializer(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        origStringValue = kafkaCarrierTechnologyParameters.getValueDeserializer();
-        kafkaCarrierTechnologyParameters.setValueDeserializer(" ");
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setValueDeserializer(origStringValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        String[] origConsumerTopcList = kafkaCarrierTechnologyParameters.getConsumerTopicList();
-        kafkaCarrierTechnologyParameters.setConsumerTopicList(null);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setConsumerTopicList(origConsumerTopcList);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        kafkaCarrierTechnologyParameters.setConsumerTopicList(new String[0]);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setConsumerTopicList(origConsumerTopcList);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        String[] blankStringList = { null, "" };
-        kafkaCarrierTechnologyParameters.setConsumerTopicList(blankStringList);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setConsumerTopicList(origConsumerTopcList);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        String[][] origKafkaProperties = kafkaCarrierTechnologyParameters.getKafkaProperties();
-        kafkaCarrierTechnologyParameters.setKafkaProperties(null);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(new String[0][0]);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        // @formatter:offkafkaCarrierTechnologyParameters
-        String[][] kafkaProperties0 = {
-            {
-                null, "Value0"
-            }
-        };
-        // @formatter:on
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaProperties0);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        // @formatter:off
-        String[][] kafkaProperties1 = {
-            {
-                "Property1", null
-            }
-        };
-        // @formatter:on
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaProperties1);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        // @formatter:off
-        String[][] kafkaProperties2 = {
-            {
-                "Property1", null
-            }
-        };
-        // @formatter:on
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaProperties2);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        // @formatter:off
-        String[][] kafkaPropertiesWithEmptyValue = {
-            {
-                "Property1", ""
-            }
-        };
-        // @formatter:on
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaPropertiesWithEmptyValue);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
-
-        // @formatter:off
-        String[][] kafkaProperties3 = {
-            {
-                "Property1", "Value0", "Value1"
-            }
-        };
-        // @formatter:on
-
-        kafkaCarrierTechnologyParameters.setKafkaProperties(kafkaProperties3);
-        assertFalse(kafkaCarrierTechnologyParameters.validate().isValid());
-        kafkaCarrierTechnologyParameters.setKafkaProperties(origKafkaProperties);
-        assertTrue(kafkaCarrierTechnologyParameters.validate().isValid());
+        assertValidateKafkaProperties(kafkaCarrierTechnologyParameters);
     }
 
     @Test
-    public void testExplicitImplicit() {
+    void testExplicitImplicit() {
         KafkaCarrierTechnologyParameters kafkaCtp = new KafkaCarrierTechnologyParameters();
         assertNotNull(kafkaCtp);
 
@@ -377,5 +204,195 @@ public class KafkaCarrierTechnologyParametersTest {
         kafkaCtp.setBootstrapServers("localhost:7777");
         kafkaCtp.setKafkaProperties(kafkaProperties3);
         assertEquals("localhost:7777", kafkaCtp.getKafkaConsumerProperties().get("bootstrap.servers"));
+    }
+
+    private static void assertValidateStringProperties(KafkaCarrierTechnologyParameters kafkaParameters) {
+        String origStringValue = kafkaParameters.getBootstrapServers();
+        kafkaParameters.setBootstrapServers(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setBootstrapServers(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getAcks();
+        kafkaParameters.setAcks(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setAcks(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getGroupId();
+        kafkaParameters.setGroupId(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setGroupId(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getProducerTopic();
+        kafkaParameters.setProducerTopic(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setProducerTopic(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getKeySerializer();
+        kafkaParameters.setKeySerializer(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setKeySerializer(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getValueSerializer();
+        kafkaParameters.setValueSerializer(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setValueSerializer(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getKeyDeserializer();
+        kafkaParameters.setKeyDeserializer(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setKeyDeserializer(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origStringValue = kafkaParameters.getValueDeserializer();
+        kafkaParameters.setValueDeserializer(" ");
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setValueDeserializer(origStringValue);
+        assertTrue(kafkaParameters.validate().isValid());
+    }
+
+    private static void assertValidateTopicList(KafkaCarrierTechnologyParameters kafkaParameters) {
+        String[] origConsumerTopicList = kafkaParameters.getConsumerTopicList();
+        kafkaParameters.setConsumerTopicList(null);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setConsumerTopicList(origConsumerTopicList);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        kafkaParameters.setConsumerTopicList(new String[0]);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setConsumerTopicList(origConsumerTopicList);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        String[] blankStringList = { null, "" };
+        kafkaParameters.setConsumerTopicList(blankStringList);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setConsumerTopicList(origConsumerTopicList);
+        assertTrue(kafkaParameters.validate().isValid());
+    }
+
+    private static void assertValidateNumberProperties(KafkaCarrierTechnologyParameters kafkaParameters) {
+        int origIntValue = kafkaParameters.getRetries();
+        kafkaParameters.setRetries(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setRetries(origIntValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origIntValue = kafkaParameters.getBatchSize();
+        kafkaParameters.setBatchSize(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setBatchSize(origIntValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origIntValue = kafkaParameters.getLingerTime();
+        kafkaParameters.setLingerTime(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setLingerTime(origIntValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        long origLongValue = kafkaParameters.getBufferMemory();
+        kafkaParameters.setBufferMemory(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setBufferMemory(origLongValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origIntValue = kafkaParameters.getAutoCommitTime();
+        kafkaParameters.setAutoCommitTime(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setAutoCommitTime(origIntValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origIntValue = kafkaParameters.getSessionTimeout();
+        kafkaParameters.setSessionTimeout(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setSessionTimeout(origIntValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        origIntValue = kafkaParameters.getConsumerPollTime();
+        kafkaParameters.setConsumerPollTime(-1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setConsumerPollTime(origIntValue);
+        assertTrue(kafkaParameters.validate().isValid());
+    }
+
+    private static void assertValidateKafkaProperties(KafkaCarrierTechnologyParameters kafkaParameters) {
+        String[][] origKafkaProperties = kafkaParameters.getKafkaProperties();
+        kafkaParameters.setKafkaProperties(null);
+        assertTrue(kafkaParameters.validate().isValid());
+        kafkaParameters.setKafkaProperties(origKafkaProperties);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        kafkaParameters.setKafkaProperties(new String[0][0]);
+        assertTrue(kafkaParameters.validate().isValid());
+        kafkaParameters.setKafkaProperties(origKafkaProperties);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        // @formatter:off
+        String[][] kafkaProperties0 = {
+            {
+                null, "Value0"
+            }
+        };
+        // @formatter:on
+
+        kafkaParameters.setKafkaProperties(kafkaProperties0);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setKafkaProperties(origKafkaProperties);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        // @formatter:off
+        String[][] kafkaProperties1 = {
+            {
+                "Property1", null
+            }
+        };
+        // @formatter:on
+
+        kafkaParameters.setKafkaProperties(kafkaProperties1);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setKafkaProperties(origKafkaProperties);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        // @formatter:off
+        String[][] kafkaProperties2 = {
+            {
+                "Property1", null
+            }
+        };
+        // @formatter:on
+
+        kafkaParameters.setKafkaProperties(kafkaProperties2);
+        assertFalse(kafkaParameters.validate().isValid());
+
+        // @formatter:off
+        String[][] kafkaPropertiesWithEmptyValue = {
+            {
+                "Property1", ""
+            }
+        };
+        // @formatter:on
+
+        kafkaParameters.setKafkaProperties(kafkaPropertiesWithEmptyValue);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        kafkaParameters.setKafkaProperties(origKafkaProperties);
+        assertTrue(kafkaParameters.validate().isValid());
+
+        // @formatter:off
+        String[][] kafkaProperties3 = {
+            {
+                "Property1", "Value0", "Value1"
+            }
+        };
+        // @formatter:on
+
+        kafkaParameters.setKafkaProperties(kafkaProperties3);
+        assertFalse(kafkaParameters.validate().isValid());
+        kafkaParameters.setKafkaProperties(origKafkaProperties);
+        assertTrue(kafkaParameters.validate().isValid());
     }
 }

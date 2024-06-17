@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +21,20 @@
 
 package org.onap.policy.apex.plugins.event.carrier.kafka;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.SynchronousEventCache;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-public class ApexKafkaProducerTest {
+class ApexKafkaProducerTest {
     ApexKafkaProducer apexKafkaProducer = null;
     ApexKafkaConsumer apexKafkaConsumer = null;
     EventHandlerParameters producerParameters = null;
@@ -43,37 +45,38 @@ public class ApexKafkaProducerTest {
     /**
      * Set up testing.
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         apexKafkaProducer = new ApexKafkaProducer();
         apexKafkaConsumer = new ApexKafkaConsumer();
         producerParameters = new EventHandlerParameters();
 
     }
 
-    @Test(expected = ApexEventException.class)
-    public void testInit() throws ApexEventException {
-        apexKafkaProducer.init("TestApexKafkaProducer", producerParameters);
+    @Test
+    void testInit() {
+        assertThrows(ApexEventException.class,
+            () -> apexKafkaProducer.init("TestApexKafkaProducer", producerParameters));
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertNull(apexKafkaProducer.getName());
     }
 
     @Test
-    public void testGetPeeredReference() {
+    void testGetPeeredReference() {
         assertNull(apexKafkaProducer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
     }
 
     @Test
-    public void testWithProperValues() throws ApexEventException {
+    void testWithProperValues() throws ApexEventException {
         producerParameters
-                .setCarrierTechnologyParameters(new KafkaCarrierTechnologyParameters() {});
+            .setCarrierTechnologyParameters(new KafkaCarrierTechnologyParameters() { });
         synchronousEventCache = new SynchronousEventCache(EventHandlerPeeredMode.SYNCHRONOUS,
-                apexKafkaConsumer, apexKafkaProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
+            apexKafkaConsumer, apexKafkaProducer, DEFAULT_SYNCHRONOUS_EVENT_TIMEOUT);
         apexKafkaProducer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS,
-                synchronousEventCache);
+            synchronousEventCache);
         apexKafkaProducer.init("TestApexKafkaProducer", producerParameters);
         assertEquals("TestApexKafkaProducer", apexKafkaProducer.getName());
         assertNotNull(apexKafkaProducer.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));

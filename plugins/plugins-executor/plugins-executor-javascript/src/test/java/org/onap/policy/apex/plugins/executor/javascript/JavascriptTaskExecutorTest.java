@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -23,17 +23,17 @@
 package org.onap.policy.apex.plugins.executor.javascript;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.Distributor;
@@ -58,17 +58,16 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * Test the JavaTaskExecutor class.
- *
  */
-public class JavascriptTaskExecutorTest {
+class JavascriptTaskExecutorTest {
     /**
-     * Set ups everything for the test.
+     * Set-ups everything for the test.
      */
-    @BeforeClass
-    public static void prepareForTest() {
+    @BeforeAll
+    static void prepareForTest() {
         final ContextParameters contextParameters = new ContextParameters();
         contextParameters.getLockManagerParameters()
-                .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
+            .setPluginClass("org.onap.policy.apex.context.impl.locking.jvmlocal.JvmLocalLockManager");
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
         contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
@@ -90,8 +89,8 @@ public class JavascriptTaskExecutorTest {
     /**
      * Clear down the test data.
      */
-    @AfterClass
-    public static void cleanUpAfterTest() {
+    @AfterAll
+    static void cleanUpAfterTest() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
@@ -101,12 +100,10 @@ public class JavascriptTaskExecutorTest {
     }
 
     @Test
-    public void testJavascriptTaskExecutor() throws Exception {
+    void testJavascriptTaskExecutor() throws Exception {
         JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
 
-        assertThatThrownBy(() -> {
-            jte.prepare();
-        }).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(jte::prepare).isInstanceOf(NullPointerException.class);
 
         AxTask task = new AxTask(new AxArtifactKey("TestTask:0.0.1"));
         final ApexInternalContext internalContext = new ApexInternalContext(new AxPolicyModel());
@@ -115,17 +112,14 @@ public class JavascriptTaskExecutorTest {
 
         task.getTaskLogic().setLogic("return boolean;");
 
-        assertThatThrownBy(() -> {
-            jte.prepare();
-        }).hasMessage("logic failed to compile for TestTask:0.0.1 with message: invalid return (TestTask:0.0.1#1)");
+        assertThatThrownBy(jte::prepare)
+            .hasMessage("logic failed to compile for TestTask:0.0.1 with message: invalid return (TestTask:0.0.1#1)");
 
         task.getTaskLogic().setLogic("var x = 5;");
 
         jte.prepare();
         Properties props = new Properties();
-        assertThatThrownBy(() -> {
-            jte.execute(-1, props, null);
-        }).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> jte.execute(-1, props, null)).isInstanceOf(NullPointerException.class);
         jte.cleanUp();
         task.setInputEvent(new AxEvent());
         task.setOutputEvents(new TreeMap<>());
@@ -149,14 +143,12 @@ public class JavascriptTaskExecutorTest {
     }
 
     @Test
-    public void testJavascriptTaskExecutorLogic() throws Exception {
+    void testJavascriptTaskExecutorLogic() throws Exception {
 
         JavascriptTaskExecutor jte = new JavascriptTaskExecutor();
         assertNotNull(jte);
 
-        assertThatThrownBy(() -> {
-            jte.prepare();
-        }).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(jte::prepare).isInstanceOf(NullPointerException.class);
 
         AxTask task = new AxTask(new AxArtifactKey("TestTask:0.0.1"));
 
@@ -199,16 +191,16 @@ public class JavascriptTaskExecutorTest {
     private ContextAlbum createTestContextAlbum() throws ContextException {
         AxContextSchemas schemas = new AxContextSchemas();
         AxContextSchema simpleStringSchema =
-                new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"), "JAVA", "java.lang.String");
+            new AxContextSchema(new AxArtifactKey("SimpleStringSchema", "0.0.1"), "JAVA", "java.lang.String");
         schemas.getSchemasMap().put(simpleStringSchema.getKey(), simpleStringSchema);
         ModelService.registerModel(AxContextSchemas.class, schemas);
 
         AxContextAlbum axContextAlbum = new AxContextAlbum(new AxArtifactKey("TestContextAlbum", "0.0.1"), "Policy",
-                true, AxArtifactKey.getNullKey());
+            true, AxArtifactKey.getNullKey());
 
         axContextAlbum.setItemSchema(simpleStringSchema.getKey());
         Distributor distributor = new JvmLocalDistributor();
         distributor.init(axContextAlbum.getKey());
-        return new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<String, Object>());
+        return new ContextAlbumImpl(axContextAlbum, distributor, new LinkedHashMap<>());
     }
 }

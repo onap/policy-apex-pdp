@@ -1,8 +1,9 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
+ * Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ * Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@
 package org.onap.policy.apex.service.engine.event;
 
 import com.google.common.base.Strings;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,6 +52,8 @@ import org.slf4j.LoggerFactory;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public class ApexEvent extends HashMap<String, Object> implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = -4451918242101961685L;
 
     // Get a reference to the logger
@@ -59,7 +63,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private static final String EVENT_PREAMBLE = "event \"";
 
     // Holds the next identifier for event execution.
-    private static AtomicLong nextExecutionID = new AtomicLong(0L);
+    private static final AtomicLong nextExecutionID = new AtomicLong(0L);
 
     /**
      * The name of the Apex event, a mandatory field. All Apex events must have a name so that the
@@ -131,7 +135,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     private final String nameSpace;
     private final String source;
     private final String target;
-    private final String toscaPolicyState;
+    private String toscaPolicyState;
 
     // An identifier for the current event execution. The default value here will always be unique
     // in a single JVM
@@ -154,6 +158,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * @param nameSpace the name space (java package) of the event
      * @param source the source of the event
      * @param target the target of the event
+     * @param toscaPolicyState Policy state
      * @throws ApexEventException thrown on validation errors on event names and versions
      */
     public ApexEvent(final String name, final String version, final String nameSpace, final String source,
@@ -167,10 +172,29 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
     }
 
     /**
+     * Instantiates a new apex event.
+     *
+     * @param name the name of the event
+     * @param version the version of the event
+     * @param nameSpace the name space (java package) of the event
+     * @param source the source of the event
+     * @param target the target of the event
+     * @throws ApexEventException thrown on validation errors on event names and versions
+     */
+    public ApexEvent(final String name, final String version, final String nameSpace, final String source,
+                     final String target) throws ApexEventException {
+        this.name = validateField(NAME_HEADER_FIELD, name, NAME_REGEXP);
+        this.version = validateField(VERSION_HEADER_FIELD, version, VERSION_REGEXP);
+        this.nameSpace = validateField(NAMESPACE_HEADER_FIELD, nameSpace, NAMESPACE_REGEXP);
+        this.source = validateField(SOURCE_HEADER_FIELD, source, SOURCE_REGEXP);
+        this.target = validateField(TARGET_HEADER_FIELD, target, TARGET_REGEXP);
+    }
+
+    /**
      * Private utility to get the next candidate value for a Execution ID. This value will always be
      * unique in a single JVM
      *
-     * @return the next candidate value for a Execution ID
+     * @return the next candidate value for an Execution ID
      */
     private static synchronized long getNextExecutionId() {
         return nextExecutionID.getAndIncrement();
@@ -249,7 +273,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      * {@inheritDoc}.
      */
     @Override
-    public void putAll(final Map<? extends String, ? extends Object> incomingMap) {
+    public void putAll(final Map<? extends String, ?> incomingMap) {
         // Check the keys are valid
         try {
             for (final String key : incomingMap.keySet()) {

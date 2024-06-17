@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,16 +29,16 @@ import com.google.gson.JsonObject;
 import com.worldturner.medeia.api.ValidationFailedException;
 import java.util.ArrayList;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.coder.CoderException;
 
-public class JsonSchemaHelperMarshalTest extends CommonTestData {
+class JsonSchemaHelperMarshalTest extends CommonTestData {
 
     /**
      * Test Boolean.
      */
     @Test
-    public void testBooleanMarshal() {
+    void testBooleanMarshal() {
         var schemaHelper = createSchema(BOOLEAN_SCHEMA);
         assertThat(schemaHelper.marshal2String(Boolean.TRUE)).isEqualTo("true");
     }
@@ -46,7 +47,7 @@ public class JsonSchemaHelperMarshalTest extends CommonTestData {
      * Test null.
      */
     @Test
-    public void testNullMarshal() {
+    void testNullMarshal() {
         var schemaHelper = createSchema(NULL_SCHEMA);
         assertThat(schemaHelper.marshal2String(null)).isEqualTo("null");
     }
@@ -57,7 +58,7 @@ public class JsonSchemaHelperMarshalTest extends CommonTestData {
      * @throws CoderException the coder exception
      */
     @Test
-    public void testArrayMarshal() throws CoderException {
+    void testArrayMarshal() throws CoderException {
         var schemaHelper = createSchema(MEASUREMENTGROUPS_TYPE);
         var object = coder.decode(MEASUREMENTGROUPS, Object.class);
         assertThat(object).isInstanceOf(ArrayList.class);
@@ -73,7 +74,7 @@ public class JsonSchemaHelperMarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchemaDraft04_valid() throws CoderException {
+    void testObjectSchemaDraft04_valid() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         var dataReturned = validateAndMarshal(COMMONHEADERTYPE_DRAFT04, dataAsObject, true);
         assertThat(dataReturned).isEqualTo(COMMONHEADER);
@@ -85,7 +86,7 @@ public class JsonSchemaHelperMarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchemaDraft07_valid() throws CoderException {
+    void testObjectSchemaDraft07_valid() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         var dataReturned = validateAndMarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject, true);
         assertThat(dataReturned).isEqualTo(COMMONHEADER);
@@ -98,7 +99,7 @@ public class JsonSchemaHelperMarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchema_fieldMissing() throws CoderException {
+    void testObjectSchema_fieldMissing() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         dataAsObject.remove(TEST_ID);
         assertThatThrownBy(() -> validateAndMarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject, true))
@@ -112,7 +113,7 @@ public class JsonSchemaHelperMarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchema_OptionalField() throws CoderException {
+    void testObjectSchema_OptionalField() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         var dataAsjsonObject = coder.decode(COMMONHEADER, JsonObject.class);
         dataAsObject.remove(TEST_ID);

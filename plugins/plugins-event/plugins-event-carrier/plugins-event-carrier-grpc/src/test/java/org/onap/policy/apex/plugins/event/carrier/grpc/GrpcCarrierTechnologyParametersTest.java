@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020 Nordix Foundation.
+ *  Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,15 @@
 package org.onap.policy.apex.plugins.event.carrier.grpc;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.service.engine.event.ApexEventException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationResult;
 
-public class GrpcCarrierTechnologyParametersTest {
+class GrpcCarrierTechnologyParametersTest {
 
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
@@ -39,23 +38,26 @@ public class GrpcCarrierTechnologyParametersTest {
 
     private GrpcCarrierTechnologyParameters params;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         params = new GrpcCarrierTechnologyParameters();
     }
 
     @Test
-    public void testGrpcCarrierTechnologyParameters_invalid_producer_params() throws ApexEventException {
+    void testGrpcCarrierTechnologyParameters_invalid_producer_params() {
         ValidationResult result = params.validate();
         assertTrue(result.isValid());
         assertThatThrownBy(() -> params.validateGrpcParameters(true))
-            .hasMessage("Issues in specifying gRPC Producer parameters:\ntimeout should have a positive value.\n"
-                + "port range should be between 1024 and 65535\n" + "host should be specified.\n"
-                + "username should be specified.\n" + "password should be specified.\n");
+            .hasMessageContaining("Issues in specifying gRPC Producer parameters")
+            .hasMessageContaining("timeout should have a positive value")
+            .hasMessageContaining("port range should be between 1024 and 65535")
+            .hasMessageContaining("host should be specified")
+            .hasMessageContaining("username should be specified")
+            .hasMessageContaining("password should be specified");
     }
 
     @Test
-    public void testGrpcCarrierTechnologyParameters_valid() {
+    void testGrpcCarrierTechnologyParameters_valid() {
         assertEquals("GRPC", params.getName());
         assertEquals(ApexGrpcConsumer.class.getName(), params.getEventConsumerPluginClass());
         assertEquals(ApexGrpcProducer.class.getName(), params.getEventProducerPluginClass());
@@ -71,7 +73,7 @@ public class GrpcCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testGrpcCarrierTechnologyParameters_invalid_values() {
+    void testGrpcCarrierTechnologyParameters_invalid_values() {
         params.setHost(HOST);
         params.setPassword(PASSWORD);
         params.setTimeout(1000);

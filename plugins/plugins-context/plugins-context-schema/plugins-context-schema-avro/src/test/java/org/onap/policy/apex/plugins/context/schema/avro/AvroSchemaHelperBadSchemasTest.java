@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ package org.onap.policy.apex.plugins.context.schema.avro;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
@@ -40,17 +40,16 @@ import org.onap.policy.common.parameters.ParameterService;
  * The Class TestAvroSchemaHelperBadSchemas.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version 
  */
-public class AvroSchemaHelperBadSchemasTest {
+class AvroSchemaHelperBadSchemasTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
 
     /**
      * Inits the test.
      */
-    @Before
-    public void initTest() {
+    @BeforeEach
+    void initTest() {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
     }
@@ -58,20 +57,20 @@ public class AvroSchemaHelperBadSchemasTest {
     /**
      * Inits the context.
      */
-    @Before
-    public void initContext() {
+    @BeforeEach
+    void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
         ParameterService.register(schemaParameters);
-        
+
     }
 
     /**
      * Clear context.
      */
-    @After
-    public void clearContext() {
+    @AfterEach
+    void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
@@ -79,7 +78,7 @@ public class AvroSchemaHelperBadSchemasTest {
      * Bad schema test.
      */
     @Test
-    public void badSchemaTest() {
+    void badSchemaTest() {
         final AxContextSchema avroBadSchema0 = new AxContextSchema(new AxArtifactKey("AvroBad0", "0.0.1"), "AVRO", "}");
         schemas.getSchemasMap().put(avroBadSchema0.getKey(), avroBadSchema0);
 
@@ -91,25 +90,25 @@ public class AvroSchemaHelperBadSchemasTest {
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(testKey, avroBadSchema1.getKey()))
             .hasMessageStartingWith("AvroTest:0.0.1: avro context schema \"AvroBad1:0.0.1\" schema is invalid");
         final AxContextSchema avroBadSchema2 =
-                new AxContextSchema(new AxArtifactKey("AvroBad2", "0.0.1"), "AVRO", "{}");
+            new AxContextSchema(new AxArtifactKey("AvroBad2", "0.0.1"), "AVRO", "{}");
         schemas.getSchemasMap().put(avroBadSchema2.getKey(), avroBadSchema2);
 
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(testKey, avroBadSchema2.getKey()))
             .hasMessageStartingWith("AvroTest:0.0.1: avro context schema \"AvroBad2:0.0.1\" schema is invalid");
         final AxContextSchema avroBadSchema3 =
-                new AxContextSchema(new AxArtifactKey("AvroBad3", "0.0.1"), "AVRO", "{zooby}");
+            new AxContextSchema(new AxArtifactKey("AvroBad3", "0.0.1"), "AVRO", "{zooby}");
         schemas.getSchemasMap().put(avroBadSchema3.getKey(), avroBadSchema3);
 
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(testKey, avroBadSchema3.getKey()))
             .hasMessageStartingWith("AvroTest:0.0.1: avro context schema \"AvroBad3:0.0.1\" schema is invalid");
         final AxContextSchema avroBadSchema4 =
-                new AxContextSchema(new AxArtifactKey("AvroBad4", "0.0.1"), "AVRO", "{\"zooby\"}");
+            new AxContextSchema(new AxArtifactKey("AvroBad4", "0.0.1"), "AVRO", "{\"zooby\"}");
         schemas.getSchemasMap().put(avroBadSchema4.getKey(), avroBadSchema4);
 
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(testKey, avroBadSchema4.getKey()))
             .hasMessageStartingWith("AvroTest:0.0.1: avro context schema \"AvroBad4:0.0.1\" schema is invalid");
         final AxContextSchema avroBadSchema5 =
-                new AxContextSchema(new AxArtifactKey("AvroBad5", "0.0.1"), "AVRO", "{\"type\": \"zooby\"}");
+            new AxContextSchema(new AxArtifactKey("AvroBad5", "0.0.1"), "AVRO", "{\"type\": \"zooby\"}");
         schemas.getSchemasMap().put(avroBadSchema5.getKey(), avroBadSchema5);
 
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(testKey, avroBadSchema5.getKey()))

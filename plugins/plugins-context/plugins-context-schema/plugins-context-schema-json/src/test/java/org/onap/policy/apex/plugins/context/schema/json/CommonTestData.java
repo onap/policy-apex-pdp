@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +22,9 @@
 package org.onap.policy.apex.plugins.context.schema.json;
 
 import java.io.IOException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -62,7 +63,7 @@ public class CommonTestData {
     /**
      * Setup before all tests.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws IOException {
         COMMONHEADERTYPE_DRAFT04 =
             TextFileUtils.getTextFileAsString("src/test/resources/schema/commonHeaderType_draft04.json");
@@ -81,7 +82,7 @@ public class CommonTestData {
     /**
      * Setup before test.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         schemas = new AxContextSchemas(new AxArtifactKey("JsonSchema", VERSION));
         ModelService.registerModel(AxContextSchemas.class, schemas);
@@ -95,7 +96,7 @@ public class CommonTestData {
     /**
      * Teardown after test.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ModelService.clear();

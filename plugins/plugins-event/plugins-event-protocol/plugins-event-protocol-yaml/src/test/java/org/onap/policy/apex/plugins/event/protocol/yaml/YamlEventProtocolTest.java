@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +22,15 @@
 package org.onap.policy.apex.plugins.event.protocol.yaml;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
@@ -52,15 +51,14 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 /**
  * The Class TestYamlEventProtocol.
  */
-public class YamlEventProtocolTest {
+class YamlEventProtocolTest {
 
     /**
      * Register test events and schemas.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    @BeforeClass
-    public static void registerTestEventsAndSchemas() throws IOException {
+    @BeforeAll
+    static void registerTestEventsAndSchemas() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
         ParameterService.register(schemaParameters, true);
@@ -201,8 +199,8 @@ public class YamlEventProtocolTest {
     /**
      * Unregister test events and schemas.
      */
-    @AfterClass
-    public static void unregisterTestEventsAndSchemas() {
+    @AfterAll
+    static void unregisterTestEventsAndSchemas() {
         ModelService.clear();
         ParameterService.clear();
     }
@@ -214,7 +212,7 @@ public class YamlEventProtocolTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testYamlProcessing() throws ApexEventException, IOException {
+    void testYamlProcessing() throws ApexEventException, IOException {
         assertThatThrownBy(() -> testYamlDecodeEncode("TestEvent0", 1, 0, "Empty0"))
             .hasMessage("event processing failed, event is null");
         testYamlDecodeEncode("TestEvent0", 1, 0, "Empty1");
@@ -252,7 +250,7 @@ public class YamlEventProtocolTest {
         converter.init(parameters);
 
         String filePath = "src/test/resources/yaml_in/" + fileName + ".yaml";
-        FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+        FileInputStream fileInputStream = new FileInputStream(filePath);
         HeaderDelimitedTextBlockReader reader = new HeaderDelimitedTextBlockReader(parameters);
         reader.init(fileInputStream);
 

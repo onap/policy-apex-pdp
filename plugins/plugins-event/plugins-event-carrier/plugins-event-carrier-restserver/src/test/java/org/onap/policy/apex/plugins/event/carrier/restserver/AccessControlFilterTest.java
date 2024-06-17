@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021, 2023 Nordix Foundation.
+ *  Copyright (C) 2021, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restserver;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;
@@ -29,16 +29,16 @@ import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
-@RunWith(MockitoJUnitRunner.class)
-public class AccessControlFilterTest {
+@ExtendWith(MockitoExtension.class)
+class AccessControlFilterTest {
 
     private AccessControlFilter acf;
 
@@ -47,13 +47,13 @@ public class AccessControlFilterTest {
     @Mock
     private ContainerResponseContext responseContext;
 
-    @Before
+    @BeforeEach
     public void beforeEach() {
         acf = new AccessControlFilter();
     }
 
     @Test
-    public void filterAddToExisting() throws IOException {
+    void filterAddToExisting() throws IOException {
         // prepare mocks
         final String origin = RandomStringUtils.randomAlphanumeric(14, 16);
         final MultivaluedHashMap<String, Object> map = new MultivaluedHashMap<>();

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,21 @@
 
 package org.onap.policy.apex.plugins.executor.mvel;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the MvelExecutorParameters class.
  */
-public class MvelExecutorParametersTest {
+class MvelExecutorParametersTest {
 
     @Test
-    public void testJavaExecutorParameters() {
-        assertNotNull(new MvelExecutorParameters());
+    void testMvelExecutorParameters() {
+        var executorType = "Mvel";
+        var mvelExecutor = new MvelExecutorParameters();
+        assertTrue(mvelExecutor.getStateFinalizerExecutorPluginClass().contains(executorType));
+        assertTrue(mvelExecutor.getTaskExecutorPluginClass().contains(executorType));
+        assertTrue(mvelExecutor.getTaskSelectionExecutorPluginClass().contains(executorType));
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,9 +24,10 @@ package org.onap.policy.apex.plugins.event.carrier.restclient;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.Invocation.Builder;
@@ -35,22 +36,23 @@ import jakarta.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
 /**
- * This class tests the ApexRestClientConusmer class.
- *
+ * This class tests the ApexRestClientConsumer class.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class ApexRestClientConusmerTest {
+@ExtendWith(MockitoExtension.class)
+class ApexRestClientConsumerTest {
     private final PrintStream stdout = System.out;
 
     @Mock
@@ -65,13 +67,13 @@ public class ApexRestClientConusmerTest {
     @Mock
     private Response responseMock;
 
-    @After
-    public void after() {
+    @AfterEach
+    void after() {
         System.setOut(stdout);
     }
 
     @Test
-    public void testApexRestClientConsumerErrors() throws ApexEventException {
+    void testApexRestClientConsumerErrors() throws ApexEventException {
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -99,7 +101,7 @@ public class ApexRestClientConusmerTest {
         assertEquals("RestClientConsumer", arcc.getName());
 
         arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
@@ -120,7 +122,7 @@ public class ApexRestClientConusmerTest {
     }
 
     @Test
-    public void testApexRestClientConsumerHttpError() throws ApexEventException {
+    void testApexRestClientConsumerHttpError() throws ApexEventException {
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -139,7 +141,7 @@ public class ApexRestClientConusmerTest {
         assertEquals("RestClientConsumer", arcc.getName());
 
         arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
-        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         Mockito.doReturn(Response.Status.BAD_REQUEST.getStatusCode()).when(responseMock).getStatus();
         Mockito.doReturn(responseMock).when(builderMock).get();
@@ -159,7 +161,7 @@ public class ApexRestClientConusmerTest {
     }
 
     @Test
-    public void testApexRestClientConsumerJsonError() throws ApexEventException {
+    void testApexRestClientConsumerJsonError() throws ApexEventException {
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -175,7 +177,7 @@ public class ApexRestClientConusmerTest {
 
         arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
 
-        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -197,7 +199,7 @@ public class ApexRestClientConusmerTest {
     }
 
     @Test
-    public void testApexRestClientConsumerJsonEmpty() throws ApexEventException {
+    void testApexRestClientConsumerJsonEmpty() throws ApexEventException {
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -214,7 +216,7 @@ public class ApexRestClientConusmerTest {
 
         arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
 
-        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -242,7 +244,7 @@ public class ApexRestClientConusmerTest {
     }
 
     @Test
-    public void testApexRestClientConsumerJsonOk() throws ApexEventException {
+    void testApexRestClientConsumerJsonOk() throws ApexEventException {
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -259,7 +261,7 @@ public class ApexRestClientConusmerTest {
 
         arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
 
-        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
@@ -278,7 +280,7 @@ public class ApexRestClientConusmerTest {
     }
 
     @Test
-    public void testApexRestClientConsumerInvalidStatusCode() throws ApexEventException {
+    void testApexRestClientConsumerInvalidStatusCode() throws ApexEventException {
         ApexRestClientConsumer arcc = new ApexRestClientConsumer();
         assertNotNull(arcc);
 
@@ -295,7 +297,7 @@ public class ApexRestClientConusmerTest {
 
         arcc.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, null);
 
-        assertEquals(null, arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
+        assertNull(arcc.getPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS));
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();

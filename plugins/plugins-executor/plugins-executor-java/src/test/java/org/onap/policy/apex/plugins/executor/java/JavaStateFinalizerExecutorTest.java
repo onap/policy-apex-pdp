@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,13 @@
 package org.onap.policy.apex.plugins.executor.java;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -50,14 +50,13 @@ import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * Test the JavaStateFinalizerExecutor class.
- *
  */
-public class JavaStateFinalizerExecutorTest {
+class JavaStateFinalizerExecutorTest {
     /**
      * Initiate Parameters.
      */
-    @Before
-    public void initiateParameters() {
+    @BeforeEach
+    void initiateParameters() {
         ParameterService.register(new DistributorParameters());
         ParameterService.register(new LockManagerParameters());
         ParameterService.register(new PersistorParameters());
@@ -67,8 +66,8 @@ public class JavaStateFinalizerExecutorTest {
     /**
      * Clear down Parameters.
      */
-    @After
-    public void clearParameters() {
+    @AfterEach
+    void clearParameters() {
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
@@ -76,7 +75,7 @@ public class JavaStateFinalizerExecutorTest {
     }
 
     @Test
-    public void testJavaStateFinalizerExecutor() throws StateMachineException, ContextException {
+    void testJavaStateFinalizerExecutor() throws StateMachineException, ContextException {
         JavaStateFinalizerExecutor jsfe = new JavaStateFinalizerExecutor();
         assertNotNull(jsfe);
 
@@ -111,7 +110,7 @@ public class JavaStateFinalizerExecutorTest {
         assertThatThrownBy(() -> {
             jsfe.execute(-1, new Properties(), event);
         }).hasMessage("execute-post: state finalizer logic execution failure on state "
-                + "\"NULL:0.0.0:NULL:NULL\" on finalizer logic NULL:0.0.0:NULL:NULL");
+            + "\"NULL:0.0.0:NULL:NULL\" on finalizer logic NULL:0.0.0:NULL:NULL");
         state.getStateOutputs().put("SelectedOutputIsMe", null);
 
         jsfe.prepare();

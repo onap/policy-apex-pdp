@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020 Nordix Foundation. All rights reserved.
+ *  Copyright (C) 2020, 2024 Nordix Foundation. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,21 +23,21 @@ package org.onap.policy.apex.plugins.executor.javascript;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
-public class JavascriptExecutorTest {
+class JavascriptExecutorTest {
 
     @Test
-    public void testReturnOK() throws StateMachineException {
+    void testReturnOK() throws StateMachineException {
         JavascriptExecutor executor = new JavascriptExecutor(
             new AxArtifactKey("TestTask:0.0.1"), "true;");
         assertThatCode(() -> executor.execute(new Object())).doesNotThrowAnyException();
     }
 
     @Test
-    public void testReturnNonBoolean() throws StateMachineException {
+    void testReturnNonBoolean() throws StateMachineException {
         JavascriptExecutor executor = new JavascriptExecutor(
             new AxArtifactKey("TestTask:0.0.1"), "var a = 1; a;");
         assertThatThrownBy(() -> executor.execute(new Object()))
@@ -45,14 +45,14 @@ public class JavascriptExecutorTest {
     }
 
     @Test
-    public void testBlankLogic() {
+    void testBlankLogic() {
         assertThatThrownBy(() -> new JavascriptExecutor(
             new AxArtifactKey("TestTask:0.0.1"), " "))
             .hasMessageContaining("no logic specified for TestTask:0.0.1");
     }
 
     @Test
-    public void testCompileFailed() {
+    void testCompileFailed() {
         assertThatThrownBy(() -> new JavascriptExecutor(
             new AxArtifactKey("TestTask:0.0.1"), "return boolean;"))
             .hasMessageContaining("logic failed to compile for TestTask:0.0.1");

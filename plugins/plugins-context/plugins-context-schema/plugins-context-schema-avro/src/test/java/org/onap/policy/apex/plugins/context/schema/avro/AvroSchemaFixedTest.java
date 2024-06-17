@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,14 +23,14 @@
 package org.onap.policy.apex.plugins.context.schema.avro;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import org.apache.avro.generic.GenericData.Fixed;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.SchemaHelper;
 import org.onap.policy.apex.context.impl.schema.SchemaHelperFactory;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -47,9 +47,8 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  * The Class TestAvroSchemaFixed.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
- * @version
  */
-public class AvroSchemaFixedTest {
+class AvroSchemaFixedTest {
     private final AxKey testKey = new AxArtifactKey("AvroTest", "0.0.1");
     private AxContextSchemas schemas;
     private String fixedSchema;
@@ -59,8 +58,8 @@ public class AvroSchemaFixedTest {
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    @Before
-    public void initTest() throws IOException {
+    @BeforeEach
+    void initTest() throws IOException {
         schemas = new AxContextSchemas(new AxArtifactKey("AvroSchemas", "0.0.1"));
         ModelService.registerModel(AxContextSchemas.class, schemas);
         fixedSchema = TextFileUtils.getTextFileAsString("src/test/resources/avsc/FixedSchema.avsc");
@@ -69,8 +68,8 @@ public class AvroSchemaFixedTest {
     /**
      * Inits the context.
      */
-    @Before
-    public void initContext() {
+    @BeforeEach
+    void initContext() {
         SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("AVRO", new AvroSchemaHelperParameters());
@@ -81,8 +80,8 @@ public class AvroSchemaFixedTest {
     /**
      * Clear context.
      */
-    @After
-    public void clearContext() {
+    @AfterEach
+    void clearContext() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
     }
 
@@ -92,17 +91,17 @@ public class AvroSchemaFixedTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFixedInit() throws IOException {
+    void testFixedInit() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", fixedSchema);
+            new AxContextSchema(new AxArtifactKey("AvroRecord", "0.0.1"), "AVRO", fixedSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
 
-        assertThatThrownBy(() -> schemaHelper.createNewInstance())
+        assertThatThrownBy(schemaHelper::createNewInstance)
             .hasMessage("AvroTest:0.0.1: could not create an instance "
-                    + "of class \"org.apache.avro.generic.GenericData$Fixed\" "
-                    + "using the default constructor \"Fixed()\"");
+                + "of class \"org.apache.avro.generic.GenericData$Fixed\" "
+                + "using the default constructor \"Fixed()\"");
         final String inString = TextFileUtils.getTextFileAsString("src/test/resources/data/FixedExampleGood.json");
         final Fixed newFixedFull = (Fixed) schemaHelper.createNewInstance(inString);
         assertTrue(newFixedFull.toString().startsWith("[48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65"));
@@ -115,9 +114,9 @@ public class AvroSchemaFixedTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFixedUnmarshalMarshal() throws IOException {
+    void testFixedUnmarshalMarshal() throws IOException {
         final AxContextSchema avroSchema =
-                new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", fixedSchema);
+            new AxContextSchema(new AxArtifactKey("AvroArray", "0.0.1"), "AVRO", fixedSchema);
 
         schemas.getSchemasMap().put(avroSchema.getKey(), avroSchema);
         final SchemaHelper schemaHelper = new SchemaHelperFactory().createSchemaHelper(testKey, avroSchema.getKey());
@@ -140,7 +139,7 @@ public class AvroSchemaFixedTest {
      * Test unmarshal marshal.
      *
      * @param schemaHelper the schema helper
-     * @param fileName the file name
+     * @param fileName     the file name
      * @throws IOException Signals that an I/O exception has occurred.
      */
     private void testUnmarshalMarshal(final SchemaHelper schemaHelper, final String fileName) throws IOException {

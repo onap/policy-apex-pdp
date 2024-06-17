@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Samsung. All rights reserved.
- *  Modifications Copyright (C) 2019-2021, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,8 +25,8 @@ package org.onap.policy.apex.plugins.event.carrier.jms;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import jakarta.jms.Connection;
 import jakarta.jms.ConnectionFactory;
@@ -43,9 +43,9 @@ import java.util.Random;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -71,14 +71,14 @@ public class ApexJmsProducerTest {
      * Set up testing.
      *
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         apexJmsConsumer = new ApexJmsConsumer();
         producerParameters = new EventHandlerParameters();
         apexJmsProducer = Mockito.spy(new ApexJmsProducer());
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         // restore system.out
         System.setOut(out);

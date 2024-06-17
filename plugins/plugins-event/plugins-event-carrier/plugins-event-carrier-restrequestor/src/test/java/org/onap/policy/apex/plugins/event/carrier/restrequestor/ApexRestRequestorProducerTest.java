@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
@@ -38,33 +39,30 @@ import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMo
 /**
  * Test the ApexRestRequestorProducer class.
  */
-public class ApexRestRequestorProducerTest {
+class ApexRestRequestorProducerTest {
     // String constants
     private static final String PRODUCER_NAME = "ProducerName";
 
     @Test
-    public void testApexRestRequestorProducerMethods() throws ApexEventException {
+    void testApexRestRequestorProducerMethods() throws ApexEventException {
         ApexRestRequestorProducer producer = new ApexRestRequestorProducer();
         assertNotNull(producer);
 
         EventHandlerParameters producerParameters = new EventHandlerParameters();
 
-        assertThatThrownBy(() -> {
-            producer.init(PRODUCER_NAME, producerParameters);
-        }).hasMessage("specified producer properties are not applicable to REST requestor producer (ProducerName)");
+        assertThatThrownBy(() -> producer.init(PRODUCER_NAME, producerParameters))
+            .hasMessage("specified producer properties are not applicable to REST requestor producer (ProducerName)");
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
         producerParameters.setCarrierTechnologyParameters(rrctp);
-        assertThatThrownBy(() -> {
-            producer.init(PRODUCER_NAME, producerParameters);
-        }).hasMessage("REST Requestor producer (ProducerName) must run in peered requestor mode "
-            + "with a REST Requestor consumer");
+        assertThatThrownBy(() -> producer.init(PRODUCER_NAME, producerParameters))
+            .hasMessage("REST Requestor producer (ProducerName) must run in peered requestor mode "
+                + "with a REST Requestor consumer");
 
         producerParameters.setPeeredMode(EventHandlerPeeredMode.REQUESTOR, true);
         rrctp.setUrl("ZZZZ");
-        assertThatThrownBy(() -> {
-            producer.init(PRODUCER_NAME, producerParameters);
-        }).hasMessage("URL may not be specified on REST Requestor producer (ProducerName)");
+        assertThatThrownBy(() -> producer.init(PRODUCER_NAME, producerParameters))
+            .hasMessage("URL may not be specified on REST Requestor producer (ProducerName)");
 
         rrctp.setUrl(null);
         rrctp.setHttpMethod(RestRequestorCarrierTechnologyParameters.HttpMethod.GET);
@@ -80,11 +78,11 @@ public class ApexRestRequestorProducerTest {
 
         assertEquals(PRODUCER_NAME, producer.getName());
         assertEquals(0, producer.getEventsSent());
-        assertEquals(null, producer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
+        assertNull(producer.getPeeredReference(EventHandlerPeeredMode.REQUESTOR));
     }
 
     @Test
-    public void testApexRestRequestorProducerRequest() throws ApexEventException {
+    void testApexRestRequestorProducerRequest() throws ApexEventException {
         EventHandlerParameters producerParameters = new EventHandlerParameters();
 
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
@@ -100,9 +98,8 @@ public class ApexRestRequestorProducerTest {
         String eventName = "EventName";
         String event = "This is the event";
 
-        assertThatThrownBy(() -> {
-            producer.sendEvent(12345, null, eventName, event);
-        }).hasMessage("send of event failed, REST response consumer is not defined\n" + "This is the event");
+        assertThatThrownBy(() -> producer.sendEvent(12345, null, eventName, event))
+            .hasMessage("send of event failed, REST response consumer is not defined\n" + "This is the event");
 
         ApexEventConsumer consumer = new ApexFileEventConsumer();
         SynchronousEventCache eventCache =
@@ -111,9 +108,8 @@ public class ApexRestRequestorProducerTest {
 
         PeeredReference peeredReference = new PeeredReference(EventHandlerPeeredMode.REQUESTOR, consumer, producer);
         producer.setPeeredReference(EventHandlerPeeredMode.REQUESTOR, peeredReference);
-        assertThatThrownBy(() -> {
-            producer.sendEvent(12345, null, eventName, event);
-        }).hasMessage("send of event failed, REST response consumer "
-            + "is not an instance of ApexRestRequestorConsumer\n" + "This is the event");
+        assertThatThrownBy(() -> producer.sendEvent(12345, null, eventName, event))
+            .hasMessage("send of event failed, REST response consumer "
+                + "is not an instance of ApexRestRequestorConsumer\n" + "This is the event");
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,12 +24,13 @@
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
 import org.onap.policy.apex.service.parameters.ApexParameters;
@@ -38,24 +39,24 @@ import org.onap.policy.common.parameters.ParameterException;
 /**
  * Test REST Requestor carrier technology parameters.
  */
-public class RestRequestorCarrierTechnologyParametersTest {
+class RestRequestorCarrierTechnologyParametersTest {
 
     @Test
-    public void testRestRequestorCarrierTechnologyParametersBadList() {
+    void testRestRequestorCarrierTechnologyParametersBadList() {
         verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderBadList.json",
-                        "item \"entry 2\" value \"null\" INVALID, is null");
+            "item \"entry 2\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testRestRequestorCarrierTechnologyParametersNotKvPairs() {
+    void testRestRequestorCarrierTechnologyParametersNotKvPairs() {
         verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNotKvPairs.json",
-                        "item \"entry 0\" value \"[aaa, bbb, ccc]\" INVALID, must have one key");
+            "item \"entry 0\" value \"[aaa, bbb, ccc]\" INVALID, must have one key");
     }
 
     @Test
-    public void testRestRequestorCarrierTechnologyParametersNulls() {
+    void testRestRequestorCarrierTechnologyParametersNulls() {
         verifyException("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderNulls.json",
-                        "\"key\"");
+            "\"key\"");
     }
 
     private void verifyException(String fileName, String expectedMsg) {
@@ -64,11 +65,11 @@ public class RestRequestorCarrierTechnologyParametersTest {
         arguments.setRelativeFileRoot(".");
 
         assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).describedAs(fileName)
-                        .hasMessageContaining(expectedMsg);
+            .hasMessageContaining(expectedMsg);
     }
 
     @Test
-    public void testRestRequestorCarrierTechnologyParametersOk() throws ParameterException {
+    void testRestRequestorCarrierTechnologyParametersOk() throws ParameterException {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
         arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTRequestorWithHTTPHeaderOK.json");
         arguments.setRelativeFileRoot(".");
@@ -88,7 +89,7 @@ public class RestRequestorCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testRestClientCarrierTechnologyParameterFilterInvalid() {
+    void testRestClientCarrierTechnologyParameterFilterInvalid() {
         ApexCommandLineArguments arguments = new ApexCommandLineArguments();
         arguments.setToscaPolicyFilePath("src/test/resources/prodcons/RESTClientWithHTTPFilterInvalid.json");
         arguments.setRelativeFileRoot(".");
@@ -103,11 +104,11 @@ public class RestRequestorCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testGettersAndSetters() {
+    void testGettersAndSetters() {
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
 
         rrctp.setHttpHeaders(null);
-        assertEquals(null, rrctp.getHttpHeadersAsMultivaluedMap());
+        assertNull(rrctp.getHttpHeadersAsMultivaluedMap());
 
         rrctp.setUrl("http://some.where");
         assertEquals("http://some.where", rrctp.getUrl());
@@ -146,7 +147,7 @@ public class RestRequestorCarrierTechnologyParametersTest {
     }
 
     @Test
-    public void testUrlValidation() {
+    void testUrlValidation() {
         RestRequestorCarrierTechnologyParameters rrctp = new RestRequestorCarrierTechnologyParameters();
 
         rrctp.setUrl("http://some.where.no.tag.in.url");
@@ -164,30 +165,28 @@ public class RestRequestorCarrierTechnologyParametersTest {
         assertEquals("ccc", rrctp.getHttpHeaders()[1][0]);
         assertEquals("ddd", rrctp.getHttpHeaders()[1][1]);
 
-        assertEquals(true, rrctp.validate().isValid());
+        assertTrue(rrctp.validate().isValid());
 
         rrctp.setUrl("http://{place}.{that}/is{that}.{one}");
-        assertEquals(true, rrctp.validate().isValid());
+        assertTrue(rrctp.validate().isValid());
 
         Set<String> keymap = rrctp.getKeysFromUrl();
-        assertEquals(true, keymap.contains("place"));
-        assertEquals(true, keymap.contains("that"));
-        assertEquals(true, keymap.contains("one"));
+        assertTrue(keymap.contains("place") && keymap.contains("that") && keymap.contains("one"));
 
         rrctp.setUrl("http://{place.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{is}.{not}/{what}.{exist");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
         rrctp.setUrl("http://place.that/is.not/what.{exist");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
         rrctp.setUrl("http://place}.{that}/{is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/is}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{}.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
         rrctp.setUrl("http://{place}.{that}/{ }.{not}/{what}.{exist}");
-        assertEquals(false, rrctp.validate().isValid());
+        assertFalse(rrctp.validate().isValid());
     }
 
 }

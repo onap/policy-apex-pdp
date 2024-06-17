@@ -24,7 +24,7 @@ package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.gson.Gson;
 import jakarta.ws.rs.client.Client;
@@ -34,11 +34,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -50,12 +50,12 @@ import org.onap.policy.common.utils.network.NetworkUtil;
 /**
  * The Class TestRestRequestor.
  */
-public class RestRequestorTest {
+class RestRequestorTest {
     private static final int PORT = 32801;
     private static HttpServletServer server;
 
-    private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
     private final PrintStream stdout = System.out;
     private final PrintStream stderr = System.err;
@@ -65,8 +65,8 @@ public class RestRequestorTest {
      *
      * @throws Exception the exception
      */
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @BeforeAll
+    static void setUp() throws Exception {
         server = HttpServletServerFactoryInstance.getServerFactory().build(null, false, null, PORT, false,
             "/TestRESTRequestor", false, false);
 
@@ -82,10 +82,9 @@ public class RestRequestorTest {
 
     /**
      * Tear down.
-     *
      */
-    @AfterClass
-    public static void tearDown() {
+    @AfterAll
+    static void tearDown() {
         if (server != null) {
             server.stop();
         }
@@ -94,8 +93,8 @@ public class RestRequestorTest {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         SupportRestRequestorEndpoint.resetCounters();
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -104,8 +103,8 @@ public class RestRequestorTest {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         System.setOut(stdout);
         System.setErr(stderr);
     }
@@ -114,10 +113,10 @@ public class RestRequestorTest {
      * Test rest requestor get.
      *
      * @throws MessagingException the messaging exception
-     * @throws Exception an exception
+     * @throws Exception          an exception
      */
     @Test
-    public void testRestRequestorGet() throws Exception {
+    void testRestRequestorGet() throws Exception {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGet.json"};
@@ -139,7 +138,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorGetEmpty() throws ApexException {
+    void testRestRequestorGetEmpty() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetEmpty.json"};
@@ -149,7 +148,7 @@ public class RestRequestorTest {
         Response response = null;
 
         // Wait for the required amount of events to be received or for 10 seconds
-        double getsSoFar = 0.0;
+        double getsSoFar;
         for (int i = 0; i < 40; i++) {
             response = client.target("http://localhost:32801/TestRESTRequestor/apex/event/Stats")
                 .request("application/json").get();
@@ -160,8 +159,8 @@ public class RestRequestorTest {
 
             final String responseString = response.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+            @SuppressWarnings("unchecked") final Map<String, Object> jsonMap =
+                new Gson().fromJson(responseString, Map.class);
             getsSoFar = Double.parseDouble(jsonMap.get("GET").toString());
 
             if (getsSoFar >= 50.0) {
@@ -183,7 +182,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorPut() throws ApexException {
+    void testRestRequestorPut() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePut.json"};
@@ -205,7 +204,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorPost() throws ApexException {
+    void testRestRequestorPost() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FilePost.json"};
@@ -227,7 +226,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorDelete() throws ApexException {
+    void testRestRequestorDelete() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileDelete.json"};
@@ -250,7 +249,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorMultiInputs() throws ApexException {
+    void testRestRequestorMultiInputs() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetMulti.json"};
@@ -272,7 +271,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorProducerAlone() throws ApexException {
+    void testRestRequestorProducerAlone() throws ApexException {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetProducerAlone.json"};
 
@@ -291,7 +290,7 @@ public class RestRequestorTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testRestRequestorConsumerAlone() throws ApexException {
+    void testRestRequestorConsumerAlone() throws ApexException {
         final String[] args = {"src/test/resources/prodcons/File2RESTRequest2FileGetConsumerAlone.json"};
         ApexMain apexMain = new ApexMain(args);
         apexMain.shutdown();
@@ -307,8 +306,8 @@ public class RestRequestorTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         final String responseString = response.readEntity(String.class);
 
-        @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+        @SuppressWarnings("unchecked") final Map<String, Object> jsonMap =
+            new Gson().fromJson(responseString, Map.class);
         return Double.parseDouble(jsonMap.get(statToGet).toString());
     }
 }

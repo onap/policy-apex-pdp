@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,19 +28,19 @@ import com.google.gson.JsonObject;
 import com.worldturner.medeia.api.ValidationFailedException;
 import java.util.ArrayList;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 import org.onap.policy.common.utils.coder.CoderException;
 
-public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
+class JsonSchemaHelperUnmarshalTest extends CommonTestData {
 
     /**
      * Test Boolean.
      */
     @Test
-    public void testBooleanUnmarshal() {
+    void testBooleanUnmarshal() {
         var schemaHelper = createSchema(BOOLEAN_SCHEMA);
         assertThat(schemaHelper.createNewInstance(BOOLEAN_DATA)).isInstanceOf(Boolean.class).isEqualTo(Boolean.TRUE);
     }
@@ -48,30 +49,31 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * Test null.
      */
     @Test
-    public void testNullUnmarshal() {
+    void testNullUnmarshal() {
         var schemaHelper = createSchema(NULL_SCHEMA);
-        assertThat(schemaHelper.createNewInstance(NULL_DATA)).isEqualTo(null);
+        assertThat(schemaHelper.createNewInstance(NULL_DATA)).isNull();
     }
 
     /**
      * Test Array.
      */
     @Test
-    public void testArrayUnmarshal() {
+    void testArrayUnmarshal() {
         var schemaHelper = createSchema(MEASUREMENTGROUPS_TYPE);
         var obj = schemaHelper.createNewInstance(MEASUREMENTGROUPS);
         assertThat(obj).isInstanceOf(ArrayList.class);
     }
 
     /**
-     * Test invlaid schema.
+     * Test invalid schema.
      */
     @Test
-    public void testSchemaInvalid() {
+    void testSchemaInvalid() {
         String schemaDef = "{\"type\": \"object\"}";
         final AxContextSchema jsonSchema =
             new AxContextSchema(new AxArtifactKey("JsonObject", VERSION), JSON, schemaDef);
-        assertThatThrownBy(() -> new JsonSchemaHelper().init(testKey, jsonSchema))
+        var jsonSchemaHelper = new JsonSchemaHelper();
+        assertThatThrownBy(() -> jsonSchemaHelper.init(testKey, jsonSchema))
             .isInstanceOf(ContextRuntimeException.class).hasMessageContaining("schema is invalid");
     }
 
@@ -81,7 +83,7 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchemaDraft04_valid() throws CoderException {
+    void testObjectSchemaDraft04_valid() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         var dataReturned = validateAndUnmarshal(COMMONHEADERTYPE_DRAFT04, COMMONHEADER);
         assertThat(dataReturned).isEqualTo(dataAsObject);
@@ -93,7 +95,7 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchemaDraft07_valid() throws CoderException {
+    void testObjectSchemaDraft07_valid() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         var dataReturned = validateAndUnmarshal(COMMONHEADERTYPE_DRAFT07, COMMONHEADER);
         assertThat(dataReturned).isEqualTo(dataAsObject);
@@ -105,7 +107,7 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchemaDraft07_invalid() throws CoderException {
+    void testObjectSchemaDraft07_invalid() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, JsonObject.class);
         dataAsObject.addProperty("requestId", "abcd");
         assertThatThrownBy(() -> validateAndUnmarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject))
@@ -119,7 +121,7 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testCreateNewInstanceInvalid() throws CoderException {
+    void testCreateNewInstanceInvalid() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         assertThatThrownBy(() -> validateAndUnmarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject))
             .isInstanceOf(ContextRuntimeException.class).hasMessageContaining("not an instance of JsonObject");
@@ -131,7 +133,7 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchema_fieldMissing() throws CoderException {
+    void testObjectSchema_fieldMissing() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, JsonObject.class);
         dataAsObject.remove(TEST_ID);
         assertThatThrownBy(() -> validateAndUnmarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject))
@@ -145,7 +147,7 @@ public class JsonSchemaHelperUnmarshalTest extends CommonTestData {
      * @throws CoderException the coderException
      */
     @Test
-    public void testObjectSchema_OptionalField() throws CoderException {
+    void testObjectSchema_OptionalField() throws CoderException {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         var dataAsjsonObject = coder.decode(COMMONHEADER, JsonObject.class);
         dataAsObject.remove(TEST_ID);
