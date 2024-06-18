@@ -46,6 +46,8 @@ class FileMacroTest {
     private File tempModelFile;
     private File tempLogFile;
 
+    private static final String WHITESPACE_REGEX = "(\\s+){1,4}";
+
     /**
      * Creates the temp files.
      *
@@ -101,11 +103,13 @@ class FileMacroTest {
         final File outputLogFile = new File(tempLogFile.getCanonicalPath());
 
         final String outputLogString = TextFileUtils.getTextFileAsString(outputLogFile.getCanonicalPath())
-            .replace(Paths.get("").toAbsolutePath() + File.separator, "").replaceAll("\\s+", "");
+            .replace(Paths.get("").toAbsolutePath() + File.separator, "")
+            .replaceAll(WHITESPACE_REGEX, "");
 
         // We compare the log to what we expect to get
         final String outputLogCompareString = TextFileUtils
-            .getTextFileAsString("src/test/resources/compare/FileMacro_Compare.log").replaceAll("\\s+", "");
+            .getTextFileAsString("src/test/resources/compare/FileMacro_Compare.log")
+            .replaceAll(WHITESPACE_REGEX, "");
 
         // Check what we got is what we expected to get
         assertEquals(outputLogCompareString, outputLogString);

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,9 +23,11 @@
 package org.onap.policy.apex.model.basicmodel.concepts;
 
 import com.google.gson.annotations.SerializedName;
+import java.io.Serial;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult.ValidationResult;
 import org.onap.policy.common.utils.validation.Assertions;
@@ -38,6 +40,8 @@ import org.onap.policy.common.utils.validation.Assertions;
  * blank and warns if the UUID is a zero UUID.
  */
 public class AxKeyInfo extends AxConcept {
+
+    @Serial
     private static final long serialVersionUID = -4023935924068914308L;
 
     private static final int UUID_BYTE_LENGTH_16 = 16;
@@ -49,9 +53,11 @@ public class AxKeyInfo extends AxConcept {
 
     private AxArtifactKey key;
 
+    @Getter
     @SerializedName("UUID")
     private UUID uuid;
 
+    @Getter
     private String description;
 
     /**
@@ -82,8 +88,8 @@ public class AxKeyInfo extends AxConcept {
     /**
      * Constructor to create this concept and set all its fields.
      *
-     * @param key the key of the concept
-     * @param uuid the UUID of the concept
+     * @param key         the key of the concept
+     * @param uuid        the UUID of the concept
      * @param description the description of the concept
      */
     public AxKeyInfo(final AxArtifactKey key, final UUID uuid, final String description) {
@@ -124,15 +130,6 @@ public class AxKeyInfo extends AxConcept {
     }
 
     /**
-     * Gets the UUID of the concept.
-     *
-     * @return the uuid of the concept
-     */
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    /**
      * Sets the UUID of the concept.
      *
      * @param uuid the uuid of the concept
@@ -140,15 +137,6 @@ public class AxKeyInfo extends AxConcept {
     public void setUuid(final UUID uuid) {
         Assertions.argumentNotNull(uuid, "uuid may not be null");
         this.uuid = uuid;
-    }
-
-    /**
-     * Gets the description of the concept.
-     *
-     * @return the description of the concept
-     */
-    public String getDescription() {
-        return description;
     }
 
     /**
@@ -170,19 +158,19 @@ public class AxKeyInfo extends AxConcept {
 
         if (key.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(
-                    new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
+                new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID, "key is a null key"));
         }
 
         result = key.validate(result);
 
-        if (description.trim().length() == 0) {
+        if (description.trim().isEmpty()) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
-                    "description is blank"));
+                "description is blank"));
         }
 
         if (uuid.equals(new UUID(0, 0))) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
-                    "UUID is a zero UUID: " + new UUID(0, 0)));
+                "UUID is a zero UUID: " + new UUID(0, 0)));
         }
 
         return result;
@@ -202,17 +190,8 @@ public class AxKeyInfo extends AxConcept {
      */
     @Override
     public String toString() {
-        final var builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("artifactId=");
-        builder.append(key);
-        builder.append(",uuid=");
-        builder.append(uuid);
-        builder.append(",description=");
-        builder.append(description);
-        builder.append(")");
-        return builder.toString();
+        return this.getClass().getSimpleName()
+            + ":(artifactId=" + key + ",uuid=" + uuid + ",description=" + description + ")";
     }
 
     /**
@@ -222,10 +201,9 @@ public class AxKeyInfo extends AxConcept {
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
-        final Object copyObject = target;
-        Assertions.instanceOf(copyObject, AxKeyInfo.class);
+        Assertions.instanceOf(target, AxKeyInfo.class);
 
-        final AxKeyInfo copy = ((AxKeyInfo) copyObject);
+        final AxKeyInfo copy = ((AxKeyInfo) target);
         copy.setKey(new AxArtifactKey(key));
         copy.setUuid(UUID.fromString(uuid.toString()));
         copy.setDescription(description);
@@ -265,10 +243,7 @@ public class AxKeyInfo extends AxConcept {
         if (!key.equals(other.key)) {
             return false;
         }
-        if (!uuid.equals(other.uuid)) {
-            return false;
-        }
-        return description.equals(description);
+        return uuid.equals(other.uuid);
     }
 
     /**

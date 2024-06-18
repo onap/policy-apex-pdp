@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@
 
 package org.onap.policy.apex.model.contextmodel.concepts;
 
+import java.io.Serial;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -64,6 +65,7 @@ import org.onap.policy.common.utils.validation.Assertions;
 public class AxContextAlbum extends AxConcept {
     private static final String SCOPE_STRING = "scope";
 
+    @Serial
     private static final long serialVersionUID = 4290442590545820316L;
 
     /**
@@ -71,7 +73,9 @@ public class AxContextAlbum extends AxConcept {
      */
     public static final String SCOPE_REGEXP = "[A-Za-z0-9\\-_]+";
 
-    /** The value of scope for a context album for which a scope has not been specified. */
+    /**
+     * The value of scope for a context album for which a scope has not been specified.
+     */
     public static final String SCOPE_UNDEFINED = "UNDEFINED";
 
     private AxArtifactKey key;
@@ -117,13 +121,13 @@ public class AxContextAlbum extends AxConcept {
     /**
      * Constructor that sets all the fields of the context album.
      *
-     * @param key the key of the context album
-     * @param scope the scope field, must match the regular expression SCOPE_REGEXP
+     * @param key        the key of the context album
+     * @param scope      the scope field, must match the regular expression SCOPE_REGEXP
      * @param isWritable specifies whether the context album will be writable or not
      * @param itemSchema the artifact key of the context schema to use for this context album
      */
     public AxContextAlbum(final AxArtifactKey key, final String scope, final boolean isWritable,
-                    final AxArtifactKey itemSchema) {
+                          final AxArtifactKey itemSchema) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
         Assertions.argumentNotNull(scope, "scope may not be null");
@@ -185,24 +189,24 @@ public class AxContextAlbum extends AxConcept {
 
         if (key.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key is a null key"));
+                "key is a null key"));
         }
         result = key.validate(result);
 
-        if (scope.replaceAll("\\s+$", "").length() == 0 || scope.equals(SCOPE_UNDEFINED)) {
+        if (scope.replaceAll(WHITESPACE_REGEX, "").isEmpty() || scope.equals(SCOPE_UNDEFINED)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "scope is not defined"));
+                "scope is not defined"));
         }
 
         var stringCheckResult = Assertions.getStringParameterValidationMessage(SCOPE_STRING, scope, SCOPE_REGEXP);
         if (stringCheckResult != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "scope invalid-" + stringCheckResult));
+                "scope invalid-" + stringCheckResult));
         }
 
         if (itemSchema.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "itemSchema reference is a null key, an item schema must be specified"));
+                "itemSchema reference is a null key, an item schema must be specified"));
         }
         result = itemSchema.validate(result);
 
@@ -226,10 +230,9 @@ public class AxContextAlbum extends AxConcept {
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "targetObject may not be null");
 
-        final Object copyObject = target;
-        Assertions.instanceOf(copyObject, AxContextAlbum.class);
+        Assertions.instanceOf(target, AxContextAlbum.class);
 
-        final AxContextAlbum copy = ((AxContextAlbum) copyObject);
+        final AxContextAlbum copy = ((AxContextAlbum) target);
         copy.setKey(new AxArtifactKey(key));
         copy.setScope(scope);
         copy.setWritable(isWritable);

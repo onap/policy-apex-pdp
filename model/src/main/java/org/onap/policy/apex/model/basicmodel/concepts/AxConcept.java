@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,18 +22,22 @@
 
 package org.onap.policy.apex.model.basicmodel.concepts;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import org.onap.policy.common.utils.validation.Assertions;
 
 /**
  * This class is the base class for all Apex concept classes. It enforces implementation of abstract methods and
- * interfaces on all concepts that are sub-classes of this class.
+ * interfaces on all concepts that are subclasses of this class.
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
+
+    @Serial
     private static final long serialVersionUID = -7434939557282697490L;
+    public static final String WHITESPACE_REGEX = "(\\s+$){1,4}";
 
     /**
      * Default constructor.
@@ -71,8 +75,7 @@ public abstract class AxConcept implements Serializable, Comparable<AxConcept> {
      * Validate that this concept is structurally correct.
      *
      * @param result the parameter in which the result of the validation will be returned
-     * @return the validation result that was passed in in the @{link result} field with the result of this validation
-     *         added
+     * @return the validation result that was passed in the result field with the result of this validation added
      */
     public abstract AxValidationResult validate(AxValidationResult result);
 

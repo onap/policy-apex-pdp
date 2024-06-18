@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -23,8 +23,10 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Map.Entry;
+import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -88,17 +90,19 @@ import org.onap.policy.common.utils.validation.Assertions;
  * <li>All events referred to on direct state outputs must exist
  * </ol>
  */
+@Getter
 public class AxPolicyModel extends AxModel {
-    // @formatter:off
-    private static final String SCHEMAS_TOKEN  = "_Schemas";
-    private static final String KEY_INFO_TOKEN  = "_KeyInfo";
-    private static final String EVENTS_TOKEN    = "_Events";
-    private static final String ALBUMS_TOKEN    = "_Albums";
-    private static final String TASKS_TOKEN     = "_Tasks";
+
+    private static final String SCHEMAS_TOKEN = "_Schemas";
+    private static final String KEY_INFO_TOKEN = "_KeyInfo";
+    private static final String EVENTS_TOKEN = "_Events";
+    private static final String ALBUMS_TOKEN = "_Albums";
+    private static final String TASKS_TOKEN = "_Tasks";
     private static final String POLICIESS_TOKEN = "_Policies";
 
     private static final String DOES_NOT_EXIST = " does not exist";
 
+    @Serial
     private static final long serialVersionUID = 8800599637708309945L;
 
     private AxPolicies policies;
@@ -136,23 +140,24 @@ public class AxPolicyModel extends AxModel {
             new AxKeyInformation(new AxArtifactKey(key.getName() + KEY_INFO_TOKEN, key.getVersion())),
             new AxEvents(new AxArtifactKey(key.getName() + EVENTS_TOKEN, key.getVersion())),
             new AxContextAlbums(new AxArtifactKey(key.getName() + ALBUMS_TOKEN, key.getVersion())),
-            new AxTasks(new AxArtifactKey(key.getName() + TASKS_TOKEN,  key.getVersion())),
+            new AxTasks(new AxArtifactKey(key.getName() + TASKS_TOKEN, key.getVersion())),
             new AxPolicies(new AxArtifactKey(key.getName() + POLICIESS_TOKEN, key.getVersion())));
     }
 
     /**
      * This Constructor creates a policy model with all of its fields specified.
      *
-     * @param key the key of the policy model
-     * @param schemas the context schema container for the policy model
+     * @param key            the key of the policy model
+     * @param schemas        the context schema container for the policy model
      * @param keyInformation the key information container for the policy model
-     * @param events the event container for the policy model
-     * @param albums the context album container for the policy model
-     * @param tasks the task container for the policy model
-     * @param policies the policy container for the policy model
+     * @param events         the event container for the policy model
+     * @param albums         the context album container for the policy model
+     * @param tasks          the task container for the policy model
+     * @param policies       the policy container for the policy model
      */
-    public AxPolicyModel(final AxArtifactKey key, final AxContextSchemas schemas, final AxKeyInformation keyInformation,
-        final AxEvents events, final AxContextAlbums albums, final AxTasks tasks, final AxPolicies policies) {
+    public AxPolicyModel(final AxArtifactKey key, final AxContextSchemas schemas,
+                         final AxKeyInformation keyInformation, final AxEvents events, final AxContextAlbums albums,
+                         final AxTasks tasks, final AxPolicies policies) {
         super(key, keyInformation);
         Assertions.argumentNotNull(schemas, "schemas may not be null");
         Assertions.argumentNotNull(events, "events may not be null");
@@ -203,17 +208,8 @@ public class AxPolicyModel extends AxModel {
      * @return the context model
      */
     public AxContextModel getContextModel() {
-        return new AxContextModel(new AxArtifactKey(albums.getKey().getName() + "_Model", albums.getKey().getVersion()),
-            getSchemas(), getAlbums(), getKeyInformation());
-    }
-
-    /**
-     * Gets the policy container from the policy model.
-     *
-     * @return the policy container with all the policies in the model
-     */
-    public AxPolicies getPolicies() {
-        return policies;
+        return new AxContextModel(new AxArtifactKey(albums.getKey().getName() + "_Model",
+            albums.getKey().getVersion()), getSchemas(), getAlbums(), getKeyInformation());
     }
 
     /**
@@ -227,15 +223,6 @@ public class AxPolicyModel extends AxModel {
     }
 
     /**
-     * Gets the task container from the policy model.
-     *
-     * @return the task container with all the tasks in the model
-     */
-    public AxTasks getTasks() {
-        return tasks;
-    }
-
-    /**
      * Sets the task container from the policy model.
      *
      * @param tasks the task container with all the tasks in the model
@@ -243,15 +230,6 @@ public class AxPolicyModel extends AxModel {
     public void setTasks(final AxTasks tasks) {
         Assertions.argumentNotNull(tasks, "tasks may not be null");
         this.tasks = tasks;
-    }
-
-    /**
-     * Gets the event container from the policy model.
-     *
-     * @return the event container with all the events in the model
-     */
-    public AxEvents getEvents() {
-        return events;
     }
 
     /**
@@ -265,15 +243,6 @@ public class AxPolicyModel extends AxModel {
     }
 
     /**
-     * Gets the context album container from the policy model.
-     *
-     * @return the context album container with all the context albums in the model
-     */
-    public AxContextAlbums getAlbums() {
-        return albums;
-    }
-
-    /**
      * Sets the context album container from the policy model.
      *
      * @param albums the context album container with all the context albums in the model
@@ -281,15 +250,6 @@ public class AxPolicyModel extends AxModel {
     public void setAlbums(final AxContextAlbums albums) {
         Assertions.argumentNotNull(albums, "albums may not be null");
         this.albums = albums;
-    }
-
-    /**
-     * Gets the context schema container from the policy model.
-     *
-     * @return the context schema container with all the context schemas in the model
-     */
-    public AxContextSchemas getSchemas() {
-        return schemas;
     }
 
     /**
@@ -376,7 +336,7 @@ public class AxPolicyModel extends AxModel {
     /**
      * Validate all fundamental concepts keyed in tasks exist.
      *
-     * @param task The task to validate the keys of
+     * @param task   The task to validate the keys of
      * @param result the validation result to return
      * @return the result
      */
@@ -409,7 +369,7 @@ public class AxPolicyModel extends AxModel {
     /**
      * Validate that the references used on a state are valid.
      *
-     * @param state The state to check
+     * @param state  The state to check
      * @param result the validation result to append to
      */
     private void validateStateReferences(AxState state, AxValidationResult result) {
@@ -436,7 +396,7 @@ public class AxPolicyModel extends AxModel {
             if (events.getEventMap().get(stateOutput.getOutgoingEvent()) == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
                     ValidationResult.INVALID, "output event " + stateOutput.getOutgoingEvent().getId()
-                        + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
+                    + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
         }
 
@@ -447,7 +407,7 @@ public class AxPolicyModel extends AxModel {
      * Validate that the fields on tasks and events that trigger them and are output by them are
      * compatible for all tasks used on a state.
      *
-     * @param state The state to check
+     * @param state  The state to check
      * @param result the validation result to append to
      */
     private void validateEventTaskFieldCompatibilityOnState(AxState state, AxValidationResult result) {
@@ -474,13 +434,14 @@ public class AxPolicyModel extends AxModel {
      * Validate that the fields on a task of a state output and the events that trigger it are
      * compatible.
      *
-     * @param state The state to check
-     * @param task The task to check
+     * @param state       The state to check
+     * @param task        The task to check
      * @param stateOutput The state output to check
-     * @param result the validation result to append to
+     * @param result      the validation result to append to
      */
     private void validateEventTaskFieldCompatibilityOnStateOutput(final AxState state, final AxTask task,
-        final AxStateOutput stateOutput, AxValidationResult result) {
+                                                                  final AxStateOutput stateOutput,
+                                                                  AxValidationResult result) {
         if (stateOutput == null) {
             result.addValidationMessage(new AxValidationMessage(state.getKey(), this.getClass(),
                 ValidationResult.INVALID, "state output on task reference for task " + task.getId() + " is null"));
@@ -490,7 +451,7 @@ public class AxPolicyModel extends AxModel {
             if (usedEvent == null) {
                 result.addValidationMessage(new AxValidationMessage(stateOutput.getKey(), this.getClass(),
                     ValidationResult.INVALID, "output event " + stateOutput.getOutgoingEvent().getId()
-                        + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
+                    + " for state output " + stateOutput.getId() + DOES_NOT_EXIST));
             }
         }
     }
@@ -509,10 +470,10 @@ public class AxPolicyModel extends AxModel {
         getPolicies().buildReferences();
         getKeyInformation().buildReferences();
 
-        AxArtifactKey nullAlbumskey = new AxArtifactKey(AxKey.NULL_KEY_NAME + ALBUMS_TOKEN, AxKey.NULL_KEY_VERSION);
+        AxArtifactKey nullAlbumsKey = new AxArtifactKey(AxKey.NULL_KEY_NAME + ALBUMS_TOKEN, AxKey.NULL_KEY_VERSION);
 
         if (AxArtifactKey.getNullKey().equals(getAlbums().getKey())
-            || nullAlbumskey.equals(getAlbums().getKey())) {
+            || nullAlbumsKey.equals(getAlbums().getKey())) {
             getAlbums().setKey(new AxArtifactKey(getKey().getName() + ALBUMS_TOKEN, getKey().getVersion()));
             getKeyInformation().generateKeyInfo(getAlbums());
         }
@@ -536,22 +497,9 @@ public class AxPolicyModel extends AxModel {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append(super.toString());
-        builder.append(",policies=");
-        builder.append(policies);
-        builder.append(",tasks=");
-        builder.append(tasks);
-        builder.append(",events=");
-        builder.append(events);
-        builder.append(",albums=");
-        builder.append(albums);
-        builder.append(",schemas=");
-        builder.append(schemas);
-        builder.append(")");
-        return builder.toString();
+        return this.getClass().getSimpleName()
+            + ":(" + super.toString() + ",policies=" + policies + ",tasks=" + tasks + ",events=" + events + ",albums="
+            + albums + ",schemas=" + schemas + ")";
     }
 
     /**
@@ -561,10 +509,9 @@ public class AxPolicyModel extends AxModel {
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
-        final Object copyObject = targetObject;
-        Assertions.instanceOf(copyObject, AxPolicyModel.class);
+        Assertions.instanceOf(targetObject, AxPolicyModel.class);
 
-        final AxPolicyModel copy = ((AxPolicyModel) copyObject);
+        final AxPolicyModel copy = ((AxPolicyModel) targetObject);
         super.copyTo(targetObject);
         copy.setPolicies(new AxPolicies(policies));
         copy.setTasks(new AxTasks(tasks));

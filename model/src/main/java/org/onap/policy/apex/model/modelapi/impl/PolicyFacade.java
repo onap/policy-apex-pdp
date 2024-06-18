@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -75,7 +75,7 @@ public class PolicyFacade {
     /**
      * Constructor that creates a policy facade for the Apex Model API.
      *
-     * @param apexModel the apex model
+     * @param apexModel      the apex model
      * @param apexProperties Properties for the model
      */
     public PolicyFacade(final ApexModel apexModel, final Properties apexProperties) {
@@ -88,16 +88,16 @@ public class PolicyFacade {
     /**
      * Create a policy.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the default version
-     * @param template template used to create the policy, set to null to use the default template
-     * @param firstState the first state of the policy
-     * @param uuid policy UUID, set to null to generate a UUID
+     * @param name        name of the policy
+     * @param version     version of the policy, set to null to use the default version
+     * @param template    template used to create the policy, set to null to use the default template
+     * @param firstState  the first state of the policy
+     * @param uuid        policy UUID, set to null to generate a UUID
      * @param description policy description, set to null to generate a description
      * @return result of the operation
      */
     public ApexApiResult createPolicy(final String name, final String version, final String template,
-        final String firstState, final String uuid, final String description) {
+                                      final String firstState, final String uuid, final String description) {
         try {
             final AxArtifactKey key = new AxArtifactKey();
             key.setName(name);
@@ -135,16 +135,16 @@ public class PolicyFacade {
     /**
      * Update a policy.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param template template used to create the policy, set to null to not update
-     * @param firstState the first state of the policy
-     * @param uuid policy UUID, set to null to not update
+     * @param name        name of the policy
+     * @param version     version of the policy, set to null to use the latest version
+     * @param template    template used to create the policy, set to null to not update
+     * @param firstState  the first state of the policy
+     * @param uuid        policy UUID, set to null to not update
      * @param description policy description, set to null to not update
      * @return result of the operation
      */
     public ApexApiResult updatePolicy(final String name, final String version, final String template,
-        final String firstState, final String uuid, final String description) {
+                                      final String firstState, final String uuid, final String description) {
         try {
             final AxPolicy policy = apexModel.getPolicyModel().getPolicies().get(name, version);
             if (policy == null) {
@@ -168,7 +168,7 @@ public class PolicyFacade {
     /**
      * List policies.
      *
-     * @param name name of the policy, set to null to list all
+     * @param name    name of the policy, set to null to list all
      * @param version starting version of the policy, set to null to list all versions
      * @return result of the operation
      */
@@ -193,7 +193,7 @@ public class PolicyFacade {
     /**
      * Delete a policy.
      *
-     * @param name name of the policy
+     * @param name    name of the policy
      * @param version version of the policy, set to null to use the latest version
      * @return result of the operation
      */
@@ -232,7 +232,7 @@ public class PolicyFacade {
     /**
      * Validate policies.
      *
-     * @param name name of the policy, set to null to list all
+     * @param name    name of the policy, set to null to list all
      * @param version starting version of the policy, set to null to list all versions
      * @return result of the operation
      */
@@ -260,19 +260,20 @@ public class PolicyFacade {
     /**
      * Create a policy state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param triggerName name of the trigger event for this state
-     * @param triggerVersion version of the trigger event for this state, set to null to use the
-     *        latest version
-     * @param defaultTaskName the default task name
-     * @param defaltTaskVersion the default task version, set to null to use the latest version
+     * @param name               name of the policy
+     * @param version            version of the policy, set to null to use the latest version
+     * @param stateName          of the state
+     * @param triggerName        name of the trigger event for this state
+     * @param triggerVersion     version of the trigger event for this state, set to null to use the
+     *                           latest version
+     * @param defaultTaskName    the default task name
+     * @param defaultTaskVersion the default task version, set to null to use the latest version
      * @return result of the operation
      */
     public ApexApiResult createPolicyState(final String name, final String version, final String stateName,
-        final String triggerName, final String triggerVersion, final String defaultTaskName,
-        final String defaltTaskVersion) {
+                                           final String triggerName, final String triggerVersion,
+                                           final String defaultTaskName,
+                                           final String defaultTaskVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -295,10 +296,10 @@ public class PolicyFacade {
                     CONCEPT + triggerName + ':' + triggerVersion + DOES_NOT_EXIST);
             }
 
-            final AxTask defaultTask = apexModel.getPolicyModel().getTasks().get(defaultTaskName, defaltTaskVersion);
+            final AxTask defaultTask = apexModel.getPolicyModel().getTasks().get(defaultTaskName, defaultTaskVersion);
             if (defaultTask == null) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                    CONCEPT + defaultTaskName + ':' + defaltTaskVersion + DOES_NOT_EXIST);
+                    CONCEPT + defaultTaskName + ':' + defaultTaskVersion + DOES_NOT_EXIST);
             }
 
             final AxState state = new AxState(refKey);
@@ -315,19 +316,20 @@ public class PolicyFacade {
     /**
      * Update a policy state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param triggerName name of the trigger event for this state, set to null to not update
-     * @param triggerVersion version of the trigger event for this state, set to use latest version
-     *        of trigger event
-     * @param defaultTaskName the default task name, set to null to not update
-     * @param defaltTaskVersion the default task version, set to use latest version of default task
+     * @param name               name of the policy
+     * @param version            version of the policy, set to null to use the latest version
+     * @param stateName          of the state
+     * @param triggerName        name of the trigger event for this state, set to null to not update
+     * @param triggerVersion     version of the trigger event for this state, set to use latest version
+     *                           of trigger event
+     * @param defaultTaskName    the default task name, set to null to not update
+     * @param defaultTaskVersion the default task version, set to use latest version of default task
      * @return result of the operation
      */
     public ApexApiResult updatePolicyState(final String name, final String version, final String stateName,
-        final String triggerName, final String triggerVersion, final String defaultTaskName,
-        final String defaltTaskVersion) {
+                                           final String triggerName, final String triggerVersion,
+                                           final String defaultTaskName,
+                                           final String defaultTaskVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -354,10 +356,10 @@ public class PolicyFacade {
 
             if (defaultTaskName != null) {
                 final AxTask defaultTask =
-                    apexModel.getPolicyModel().getTasks().get(defaultTaskName, defaltTaskVersion);
+                    apexModel.getPolicyModel().getTasks().get(defaultTaskName, defaultTaskVersion);
                 if (defaultTask == null) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        CONCEPT + defaultTaskName + ':' + defaltTaskVersion + DOES_NOT_EXIST);
+                        CONCEPT + defaultTaskName + ':' + defaultTaskVersion + DOES_NOT_EXIST);
                 }
                 state.setDefaultTask(defaultTask.getKey());
             }
@@ -371,8 +373,8 @@ public class PolicyFacade {
     /**
      * List policy states.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
+     * @param name      name of the policy
+     * @param version   version of the policy, set to null to use the latest version
      * @param stateName of the state, set to null to list all states of the policy
      * @return result of the operation
      */
@@ -412,8 +414,8 @@ public class PolicyFacade {
     /**
      * Delete a policy state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
+     * @param name      name of the policy
+     * @param version   version of the policy, set to null to use the latest version
      * @param stateName of the state, set to null to delete all states
      * @return result of the operation
      */
@@ -455,16 +457,17 @@ public class PolicyFacade {
     /**
      * Create task selection logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name         name of the policy
+     * @param version      version of the policy, set to null to use the latest version
+     * @param stateName    of the state
      * @param logicFlavour the task selection logic flavour for the state, set to null to use the
-     *        default task logic flavour
-     * @param logic the source code for the logic of the state
+     *                     default task logic flavour
+     * @param logic        the source code for the logic of the state
      * @return result of the operation
      */
     public ApexApiResult createPolicyStateTaskSelectionLogic(final String name, final String version,
-        final String stateName, final String logicFlavour, final String logic) {
+                                                             final String stateName, final String logicFlavour,
+                                                             final String logic) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -480,8 +483,7 @@ public class PolicyFacade {
                     CONCEPT + policy.getKey().getId() + ':' + stateName + DOES_NOT_EXIST);
             }
 
-            // There is only one logic item associated with a state so we use a hard coded logic
-            // name
+            // There is only one logic item associated with a state, so we use a hard coded logic name
             final AxReferenceKey refKey = new AxReferenceKey(state.getKey(), "TaskSelectionLogic");
 
             if (!state.getTaskSelectionLogic().getKey().getLocalName().equals(AxKey.NULL_KEY_NAME)) {
@@ -499,15 +501,16 @@ public class PolicyFacade {
     /**
      * Update task selection logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name         name of the policy
+     * @param version      version of the policy, set to null to use the latest version
+     * @param stateName    of the state
      * @param logicFlavour the task selection logic flavour for the state, set to null to not update
-     * @param logic the source code for the logic of the state, set to null to not update
+     * @param logic        the source code for the logic of the state, set to null to not update
      * @return result of the operation
      */
     public ApexApiResult updatePolicyStateTaskSelectionLogic(final String name, final String version,
-        final String stateName, final String logicFlavour, final String logic) {
+                                                             final String stateName, final String logicFlavour,
+                                                             final String logic) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -545,13 +548,13 @@ public class PolicyFacade {
     /**
      * List task selection logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
+     * @param name      name of the policy
+     * @param version   version of the policy, set to null to use the latest version
      * @param stateName of the state
      * @return result of the operation
      */
     public ApexApiResult listPolicyStateTaskSelectionLogic(final String name, final String version,
-        final String stateName) {
+                                                           final String stateName) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -578,13 +581,13 @@ public class PolicyFacade {
     /**
      * Delete task selection logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
+     * @param name      name of the policy
+     * @param version   version of the policy, set to null to use the latest version
      * @param stateName of the state
      * @return result of the operation
      */
     public ApexApiResult deletePolicyStateTaskSelectionLogic(final String name, final String version,
-        final String stateName) {
+                                                             final String stateName) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -618,19 +621,20 @@ public class PolicyFacade {
     /**
      * Create a policy state output.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param outputName of the state output
-     * @param eventName name of the output event for this state output
+     * @param name         name of the policy
+     * @param version      version of the policy, set to null to use the latest version
+     * @param stateName    of the state
+     * @param outputName   of the state output
+     * @param eventName    name of the output event for this state output
      * @param eventVersion version of the output event for this state output, set to null to use the
-     *        latest version
-     * @param nextState for this state to transition to, set to null if this is the last state that
-     *        the policy transitions to on this branch
+     *                     latest version
+     * @param nextState    for this state to transition to, set to null if this is the last state that
+     *                     the policy transitions to on this branch
      * @return result of the operation
      */
     public ApexApiResult createPolicyStateOutput(final String name, final String version, final String stateName,
-        final String outputName, final String eventName, final String eventVersion, final String nextState) {
+                                                 final String outputName, final String eventName,
+                                                 final String eventVersion, final String nextState) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
             Assertions.argumentNotNull(outputName, "outputName may not be null");
@@ -648,7 +652,7 @@ public class PolicyFacade {
             }
 
             final AxReferenceKey refKey = new AxReferenceKey(state.getKey(), outputName);
-            // There can be multipe state outputs only when the current state is the final state
+            // There can be multiple state outputs only when the current state is the final state
             if (nextState != null && !AxReferenceKey.getNullKey().getLocalName().equals(nextState)
                 && state.getStateOutputs().containsKey(refKey.getLocalName())) {
                 return new ApexApiResult(ApexApiResult.Result.CONCEPT_EXISTS,
@@ -683,7 +687,7 @@ public class PolicyFacade {
     }
 
     private void populateStateOuputInfo(final String nextState, final AxState state, final AxReferenceKey refKey,
-        final AxEvent event, AxReferenceKey nextStateKey) {
+                                        final AxEvent event, AxReferenceKey nextStateKey) {
         // nextState is null. There could be multiple events coming out of the state
         if ((nextState == null || AxReferenceKey.getNullKey().getLocalName().equals(nextState))
             && state.getStateOutputs().containsKey(refKey.getLocalName())) {
@@ -707,14 +711,14 @@ public class PolicyFacade {
     /**
      * List policy state outputs.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name       name of the policy
+     * @param version    version of the policy, set to null to use the latest version
+     * @param stateName  of the state
      * @param outputName of the state output, set to null to list all outputs of the state
      * @return result of the operation
      */
     public ApexApiResult listPolicyStateOutput(final String name, final String version, final String stateName,
-        final String outputName) {
+                                               final String outputName) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -740,7 +744,7 @@ public class PolicyFacade {
                         CONCEPT + state.getKey().getId() + ':' + outputName + DOES_NOT_EXIST);
                 }
             } else {
-                if (state.getStateOutputs().size() == 0) {
+                if (state.getStateOutputs().isEmpty()) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         "no state output concepts exist for state " + state.getKey().getId());
                 }
@@ -761,14 +765,14 @@ public class PolicyFacade {
     /**
      * Delete a policy state output.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name       name of the policy
+     * @param version    version of the policy, set to null to use the latest version
+     * @param stateName  of the state
      * @param outputName of the state output, set to null to delete all state outputs
      * @return result of the operation
      */
     public ApexApiResult deletePolicyStateOutput(final String name, final String version, final String stateName,
-        final String outputName) {
+                                                 final String outputName) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -796,7 +800,7 @@ public class PolicyFacade {
                         CONCEPT + state.getKey().getId() + ':' + outputName + DOES_NOT_EXIST);
                 }
             } else {
-                if (state.getStateOutputs().size() == 0) {
+                if (state.getStateOutputs().isEmpty()) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         "no state output concepts exist for state " + state.getKey().getId());
                 }
@@ -818,17 +822,18 @@ public class PolicyFacade {
     /**
      * Create policy finalizer logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name               name of the policy
+     * @param version            version of the policy, set to null to use the latest version
+     * @param stateName          of the state
      * @param finalizerLogicName name of the state finalizer logic
-     * @param logicFlavour the policy finalizer logic flavour for the state, set to null to use the
-     *        default task logic flavour
-     * @param logic the source code for the logic of the state
+     * @param logicFlavour       the policy finalizer logic flavour for the state, set to null to use the
+     *                           default task logic flavour
+     * @param logic              the source code for the logic of the state
      * @return result of the operation
      */
     public ApexApiResult createPolicyStateFinalizerLogic(final String name, final String version,
-        final String stateName, final String finalizerLogicName, final String logicFlavour, final String logic) {
+                                                         final String stateName, final String finalizerLogicName,
+                                                         final String logicFlavour, final String logic) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
             Assertions.argumentNotNull(finalizerLogicName, "finalizerlogicName may not be null");
@@ -863,17 +868,18 @@ public class PolicyFacade {
     /**
      * Update policy finalizer logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name               name of the policy
+     * @param version            version of the policy, set to null to use the latest version
+     * @param stateName          of the state
      * @param finalizerLogicName name of the state finalizer logic
-     * @param logicFlavour the policy finalizer logic flavour for the state, set to null to not
-     *        update
-     * @param logic the source code for the logic of the state, set to null to not update
+     * @param logicFlavour       the policy finalizer logic flavour for the state, set to null to not
+     *                           update
+     * @param logic              the source code for the logic of the state, set to null to not update
      * @return result of the operation
      */
     public ApexApiResult updatePolicyStateFinalizerLogic(final String name, final String version,
-        final String stateName, final String finalizerLogicName, final String logicFlavour, final String logic) {
+                                                         final String stateName, final String finalizerLogicName,
+                                                         final String logicFlavour, final String logic) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
             Assertions.argumentNotNull(finalizerLogicName, "finalizerLogicName may not be null");
@@ -914,14 +920,14 @@ public class PolicyFacade {
     /**
      * List policy finalizer logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name               name of the policy
+     * @param version            version of the policy, set to null to use the latest version
+     * @param stateName          of the state
      * @param finalizerLogicName name of the state finalizer logic
      * @return result of the operation
      */
     public ApexApiResult listPolicyStateFinalizerLogic(final String name, final String version, final String stateName,
-        final String finalizerLogicName) {
+                                                       final String finalizerLogicName) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -950,7 +956,7 @@ public class PolicyFacade {
                     new ApexModelStringWriter<AxStateFinalizerLogic>(false).writeString(stateFinalizerLogic,
                         AxStateFinalizerLogic.class));
             } else {
-                if (state.getStateFinalizerLogicMap().size() == 0) {
+                if (state.getStateFinalizerLogicMap().isEmpty()) {
                     return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
                         "no state finalizer logic defined on state " + state.getKey().getId());
                 }
@@ -969,14 +975,14 @@ public class PolicyFacade {
     /**
      * Delete policy finalizer logic for a state.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
+     * @param name               name of the policy
+     * @param version            version of the policy, set to null to use the latest version
+     * @param stateName          of the state
      * @param finalizerLogicName name of the state finalizer logic
      * @return result of the operation
      */
     public ApexApiResult deletePolicyStateFinalizerLogic(final String name, final String version,
-        final String stateName, final String finalizerLogicName) {
+                                                         final String stateName, final String finalizerLogicName) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -1007,17 +1013,18 @@ public class PolicyFacade {
                 state.getStateFinalizerLogicMap().remove(refKey.getLocalName());
                 return result;
             } else {
-                if (state.getStateFinalizerLogicMap().size() == 0) {
-                    return new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
-                        "no state finalizer logic defined on state " + state.getKey().getId());
-                }
+                ApexApiResult result = new ApexApiResult();
 
-                final ApexApiResult result = new ApexApiResult();
-                for (final AxStateFinalizerLogic stateFinalizerLogic : state.getStateFinalizerLogicMap().values()) {
-                    result.addMessage(new ApexModelStringWriter<AxStateFinalizerLogic>(false)
-                        .writeString(stateFinalizerLogic, AxStateFinalizerLogic.class));
+                if (state.getStateFinalizerLogicMap().isEmpty()) {
+                    result = new ApexApiResult(ApexApiResult.Result.CONCEPT_DOES_NOT_EXIST,
+                        "no state finalizer logic defined on state " + state.getKey().getId());
+                } else {
+                    for (final AxStateFinalizerLogic stateFinalizerLogic : state.getStateFinalizerLogicMap().values()) {
+                        result.addMessage(new ApexModelStringWriter<AxStateFinalizerLogic>(false)
+                            .writeString(stateFinalizerLogic, AxStateFinalizerLogic.class));
+                    }
+                    state.getStateFinalizerLogicMap().clear();
                 }
-                state.getStateFinalizerLogicMap().clear();
                 return result;
             }
         } catch (final Exception e) {
@@ -1124,15 +1131,15 @@ public class PolicyFacade {
     /**
      * List policy state task references.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param taskName name of the task, set to null to list all task references
+     * @param name        name of the policy
+     * @param version     version of the policy, set to null to use the latest version
+     * @param stateName   of the state
+     * @param taskName    name of the task, set to null to list all task references
      * @param taskVersion version of the task, set to null to use the latest version
      * @return result of the operation
      */
     public ApexApiResult listPolicyStateTaskRef(final String name, final String version, final String stateName,
-        final String taskName, final String taskVersion) {
+                                                final String taskName, final String taskVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -1179,15 +1186,15 @@ public class PolicyFacade {
     /**
      * Delete a policy state task reference.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param taskName name of the task, set to null to delete all task references
+     * @param name        name of the policy
+     * @param version     version of the policy, set to null to use the latest version
+     * @param stateName   of the state
+     * @param taskName    name of the task, set to null to delete all task references
      * @param taskVersion version of the task, set to null to use the latest version
      * @return result of the operation
      */
     public ApexApiResult deletePolicyStateTaskRef(final String name, final String version, final String stateName,
-        final String taskName, final String taskVersion) {
+                                                  final String taskName, final String taskVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -1232,16 +1239,16 @@ public class PolicyFacade {
     /**
      * Create a policy state context album reference.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param contextAlbumName name of the context album for the context album reference
+     * @param name                name of the policy
+     * @param version             version of the policy, set to null to use the latest version
+     * @param stateName           of the state
+     * @param contextAlbumName    name of the context album for the context album reference
      * @param contextAlbumVersion version of the context album for the context album reference, set
-     *        to null to use the latest version
+     *                            to null to use the latest version
      * @return result of the operation
      */
     public ApexApiResult createPolicyStateContextRef(final String name, final String version, final String stateName,
-        final String contextAlbumName, final String contextAlbumVersion) {
+                                                     final String contextAlbumName, final String contextAlbumVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -1279,17 +1286,17 @@ public class PolicyFacade {
     /**
      * List policy state context album references.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the latest version
-     * @param stateName of the state
-     * @param contextAlbumName name of the context album for the context album reference, set to
-     *        null to list all task context album references
+     * @param name                name of the policy
+     * @param version             version of the policy, set to null to use the latest version
+     * @param stateName           of the state
+     * @param contextAlbumName    name of the context album for the context album reference, set to
+     *                            null to list all task context album references
      * @param contextAlbumVersion version of the context album for the context album reference, set
-     *        to null to use the latest version
+     *                            to null to use the latest version
      * @return result of the operation
      */
     public ApexApiResult listPolicyStateContextRef(final String name, final String version, final String stateName,
-        final String contextAlbumName, final String contextAlbumVersion) {
+                                                   final String contextAlbumName, final String contextAlbumVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 
@@ -1329,17 +1336,17 @@ public class PolicyFacade {
     /**
      * Delete a policy state context album reference.
      *
-     * @param name name of the policy
-     * @param version version of the policy, set to null to use the default version
-     * @param stateName of the state
-     * @param contextAlbumName name of the context album for the context album reference, set to
-     *        null to delete all task context album references
+     * @param name                name of the policy
+     * @param version             version of the policy, set to null to use the default version
+     * @param stateName           of the state
+     * @param contextAlbumName    name of the context album for the context album reference, set to
+     *                            null to delete all task context album references
      * @param contextAlbumVersion version of the context album for the context album reference, set
-     *        to null to use the latest version
+     *                            to null to use the latest version
      * @return result of the operation
      */
     public ApexApiResult deletePolicyStateContextRef(final String name, final String version, final String stateName,
-        final String contextAlbumName, final String contextAlbumVersion) {
+                                                     final String contextAlbumName, final String contextAlbumVersion) {
         try {
             Assertions.argumentNotNull(stateName, STATE_NAME_MAY_NOT_BE_NULL);
 

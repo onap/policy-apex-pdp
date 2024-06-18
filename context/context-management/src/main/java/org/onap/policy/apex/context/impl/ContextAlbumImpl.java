@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.ContextException;
@@ -88,12 +89,12 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
      * Constructor, instantiate the context album.
      *
      * @param albumDefinition The model definition of this context album
-     * @param distributor The context distributor passed to us to distribute context across ContextAlbum instances
-     * @param albumMap the album map
+     * @param distributor     The context distributor passed to us to distribute context across ContextAlbum instances
+     * @param albumMap        the album map
      * @throws ContextException on errors creating context albums
      */
     public ContextAlbumImpl(final AxContextAlbum albumDefinition, final Distributor distributor,
-            final Map<String, Object> albumMap) throws ContextException {
+                            final Map<String, Object> albumMap) throws ContextException {
         Assertions.argumentNotNull(albumDefinition, "Context album definition may not be null");
         Assertions.argumentNotNull(distributor, "Distributor may not be null");
         Assertions.argumentNotNull(albumMap, "Album map may not be null");
@@ -109,7 +110,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         try {
             // Get a schema helper to manage the translations between objects on the album map for this album
             schemaHelper = new SchemaHelperFactory().createSchemaHelper(albumDefinition.getKey(),
-                    albumDefinition.getItemSchema());
+                albumDefinition.getItemSchema());
         } catch (final ContextRuntimeException e) {
             final var resultString = "could not initiate schema management for context album " + albumDefinition;
             LOGGER.warn(resultString, e);
@@ -144,7 +145,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public void lockForReading(final String keyOnAlbum) throws ContextException {
         distributor.lockForReading(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorReadLock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
-                userArtifactStack);
+            userArtifactStack);
     }
 
     /**
@@ -154,7 +155,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public void lockForWriting(final String keyOnAlbum) throws ContextException {
         distributor.lockForWriting(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorWriteLock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
-                userArtifactStack);
+            userArtifactStack);
     }
 
     /**
@@ -164,7 +165,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public void unlockForReading(final String keyOnAlbum) throws ContextException {
         distributor.unlockForReading(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorReadUnlock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
-                userArtifactStack);
+            userArtifactStack);
     }
 
     /**
@@ -174,7 +175,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public void unlockForWriting(final String keyOnAlbum) throws ContextException {
         distributor.unlockForWriting(albumDefinition.getKey(), keyOnAlbum);
         monitor.monitorWriteUnlock(albumDefinition.getKey(), albumDefinition.getItemSchema(), keyOnAlbum,
-                userArtifactStack);
+            userArtifactStack);
     }
 
     /**
@@ -238,7 +239,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public Object get(final Object key) {
         if (key == null) {
             final var returnString =
-                    ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for get()";
+                ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for get()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -250,7 +251,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
 
         // Get the context value and monitor it
         monitor.monitorGet(albumDefinition.getKey(), albumDefinition.getItemSchema(), key.toString(), item,
-                userArtifactStack);
+            userArtifactStack);
         return item;
     }
 
@@ -273,7 +274,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         for (final Entry<String, Object> contextAlbumEntry : albumMap.entrySet()) {
             final Object item = contextAlbumEntry.getValue();
             monitor.monitorGet(albumDefinition.getKey(), albumDefinition.getItemSchema(), contextAlbumEntry.getKey(),
-                    item, userArtifactStack);
+                item, userArtifactStack);
             valueList.add(contextAlbumEntry.getValue());
         }
 
@@ -291,7 +292,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         for (final Entry<String, Object> contextAlbumEntry : albumMap.entrySet()) {
             final Object item = contextAlbumEntry.getValue();
             monitor.monitorGet(albumDefinition.getKey(), albumDefinition.getItemSchema(), contextAlbumEntry.getKey(),
-                    item, userArtifactStack);
+                item, userArtifactStack);
             entrySet.add(new SimpleEntry<>(contextAlbumEntry.getKey(), contextAlbumEntry.getValue()));
         }
 
@@ -305,21 +306,21 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public Object put(final String key, final Object incomingValue) {
         if (key == null) {
             final var returnString =
-                    ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for put()";
+                ALBUM + albumDefinition.getId() + "\" null keys are illegal on keys for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (incomingValue == null) {
             final var returnString = ALBUM + albumDefinition.getId() + "\" null values are illegal on key \""
-                    + key + "\" for put()";
+                + key + "\" for put()";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         if (!albumDefinition.isWritable()) {
             final var returnString = ALBUM + albumDefinition.getId()
-                    + "\" put() not allowed on read only albums for key=\"" + key + "\", value=\"" + incomingValue;
+                + "\" put() not allowed on read only albums for key=\"" + key + "\", value=\"" + incomingValue;
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -332,18 +333,18 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
             if (albumMap.containsKey(key)) {
                 // Update the value in the context item and in the context value map
                 monitor.monitorSet(albumDefinition.getKey(), albumDefinition.getItemSchema(), key, incomingValue,
-                        userArtifactStack);
+                    userArtifactStack);
             } else {
                 // Update the value in the context item and in the context value map
                 monitor.monitorInit(albumDefinition.getKey(), albumDefinition.getItemSchema(), key, incomingValue,
-                        userArtifactStack);
+                    userArtifactStack);
             }
 
             // Put the translated value on the map and return the old map value
             return albumMap.put(key, valueToPut);
         } catch (final ContextRuntimeException e) {
             final var returnString = "Failed to set context value for key \"" + key + "\" in album \""
-                    + albumDefinition.getId() + "\": " + e.getMessage();
+                + albumDefinition.getId() + "\": " + e.getMessage();
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString, e);
         }
@@ -353,17 +354,17 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
      * {@inheritDoc}.
      */
     @Override
-    public void putAll(final Map<? extends String, ? extends Object> incomingContextAlbum) {
+    public void putAll(@NonNull final Map<? extends String, ?> incomingContextAlbum) {
         if (!albumDefinition.isWritable()) {
             final var returnString =
-                    ALBUM + albumDefinition.getId() + "\" putAll() not allowed on read only albums";
+                ALBUM + albumDefinition.getId() + "\" putAll() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
         // Sanity check on incoming context
         Assertions.argumentOfClassNotNull(incomingContextAlbum, ContextRuntimeException.class,
-                "cannot update context, context album is null");
+            "cannot update context, context album is null");
 
         // Iterate over the incoming context
         for (final Entry<String, Object> entry : albumMap.entrySet()) {
@@ -378,7 +379,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         }
 
         // Put all the objects on the context album
-        for (final Entry<? extends String, ? extends Object> incomingMapEntry : incomingContextAlbum.entrySet()) {
+        for (final Entry<? extends String, ?> incomingMapEntry : incomingContextAlbum.entrySet()) { // NOSONAR
             // Put the entry on the map
             this.put(incomingMapEntry.getKey(), incomingMapEntry.getValue());
         }
@@ -391,7 +392,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public Object remove(final Object key) {
         if (!albumDefinition.isWritable()) {
             final var returnString = ALBUM + albumDefinition.getId()
-                    + "\" remove() not allowed on read only albums for key=\"" + key + "\"";
+                + "\" remove() not allowed on read only albums for key=\"" + key + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -404,7 +405,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         // Delete the item
         final Object removedValue = albumMap.remove(key);
         monitor.monitorDelete(albumDefinition.getKey(), albumDefinition.getItemSchema(), key.toString(), removedValue,
-                userArtifactStack);
+            userArtifactStack);
 
         // Return the value of the deleted item
         return removedValue;
@@ -417,7 +418,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
     public void clear() {
         if (!albumDefinition.isWritable()) {
             final var returnString =
-                    ALBUM + albumDefinition.getId() + "\" clear() not allowed on read only albums";
+                ALBUM + albumDefinition.getId() + "\" clear() not allowed on read only albums";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -426,7 +427,7 @@ public final class ContextAlbumImpl implements ContextAlbum, Comparable<ContextA
         for (final Entry<String, Object> contextAlbumEntry : albumMap.entrySet()) {
             final Object item = contextAlbumEntry.getValue();
             monitor.monitorDelete(albumDefinition.getKey(), albumDefinition.getItemSchema(), contextAlbumEntry.getKey(),
-                    item, userArtifactStack);
+                item, userArtifactStack);
         }
 
         // Clear the map

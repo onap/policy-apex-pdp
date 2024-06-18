@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@
 
 package org.onap.policy.apex.model.policymodel.concepts;
 
+import java.io.Serial;
 import java.util.List;
+import lombok.Getter;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -43,26 +45,31 @@ import org.onap.policy.common.utils.validation.Assertions;
  * the {@code LOGIC_FLAVOUR_REGEXP} regular expression, and that the specified logic string is not null or blank.
  */
 public class AxLogic extends AxConcept {
-    private static final long serialVersionUID = -4260562004005697328L;
 
-    private static final String WHITESPACE_REGEXP = "\\s+$";
+    @Serial
+    private static final long serialVersionUID = -4260562004005697328L;
 
     private static final String LOGIC_FLAVOUR_TOKEN = "logicFlavour";
     private static final String KEY_NULL_MESSAGE = "key may not be null";
     private static final String LOGIC_FLAVOUR_NULL_MESSAGE = "logicFlavour may not be null";
     private static final String LOGIC_NULL_MESSAGE = "logic may not be null";
 
-    /** Regular expression that specifies the allowed characters in logic flavour tokens. */
+    /**
+     * Regular expression that specifies the allowed characters in logic flavour tokens.
+     */
     public static final String LOGIC_FLAVOUR_REGEXP = "[A-Za-z0-9\\-_]+";
 
-    /** When logic flavour is undefined, it has this value. */
+    /**
+     * When logic flavour is undefined, it has this value.
+     */
     public static final String LOGIC_FLAVOUR_UNDEFINED = "UNDEFINED";
 
-    /** The maximum permissible size of a logic definition. */
-    public static final int MAX_LOGIC_SIZE = 32672; // The maximum size supported by Apache Derby
-
     private AxReferenceKey key;
+
+    @Getter
     private String logicFlavour;
+
+    @Getter
     private String logic;
 
     /**
@@ -97,22 +104,22 @@ public class AxLogic extends AxConcept {
      * This Constructor creates a logic instance with a reference key constructed from the parents key and the logic
      * local name and all of its fields defined.
      *
-     * @param parentKey the reference key of the parent of this logic
-     * @param logicName the logic name, held as the local name of the reference key of this logic
+     * @param parentKey    the reference key of the parent of this logic
+     * @param logicName    the logic name, held as the local name of the reference key of this logic
      * @param logicFlavour the flavour of this logic
-     * @param logic the actual logic as a string
+     * @param logic        the actual logic as a string
      */
     public AxLogic(final AxReferenceKey parentKey, final String logicName, final String logicFlavour,
-                    final String logic) {
+                   final String logic) {
         this(new AxReferenceKey(parentKey, logicName), logicFlavour, logic);
     }
 
     /**
      * This Constructor creates a logic instance with the given reference key and all of its fields defined.
      *
-     * @param key the reference key of this logic
+     * @param key          the reference key of this logic
      * @param logicFlavour the flavour of this logic
-     * @param logic the actual logic as a string
+     * @param logic        the actual logic as a string
      */
     public AxLogic(final AxReferenceKey key, final String logicFlavour, final String logic) {
         super();
@@ -122,16 +129,16 @@ public class AxLogic extends AxConcept {
 
         this.key = key;
         this.logicFlavour = Assertions.validateStringParameter(LOGIC_FLAVOUR_TOKEN, logicFlavour, LOGIC_FLAVOUR_REGEXP);
-        this.logic = logic.replaceAll(WHITESPACE_REGEXP, "");
+        this.logic = logic.replaceAll(WHITESPACE_REGEX, "");
     }
 
     /**
      * This Constructor creates a logic instance with the given reference key and logic flavour, the logic is provided
      * by the given logic reader instance.
      *
-     * @param key the reference key of this logic
+     * @param key          the reference key of this logic
      * @param logicFlavour the flavour of this logic
-     * @param logicReader the logic reader to use to read the logic for this logic instance
+     * @param logicReader  the logic reader to use to read the logic for this logic instance
      */
     public AxLogic(final AxReferenceKey key, final String logicFlavour, final AxLogicReader logicReader) {
         super();
@@ -171,15 +178,6 @@ public class AxLogic extends AxConcept {
     }
 
     /**
-     * Gets the logic flavour.
-     *
-     * @return the logic flavour
-     */
-    public String getLogicFlavour() {
-        return logicFlavour;
-    }
-
-    /**
      * Sets the logic flavour.
      *
      * @param logicFlavour the logic flavour
@@ -189,22 +187,13 @@ public class AxLogic extends AxConcept {
     }
 
     /**
-     * Gets the logic.
-     *
-     * @return the logic
-     */
-    public String getLogic() {
-        return logic;
-    }
-
-    /**
      * Sets the logic.
      *
      * @param logic the logic
      */
     public void setLogic(final String logic) {
         Assertions.argumentNotNull(logic, LOGIC_NULL_MESSAGE);
-        this.logic = logic.replaceAll(WHITESPACE_REGEXP, "");
+        this.logic = logic.replaceAll(WHITESPACE_REGEX, "");
     }
 
     /**
@@ -216,27 +205,27 @@ public class AxLogic extends AxConcept {
 
         if (key.equals(AxReferenceKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key is a null key"));
+                "key is a null key"));
         }
 
         result = key.validate(result);
 
-        if (logicFlavour.replaceAll(WHITESPACE_REGEXP, "").length() == 0
-                        || logicFlavour.equals(LOGIC_FLAVOUR_UNDEFINED)) {
+        if (logicFlavour.replaceAll(WHITESPACE_REGEX, "").isEmpty()
+            || logicFlavour.equals(LOGIC_FLAVOUR_UNDEFINED)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "logic flavour is not defined"));
+                "logic flavour is not defined"));
         }
 
         String flavourValidationString = Assertions.getStringParameterValidationMessage(LOGIC_FLAVOUR_TOKEN,
-                        logicFlavour, LOGIC_FLAVOUR_REGEXP);
+            logicFlavour, LOGIC_FLAVOUR_REGEXP);
         if (flavourValidationString != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "logic flavour invalid-" + flavourValidationString));
+                "logic flavour invalid-" + flavourValidationString));
         }
 
-        if (logic.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
+        if (logic.replaceAll(WHITESPACE_REGEX, "").isEmpty()) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "no logic specified, logic may not be blank"));
+                "no logic specified, logic may not be blank"));
         }
 
         return result;
@@ -251,7 +240,7 @@ public class AxLogic extends AxConcept {
             key.clean();
         }
         logicFlavour = Assertions.validateStringParameter(LOGIC_FLAVOUR_TOKEN, logicFlavour, LOGIC_FLAVOUR_REGEXP);
-        logic = logic.replaceAll(WHITESPACE_REGEXP, "");
+        logic = logic.replaceAll(WHITESPACE_REGEX, "");
     }
 
     /**
@@ -259,17 +248,8 @@ public class AxLogic extends AxConcept {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",logicFlavour=");
-        builder.append(logicFlavour);
-        builder.append(",logic=");
-        builder.append(logic);
-        builder.append(")");
-        return builder.toString();
+        return this.getClass().getSimpleName()
+            + ":(" + "key=" + key + ",logicFlavour=" + logicFlavour + ",logic=" + logic + ")";
     }
 
     /**
@@ -279,10 +259,9 @@ public class AxLogic extends AxConcept {
     public AxConcept copyTo(final AxConcept targetObject) {
         Assertions.argumentNotNull(targetObject, "target may not be null");
 
-        final Object copyObject = targetObject;
-        Assertions.instanceOf(copyObject, AxLogic.class);
+        Assertions.instanceOf(targetObject, AxLogic.class);
 
-        final AxLogic copy = ((AxLogic) copyObject);
+        final AxLogic copy = ((AxLogic) targetObject);
         copy.setKey(new AxReferenceKey(key));
         copy.setLogicFlavour(logicFlavour);
         copy.setLogic(logic);

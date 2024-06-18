@@ -96,7 +96,7 @@ class LogicBlockTest {
         writtenModel.getKeyInformation().getKeyInfoMap().clear();
         compareModel.getKeyInformation().getKeyInfoMap().clear();
 
-        assertEquals(writtenModel, compareModel);
+        assertEquals(compareModel, writtenModel);
     }
 
     /**

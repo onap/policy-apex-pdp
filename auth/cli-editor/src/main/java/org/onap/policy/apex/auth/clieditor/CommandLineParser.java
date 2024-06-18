@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,15 +42,15 @@ public class CommandLineParser {
      *
      * <p>Examples entity create name=hello description="description of hello" help entity list
      *
-     * @param line The line to parse
+     * @param line       The line to parse
      * @param logicBlock A block of logic code to be taken literally
      * @return the string array list
      */
     public List<String> parse(final String line, final String logicBlock) {
         return checkFormat(
-                        mergeArguments(mergeEquals(splitOnEquals(
-                                        stripAndSplitWords(mergeQuotes(splitOnChar(stripComments(line), '\"')))))),
-                        logicBlock);
+            mergeArguments(mergeEquals(splitOnEquals(
+                stripAndSplitWords(mergeQuotes(splitOnChar(stripComments(line), '\"')))))),
+            logicBlock);
     }
 
     /**
@@ -90,13 +90,13 @@ public class CommandLineParser {
     /**
      * This method merges the next set of quotes.
      *
-     * @param wordsSplitOnQuotes the words split on quotes
+     * @param wordsSplitOnQuotes    the words split on quotes
      * @param wordsWithQuotesMerged the merged words
-     * @param wordIndex the current word index
+     * @param wordIndex             the current word index
      * @return the next word index
      */
     private int mergeQuote(final ArrayList<String> wordsSplitOnQuotes, final ArrayList<String> wordsWithQuotesMerged,
-                    int wordIndex) {
+                           int wordIndex) {
 
         if ("\"".equals(wordsSplitOnQuotes.get(wordIndex))) {
             var quotedWord = new StringBuilder(wordsSplitOnQuotes.get(wordIndex++));
@@ -167,9 +167,9 @@ public class CommandLineParser {
 
             if ("=".equals(wordsSplitOnEquals.get(wordIndex))) {
                 if (wordIndex < wordsSplitOnEquals.size() - 1
-                                && !wordsSplitOnEquals.get(wordIndex + 1).startsWith("=")) {
+                    && !wordsSplitOnEquals.get(wordIndex + 1).startsWith("=")) {
                     wordsWithEqualsMerged.add(
-                                    wordsSplitOnEquals.get(wordIndex) + wordsSplitOnEquals.get(wordIndex + 1));
+                        wordsSplitOnEquals.get(wordIndex) + wordsSplitOnEquals.get(wordIndex + 1));
                     wordIndex += 2;
                 } else {
                     wordsWithEqualsMerged.add(wordsSplitOnEquals.get(wordIndex++));
@@ -243,14 +243,14 @@ public class CommandLineParser {
      * @param word the word to split
      * @return the array of split words
      */
-    private Collection<? extends String> stripAndSplitWord(final String word) {
+    private Collection<String> stripAndSplitWord(final String word) {
         final ArrayList<String> strippedAndSplitWords = new ArrayList<>();
 
         // Strip white space by replacing all white space with blanks and then removing leading
         // and trailing blanks
         String singleSpaceWord = word.replaceAll("\\s+", " ").trim();
 
-        if (singleSpaceWord.length() == 0) {
+        if (singleSpaceWord.isEmpty()) {
             return strippedAndSplitWords;
         }
 
@@ -267,7 +267,7 @@ public class CommandLineParser {
      * Dumpty had ""a "great" fall becomes [Humpty ],["],[Dumpty sat on the wall],["],[, Humpty Dumpty had ],["],["],a
      * ["],[great],["],[ fall].
      *
-     * @param line the input line
+     * @param line      the input line
      * @param splitChar the split char
      * @return the split array list
      */
@@ -300,7 +300,7 @@ public class CommandLineParser {
      * This method checks that an array list containing a command is in the correct format.
      *
      * @param commandWords the command words
-     * @param logicBlock A block of logic code to be taken literally
+     * @param logicBlock   A block of logic code to be taken literally
      * @return the checked array list
      */
     private ArrayList<String> checkFormat(final ArrayList<String> commandWords, final String logicBlock) {
@@ -312,7 +312,7 @@ public class CommandLineParser {
         // The first word must be alphanumeric, that is a command
         if (!commandWords.get(0).matches("^[a-zA-Z0-9]*$")) {
             throw new CommandLineException(
-                    "first command word is not alphanumeric or is not a command: " + commandWords.get(0));
+                "first command word is not alphanumeric or is not a command: " + commandWords.get(0));
         }
 
         // Now check that we have a sequence of commands at the beginning
@@ -330,12 +330,12 @@ public class CommandLineParser {
                     commandWords.set(currentWordPos, commandWords.get(currentWordPos) + logicBlock);
                 } else {
                     throw new CommandLineException(
-                            "command argument is not properly formed: " + commandWords.get(currentWordPos));
+                        "command argument is not properly formed: " + commandWords.get(currentWordPos));
                 }
             } else if (!commandWords.get(currentWordPos).matches("^[a-zA-Z0-9]+=[a-zA-Z0-9/\"].*$")) {
                 // Not a last command, or the last command, but there is no logic block - wrong pattern
                 throw new CommandLineException(
-                        "command argument is not properly formed: " + commandWords.get(currentWordPos));
+                    "command argument is not properly formed: " + commandWords.get(currentWordPos));
             }
         }
 

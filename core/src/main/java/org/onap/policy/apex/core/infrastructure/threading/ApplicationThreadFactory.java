@@ -3,7 +3,7 @@
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
- *  Modifications Copyright (C) 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,16 +68,15 @@ public class ApplicationThreadFactory implements ThreadFactory {
     /**
      * Instantiates a new application thread factory with a specified thread priority.
      *
-     * @param nameLocal the name local
-     * @param stackSize the stack size
+     * @param nameLocal      the name local
+     * @param stackSize      the stack size
      * @param threadPriority the thread priority
      */
     @SuppressWarnings({
         "deprecation", "removal"
     })
     public ApplicationThreadFactory(final String nameLocal, final long stackSize, final int threadPriority) {
-        @SuppressWarnings("removal")
-        final var s = System.getSecurityManager();
+        @SuppressWarnings("removal") final var s = System.getSecurityManager();
         group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
         name = APPLICATION_NAME + nameLocal + HYPHEN + NEXT_POOL_NUMBER.getAndIncrement();
         this.stackSize = stackSize;
@@ -118,6 +117,6 @@ public class ApplicationThreadFactory implements ThreadFactory {
     @Override
     public String toString() {
         return "ApplicationThreadFactory [nextPoolNumber=" + NEXT_POOL_NUMBER + ",nextThreadNumber=" + nextThreadNumber
-                + ", name=" + name + ", stackSize=" + stackSize + ", threadPriority=" + threadPriority + "]";
+            + ", name=" + name + ", stackSize=" + stackSize + ", threadPriority=" + threadPriority + "]";
     }
 }

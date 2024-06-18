@@ -385,7 +385,7 @@ public class ApexEngineImpl implements ApexEngine {
         }
         updateStatePrometheusMetric();
 
-        String message = "execute(): triggered by event " + incomingEvent.toString();
+        String message = "execute(): triggered by event " + incomingEvent;
         LOGGER.debug(message);
 
         // By default, we return a null event on errors

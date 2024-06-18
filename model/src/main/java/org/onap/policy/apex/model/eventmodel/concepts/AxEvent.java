@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,7 @@ package org.onap.policy.apex.model.eventmodel.concepts;
 
 import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
@@ -65,21 +68,32 @@ import org.onap.policy.common.utils.validation.Assertions;
  * checked to ensure it matches the event key.
  */
 public class AxEvent extends AxConcept {
+
+    @Serial
     private static final long serialVersionUID = -1460388382582984269L;
 
-    private static final String WHITESPACE_REGEXP = "\\s+$";
-
-    /** The key of the event, unique in the Apex system. */
+    /**
+     * The key of the event, unique in the Apex system.
+     */
     // CHECKSTYLE:OFF: checkstyle:VisibilityMonitor
     protected AxArtifactKey key;
     // CHECKSTYLE:ON: checkstyle:VisibilityMonitor
 
+    @Getter
     private String nameSpace;
+
+    @Getter
     private String source;
+
+    @Getter
     private String target;
 
+    @Getter
     @SerializedName("parameter")
     private Map<String, AxField> parameterMap;
+
+    @Setter
+    @Getter
     private String toscaPolicyState;
 
     /**
@@ -113,7 +127,7 @@ public class AxEvent extends AxConcept {
      * This constructor creates an event with the given artifact key and name space. The event source, and target are
      * all defined as empty strings and the parameter map is initialized as an empty map.
      *
-     * @param key the key of the event
+     * @param key       the key of the event
      * @param nameSpace the name space of the event
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace) {
@@ -124,10 +138,10 @@ public class AxEvent extends AxConcept {
      * This constructor creates an event with the given artifact key, name space, source and target. The parameter map
      * is initialized as an empty map.
      *
-     * @param key the key of the event
+     * @param key       the key of the event
      * @param nameSpace the name space of the event
-     * @param source the source of the event
-     * @param target the target of the event
+     * @param source    the source of the event
+     * @param target    the target of the event
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace, final String source, final String target) {
         this(key, nameSpace, source, target, new TreeMap<>(), "");
@@ -136,15 +150,15 @@ public class AxEvent extends AxConcept {
     /**
      * This constructor creates an event with all its fields defined.
      *
-     * @param key the key of the event
-     * @param nameSpace the name space of the event
-     * @param source the source of the event
-     * @param target the target of the event
-     * @param parameterMap the map of parameters that the event has
+     * @param key              the key of the event
+     * @param nameSpace        the name space of the event
+     * @param source           the source of the event
+     * @param target           the target of the event
+     * @param parameterMap     the map of parameters that the event has
      * @param toscaPolicyState the TOSCA policy processing status that event is flagged with
      */
     public AxEvent(final AxArtifactKey key, final String nameSpace, final String source, final String target,
-                    final SortedMap<String, AxField> parameterMap, final String toscaPolicyState) {
+                   final SortedMap<String, AxField> parameterMap, final String toscaPolicyState) {
         super();
         Assertions.argumentNotNull(key, "key may not be null");
         Assertions.argumentNotNull(nameSpace, "nameSpace may not be null");
@@ -216,15 +230,6 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Gets the name space of the event.
-     *
-     * @return the name space of the event
-     */
-    public String getNameSpace() {
-        return nameSpace;
-    }
-
-    /**
      * Sets the name space of the event.
      *
      * @param nameSpace the name space of the event
@@ -232,15 +237,6 @@ public class AxEvent extends AxConcept {
     public void setNameSpace(final String nameSpace) {
         Assertions.argumentNotNull(nameSpace, "nameSpace may not be null");
         this.nameSpace = nameSpace.trim();
-    }
-
-    /**
-     * Gets the source of the event.
-     *
-     * @return the source of the event
-     */
-    public String getSource() {
-        return source;
     }
 
     /**
@@ -254,15 +250,6 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Gets the target of the event.
-     *
-     * @return the target of the event
-     */
-    public String getTarget() {
-        return target;
-    }
-
-    /**
      * Sets the target of the event.
      *
      * @param target the target of the event
@@ -270,15 +257,6 @@ public class AxEvent extends AxConcept {
     public void setTarget(final String target) {
         Assertions.argumentNotNull(target, "target may not be null");
         this.target = target.trim();
-    }
-
-    /**
-     * Gets the event parameter map.
-     *
-     * @return the event parameter map
-     */
-    public Map<String, AxField> getParameterMap() {
-        return parameterMap;
     }
 
     /**
@@ -301,24 +279,6 @@ public class AxEvent extends AxConcept {
     }
 
     /**
-     * Gets the TOSCA policy processing status from the event.
-     *
-     * @return the TOSCA policy processing status
-     */
-    public String getToscaPolicyState() {
-        return toscaPolicyState;
-    }
-
-    /**
-     * Sets the TOSCA policy processing status on the event.
-     *
-     * @param toscaPolicyState the TOSCA policy processing status
-     */
-    public void setToscaPolicyState(String toscaPolicyState) {
-        this.toscaPolicyState = toscaPolicyState;
-    }
-
-    /**
      * {@inheritDoc}.
      */
     @Override
@@ -327,43 +287,43 @@ public class AxEvent extends AxConcept {
 
         if (key.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key is a null key"));
+                "key is a null key"));
         }
 
         result = key.validate(result);
 
-        if (nameSpace.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
+        if (nameSpace.replaceAll(WHITESPACE_REGEX, "").isEmpty()) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.WARNING,
-                            "nameSpace on event is blank"));
+                "nameSpace on event is blank"));
         }
 
-        if (source.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
+        if (source.replaceAll(WHITESPACE_REGEX, "").isEmpty()) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
-                            "source on event is blank"));
+                "source on event is blank"));
         }
 
-        if (target.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
+        if (target.replaceAll(WHITESPACE_REGEX, "").isEmpty()) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.OBSERVATION,
-                            "target on event is blank"));
+                "target on event is blank"));
         }
 
         for (final Entry<String, AxField> eventParameterEntry : parameterMap.entrySet()) {
             if (eventParameterEntry.getKey() == null || eventParameterEntry.getKey().equals(AxKey.NULL_KEY_NAME)) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                                "key on parameter " + eventParameterEntry.getKey() + " may not be the null key"));
+                    "key on parameter " + eventParameterEntry.getKey() + " may not be the null key"));
             } else if (eventParameterEntry.getValue() == null) {
                 result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                                "value on parameter " + eventParameterEntry.getKey() + " may not be null"));
+                    "value on parameter " + eventParameterEntry.getKey() + " may not be null"));
             } else {
                 result = validateEventParameters(eventParameterEntry, result);
             }
         }
 
         if (!Strings.isNullOrEmpty(toscaPolicyState)
-                && !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
+            && !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                    "toscaPolicyState on event is not a valid enum. Valid values are: "
-                            + Arrays.asList(AxToscaPolicyProcessingStatus.values())));
+                "toscaPolicyState on event is not a valid enum. Valid values are: "
+                    + Arrays.asList(AxToscaPolicyProcessingStatus.values())));
         }
 
         return result;
@@ -373,22 +333,22 @@ public class AxEvent extends AxConcept {
      * Validate an event parameter entry.
      *
      * @param eventParameterEntry the event parameter entry
-     * @param result the validation result to append to
+     * @param result              the validation result to append to
      * @return The validation result
      */
     private AxValidationResult validateEventParameters(final Entry<String, AxField> eventParameterEntry,
-                    final AxValidationResult result) {
+                                                       final AxValidationResult result) {
         if (!eventParameterEntry.getKey().equals(eventParameterEntry.getValue().getKey().getLocalName())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key on parameter " + eventParameterEntry.getKey()
-                                            + " does not equal parameter field local name "
-                                            + eventParameterEntry.getValue().getKey().getLocalName()));
+                "key on parameter " + eventParameterEntry.getKey()
+                    + " does not equal parameter field local name "
+                    + eventParameterEntry.getValue().getKey().getLocalName()));
         }
 
         if (!eventParameterEntry.getValue().getKey().getParentArtifactKey().equals(key)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "parent key on parameter field " + eventParameterEntry.getValue().getKey()
-                                            + " does not equal event key"));
+                "parent key on parameter field " + eventParameterEntry.getValue().getKey()
+                    + " does not equal event key"));
         }
 
         return eventParameterEntry.getValue().validate(result);
@@ -410,23 +370,9 @@ public class AxEvent extends AxConcept {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
-        builder.append(":(");
-        builder.append("key=");
-        builder.append(key);
-        builder.append(",nameSpace=");
-        builder.append(nameSpace);
-        builder.append(",source=");
-        builder.append(source);
-        builder.append(",target=");
-        builder.append(target);
-        builder.append(",parameter=");
-        builder.append(parameterMap);
-        builder.append(",toscaPolicyState=");
-        builder.append(toscaPolicyState);
-        builder.append(")");
-        return builder.toString();
+        return this.getClass().getSimpleName()
+            + ":(" + "key=" + key + ",nameSpace=" + nameSpace + ",source=" + source + ",target=" + target
+            + ",parameter=" + parameterMap + ",toscaPolicyState=" + toscaPolicyState + ")";
     }
 
     /**

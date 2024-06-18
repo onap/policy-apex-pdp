@@ -57,7 +57,7 @@
         <version.avro>1.11.3</version.avro>
         <version.caffeine>3.1.8</version.caffeine>
         <version.curator>5.5.0</version.curator>
-        <version.hazelcast>5.3.1</version.hazelcast>
+        <version.hazelcast>5.3.5</version.hazelcast>
         <version.infinispan>14.0.13.Final</version.infinispan>
         <version.jgroups>5.2.18.Final</version.jgroups>
         <version.jms>3.1.0</version.jms>
@@ -82,11 +82,6 @@
     </distributionManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

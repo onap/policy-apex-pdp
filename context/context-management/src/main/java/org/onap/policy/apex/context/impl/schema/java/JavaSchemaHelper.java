@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,7 +49,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
     // Get a reference to the logger
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(JavaSchemaHelper.class);
 
-    // This map defines the built in types in types in Java
+    // This map defines the built-in types in Java
     // @formatter:off
     private static final Map<String, Class<?>> BUILT_IN_MAP = new HashMap<>();
 
@@ -81,7 +81,7 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         } catch (final Exception e) {
 
             String resultSting = userKey.getId() + ": class/type " + schema.getSchema() + " for context schema \""
-                    + schema.getId() + "\" not found.";
+                + schema.getId() + "\" not found.";
             if (JavaSchemaHelper.BUILT_IN_MAP.get(javatype) != null) {
                 resultSting += " Primitive types are not supported. Use the appropriate Java boxing type instead.";
             } else {
@@ -103,13 +103,13 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
 
         if (getSchemaClass() == null) {
             final var returnString =
-                    getUserKey().getId() + ": could not create an instance, schema class for the schema is null";
+                getUserKey().getId() + ": could not create an instance, schema class for the schema is null";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
 
-        if (incomingObject instanceof JsonElement) {
-            final var elementJsonString = getGson().toJson((JsonElement) incomingObject);
+        if (incomingObject instanceof JsonElement jsonObject) {
+            final var elementJsonString = getGson().toJson(jsonObject);
             return getGson().fromJson(elementJsonString, this.getSchemaClass());
         }
 
@@ -118,8 +118,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         }
 
         final var returnString = getUserKey().getId() + ": the object \"" + incomingObject + "\" of type \""
-                + incomingObject.getClass().getName()
-                + "\" is not an instance of JsonObject and is not assignable to \"" + getSchemaClass().getName() + "\"";
+            + incomingObject.getClass().getName()
+            + "\" is not an instance of JsonObject and is not assignable to \"" + getSchemaClass().getName() + "\"";
         LOGGER.warn(returnString);
         throw new ContextRuntimeException(returnString);
     }
@@ -165,8 +165,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return getGson().toJson(schemaObject);
         } else {
             final var returnString = getUserKey().getId() + ": object \"" + schemaObject.toString()
-                    + "\" of class \"" + schemaObject.getClass().getName() + "\" not compatible with class \""
-                    + getSchemaClass().getName() + "\"";
+                + "\" of class \"" + schemaObject.getClass().getName() + "\" not compatible with class \""
+                + getSchemaClass().getName() + "\"";
             LOGGER.warn(returnString);
             throw new ContextRuntimeException(returnString);
         }
@@ -189,19 +189,19 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
      */
     private Object numericConversion(final Object object) {
         // Check if the incoming object is a number, if not do a string conversion
-        if (object instanceof Number) {
+        if (object instanceof Number myNumber) {
             if (getSchemaClass().isAssignableFrom(Byte.class)) {
-                return ((Number) object).byteValue();
+                return myNumber.byteValue();
             } else if (getSchemaClass().isAssignableFrom(Short.class)) {
-                return ((Number) object).shortValue();
+                return myNumber.shortValue();
             } else if (getSchemaClass().isAssignableFrom(Integer.class)) {
-                return ((Number) object).intValue();
+                return myNumber.intValue();
             } else if (getSchemaClass().isAssignableFrom(Long.class)) {
-                return ((Number) object).longValue();
+                return myNumber.longValue();
             } else if (getSchemaClass().isAssignableFrom(Float.class)) {
-                return ((Number) object).floatValue();
+                return myNumber.floatValue();
             } else if (getSchemaClass().isAssignableFrom(Double.class)) {
-                return ((Number) object).doubleValue();
+                return myNumber.doubleValue();
             }
         }
 
@@ -222,8 +222,8 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
             return stringConstructor.newInstance(object.toString());
         } catch (final Exception e) {
             final var returnString = getUserKey().getId() + ": object \"" + object.toString() + "\" of class \""
-                    + object.getClass().getName() + "\" not compatible with class \"" + getSchemaClass().getName()
-                    + "\"";
+                + object.getClass().getName() + "\" not compatible with class \"" + getSchemaClass().getName()
+                + "\"";
             LOGGER.warn(returnString, e);
             throw new ContextRuntimeException(returnString);
         }
@@ -241,22 +241,22 @@ public class JavaSchemaHelper extends AbstractSchemaHelper {
         var schemaParameters = (SchemaParameters) ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME);
 
         JavaSchemaHelperParameters javaSchemaHelperParmeters =
-                (JavaSchemaHelperParameters) schemaParameters.getSchemaHelperParameterMap().get("Java");
+            (JavaSchemaHelperParameters) schemaParameters.getSchemaHelperParameterMap().get("Java");
 
         if (javaSchemaHelperParmeters == null) {
             javaSchemaHelperParmeters = new JavaSchemaHelperParameters();
         }
 
         for (JavaSchemaHelperJsonAdapterParameters jsonAdapterEntry : javaSchemaHelperParmeters.getJsonAdapters()
-                .values()) {
+            .values()) {
 
             Object adapterObject;
             try {
                 adapterObject = jsonAdapterEntry.getAdaptorClazz().getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 final var returnString = getUserKey().getId() + ": instantiation of adapter class \""
-                        + jsonAdapterEntry.getAdaptorClass() + "\"  to decode and encode class \""
-                        + jsonAdapterEntry.getAdaptedClass() + "\" failed: " + e.getMessage();
+                    + jsonAdapterEntry.getAdaptorClass() + "\"  to decode and encode class \""
+                    + jsonAdapterEntry.getAdaptedClass() + "\" failed: " + e.getMessage();
                 LOGGER.warn(returnString, e);
                 throw new ContextRuntimeException(returnString);
             }

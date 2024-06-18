@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@
 
 package org.onap.policy.apex.model.policymodel.handling;
 
+import static org.onap.policy.apex.model.basicmodel.concepts.AxConcept.WHITESPACE_REGEX;
+
+import org.jetbrains.annotations.NotNull;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogicReader;
@@ -96,19 +99,35 @@ public class PolicyLogicReader implements AxLogicReader {
                 // Return the java class name for the logic
                 if (axLogic.getKey().getParentLocalName().equals(AxKey.NULL_KEY_NAME)) {
                     return logicPackage + DOT_JAVA + axLogic.getKey().getParentKeyName()
-                            + axLogic.getKey().getLocalName();
+                        + axLogic.getKey().getLocalName();
                 } else {
                     return logicPackage + DOT_JAVA + axLogic.getKey().getParentKeyName()
-                            + axLogic.getKey().getParentLocalName()  + axLogic.getKey().getLocalName();
+                        + axLogic.getKey().getParentLocalName() + axLogic.getKey().getLocalName();
                 }
             }
         }
         // Now, we read in the script
 
         // Get the package name of the current package and convert dots to slashes for the file path
+        String fullLogicFilePath = getFullLogicFilePath(axLogic);
+
+        final String logicString = ResourceUtils.getResourceAsString(fullLogicFilePath);
+
+        // Check if the logic was found
+        if (logicString == null || logicString.isEmpty()) {
+            String errorMessage = "logic not found for logic \"" + fullLogicFilePath + "\"";
+            LOGGER.warn(errorMessage);
+            throw new PolicyRuntimeException(errorMessage);
+        }
+
+        // Return the right trimmed logic string
+        return logicString.replaceAll(WHITESPACE_REGEX, "");
+    }
+
+    private @NotNull String getFullLogicFilePath(AxLogic axLogic) {
         String fullLogicFilePath = logicPackage.replace(".", "/");
 
-        // Now, the logic should be in a sub directory for the logic executor type
+        // Now, the logic should be in a subdirectory for the logic executor type
         fullLogicFilePath += "/" + axLogic.getLogicFlavour().toLowerCase();
 
         // Check if we're using the default logic
@@ -120,23 +139,12 @@ public class PolicyLogicReader implements AxLogicReader {
                 fullLogicFilePath += "/" + axLogic.getKey().getParentKeyName() + axLogic.getKey().getLocalName();
             } else {
                 fullLogicFilePath += "/" + axLogic.getKey().getParentKeyName()
-                        + axLogic.getKey().getParentLocalName() + axLogic.getKey().getLocalName();
+                    + axLogic.getKey().getParentLocalName() + axLogic.getKey().getLocalName();
             }
         }
 
         // Now get the type of executor to find the extension of the file
         fullLogicFilePath += "." + axLogic.getLogicFlavour().toLowerCase();
-
-        final String logicString = ResourceUtils.getResourceAsString(fullLogicFilePath);
-
-        // Check if the logic was found
-        if (logicString == null || logicString.length() == 0) {
-            String errorMessage = "logic not found for logic \"" + fullLogicFilePath + "\"";
-            LOGGER.warn(errorMessage);
-            throw new PolicyRuntimeException(errorMessage);
-        }
-
-        // Return the right trimmed logic string
-        return logicString.replaceAll("\\s+$", "");
+        return fullLogicFilePath;
     }
 }

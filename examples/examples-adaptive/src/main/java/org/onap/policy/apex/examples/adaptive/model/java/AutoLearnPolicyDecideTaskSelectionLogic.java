@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (c) 2021 Nordix Foundation.
+ *  Modifications Copyright (c) 2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,11 +52,12 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
      * @return the task
      */
     public boolean getTask(final TaskSelectionExecutionContext executor) {
+        var returnValue = true;
         var idString = executor.subject.getId();
-        executor.logger.debug(idString);
+        TaskSelectionExecutionContext.logger.debug(idString);
 
         var inFieldsString = executor.inFields.toString();
-        executor.logger.debug(inFieldsString);
+        TaskSelectionExecutionContext.logger.debug(inFieldsString);
 
         final List<String> tasks = executor.subject.getTaskNames();
         size = tasks.size();
@@ -64,8 +65,8 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
         try {
             executor.getContextAlbum(AUTO_LEARN_ALBUM).lockForWriting(AUTO_LEARN);
         } catch (final ContextException e) {
-            executor.logger.error("Failed to acquire write lock on \"autoLearn\" context", e);
-            return false;
+            TaskSelectionExecutionContext.logger.error("Failed to acquire write lock on \"autoLearn\" context", e);
+            returnValue = false;
         }
 
         // Get the context object
@@ -89,23 +90,23 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
         try {
             executor.getContextAlbum(AUTO_LEARN_ALBUM).unlockForWriting(AUTO_LEARN);
         } catch (final ContextException e) {
-            executor.logger.error("Failed to acquire write lock on \"autoLearn\" context", e);
-            return false;
+            TaskSelectionExecutionContext.logger.error("Failed to acquire write lock on \"autoLearn\" context", e);
+            returnValue = false;
         }
 
         executor.subject.getTaskKey(tasks.get(option)).copyTo(executor.selectedTask);
-        return true;
+        return returnValue;
     }
 
     /**
      * Gets the option.
      *
-     * @param diff the diff
+     * @param diff      the diff
      * @param autoLearn the auto learn
      * @return the option
      */
     private int getOption(final double diff, final AutoLearn autoLearn) {
-        final Double[] avdiffs = autoLearn.getAvDiffs().toArray(new Double[autoLearn.getAvDiffs().size()]);
+        final Double[] avdiffs = autoLearn.getAvDiffs().toArray(new Double[0]);
         final var r = RAND.nextInt(size);
         int closestupi = -1;
         int closestdowni = -1;
@@ -130,13 +131,13 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
     /**
      * Learn.
      *
-     * @param option the option
-     * @param diff the diff
+     * @param option    the option
+     * @param diff      the diff
      * @param autoLearn the auto learn
      */
     private void learn(final int option, final double diff, final AutoLearn autoLearn) {
-        final Double[] avdiffs = autoLearn.getAvDiffs().toArray(new Double[autoLearn.getAvDiffs().size()]);
-        final Long[] counts = autoLearn.getCounts().toArray(new Long[autoLearn.getCounts().size()]);
+        final Double[] avdiffs = autoLearn.getAvDiffs().toArray(new Double[0]);
+        final Long[] counts = autoLearn.getCounts().toArray(new Long[0]);
         if (option < 0 || option >= avdiffs.length) {
             throw new IllegalArgumentException("Error: option" + option);
         }
@@ -153,16 +154,16 @@ public class AutoLearnPolicyDecideTaskSelectionLogic {
     /**
      * Calculate the return value of the learning.
      *
-     * @param diff the difference
-     * @param random the random value
-     * @param closestupi closest to i upwards
+     * @param diff         the difference
+     * @param random       the random value
+     * @param closestupi   closest to i upwards
      * @param closestdowni closest to i downwards
-     * @param closestup closest up value
-     * @param closestdown closest down value
+     * @param closestup    closest up value
+     * @param closestdown  closest down value
      * @return the return value
      */
     private int calculateReturnValue(final double diff, final int random, int closestupi, int closestdowni,
-        double closestup, double closestdown) {
+                                     double closestup, double closestdown) {
         if (closestupi == -1 || closestdowni == -1) {
             return random;
         }

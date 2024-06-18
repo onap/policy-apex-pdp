@@ -35,10 +35,8 @@ import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.service.engine.event.ApexEventConsumer;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -214,7 +212,7 @@ class ApexRestClientProducerTest {
         properties.put("tag", "exist");
         properties.put("key", "that");
         Mockito.doReturn(Response.Status.ACCEPTED.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
+        closeable = Mockito.doReturn(responseMock).when(builderMock).put(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target("http://some.place.that.does.not/exist");
@@ -246,7 +244,7 @@ class ApexRestClientProducerTest {
 
         rcctp.setUrl("http://some.place.that.does.not/exist");
         Mockito.doReturn(Response.Status.OK.getStatusCode()).when(responseMock).getStatus();
-        Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
+        closeable = Mockito.doReturn(responseMock).when(builderMock).post(Mockito.any());
         Mockito.doReturn(builderMock).when(targetMock).request("application/json");
         Mockito.doReturn(builderMock).when(builderMock).headers(Mockito.any());
         Mockito.doReturn(targetMock).when(httpClientMock).target(rcctp.getUrl());

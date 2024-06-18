@@ -21,8 +21,8 @@
 
 package org.onap.policy.apex.plugins.event.carrier.restrequestor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.Gson;
 import jakarta.ws.rs.DELETE;

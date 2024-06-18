@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@
 
 package org.onap.policy.apex.model.contextmodel.concepts;
 
+import java.io.Serial;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,17 +57,23 @@ import org.onap.policy.common.utils.validation.Assertions;
 @ToString
 public class AxContextSchema extends AxConcept {
     private static final String SCHEMA_FLAVOUR = "schemaFlavour";
-    private static final String WHITESPACE_REGEXP = "\\s+$";
 
+    @Serial
     private static final long serialVersionUID = -6443016863162692288L;
 
-    /** Regular expression that constrains what values a schema flavour can have. */
+    /**
+     * Regular expression that constrains what values a schema flavour can have.
+     */
     public static final String SCHEMA_FLAVOUR_REGEXP = "[A-Za-z0-9\\-_]+";
 
-    /** An undefined schema flavour has this value. */
+    /**
+     * An undefined schema flavour has this value.
+     */
     public static final String SCHEMA_FLAVOUR_UNDEFINED = "UNDEFINED";
 
-    /** The maximum permissible size of a schema definition. */
+    /**
+     * The maximum permissible size of a schema definition.
+     */
     public static final int MAX_SCHEMA_SIZE = 32672; // The maximum size supported by Apache Derby
 
     private AxArtifactKey key;
@@ -106,8 +113,8 @@ public class AxContextSchema extends AxConcept {
     /**
      * This Constructor creates a context schema with all of its fields defined.
      *
-     * @param key the key
-     * @param schemaFlavour the schema flavour
+     * @param key              the key
+     * @param schemaFlavour    the schema flavour
      * @param schemaDefinition the schema definition
      */
     public AxContextSchema(final AxArtifactKey key, final String schemaFlavour, final String schemaDefinition) {
@@ -118,7 +125,7 @@ public class AxContextSchema extends AxConcept {
 
         this.key = key;
         this.schemaFlavour = Assertions.validateStringParameter(SCHEMA_FLAVOUR, schemaFlavour, SCHEMA_FLAVOUR_REGEXP);
-        this.schemaDefinition = schemaDefinition.replaceAll(WHITESPACE_REGEXP, "");
+        this.schemaDefinition = schemaDefinition.replaceAll(WHITESPACE_REGEX, "");
     }
 
     /**
@@ -164,7 +171,7 @@ public class AxContextSchema extends AxConcept {
      */
     public void setSchema(final String schema) {
         Assertions.argumentNotNull(schema, "schema may not be null");
-        this.schemaDefinition = schema.replaceAll(WHITESPACE_REGEXP, "");
+        this.schemaDefinition = schema.replaceAll(WHITESPACE_REGEX, "");
     }
 
     /**
@@ -176,27 +183,27 @@ public class AxContextSchema extends AxConcept {
 
         if (key.equals(AxArtifactKey.getNullKey())) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "key is a null key"));
+                "key is a null key"));
         }
 
         result = key.validate(result);
 
-        if (schemaFlavour.replaceAll(WHITESPACE_REGEXP, "").length() == 0
-                        || schemaFlavour.equals(SCHEMA_FLAVOUR_UNDEFINED)) {
+        if (schemaFlavour.replaceAll(WHITESPACE_REGEX, "").isEmpty()
+            || schemaFlavour.equals(SCHEMA_FLAVOUR_UNDEFINED)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "schema flavour is not defined"));
+                "schema flavour is not defined"));
         }
 
         var flavourValidationResult = Assertions.getStringParameterValidationMessage(SCHEMA_FLAVOUR, schemaFlavour,
-                        SCHEMA_FLAVOUR_REGEXP);
+            SCHEMA_FLAVOUR_REGEXP);
         if (flavourValidationResult != null) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "schema flavour invalid-" + flavourValidationResult));
+                "schema flavour invalid-" + flavourValidationResult));
         }
 
-        if (schemaDefinition.replaceAll(WHITESPACE_REGEXP, "").length() == 0) {
+        if (schemaDefinition.replaceAll(WHITESPACE_REGEX, "").isEmpty()) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
-                            "no schemaDefinition specified, schemaDefinition may not be blank"));
+                "no schemaDefinition specified, schemaDefinition may not be blank"));
         }
 
         return result;
@@ -209,7 +216,7 @@ public class AxContextSchema extends AxConcept {
     public void clean() {
         key.clean();
         schemaFlavour = Assertions.validateStringParameter(SCHEMA_FLAVOUR, schemaFlavour, SCHEMA_FLAVOUR_REGEXP);
-        schemaDefinition = schemaDefinition.replaceAll(WHITESPACE_REGEXP, "");
+        schemaDefinition = schemaDefinition.replaceAll(WHITESPACE_REGEX, "");
     }
 
     /**
@@ -219,10 +226,9 @@ public class AxContextSchema extends AxConcept {
     public AxConcept copyTo(final AxConcept target) {
         Assertions.argumentNotNull(target, "target may not be null");
 
-        final Object copyObject = target;
-        Assertions.instanceOf(copyObject, AxContextSchema.class);
+        Assertions.instanceOf(target, AxContextSchema.class);
 
-        final AxContextSchema copy = ((AxContextSchema) copyObject);
+        final AxContextSchema copy = ((AxContextSchema) target);
         copy.setKey(new AxArtifactKey(key));
         copy.setSchemaFlavour(schemaFlavour);
         copy.setSchema(schemaDefinition);

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2021-2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ public class ApexModelHandler {
     /**
      * Create the Apex Model with the properties specified and load it from a file.
      *
-     * @param properties The properties of the Apex model
+     * @param properties    The properties of the Apex model
      * @param modelFileName The name of the model file to edit
      */
     public ApexModelHandler(final Properties properties, final String modelFileName) {
@@ -72,13 +72,14 @@ public class ApexModelHandler {
     /**
      * Execute a command on the Apex model.
      *
-     * @param command The command to execute
+     * @param command        The command to execute
      * @param argumentValues Arguments of the command
-     * @param writer A writer to which to write output
+     * @param writer         A writer to which to write output
      * @return the result of the executed command
      */
     public Result executeCommand(final CommandLineCommand command,
-                    final SortedMap<String, CommandLineArgumentValue> argumentValues, final PrintWriter writer) {
+                                 final SortedMap<String, CommandLineArgumentValue> argumentValues,
+                                 final PrintWriter writer) {
         // Get the method
         final var apiMethod = getCommandMethod(command);
 
@@ -88,27 +89,26 @@ public class ApexModelHandler {
         try {
             final var returnObject = apiMethod.invoke(apexModel, parameterArray);
 
-            if (returnObject instanceof ApexApiResult) {
-                final ApexApiResult result = (ApexApiResult) returnObject;
+            if (returnObject instanceof ApexApiResult result) {
                 writer.println(result);
                 return result.getResult();
             } else {
                 throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod()
-                                + FAILED_FOR_COMMAND + command.getName()
-                                + "\" the returned object is not an instance of ApexAPIResult");
+                    + FAILED_FOR_COMMAND + command.getName()
+                    + "\" the returned object is not an instance of ApexAPIResult");
             }
         } catch (IllegalAccessException | IllegalArgumentException e) {
             writer.println(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                            + command.getName() + "\"");
+                + command.getName() + "\"");
             e.printStackTrace(writer);
             throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                            + command.getName() + "\"", e);
+                + command.getName() + "\"", e);
         } catch (final InvocationTargetException e) {
             writer.println(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                            + command.getName() + "\"");
+                + command.getName() + "\"");
             e.getCause().printStackTrace(writer);
             throw new CommandLineException(INVOCATION_OF_SPECIFIED_METHOD + command.getApiMethod() + FAILED_FOR_COMMAND
-                            + command.getName() + "\"", e);
+                + command.getName() + "\"", e);
         }
     }
 
@@ -130,30 +130,31 @@ public class ApexModelHandler {
                 }
             }
             throw new CommandLineException("specified method \"" + command.getApiMethod()
-                            + "\" not found for command \"" + command.getName() + "\"");
+                + "\" not found for command \"" + command.getName() + "\"");
         } catch (final ClassNotFoundException e) {
             throw new CommandLineException("specified class \"" + command.getApiMethod() + "\" not found for command \""
-                            + command.getName() + "\"", e);
+                + command.getName() + "\"", e);
         }
     }
 
     /**
      * Get the arguments of the command as an ordered array of objects ready for the method.
      *
-     * @param command the command that invoked the method
+     * @param command        the command that invoked the method
      * @param argumentValues the argument values for the method
-     * @param apiMethod the method itself
+     * @param apiMethod      the method itself
      * @return the argument list
      */
     private Object[] getParameterArray(final CommandLineCommand command,
-                    final SortedMap<String, CommandLineArgumentValue> argumentValues, final Method apiMethod) {
+                                       final SortedMap<String, CommandLineArgumentValue> argumentValues,
+                                       final Method apiMethod) {
         final var parameterArray = new Object[argumentValues.size()];
 
         var item = 0;
         try {
             for (final Class<?> parametertype : apiMethod.getParameterTypes()) {
                 final String parameterValue = argumentValues.get(command.getArgumentList().get(item).getArgumentName())
-                                .getValue();
+                    .getValue();
 
                 if (parametertype.equals(boolean.class)) {
                     parameterArray[item] = Boolean.valueOf(parameterValue);
@@ -164,7 +165,7 @@ public class ApexModelHandler {
             }
         } catch (final Exception e) {
             throw new CommandLineException("number of argument mismatch on method \"" + command.getApiMethod()
-                            + "\" for command \"" + command.getName() + "\"", e);
+                + "\" for command \"" + command.getName() + "\"", e);
         }
 
         return parameterArray;
