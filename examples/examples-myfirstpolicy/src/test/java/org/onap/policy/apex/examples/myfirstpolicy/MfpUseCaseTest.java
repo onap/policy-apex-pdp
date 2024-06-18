@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,18 @@
 
 package org.onap.policy.apex.examples.myfirstpolicy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -55,7 +54,7 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
 /**
  * Test MyFirstPolicy Use Case.
  */
-public class MfpUseCaseTest {
+class MfpUseCaseTest {
     // CHECKSTYLE:OFF: MagicNumber
 
     private static ApexEngineImpl apexEngine;
@@ -63,8 +62,8 @@ public class MfpUseCaseTest {
     /**
      * Test MFP use case setup.
      */
-    @BeforeClass
-    public static void testMfpUseCaseSetup() {
+    @BeforeAll
+    static void testMfpUseCaseSetup() {
         final AxArtifactKey key = new AxArtifactKey("MyFirstPolicyApexEngine", "0.0.1");
         apexEngine = (ApexEngineImpl) new ApexEngineFactory().createApexEngine(key);
     }
@@ -76,8 +75,8 @@ public class MfpUseCaseTest {
     /**
      * Before test.
      */
-    @BeforeClass
-    public static void beforeTest() {
+    @BeforeAll
+    static void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -106,8 +105,8 @@ public class MfpUseCaseTest {
     /**
      * After test.
      */
-    @AfterClass
-    public static void afterTest() {
+    @AfterAll
+    static void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -122,11 +121,9 @@ public class MfpUseCaseTest {
      * Test MyFirstPolicy#1 use case.
      *
      * @throws ApexException if there is an Apex error
-     * @throws InterruptedException if there is an Interruption.
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testMfp1Case() throws ApexException, InterruptedException, IOException {
+    void testMfp1Case() throws ApexException {
         final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1PolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -144,24 +141,22 @@ public class MfpUseCaseTest {
         apexEngine.handleEvent(event);
         EnEvent resultout = listener.getResult();
         EnEvent resulexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
         assertEquals(resulexpected, resultout);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_BoozeItem_201713GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resulexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
+        assertHandledEventResult(resulexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resulexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
+        assertHandledEventResult(resulexpected, resultout, event);
 
         apexEngine.stop();
     }
@@ -170,11 +165,9 @@ public class MfpUseCaseTest {
      * Test MyFirstPolicy#1 use case.
      *
      * @throws ApexException if there is an Apex error
-     * @throws InterruptedException if there is an Interruption.
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testMfp1AltCase() throws ApexException, InterruptedException, IOException {
+    void testMfp1AltCase() throws ApexException {
         final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1AltPolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -192,7 +185,7 @@ public class MfpUseCaseTest {
         apexEngine.handleEvent(event);
         EnEvent resultout = listener.getResult();
         EnEvent resulexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
         resultout.put("message", "");
         resulexpected.put("message", "");
         assertEquals(resulexpected, resultout);
@@ -201,21 +194,19 @@ public class MfpUseCaseTest {
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resulexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
         resultout.put("message", "");
         resulexpected.put("message", "");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+        assertHandledEventResult(resulexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resulexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
         resultout.put("message", "");
         resulexpected.put("message", "");
-        assertEquals(resulexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+        assertHandledEventResult(resulexpected, resultout, event);
 
         apexEngine.stop();
     }
@@ -224,11 +215,9 @@ public class MfpUseCaseTest {
      * Test MyFirstPolicy#2 use case.
      *
      * @throws ApexException if there is an Apex error
-     * @throws InterruptedException if there is an Interruption.
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testMfp2Case() throws ApexException, InterruptedException, IOException {
+    void testMfp2Case() throws ApexException {
         final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp2PolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -246,57 +235,56 @@ public class MfpUseCaseTest {
         apexEngine.handleEvent(event);
         EnEvent resultout = listener.getResult();
         EnEvent resultexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
-        assertEquals(resultexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_084106GMT.json");
+        assertHandledEventResult(resultexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_BoozeItem_201713GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resultexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
-        assertEquals(resultexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_BoozeItem_201713GMT.json");
+        assertHandledEventResult(resultexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/1/EventIn_NonBoozeItem_101309GMT.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resultexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
-        assertEquals(resultexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/1/EventOut_NonBoozeItem_101309GMT.json");
+        assertHandledEventResult(resultexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/2/EventIn_BoozeItem_101433CET_thurs.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resultexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_BoozeItem_101433CET_thurs.json");
-        assertEquals(resultexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_BoozeItem_101433CET_thurs.json");
+        assertHandledEventResult(resultexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/2/EventIn_BoozeItem_171937CET_sun.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resultexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_BoozeItem_171937CET_sun.json");
-        assertEquals(resultexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_BoozeItem_171937CET_sun.json");
+        assertHandledEventResult(resultexpected, resultout, event);
 
         event = fillTriggerEvent(axEventin, "examples/events/MyFirstPolicy/2/EventIn_NonBoozeItem_111309CET_mon.json");
         apexEngine.handleEvent(event);
         resultout = listener.getResult();
         resultexpected =
-                fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_NonBoozeItem_111309CET_mon.json");
-        assertEquals(resultexpected, resultout);
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), resultout.getExecutionId());
+            fillResultEvent(axEventout, "examples/events/MyFirstPolicy/2/EventOut_NonBoozeItem_111309CET_mon.json");
+        assertHandledEventResult(resultexpected, resultout, event);
 
         apexEngine.stop();
+    }
+
+    private static void assertHandledEventResult(EnEvent resultexpected, EnEvent resultout, EnEvent event) {
+        assertEquals(resultexpected, resultout);
+        assertEquals(event.getExecutionId(), resultout.getExecutionId());
     }
 
     /**
      * Fill trigger event for test.
      *
-     * @param event the event
+     * @param event     the event
      * @param inputFile the input file
      * @return the filled event
      */
@@ -305,7 +293,7 @@ public class MfpUseCaseTest {
         final GsonBuilder gb = new GsonBuilder();
         gb.serializeNulls().enableComplexMapKeySerialization();
         final JsonObject jsonObject =
-                gb.create().fromJson(ResourceUtils.getResourceAsString(inputFile), JsonObject.class);
+            gb.create().fromJson(ResourceUtils.getResourceAsString(inputFile), JsonObject.class);
         assertNotNull(jsonObject);
         assertTrue(jsonObject.has("name"));
         assertEquals(ret.getName(), jsonObject.get("name").getAsString());
@@ -319,16 +307,18 @@ public class MfpUseCaseTest {
             if (reserved.contains(e.getKey())) {
                 continue;
             }
-            assertTrue("Event file " + inputFile + " has a field " + e.getKey() + " but this is not defined for "
-                    + event.getId(), (event.getParameterMap().containsKey(e.getKey())));
+            assertTrue((event.getParameterMap().containsKey(e.getKey())),
+                "Event file " + inputFile + " has a field " + e.getKey() + " but this is not defined for "
+                    + event.getId());
             if (jsonObject.get(e.getKey()).isJsonNull()) {
                 ret.put(e.getKey(), null);
             }
         }
         for (final AxField field : event.getFields()) {
             if (!field.getOptional()) {
-                assertTrue("Event file " + inputFile + " is missing a mandatory field " + field.getKey().getLocalName()
-                        + " for " + event.getId(), jsonObject.has(field.getKey().getLocalName()));
+                assertTrue(jsonObject.has(field.getKey().getLocalName()),
+                    "Event file " + inputFile + " is missing a mandatory field " + field.getKey().getLocalName()
+                        + " for " + event.getId());
             } else {
                 ret.put(field.getKey().getLocalName(), null);
             }
@@ -363,7 +353,7 @@ public class MfpUseCaseTest {
     /**
      * Fill result event for test.
      *
-     * @param event the event
+     * @param event     the event
      * @param inputFile the input file
      * @return the filled event
      */
@@ -372,7 +362,7 @@ public class MfpUseCaseTest {
         final GsonBuilder gb = new GsonBuilder();
         gb.serializeNulls().enableComplexMapKeySerialization();
         final JsonObject jsonObject =
-                gb.create().fromJson(ResourceUtils.getResourceAsString(inputFile), JsonObject.class);
+            gb.create().fromJson(ResourceUtils.getResourceAsString(inputFile), JsonObject.class);
         assertNotNull(jsonObject);
         assertTrue(jsonObject.has("name"));
         assertEquals(ret.getName(), jsonObject.get("name").getAsString());
@@ -386,16 +376,18 @@ public class MfpUseCaseTest {
             if (reserved.contains(e.getKey())) {
                 continue;
             }
-            assertTrue("Event file " + inputFile + " has a field " + e.getKey() + " but this is not defined for "
-                    + event.getId(), (event.getParameterMap().containsKey(e.getKey())));
+            assertTrue((event.getParameterMap().containsKey(e.getKey())),
+                "Event file " + inputFile + " has a field " + e.getKey() + " but this is not defined for "
+                    + event.getId());
             if (jsonObject.get(e.getKey()).isJsonNull()) {
                 ret.put(e.getKey(), null);
             }
         }
         for (final AxField field : event.getFields()) {
             if (!field.getOptional()) {
-                assertTrue("Event file " + inputFile + " is missing a mandatory field " + field.getKey().getLocalName()
-                        + " for " + event.getId(), jsonObject.has(field.getKey().getLocalName()));
+                assertTrue(jsonObject.has(field.getKey().getLocalName()),
+                    "Event file " + inputFile + " is missing a mandatory field " + field.getKey().getLocalName()
+                        + " for " + event.getId());
             } else {
                 ret.put(field.getKey().getLocalName(), null);
             }

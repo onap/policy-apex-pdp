@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 huawei. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 package org.onap.policy.apex.examples.bbs;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,12 +29,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.net.ssl.HttpsURLConnection;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-// TODO javax libraries used here too. Ok, to keep? Liam's review ignored these.
-public class WebClientTest {
+class WebClientTest {
 
     HttpsURLConnection mockedHttpsUrlConnection;
     String sampleString = "Response Code :200";
@@ -44,8 +43,8 @@ public class WebClientTest {
      *
      * @throws IOException on I/O errors
      */
-    @Before
-    public void setupMockedRest() throws IOException {
+    @BeforeEach
+    void setupMockedRest() throws IOException {
         mockedHttpsUrlConnection = mock(HttpsURLConnection.class);
         InputStream inputStream = new ByteArrayInputStream(sampleString.getBytes());
         when(mockedHttpsUrlConnection.getInputStream()).thenReturn(inputStream);
@@ -53,7 +52,7 @@ public class WebClientTest {
     }
 
     @Test
-    public void testHttpsRequest() {
+    void testHttpsRequest() {
         WebClient cl = new WebClient();
         String result = cl
             .httpRequest("https://some.random.url/data", "POST", null, "admin", "admin", "application/json");
@@ -61,7 +60,7 @@ public class WebClientTest {
     }
 
     @Test
-    public void testHttpRequest() {
+    void testHttpRequest() {
         WebClient cl = new WebClient();
         String result = cl
             .httpRequest("http://some.random.url/data", "GET", null, "admin", "admin", "application/json");
@@ -69,7 +68,7 @@ public class WebClientTest {
     }
 
     @Test
-    public void testToPrettyString() {
+    void testToPrettyString() {
         String xmlSample = "<input xmlns=\"org:onap:sdnc:northbound:generic-resource\">"
             + "<sdnc-request-header> <svc-action>update</svc-action> </sdnc-request-header></input>";
         WebClient cl = new WebClient();

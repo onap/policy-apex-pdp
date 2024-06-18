@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020-2023 Nordix Foundation.
+ *  Copyright (C) 2020-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ import jakarta.ws.rs.core.Response;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
@@ -40,9 +40,9 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
  * create/delete subscription gRPC request is triggered to the CDS (a dummy gRPC server here). Response received from
  * CDS is used to send a final output Log event on POLICY_CL_MGT topic.
  */
-public class TestApexGrpcExample {
+class TestApexGrpcExample {
     @Test
-    public void testGrpcExample() throws Exception {
+    void testGrpcExample() throws Exception {
         // @formatter:off
         final String[] cliArgs = new String[] {
             "-c",
@@ -74,13 +74,12 @@ public class TestApexGrpcExample {
         final Client client = ClientBuilder.newClient();
         final ApexMain apexMain = new ApexMain(apexArgs);
 
-        await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> apexMain.isAlive());
+        await().atMost(5000, TimeUnit.MILLISECONDS).until(apexMain::isAlive);
 
         String getLoggedEventUrl = "http://localhost:54321/GrpcTestRestSim/sim/event/getLoggedEvent";
         // wait for success response code to be received, until a timeout
-        await().atMost(20000, TimeUnit.MILLISECONDS).until(() -> {
-            return 200 == client.target(getLoggedEventUrl).request("application/json").get().getStatus();
-        });
+        await().atMost(20000, TimeUnit.MILLISECONDS).until(() ->
+            200 == client.target(getLoggedEventUrl).request("application/json").get().getStatus());
         apexMain.shutdown();
         Response response = client.target(getLoggedEventUrl).request("application/json").get();
         sim.tearDown();
@@ -91,7 +90,6 @@ public class TestApexGrpcExample {
             Files.readString(Paths.get("src/main/resources/examples/events/APEXgRPC/CDSResponseStatusEvent.json"))
                 .replaceAll("\r", "");
         // Both LogEvent and CDSResponseStatusEvent are generated from the final state in the policy
-        assertThat(responseEntity).contains(expectedStatusEvent);
-        assertThat(responseEntity).contains(expectedLoggedOutputEvent);
+        assertThat(responseEntity).contains(expectedStatusEvent).contains(expectedLoggedOutputEvent);
     }
 }

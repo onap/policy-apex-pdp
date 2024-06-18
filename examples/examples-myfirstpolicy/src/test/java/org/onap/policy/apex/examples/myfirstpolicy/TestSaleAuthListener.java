@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,10 +63,10 @@ public class TestSaleAuthListener implements EnEventListener {
      * {@inheritDoc}.
      */
     @Override
-    public void onEnEvent(final EnEvent saleauthEvent) {
-        if (saleauthEvent != null) {
-            System.out.println("SaleAuth event from engine:" + saleauthEvent.getName());
-            resultEvents.add(saleauthEvent);
+    public void onEnEvent(final EnEvent saleAuthEvent) {
+        if (saleAuthEvent != null) {
+            System.out.println("SaleAuth event from engine:" + saleAuthEvent.getName());
+            resultEvents.add(saleAuthEvent);
         }
     }
 }

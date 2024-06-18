@@ -21,14 +21,14 @@
 
 package org.onap.policy.apex.examples.aadm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -49,14 +49,12 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class tests AADM use case.
  *
  * @author Sergey Sachkov (sergey.sachkov@ericsson.com)
- *
  */
-public class AadmUseCaseTest {
+class AadmUseCaseTest {
     private static final XLogger logger = XLoggerFactory.getXLogger(AadmUseCaseTest.class);
 
     private SchemaParameters schemaParameters;
@@ -66,8 +64,8 @@ public class AadmUseCaseTest {
     /**
      * Test AADM use case setup.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -95,8 +93,8 @@ public class AadmUseCaseTest {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -113,7 +111,7 @@ public class AadmUseCaseTest {
      * @throws ApexException the apex exception
      */
     @Test
-    public void testAadmCase() throws ApexException {
+    void testAadmCase() throws ApexException {
         final AxPolicyModel apexPolicyModel = new AadmDomainModelFactory().getAadmPolicyModel();
         assertNotNull(apexPolicyModel);
         final AxArtifactKey key = new AxArtifactKey("AADMApexEngine", "0.0.1");
@@ -153,7 +151,7 @@ public class AadmUseCaseTest {
         apexEngine.handleEvent(event);
         EnEvent result = listener.getResult();
         assertProbe(result, event);
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        loginfoacttaskevent(result);
 
         final ContextAlbum eNodeBStatusAlbum = apexEngine.getInternalContext().get("ENodeBStatusAlbum");
         final ENodeBStatus eNodeBStatus = (ENodeBStatus) eNodeBStatusAlbum.get("123");
@@ -221,7 +219,7 @@ public class AadmUseCaseTest {
         ((ENodeBStatus) eNodeBStatusAlbum.get("123")).setDosCount(99);
 
         // tcp correlation return positive dos
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        loginfoacttaskevent(result);
         event = apexEngine.createEvent(axEvent.getKey());
         event.put("IMSI", 123456L);
         event.put("IMSI_IP", "101.111.121.131");
@@ -277,7 +275,7 @@ public class AadmUseCaseTest {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertProbeDone(result, event, 100, eNodeBStatusAlbum);
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        loginfoacttaskevent(result);
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
@@ -307,7 +305,7 @@ public class AadmUseCaseTest {
         assertProbe(result, event);
         assertEquals(99, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
         assertEquals(1, ((ENodeBStatus) eNodeBStatusAlbum.get("124")).getDosCount());
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        loginfoacttaskevent(result);
         // End of user moving enodeB
 
         ((ENodeBStatus) eNodeBStatusAlbum.get("123")).setDosCount(101);
@@ -340,7 +338,7 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertProbe(result, event);
         assertEquals(102, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
+        loginfoacttaskevent(result);
 
         logger.info("Sending too many connections trigger ");
         event = apexEngine.createEvent(axEvent.getKey());
@@ -369,8 +367,8 @@ public class AadmUseCaseTest {
         result = listener.getResult();
         assertProbe(result, event);
         assertEquals(102, ((ENodeBStatus) eNodeBStatusAlbum.get("123")).getDosCount());
-        logger.info("Receiving action event with {} action", result.get("ACTTASK"));
-        // End of user becomes non anomalous
+        loginfoacttaskevent(result);
+        // End of user becomes non-anomalous
         apexEngine.handleEvent(result);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("SAPCBlacklistSubscriberEvent"));
@@ -386,7 +384,7 @@ public class AadmUseCaseTest {
         apexEngine.handleEvent(event);
         result = listener.getResult();
         assertTrue(result.getName().startsWith("SAPCBlacklistSubscriberEvent"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
+        assertEquals(event.getExecutionId(), result.getExecutionId(), "ExecutionIDs are different");
         assertEquals(0L, result.get("IMSI"));
         assertEquals("ServiceA", result.get("PROFILE"));
         assertFalse((boolean) result.get("BLACKLIST_ON"));
@@ -397,7 +395,7 @@ public class AadmUseCaseTest {
     private static void assertProbe(EnEvent result, EnEvent event) {
         logger.info("Result name: {}", result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
+        assertEquals(event.getExecutionId(), result.getExecutionId(), "ExecutionIDs are different");
         assertEquals("probe", result.get("ACTTASK"));
         assertTrue((boolean) result.get("TCP_ON"));
         assertTrue((boolean) result.get("PROBE_ON"));
@@ -405,13 +403,21 @@ public class AadmUseCaseTest {
 
     private static void assertProbeDone(EnEvent result, EnEvent event, int expected, ContextAlbum contextAlbum) {
         assertTrue(result.getName().startsWith("XSTREAM_AADM_ACT_EVENT"));
-        assertEquals("ExecutionIDs are different", event.getExecutionId(), result.getExecutionId());
+        assertEquals(event.getExecutionId(), result.getExecutionId(), "ExecutionIDs are different");
         // DOS_IN_eNodeB set to be more than throughput so return act action
         assertEquals("act", result.get("ACTTASK"));
         // only one imsi was sent to process, so stop probe and tcp
         assertFalse((boolean) result.get("TCP_ON"));
         assertFalse((boolean) result.get("PROBE_ON"));
         assertEquals(expected, ((ENodeBStatus) contextAlbum.get("123")).getDosCount());
+        loginfoacttaskevent(result);
+    }
+
+    /**
+     * Logs action from Result variable.
+     * @param result the result event
+     */
+    private static void loginfoacttaskevent(EnEvent result) {
         logger.info("Receiving action event with {} action", result.get("ACTTASK"));
     }
 

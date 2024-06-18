@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +22,15 @@
 package org.onap.policy.apex.examples.adaptive;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -53,13 +52,13 @@ import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 /**
- * This policy passes, and recieves a Double event context filed called "EVCDouble".<br>
+ * This policy passes, and receives a Double event context filed called "EVCDouble".<br>
  * The policy tries to detect anomalies in the pattern of values for EVCDouble<br>
  * See the 2 test cases below (1 short, 1 long)
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
-public class AnomalyDetectionTslUseCaseTest {
+class AnomalyDetectionTslUseCaseTest {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AnomalyDetectionTslUseCaseTest.class);
 
     private static final int MAXITERATIONS = 3660;
@@ -72,8 +71,8 @@ public class AnomalyDetectionTslUseCaseTest {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -102,8 +101,8 @@ public class AnomalyDetectionTslUseCaseTest {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -118,12 +117,10 @@ public class AnomalyDetectionTslUseCaseTest {
      * Test anomaly detection tsl.
      *
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    // once through the long running test below
-    public void testAnomalyDetectionTsl() throws ApexException, InterruptedException, IOException {
+    // once through the long-running test below
+    void testAnomalyDetectionTsl() throws ApexException {
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -140,34 +137,32 @@ public class AnomalyDetectionTslUseCaseTest {
         apexEngine1.updateModel(apexPolicyModel, false);
         apexEngine1.start();
         final EnEvent triggerEvent =
-                apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
+            apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
         final double rval = RAND.nextGaussian();
         triggerEvent.put("Iteration", 0);
         triggerEvent.put("MonitoredValue", rval);
-        LOGGER.info("Triggering policy in Engine 1 with " + triggerEvent);
+        LOGGER.info("Triggering policy in Engine 1 with {}", triggerEvent);
         apexEngine1.handleEvent(triggerEvent);
         final EnEvent result = listener1.getResult();
         LOGGER.info("Receiving action event {} ", result);
-        assertEquals("ExecutionIDs are different", triggerEvent.getExecutionId(), result.getExecutionId());
+        assertEquals(triggerEvent.getExecutionId(), result.getExecutionId(), "ExecutionIDs are different");
         triggerEvent.clear();
         result.clear();
-        await().atLeast(1, TimeUnit.MILLISECONDS).until(() -> result.isEmpty());
+        await().atLeast(1, TimeUnit.MILLISECONDS).until(result::isEmpty);
         apexEngine1.stop();
     }
 
     /**
-     * This policy passes, and recieves a Double event context filed called "EVCDouble"<br>
+     * This policy passes, and receives a Double event context filed called "EVCDouble"<br>
      * The policy tries to detect anomalies in the pattern of values for EVCDouble <br>
      * This test case generates a SineWave-like pattern for the parameter, repeating every 360 iterations. (These Period
      * should probably be set using TaskParameters!) Every 361st value is a random number!, so should be identified as
      * an Anomaly. The policy has 3 Decide Tasks, and the Decide TaskSelectionLogic picks one depending on the
      * 'Anomaliness' of the input data. <br>
-     * To plot the results grep debug results for the string "************", paste into excel and delete non-relevant
+     * To plot the results grep debug results for the string "************", paste into Excel and delete non-relevant
      * columns<br>
      *
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     // Test is disabled by default. uncomment below, or execute using the main() method
     // @Test
@@ -175,7 +170,7 @@ public class AnomalyDetectionTslUseCaseTest {
     // -Dtest=org.onap.policy.apex.core.engine.ml.TestAnomalyDetectionTslUseCase test | findstr /L /C:"Apex [main] DEBUG
     // c.e.a.e.TaskSelectionExecutionLogging -
     // TestAnomalyDetectionTSL_Policy0000DecideStateTaskSelectionLogic.getTask():"
-    public void testAnomalyDetectionTslmain() throws ApexException, InterruptedException, IOException {
+    void testAnomalyDetectionTslMain() throws ApexException {
 
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAnomalyDetectionPolicyModel();
         assertNotNull(apexPolicyModel);
@@ -197,23 +192,23 @@ public class AnomalyDetectionTslUseCaseTest {
         apexEngine1.start();
 
         final EnEvent triggerEvent =
-                apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
+            apexEngine1.createEvent(new AxArtifactKey("AnomalyDetectionTriggerEvent", "0.0.1"));
         assertNotNull(triggerEvent);
 
         for (int iteration = 0; iteration < MAXITERATIONS; iteration++) {
             // Trigger the policy in engine 1
 
             double value = (Math.sin(Math.toRadians(iteration))) + (RAND.nextGaussian() / 25.0);
-            // lets make every 361st number a random value to perhaps flag as an anomaly
+            // let's make every 361st number a random value to perhaps flag as an anomaly
             if (((iteration + 45) % 361) == 0) {
                 value = (RAND.nextGaussian() * 2.0);
             }
             triggerEvent.put("Iteration", iteration);
             triggerEvent.put("MonitoredValue", value);
-            LOGGER.info("Iteration " + iteration + ":\tTriggering policy in Engine 1 with " + triggerEvent);
+            LOGGER.info("Iteration {}:\tTriggering policy in Engine 1 with {}", iteration, triggerEvent);
             apexEngine1.handleEvent(triggerEvent);
             final EnEvent result = listener1.getResult();
-            LOGGER.info("Iteration " + iteration + ":\tReceiving action event {} ", result);
+            LOGGER.info("Iteration {}:\tReceiving action event {} ", iteration, result);
             triggerEvent.clear();
             result.clear();
         }
@@ -226,10 +221,8 @@ public class AnomalyDetectionTslUseCaseTest {
      *
      * @param args the arguments
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
-        new AnomalyDetectionTslUseCaseTest().testAnomalyDetectionTslmain();
+    public static void main(final String[] args) throws ApexException {
+        new AnomalyDetectionTslUseCaseTest().testAnomalyDetectionTslMain();
     }
 }
