@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,29 +22,28 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.file;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class TestFile2FileFiltered {
+class TestFile2FileFiltered {
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     @Test
-    public void testJsonFilteredFileInOutEvents() throws MessagingException, ApexException, IOException {
+    void testJsonFilteredFileInOutEvents() throws ApexException, IOException {
         // @formatter:off
         final String[] args =
             { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredInOutJsonEvent.json" };
@@ -61,7 +60,7 @@ public class TestFile2FileFiltered {
     }
 
     @Test
-    public void testJsonFilteredFileOutEvents() throws MessagingException, ApexException, IOException {
+    void testJsonFilteredFileOutEvents() throws ApexException, IOException {
         // @formatter:off
         final String[] args =
             { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredOutJsonEvent.json" };
@@ -78,7 +77,7 @@ public class TestFile2FileFiltered {
     }
 
     @Test
-    public void testJsonFilteredFileInEvents() throws MessagingException, ApexException, IOException {
+    void testJsonFilteredFileInEvents() throws ApexException, IOException {
         // @formatter:off
         final String[] args =
             { "-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileFilteredInJsonEvent.json" };
@@ -94,7 +93,7 @@ public class TestFile2FileFiltered {
     }
 
     private void testFilteredFileEvents(final String[] args, final String[] outFilePaths,
-            final long[] expectedFileSizes) throws MessagingException, ApexException, IOException {
+                                        final long[] expectedFileSizes) throws ApexException, IOException {
         final ApexMain apexMain = new ApexMain(args);
 
         final File outFile0 = new File(outFilePaths[0]);
@@ -104,7 +103,7 @@ public class TestFile2FileFiltered {
         }
 
         // Wait for the file to be filled
-        long outFile0Size = 0;
+        long outFile0Size;
         for (int i = 0; i < 20; i++) {
             final String fileString = stripVariableLengthText(outFilePaths[0]);
             outFile0Size = fileString.length();
@@ -139,6 +138,6 @@ public class TestFile2FileFiltered {
      */
     private String stripVariableLengthText(final String outFile) throws IOException {
         return TextFileUtils.getTextFileAsString(outFile).replaceAll("\\s+", "").replaceAll(":\\d*\\.?\\d*,", ":0,")
-                .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
+            .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
     }
 }

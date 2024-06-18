@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +22,16 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.context;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import java.nio.file.Path;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -38,7 +39,7 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class EventAlbumContextTest {
+class EventAlbumContextTest {
     private File tempCommandFile;
     private File tempLogFile;
     private File tempPolicyFile;
@@ -47,22 +48,22 @@ public class EventAlbumContextTest {
     private String outputFile;
     private String compareFile;
 
-    @Rule
-    public TemporaryFolder tempTestDir = new TemporaryFolder();
+    @TempDir
+    Path tempTestDir;
 
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     @Test
-    public void testJavaEventAlbumContextTest() throws IOException, ApexException {
-        tempCommandFile = tempTestDir.newFile("TestPolicyJavaEventContext.apex");
-        tempLogFile = tempTestDir.newFile("TestPolicyJavaEventContext.log");
-        tempPolicyFile = tempTestDir.newFile("TestPolicyJavaEventContext.json");
+    void testJavaEventAlbumContextTest() throws IOException, ApexException {
+        tempCommandFile = tempTestDir.resolve("TestPolicyJavaEventContext.apex").toFile();
+        tempLogFile = tempTestDir.resolve("TestPolicyJavaEventContext.log").toFile();
+        tempPolicyFile = tempTestDir.resolve("TestPolicyJavaEventContext.json").toFile();
 
         eventContextString = ResourceUtils.getResourceAsString("examples/scripts/TestPolicyJavaEventContext.apex");
 
@@ -74,10 +75,10 @@ public class EventAlbumContextTest {
     }
 
     @Test
-    public void testAvroEventAlbumContextTest() throws IOException, ApexException {
-        tempCommandFile = tempTestDir.newFile("TestPolicyAvroEventContext.apex");
-        tempLogFile = tempTestDir.newFile("TestPolicyAvroEventContext.log");
-        tempPolicyFile = tempTestDir.newFile("TestPolicyAvroEventContext.json");
+    void testAvroEventAlbumContextTest() throws IOException, ApexException {
+        tempCommandFile = tempTestDir.resolve("TestPolicyAvroEventContext.apex").toFile();
+        tempLogFile = tempTestDir.resolve("TestPolicyAvroEventContext.log").toFile();
+        tempPolicyFile = tempTestDir.resolve("TestPolicyAvroEventContext.json").toFile();
 
         eventContextString = ResourceUtils.getResourceAsString("examples/scripts/TestPolicyAvroEventContext.apex");
 
@@ -107,7 +108,7 @@ public class EventAlbumContextTest {
             if (outputEventFile.exists() && outputEventFile.length() > 0) {
                 // The output event is in this file
                 receivedApexOutputString =
-                        TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath()).replaceAll("\\s+", "");
+                    TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath()).replaceAll("\\s+", "");
                 break;
             }
 
@@ -117,10 +118,10 @@ public class EventAlbumContextTest {
         // Shut down Apex
         apexMain.shutdown();
 
-        assertTrue("Test failed, the output event file was not created", outputEventFile.exists());
-        outputEventFile.delete();
+        assertTrue(outputEventFile.exists(), "Test failed, the output event file was not created");
+        assertTrue(outputEventFile.delete());
 
-        assertTrue("Test failed, the output event file was empty", receivedApexOutputString.length() > 0);
+        assertFalse(receivedApexOutputString.isEmpty(), "Test failed, the output event file was empty");
 
         // We compare the output to what we expect to get
         final String expectedFileContent = TextFileUtils.getTextFileAsString(compareFile);

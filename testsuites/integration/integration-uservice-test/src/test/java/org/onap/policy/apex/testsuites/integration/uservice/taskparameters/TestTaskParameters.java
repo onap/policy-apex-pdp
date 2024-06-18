@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020,2023 Nordix Foundation.
+ *  Copyright (C) 2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,16 @@
 package org.onap.policy.apex.testsuites.integration.uservice.taskparameters;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.Response;
 import java.util.concurrent.TimeUnit;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -48,7 +48,7 @@ import org.slf4j.ext.XLoggerFactory;
  * dynamically populated using executionProperties is hit and values get updated in
  * {@link RestClientEndpointForTaskParameters} which acts as a temporary server for requests.
  */
-public class TestTaskParameters {
+class TestTaskParameters {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestTaskParameters.class);
 
@@ -61,8 +61,8 @@ public class TestTaskParameters {
      *
      * @throws Exception the exception
      */
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @BeforeAll
+    static void setUp() throws Exception {
         if (NetworkUtil.isTcpPortOpen(HOST, PORT, 3, 50L)) {
             throw new IllegalStateException("port " + PORT + " is still in use");
         }
@@ -85,10 +85,9 @@ public class TestTaskParameters {
     /**
      * Tear down.
      *
-     * @throws Exception the exception
      */
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @AfterAll
+    static void tearDown() {
         if (server != null) {
             server.stop();
         }
@@ -97,8 +96,8 @@ public class TestTaskParameters {
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
@@ -107,7 +106,7 @@ public class TestTaskParameters {
      * updated to all tasks.
      */
     @Test
-    public void testTaskParameters_with_noTaskIds() throws Exception {
+    void testTaskParameters_with_noTaskIds() throws Exception {
         String responseEntity = testTaskParameters(
             "src/test/resources/testdata/taskparameters/TaskParameterTestConfig_with_noTaskIds.json");
         assertTrue(responseEntity.contains("{\"closedLoopId\": closedLoopId123,\"serviceId\": serviceId123}"));
@@ -118,7 +117,7 @@ public class TestTaskParameters {
      * that particular task alone.
      */
     @Test
-    public void testTaskParameters_with_validTaskIds() throws Exception {
+    void testTaskParameters_with_validTaskIds() throws Exception {
         String responseEntity = testTaskParameters(
             "src/test/resources/testdata/taskparameters/TaskParameterTestConfig_with_validTaskIds.json");
         assertTrue(responseEntity.contains("{\"closedLoopId\": closedLoopIdxyz,\"serviceId\": serviceIdxyz}"));
@@ -130,7 +129,7 @@ public class TestTaskParameters {
      * accessible in the task
      */
     @Test
-    public void testTaskParameters_with_invalidTaskIds() throws Exception {
+    void testTaskParameters_with_invalidTaskIds() throws Exception {
         String responseEntity = testTaskParameters(
             "src/test/resources/testdata/taskparameters/TaskParameterTestConfig_with_invalidTaskIds.json");
         assertTrue(responseEntity.contains("{\"closedLoopId\": INVALID - closedLoopId not available in TaskParameters,"
@@ -170,6 +169,7 @@ public class TestTaskParameters {
         String responseEntity = response.readEntity(String.class);
 
         LOGGER.info("testTaskParameters-OUTSTRING=\n {}", responseEntity);
+        client.close();
         return responseEntity;
     }
 }

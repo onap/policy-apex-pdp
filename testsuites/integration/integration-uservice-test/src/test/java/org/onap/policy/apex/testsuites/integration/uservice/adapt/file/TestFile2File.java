@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,68 +22,68 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.file;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
-public class TestFile2File {
+class TestFile2File {
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     @Test
-    public void testJsonFileEvents() throws MessagingException, ApexException, IOException {
+    void testJsonFileEvents() throws ApexException, IOException {
         final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/File2FileJsonEvent.json"};
 
-        testFileEvents(args, "target/examples/events/SampleDomain/EventsOut.json", 44400);
+        testFileEvents(args);
     }
 
-    private void testFileEvents(final String[] args, final String outFilePath, final long expectedFileSize)
-            throws MessagingException, ApexException, IOException {
+    private void testFileEvents(final String[] args) throws ApexException, IOException {
         final ApexMain apexMain = new ApexMain(args);
 
-        final File outFile = new File(outFilePath);
+        final File outFile = new File("target/examples/events/SampleDomain/EventsOut.json");
 
         while (!outFile.exists()) {
             ThreadUtilities.sleep(500);
         }
 
         // Wait for the file to be filled
-        long outFileSize = 0;
+        long outFileSize;
         while (true) {
-            final String fileString = stripVariableLengthText(outFilePath);
+            final String fileString = stripVariableLengthText();
             outFileSize = fileString.length();
-            if (outFileSize > 0 && outFileSize >= expectedFileSize) {
+            if (outFileSize > 0 && outFileSize >= (long) 44400) {
                 break;
             }
             ThreadUtilities.sleep(500);
         }
 
         apexMain.shutdown();
-        assertEquals(expectedFileSize, outFileSize);
+        assertEquals(44400, outFileSize);
     }
 
     /**
      * Strip variable length text from file string.
      *
-     * @param outFile the file to read and strip
      * @return the stripped string
      * @throws IOException on out file read exceptions
      */
-    private String stripVariableLengthText(final String outFile) throws IOException {
-        return TextFileUtils.getTextFileAsString(outFile).replaceAll("\\s+", "").replaceAll(":\\d*\\.?\\d*,", ":0,")
-                .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
+    private String stripVariableLengthText() throws IOException {
+        return TextFileUtils.getTextFileAsString("target/examples/events/SampleDomain/EventsOut.json")
+            .replaceAll("\\s+", "")
+            .replaceAll(":\\d*\\.?\\d*,", ":0,")
+            .replaceAll(":\\d*}", ":0}")
+            .replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
     }
 }

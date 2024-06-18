@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,23 +23,21 @@ package org.onap.policy.apex.testsuites.integration.executor.engine;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-import java.io.IOException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.EngineParameters;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.plugins.executor.jruby.JrubyExecutorParameters;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * The Class TestApexEngineJRuby.
  */
-public class TestApexEngineJRuby {
+class TestApexEngineJRuby {
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
     private EngineParameters engineParameters;
@@ -47,8 +45,8 @@ public class TestApexEngineJRuby {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -76,8 +74,8 @@ public class TestApexEngineJRuby {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -90,15 +88,9 @@ public class TestApexEngineJRuby {
 
     /**
      * Test apex engine.
-     *
-     * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testApexEngineJRuby() throws ApexException, InterruptedException, IOException {
-        assertThatCode(() -> {
-            new TestApexEngine("JRUBY", engineParameters);
-        }).doesNotThrowAnyException();
+    void testApexEngineJRuby() {
+        assertThatCode(() -> new TestApexEngine("JRUBY")).doesNotThrowAnyException();
     }
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +23,13 @@
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -37,7 +38,7 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
 /**
  * This class tests the event generator.
  */
-public class EventGeneratorTest {
+class EventGeneratorTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     private final PrintStream stdout = System.out;
@@ -48,14 +49,14 @@ public class EventGeneratorTest {
      * @throws ApexException on Apex exceptions
      */
     @Test
-    public void testEventGeneration() throws ApexException {
+    void testEventGeneration() throws ApexException {
         EventGeneratorParameters pars = new EventGeneratorParameters();
         pars.setBatchCount(1);
         pars.setBatchSize(10);
 
         EventGenerator eventGenerator = new EventGenerator(pars);
-        final String[] args = { "-rfr", "target", "-p",
-            "target/examples/config/SampleDomain/REST2RESTJsonEventJavascript.json" };
+        final String[] args = {"-rfr", "target", "-p",
+            "target/examples/config/SampleDomain/REST2RESTJsonEventJavascript.json"};
 
         final ApexMain apexMain = new ApexMain(args);
 
@@ -72,10 +73,10 @@ public class EventGeneratorTest {
     }
 
     @Test
-    public void testEventGeneratorBadParams() {
+    void testEventGeneratorBadParams() {
         System.setOut(new PrintStream(outContent));
 
-        final String[] args = { "-zzz" };
+        final String[] args = {"-zzz"};
 
         EventGenerator.main(args);
 
@@ -87,10 +88,10 @@ public class EventGeneratorTest {
     }
 
     @Test
-    public void testEventGeneratorHelp() {
+    void testEventGeneratorHelp() {
         System.setOut(new PrintStream(outContent));
 
-        final String[] args = { "-h" };
+        final String[] args = {"-h"};
 
         EventGenerator.main(args);
 
@@ -102,16 +103,11 @@ public class EventGeneratorTest {
     }
 
     @Test
-    public void testEventGeneratorStart() {
+    void testEventGeneratorStart() {
 
         System.setOut(new PrintStream(outContent));
 
-        (new Thread() {
-            @Override
-            public void run() {
-                EventGenerator.main(null);
-            }
-        }).start();
+        (new Thread(() -> EventGenerator.main(null))).start();
 
         ThreadUtilities.sleep(1000);
         final String outString = outContent.toString();
@@ -123,7 +119,7 @@ public class EventGeneratorTest {
     }
 
     @Test
-    public void testEventGeneratorOutfileGood() {
+    void testEventGeneratorOutfileGood() {
         EventGeneratorParameters pars = new EventGeneratorParameters();
         pars.setOutFile("target/statsOutFile.json");
 
@@ -134,11 +130,11 @@ public class EventGeneratorTest {
 
         File outFile = new File("target/statsOutFile.json");
         assertTrue(outFile.exists());
-        outFile.delete();
+        assertTrue(outFile.delete());
     }
 
     @Test
-    public void testEventGeneratorOutfileBad() {
+    void testEventGeneratorOutfileBad() {
         EventGeneratorParameters pars = new EventGeneratorParameters();
         pars.setOutFile("/I/Dont/Exist\0");
 

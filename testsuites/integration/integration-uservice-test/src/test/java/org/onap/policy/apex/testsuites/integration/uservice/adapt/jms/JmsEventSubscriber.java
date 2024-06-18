@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -96,7 +96,7 @@ public class JmsEventSubscriber implements Runnable {
                     } else if (message instanceof TextMessage) {
                         ((TextMessage) message).getText();
                     } else {
-                        throw new ApexEventException("unknowm message \"" + message + "\" of type \""
+                        throw new ApexEventException("unknown message \"" + message + "\" of type \""
                                 + message.getClass().getName() + "\" received");
                     }
                     eventsReceivedCount++;

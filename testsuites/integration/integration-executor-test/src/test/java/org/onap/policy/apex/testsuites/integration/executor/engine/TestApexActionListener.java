@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +42,7 @@ import org.slf4j.ext.XLoggerFactory;
 public class TestApexActionListener implements EnEventListener {
     private static final XLogger logger = XLoggerFactory.getXLogger(TestApexActionListener.class);
 
-    private List<EnEvent> resultEvents = new ArrayList<>();
+    private final List<EnEvent> resultEvents = new ArrayList<>();
 
     @Getter
     private final String id;
@@ -64,15 +65,12 @@ public class TestApexActionListener implements EnEventListener {
      */
     public EnEvent getResult(final boolean allowNulls) {
         EnEvent result = null;
-        while (true) {
+        do {
             while (resultEvents.isEmpty()) {
                 ThreadUtilities.sleep(100);
             }
             result = resultEvents.remove(0);
-            if (result != null || allowNulls) {
-                break;
-            }
-        }
+        } while (result == null && !allowNulls);
         return result;
     }
 

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +22,16 @@
 package org.onap.policy.apex.testsuites.integration.executor.event;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -43,7 +42,6 @@ import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
-import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.plugins.executor.mvel.MvelExecutorParameters;
 import org.onap.policy.apex.testsuites.integration.common.model.SampleDomainModelFactory;
@@ -56,7 +54,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestEventInstantiation {
+class TestEventInstantiation {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestEventInstantiation.class);
 
@@ -67,8 +65,8 @@ public class TestEventInstantiation {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -96,8 +94,8 @@ public class TestEventInstantiation {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -111,12 +109,10 @@ public class TestEventInstantiation {
     /**
      * Test event instantiation.
      *
-     * @throws ApexModelException on errors in handling Apex models
-     * @throws IOException Signals that an I/O exception has occurred.
      * @throws ApexException the apex exception
      */
     @Test
-    public void testEventInstantiation() throws ApexModelException, IOException, ApexException {
+    void testEventInstantiation() throws ApexException {
         final String xmlFileName = "xml/ApexModel_MVEL.xml";
 
         logger.debug("Running TestEventInstantiation test  on file {} . . .", xmlFileName);
@@ -164,14 +160,14 @@ public class TestEventInstantiation {
         assertEquals(temperature, temp1);
 
         Object value = event.put("TestMatchCase", null);
+        assert value != null;
         assertEquals(16, ((Byte) value).intValue());
         value = event.get("TestMatchCase");
         assertNull(value);
 
         assertThatThrownBy(() -> event.put("TestMatchCase", "Hello"))
             .hasMessage("Event0000:0.0.1:NULL:TestMatchCase: object \"Hello\" of class \"java.lang.String\" "
-                    + "not compatible with class \"java.lang.Byte\"");
-        event.put("TestMatchCase", 123.45);
+                + "not compatible with class \"java.lang.Byte\"");
 
         event.put("TestMatchCase", Byte.valueOf("16"));
 
@@ -196,7 +192,7 @@ public class TestEventInstantiation {
         assertEquals(123.456789, temp3, 0);
 
         final Date aDate = new Date(1433453067123L);
-        final Map<String, Object> eventDataList = new HashMap<String, Object>();
+        final Map<String, Object> eventDataList = new HashMap<>();
         eventDataList.put("TestSlogan", "This is a test slogan");
         eventDataList.put("TestMatchCase", Byte.valueOf("123"));
         eventDataList.put("TestTimestamp", aDate.getTime());

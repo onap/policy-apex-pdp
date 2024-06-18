@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -22,7 +22,6 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.executionproperties;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.EnumMap;
@@ -56,27 +55,28 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
     private String name = null;
 
     // The peer references for this event handler
-    private Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap = new EnumMap<>(EventHandlerPeeredMode.class);
+    private final Map<EventHandlerPeeredMode, PeeredReference> peerReferenceMap =
+        new EnumMap<>(EventHandlerPeeredMode.class);
 
     private DummyCarrierTechnologyParameters dummyConsumerProperties = null;
 
     @Override
     public void init(final String consumerName, final EventHandlerParameters consumerParameters,
-                    final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
+                     final ApexEventReceiver incomingEventReceiver) throws ApexEventException {
         this.eventReceiver = incomingEventReceiver;
         this.name = consumerName;
 
         // Check and get the properties
         if (!(consumerParameters.getCarrierTechnologyParameters() instanceof DummyCarrierTechnologyParameters)) {
             String message = "specified consumer properties of type \""
-                            + consumerParameters.getCarrierTechnologyParameters().getClass().getName()
-                            + "\" are not applicable to a dummy consumer";
+                + consumerParameters.getCarrierTechnologyParameters().getClass().getName()
+                + "\" are not applicable to a dummy consumer";
             LOGGER.warn(message);
             throw new ApexEventException(message);
         }
 
         dummyConsumerProperties = (DummyCarrierTechnologyParameters) consumerParameters
-                        .getCarrierTechnologyParameters();
+            .getCarrierTechnologyParameters();
     }
 
     @Override
@@ -109,10 +109,10 @@ public class DummyApexEventConsumer implements ApexEventConsumer {
         public void run() {
             Properties executionProperties = new Properties();
             try {
-                executionProperties.load(new FileInputStream(new File(dummyConsumerProperties.getPropertyFileName())));
+                executionProperties.load(new FileInputStream(dummyConsumerProperties.getPropertyFileName()));
             } catch (IOException e1) {
                 String message = "reading of executor properties for testing failed from file: "
-                                + dummyConsumerProperties.getPropertyFileName();
+                    + dummyConsumerProperties.getPropertyFileName();
                 LOGGER.warn(message);
                 throw new ApexEventRuntimeException(message);
             }

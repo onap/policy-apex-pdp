@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,20 +23,17 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
 import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
@@ -48,7 +45,7 @@ import org.slf4j.ext.XLoggerFactory;
 /**
  * The Class TestRest2File.
  */
-public class TestRest2File {
+class TestRest2File {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestRest2File.class);
 
     private static final int PORT = 32801;
@@ -64,8 +61,8 @@ public class TestRest2File {
     /**
      * Before Test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -76,8 +73,8 @@ public class TestRest2File {
      *
      * @throws Exception the exception
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         server = HttpServletServerFactoryInstance.getServerFactory().build("TestRest2File", false, null, PORT, false,
             "/TestRest2File", false, false);
 
@@ -96,8 +93,8 @@ public class TestRest2File {
      *
      * @throws Exception the exception
      */
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() throws Exception {
         if (null != apexMain) {
             apexMain.shutdown();
         }
@@ -110,31 +107,26 @@ public class TestRest2File {
 
     /**
      * Test rest events in.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testRestEventsIn() throws MessagingException, ApexException, IOException {
+    void testRestEventsIn() {
         final String[] args = {"-rfr", "target", "-p", "target/examples/config/SampleDomain/REST2FileJsonEvent.json"};
 
         apexMain = new ApexMain(args);
         await().atMost(5, TimeUnit.SECONDS).until(
             () -> Files.readString(Path.of("target/examples/events/SampleDomain/EventsOut.json")).contains(
-                "04\",\n" + "  \"version\": \"0.0.1\",\n" + "  \"nameSpace\": \"org.onap.policy.apex.sample.events\""));
+                """
+                    04",
+                      "version": "0.0.1",
+                      "nameSpace": "org.onap.policy.apex.sample.events\""""));
         assertTrue(apexMain.isAlive());
     }
 
     /**
      * Test file empty events.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEmptyEvents() throws MessagingException, ApexException, IOException {
+    void testFileEmptyEvents() {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEmptyEvents.json"};
         apexMain = new ApexMain(args);
@@ -145,13 +137,9 @@ public class TestRest2File {
 
     /**
      * Test file events no url.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsNoUrl() throws MessagingException, ApexException, IOException {
+    void testFileEventsNoUrl() {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventNoURL.json"};
         apexMain = new ApexMain(args);
@@ -162,13 +150,9 @@ public class TestRest2File {
 
     /**
      * Test file events bad url.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadUrl() throws MessagingException, ApexException, IOException {
+    void testFileEventsBadUrl() {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadURL.json"};
         apexMain = new ApexMain(args);
@@ -180,13 +164,9 @@ public class TestRest2File {
 
     /**
      * Test file events bad http method.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadHttpMethod() throws MessagingException, ApexException, IOException {
+    void testFileEventsBadHttpMethod() {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadHTTPMethod.json"};
         apexMain = new ApexMain(args);
@@ -199,13 +179,9 @@ public class TestRest2File {
 
     /**
      * Test file events bad response.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadResponse() throws MessagingException, ApexException, IOException {
+    void testFileEventsBadResponse() {
 
         final String[] args = {"src/test/resources/prodcons/REST2FileJsonEventBadResponse.json"};
         apexMain = new ApexMain(args);
@@ -221,7 +197,7 @@ public class TestRest2File {
      * Check if a required string exists in the output.
      *
      * @param outputEventText the text to examine
-     * @param requiredString the string to search for
+     * @param requiredString  the string to search for
      */
     private void checkRequiredString(String outputEventText, String requiredString) {
         if (!outputEventText.contains(requiredString)) {

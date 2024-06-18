@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
-import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
+import com.salesforce.kafka.test.junit5.SharedKafkaTestResource;
 import java.time.Duration;
 import lombok.Getter;
 import org.apache.kafka.clients.producer.Producer;
@@ -57,14 +57,14 @@ public class KafkaEventProducer implements Runnable {
     /**
      * Instantiates a new kafka event producer.
      *
-     * @param topic the topic
+     * @param topic                   the topic
      * @param sharedKafkaTestResource the kafka server address
-     * @param eventCount the event count
-     * @param xmlEvents the xml events
-     * @param eventInterval the event interval
+     * @param eventCount              the event count
+     * @param xmlEvents               the xml events
+     * @param eventInterval           the event interval
      */
     public KafkaEventProducer(final String topic, final SharedKafkaTestResource sharedKafkaTestResource,
-        final int eventCount, final boolean xmlEvents, final long eventInterval) {
+                              final int eventCount, final boolean xmlEvents, final long eventInterval) {
         this.topic = topic;
         this.sharedKafkaTestResource = sharedKafkaTestResource;
         this.eventCount = eventCount;
@@ -116,13 +116,13 @@ public class KafkaEventProducer implements Runnable {
                 eventInterval);
             ThreadUtilities.sleep(eventInterval);
 
-            String eventString = null;
+            String eventString;
             if (xmlEvents) {
                 eventString = EventGenerator.xmlEvent();
             } else {
                 eventString = EventGenerator.jsonEvent();
             }
-            producer.send(new ProducerRecord<String, String>(topic, "Event" + i + "Of" + eventCount, eventString));
+            producer.send(new ProducerRecord<>(topic, "Event" + i + "Of" + eventCount, eventString));
             producer.flush();
             eventsSentCount++;
             LOGGER.debug("****** Sent event No. {} ******\n{}", eventsSentCount, eventString);

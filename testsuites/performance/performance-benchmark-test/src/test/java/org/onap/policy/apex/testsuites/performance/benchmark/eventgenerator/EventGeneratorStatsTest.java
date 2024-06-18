@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +21,20 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the EventGeneratorStats class.
- *
  */
-public class EventGeneratorStatsTest {
+class EventGeneratorStatsTest {
+
     @Test
-    public void testEventGeneratorStats() {
+    void testEventGeneratorStats() {
         Map<Integer, EventBatch> batchMap = new LinkedHashMap<>();
         EventGeneratorStats egs = new EventGeneratorStats(batchMap);
         assertNotNull(egs);

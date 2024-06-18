@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,6 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.jms;
 
 import java.util.Hashtable;
 import javax.naming.Context;
-import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
 import lombok.NoArgsConstructor;
 
@@ -41,7 +41,7 @@ public class TestInitialContextFactory implements InitialContextFactory {
      * {@inheritDoc}.
      */
     @Override
-    public Context getInitialContext(final Hashtable<?, ?> environment) throws NamingException {
+    public Context getInitialContext(final Hashtable<?, ?> environment) {
         return context;
     }
 }

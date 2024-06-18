@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +21,18 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the InputEvent class.
- *
  */
-public class InputEventTest {
+class InputEventTest {
 
     @Test
-    public void testInputEvent() {
+    void testInputEvent() {
         InputEvent ie = new InputEvent();
         assertNotNull(ie);
 

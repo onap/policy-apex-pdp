@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.onap.policy.apex.core.engine.EngineParameters;
 import org.onap.policy.apex.core.engine.engine.ApexEngine;
 import org.onap.policy.apex.core.engine.engine.impl.ApexEngineFactory;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -53,12 +51,9 @@ public class TestApexEngine {
      *
      * @param axLogicExecutorType the type of logic executor to use to construct the sample policy model for this test
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public TestApexEngine(final String axLogicExecutorType,
-            final EngineParameters parameters) throws ApexException, InterruptedException, IOException {
-        logger.debug("Running TestApexEngine test for + " + axLogicExecutorType + "logic . . .");
+    public TestApexEngine(final String axLogicExecutorType) throws ApexException {
+        logger.debug("Running TestApexEngine test for + {}logic . . .", axLogicExecutorType);
 
         final AxPolicyModel apexPolicyModel = new SampleDomainModelFactory().getSamplePolicyModel(axLogicExecutorType);
         assertNotNull(apexPolicyModel);

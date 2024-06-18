@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020,2023 Nordix Foundation.
+ *  Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,7 +24,7 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -32,11 +32,11 @@ import jakarta.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -50,7 +50,7 @@ import org.slf4j.ext.XLoggerFactory;
 /**
  * This class runs integration tests for execution property in restClient.
  */
-public class TestExecutionPropertyRest {
+class TestExecutionPropertyRest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestExecutionPropertyRest.class);
 
@@ -70,8 +70,8 @@ public class TestExecutionPropertyRest {
      *
      * @throws Exception the exception
      */
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @BeforeAll
+    static void setUp() throws Exception {
         if (NetworkUtil.isTcpPortOpen("localHost", PORT, 3, 50L)) {
             throw new IllegalStateException("port " + PORT + " is still in use");
         }
@@ -92,11 +92,9 @@ public class TestExecutionPropertyRest {
 
     /**
      * Tear down.
-     *
-     * @throws Exception the exception
      */
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @AfterAll
+    static void tearDown() {
         if (server != null) {
             server.stop();
         }
@@ -105,8 +103,8 @@ public class TestExecutionPropertyRest {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -114,10 +112,11 @@ public class TestExecutionPropertyRest {
 
     /**
      * After test.
+     *
      * @throws ApexException the exception.
      */
-    @After
-    public void afterTest() throws ApexException {
+    @AfterEach
+    void afterTest() throws ApexException {
         if (null != apexMain) {
             apexMain.shutdown();
         }
@@ -129,7 +128,7 @@ public class TestExecutionPropertyRest {
      * Test Bad Url tag in Parameter .
      */
     @Test
-    public void testBadUrl() throws Exception {
+    void testBadUrl() {
         // @formatter:off
         final String[] cliArgs = new String[] {
             "-c",
@@ -158,17 +157,17 @@ public class TestExecutionPropertyRest {
 
         final String outString = outContent.toString();
 
-        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n" + outString + "\nEnd-TagUrl");
+        LOGGER.info("testReplaceUrlTag-OUTSTRING=\n{}\nEnd-TagUrl", outString);
         assertThat(outString).contains("item \"url\" "
-                        + "value \"http://localhost:32801/TestExecutionRest/apex/event/tagId}\" INVALID, "
-                        + "invalid URL has been set for event sending on RESTCLIENT");
+            + "value \"http://localhost:32801/TestExecutionRest/apex/event/tagId}\" INVALID, "
+            + "invalid URL has been set for event sending on RESTCLIENT");
     }
 
     /**
      * Test Not find value for tags in Url .
      */
     @Test
-    public void testNoValueSetForTagUrl() throws Exception {
+    void testNoValueSetForTagUrl() {
         // @formatter:off
         final String[] cliArgs = new String[] {
             "-c",
@@ -200,14 +199,14 @@ public class TestExecutionPropertyRest {
                 .contains("key \"Number\" specified on url \"http://localhost:32801/TestExecutionRest/apex"
                     + "/event/{tagId}/{Number}\" not found in execution properties passed by the current policy"));
         assertTrue(apexMain.isAlive());
-        LOGGER.info("testNoValueSetForTagUrl-OUTSTRING=\n" + outContent.toString() + "\nEnd-TagUrl");
+        LOGGER.info("testNoValueSetForTagUrl-OUTSTRING=\n{}\nEnd-TagUrl", outContent);
     }
 
     /**
      * Test Bad Http code Filter.
      */
     @Test
-    public void testBadCodeFilter() throws Exception {
+    void testBadCodeFilter() {
         // @formatter:off
         final String[] cliArgs = new String[] {
             "-c",
@@ -237,14 +236,14 @@ public class TestExecutionPropertyRest {
         await().atMost(5, TimeUnit.SECONDS).until(() -> outContent.toString()
             .contains("failed with status code 500 and message \"{\"testToRun\": FetchHttpCode}"));
         assertTrue(apexMain.isAlive());
-        LOGGER.info("testBadCodeFilter-OUTSTRING=\n" + outContent.toString() + "\nEnd-TagUrl");
+        LOGGER.info("testBadCodeFilter-OUTSTRING=\n{}\nEnd-TagUrl", outContent);
     }
 
     /**
      * Test Http code filter set and multi-tag Url are transformed correctly.
      */
     @Test
-    public void testReplaceUrlMultiTag() throws Exception {
+    void testReplaceUrlMultiTag() {
         final Client client = ClientBuilder.newClient();
         // @formatter:off
         final String[] cliArgs = new String[] {
@@ -277,7 +276,8 @@ public class TestExecutionPropertyRest {
             return response.readEntity(String.class).contains("\"PostProperUrl\": 3");
         });
         assertTrue(apexMain.isAlive());
-        LOGGER.info("testReplaceUrlMultiTag-OUTSTRING=\n" + outContent.toString() + "\nEnd-MultiTagUrl");
+        LOGGER.info("testReplaceUrlMultiTag-OUTSTRING=\n{}\nEnd-MultiTagUrl", outContent);
+        client.close();
     }
 
 }

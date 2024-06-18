@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,16 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.context.ContextException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -56,7 +54,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestContextUpdateModel {
+class TestContextUpdateModel {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestContextUpdateModel.class);
 
@@ -67,8 +65,8 @@ public class TestContextUpdateModel {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -96,8 +94,8 @@ public class TestContextUpdateModel {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -111,12 +109,10 @@ public class TestContextUpdateModel {
     /**
      * Test context update model.
      *
-     * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException        the apex exception
      */
     @Test
-    public void testContextUpdateModel() throws ApexException, InterruptedException, IOException {
+    void testContextUpdateModel() throws ApexException {
         final AxArtifactKey key = new AxArtifactKey("TestApexEngine", "0.0.1");
 
         final ApexEngine apexEngine = new ApexEngineFactory().createApexEngine(key);
@@ -168,8 +164,8 @@ public class TestContextUpdateModel {
     /**
      * Test context update model after.
      */
-    @After
-    public void testContextUpdateModelAfter() {
+    @AfterEach
+    void testContextUpdateModelAfter() {
         // Not used
     }
 
@@ -177,15 +173,14 @@ public class TestContextUpdateModel {
      * Send event.
      *
      * @param apexEngine the apex engine
-     * @param listener the listener
-     * @param eventName the event name
+     * @param listener   the listener
+     * @param eventName  the event name
      * @param shouldWork the should work
-     * @throws ContextException the context exception
      */
     private void sendEvent(final ApexEngine apexEngine, final TestApexActionListener listener, final String eventName,
-            final boolean shouldWork) throws ContextException {
+                           final boolean shouldWork) {
         final Date aDate = new Date(1433453067123L);
-        final Map<String, Object> eventDataMap = new HashMap<String, Object>();
+        final Map<String, Object> eventDataMap = new HashMap<>();
         eventDataMap.put("TestSlogan", "This is a test slogan");
         eventDataMap.put("TestMatchCase", (byte) 123);
         eventDataMap.put("TestTimestamp", aDate.getTime());
@@ -196,15 +191,15 @@ public class TestContextUpdateModel {
         apexEngine.handleEvent(event0);
 
         final EnEvent result = listener.getResult(true);
-        logger.debug("result 1 is:" + result);
+        logger.debug("result 1 is:{}", result);
         checkResult(result, shouldWork);
     }
 
     /**
      * Check result.
      *
-     * @param result the result
-     * @param shouldWork the should work
+     * @param result     the result
+     * @param shouldWork should trigger a valid result
      */
     private void checkResult(final EnEvent result, final boolean shouldWork) {
         if (!shouldWork) {

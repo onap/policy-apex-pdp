@@ -124,9 +124,8 @@
         </dependency>
         <dependency>
             <groupId>com.salesforce.kafka.test</groupId>
-            <artifactId>kafka-junit4</artifactId>
-            <version>${version.kafka-junit4}</version>
-            <scope>test</scope>
+            <artifactId>kafka-junit5</artifactId>
+            <version>${version.kafka-junit5}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>

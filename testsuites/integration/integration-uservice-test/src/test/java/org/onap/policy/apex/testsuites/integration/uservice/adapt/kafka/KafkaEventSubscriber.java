@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,15 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
-import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
+import com.salesforce.kafka.test.junit5.SharedKafkaTestResource;
 import java.time.Duration;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 import lombok.Getter;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,12 +57,11 @@ public class KafkaEventSubscriber implements Runnable {
     /**
      * Instantiates a new kafka event subscriber.
      *
-     * @param topic the topic
+     * @param topic                   the topic
      * @param sharedKafkaTestResource the kafka server address
-     * @throws MessagingException the messaging exception
      */
     public KafkaEventSubscriber(final String topic,
-        final SharedKafkaTestResource sharedKafkaTestResource) throws MessagingException {
+                                final SharedKafkaTestResource sharedKafkaTestResource) {
         this.topic = topic;
 
         final Properties consumerProperties = new Properties();
@@ -71,7 +69,7 @@ public class KafkaEventSubscriber implements Runnable {
 
         consumer = sharedKafkaTestResource.getKafkaTestUtils().getKafkaConsumer(StringDeserializer.class,
             StringDeserializer.class, consumerProperties);
-        consumer.subscribe(Arrays.asList(topic));
+        consumer.subscribe(Collections.singletonList(topic));
 
         subscriberThread = new Thread(this);
         subscriberThread.start();
@@ -88,10 +86,10 @@ public class KafkaEventSubscriber implements Runnable {
         while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
             try {
                 final ConsumerRecords<String, String> records = consumer.poll(POLL_DURATION);
-                for (final ConsumerRecord<String, String> record : records) {
+                for (final ConsumerRecord<String, String> rec : records) {
                     eventsReceivedCount++;
                     LOGGER.debug("****** Received event No. {} ******\noffset={}\nkey={}\n{}", eventsReceivedCount,
-                        record.offset(), record.key(), record.value());
+                        rec.offset(), rec.key(), rec.value());
                 }
             } catch (final Exception e) {
                 // Thread interrupted
