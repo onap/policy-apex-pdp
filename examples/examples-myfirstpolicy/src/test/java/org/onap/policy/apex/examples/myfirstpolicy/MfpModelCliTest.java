@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@
 
 package org.onap.policy.apex.examples.myfirstpolicy;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.ApexCommandLineEditorMain;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelException;
 import org.onap.policy.apex.model.basicmodel.handling.ApexModelReader;
@@ -36,17 +36,15 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 /**
  * Test MyFirstPolicyModel CLI.
  */
-public class MfpModelCliTest {
+class MfpModelCliTest {
     private static AxPolicyModel testApexModel1;
     private static AxPolicyModel testApexModel2;
 
     /**
-     * Setup the test.
-     *
-     * @throws Exception if there is an error
+     * Set up the test.
      */
-    @BeforeClass
-    public static void setup() throws Exception {
+    @BeforeAll
+    static void setup() {
         testApexModel1 = new TestMfpModelCreator.TestMfp1ModelCreator().getModel();
         testApexModel2 = new TestMfpModelCreator.TestMfp2ModelCreator().getModel();
     }
@@ -54,11 +52,11 @@ public class MfpModelCliTest {
     /**
      * Test CLI policy.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException ifd there is an Apex Error
      */
     @Test
-    public void testCliPolicy() throws IOException, ApexModelException {
+    void testCliPolicy() throws IOException, ApexModelException {
 
         final File tempLogFile1 = File.createTempFile("TestMyFirstPolicy1CLI", ".log");
         final File tempModelFile1 = File.createTempFile("TestMyFirstPolicy1CLI", ".json");
@@ -89,17 +87,19 @@ public class MfpModelCliTest {
         final ApexModelReader<AxPolicyModel> reader = new ApexModelReader<>(AxPolicyModel.class);
         AxPolicyModel generatedmodel = reader.read(TextFileUtils.getTextFileAsString(tempModelFile1.getAbsolutePath()));
 
-        assertEquals("Model generated from the CLI (" + testApexModel1CliArgs[1] + ") into file "
+        assertEquals(testApexModel1, generatedmodel,
+            "Model generated from the CLI (" + testApexModel1CliArgs[1] + ") into file "
                 + tempModelFile1.getAbsolutePath() + " is not the same as the test Model for "
-                + testApexModel1.getKey(), testApexModel1, generatedmodel);
+                + testApexModel1.getKey());
 
         tempLogFile1.delete();
         tempModelFile1.delete();
 
         generatedmodel = reader.read(TextFileUtils.getTextFileAsString(tempModelFile2.getAbsolutePath()));
-        assertEquals("Model generated from the CLI (" + testApexModel2CliArgs[1] + ") into file "
+        assertEquals(testApexModel2, generatedmodel,
+            "Model generated from the CLI (" + testApexModel2CliArgs[1] + ") into file "
                 + tempModelFile2.getAbsolutePath() + " is not the same as the test Model for "
-                + testApexModel2.getKey(), testApexModel2, generatedmodel);
+                + testApexModel2.getKey());
 
         tempLogFile2.delete();
         tempModelFile2.delete();

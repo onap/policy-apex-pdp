@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@
 
 package org.onap.policy.apex.examples.myfirstpolicy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicy;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -40,15 +40,15 @@ import org.onap.policy.common.utils.resources.ResourceUtils;
 /**
  * The Class TestMfpLogic.
  */
-public class MfpLogicTest {
+class MfpLogicTest {
 
     private static final Map<String, String> LOGICEXTENSIONS = new LinkedHashMap<>();
 
     /**
      * Test setup.
      */
-    @BeforeClass
-    public static void testMfpUseCaseSetup() {
+    @BeforeAll
+    static void testMfpUseCaseSetup() {
         LOGICEXTENSIONS.put("MVEL", "mvel");
         LOGICEXTENSIONS.put("JAVASCRIPT", "js");
     }
@@ -57,7 +57,7 @@ public class MfpLogicTest {
      * Check logic for MyFirstPolicy#1.
      */
     @Test
-    public void testMfp1TaskLogic() {
+    void testMfp1TaskLogic() {
         final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1PolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -65,16 +65,15 @@ public class MfpLogicTest {
         logics.putAll(getTslLogics(apexPolicyModel));
         logics.putAll(getTaskLogics(apexPolicyModel));
 
-        for (final Entry<String, String> logicvalue : logics.entrySet()) {
-            final String filename = "examples/models/MyFirstPolicy/1/" + logicvalue.getKey();
-            final String logic = logicvalue.getValue();
-            final String expectedlogic = ResourceUtils.getResourceAsString(filename);
-            assertNotNull("File " + filename + " was not found. It should contain logic for PolicyModel "
-                    + apexPolicyModel.getKey(), expectedlogic);
-            assertEquals(
-                    "The task in " + filename + " is not the same as the relevant logic in PolicyModel "
-                            + apexPolicyModel.getKey(),
-                    expectedlogic.replaceAll("\\s", ""), logic.replaceAll("\\s", ""));
+        for (final Entry<String, String> logicValue : logics.entrySet()) {
+            final String filename = "examples/models/MyFirstPolicy/1/" + logicValue.getKey();
+            final String logic = logicValue.getValue();
+            final String expectedLogic = ResourceUtils.getResourceAsString(filename);
+            assertNotNull(expectedLogic, "File " + filename + " was not found. It should contain logic for PolicyModel "
+                + apexPolicyModel.getKey());
+            assertEquals(expectedLogic.replaceAll("\\s", ""), logic.replaceAll("\\s", ""),
+                "The task in " + filename + " is not the same as the relevant logic in PolicyModel "
+                    + apexPolicyModel.getKey());
         }
     }
 
@@ -82,7 +81,7 @@ public class MfpLogicTest {
      * Check logic for MyFirstPolicyAlt#1.
      */
     @Test
-    public void testMfp1AltTaskLogic() {
+    void testMfp1AltTaskLogic() {
         final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp1AltPolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -90,16 +89,15 @@ public class MfpLogicTest {
         logics.putAll(getTslLogics(apexPolicyModel));
         logics.putAll(getTaskLogics(apexPolicyModel));
 
-        for (final Entry<String, String> logicvalue : logics.entrySet()) {
-            final String filename = "examples/models/MyFirstPolicy/1/" + logicvalue.getKey();
-            final String logic = logicvalue.getValue();
-            final String expectedlogic = ResourceUtils.getResourceAsString(filename);
-            assertNotNull("File " + filename + " was not found. It should contain logic for PolicyModel "
-                    + apexPolicyModel.getKey(), expectedlogic);
-            assertEquals(
-                    "The task in " + filename + " is not the same as the relevant logic in PolicyModel "
-                            + apexPolicyModel.getKey(),
-                    expectedlogic.replaceAll("\\s", ""), logic.replaceAll("\\s", ""));
+        for (final Entry<String, String> logicValue : logics.entrySet()) {
+            final String filename = "examples/models/MyFirstPolicy/1/" + logicValue.getKey();
+            final String logic = logicValue.getValue();
+            final String expectedLogic = ResourceUtils.getResourceAsString(filename);
+            assertNotNull(expectedLogic, "File " + filename + " was not found. It should contain logic for PolicyModel "
+                + apexPolicyModel.getKey());
+            assertEquals(expectedLogic.replaceAll("\\s", ""), logic.replaceAll("\\s", ""),
+                "The task in " + filename + " is not the same as the relevant logic in PolicyModel "
+                    + apexPolicyModel.getKey());
         }
     }
 
@@ -107,7 +105,7 @@ public class MfpLogicTest {
      * Check logic for MyFirstPolicy2.
      */
     @Test
-    public void testMfp2TaskLogic() {
+    void testMfp2TaskLogic() {
         final AxPolicyModel apexPolicyModel = new MfpDomainModelFactory().getMfp2PolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -115,16 +113,15 @@ public class MfpLogicTest {
         logics.putAll(getTslLogics(apexPolicyModel));
         logics.putAll(getTaskLogics(apexPolicyModel));
 
-        for (final Entry<String, String> logicvalue : logics.entrySet()) {
-            final String logic = logicvalue.getValue();
-            final String filename = "examples/models/MyFirstPolicy/2/" + logicvalue.getKey();
-            final String expectedlogic = ResourceUtils.getResourceAsString(filename);
-            assertNotNull("File " + filename + " was not found. It should contain logic for PolicyModel "
-                    + apexPolicyModel.getKey(), expectedlogic);
-            assertEquals(
-                    "The task in " + filename + " is not the same as the relevant logic in PolicyModel "
-                            + apexPolicyModel.getKey(),
-                    expectedlogic.replaceAll("\\s", ""), logic.replaceAll("\\s", ""));
+        for (final Entry<String, String> logicValue : logics.entrySet()) {
+            final String logic = logicValue.getValue();
+            final String filename = "examples/models/MyFirstPolicy/2/" + logicValue.getKey();
+            final String expectedLogic = ResourceUtils.getResourceAsString(filename);
+            assertNotNull(expectedLogic, "File " + filename + " was not found. It should contain logic for PolicyModel "
+                + apexPolicyModel.getKey());
+            assertEquals(expectedLogic.replaceAll("\\s", ""), logic.replaceAll("\\s", ""),
+                "The task in " + filename + " is not the same as the relevant logic in PolicyModel "
+                    + apexPolicyModel.getKey());
         }
     }
 
@@ -136,20 +133,19 @@ public class MfpLogicTest {
      */
     private Map<String, String> getTslLogics(final AxPolicyModel apexPolicyModel) {
         final Map<String, String> ret = new LinkedHashMap<>();
-        for (final Entry<AxArtifactKey, AxPolicy> policyentry : apexPolicyModel.getPolicies().getPolicyMap()
-                .entrySet()) {
+        for (final Entry<AxArtifactKey, AxPolicy> policyentry :
+            apexPolicyModel.getPolicies().getPolicyMap().entrySet()) {
             for (final Entry<String, AxState> statesentry : policyentry.getValue().getStateMap().entrySet()) {
                 final AxState state = statesentry.getValue();
-                final String tsllogic = state.getTaskSelectionLogic().getLogic();
-                final String tsllogicflavour = state.getTaskSelectionLogic().getLogicFlavour();
-                if (tsllogic != null && tsllogic.trim().length() > 0) {
-                    assertNotNull(
-                            "Logic Type \"" + tsllogicflavour + "\" in state " + statesentry.getKey() + " in policy "
-                                    + policyentry.getKey() + " is not supported in this test",
-                            LOGICEXTENSIONS.get(tsllogicflavour.toUpperCase()));
+                final String tslLogic = state.getTaskSelectionLogic().getLogic();
+                final String tslLogicFlavour = state.getTaskSelectionLogic().getLogicFlavour();
+                if (tslLogic != null && !tslLogic.trim().isEmpty()) {
+                    assertNotNull(LOGICEXTENSIONS.get(tslLogicFlavour.toUpperCase()),
+                        "Logic Type \"" + tslLogicFlavour + "\" in state " + statesentry.getKey() + " in policy "
+                            + policyentry.getKey() + " is not supported in this test");
                     final String filename = policyentry.getKey().getName() + "_" + statesentry.getKey() + "TSL."
-                            + LOGICEXTENSIONS.get(tsllogicflavour.toUpperCase());
-                    ret.put(filename, tsllogic);
+                        + LOGICEXTENSIONS.get(tslLogicFlavour.toUpperCase());
+                    ret.put(filename, tslLogic);
                 }
             }
         }
@@ -166,15 +162,16 @@ public class MfpLogicTest {
         final Map<String, String> ret = new LinkedHashMap<>();
         for (final Entry<AxArtifactKey, AxTask> taskentry : apexPolicyModel.getTasks().getTaskMap().entrySet()) {
             final AxTask task = taskentry.getValue();
-            final String tasklogic = task.getTaskLogic().getLogic();
-            final String tasklogicflavour = task.getTaskLogic().getLogicFlavour();
-            assertTrue("No/Blank logic found in task " + taskentry.getKey(),
-                    (tasklogic != null && tasklogic.trim().length() > 0));
-            assertNotNull("Logic Type \"" + tasklogicflavour + "\" in task " + taskentry.getKey()
-                    + " is not supported in this test", LOGICEXTENSIONS.get(tasklogicflavour.toUpperCase()));
+            final String taskLogic = task.getTaskLogic().getLogic();
+            final String taskLogicFlavour = task.getTaskLogic().getLogicFlavour();
+            assertTrue((taskLogic != null && !taskLogic.trim().isEmpty()),
+                "No/Blank logic found in task " + taskentry.getKey());
+            assertNotNull(LOGICEXTENSIONS.get(taskLogicFlavour.toUpperCase()),
+                "Logic Type \"" + taskLogicFlavour + "\" in task " + taskentry.getKey()
+                    + " is not supported in this test");
             final String filename =
-                    taskentry.getKey().getName() + "." + LOGICEXTENSIONS.get(tasklogicflavour.toUpperCase());
-            ret.put(filename, tasklogic);
+                taskentry.getKey().getName() + "." + LOGICEXTENSIONS.get(taskLogicFlavour.toUpperCase());
+            ret.put(filename, taskLogic);
         }
         return ret;
     }

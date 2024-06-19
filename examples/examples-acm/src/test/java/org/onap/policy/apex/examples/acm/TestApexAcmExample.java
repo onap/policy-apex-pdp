@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- * Copyright (C) 2022-2023 Nordix Foundation.
+ * Copyright (C) 2022-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import static org.awaitility.Awaitility.await;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
@@ -32,10 +32,10 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
  * Test class to run an example policy for ACM interaction. Event received on
  * message topic (dummy REST Endpoint here) and triggers a new message.
  */
-public class TestApexAcmExample {
+class TestApexAcmExample {
 
     @Test
-    public void testExample() {
+    void testExample() {
         try (var dmmap = new AcmTestServerDmaap()) {
             dmmap.validate();
 
@@ -68,7 +68,7 @@ public class TestApexAcmExample {
             final var client = ClientBuilder.newClient();
             final var apexMain = new ApexMain(apexArgs);
 
-            await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> apexMain.isAlive());
+            await().atMost(5000, TimeUnit.MILLISECONDS).until(apexMain::isAlive);
 
             String getLoggedEventUrl = "http://localhost:3904/events/getLoggedEvent";
             await().atMost(20000, TimeUnit.MILLISECONDS).until(() -> {

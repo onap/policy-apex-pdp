@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +22,15 @@
 package org.onap.policy.apex.examples.adaptive;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
@@ -52,34 +51,36 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test Auto learning in TSL.
  *
  * @author John Keeney (John.Keeney@ericsson.com)
  */
-public class AutoLearnTslUseCaseTest {
+class AutoLearnTslUseCaseTest {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(AutoLearnTslUseCaseTest.class);
 
     private static final int MAXITERATIONS = 1000;
     private static final Random rand = new Random(System.currentTimeMillis());
+    private static final String RECEIVING_ACTION_EVENT = "Receiving action event {} ";
+    private static final String TRIGGER_MESSAGE = "Triggering policy in Engine 1 with {}";
 
     private SchemaParameters schemaParameters;
     private ContextParameters contextParameters;
     private EngineParameters engineParameters;
 
+
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
-        
+
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
         schemaParameters.getSchemaHelperParameterMap().put("JAVA", new JavaSchemaHelperParameters());
 
         ParameterService.register(schemaParameters);
-        
+
         contextParameters = new ContextParameters();
 
         contextParameters.setName(ContextParameterConstants.MAIN_GROUP_NAME);
@@ -91,7 +92,7 @@ public class AutoLearnTslUseCaseTest {
         ParameterService.register(contextParameters.getDistributorParameters());
         ParameterService.register(contextParameters.getLockManagerParameters());
         ParameterService.register(contextParameters.getPersistorParameters());
-        
+
         engineParameters = new EngineParameters();
         engineParameters.getExecutorParameterMap().put("MVEL", new MvelExecutorParameters());
         engineParameters.getExecutorParameterMap().put("JAVA", new JavaExecutorParameters());
@@ -101,10 +102,10 @@ public class AutoLearnTslUseCaseTest {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
-        
+
         ParameterService.deregister(contextParameters.getDistributorParameters());
         ParameterService.deregister(contextParameters.getLockManagerParameters());
         ParameterService.deregister(contextParameters.getPersistorParameters());
@@ -117,12 +118,10 @@ public class AutoLearnTslUseCaseTest {
      * Test auto learn tsl.
      *
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    // once through the long running test below
-    public void testAutoLearnTsl() throws ApexException, InterruptedException, IOException {
+    // once through the long-running test below
+    void testAutoLearnTsl() throws ApexException {
         final AxPolicyModel apexPolicyModel = new AdaptiveDomainModelFactory().getAutoLearnPolicyModel();
         assertNotNull(apexPolicyModel);
 
@@ -142,11 +141,12 @@ public class AutoLearnTslUseCaseTest {
         final double rval = rand.nextGaussian();
         triggerEvent.put("MonitoredValue", rval);
         triggerEvent.put("LastMonitoredValue", 0D);
-        LOGGER.info("Triggering policy in Engine 1 with " + triggerEvent);
+
+        LOGGER.info(TRIGGER_MESSAGE, triggerEvent);
         apexEngine1.handleEvent(triggerEvent);
         final EnEvent result = listener1.getResult();
-        LOGGER.info("Receiving action event {} ", result);
-        assertEquals("ExecutionIDs are different", triggerEvent.getExecutionId(), result.getExecutionId());
+        LOGGER.info(RECEIVING_ACTION_EVENT, result);
+        assertEquals(triggerEvent.getExecutionId(), result.getExecutionId(), "ExecutionIDs are different");
         triggerEvent.clear();
         result.clear();
         await().atLeast(10, TimeUnit.MILLISECONDS).until(() -> triggerEvent.isEmpty() && result.isEmpty());
@@ -166,11 +166,9 @@ public class AutoLearnTslUseCaseTest {
      * columns<br>
      *
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     // @Test
-    public void testAutoLearnTslMain() throws ApexException, InterruptedException, IOException {
+    void testAutoLearnTslMain() throws ApexException {
 
         final double dwant = 50.0;
         final double toleranceTileJump = 3.0;
@@ -209,10 +207,10 @@ public class AutoLearnTslUseCaseTest {
 
         for (int iteration = 0; iteration < MAXITERATIONS; iteration++) {
             // Trigger the policy in engine 1
-            LOGGER.info("Triggering policy in Engine 1 with " + triggerEvent);
+            LOGGER.info(TRIGGER_MESSAGE, triggerEvent);
             apexEngine1.handleEvent(triggerEvent);
             final EnEvent result = listener1.getResult();
-            LOGGER.info("Receiving action event {} ", result);
+            LOGGER.info(RECEIVING_ACTION_EVENT, result);
             triggerEvent.clear();
 
             double val = (Double) result.get("MonitoredValue");
@@ -230,7 +228,7 @@ public class AutoLearnTslUseCaseTest {
                 val = rval;
                 triggerEvent.put("MonitoredValue", val);
                 LOGGER.info("Iteration " + iteration + ": Average " + avval + " has become closer (" + distance
-                        + ") than " + toleranceTileJump + " to " + dwant + " so reseting val:\t\t\t\t\t\t\t\t" + val);
+                    + ") than " + toleranceTileJump + " to " + dwant + " so reseting val:\t\t\t\t\t\t\t\t" + val);
                 avval = 0;
                 avcount = 0;
             }
@@ -249,10 +247,8 @@ public class AutoLearnTslUseCaseTest {
      *
      * @param args the arguments
      * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void main(final String[] args) throws ApexException, InterruptedException, IOException {
+    public static void main(final String[] args) throws ApexException {
         new AutoLearnTslUseCaseTest().testAutoLearnTslMain();
     }
 }

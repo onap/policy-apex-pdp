@@ -22,15 +22,15 @@
 
 package org.onap.policy.apex.examples.aadm;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 
-public class AadmModelTest {
+class AadmModelTest {
     private static final String VALID_MODEL_STRING = "***validation of model successful***";
 
     TestApexModel<AxPolicyModel> testApexModel;
@@ -38,19 +38,19 @@ public class AadmModelTest {
     /**
      * Sets up embedded Derby database and the AADM model for the tests.
      */
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         testApexModel = new TestApexModel<>(AxPolicyModel.class, new TestAadmModelCreator());
     }
 
     @Test
-    public void testModelValid() throws Exception {
+    void testModelValid() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValid();
         assertEquals(VALID_MODEL_STRING, result.toString());
     }
 
     @Test
-    public void testModelWriteReadJson() throws Exception {
+    void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
     }
 }

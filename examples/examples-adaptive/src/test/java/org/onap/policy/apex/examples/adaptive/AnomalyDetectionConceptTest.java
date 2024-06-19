@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (c) 2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Copyright (c) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,21 +21,22 @@
 
 package org.onap.policy.apex.examples.adaptive;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.examples.adaptive.concepts.AnomalyDetection;
 
-public class AnomalyDetectionConceptTest {
+class AnomalyDetectionConceptTest {
 
     @Test
-    public void testToString() {
+    void testToString() {
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         List<Double> newAnomalyScores = new LinkedList<>();
         newAnomalyScores.add((double) 55);
@@ -45,13 +45,13 @@ public class AnomalyDetectionConceptTest {
         assertEquals(newAnomalyScores, anomalyDetection.getAnomalyScores());
         assertTrue(anomalyDetection.checkSetAnomalyScores());
         assertEquals(55, anomalyDetection.getFrequency());
-        assertEquals(true, anomalyDetection.isFirstRound());
+        assertTrue(anomalyDetection.isFirstRound());
         assertEquals("AnomalyDetection(firstRound=true, frequency=55, anomalyScores=[55.0], frequencyForecasted=null)",
             anomalyDetection.toString());
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         AnomalyDetection detection = new AnomalyDetection();
         AnomalyDetection compareDetection = new AnomalyDetection();
         assertEquals(detection.hashCode(), compareDetection.hashCode());
@@ -65,7 +65,7 @@ public class AnomalyDetectionConceptTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         AnomalyDetection comparisonDetection = new AnomalyDetection();
         assertEquals(anomalyDetection, comparisonDetection);
@@ -74,7 +74,7 @@ public class AnomalyDetectionConceptTest {
         //Compare object to null
         assertNotNull(anomalyDetection);
         //compare object to string
-        assertNotEquals(anomalyDetection, "test");
+        assertNotEquals("test", anomalyDetection);
         // Anomaly Scores comparison
         anomalyDetection.setAnomalyScores(null);
         assertNotEquals(anomalyDetection, comparisonDetection);
@@ -105,7 +105,7 @@ public class AnomalyDetectionConceptTest {
     }
 
     @Test
-    public void testCheckSets() {
+    void testCheckSets() {
         AnomalyDetection anomalyDetection = new AnomalyDetection();
         assertFalse(anomalyDetection.checkSetAnomalyScores());
         List<Double> anomalyScores = new LinkedList<>();
@@ -116,7 +116,7 @@ public class AnomalyDetectionConceptTest {
         assertTrue(anomalyDetection.checkSetAnomalyScores());
         anomalyDetection.unsetAnomalyScores();
         assertFalse(anomalyDetection.checkSetAnomalyScores());
-        assertEquals(null, anomalyDetection.getFrequencyForecasted());
+        assertNull(anomalyDetection.getFrequencyForecasted());
         assertFalse(anomalyDetection.checkSetFrequencyForecasted());
         List<Double> frequencyForecasted = new LinkedList<>();
         anomalyDetection.setFrequencyForecasted(frequencyForecasted);

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2022, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@
 
 package org.onap.policy.apex.examples.myfirstpolicy;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxValidationResult;
 import org.onap.policy.apex.model.basicmodel.test.TestApexModel;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
@@ -34,17 +34,15 @@ import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
  *
  * @author John Keeney (john.keeney@ericsson.com)
  */
-public class MfpModelTest {
+class MfpModelTest {
     private static TestApexModel<AxPolicyModel> testApexModel1;
     private static TestApexModel<AxPolicyModel> testApexModel2;
 
     /**
      * Setup.
-     *
-     * @throws Exception if there is an error
      */
-    @BeforeClass
-    public static void setup() throws Exception {
+    @BeforeAll
+    static void setup() {
         testApexModel1 = new TestApexModel<>(AxPolicyModel.class, new TestMfpModelCreator.TestMfp1ModelCreator());
         testApexModel2 = new TestApexModel<>(AxPolicyModel.class, new TestMfpModelCreator.TestMfp2ModelCreator());
     }
@@ -55,12 +53,12 @@ public class MfpModelTest {
      * @throws Exception if there is an error
      */
     @Test
-    public void testModelValid() throws Exception {
+    void testModelValid() throws Exception {
         AxValidationResult result = testApexModel1.testApexModelValid();
-        assertTrue("Model did not validate cleanly", result.isOk());
+        assertTrue(result.isOk(), "Model did not validate cleanly");
 
         result = testApexModel2.testApexModelValid();
-        assertTrue("Model did not validate cleanly", result.isOk());
+        assertTrue(result.isOk(), "Model did not validate cleanly");
     }
 
     /**
@@ -69,7 +67,7 @@ public class MfpModelTest {
      * @throws Exception if there is an error
      */
     @Test
-    public void testModelWriteReadJson() throws Exception {
+    void testModelWriteReadJson() throws Exception {
         testApexModel1.testApexModelWriteReadJson();
         testApexModel2.testApexModelWriteReadJson();
     }

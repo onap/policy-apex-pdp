@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ public class OnapVcpeRunner {
 
         final ApexMain apexMain = new ApexMain(apexArgs);
 
-        await().atMost(5000, TimeUnit.MILLISECONDS).until(() -> apexMain.isAlive());
+        await().atMost(5000, TimeUnit.MILLISECONDS).until(apexMain::isAlive);
 
         // This test should be amended to start and shutdown the simulator as part of the test and not separately as
         // is done in the gRPC test.

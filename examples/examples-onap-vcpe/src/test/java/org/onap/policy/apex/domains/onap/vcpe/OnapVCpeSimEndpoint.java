@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2022-2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2022-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,8 @@
 
 package org.onap.policy.apex.domains.onap.vcpe;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -67,7 +67,7 @@ public class OnapVCpeSimEndpoint {
     private static final Random randomDelayInc = new Random();
 
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Instant.class, new InstantAsMillisTypeAdapter()).setPrettyPrinting().create();
+        .registerTypeAdapter(Instant.class, new InstantAsMillisTypeAdapter()).setPrettyPrinting().create();
 
     private static final AtomicInteger nextVnfId = new AtomicInteger(0);
     private static Boolean nextControlLoopMessageIsOnset = true;
@@ -82,7 +82,7 @@ public class OnapVCpeSimEndpoint {
     public Response serviceGetStats() {
         statMessagesReceived.incrementAndGet();
         String returnString = "{\"GET\": " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived + ",\"POST\": "
-                + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}";
+            + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}";
 
         return Response.status(200).entity(prettifyJsonString(returnString)).build();
     }
@@ -96,7 +96,7 @@ public class OnapVCpeSimEndpoint {
     @Path("/pdp/api/getDecision")
     @POST
     public Response serviceGuardPostRequest(final String jsonString) {
-        LOGGER.info("\n*** GUARD REQUEST START ***\n" + jsonString + "\n *** GUARD REQUEST END ***");
+        LOGGER.info("\n*** GUARD REQUEST START ***\n{}\n *** GUARD REQUEST END ***", jsonString);
 
         String target = jsonString.substring(jsonString.indexOf("00000000"));
         target = target.substring(0, target.indexOf('"'));
@@ -104,7 +104,7 @@ public class OnapVCpeSimEndpoint {
         int thisGuardMessageNumber = guardMessagesReceived.incrementAndGet();
         postMessagesReceived.incrementAndGet();
 
-        String responseJsonString = null;
+        String responseJsonString;
         if (thisGuardMessageNumber % 2 == 0) {
             responseJsonString = "{\"decision\": \"PERMIT\", \"details\": \"Decision Permit. OK!\"}";
         } else {
@@ -113,8 +113,7 @@ public class OnapVCpeSimEndpoint {
 
         responseJsonString = prettifyJsonString(responseJsonString);
 
-        LOGGER.info("\n*** GUARD RESPONSE START ***\n" + target + "\n" + responseJsonString
-                + "\n*** GUARD RESPONSE END ***");
+        LOGGER.info("\n*** GUARD RESPONSE START ***\n{}\n{}\n*** GUARD RESPONSE END ***", target, responseJsonString);
 
         return Response.status(200).entity(responseJsonString).build();
     }
@@ -124,29 +123,29 @@ public class OnapVCpeSimEndpoint {
      * http://localhost:54321/aai/v16/search/nodes-query?search-node-type=vserver&filter=vserver-name:EQUALS:
      *
      * @param searchNodeType the node type to search for
-     * @param filter the filter to apply in the search
+     * @param filter         the filter to apply in the search
      * @return the response
      * @throws IOException on I/O errors
      */
     @Path("aai/v16/search/nodes-query")
     @GET
     public Response aaiNamedQuerySearchRequest(@QueryParam("search-node-type") final String searchNodeType,
-            @QueryParam("filter") final String filter) throws IOException {
+                                               @QueryParam("filter") final String filter) throws IOException {
         getMessagesReceived.incrementAndGet();
 
-        LOGGER.info("\n*** AAI NODE QUERY GET START ***\nsearchNodeType=" + searchNodeType + "\nfilter=" + filter
-                + "\n *** AAI REQUEST END ***");
+        LOGGER.info("\n*** AAI NODE QUERY GET START ***\nsearchNodeType={}\nfilter={}\n *** AAI REQUEST END ***",
+            searchNodeType, filter);
 
         String adjustedVserverUuid =
-                "b4fe00ac-1da6-4b00-ac0d-8e8300db" + String.format("%04d", nextVnfId.getAndIncrement());
+            "b4fe00ac-1da6-4b00-ac0d-8e8300db" + String.format("%04d", nextVnfId.getAndIncrement());
 
         String responseJsonString =
-                TextFileUtils.getTextFileAsString("src/test/resources/aai/SearchNodeTypeResponse.json")
-                        .replaceAll("b4fe00ac-1da6-4b00-ac0d-8e8300db0007", adjustedVserverUuid);
+            TextFileUtils.getTextFileAsString("src/test/resources/aai/SearchNodeTypeResponse.json")
+                .replaceAll("b4fe00ac-1da6-4b00-ac0d-8e8300db0007", adjustedVserverUuid);
 
         responseJsonString = prettifyJsonString(responseJsonString);
 
-        LOGGER.info("\n*** AAI RESPONSE START ***\n" + responseJsonString + "\n *** AAI RESPONSE END ***");
+        LOGGER.info("\n*** AAI RESPONSE START ***\n{}\n *** AAI RESPONSE END ***", responseJsonString);
 
         return Response.status(200).entity(responseJsonString).build();
     }
@@ -155,7 +154,7 @@ public class OnapVCpeSimEndpoint {
      * AAI named query request on a particular resource.
      * http://localhost:54321/OnapVCpeSim/sim/aai/v16/query?format=resource
      *
-     * @param format the format of the request
+     * @param format     the format of the request
      * @param jsonString the body of the request
      * @return the response
      * @throws IOException on I/O errors
@@ -163,22 +162,22 @@ public class OnapVCpeSimEndpoint {
     @Path("aai/v16/query")
     @PUT
     public Response aaiNamedQueryResourceRequest(@QueryParam("format") final String format, final String jsonString)
-            throws IOException {
+        throws IOException {
         putMessagesReceived.incrementAndGet();
 
-        LOGGER.info("\n*** AAI NODE RESOURE POST QUERY START ***\\nformat=" + format + "\njson=" + jsonString
-                + "\n *** AAI REQUEST END ***");
+        LOGGER.info("\n*** AAI NODE RESOURCE POST QUERY START ***\\nformat={}\njson={}\n *** AAI REQUEST END ***",
+            format, jsonString);
 
         int beginIndex =
-                jsonString.indexOf("b4fe00ac-1da6-4b00-ac0d-8e8300db") + "b4fe00ac-1da6-4b00-ac0d-8e8300db".length();
+            jsonString.indexOf("b4fe00ac-1da6-4b00-ac0d-8e8300db") + "b4fe00ac-1da6-4b00-ac0d-8e8300db".length();
         String nextVnfIdUrlEnding = jsonString.substring(beginIndex, beginIndex + 4);
         String responseJsonString = TextFileUtils.getTextFileAsString("src/test/resources/aai/NodeQueryResponse.json")
-                .replaceAll("bbb3cefd-01c8-413c-9bdd-2b92f9ca3d38",
-                        "00000000-0000-0000-0000-00000000" + nextVnfIdUrlEnding);
+            .replaceAll("bbb3cefd-01c8-413c-9bdd-2b92f9ca3d38",
+                "00000000-0000-0000-0000-00000000" + nextVnfIdUrlEnding);
 
         responseJsonString = prettifyJsonString(responseJsonString);
 
-        LOGGER.info("\n*** AAI RESPONSE START ***\n" + responseJsonString + "\n *** AAI RESPONSE END ***");
+        LOGGER.info("\n*** AAI RESPONSE START ***\n{}\n *** AAI RESPONSE END ***", responseJsonString);
 
         return Response.status(200).entity(responseJsonString).build();
     }
@@ -201,16 +200,16 @@ public class OnapVCpeSimEndpoint {
             nextControlLoopMessageIsOnset = false;
 
             String clOnsetEvent = TextFileUtils
-                    .getTextFileAsString("src/main/resources/examples/events/ONAPvCPEStandalone/CLOnsetEvent.json");
-            LOGGER.info("\n*** CONTROL LOOP ONSET START ***\n" + clOnsetEvent + "\n *** CONTROL LOOP ONSET END ***");
+                .getTextFileAsString("src/main/resources/examples/events/ONAPvCPEStandalone/CLOnsetEvent.json");
+            LOGGER.info("\n*** CONTROL LOOP ONSET START ***\n{}\n *** CONTROL LOOP ONSET END ***", clOnsetEvent);
 
             return Response.status(200).entity(clOnsetEvent).build();
         } else {
             nextControlLoopMessageIsOnset = true;
 
             String clAbatedEvent = TextFileUtils
-                    .getTextFileAsString("src/main/resources/examples/events/ONAPvCPEStandalone/CLAbatedEvent.json");
-            LOGGER.info("\n*** CONTROL LOOP ABATED START ***\n" + clAbatedEvent + "\n *** CONTROL LOOP ABATED END ***");
+                .getTextFileAsString("src/main/resources/examples/events/ONAPvCPEStandalone/CLAbatedEvent.json");
+            LOGGER.info("\n*** CONTROL LOOP ABATED START ***\n{}\n *** CONTROL LOOP ABATED END ***", clAbatedEvent);
 
             return Response.status(200).entity(clAbatedEvent).build();
         }
@@ -258,7 +257,7 @@ public class OnapVCpeSimEndpoint {
 
         String logJsonString = prettifyJsonString(jsonString);
 
-        LOGGER.info("\n*** POLICY LOG ENTRY START ***\n" + logJsonString + "\n *** POLICY LOG ENTRY END ***");
+        LOGGER.info("\n*** POLICY LOG ENTRY START ***\n{}\n *** POLICY LOG ENTRY END ***", logJsonString);
 
         return Response.status(200).build();
     }
@@ -276,7 +275,7 @@ public class OnapVCpeSimEndpoint {
 
         String appcJsonString = prettifyJsonString(jsonString);
 
-        LOGGER.info("\n*** CONTROLLER REQUEST START ***\n" + appcJsonString + "\n *** CONTROLLER REQUEST END ***");
+        LOGGER.info("\n*** CONTROLLER REQUEST START ***\n{}\n *** CONTROLLER REQUEST END ***", appcJsonString);
 
         new AppcResponseCreator(appcResponseQueue, appcJsonString, 10000 + randomDelayInc.nextInt(10000));
 
@@ -296,7 +295,7 @@ public class OnapVCpeSimEndpoint {
 
         String bwJsonString = prettifyJsonString(jsonString);
 
-        LOGGER.info("\n*** BLACK WHITE LIST START ***\n" + bwJsonString + "\n *** BLACK WHITE LIST END ***");
+        LOGGER.info("\n*** BLACK WHITE LIST START ***\n{}\n *** BLACK WHITE LIST END ***", bwJsonString);
 
         return Response.status(200).build();
     }
@@ -314,10 +313,10 @@ public class OnapVCpeSimEndpoint {
         final String nextEventName = "Event0" + rand.nextInt(2) + "00";
 
         final String eventString = "{\n" + "\"nameSpace\": \"org.onap.policy.apex.sample.events\",\n" + "\"name\": \""
-                + nextEventName + "\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_" + getMessagesReceived
-                + "\",\n" + "\"target\": \"apex\",\n" + "\"TestSlogan\": \"Test slogan for External Event0\",\n"
-                + "\"TestMatchCase\": " + nextMatchCase + ",\n" + "\"TestTimestamp\": " + System.currentTimeMillis()
-                + ",\n" + "\"TestTemperature\": 9080.866\n" + "}";
+            + nextEventName + "\",\n" + "\"version\": \"0.0.1\",\n" + "\"source\": \"REST_" + getMessagesReceived
+            + "\",\n" + "\"target\": \"apex\",\n" + "\"TestSlogan\": \"Test slogan for External Event0\",\n"
+            + "\"TestMatchCase\": " + nextMatchCase + ",\n" + "\"TestTimestamp\": " + System.currentTimeMillis()
+            + ",\n" + "\"TestTemperature\": 9080.866\n" + "}";
 
         getMessagesReceived.incrementAndGet();
 
@@ -357,8 +356,7 @@ public class OnapVCpeSimEndpoint {
     public Response servicePostRequest(final String jsonString) {
         postMessagesReceived.incrementAndGet();
 
-        @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = gson.fromJson(jsonString, Map.class);
+        @SuppressWarnings("unchecked") final Map<String, Object> jsonMap = gson.fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
@@ -366,7 +364,7 @@ public class OnapVCpeSimEndpoint {
         assertEquals("Outside", jsonMap.get("target"));
 
         return Response.status(200).entity("{\"GET\": , " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived
-                + ",\"POST\": , " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}").build();
+            + ",\"POST\": , " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}").build();
     }
 
     /**
@@ -392,8 +390,7 @@ public class OnapVCpeSimEndpoint {
     public Response servicePutRequest(final String jsonString) {
         putMessagesReceived.incrementAndGet();
 
-        @SuppressWarnings("unchecked")
-        final Map<String, Object> jsonMap = gson.fromJson(jsonString, Map.class);
+        @SuppressWarnings("unchecked") final Map<String, Object> jsonMap = gson.fromJson(jsonString, Map.class);
         assertTrue(jsonMap.containsKey("name"));
         assertEquals("0.0.1", jsonMap.get("version"));
         assertEquals("org.onap.policy.apex.sample.events", jsonMap.get("nameSpace"));
@@ -401,10 +398,10 @@ public class OnapVCpeSimEndpoint {
         assertEquals("Outside", jsonMap.get("target"));
 
         return Response.status(200).entity("{\"GET\": , " + getMessagesReceived + ",\"STAT\": " + statMessagesReceived
-                + ",\"POST\": , " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}").build();
+            + ",\"POST\": , " + postMessagesReceived + ",\"PUT\": " + putMessagesReceived + "}").build();
     }
 
-    private static final String prettifyJsonString(final String uglyJsonString) {
+    private static String prettifyJsonString(final String uglyJsonString) {
         JsonElement je = JsonParser.parseString(uglyJsonString);
         return gson.toJson(je);
     }
