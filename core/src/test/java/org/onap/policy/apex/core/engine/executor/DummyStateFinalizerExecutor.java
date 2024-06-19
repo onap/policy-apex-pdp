@@ -25,6 +25,7 @@ package org.onap.policy.apex.core.engine.executor;
 import java.util.Map;
 import java.util.Properties;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 
@@ -35,6 +36,7 @@ import org.onap.policy.apex.core.engine.executor.exception.StateMachineException
 public class DummyStateFinalizerExecutor extends StateFinalizerExecutor {
     private boolean override;
 
+    @Setter
     private boolean returnBad;
 
     public DummyStateFinalizerExecutor(final boolean override) {
@@ -46,7 +48,7 @@ public class DummyStateFinalizerExecutor extends StateFinalizerExecutor {
      */
     @Override
     public String execute(final long executionId, final Properties executionProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+                          final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
 
         if (!override) {
             super.execute(executionId, executionProperties, newIncomingFields);
@@ -59,7 +61,4 @@ public class DummyStateFinalizerExecutor extends StateFinalizerExecutor {
         }
     }
 
-    public void setReturnBad(boolean returnBad) {
-        this.returnBad = returnBad;
-    }
 }

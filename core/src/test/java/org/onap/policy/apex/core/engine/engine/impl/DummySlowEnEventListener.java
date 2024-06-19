@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,17 @@
 
 package org.onap.policy.apex.core.engine.engine.impl;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.apex.core.engine.engine.EnEventListener;
 import org.onap.policy.apex.core.engine.event.EnEvent;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 
 /**
  * Dummy engine event listener for unit test.
  * Thread.sleep is used to simulate a slow event listener.
- *
  */
+@Setter
+@Getter
 public class DummySlowEnEventListener implements EnEventListener {
 
     private long waitTime;
@@ -38,19 +40,11 @@ public class DummySlowEnEventListener implements EnEventListener {
      * {@inheritDoc}.
      */
     @Override
-    public void onEnEvent(EnEvent enEvent) throws ApexException {
+    public void onEnEvent(EnEvent enEvent) {
         try {
             Thread.sleep(waitTime);
         } catch (InterruptedException ie) {
             //Do nothing
         }
-    }
-
-    public long getWaitTime() {
-        return waitTime;
-    }
-
-    public void setWaitTime(long waitTime) {
-        this.waitTime = waitTime;
     }
 }

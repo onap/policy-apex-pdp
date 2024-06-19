@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,21 +24,21 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
@@ -66,8 +66,8 @@ import org.onap.policy.common.parameters.ParameterService;
 /**
  * Test task executor.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class StateMachineExecutorTest {
+@ExtendWith(MockitoExtension.class)
+class StateMachineExecutorTest {
     @Mock
     private ApexInternalContext internalContextMock;
 
@@ -80,17 +80,15 @@ public class StateMachineExecutorTest {
     @Mock
     private EnEvent incomingEventMock;
 
-    private AxPolicy axPolicy = new AxPolicy();
-
-    private DummyTaskSelectExecutor dummyTsle;
+    private final AxPolicy axPolicy = new AxPolicy();
 
     private DummyStateFinalizerExecutor dummySfle;
 
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
+    @BeforeEach
+    void startMocking() {
         axPolicy.setKey(new AxArtifactKey("Policy:0.0.1"));
 
         AxReferenceKey state0Key = new AxReferenceKey(axPolicy.getKey(), "state0");
@@ -128,8 +126,8 @@ public class StateMachineExecutorTest {
         event0.getParameterMap().put("Event1Field0", event1Field0Definition);
         event0.getParameterMap().put("UnusedField", event1Field0Definition);
 
-        Mockito.doReturn(event0Key).when(incomingEventMock).getKey();
-        Mockito.doReturn(event0).when(incomingEventMock).getAxEvent();
+        Mockito.lenient().doReturn(event0Key).when(incomingEventMock).getKey();
+        Mockito.lenient().doReturn(event0).when(incomingEventMock).getAxEvent();
 
         state0.setTrigger(event0Key);
         state1.setTrigger(event1Key);
@@ -169,26 +167,26 @@ public class StateMachineExecutorTest {
         AxStateTaskReference str1 = new AxStateTaskReference(str1Key, AxStateTaskOutputType.LOGIC, sflKey);
         state1.getTaskReferences().put(task1Key, str1);
 
-        Mockito.doReturn(new DummyTaskExecutor(true)).when(executorFactoryMock).getTaskExecutor(Mockito.any(),
+        Mockito.lenient().doReturn(new DummyTaskExecutor(true)).when(executorFactoryMock).getTaskExecutor(Mockito.any(),
             Mockito.any(), Mockito.any());
 
-        dummyTsle = new DummyTaskSelectExecutor(true);
-        Mockito.doReturn(dummyTsle).when(executorFactoryMock).getTaskSelectionExecutor(Mockito.any(),
+        DummyTaskSelectExecutor dummyTsle = new DummyTaskSelectExecutor(true);
+        Mockito.lenient().doReturn(dummyTsle).when(executorFactoryMock).getTaskSelectionExecutor(Mockito.any(),
             Mockito.any(), Mockito.any());
 
         dummySfle = new DummyStateFinalizerExecutor(true);
-        Mockito.doReturn(dummySfle).when(executorFactoryMock).getStateFinalizerExecutor(Mockito.any(),
+        Mockito.lenient().doReturn(dummySfle).when(executorFactoryMock).getStateFinalizerExecutor(Mockito.any(),
             Mockito.any(), Mockito.any());
     }
 
-    @After
-    public void cleardown() {
+    @AfterEach
+    public void tearDown() {
         ParameterService.clear();
         ModelService.clear();
     }
 
     @Test
-    public void testStateMachineExecutor() throws StateMachineException, ContextException {
+    void testStateMachineExecutor() throws StateMachineException, ContextException {
         StateMachineExecutor executor =
             new StateMachineExecutor(executorFactoryMock, new AxArtifactKey("OwnerKey:0.0.1"));
 
@@ -290,7 +288,7 @@ public class StateMachineExecutorTest {
     }
 
     @Test
-    public void testStateOutput() throws StateMachineException {
+    void testStateOutput() throws StateMachineException {
         final StateOutput output =
             new StateOutput(axPolicy.getStateMap().get("State0").getStateOutputs().get("stateOutput0"));
         assertNotNull(output);
@@ -326,7 +324,7 @@ public class StateMachineExecutorTest {
         output.setEventFields(incomingFieldDefinitionMap, eventFieldMaps);
 
         StateOutput outputCopy = new StateOutput(axPolicy.getStateMap().get("State0")
-                .getStateOutputs().get("stateOutput0"));
+            .getStateOutputs().get("stateOutput0"));
 
         EnEvent incomingEvent = new EnEvent(new AxArtifactKey("Event0:0.0.1"));
         outputCopy.copyUnsetFields(incomingEvent);

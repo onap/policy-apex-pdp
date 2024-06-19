@@ -54,8 +54,9 @@ public class DummyTaskExecutor extends TaskExecutor {
      * {@inheritDoc}.
      */
     @Override
-    public  Map<String, Map<String, Object>> execute(final long executionId, final Properties executionProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+    public Map<String, Map<String, Object>> execute(final long executionId, final Properties executionProperties,
+                                                    final Map<String, Object> newIncomingFields)
+        throws StateMachineException, ContextException {
         if (!override) {
             super.execute(executionId, executionProperties, newIncomingFields);
         }

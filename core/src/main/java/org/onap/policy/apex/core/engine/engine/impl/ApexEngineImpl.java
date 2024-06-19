@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -193,7 +193,8 @@ public class ApexEngineImpl implements ApexEngine {
     }
 
     private void updateTaskBasedOnStateOutput(AxPolicyModel apexPolicyModel, Set<AxArtifactKey> updatedTasks,
-        AxState state, AxArtifactKey taskKey, AxStateTaskReference taskRef, AxTask task) {
+                                              AxState state, AxArtifactKey taskKey, AxStateTaskReference taskRef,
+                                              AxTask task) {
         Map<String, AxEvent> outputEvents = new TreeMap<>();
         AxStateOutput stateOutput = null;
         if (AxStateTaskOutputType.LOGIC.equals(taskRef.getStateTaskOutputType())) {
@@ -279,14 +280,13 @@ public class ApexEngineImpl implements ApexEngine {
         }
         // Stop the engine if it is in state READY, if it is in state EXECUTING, wait for execution to finish
         for (int increment = ApexEngineConstants.STOP_EXECUTION_WAIT_TIMEOUT; increment > 0;
-            increment -= ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT) {
+             increment -= ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT) {
             ThreadUtilities.sleep(ApexEngineConstants.APEX_ENGINE_STOP_EXECUTION_WAIT_INCREMENT);
 
             synchronized (stateLockObj) {
                 switch (state) {
                     // Engine is OK to stop or has been stopped on return of an event
-                    case READY:
-                    case STOPPED:
+                    case READY, STOPPED:
                         state = AxEngineState.STOPPED;
                         updateStatePrometheusMetric();
                         stateMachineHandler.stop();
@@ -388,7 +388,7 @@ public class ApexEngineImpl implements ApexEngine {
         String message = "execute(): triggered by event " + incomingEvent.toString();
         LOGGER.debug(message);
 
-        // By default we return a null event on errors
+        // By default, we return a null event on errors
         Collection<EnEvent> outgoingEvents = null;
         try {
             engineStats.executionEnter(incomingEvent.getKey());
@@ -406,7 +406,7 @@ public class ApexEngineImpl implements ApexEngine {
         try {
             synchronized (eventListeners) {
                 if (eventListeners.isEmpty()) {
-                    LOGGER.debug("handleEvent()<-{},{}, There is no listener registered to recieve outgoing event: {}",
+                    LOGGER.debug("handleEvent()<-{},{}, There is no listener registered to receive outgoing event: {}",
                         key.getId(), state, outgoingEvents);
                 }
                 for (final EnEventListener axEventListener : eventListeners.values()) {

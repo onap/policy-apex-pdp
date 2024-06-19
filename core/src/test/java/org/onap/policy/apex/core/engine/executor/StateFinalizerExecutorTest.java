@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,16 +22,17 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Map;
 import java.util.Properties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
@@ -44,8 +45,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxStateFinalizerLogic;
 /**
  * Test task executor.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class StateFinalizerExecutorTest {
+@ExtendWith(MockitoExtension.class)
+class StateFinalizerExecutorTest {
     @Mock
     private Executor<?, ?, ?, ?> parentMock;
 
@@ -64,8 +65,8 @@ public class StateFinalizerExecutorTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
+    @BeforeEach
+    void startMocking() {
 
         AxState state = new AxState();
         state.getStateOutputs().put("ValidOutput", null);
@@ -76,24 +77,24 @@ public class StateFinalizerExecutorTest {
     }
 
     @Test
-    public void testStateFinalizerExecutor() throws StateMachineException, ContextException {
+    void testStateFinalizerExecutor() throws StateMachineException, ContextException {
         DummyStateFinalizerExecutor executor = new DummyStateFinalizerExecutor();
 
         executor.setContext(parentMock, stateFinalizerLogicMock, internalContextMock);
         assertEquals("State:0.0.1:StateName:StateSFL", executor.getKey().getId());
-        assertEquals(null, executor.getExecutionContext());
+        assertNull(executor.getExecutionContext());
         assertEquals(parentMock, executor.getParent());
         assertEquals(internalContextMock, executor.getContext());
-        assertEquals(null, executor.getNext());
-        assertEquals(null, executor.getIncoming());
-        assertEquals(null, executor.getOutgoing());
+        assertNull(executor.getNext());
+        assertNull(executor.getIncoming());
+        assertNull(executor.getOutgoing());
         assertEquals(stateFinalizerLogicMock, executor.getSubject());
 
         executor.setParameters(new ExecutorParameters());
         executor.setNext(nextExecutorMock);
         assertEquals(nextExecutorMock, executor.getNext());
         executor.setNext(null);
-        assertEquals(null, executor.getNext());
+        assertNull(executor.getNext());
 
         assertThatThrownBy(executor::cleanUp)
             .hasMessage("cleanUp() not implemented on class");
@@ -130,7 +131,7 @@ public class StateFinalizerExecutorTest {
         executor.getExecutionContext().setSelectedStateOutputName("ThisOutputDoesNotExist");
         assertThatThrownBy(() -> executor.executePost(true))
             .hasMessage("execute-post: state finalizer logic \"null\" selected output state "
-                    + "\"ThisOutputDoesNotExist\" that does not exsist on state \"NULL:0.0.0:NULL:NULL\"");
+                + "\"ThisOutputDoesNotExist\" that does not exsist on state \"NULL:0.0.0:NULL:NULL\"");
         executor.executePre(0, new Properties(), incomingEvent);
 
         executor.getExecutionContext().setSelectedStateOutputName("ValidOutput");

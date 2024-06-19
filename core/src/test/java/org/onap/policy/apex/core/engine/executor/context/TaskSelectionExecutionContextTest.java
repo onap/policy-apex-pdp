@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,19 +22,19 @@
 package org.onap.policy.apex.core.engine.executor.context;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -46,8 +46,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 /**
  * Test Task Execution Context.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class TaskSelectionExecutionContextTest {
+@ExtendWith(MockitoExtension.class)
+class TaskSelectionExecutionContextTest {
     @Mock
     private TaskSelectExecutor taskSelectExecutorMock;
 
@@ -66,8 +66,8 @@ public class TaskSelectionExecutionContextTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
+    @BeforeEach
+    void startMocking() {
 
         Set<AxArtifactKey> contextAlbumReferences = new LinkedHashSet<>();
         contextAlbumReferences.add(new AxArtifactKey(("AlbumKey0:0.0.1")));
@@ -90,11 +90,11 @@ public class TaskSelectionExecutionContextTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         final AxArtifactKey outgoingEventKey = new AxArtifactKey("OutEvent:0.0.1");
 
         TaskSelectionExecutionContext tsec = new TaskSelectionExecutionContext(taskSelectExecutorMock, 0, axStateMock,
-                        incomingEventMock, outgoingEventKey, internalContextMock);
+            incomingEventMock, outgoingEventKey, internalContextMock);
 
         assertNotNull(tsec);
         tsec.setMessage("TSEC Message");
@@ -103,8 +103,8 @@ public class TaskSelectionExecutionContextTest {
         ContextAlbum contextAlbum = tsec.getContextAlbum("AlbumKey0");
         assertEquals("AlbumKey0:0.0.1", contextAlbum.getKey().getId());
 
-        assertThatThrownBy(() -> tsec.getContextAlbum("AlbumKeyNonExistant"))
-            .hasMessage("cannot find definition of context album \"AlbumKeyNonExistant\" "
-                            + "on state \"Parent:0.0.1:ParentName:StateName\"");
+        assertThatThrownBy(() -> tsec.getContextAlbum("AlbumKeyNonExistent"))
+            .hasMessage("cannot find definition of context album \"AlbumKeyNonExistent\" "
+                + "on state \"Parent:0.0.1:ParentName:StateName\"");
     }
 }

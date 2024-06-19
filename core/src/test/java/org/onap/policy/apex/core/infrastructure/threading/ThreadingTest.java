@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@
 
 package org.onap.policy.apex.core.infrastructure.threading;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -35,7 +35,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ThreadingTest {
+class ThreadingTest {
 
     private static final String LOCAL_NAME = "localName";
     // Logger for this class
@@ -45,18 +45,18 @@ public class ThreadingTest {
      * Test thread factory initialization.
      */
     @Test
-    public void testThreadFactoryInitialization() {
+    void testThreadFactoryInitialization() {
         final ApplicationThreadFactory objUnderTest = new ApplicationThreadFactory(LOCAL_NAME, 0);
-        assertNotNull("Failed to create ApplicationThreadFactory threadFactory0", objUnderTest);
+        assertNotNull(objUnderTest, "Failed to create ApplicationThreadFactory threadFactory0");
         logger.debug(objUnderTest.toString());
-        assertTrue("Failed to name ApplicationThreadFactory threadFactory0",
-                objUnderTest.getName().startsWith("Apex-" + LOCAL_NAME));
+        assertTrue(objUnderTest.getName().startsWith("Apex-" + LOCAL_NAME),
+            "Failed to name ApplicationThreadFactory threadFactory0");
 
         final ApplicationThreadFactory objUnderTest1 = new ApplicationThreadFactory(LOCAL_NAME, 0);
-        assertNotNull("Failed to create ApplicationThreadFactory threadFactory1", objUnderTest1);
+        assertNotNull(objUnderTest1, "Failed to create ApplicationThreadFactory threadFactory1");
         logger.debug(objUnderTest1.toString());
-        assertTrue("Failed to name ApplicationThreadFactory threadFactory1",
-                objUnderTest1.getName().startsWith("Apex-" + LOCAL_NAME));
+        assertTrue(objUnderTest1.getName().startsWith("Apex-" + LOCAL_NAME),
+            "Failed to name ApplicationThreadFactory threadFactory1");
 
         testThreadFactory(objUnderTest);
         testThreadFactory(objUnderTest1);

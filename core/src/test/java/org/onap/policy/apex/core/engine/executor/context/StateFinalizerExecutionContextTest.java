@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,19 +22,19 @@
 package org.onap.policy.apex.core.engine.executor.context;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
@@ -45,8 +45,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 /**
  * Test Task Execution Context.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class StateFinalizerExecutionContextTest {
+@ExtendWith(MockitoExtension.class)
+class StateFinalizerExecutionContextTest {
     @Mock
     private StateFinalizerExecutor stateFinalizerExecutorMock;
 
@@ -62,8 +62,8 @@ public class StateFinalizerExecutionContextTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
+    @BeforeEach
+    void startMocking() {
 
         Set<AxArtifactKey> contextAlbumReferences = new LinkedHashSet<>();
         contextAlbumReferences.add(new AxArtifactKey(("AlbumKey0:0.0.1")));
@@ -86,12 +86,12 @@ public class StateFinalizerExecutionContextTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         final Map<String, Object> fields = new LinkedHashMap<>();
         final Set<String> stateOutputNames = new LinkedHashSet<>();
 
         StateFinalizerExecutionContext sfec = new StateFinalizerExecutionContext(stateFinalizerExecutorMock, 0, null,
-                        axStateMock, fields, stateOutputNames, internalContextMock);
+            axStateMock, fields, stateOutputNames, internalContextMock);
 
         assertNotNull(sfec);
         sfec.setMessage("SFEC Message");
@@ -103,8 +103,8 @@ public class StateFinalizerExecutionContextTest {
         ContextAlbum contextAlbum = sfec.getContextAlbum("AlbumKey0");
         assertEquals("AlbumKey0:0.0.1", contextAlbum.getKey().getId());
 
-        assertThatThrownBy(() -> sfec.getContextAlbum("AlbumKeyNonExistant"))
-            .hasMessage("cannot find definition of context album \"AlbumKeyNonExistant\" "
-                            + "on state \"Parent:0.0.1:ParentName:StateName\"");
+        assertThatThrownBy(() -> sfec.getContextAlbum("AlbumKeyNonExistent"))
+            .hasMessage("cannot find definition of context album \"AlbumKeyNonExistent\" "
+                + "on state \"Parent:0.0.1:ParentName:StateName\"");
     }
 }

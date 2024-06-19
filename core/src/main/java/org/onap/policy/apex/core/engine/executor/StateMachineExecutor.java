@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -129,7 +129,7 @@ public class StateMachineExecutor implements Executor<EnEvent, Collection<EnEven
     public Collection<EnEvent> execute(final long executionId, final Properties executionProperties,
         final EnEvent incomingEvent) throws StateMachineException, ContextException {
         // Check if there are any states on the state machine
-        if (stateExecutorMap.size() == 0) {
+        if (stateExecutorMap.isEmpty()) {
             throw new StateMachineException("no states defined on state machine");
         }
 

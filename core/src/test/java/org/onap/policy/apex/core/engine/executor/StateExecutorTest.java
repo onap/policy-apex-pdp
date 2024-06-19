@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,15 @@
 package org.onap.policy.apex.core.engine.executor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.core.engine.ExecutorParameters;
 import org.onap.policy.apex.core.engine.context.ApexInternalContext;
 import org.onap.policy.apex.core.engine.event.EnEvent;
@@ -39,8 +40,8 @@ import org.onap.policy.apex.model.policymodel.concepts.AxState;
 /**
  * Test task executor.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class StateExecutorTest {
+@ExtendWith(MockitoExtension.class)
+class StateExecutorTest {
     @Mock
     private ApexInternalContext internalContextMock;
 
@@ -56,30 +57,29 @@ public class StateExecutorTest {
     /**
      * Set up mocking.
      */
-    @Before
-    public void startMocking() {
-
+    @BeforeEach
+    void startMocking() {
         Mockito.doReturn(new AxReferenceKey("Policy:0.0.1:PolName:State0")).when(axStateMock).getKey();
     }
 
     @Test
-    public void testStateExecutor() {
+    void testStateExecutor() {
         StateExecutor executor = new StateExecutor(executorFactoryMock);
 
         executor.setContext(null, axStateMock, internalContextMock);
         assertEquals("Policy:0.0.1:PolName:State0", executor.getKey().getId());
-        assertEquals(null, executor.getParent());
+        assertNull(executor.getParent());
         assertEquals(internalContextMock, executor.getContext());
-        assertEquals(null, executor.getNext());
-        assertEquals(null, executor.getIncoming());
-        assertEquals(null, executor.getOutgoing());
+        assertNull(executor.getNext());
+        assertNull(executor.getIncoming());
+        assertNull(executor.getOutgoing());
         assertEquals(axStateMock, executor.getSubject());
 
         executor.setParameters(new ExecutorParameters());
         executor.setNext(nextExecutorMock);
         assertEquals(nextExecutorMock, executor.getNext());
         executor.setNext(null);
-        assertEquals(null, executor.getNext());
+        assertNull(executor.getNext());
 
         assertThatThrownBy(() -> executor.executePre(0, null, null))
             .hasMessage("execution pre work not implemented on class");
