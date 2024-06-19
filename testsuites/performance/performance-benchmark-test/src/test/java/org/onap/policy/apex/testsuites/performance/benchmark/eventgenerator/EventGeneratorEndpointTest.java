@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,27 +21,25 @@
 
 package org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import jakarta.inject.Provider;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.grizzly.http.server.Request;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.testsuites.performance.benchmark.eventgenerator.events.OutputEvent;
 
 /**
  * Test the EventGeneratorEndpoint class.
- *
  */
-@RunWith(MockitoJUnitRunner.class)
-public class EventGeneratorEndpointTest {
+@ExtendWith(MockitoExtension.class)
+class EventGeneratorEndpointTest {
     @Mock
     private Provider<Request> httpRequestProviderMock;
 
@@ -50,21 +48,18 @@ public class EventGeneratorEndpointTest {
 
     /**
      * Set up mocking of the engine service facade.
-     *
-     * @throws ApexException on engine service facade setup errors
      */
-    @Before
-    public void initializeMocking() throws ApexException {
+    @BeforeEach
+    void initializeMocking() {
 
-        Mockito.doReturn(httpRequestMock).when(httpRequestProviderMock).get();
-
-        Mockito.doReturn("zooby").when(httpRequestMock).getRemoteHost();
-        Mockito.doReturn(12345).when(httpRequestMock).getRemotePort();
+        Mockito.lenient().doReturn(httpRequestMock).when(httpRequestProviderMock).get();
+        Mockito.lenient().doReturn("zooby").when(httpRequestMock).getRemoteHost();
+        Mockito.lenient().doReturn(12345).when(httpRequestMock).getRemotePort();
 
     }
 
     @Test
-    public void testEventGeneratorEndpointGetStats() {
+    void testEventGeneratorEndpointGetStats() {
         EventGeneratorEndpoint.clearEventGenerationStats();
         EventGeneratorEndpoint.setFinished(false);
 
@@ -73,10 +68,11 @@ public class EventGeneratorEndpointTest {
 
         Response stats = egep.serviceGetStats();
         assertEquals(200, stats.getStatus());
+        stats.close();
     }
 
     @Test
-    public void testEventGeneratorEndpointGetEventsZeroBatchCount() {
+    void testEventGeneratorEndpointGetEventsZeroBatchCount() {
         EventGeneratorParameters incomingParameters = new EventGeneratorParameters();
         incomingParameters.setBatchCount(1);
 
@@ -96,7 +92,7 @@ public class EventGeneratorEndpointTest {
     }
 
     @Test
-    public void testEventGeneratorEndpointPostBadEvent() {
+    void testEventGeneratorEndpointPostBadEvent() {
         EventGeneratorParameters incomingParameters = new EventGeneratorParameters();
         incomingParameters.setBatchCount(1);
 
@@ -112,5 +108,6 @@ public class EventGeneratorEndpointTest {
 
         Response events = egep.postEventResponse(oe.asJson());
         assertEquals(409, events.getStatus());
+        events.close();
     }
 }

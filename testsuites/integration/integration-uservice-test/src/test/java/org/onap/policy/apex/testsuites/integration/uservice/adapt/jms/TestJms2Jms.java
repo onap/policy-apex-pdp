@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,17 +23,16 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.jms;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.jms.JMSException;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.slf4j.Logger;
@@ -42,7 +41,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class TestJms2Jms.
  */
-public class TestJms2Jms {
+class TestJms2Jms {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestJms2Jms.class);
 
     protected static final String SERVER_NAME = "JmsTestServer";
@@ -63,28 +62,26 @@ public class TestJms2Jms {
      *
      * @throws Exception the exception
      */
-    @BeforeClass
-    public static void setupEmbeddedJmsServer() throws Exception {
+    @BeforeAll
+    static void setupEmbeddedJmsServer() throws Exception {
         jmsServerRunner = new JmsServerRunner(SERVER_NAME, SERVER_URI);
 
-        await().pollDelay(3L, TimeUnit.SECONDS).until(() -> new AtomicBoolean(true).get() == true);
+        await().pollDelay(3L, TimeUnit.SECONDS).until(() -> new AtomicBoolean(true).get());
     }
 
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
     /**
      * Shutdown embedded jms server.
-     *
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    @AfterClass
-    public static void shutdownEmbeddedJmsServer() throws IOException {
+    @AfterAll
+    static void shutdownEmbeddedJmsServer() {
         try {
             if (jmsServerRunner != null) {
                 jmsServerRunner.stop();
@@ -99,10 +96,10 @@ public class TestJms2Jms {
      * Test jms object events.
      *
      * @throws ApexException the apex exception
-     * @throws JMSException the JMS exception
+     * @throws JMSException  the JMS exception
      */
     @Test
-    public void testJmsObjectEvents() throws ApexException, JMSException {
+    void testJmsObjectEvents() throws ApexException, JMSException {
         final String[] args = {
             "-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSObjectEvent.json"
         };
@@ -113,10 +110,10 @@ public class TestJms2Jms {
      * Test jms json events.
      *
      * @throws ApexException the apex exception
-     * @throws JMSException the JMS exception
+     * @throws JMSException  the JMS exception
      */
     @Test
-    public void testJmsJsonEvents() throws ApexException, JMSException {
+    void testJmsJsonEvents() throws ApexException, JMSException {
         final String[] args = {
             "-rfr", "target", "-p", "target/examples/config/JMS/JMS2JMSJsonEvent.json"
         };
@@ -126,22 +123,22 @@ public class TestJms2Jms {
     /**
      * Test jms events.
      *
-     * @param args the args
+     * @param args        the args
      * @param sendObjects the send objects
      * @throws ApexException the apex exception
-     * @throws JMSException the JMS exception
+     * @throws JMSException  the JMS exception
      */
     private void testJmsEvents(final String[] args, final Boolean sendObjects) throws ApexException, JMSException {
         final JmsEventSubscriber subscriber =
-                new JmsEventSubscriber(JMS_TOPIC_APEX_OUT, new ActiveMQConnectionFactory(SERVER_URI), null, null);
+            new JmsEventSubscriber(JMS_TOPIC_APEX_OUT, new ActiveMQConnectionFactory(SERVER_URI), null, null);
 
         final JmsEventProducer producer =
-                new JmsEventProducer(JMS_TOPIC_APEX_IN, new ActiveMQConnectionFactory(SERVER_URI), null, null,
-                        EVENT_COUNT, sendObjects, EVENT_INTERVAL);
+            new JmsEventProducer(JMS_TOPIC_APEX_IN, new ActiveMQConnectionFactory(SERVER_URI), null, null,
+                EVENT_COUNT, sendObjects, EVENT_INTERVAL);
 
         final ApexMain apexMain = new ApexMain(args);
 
-        await().atMost(3L, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(3L, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         producer.sendEvents();
 

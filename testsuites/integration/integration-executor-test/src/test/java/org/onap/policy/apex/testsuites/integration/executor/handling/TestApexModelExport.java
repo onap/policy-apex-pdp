@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,14 @@
 
 package org.onap.policy.apex.testsuites.integration.executor.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxPolicyModel;
 import org.onap.policy.apex.model.policymodel.handling.PolicyModelSplitter;
@@ -41,22 +40,21 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestApexModelExport {
+class TestApexModelExport {
     private static final XLogger logger = XLoggerFactory.getXLogger(TestApexModelExport.class);
 
     private AxPolicyModel model = null;
 
-    @Before
-    public void initApexModelSmall() throws ApexException {
+    @BeforeEach
+    void initApexModelSmall() {
         model = new TestApexSamplePolicyModelCreator("MVEL").getModel();
     }
 
     @Test
-    public void testApexModelExport() throws Exception {
+    void testApexModelExport() throws Exception {
         logger.info("Starting test: testApexModelExport");
 
-        final List<AxArtifactKey> exportPolicyList = new ArrayList<AxArtifactKey>();
-        exportPolicyList.addAll(model.getPolicies().getPolicyMap().keySet());
+        final List<AxArtifactKey> exportPolicyList = new ArrayList<>(model.getPolicies().getPolicyMap().keySet());
 
         final AxPolicyModel exportedModel0 = PolicyModelSplitter.getSubPolicyModel(model, exportPolicyList);
 

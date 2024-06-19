@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2022-2023 Nordix Foundation.
+ *  Copyright (C) 2022-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,10 +32,10 @@ public class JmsServerRunner implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(JmsServerRunner.class);
 
     // Embedded JMS server
-    private EmbeddedActiveMQ embedded;
+    private final EmbeddedActiveMQ embedded;
 
     // Thread to run the JMS server in
-    private Thread jmsServerRunnerThread;
+    private final Thread jmsServerRunnerThread;
 
     // Config fields
     private final String serverName;
@@ -45,7 +45,7 @@ public class JmsServerRunner implements Runnable {
      * Create the JMS Server.
      *
      * @param serverName Name of the server
-     * @param serverUri URI for the server
+     * @param serverUri  URI for the server
      * @throws Exception on errors
      */
     public JmsServerRunner(String serverName, String serverUri) throws Exception {
@@ -64,25 +64,25 @@ public class JmsServerRunner implements Runnable {
         embedded = new EmbeddedActiveMQ();
         embedded.setConfiguration(config);
 
-        LOGGER.debug("starting JMS Server " + serverName + " on URI " + serverUri + " . . .");
+        LOGGER.debug("starting JMS Server {} on URI {} . . .", serverName, serverUri);
 
         jmsServerRunnerThread = new Thread(this);
         jmsServerRunnerThread.start();
 
-        LOGGER.debug("requested start on JMS Server " + serverName + " on URI " + serverUri);
+        LOGGER.debug("requested start on JMS Server {} on URI {}", serverName, serverUri);
     }
 
     @Override
     public void run() {
         try {
-            LOGGER.debug("starting JMS Server thread " + serverName + " on URI " + serverUri + " . . .");
+            LOGGER.debug("starting JMS Server thread {} on URI {} . . .", serverName, serverUri);
             embedded.start();
 
             await().atMost(30, TimeUnit.SECONDS).until(() -> embedded.getActiveMQServer().isActive());
 
-            LOGGER.debug("started JMS Server thread " + serverName + " on URI " + serverUri);
+            LOGGER.debug("started JMS Server thread {} on URI {} ", serverName, serverUri);
         } catch (Exception e) {
-            LOGGER.warn("failed to start JMS Server thread " + serverName + " on URI " + serverUri, e);
+            LOGGER.warn("failed to start JMS Server thread {} on URI {}. {}", serverName, serverUri, e.getMessage());
         }
     }
 
@@ -92,20 +92,20 @@ public class JmsServerRunner implements Runnable {
      * @throws Exception on stop errors
      */
     public void stop() throws Exception {
-        LOGGER.debug("stopping JMS Server " + serverName + " on URI " + serverUri + " . . .");
+        LOGGER.debug("stopping JMS Server {} on URI {} . . .", serverName, serverUri);
 
         if (!embedded.getActiveMQServer().isActive()) {
-            LOGGER.debug("JMS Server " + serverName + " already stopped on URI " + serverUri + " . . .");
+            LOGGER.debug("JMS Server {} already stopped on URI {} . . .", serverName, serverUri);
             return;
         }
 
         embedded.stop();
 
-        LOGGER.debug("waiting on JMS Server " + serverName + " to stop on URI " + serverUri + " . . .");
+        LOGGER.debug("waiting on JMS Server {} to stop on URI {} . . .", serverName, serverUri);
 
         await().atMost(30, TimeUnit.SECONDS)
-                .until(() -> !embedded.getActiveMQServer().isActive() && !jmsServerRunnerThread.isAlive());
+            .until(() -> !embedded.getActiveMQServer().isActive() && !jmsServerRunnerThread.isAlive());
 
-        LOGGER.debug("stopping JMS Server " + serverName + " on URI " + serverUri + " . . .");
+        LOGGER.debug("stopping JMS Server {} on URI {} . . .", serverName, serverUri);
     }
 }

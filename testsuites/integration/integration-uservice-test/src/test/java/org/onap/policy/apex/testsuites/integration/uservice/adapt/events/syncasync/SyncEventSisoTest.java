@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
- *  Modifications Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,13 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.events.syncasync;
 
-import java.io.File;
-import org.junit.After;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SyncEventSisoTest extends TestEventBase {
+import java.io.File;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+class SyncEventSisoTest extends TestEventBase {
     private final String[] outFilePaths = {
         "target/examples/events/SampleDomain/EventsOutSingle.json"
     };
@@ -34,15 +36,15 @@ public class SyncEventSisoTest extends TestEventBase {
     /**
      * Delete output files.
      */
-    @After
-    public void deleteOutputFiles() {
+    @AfterEach
+    void deleteOutputFiles() {
         for (String filePath : outFilePaths) {
-            new File(filePath).delete();
+            assertTrue(new File(filePath).delete());
         }
     }
 
     @Test
-    public void testJsonFileAsyncSiso() throws Exception {
+    void testJsonFileAsyncSiso() throws Exception {
         final String[] args = {
             "-rfr",
             "target",

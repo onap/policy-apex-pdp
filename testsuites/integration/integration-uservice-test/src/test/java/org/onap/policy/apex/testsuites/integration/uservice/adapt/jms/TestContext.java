@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2023-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ import javax.naming.Name;
 import javax.naming.NameClassPair;
 import javax.naming.NameParser;
 import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
@@ -48,7 +47,7 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
  */
 public class TestContext implements Context {
 
-    private Properties testProperties;
+    private final Properties testProperties;
 
     /**
      * Instantiates a new test context.
@@ -57,7 +56,7 @@ public class TestContext implements Context {
         try {
             testProperties = new Properties();
 
-            final Map<String, Object> params = new HashMap<String, Object>();
+            final Map<String, Object> params = new HashMap<>();
             params.put("host", HOST);
             params.put("port", PORT);
             testProperties.put("ConnectionFactory", new ActiveMQConnectionFactory(TestJms2Jms.SERVER_URI));
@@ -73,7 +72,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Object lookup(final Name name) throws NamingException {
+    public Object lookup(final Name name) {
         return null;
     }
 
@@ -81,7 +80,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Object lookup(final String name) throws NamingException {
+    public Object lookup(final String name) {
         return testProperties.get(name);
     }
 
@@ -89,7 +88,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void bind(final Name name, final Object obj) throws NamingException {
+    public void bind(final Name name, final Object obj) {
         // Not used here
     }
 
@@ -97,7 +96,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void bind(final String name, final Object obj) throws NamingException {
+    public void bind(final String name, final Object obj) {
         // Not used here
     }
 
@@ -105,7 +104,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void rebind(final Name name, final Object obj) throws NamingException {
+    public void rebind(final Name name, final Object obj) {
         // Not used here
     }
 
@@ -113,7 +112,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void rebind(final String name, final Object obj) throws NamingException {
+    public void rebind(final String name, final Object obj) {
         // Not used here
     }
 
@@ -121,7 +120,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void unbind(final Name name) throws NamingException {
+    public void unbind(final Name name) {
         // Not used here
     }
 
@@ -129,7 +128,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void unbind(final String name) throws NamingException {
+    public void unbind(final String name) {
         // Not used here
     }
 
@@ -137,7 +136,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void rename(final Name oldName, final Name newName) throws NamingException {
+    public void rename(final Name oldName, final Name newName) {
         // Not used here
     }
 
@@ -145,7 +144,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void rename(final String oldName, final String newName) throws NamingException {
+    public void rename(final String oldName, final String newName) {
         // Not used here
     }
 
@@ -153,7 +152,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public NamingEnumeration<NameClassPair> list(final Name name) throws NamingException {
+    public NamingEnumeration<NameClassPair> list(final Name name) {
         return null;
     }
 
@@ -161,7 +160,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public NamingEnumeration<NameClassPair> list(final String name) throws NamingException {
+    public NamingEnumeration<NameClassPair> list(final String name) {
         return null;
     }
 
@@ -169,7 +168,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public NamingEnumeration<Binding> listBindings(final Name name) throws NamingException {
+    public NamingEnumeration<Binding> listBindings(final Name name) {
         return null;
     }
 
@@ -177,7 +176,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public NamingEnumeration<Binding> listBindings(final String name) throws NamingException {
+    public NamingEnumeration<Binding> listBindings(final String name) {
         return null;
     }
 
@@ -185,7 +184,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void destroySubcontext(final Name name) throws NamingException {
+    public void destroySubcontext(final Name name) {
         // Not used here
     }
 
@@ -193,7 +192,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void destroySubcontext(final String name) throws NamingException {
+    public void destroySubcontext(final String name) {
         // Not used here
     }
 
@@ -201,7 +200,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Context createSubcontext(final Name name) throws NamingException {
+    public Context createSubcontext(final Name name) {
         return null;
     }
 
@@ -209,7 +208,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Context createSubcontext(final String name) throws NamingException {
+    public Context createSubcontext(final String name) {
         return null;
     }
 
@@ -217,7 +216,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Object lookupLink(final Name name) throws NamingException {
+    public Object lookupLink(final Name name) {
         return null;
     }
 
@@ -225,7 +224,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Object lookupLink(final String name) throws NamingException {
+    public Object lookupLink(final String name) {
         return null;
     }
 
@@ -233,7 +232,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public NameParser getNameParser(final Name name) throws NamingException {
+    public NameParser getNameParser(final Name name) {
         return null;
     }
 
@@ -241,7 +240,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public NameParser getNameParser(final String name) throws NamingException {
+    public NameParser getNameParser(final String name) {
         return null;
     }
 
@@ -249,7 +248,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Name composeName(final Name name, final Name prefix) throws NamingException {
+    public Name composeName(final Name name, final Name prefix) {
         return null;
     }
 
@@ -257,7 +256,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public String composeName(final String name, final String prefix) throws NamingException {
+    public String composeName(final String name, final String prefix) {
         return null;
     }
 
@@ -265,7 +264,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Object addToEnvironment(final String propName, final Object propVal) throws NamingException {
+    public Object addToEnvironment(final String propName, final Object propVal) {
         return null;
     }
 
@@ -273,7 +272,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Object removeFromEnvironment(final String propName) throws NamingException {
+    public Object removeFromEnvironment(final String propName) {
         return null;
     }
 
@@ -281,7 +280,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public Hashtable<?, ?> getEnvironment() throws NamingException {
+    public Hashtable<?, ?> getEnvironment() {
         return null;
     }
 
@@ -289,7 +288,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public void close() throws NamingException {
+    public void close() {
         // Not used here
     }
 
@@ -297,7 +296,7 @@ public class TestContext implements Context {
      * {@inheritDoc}.
      */
     @Override
-    public String getNameInNamespace() throws NamingException {
+    public String getNameInNamespace() {
         return null;
     }
 }

@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2020 Nordix Foundation.
+ *  Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,27 +22,27 @@
 package org.onap.policy.apex.testsuites.integration.uservice.executionproperties;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 
 /**
  * This class runs integration tests for execution properties.
  */
-public class TestExecutionProperties {
+class TestExecutionProperties {
 
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
@@ -50,7 +50,7 @@ public class TestExecutionProperties {
      * Test read only execution properties are returned from policy.
      */
     @Test
-    public void testReadOnly() throws Exception {
+    void testReadOnly() throws Exception {
         testExecutionProperties("readOnly");
     }
 
@@ -58,7 +58,7 @@ public class TestExecutionProperties {
      * Test where execution properties set in task.
      */
     @Test
-    public void testEmptyToDefined() throws Exception {
+    void testEmptyToDefined() throws Exception {
         testExecutionProperties("emptyToDefined");
     }
 
@@ -66,7 +66,7 @@ public class TestExecutionProperties {
      * Test where execution properties cleared in task.
      */
     @Test
-    public void testDefinedToEmpty() throws Exception {
+    void testDefinedToEmpty() throws Exception {
         testExecutionProperties("definedToEmpty");
     }
 
@@ -74,7 +74,7 @@ public class TestExecutionProperties {
      * Test where an execution properties added in task.
      */
     @Test
-    public void testAddProperty() throws Exception {
+    void testAddProperty() throws Exception {
         testExecutionProperties("addProperty");
     }
 
@@ -82,7 +82,7 @@ public class TestExecutionProperties {
      * Test empty properties are transferred correctly.
      */
     @Test
-    public void testEmptyToEmpty() throws Exception {
+    void testEmptyToEmpty() throws Exception {
         testExecutionProperties("emptyToEmpty");
     }
 
@@ -117,15 +117,15 @@ public class TestExecutionProperties {
         // @formatter:on
         final ApexMain apexMain = new ApexMain(args);
 
-        await().atMost(1, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
-        await().atMost(10, TimeUnit.SECONDS).until(() -> outFile.exists());
+        await().atMost(1, TimeUnit.SECONDS).until(apexMain::isAlive);
+        await().atMost(10, TimeUnit.SECONDS).until(outFile::exists);
         await().atMost(1, TimeUnit.SECONDS).until(() -> outFile.length() > 0);
 
         apexMain.shutdown();
 
         Properties expectedProperties = new Properties();
         expectedProperties.load(new FileInputStream(
-                new File("src/test/resources/testdata/executionproperties/" + testName + "_out_expected.properties")));
+            "src/test/resources/testdata/executionproperties/" + testName + "_out_expected.properties"));
 
         Properties actualProperties = new Properties();
         actualProperties.load(new FileInputStream(outFile));

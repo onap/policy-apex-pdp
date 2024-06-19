@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,23 +23,26 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import com.salesforce.kafka.test.junit4.SharedKafkaTestResource;
+import com.salesforce.kafka.test.junit5.SharedKafkaTestResource;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
 
 /**
  * The Class TestKafka2Kafka tests Kafka event sending and reception.
  */
-public class TestKafka2Kafka {
+@ExtendWith(SharedKafkaTestResource.class)
+class TestKafka2Kafka {
     private static final long MAX_TEST_LENGTH = 300000;
 
     private static final int EVENT_COUNT = 25;
@@ -48,14 +51,15 @@ public class TestKafka2Kafka {
     /**
      * Clear relative file root environment variable.
      */
-    @Before
-    public void clearRelativeFileRoot() {
+    @BeforeEach
+    void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
 
-    @ClassRule
-    public static final SharedKafkaTestResource sharedKafkaTestResource = new SharedKafkaTestResource()
-        // Start a cluster with 1 brokers.
+    @RegisterExtension
+    @Order(1)
+    static final SharedKafkaTestResource sharedKafkaTestResource = new SharedKafkaTestResource()
+        // Start a cluster with 1 broker.
         .withBrokers(1)
         // Disable topic auto-creation.
         .withBrokerProperty("auto.create.topics.enable", "false");
@@ -66,42 +70,40 @@ public class TestKafka2Kafka {
      * @throws Exception the apex exception
      */
     @Test
-    public void testJsonKafkaEvents() throws Exception {
+    void testJsonKafkaEvents() throws Exception {
         final String conditionedConfigFile = getConditionedConfigFile(
             "target" + File.separator + "examples/config/SampleDomain/Kafka2KafkaJsonEvent.json");
         final String[] args = {"-rfr", "target", "-p", conditionedConfigFile};
-        testKafkaEvents(args, false, "json");
+        testKafkaEvents(args);
     }
 
     /**
      * Test kafka events.
      *
      * @param args the args
-     * @param xmlEvents the xml events
-     * @param topicSuffix the topic suffix
      * @throws Exception on errors
      */
-    private void testKafkaEvents(String[] args, final Boolean xmlEvents, final String topicSuffix) throws Exception {
+    private void testKafkaEvents(String[] args) throws Exception {
 
-        sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-out-" + topicSuffix, 1, (short) 1);
-        sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-in-" + topicSuffix, 1, (short) 1);
+        sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-out-" + "json", 1, (short) 1);
+        sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-in-" + "json", 1, (short) 1);
 
         final KafkaEventSubscriber subscriber =
-            new KafkaEventSubscriber("apex-out-" + topicSuffix, sharedKafkaTestResource);
+            new KafkaEventSubscriber("apex-out-" + "json", sharedKafkaTestResource);
 
-        await().atMost(30, TimeUnit.SECONDS).until(() -> subscriber.isAlive());
+        await().atMost(30, TimeUnit.SECONDS).until(subscriber::isAlive);
 
         final ApexMain apexMain = new ApexMain(args);
-        await().atMost(10, TimeUnit.SECONDS).until(() -> apexMain.isAlive());
+        await().atMost(10, TimeUnit.SECONDS).until(apexMain::isAlive);
 
         long initWaitEndTIme = System.currentTimeMillis() + 10000;
 
         await().atMost(12, TimeUnit.SECONDS).until(() -> initWaitEndTIme < System.currentTimeMillis());
 
-        final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + topicSuffix, sharedKafkaTestResource,
-            EVENT_COUNT, xmlEvents, EVENT_INTERVAL);
+        final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + "json", sharedKafkaTestResource,
+            EVENT_COUNT, false, EVENT_INTERVAL);
 
-        await().atMost(30, TimeUnit.SECONDS).until(() -> producer.isAlive());
+        await().atMost(30, TimeUnit.SECONDS).until(producer::isAlive);
 
         producer.sendEvents();
 

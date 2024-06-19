@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020,2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,24 +24,22 @@ package org.onap.policy.apex.testsuites.integration.uservice.adapt.restclient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.Gson;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -55,7 +53,7 @@ import org.slf4j.ext.XLoggerFactory;
 /**
  * The Class TestFile2Rest.
  */
-public class TestFile2Rest {
+class TestFile2Rest {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(TestFile2Rest.class);
 
     private static final int PORT = 32801;
@@ -73,10 +71,10 @@ public class TestFile2Rest {
      *
      * @throws Exception the exception
      */
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @BeforeAll
+    static void setUp() throws Exception {
         server = HttpServletServerFactoryInstance.getServerFactory().build("TestFile2Rest", false, null, PORT, false,
-                "/TestFile2Rest", false, false);
+            "/TestFile2Rest", false, false);
 
         server.addServletClass(null, TestRestClientEndpoint.class.getName());
         server.setSerializationProvider(GsonMessageBodyHandler.class.getName());
@@ -90,11 +88,9 @@ public class TestFile2Rest {
 
     /**
      * Tear down.
-     *
-     * @throws Exception the exception
      */
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @AfterAll
+    static void tearDown() {
         if (server != null) {
             server.stop();
         }
@@ -103,8 +99,8 @@ public class TestFile2Rest {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
@@ -112,10 +108,11 @@ public class TestFile2Rest {
 
     /**
      * After test.
+     *
      * @throws ApexException the exception.
      */
-    @After
-    public void afterTest() throws ApexException {
+    @AfterEach
+    void afterTest() throws ApexException {
         if (null != apexMain) {
             apexMain.shutdown();
         }
@@ -126,12 +123,10 @@ public class TestFile2Rest {
     /**
      * Test file events post.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsPost() throws MessagingException, ApexException, IOException {
+    void testFileEventsPost() throws ApexException {
         final Client client = ClientBuilder.newClient();
 
         // @formatter:off
@@ -142,7 +137,7 @@ public class TestFile2Rest {
             "target/examples/config/SampleDomain/File2RESTJsonEventPost.json"
         };
         // @formatter:on
-        final ApexMain apexMain = new ApexMain(args);
+        final ApexMain apexMainTemp = new ApexMain(args);
 
         Response response = null;
 
@@ -150,7 +145,7 @@ public class TestFile2Rest {
         for (int i = 0; i < 100; i++) {
             ThreadUtilities.sleep(100);
             response = client.target("http://localhost:32801/TestFile2Rest/apex/event/Stats")
-                    .request("application/json").get();
+                .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -158,27 +153,26 @@ public class TestFile2Rest {
 
             final String responseString = response.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+            @SuppressWarnings("unchecked") final Map<String, Object> jsonMap =
+                new Gson().fromJson(responseString, Map.class);
             if ((double) jsonMap.get("POST") == 100) {
                 break;
             }
         }
 
-        apexMain.shutdown();
+        apexMainTemp.shutdown();
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        client.close();
     }
 
     /**
      * Test file events put.
      *
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsPut() throws MessagingException, ApexException, IOException {
+    void testFileEventsPut() throws ApexException {
         // @formatter:off
         final String[] args = {
             "-rfr",
@@ -187,7 +181,7 @@ public class TestFile2Rest {
             "target/examples/config/SampleDomain/File2RESTJsonEventPut.json"
         };
         // @formatter:on
-        final ApexMain apexMain = new ApexMain(args);
+        final ApexMain apexMainTemp = new ApexMain(args);
 
         final Client client = ClientBuilder.newClient();
 
@@ -197,7 +191,7 @@ public class TestFile2Rest {
         for (int i = 0; i < 20; i++) {
             ThreadUtilities.sleep(300);
             response = client.target("http://localhost:32801/TestFile2Rest/apex/event/Stats")
-                    .request("application/json").get();
+                .request("application/json").get();
 
             if (Response.Status.OK.getStatusCode() != response.getStatus()) {
                 break;
@@ -205,27 +199,24 @@ public class TestFile2Rest {
 
             final String responseString = response.readEntity(String.class);
 
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> jsonMap = new Gson().fromJson(responseString, Map.class);
+            @SuppressWarnings("unchecked") final Map<String, Object> jsonMap =
+                new Gson().fromJson(responseString, Map.class);
             if ((double) jsonMap.get("PUT") == 20) {
                 break;
             }
         }
 
-        apexMain.shutdown();
+        apexMainTemp.shutdown();
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        client.close();
     }
 
     /**
      * Test file events no url.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsNoUrl() throws MessagingException, ApexException, IOException {
+    void testFileEventsNoUrl() {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventNoURL.json"};
         apexMain = new ApexMain(args);
@@ -236,13 +227,9 @@ public class TestFile2Rest {
 
     /**
      * Test file events bad url.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadUrl() throws MessagingException, ApexException, IOException {
+    void testFileEventsBadUrl() {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadURL.json"};
         apexMain = new ApexMain(args);
@@ -256,13 +243,9 @@ public class TestFile2Rest {
 
     /**
      * Test file events bad http method.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadHttpMethod() throws MessagingException, ApexException, IOException {
+    void testFileEventsBadHttpMethod() {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventBadHTTPMethod.json"};
         apexMain = new ApexMain(args);
@@ -275,13 +258,9 @@ public class TestFile2Rest {
 
     /**
      * Test file events bad response.
-     *
-     * @throws MessagingException the messaging exception
-     * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testFileEventsBadResponse() throws MessagingException, ApexException, IOException {
+    void testFileEventsBadResponse() {
 
         final String[] args = {"src/test/resources/prodcons/File2RESTJsonEventPostBadResponse.json"};
         apexMain = new ApexMain(args);

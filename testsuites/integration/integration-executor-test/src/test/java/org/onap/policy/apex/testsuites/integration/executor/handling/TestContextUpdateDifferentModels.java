@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,12 @@
 package org.onap.policy.apex.testsuites.integration.executor.handling;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.IOException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.ContextAlbum;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
@@ -52,7 +51,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class TestContextUpdateDifferentModels {
+class TestContextUpdateDifferentModels {
     // Logger for this class
     private static final XLogger logger = XLoggerFactory.getXLogger(TestContextUpdateDifferentModels.class);
 
@@ -63,8 +62,8 @@ public class TestContextUpdateDifferentModels {
     /**
      * Before test.
      */
-    @Before
-    public void beforeTest() {
+    @BeforeEach
+    void beforeTest() {
         schemaParameters = new SchemaParameters();
 
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -92,8 +91,8 @@ public class TestContextUpdateDifferentModels {
     /**
      * After test.
      */
-    @After
-    public void afterTest() {
+    @AfterEach
+    void afterTest() {
         ParameterService.deregister(engineParameters);
 
         ParameterService.deregister(contextParameters.getDistributorParameters());
@@ -107,19 +106,17 @@ public class TestContextUpdateDifferentModels {
     /**
      * Test context update different models.
      *
-     * @throws ApexException the apex exception
-     * @throws InterruptedException the interrupted exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ApexException        the apex exception
      */
     @Test
-    public void testContextUpdateDifferentModels() throws ApexException, InterruptedException, IOException {
+    void testContextUpdateDifferentModels() throws ApexException {
         logger.debug("Running test testContextUpdateDifferentModels . . .");
 
         final AxPolicyModel apexModelSample = new SampleDomainModelFactory().getSamplePolicyModel("MVEL");
         assertNotNull(apexModelSample);
 
         final ApexEngineImpl apexEngine =
-                (ApexEngineImpl) new ApexEngineFactory().createApexEngine(new AxArtifactKey("TestApexEngine", "0.0.1"));
+            (ApexEngineImpl) new ApexEngineFactory().createApexEngine(new AxArtifactKey("TestApexEngine", "0.0.1"));
         final TestApexActionListener listener = new TestApexActionListener("Test");
         apexEngine.addEventListener("listener", listener);
         apexEngine.updateModel(apexModelSample, false);
@@ -133,18 +130,17 @@ public class TestContextUpdateDifferentModels {
         assertThatThrownBy(() -> apexEngine.updateModel(null, false))
             .hasMessage("updateModel()<-TestApexEngine:0.0.1, Apex model is not defined, it has a null value");
         assertEquals(apexEngine.getInternalContext().getContextAlbums().size(),
-                apexModelSample.getAlbums().getAlbumsMap().size());
+            apexModelSample.getAlbums().getAlbumsMap().size());
         for (final ContextAlbum contextAlbum : apexEngine.getInternalContext().getContextAlbums().values()) {
             assertEquals(
-                    contextAlbum.getAlbumDefinition(), apexModelSample.getAlbums().get(contextAlbum.getKey()));
+                contextAlbum.getAlbumDefinition(), apexModelSample.getAlbums().get(contextAlbum.getKey()));
         }
 
         apexEngine.updateModel(someSpuriousModel, false);
         assertEquals(apexEngine.getInternalContext().getContextAlbums().size(),
-                someSpuriousModel.getAlbums().getAlbumsMap().size());
+            someSpuriousModel.getAlbums().getAlbumsMap().size());
         for (final ContextAlbum contextAlbum : apexEngine.getInternalContext().getContextAlbums().values()) {
-            assertEquals(
-                    contextAlbum.getAlbumDefinition(), someSpuriousModel.getAlbums().get(contextAlbum.getKey()));
+            assertEquals(contextAlbum.getAlbumDefinition(), someSpuriousModel.getAlbums().get(contextAlbum.getKey()));
         }
 
         apexEngine.clear();

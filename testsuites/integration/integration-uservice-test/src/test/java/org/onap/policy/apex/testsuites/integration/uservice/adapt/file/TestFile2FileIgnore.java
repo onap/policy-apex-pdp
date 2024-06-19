@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.file;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import org.onap.policy.apex.core.infrastructure.messaging.MessagingException;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.service.engine.main.ApexMain;
@@ -43,42 +43,38 @@ public class TestFile2FileIgnore {
      * The main method.
      *
      * @param args the arguments
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void main(final String[] args) throws MessagingException, ApexException, IOException {
+    public static void main(final String[] args) throws ApexException, IOException {
         final String[] apexArgs = {"-rfr", "target", "-c", "examples/config/SampleDomain/File2FileJsonEvent.json"};
 
-        testFileEvents(apexArgs, "target/EventsOut.json", 48656);
+        testFileEvents(apexArgs);
     }
 
     /**
      * Test file events.
      *
      * @param args the args
-     * @param outFilePath the out file path
-     * @param expectedFileSize the expected file size
-     * @throws MessagingException the messaging exception
      * @throws ApexException the apex exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException   Signals that an I/O exception has occurred.
      */
-    private static void testFileEvents(final String[] args, final String outFilePath, final long expectedFileSize)
-        throws MessagingException, ApexException, IOException {
+    private static void testFileEvents(final String[] args)
+        throws ApexException, IOException {
         final ApexMain apexMain = new ApexMain(args);
 
-        final File outFile = new File(outFilePath);
+        final File outFile = new File("target/EventsOut.json");
 
         while (!outFile.exists()) {
             ThreadUtilities.sleep(500);
         }
 
         // Wait for the file to be filled
-        long outFileSize = 0;
+        long outFileSize;
         while (true) {
-            final String fileString = stripVariableLengthText(outFilePath);
+            final String fileString = stripVariableLengthText();
             outFileSize = fileString.length();
-            if (outFileSize > 0 && outFileSize >= expectedFileSize) {
+            if (outFileSize > 0 && outFileSize >= (long) 48656) {
                 break;
             }
             ThreadUtilities.sleep(500);
@@ -88,19 +84,19 @@ public class TestFile2FileIgnore {
         ThreadUtilities.sleep(100000000);
 
         apexMain.shutdown();
-        outFile.delete();
-        assertEquals(outFileSize, expectedFileSize);
+        assertTrue(outFile.delete());
+        assertEquals(48656, outFileSize);
     }
 
     /**
      * Strip variable length text from file string.
      *
-     * @param outFile the file to read and strip
      * @return the stripped string
      * @throws IOException on out file read exceptions
      */
-    private static String stripVariableLengthText(final String outFile) throws IOException {
-        return TextFileUtils.getTextFileAsString(outFile).replaceAll("\\s+", "").replaceAll(":\\d*\\.?\\d*,", ":0,")
+    private static String stripVariableLengthText() throws IOException {
+        return TextFileUtils.getTextFileAsString("target/EventsOut.json")
+            .replaceAll("\\s+", "").replaceAll(":\\d*\\.?\\d*,", ":0,")
             .replaceAll(":\\d*}", ":0}").replaceAll("<value>\\d*\\.?\\d*</value>", "<value>0</value>");
     }
 }
