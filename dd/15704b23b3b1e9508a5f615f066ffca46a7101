@@ -1,0 +1,8 @@
+Code-Review+2: Ramesh Murugan Iyer <ramesh.murugan.iyer@est.tech>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Ramesh Murugan Iyer <ramesh.murugan.iyer@est.tech>
+Submitted-at: Wed, 19 Jun 2024 07:51:17 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/138249
+Project: policy/apex-pdp
+Branch: refs/heads/master
