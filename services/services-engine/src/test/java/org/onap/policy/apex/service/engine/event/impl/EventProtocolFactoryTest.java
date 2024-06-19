@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,27 +20,27 @@
 package org.onap.policy.apex.service.engine.event.impl;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventProtocolConverter;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 import org.onap.policy.apex.service.engine.event.impl.apexprotocolplugin.ApexEventProtocolParameters;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 
-public class EventProtocolFactoryTest {
+class EventProtocolFactoryTest {
     private EventProtocolFactory factory;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         factory = new EventProtocolFactory();
     }
 
     @Test
-    public void createConsumerNoConsumerPlugin() {
+    void createConsumerNoConsumerPlugin() {
         final EventProtocolParameters parameters = new ApexEventProtocolParameters();
         parameters.setEventProtocolPluginClass("");
         final String name = RandomStringUtils.randomAlphabetic(9);
@@ -50,7 +50,7 @@ public class EventProtocolFactoryTest {
     }
 
     @Test
-    public void createConsumer2() {
+    void createConsumer2() {
         final EventProtocolParameters parameters = new ApexEventProtocolParameters();
         final String name = RandomStringUtils.randomAlphabetic(9);
         parameters.setEventProtocolPluginClass("java.lang.Object");
@@ -60,7 +60,7 @@ public class EventProtocolFactoryTest {
     }
 
     @Test
-    public void createConsumer() {
+    void createConsumer() {
         final EventProtocolParameters parameters = new JsonEventProtocolParameters();
         final String name = RandomStringUtils.randomAlphabetic(9);
 

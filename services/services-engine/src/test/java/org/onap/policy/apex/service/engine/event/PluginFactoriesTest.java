@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,10 @@
 
 package org.onap.policy.apex.service.engine.event;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Map.Entry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.impl.EventConsumerFactory;
 import org.onap.policy.apex.service.engine.event.impl.EventProducerFactory;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
@@ -35,13 +36,14 @@ import org.onap.policy.common.parameters.ParameterException;
 
 /**
  * Test Plugin Factories.
+ *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  * @author John Keeney (john.keeney@ericsson.com)
  */
-public class PluginFactoriesTest {
+class PluginFactoriesTest {
 
     @Test
-    public void testEventConsumerFactory() throws ApexEventException, ParameterException {
+    void testEventConsumerFactory() throws ApexEventException, ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/factoryGoodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -49,13 +51,13 @@ public class PluginFactoriesTest {
 
         for (final Entry<String, EventHandlerParameters> ce : parameters.getEventInputParameters().entrySet()) {
             final ApexEventConsumer consumer = new EventConsumerFactory().createConsumer(
-                    parameters.getEngineServiceParameters().getName() + "_consumer_" + ce.getKey(), ce.getValue());
+                parameters.getEngineServiceParameters().getName() + "_consumer_" + ce.getKey(), ce.getValue());
             assertNotNull(consumer);
         }
 
         for (final Entry<String, EventHandlerParameters> pe : parameters.getEventOutputParameters().entrySet()) {
             final ApexEventProducer producer = new EventProducerFactory().createProducer(
-                    parameters.getEngineServiceParameters().getName() + "_producer_" + pe.getKey(), pe.getValue());
+                parameters.getEngineServiceParameters().getName() + "_producer_" + pe.getKey(), pe.getValue());
             assertNotNull(producer);
         }
     }

@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,13 +21,13 @@
 package org.onap.policy.apex.service.engine.event.impl.enevent;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.List;
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
@@ -36,24 +36,24 @@ import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 
-public class ApexEvent2EnEventConverterTest {
+class ApexEvent2EnEventConverterTest {
     private ApexEvent2EnEventConverter converter;
     private final Random random = new Random();
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         converter = new ApexEvent2EnEventConverter(null);
     }
 
     @Test
-    public void toApexEventNull() {
+    void toApexEventNull() {
         final String eventName = RandomStringUtils.randomAlphabetic(3);
         assertThatThrownBy(() -> converter.toApexEvent(eventName, null))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void toApexEventWrongClass() throws ApexException {
+    void toApexEventWrongClass() throws ApexException {
         final String eventName = RandomStringUtils.randomAlphabetic(3);
         final String name = RandomStringUtils.randomAlphanumeric(5);
         final String version = RandomStringUtils.randomAlphanumeric(6);
@@ -69,7 +69,7 @@ public class ApexEvent2EnEventConverterTest {
     }
 
     @Test
-    public void toApex() throws ApexException {
+    void toApex() throws ApexException {
         // prepare String values for events
         final String name = RandomStringUtils.randomAlphabetic(5);
         final String version = RandomStringUtils.randomAlphabetic(6);

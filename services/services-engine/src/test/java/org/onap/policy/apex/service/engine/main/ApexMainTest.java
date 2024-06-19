@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -25,25 +25,25 @@ package org.onap.policy.apex.service.engine.main;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
 import org.onap.policy.common.parameters.ParameterService;
 
 /**
  * Test the ApexMain class.
  */
-public class ApexMainTest {
+class ApexMainTest {
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream stdout = System.out;
     private ApexMain apexMain1;
@@ -54,8 +54,8 @@ public class ApexMainTest {
      *
      * @throws Exception if an error occurs
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         System.setOut(new PrintStream(outContent));
     }
 
@@ -64,8 +64,8 @@ public class ApexMainTest {
      *
      * @throws Exception if an error occurs
      */
-    @After
-    public void teardown() throws Exception {
+    @AfterEach
+    void teardown() throws Exception {
         if (null != apexMain1) {
             apexMain1.shutdown();
         }
@@ -76,46 +76,46 @@ public class ApexMainTest {
     }
 
     @Test
-    public void testNullParameters() throws ApexException {
+    void testNullParameters() {
         ApexMain.main(null);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("Tosca Policy file was not specified as an argument"));
+            .contains("Tosca Policy file was not specified as an argument"));
         assertThat(outContent.toString())
             .contains("Tosca Policy file was not specified as an argument");
     }
 
     @Test
-    public void testBadArguments() throws ApexException {
-        String[] args = { "-whee" };
+    void testBadArguments() {
+        String[] args = {"-whee"};
 
         apexMain1 = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("invalid command line arguments specified"));
+            .contains("invalid command line arguments specified"));
         assertNotNull(apexMain1);
     }
 
     @Test
-    public void testHelp() throws ApexException {
-        String[] args = { "-h" };
+    void testHelp() {
+        String[] args = {"-h"};
 
         apexMain1 = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
+            .contains("usage: org.onap.policy.apex.service.engine.main.ApexMain [options...]"));
         assertNotNull(apexMain1);
     }
 
     @Test
-    public void testBadParameters() throws ApexException {
-        String[] args = { "-p", "src/test/resources/parameters/badParams.json" };
+    void testBadParameters() {
+        String[] args = {"-p", "src/test/resources/parameters/badParams.json"};
 
         apexMain1 = new ApexMain(args);
         await().atMost(200, TimeUnit.MILLISECONDS).until(() -> outContent.toString()
-                .contains("item has status INVALID"));
+            .contains("item has status INVALID"));
         assertNotNull(apexMain1);
     }
 
     @Test
-    public void testCorrectParameters() throws ApexException {
+    void testCorrectParameters() {
         String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
 
         apexMain1 = new ApexMain(args);
@@ -126,7 +126,7 @@ public class ApexMainTest {
     }
 
     @Test
-    public void testJavaProperties() throws ApexException {
+    void testJavaProperties() {
         String[] args = {"-p", "src/test/resources/parameters/correctParamsJavaProperties.json"};
 
         apexMain1 = new ApexMain(args);
@@ -139,7 +139,7 @@ public class ApexMainTest {
     }
 
     @Test
-    public void testCorrectParametersWithMultiplePolicies() throws ApexException {
+    void testCorrectParametersWithMultiplePolicies() {
         String[] args1 = {"-p", "src/test/resources/parameters/correctParams.json"};
         String[] args2 = {"-p", "src/test/resources/parameters/correctParams2.json"};
         apexMain1 = new ApexMain(args1);
@@ -156,7 +156,7 @@ public class ApexMainTest {
     }
 
     @Test
-    public void testInCorrectParametersWithMultiplePolicies() throws ApexException {
+    void testInCorrectParametersWithMultiplePolicies() {
         String[] args = {"-p", "src/test/resources/parameters/correctParams.json"};
         apexMain1 = new ApexMain(args);
         apexMain2 = new ApexMain(args);
@@ -168,7 +168,7 @@ public class ApexMainTest {
     }
 
     @Test
-    public void testInvalidArgsWithMultiplePolicies() throws ApexException {
+    void testInvalidArgsWithMultiplePolicies() {
         String[] args = {"-c", "file1", "-m", "file2"};
         apexMain1 = new ApexMain(args);
         assertFalse(apexMain1.isAlive());

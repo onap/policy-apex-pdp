@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2022, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,17 +24,18 @@
 package org.onap.policy.apex.service.engine.runtime.impl;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
 import org.onap.policy.apex.context.parameters.DistributorParameters;
@@ -59,7 +60,7 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
 /**
  * Test the engine service implementation.
  */
-public class EngineServiceImplTest {
+class EngineServiceImplTest {
 
     private static String simpleModelString;
     private static String differentModelString;
@@ -71,8 +72,8 @@ public class EngineServiceImplTest {
      * @throws IOException on model reading errors
      * @throws ApexModelException on model reading exceptions
      */
-    @BeforeClass
-    public static void readSimpleModel() throws IOException, ApexModelException {
+    @BeforeAll
+    static void readSimpleModel() throws IOException, ApexModelException {
         simpleModelString = TextFileUtils.getTextFileAsString("src/test/resources/policymodels/SmallModel.json");
 
         differentModelString =
@@ -85,8 +86,8 @@ public class EngineServiceImplTest {
     /**
      * Initialize default parameters.
      */
-    @BeforeClass
-    public static void initializeDefaultParameters() {
+    @BeforeAll
+    static void initializeDefaultParameters() {
         ParameterService.clear();
         final SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -110,30 +111,29 @@ public class EngineServiceImplTest {
 
         final EngineParameters engineParameters = new EngineParameters();
         engineParameters.setName(EngineParameterConstants.MAIN_GROUP_NAME);
+        ExecutorParameters jsExecutorParameters = getExecutorParameters("JAVASCRIPT");
+        engineParameters.getExecutorParameterMap().put("JAVASCRIPT", jsExecutorParameters);
+        getExecutorParameters("MVEL");
+        engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
+        ParameterService.register(engineParameters);
+    }
+
+    private static @NotNull ExecutorParameters getExecutorParameters(String lang) {
         ExecutorParameters jsExecutorParameters = new ExecutorParameters();
-        jsExecutorParameters.setName("JAVASCRIPT");
+        jsExecutorParameters.setName(lang);
         jsExecutorParameters
             .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
         jsExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
         jsExecutorParameters
             .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
-        engineParameters.getExecutorParameterMap().put("JAVASCRIPT", jsExecutorParameters);
-        ExecutorParameters mvvelExecutorParameters = new ExecutorParameters();
-        mvvelExecutorParameters.setName("MVEL");
-        mvvelExecutorParameters
-            .setTaskSelectionExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTse");
-        mvvelExecutorParameters.setTaskExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummyTe");
-        mvvelExecutorParameters
-            .setStateFinalizerExecutorPluginClass("org.onap.policy.apex.service.engine.runtime.impl.DummySfe");
-        engineParameters.getExecutorParameterMap().put("MVEL", jsExecutorParameters);
-        ParameterService.register(engineParameters);
+        return jsExecutorParameters;
     }
 
     /**
      * Teardown default parameters.
      */
-    @AfterClass
-    public static void teardownDefaultParameters() {
+    @AfterAll
+    static void teardownDefaultParameters() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         ParameterService.deregister(ContextParameterConstants.LOCKING_GROUP_NAME);
@@ -154,9 +154,9 @@ public class EngineServiceImplTest {
     }
 
     @Test
-    public void testEngineServiceImplSanity() throws ApexException {
+    void testEngineServiceImplSanity() throws ApexException {
         assertThatThrownBy(() -> EngineServiceImpl.create(null)).isInstanceOf(ApexException.class)
-            .hasMessage("engine service configuration parameters are null");
+            .hasMessage("Engine service configuration parameters are null");
 
         EngineServiceParameters invalidConfig = new EngineServiceParameters();
         invalidConfig.setInstanceCount(0);
@@ -212,7 +212,7 @@ public class EngineServiceImplTest {
     }
 
     @Test
-    public void testEngineServiceExceptions() throws ApexException {
+    void testEngineServiceExceptions() throws ApexException {
         EngineServiceParameters config = makeConfig();
         EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertThatThrownBy(() -> esImpl.start(null)).isInstanceOf(ApexException.class)
@@ -225,7 +225,7 @@ public class EngineServiceImplTest {
             .isInstanceOf(ApexException.class).hasMessage("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
                 + "engine has not been initialized, its model is not loaded");
 
-        assertThatThrownBy(() -> esImpl.startAll()).isInstanceOf(ApexException.class)
+        assertThatThrownBy(esImpl::startAll).isInstanceOf(ApexException.class)
             .hasMessage("start()<-Engine-0:0.0.1,STOPPED,  cannot start engine, "
                 + "engine has not been initialized, its model is not loaded");
 
@@ -244,13 +244,13 @@ public class EngineServiceImplTest {
         esImpl.startPeriodicEvents(100000);
 
         assertThatThrownBy(() -> esImpl.startPeriodicEvents(100000)).isInstanceOf(ApexException.class)
-            .hasMessage("Periodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
+            .hasMessage("Periodic event generation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
                 + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]");
 
         esImpl.stopPeriodicEvents();
 
-        assertThatThrownBy(() -> esImpl.stopPeriodicEvents()).isInstanceOf(ApexException.class)
-            .hasMessage("Periodic event geneation not running on engine Engine:0.0.1");
+        assertThatThrownBy(esImpl::stopPeriodicEvents).isInstanceOf(ApexException.class)
+            .hasMessage("Periodic event generation not running on engine Engine:0.0.1");
 
         assertThatThrownBy(() -> esImpl.clear(null)).isInstanceOf(ApexException.class)
             .hasMessage("engine key must be specified and may not be null");
@@ -296,7 +296,7 @@ public class EngineServiceImplTest {
     }
 
     @Test
-    public void testApexImplModelWIthModel() throws ApexException {
+    void testApexImplModelWIthModel() throws ApexException {
         EngineServiceParameters config = makeConfig();
         EngineServiceImpl esImpl = EngineServiceImpl.create(config);
         assertEquals("Engine:0.0.1", esImpl.getKey().getId());
@@ -387,6 +387,10 @@ public class EngineServiceImplTest {
             fail("test should not throw an exception");
         }
 
+        assertPeriodicEvents(esImpl);
+    }
+
+    private static void assertPeriodicEvents(EngineServiceImpl esImpl) throws ApexException {
         esImpl.startPeriodicEvents(100000);
         esImpl.stop();
         esImpl.startAll();
@@ -397,7 +401,7 @@ public class EngineServiceImplTest {
             esImpl.startPeriodicEvents(100000);
             fail("test should throw an exception");
         } catch (ApexException apEx) {
-            assertEquals("Periodic event geneation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
+            assertEquals("Periodic event generation already running on engine Engine:0.0.1, ApexPeriodicEventGenerator "
                     + "[period=100000, firstEventTime=0, lastEventTime=0, eventCount=0]", apEx.getMessage());
         }
 
@@ -406,7 +410,7 @@ public class EngineServiceImplTest {
             esImpl.stopPeriodicEvents();
             fail("test should throw an exception");
         } catch (ApexException apEx) {
-            assertEquals("Periodic event geneation not running on engine Engine:0.0.1", apEx.getMessage());
+            assertEquals("Periodic event generation not running on engine Engine:0.0.1", apEx.getMessage());
         }
 
         try {

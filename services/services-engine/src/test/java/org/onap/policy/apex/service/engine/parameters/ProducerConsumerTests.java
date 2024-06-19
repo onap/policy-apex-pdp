@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,10 +24,11 @@
 package org.onap.policy.apex.service.engine.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.FileCarrierTechnologyParameters;
 import org.onap.policy.apex.service.engine.main.ApexCommandLineArguments;
 import org.onap.policy.apex.service.parameters.ApexParameterHandler;
@@ -39,9 +40,9 @@ import org.onap.policy.common.parameters.ParameterException;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class ProducerConsumerTests {
+class ProducerConsumerTests {
     @Test
-    public void testGoodParametersTest() throws ParameterException {
+    void testGoodParametersTest() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/goodParams.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -71,7 +72,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testNoCarrierTechnology() {
+    void testNoCarrierTechnology() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsNoCT.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -79,12 +80,12 @@ public class ProducerConsumerTests {
             .hasMessageContaining("src/test/resources/parameters/prodConsNoCT.json")
             .hasMessageContaining("ApexParameters")
             .hasMessageContaining("eventInputParameters", "aConsumer", "EventHandlerParameters",
-                            "carrierTechnologyParameters")
+                "carrierTechnologyParameters")
             .hasMessageContaining("is null");
     }
 
     @Test
-    public void testNoEventProcol() {
+    void testNoEventProcol() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsNoEP.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -92,15 +93,15 @@ public class ProducerConsumerTests {
             .hasMessageContaining("src/test/resources/parameters/prodConsNoEP.json")
             .hasMessageContaining("ApexParameters")
             .hasMessageContaining("eventOutputParameters", "aProducer", "EventHandlerParameters",
-                            "eventProtocolParameters")
+                "eventProtocolParameters")
             .hasMessageContaining("eventInputParameters", "aConsumer", "EventHandlerParameters",
-                            "FileCarrierTechnologyParameters", "fileName")
+                "FileCarrierTechnologyParameters", "fileName")
             .hasMessageContaining("is null")
             .hasMessageContaining("is blank");
     }
 
     @Test
-    public void testNoCarrierTechnologyParClass() {
+    void testNoCarrierTechnologyParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsNoCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -111,7 +112,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testMismatchCarrierTechnologyParClass() {
+    void testMismatchCarrierTechnologyParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsMismatchCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -124,14 +125,16 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testWrongTypeCarrierTechnologyParClass() {
+    void testWrongTypeCarrierTechnologyParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsWrongTypeCTParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
-            "error reading parameters from " + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n"
-                + "(ParameterRuntimeException):could not create default parameters for carrier technology "
-                + "\"SUPER_DOOPER\"\n" + "class org.onap.policy.apex.service.engine.parameters.dummyclasses."
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining(
+            "error reading parameters from " + "\"src/test/resources/parameters/prodConsWrongTypeCTParClass.json\"\n")
+            .hasMessageContaining("(ParameterRuntimeException):could not create default parameters for "
+                + "carrier technology \"SUPER_DOOPER\"\n"
+                + "class org.onap.policy.apex.service.engine.parameters.dummyclasses."
                 + "SuperTokenDelimitedEventProtocolParameters cannot be cast to class "
                 + "org.onap.policy.apex.service.parameters.carriertechnology.CarrierTechnologyParameters (org.onap."
                 + "policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters "
@@ -140,7 +143,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testOkFileNameCarrierTechnology() throws ParameterException {
+    void testOkFileNameCarrierTechnology() throws ParameterException {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsOKFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -148,14 +151,14 @@ public class ProducerConsumerTests {
         final FileCarrierTechnologyParameters fileParams = (FileCarrierTechnologyParameters) parameters
             .getEventOutputParameters().get("aProducer").getCarrierTechnologyParameters();
         assertTrue(fileParams.getFileName().endsWith("target/aaa.json"));
-        assertEquals(false, fileParams.isStandardError());
-        assertEquals(false, fileParams.isStandardIo());
-        assertEquals(false, fileParams.isStreamingMode());
+        assertFalse(fileParams.isStandardError());
+        assertFalse(fileParams.isStandardIo());
+        assertFalse(fileParams.isStreamingMode());
 
     }
 
     @Test
-    public void testBadFileNameCarrierTechnology() {
+    void testBadFileNameCarrierTechnology() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsBadFileName.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -163,12 +166,12 @@ public class ProducerConsumerTests {
             .hasMessageContaining("src/test/resources/parameters/prodConsBadFileName.json")
             .hasMessageContaining("ApexParameters")
             .hasMessageContaining("eventOutputParameters", "aProducer", "EventHandlerParameters",
-                            "FileCarrierTechnologyParameters", "fileName")
+                "FileCarrierTechnologyParameters", "fileName")
             .hasMessageContaining("is blank");
     }
 
     @Test
-    public void testBadEventProtocolParClass() {
+    void testBadEventProtocolParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsBadEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -181,7 +184,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testNoEventProtocolParClass() {
+    void testNoEventProtocolParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsNoEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -192,7 +195,7 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testMismatchEventProtocolParClass() {
+    void testMismatchEventProtocolParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsMismatchEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
@@ -206,17 +209,19 @@ public class ProducerConsumerTests {
     }
 
     @Test
-    public void testWrongTypeEventProtocolParClass() {
+    void testWrongTypeEventProtocolParClass() {
         final String[] args = {"-p", "src/test/resources/parameters/prodConsWrongTypeEPParClass.json"};
         final ApexCommandLineArguments arguments = new ApexCommandLineArguments(args);
 
-        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments)).hasMessage(
-            "error reading parameters from " + "\"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n"
-                + "(ParameterRuntimeException):could not create default parameters for event protocol "
-                + "\"SUPER_TOK_DEL\"\n" + "class org.onap.policy.apex.service.engine."
+        assertThatThrownBy(() -> new ApexParameterHandler().getParameters(arguments))
+            .hasMessageContaining("error reading parameters from "
+                + "\"src/test/resources/parameters/prodConsWrongTypeEPParClass.json\"\n")
+            .hasMessageContaining("(ParameterRuntimeException):could not create default parameters for event protocol "
+                + "\"SUPER_TOK_DEL\"\nclass org.onap.policy.apex.service.engine."
                 + "parameters.dummyclasses.SuperDooperCarrierTechnologyParameters "
                 + "cannot be cast to class org.onap.policy.apex.service."
-                + "parameters.eventprotocol.EventProtocolParameters (org.onap.policy.apex.service.engine.parameters"
+                + "parameters.eventprotocol.EventProtocolParameters ")
+            .hasMessageContaining("org.onap.policy.apex.service.engine.parameters"
                 + ".dummyclasses.SuperDooperCarrierTechnologyParameters and org.onap.policy.apex.service.parameters"
                 + ".eventprotocol.EventProtocolParameters are in unnamed module of loader 'app')");
     }

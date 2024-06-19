@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020,2022-2023 Nordix Foundation.
+ *  Modifications Copyright (C) 2020, 2022-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,15 +22,15 @@
 package org.onap.policy.apex.service.engine.event;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -52,19 +52,19 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
-public class JsonEventHandlerForPojoTest {
+class JsonEventHandlerForPojoTest {
     private static final XLogger logger = XLoggerFactory.getXLogger(JsonEventHandlerForPojoTest.class);
 
     /**
      * Setup event model.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws IOException        Signals that an I/O exception has occurred.
      * @throws ApexModelException the apex model exception
      */
-    @BeforeClass
-    public static void setupEventModel() throws IOException, ApexModelException {
+    @BeforeAll
+    static void setupEventModel() throws IOException, ApexModelException {
         final String policyModelString =
-                TextFileUtils.getTextFileAsString("src/test/resources/policymodels/PojoEventModel.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/policymodels/PojoEventModel.json");
         final ApexModelReader<AxPolicyModel> modelReader = new ApexModelReader<AxPolicyModel>(AxPolicyModel.class);
         modelReader.setValidate(false);
         final AxPolicyModel apexPolicyModel = modelReader.read(new ByteArrayInputStream(policyModelString.getBytes()));
@@ -76,8 +76,8 @@ public class JsonEventHandlerForPojoTest {
     /**
      * Initialize default schema parameters.
      */
-    @BeforeClass
-    public static void initializeDefaultSchemaParameters() {
+    @BeforeAll
+    static void initializeDefaultSchemaParameters() {
         ParameterService.clear();
         final SchemaParameters schemaParameters = new SchemaParameters();
         schemaParameters.setName(ContextParameterConstants.SCHEMA_GROUP_NAME);
@@ -87,8 +87,8 @@ public class JsonEventHandlerForPojoTest {
     /**
      * Teardown default schema parameters.
      */
-    @AfterClass
-    public static void teardownDefaultSchemaParameters() {
+    @AfterAll
+    static void teardownDefaultSchemaParameters() {
         ParameterService.deregister(ContextParameterConstants.SCHEMA_GROUP_NAME);
         ModelService.clear();
     }
@@ -97,10 +97,10 @@ public class JsonEventHandlerForPojoTest {
      * Test POJO to apex event and back.
      *
      * @throws ApexException the apex exception
-     * @throws IOException on IO exceptions
+     * @throws IOException   on IO exceptions
      */
     @Test
-    public void testJsonPojoToApexEvent() throws ApexException, IOException {
+    void testJsonPojoToApexEvent() throws ApexException, IOException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
         assertNotNull(jsonEventConverter);
 
@@ -109,7 +109,7 @@ public class JsonEventHandlerForPojoTest {
         jsonEventConverter.init(pars);
 
         final String apexEventJsonStringIn =
-                TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 
@@ -148,10 +148,10 @@ public class JsonEventHandlerForPojoTest {
      * Test POJO List to apex event and back.
      *
      * @throws ApexException the apex exception
-     * @throws IOException on IO exceptions
+     * @throws IOException   on IO exceptions
      */
     @Test
-    public void testJsonPojoListToApexEvent() throws ApexException, IOException {
+    void testJsonPojoListToApexEvent() throws ApexException, IOException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
         assertNotNull(jsonEventConverter);
 
@@ -160,7 +160,7 @@ public class JsonEventHandlerForPojoTest {
         jsonEventConverter.init(pars);
 
         final String apexEventJsonStringIn =
-                TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoListEvent.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoListEvent.json");
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 
@@ -200,11 +200,11 @@ public class JsonEventHandlerForPojoTest {
      * Test POJO event with bad configurations.
      *
      * @throws ApexException the apex exception
-     * @throws IOException on IO exceptions
+     * @throws IOException   on IO exceptions
      */
     @SuppressWarnings("deprecation")
     @Test
-    public void testJsonBadPojoApexEvent() throws ApexException, IOException {
+    void testJsonBadPojoApexEvent() throws ApexException, IOException {
         final Apex2JsonEventConverter jsonEventConverter = new Apex2JsonEventConverter();
         assertNotNull(jsonEventConverter);
 
@@ -213,7 +213,7 @@ public class JsonEventHandlerForPojoTest {
         jsonEventConverter.init(pars);
 
         final String apexEventJsonStringIn =
-                TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
+            TextFileUtils.getTextFileAsString("src/test/resources/events/TestPojoEvent.json");
 
         logger.debug("input event\n" + apexEventJsonStringIn);
 

@@ -1,8 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
-
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +22,15 @@
 package org.onap.policy.apex.services.onappf;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
@@ -44,7 +43,7 @@ import org.onap.policy.models.pdp.concepts.PdpStatus;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestApexStarterActivator {
+class TestApexStarterActivator {
 
     private ApexStarterActivator activator;
 
@@ -53,12 +52,12 @@ public class TestApexStarterActivator {
      *
      * @throws Exception if an error occurs
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         Registry.newRegistry();
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
+        final String[] apexStarterConfigParameters = {"-c", "src/test/resources/ApexStarterConfigParametersNoop.json"};
         final ApexStarterCommandLineArguments arguments =
-                new ApexStarterCommandLineArguments(apexStarterConfigParameters);
+            new ApexStarterCommandLineArguments(apexStarterConfigParameters);
         final ApexStarterParameterGroup parGroup = new ApexStarterParameterHandler().getParameters(arguments);
         activator = new ApexStarterActivator(parGroup);
     }
@@ -68,15 +67,15 @@ public class TestApexStarterActivator {
      *
      * @throws Exception if an error occurs
      */
-    @After
-    public void teardown() throws Exception {
+    @AfterEach
+    void teardown() throws Exception {
         if (activator != null && activator.isAlive()) {
             activator.terminate();
         }
     }
 
     @Test
-    public void testApexStarterActivator() throws ApexStarterException {
+    void testApexStarterActivator() throws ApexStarterException {
         assertFalse(activator.isAlive());
         activator.initialize();
         assertTrue(activator.isAlive());
@@ -93,7 +92,7 @@ public class TestApexStarterActivator {
     }
 
     @Test
-    public void testTerminate() throws Exception {
+    void testTerminate() throws Exception {
         activator.initialize();
         activator.terminate();
         assertFalse(activator.isAlive());

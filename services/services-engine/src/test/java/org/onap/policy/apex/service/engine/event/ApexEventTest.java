@@ -1,6 +1,6 @@
 /*
  *  ============LICENSE_START=======================================================
- *  Copyright (C) 2021. Nordix Foundation.
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  *  ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,10 +28,10 @@ import java.util.Properties;
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class ApexEventTest {
+class ApexEventTest {
     private final Random random = new Random();
     private ApexEvent apexEvent;
 
@@ -40,63 +40,63 @@ public class ApexEventTest {
      *
      * @throws Exception when object is created
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         apexEvent =
             new ApexEvent("name", "version", "namespace", "source", "target", "");
 
     }
 
     @Test
-    public void invalidEventName() {
+    void invalidEventName() {
         final String name = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent(name, "version", "namespace", "source", "target", ""))
+                apexEvent = new ApexEvent(name, "version", "namespace", "source", "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void invalidEventVersion() {
+    void invalidEventVersion() {
         final String version = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", version, "namespace", "source", "target", ""))
+                apexEvent = new ApexEvent("name", version, "namespace", "source", "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void invalidEventNamespace() {
+    void invalidEventNamespace() {
         final String namespace = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", "version", namespace, "source", "target", ""))
+                apexEvent = new ApexEvent("name", "version", namespace, "source", "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void invalidEventSource() {
+    void invalidEventSource() {
         final String source = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", "version", "namespace", source, "target", ""))
+                apexEvent = new ApexEvent("name", "version", "namespace", source, "target", ""))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void invalidEventTarget() {
+    void invalidEventTarget() {
         final String target = "++" + RandomStringUtils.randomAlphabetic(5);
         Assertions.assertThatCode(() ->
-            apexEvent = new ApexEvent("name", "version", "namespace", "source", target, ""))
+                apexEvent = new ApexEvent("name", "version", "namespace", "source", target, ""))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void invalidEventStatus() {
+    void invalidEventStatus() {
         final String toscaPolicyState = "INVALID_STATUS";
         Assertions.assertThatCode(() ->
-                        apexEvent = new ApexEvent("name", "version", "namespace", "source", "target", toscaPolicyState))
-                .isInstanceOf(ApexEventException.class);
+                apexEvent = new ApexEvent("name", "version", "namespace", "source", "target", toscaPolicyState))
+            .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void setExecutionId() {
+    void setExecutionId() {
         final int executionId = random.nextInt();
         apexEvent.setExecutionId(executionId);
         final long actual = apexEvent.getExecutionId();
@@ -104,7 +104,7 @@ public class ApexEventTest {
     }
 
     @Test
-    public void setExecutionProperties() {
+    void setExecutionProperties() {
         final Properties properties = new Properties();
         apexEvent.setExecutionProperties(properties);
         final Properties actual = apexEvent.getExecutionProperties();
@@ -112,7 +112,7 @@ public class ApexEventTest {
     }
 
     @Test
-    public void setExceptionMessage() {
+    void setExceptionMessage() {
         final String message = RandomStringUtils.randomAlphabetic(25);
         apexEvent.setExceptionMessage(message);
         final String actual = apexEvent.getExceptionMessage();
@@ -120,7 +120,7 @@ public class ApexEventTest {
     }
 
     @Test
-    public void put() {
+    void put() {
         final String key = RandomStringUtils.randomAlphabetic(5);
         final Object event = new Object();
         apexEvent.put(key, event);
@@ -129,7 +129,7 @@ public class ApexEventTest {
     }
 
     @Test
-    public void put2() {
+    void put2() {
         final String key = "_#+@" + RandomStringUtils.randomAlphabetic(5);
         final Object event = new Object();
         apexEvent.put(key, event);
@@ -138,7 +138,7 @@ public class ApexEventTest {
     }
 
     @Test
-    public void putAll() {
+    void putAll() {
         final String key1 = RandomStringUtils.randomAlphabetic(5);
         final String key2 = RandomStringUtils.randomAlphabetic(6);
         final Object event1 = new Object();
@@ -152,7 +152,7 @@ public class ApexEventTest {
     }
 
     @Test
-    public void putAllOneInvalidKey() {
+    void putAllOneInvalidKey() {
         final String key1 = RandomStringUtils.randomAlphabetic(5);
         final String key2 = "_#+@" + RandomStringUtils.randomAlphabetic(6);
         final String key3 = RandomStringUtils.randomAlphabetic(7);

@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@
 package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.PeeredReference;
 import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer.ApexFileEventConsumer;
@@ -32,16 +32,16 @@ import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.producer
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-public class EventRequestorConsumerTest {
+class EventRequestorConsumerTest {
     private EventRequestorConsumer consumer;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         consumer = new EventRequestorConsumer();
     }
 
     @Test
-    public void initNoCarrierTechnologyParameters() {
+    void initNoCarrierTechnologyParameters() {
         final String consumerName = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters eventHandlerParameters = new EventHandlerParameters();
 
@@ -50,7 +50,7 @@ public class EventRequestorConsumerTest {
     }
 
     @Test
-    public void initNoPeered() {
+    void initNoPeered() {
         final String consumerName = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters eventHandlerParameters = new EventHandlerParameters();
         eventHandlerParameters.setCarrierTechnologyParameters(new EventRequestorCarrierTechnologyParameters());
@@ -60,7 +60,7 @@ public class EventRequestorConsumerTest {
     }
 
     @Test
-    public void getName() throws ApexEventException {
+    void getName() throws ApexEventException {
         final String consumerName = RandomStringUtils.randomAlphabetic(6);
         final EventHandlerParameters eventHandlerParameters = new EventHandlerParameters();
         eventHandlerParameters.setCarrierTechnologyParameters(new EventRequestorCarrierTechnologyParameters());
@@ -73,7 +73,7 @@ public class EventRequestorConsumerTest {
     }
 
     @Test
-    public void getSetPeeeredReference() {
+    void getSetPeeeredReference() {
         final PeeredReference peeredReference =
             new PeeredReference(EventHandlerPeeredMode.REQUESTOR, new ApexFileEventConsumer(),
                 new ApexFileEventProducer());

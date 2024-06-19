@@ -86,7 +86,7 @@ public class CommonTestData {
      * Converts the contents of a map to a parameter class.
      *
      * @param source property map
-     * @param clazz class of object to be created from the map
+     * @param clazz  class of object to be created from the map
      * @return a new object represented by the map
      */
     public <T extends ParameterGroup> T toObject(final Map<String, Object> source, final Class<T> clazz) {
@@ -102,7 +102,6 @@ public class CommonTestData {
      * Returns a property map for a ApexStarterParameterGroup map for test cases.
      *
      * @param name name of the parameters
-     *
      * @return a property map suitable for constructing an object
      */
     public Map<String, Object> getApexStarterParameterGroupMap(final String name) {

@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,17 +21,17 @@
 package org.onap.policy.apex.service.engine.event.impl.eventrequestor;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Random;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventProducer;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
@@ -41,8 +41,9 @@ import org.onap.policy.apex.service.engine.event.impl.filecarrierplugin.consumer
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
 
-@RunWith(MockitoJUnitRunner.class)
-public class EventRequestorProducerTest {
+@ExtendWith(MockitoExtension.class)
+class EventRequestorProducerTest {
+
     private final Random random = new Random();
     private EventRequestorProducer producer;
 
@@ -51,13 +52,13 @@ public class EventRequestorProducerTest {
     @Mock
     private EventRequestorConsumer apexConsumer;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         producer = new EventRequestorProducer();
     }
 
     @Test
-    public void initWithEmptyParams() {
+    void initWithEmptyParams() {
         final String producerName = RandomStringUtils.random(4);
         final EventHandlerParameters eventHandlerParameters = new EventHandlerParameters();
 
@@ -66,7 +67,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void initNotPeered() {
+    void initNotPeered() {
         final String producerName = RandomStringUtils.random(4);
         final EventHandlerParameters eventHandlerParameters = new EventHandlerParameters();
         eventHandlerParameters.setCarrierTechnologyParameters(new EventRequestorCarrierTechnologyParameters());
@@ -76,7 +77,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void getName() throws ApexEventException {
+    void getName() throws ApexEventException {
         final String expected = RandomStringUtils.random(4);
         final EventHandlerParameters eventHandlerParameters = new EventHandlerParameters();
         eventHandlerParameters.setCarrierTechnologyParameters(new EventRequestorCarrierTechnologyParameters());
@@ -89,7 +90,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void getSetPeeredReference() {
+    void getSetPeeredReference() {
         final PeeredReference peeredReference = new PeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, apexConsumer,
             apexProducer);
         producer.setPeeredReference(EventHandlerPeeredMode.SYNCHRONOUS, peeredReference);
@@ -99,7 +100,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void sendEventNoRequestor() {
+    void sendEventNoRequestor() {
         final int id = random.nextInt(1000);
 
         assertThatThrownBy(() -> producer.sendEvent(id, null, null, null))
@@ -107,7 +108,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void sendEventNoEventRequestorConsumer() {
+    void sendEventNoEventRequestorConsumer() {
         final int id = random.nextInt(1000);
 
         final ApexFileEventConsumer fileEventConsumer = Mockito.mock(ApexFileEventConsumer.class);
@@ -122,7 +123,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void sendEvent() {
+    void sendEvent() {
         final int id = random.nextInt(1000);
 
         final PeeredReference reference =
@@ -134,7 +135,7 @@ public class EventRequestorProducerTest {
     }
 
     @Test
-    public void sendEventCached() {
+    void sendEventCached() {
         final int id = random.nextInt(1000);
 
         // Set event cache

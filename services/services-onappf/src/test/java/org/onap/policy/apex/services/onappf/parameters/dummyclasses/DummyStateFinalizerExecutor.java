@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,9 +24,7 @@ package org.onap.policy.apex.services.onappf.parameters.dummyclasses;
 
 import java.util.Map;
 import java.util.Properties;
-import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.executor.StateFinalizerExecutor;
-import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 
 /**
  * Dummy state finalizer executor for testing.
@@ -35,7 +33,7 @@ public class DummyStateFinalizerExecutor extends StateFinalizerExecutor {
 
     @Override
     public String execute(final long executionId, final Properties executorProperties,
-            final Map<String, Object> newIncomingFields) throws StateMachineException, ContextException {
+                          final Map<String, Object> newIncomingFields) {
 
         return "stateOutput0";
     }

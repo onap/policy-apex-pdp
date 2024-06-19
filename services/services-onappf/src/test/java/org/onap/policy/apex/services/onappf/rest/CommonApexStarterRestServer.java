@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019,2023 Nordix Foundation.
+ *  Copyright (C) 2019, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,9 @@
 
 package org.onap.policy.apex.services.onappf.rest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -39,10 +40,10 @@ import java.util.function.Function;
 import javax.net.ssl.SSLContext;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.ApexStarterMain;
@@ -59,7 +60,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
- * Class to perform unit test of {@link ApexStarterRestServer}.
+ * Class to perform unit test to check REST endpoints.
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
@@ -67,9 +68,8 @@ public class CommonApexStarterRestServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonApexStarterRestServer.class);
 
-    private static Coder coder = new StandardCoder();
+    private static final Coder coder = new StandardCoder();
 
-    public static final String NOT_ALIVE = "not alive";
     public static final String ALIVE = "alive";
     public static final String SELF = "self";
     public static final String ENDPOINT_PREFIX = "policy/apex-pdp/v1/";
@@ -86,7 +86,7 @@ public class CommonApexStarterRestServer {
      *
      * @throws Exception if an error occurs
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         port = NetworkUtil.allocPort();
 
@@ -100,7 +100,7 @@ public class CommonApexStarterRestServer {
     /**
      * Stops Main.
      */
-    @AfterClass
+    @AfterAll
     public static void teardownAfterClass() {
         try {
             stopMain();
@@ -115,7 +115,7 @@ public class CommonApexStarterRestServer {
      *
      * @throws Exception if an error occurs
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         // restart, if not currently running
         if (main == null) {
@@ -123,13 +123,13 @@ public class CommonApexStarterRestServer {
         }
 
         activatorWasAlive =
-                Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class).isAlive();
+            Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class).isAlive();
     }
 
     /**
      * Restores the activator's "alive" state.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         markActivator(activatorWasAlive);
     }
@@ -154,10 +154,10 @@ public class CommonApexStarterRestServer {
      */
     private static void makeConfigFile() throws Exception {
         final Map<String, Object> config =
-                new CommonTestData().getApexStarterParameterGroupMap("ApexStarterParameterGroup");
+            new CommonTestData().getApexStarterParameterGroupMap("ApexStarterParameterGroup");
 
-        @SuppressWarnings("unchecked")
-        final Map<String, Object> restParams = (Map<String, Object>) config.get("restServerParameters");
+        @SuppressWarnings("unchecked") final Map<String, Object> restParams =
+            (Map<String, Object>) config.get("restServerParameters");
         restParams.put("port", port);
 
         final File file = new File("src/test/resources/TestConfigParams.json");
@@ -184,7 +184,7 @@ public class CommonApexStarterRestServer {
         systemProps.put("javax.net.ssl.keyStorePassword", SelfSignedKeyStore.KEYSTORE_PASSWORD);
         System.setProperties(systemProps);
 
-        final String[] apexStarterConfigParameters = { "-c", "src/test/resources/TestConfigParams.json" };
+        final String[] apexStarterConfigParameters = {"-c", "src/test/resources/TestConfigParams.json"};
 
         main = new ApexStarterMain(apexStarterConfigParameters);
 
@@ -196,7 +196,7 @@ public class CommonApexStarterRestServer {
     /**
      * Stops the "Main".
      *
-     * @throws Exception if an error occurs
+     * @throws ApexStarterException if an error occurs
      */
     private static void stopMain() throws ApexStarterException {
         if (main != null) {
@@ -209,8 +209,10 @@ public class CommonApexStarterRestServer {
 
     private void markActivator(final boolean wasAlive) {
         final Object manager = ReflectionTestUtils.getField(
-                Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class), "manager");
+            Registry.get(ApexStarterConstants.REG_APEX_STARTER_ACTIVATOR, ApexStarterActivator.class), "manager");
+        assertNotNull(manager);
         AtomicBoolean running = (AtomicBoolean) ReflectionTestUtils.getField(manager, "running");
+        assertNotNull(running);
         running.set(wasAlive);
     }
 
@@ -218,13 +220,13 @@ public class CommonApexStarterRestServer {
      * Verifies that unauthorized requests fail.
      *
      * @param endpoint the target end point
-     * @param sender function that sends the requests to the target
+     * @param sender   function that sends the requests to the target
      * @throws Exception if an error occurs
      */
-    protected void checkUnauthRequest(final String endpoint, final Function<Invocation.Builder, Response> sender)
-            throws Exception {
+    protected void checkUnauthorizedRequest(final String endpoint, final Function<Invocation.Builder, Response> sender)
+        throws Exception {
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(),
-                sender.apply(sendNoAuthRequest(endpoint)).getStatus());
+            sender.apply(sendNoAuthRequest(endpoint)).getStatus());
     }
 
     /**
@@ -253,16 +255,16 @@ public class CommonApexStarterRestServer {
      * Sends a request to a fully qualified endpoint.
      *
      * @param fullyQualifiedEndpoint the fully qualified target endpoint
-     * @param includeAuth if authorization header should be included
+     * @param includeAuth            if authorization header should be included
      * @return a request builder
      * @throws Exception if an error occurs
      */
     protected Invocation.Builder sendFqeRequest(final String fullyQualifiedEndpoint, final boolean includeAuth)
-            throws Exception {
+        throws Exception {
         final SSLContext sc = SSLContext.getInstance("TLSv1.2");
         sc.init(null, NetworkUtil.getAlwaysTrustingManager(), new SecureRandom());
         final ClientBuilder clientBuilder =
-                ClientBuilder.newBuilder().sslContext(sc).hostnameVerifier((host, session) -> true);
+            ClientBuilder.newBuilder().sslContext(sc).hostnameVerifier((host, session) -> true);
         final Client client = clientBuilder.build();
 
         client.property(ClientProperties.METAINF_SERVICES_LOOKUP_DISABLE, "true");

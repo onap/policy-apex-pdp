@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +23,8 @@
 package org.onap.policy.apex.services.onappf.parameters.dummyclasses;
 
 import java.util.Properties;
-import org.onap.policy.apex.context.ContextException;
 import org.onap.policy.apex.core.engine.event.EnEvent;
 import org.onap.policy.apex.core.engine.executor.TaskSelectExecutor;
-import org.onap.policy.apex.core.engine.executor.exception.StateMachineException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 
 /**
@@ -35,19 +33,19 @@ import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 public class DummyTaskSelectExecutor extends TaskSelectExecutor {
 
     @Override
-    public void prepare() throws StateMachineException {
+    public void prepare() {
         // Not used
     }
 
     @Override
     public AxArtifactKey execute(final long executionId, final Properties executorProperties,
-            final EnEvent newIncomingEvent) throws StateMachineException, ContextException {
+                                 final EnEvent newIncomingEvent) {
 
         return new AxArtifactKey("task:0.0.1");
     }
 
     @Override
-    public void cleanUp() throws StateMachineException {
+    public void cleanUp() {
         // Not used
     }
 }

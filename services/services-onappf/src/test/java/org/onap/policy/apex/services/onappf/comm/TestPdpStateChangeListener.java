@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -23,20 +23,19 @@
 package org.onap.policy.apex.services.onappf.comm;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterActivator;
 import org.onap.policy.apex.services.onappf.ApexStarterCommandLineArguments;
@@ -60,25 +59,23 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
  *
  * @author Ajith Sreekumar (ajith.sreekumar@est.tech)
  */
-public class TestPdpStateChangeListener {
+class TestPdpStateChangeListener {
     private PdpUpdateListener pdpUpdateMessageListener;
     private PdpStateChangeListener pdpStateChangeListener;
     private static final CommInfrastructure INFRA = CommInfrastructure.NOOP;
     private static final String TOPIC = "my-topic";
     private ApexStarterActivator activator;
     private ApexEngineHandler apexEngineHandler;
-    private PrintStream stdout = System.out;
+    private final PrintStream stdout = System.out;
 
     /**
      * Method for setup before each test.
      *
      * @throws ApexStarterException if some error occurs while starting up the apex starter
-     * @throws FileNotFoundException if the file is missing
-     * @throws IOException if IO exception occurs
      * @throws CommandLineException if any parsing of args has errors
      */
-    @Before
-    public void setUp() throws ApexStarterException, FileNotFoundException, IOException, CommandLineException {
+    @BeforeEach
+    void setUp() throws ApexStarterException, CommandLineException {
         pdpUpdateMessageListener = new PdpUpdateListener();
         pdpStateChangeListener = new PdpStateChangeListener();
         Registry.newRegistry();
@@ -108,8 +105,8 @@ public class TestPdpStateChangeListener {
      *
      * @throws Exception if an error occurs
      */
-    @After
-    public void teardown() throws Exception {
+    @AfterEach
+    void teardown() throws Exception {
         System.setOut(stdout);
         apexEngineHandler =
             Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
@@ -123,7 +120,7 @@ public class TestPdpStateChangeListener {
     }
 
     @Test
-    public void testPdpStateChangeMessageListener_passivetopassive() {
+    void testPdpStateChangeMessageListener_passiveToPassive() {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
             TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<>(),
@@ -136,7 +133,7 @@ public class TestPdpStateChangeListener {
     }
 
     @Test
-    public void testPdpStateChangeMessageListener_activetoactive() {
+    void testPdpStateChangeMessageListener_activeToActive() {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null,
             TestListenerUtils.createPdpUpdateMsg(pdpStatus, new ArrayList<>(),
@@ -150,7 +147,7 @@ public class TestPdpStateChangeListener {
     }
 
     @Test
-    public void testPdpStateChangeMessageListener() throws InterruptedException, CoderException {
+    void testPdpStateChangeMessageListener() throws CoderException {
         OutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
@@ -180,11 +177,11 @@ public class TestPdpStateChangeListener {
         apexEngineHandler =
                 Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
         assertNotNull(apexEngineHandler);
-        assertTrue(apexEngineHandler.getEngineStats().size() > 0);
+        assertFalse(apexEngineHandler.getEngineStats().isEmpty());
     }
 
     @Test
-    public void testPdpStateChangeMessageListener_activetopassive() throws InterruptedException, CoderException {
+    void testPdpStateChangeMessageListener_activeToPassive() throws CoderException {
         final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
         final ToscaPolicy toscaPolicy =
             TestListenerUtils.createToscaPolicy("apex_policy_name", "1.0", "src/test/resources/dummyProperties.json");

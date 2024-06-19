@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -66,7 +66,7 @@ public class PdpUpdateMessageHandler {
         if (pdpUpdateMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
                 pdpStatusContext.getPdpSubgroup())) {
             if (checkIfAlreadyHandled(pdpUpdateMsg, pdpStatusContext)) {
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.SUCCESS, "Pdp already updated");
             } else {
                 pdpResponseDetails = handlePdpUpdate(pdpUpdateMsg, pdpMessageHandler, pdpStatusContext);
@@ -128,7 +128,7 @@ public class PdpUpdateMessageHandler {
             }
         }
         if (null == pdpResponseDetails) {
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.SUCCESS, "Pdp update successful.");
         }
         return pdpResponseDetails;
@@ -170,11 +170,11 @@ public class PdpUpdateMessageHandler {
             try {
                 apexEngineHandler.shutdown();
                 runningPolicies = apexEngineHandler.getRunningPolicies();
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.SUCCESS, "Pdp update successful. No policies are running.");
             } catch (final ApexStarterException e) {
                 LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                         PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
             }
             updateDeploymentCounts(runningPolicies, pdpUpdateMsg);
@@ -200,12 +200,12 @@ public class PdpUpdateMessageHandler {
                     populateResponseForEngineInitiation(pdpUpdateMsg, pdpMessageHandler, apexEngineHandler);
                 runningPolicies = apexEngineHandler.getRunningPolicies();
             } else {
-                pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+                pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine failed to start.");
             }
         } catch (final ApexStarterException e) {
             LOGGER.error("Apex engine service running failed. ", e);
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                     PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
         updateDeploymentCounts(runningPolicies, pdpUpdateMsg);
@@ -234,7 +234,7 @@ public class PdpUpdateMessageHandler {
                     message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
                 }
             }
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                 PdpResponseStatus.SUCCESS, message.toString());
         } else {
             var message =
@@ -243,7 +243,7 @@ public class PdpUpdateMessageHandler {
                 message.append(policy.getName()).append(":").append(policy.getVersion()).append("  ");
             }
             message.append(". Other policies failed execution. Please see the logs for more details.");
-            pdpResponseDetails = pdpMessageHandler.createPdpResonseDetails(pdpUpdateMsg.getRequestId(),
+            pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
                 PdpResponseStatus.SUCCESS, message.toString());
         }
         return pdpResponseDetails;

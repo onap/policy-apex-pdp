@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,55 +23,55 @@ package org.onap.policy.apex.service.engine.event.impl.apexprotocolplugin;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.onap.policy.apex.service.engine.event.ApexEvent;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.ApexEventList;
 import org.onap.policy.apex.service.engine.event.ApexEventRuntimeException;
 
-public class Apex2ApexEventConverterTest {
+class Apex2ApexEventConverterTest {
     private Apex2ApexEventConverter converter;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         converter = new Apex2ApexEventConverter();
     }
 
     @Test
-    public void initWithNull() {
+    void initWithNull() {
         assertThatThrownBy(() -> converter.init(null))
             .isInstanceOf(ApexEventRuntimeException.class);
     }
 
     @Test
-    public void init() {
+    void init() {
         assertThatNoException()
             .isThrownBy(() -> converter.init(new ApexEventProtocolParameters()));
     }
 
     @Test
-    public void toApexEventWithNull() {
+    void toApexEventWithNull() {
         final String eventName = RandomStringUtils.randomAlphanumeric(5);
         assertThatThrownBy(() -> converter.toApexEvent(eventName, null))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void toApexEventWithNonApexEvent() {
+    void toApexEventWithNonApexEvent() {
         final String eventName = RandomStringUtils.randomAlphanumeric(5);
         assertThatThrownBy(() -> converter.toApexEvent(eventName, new Object()))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void toApexEmptyEvent() throws ApexEventException {
+    void toApexEmptyEvent() throws ApexEventException {
         final String eventName = RandomStringUtils.randomAlphanumeric(4);
         final String name = RandomStringUtils.randomAlphanumeric(5);
         final String version = RandomStringUtils.randomAlphanumeric(6);
@@ -86,7 +86,7 @@ public class Apex2ApexEventConverterTest {
     }
 
     @Test
-    public void toApexEventWithApexAndOtherFields() throws ApexEventException {
+    void toApexEventWithApexAndOtherFields() throws ApexEventException {
         final String eventName = RandomStringUtils.randomAlphanumeric(4);
         final String name1 = RandomStringUtils.randomAlphanumeric(5);
         final String version1 = RandomStringUtils.randomAlphanumeric(6);
@@ -105,7 +105,7 @@ public class Apex2ApexEventConverterTest {
     }
 
     @Test
-    public void toApexEventWithApexAndList() throws ApexEventException {
+    void toApexEventWithApexAndList() throws ApexEventException {
         final String eventName = RandomStringUtils.randomAlphanumeric(4);
         final String name1 = RandomStringUtils.randomAlphanumeric(5);
         final String version1 = RandomStringUtils.randomAlphanumeric(6);
@@ -135,7 +135,7 @@ public class Apex2ApexEventConverterTest {
     }
 
     @Test
-    public void toApexEventWithApexAndListAndOtherFields() throws ApexEventException {
+    void toApexEventWithApexAndListAndOtherFields() throws ApexEventException {
         final String eventName = RandomStringUtils.randomAlphanumeric(4);
         final String name1 = RandomStringUtils.randomAlphanumeric(5);
         final String version1 = RandomStringUtils.randomAlphanumeric(6);
@@ -166,13 +166,13 @@ public class Apex2ApexEventConverterTest {
     }
 
     @Test
-    public void fromApexEventNull() {
+    void fromApexEventNull() {
         assertThatThrownBy(() -> converter.fromApexEvent(null))
             .isInstanceOf(ApexEventException.class);
     }
 
     @Test
-    public void fromApexEvent() throws ApexEventException {
+    void fromApexEvent() throws ApexEventException {
         final String name1 = RandomStringUtils.randomAlphanumeric(5);
         final String version1 = RandomStringUtils.randomAlphanumeric(6);
         final String nameSpace1 = "a" + RandomStringUtils.randomAlphanumeric(7);

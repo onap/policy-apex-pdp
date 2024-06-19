@@ -1,6 +1,6 @@
 /*
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021  Nordix Foundation
+ *  Copyright (C) 2021, 2024 Nordix Foundation.
  *  ================================================================================
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,24 +26,24 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
 import org.onap.policy.apex.service.engine.event.impl.apexprotocolplugin.ApexEventProtocolParameters;
 import org.onap.policy.apex.service.engine.event.impl.jsonprotocolplugin.JsonEventProtocolParameters;
 import org.onap.policy.apex.service.engine.parameters.dummyclasses.SuperTokenDelimitedEventProtocolParameters;
 import org.onap.policy.apex.service.parameters.eventprotocol.EventProtocolParameters;
 
-public class TextBlockReaderFactoryTest {
+class TextBlockReaderFactoryTest {
     private TextBlockReaderFactory factory;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         factory = new TextBlockReaderFactory();
     }
 
     @Test
-    public void getTaggedReaderTextCharDelimitedParametersParams() throws ApexEventException {
+    void getTaggedReaderTextCharDelimitedParametersParams() throws ApexEventException {
         final String text = RandomStringUtils.randomAlphanumeric(22);
         final InputStream inputStream = prepareInputStream(text);
         final EventProtocolParameters parameters = new JsonEventProtocolParameters();
@@ -53,7 +53,7 @@ public class TextBlockReaderFactoryTest {
     }
 
     @Test
-    public void getTaggedReaderTextTokenDelimitedParams() throws ApexEventException {
+    void getTaggedReaderTextTokenDelimitedParams() throws ApexEventException {
         final String text = RandomStringUtils.randomAlphanumeric(22);
         final InputStream inputStream = prepareInputStream(text);
         new ApexEventProtocolParameters();
@@ -64,7 +64,7 @@ public class TextBlockReaderFactoryTest {
     }
 
     @Test
-    public void getTaggedReaderNotSupportedParams() {
+    void getTaggedReaderNotSupportedParams() {
         final String text = RandomStringUtils.randomAlphanumeric(22);
         final InputStream inputStream = prepareInputStream(text);
         final EventProtocolParameters parameters = new ApexEventProtocolParameters();
