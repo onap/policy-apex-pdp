@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ package org.onap.policy.apex.tools.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.commons.cli.Option;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -36,13 +36,15 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Sven van der Meer (sven.van.der.meer@ericsson.com)
  */
-public class CliParserTest {
+class CliParserTest {
 
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(CliParserTest.class);
 
-    /** Testapp version. */
+    /**
+     * Test app version.
+     */
     @Test
-    public void testappVersion() {
+    void testAppVersion() {
         final CliParser cli = new CliParser();
         assertNotNull(cli);
         LOGGER.info(cli.getAppVersion());
@@ -52,7 +54,7 @@ public class CliParserTest {
      * testAddAndGetOptionException.
      */
     @Test
-    public void testAddAndGetOptionException() {
+    void testAddAndGetOptionException() {
         final CliParser cli = new CliParser();
         assertThatThrownBy(() -> {
             cli.addOption(null);
@@ -63,7 +65,7 @@ public class CliParserTest {
      * testParseAndGetCli.
      */
     @Test
-    public void testParseAndGetCli() {
+    void testParseAndGetCli() {
         final CliParser cli = new CliParser();
         final Option option = new Option("g", "Good option.");
         cli.addOption(option);

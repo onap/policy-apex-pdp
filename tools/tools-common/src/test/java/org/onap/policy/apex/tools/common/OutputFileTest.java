@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (c) 2020 Nordix Foundation.
+ *  Copyright (c) 2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,32 +20,33 @@
 
 package org.onap.policy.apex.tools.common;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class OutputFileTest {
+class OutputFileTest {
 
     final String testFileName = "testing.txt";
     final Path fp = FileSystems.getDefault().getPath(testFileName);
     File file = fp.toFile();
 
-    @Before
-    public void beforeSetUp() {
+    @BeforeEach
+    void beforeSetUp() {
         if (file.exists()) {
-            file.delete();
+            assertTrue(file.delete());
         }
     }
 
     @Test
-    public void testToWriter() {
+    void testToWriter() {
         OutputFile testFile = new OutputFile(testFileName, false);
         testFile.validate();
         file.setReadable(false);
@@ -56,7 +57,7 @@ public class OutputFileTest {
     }
 
     @Test
-    public void testValidate() {
+    void testValidate() {
         OutputFile testFile = new OutputFile(testFileName, true);
         assertNull(testFile.validate());
         file.setReadable(false);
@@ -68,7 +69,7 @@ public class OutputFileTest {
     }
 
     @Test
-    public void testToOutputStream() {
+    void testToOutputStream() {
         OutputFile testFile = new OutputFile(testFileName, true);
         assertNotNull(testFile.toOutputStream());
         file.setReadable(false);
@@ -76,10 +77,10 @@ public class OutputFileTest {
         assertNull(testFile.toOutputStream());
     }
 
-    @After
-    public void testDown() {
+    @AfterEach
+    void testDown() {
         if (file.exists()) {
-            file.delete();
+            assertTrue(file.delete());
         }
     }
 }

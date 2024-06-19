@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,70 +29,71 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test the WsClient utility.
  */
-public class WsClientTest {
+class WsClientTest {
+
     @Test
-    public void testWsClient() {
+    void testWsClient() {
         final String[] EventArgs =
-            { "-h" };
+            {"-h"};
 
         assertThatCode(() -> WsClientMain.main(EventArgs)).doesNotThrowAnyException();
     }
 
     @Test
-    public void testWsClientNoOptions() {
+    void testWsClientNoOptions() {
         assertThat(runWsClient(new String[] {})).contains("ws-client: starting simple event echo");
     }
 
     @Test
-    public void testWsClientBadOptions() {
+    void testWsClientBadOptions() {
         assertThat(runWsClient(new String[] {"-zabbu"})).contains("usage: ws-client");
     }
 
     @Test
-    public void testWsClientHelp() {
+    void testWsClientHelp() {
         assertThat(runWsClient(new String[] {"-h"})).contains("usage: ws-client");
     }
 
     @Test
-    public void testWsClientVersion() {
+    void testWsClientVersion() {
         assertThat(runWsClient(new String[] {"-v"})).contains("ws-client").doesNotContain("usage:");
     }
 
     @Test
-    public void testWsClientNoServerArg() {
+    void testWsClientNoServerArg() {
         assertThat(runWsClient(new String[] {"-s"})).contains("ws-client");
     }
 
     @Test
-    public void testWsClientNoPortArg() {
+    void testWsClientNoPortArg() {
         assertThat(runWsClient(new String[] {"-p"})).contains("usage: ws-client");
     }
 
     @Test
-    public void testWsClientBadPortArg() {
+    void testWsClientBadPortArg() {
         assertThat(runWsClient(new String[] {"-p", "hello"})).contains("ws-client");
     }
 
     @Test
-    public void testWsClientBadServerArg() {
+    void testWsClientBadServerArg() {
         assertThat(runWsClient(new String[] {"-s", "asdsadadasd:asdasdsadasd"})).contains("ws-client");
     }
 
     @Test
-    public void testWsClientConsole() {
+    void testWsClientConsole() {
         assertThat(runWsClient(new String[] {"-c", "-s", "AServerThatDoesntExist", "-p", "99999999"}))
-                        .contains("terminate the application typing");
+            .contains("terminate the application typing");
     }
 
     @Test
-    public void testWsClientEcho() {
+    void testWsClientEcho() {
         assertThat(runWsClient(new String[] {"-s", "AServerThatDoesntExist", "-p", "99999999"})).contains(
-                        "Once started, the application will simply print out all received events to standard out");
+            "Once started, the application will simply print out all received events to standard out");
     }
 
     /**
