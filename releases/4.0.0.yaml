@@ -1,0 +1,5 @@
+distribution_type: 'maven'
+version: '4.0.0'
+project: 'policy-apex-pdp'
+tag_release: false
+log_dir: 'policy-apex-pdp-maven-stage-master/1432/'
