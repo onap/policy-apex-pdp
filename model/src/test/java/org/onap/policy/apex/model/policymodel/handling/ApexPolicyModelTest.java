@@ -61,29 +61,37 @@ class ApexPolicyModelTest {
     @Test
     void testApexModelValidateObservation() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateObservation();
-        assertEquals(ResourceUtils.getResourceAsString(OBSERVATION_MODEL_STRING), result.toString());
+        var expectedOutput = normalizeNewlines(ResourceUtils.getResourceAsString(OBSERVATION_MODEL_STRING));
+        assertEquals(expectedOutput, result.toString());
     }
 
     @Test
     void testApexModelValidateWarning() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateWarning();
-        assertEquals(ResourceUtils.getResourceAsString(WARNING_MODEL_STRING), result.toString());
+        var expectedOutput = normalizeNewlines(ResourceUtils.getResourceAsString(WARNING_MODEL_STRING));
+        assertEquals(expectedOutput, result.toString());
     }
 
     @Test
     void testModelValidateInvalidModel() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateInvalidModel();
-        assertEquals(ResourceUtils.getResourceAsString(INVALID_MODEL_STRING), result.toString());
+        var expectedOutput = normalizeNewlines(ResourceUtils.getResourceAsString(INVALID_MODEL_STRING));
+        assertEquals(expectedOutput, result.toString());
     }
 
     @Test
     void testModelValidateMalstructured() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateMalstructured();
-        assertEquals(ResourceUtils.getResourceAsString(INVALID_MODEL_MALSTRUCTURED_STRING), result.toString());
+        var expectedOutput = normalizeNewlines(ResourceUtils.getResourceAsString(INVALID_MODEL_MALSTRUCTURED_STRING));
+        assertEquals(expectedOutput, result.toString());
     }
 
     @Test
     void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
+    }
+
+    private String normalizeNewlines(String input) {
+        return input.replace("\r\n", "\n");
     }
 }

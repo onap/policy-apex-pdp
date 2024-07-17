@@ -24,10 +24,21 @@
   "eventInputParameters": {
     "DmaapConsumer": {
       "carrierTechnologyParameters": {
-        "carrierTechnology": "RESTCLIENT",
-        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+        "carrierTechnology": "KAFKA",
+        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
         "parameters": {
-          "url": "http://localhost:3904/events/AC_ELEMENT_MSG/APEX/1?timeout=30000"
+          "bootstrapServers": "kafka:9092",
+          "groupId": "clamp-grp",
+          "enableAutoCommit": "true",
+          "autoCommitTime": "1000",
+          "sessionTimeout": "30000",
+          "consumerPollTime": "100",
+          "consumerTopicList": [
+            "ac_element_msg"
+          ],
+          "keyDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+          "valueDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+          "kafkaProperties": [ ]
         }
       },
       "eventProtocolParameters": {
@@ -54,10 +65,19 @@
     },
     "DmaapReplyProducer": {
       "carrierTechnologyParameters": {
-        "carrierTechnology": "RESTCLIENT",
-        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.restclient.RestClientCarrierTechnologyParameters",
+        "carrierTechnology": "KAFKA",
+        "parameterClassName": "org.onap.policy.apex.plugins.event.carrier.kafka.KafkaCarrierTechnologyParameters",
         "parameters": {
-          "url": "http://localhost:3904/events/POLICY_UPDATE_MSG"
+          "bootstrapServers": "kafka:9092",
+          "acks": "all",
+          "retries": "0",
+          "batchSize": "16384",
+          "lingerTime": "1",
+          "bufferMemory": "33554432",
+          "producerTopic": "policy_update_msg",
+          "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
+          "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer",
+          "kafkaProperties": [ ]
         }
       },
       "eventProtocolParameters": {

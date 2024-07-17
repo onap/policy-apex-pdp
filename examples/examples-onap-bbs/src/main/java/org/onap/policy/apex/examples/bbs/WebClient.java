@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Huawei. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021,2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ public class WebClient {
      * @param contentType   http content type
      * @return String response message
      */
-    public String httpRequest(String requestUrl, String requestMethod, String outputStr, String username, String pass,
+    public String httpRequest(URL requestUrl, String requestMethod, String outputStr, String username, String pass,
         String contentType) {
         var result = "";
         var builder = new StringBuilder();
@@ -81,8 +81,7 @@ public class WebClient {
             LOGGER.info("httpsRequest starts {} method {}", requestUrl, requestMethod);
             disableCertificateValidation();
 
-            var url = new URL(requestUrl);
-            HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
+            var httpUrlConn = (HttpURLConnection) requestUrl.openConnection();
 
             httpUrlConn.setDoOutput(true);
             httpUrlConn.setDoInput(true);

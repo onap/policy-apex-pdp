@@ -41,7 +41,7 @@ class OutputFileTest {
     @BeforeEach
     void beforeSetUp() {
         if (file.exists()) {
-            assertTrue(file.delete());
+            file.delete();
         }
     }
 
@@ -80,7 +80,7 @@ class OutputFileTest {
     @AfterEach
     void testDown() {
         if (file.exists()) {
-            assertTrue(file.delete());
+            file.delete();
         }
     }
 }

@@ -22,13 +22,16 @@
 package org.onap.policy.apex.context.impl.schema;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Map;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
+import org.onap.policy.apex.context.parameters.SchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.service.ModelService;
@@ -85,5 +88,19 @@ class SchemaHelperFactoryTest {
         assertThatThrownBy(() -> new SchemaHelperFactory().createSchemaHelper(ownerKey, badSchema.getKey()))
             .hasMessage("Owner:0.0.1: class/type java.lang.Bad for context schema \"IntSchema:0.0.1\" "
                             + "not found. Check the class path of the JVM");
+    }
+
+    @Test
+    void testSchemaHelperParameter() {
+        var schemaHelperParameters = new SchemaHelperParameters();
+        assertNotNull(schemaHelperParameters.toString());
+    }
+
+    @Test
+    void testSchemaParameterSetter() {
+        var parameters = new SchemaParameters();
+        parameters.setName("testSchema");
+        parameters.setSchemaHelperParameterMap(Map.of("test", new SchemaHelperParameters()));
+        assertEquals("testSchema", parameters.getName());
     }
 }

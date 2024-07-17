@@ -21,6 +21,7 @@
 
 package org.onap.policy.apex.context.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -40,6 +41,8 @@ import org.onap.policy.apex.context.impl.distribution.jvmlocal.JvmLocalDistribut
 import org.onap.policy.apex.context.impl.schema.java.JavaSchemaHelperParameters;
 import org.onap.policy.apex.context.parameters.ContextParameterConstants;
 import org.onap.policy.apex.context.parameters.ContextParameters;
+import org.onap.policy.apex.context.parameters.DistributorParameters;
+import org.onap.policy.apex.context.parameters.PersistorParameters;
 import org.onap.policy.apex.context.parameters.SchemaParameters;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
@@ -65,6 +68,7 @@ class ContextAlbumImplTest {
         contextParameters.getDistributorParameters().setName(ContextParameterConstants.DISTRIBUTOR_GROUP_NAME);
         contextParameters.getLockManagerParameters().setName(ContextParameterConstants.LOCKING_GROUP_NAME);
         contextParameters.getPersistorParameters().setName(ContextParameterConstants.PERSISTENCE_GROUP_NAME);
+        contextParameters.getPersistorParameters().setFlushPeriod(30000);
 
         ParameterService.register(contextParameters);
         ParameterService.register(contextParameters.getDistributorParameters());
@@ -295,11 +299,53 @@ class ContextAlbumImplTest {
         assertThatThrownBy(album::flush).hasMessage("map flush failed, supplied map is null");
         AxContextAlbums albums = new AxContextAlbums();
         ModelService.registerModel(AxContextAlbums.class, albums);
+
+        assertThatThrownBy(() -> {
+            distributor.createContextAlbum(new AxContextAlbums().getKey());
+        }).hasMessage("context album NULL:0.0.0 does not exist");
+
         albums.getAlbumsMap().put(axContextAlbum.getKey(), axContextAlbum);
         distributor.createContextAlbum(album.getKey());
+
+        axContextAlbum.setItemSchema(new AxArtifactKey());
+        albums.getAlbumsMap().put(axContextAlbum.getKey(), axContextAlbum);
+        assertThatThrownBy(() -> {
+            distributor.createContextAlbum(album.getKey());
+        }).hasMessageContaining("context album definition for TestContextAlbum:0.0.1 is invalid");
+
+        axContextAlbum.setItemSchema(new AxArtifactKey("invalid", "0.0.1"));
+        albums.getAlbumsMap().put(axContextAlbum.getKey(), axContextAlbum);
+        assertThatThrownBy(() -> {
+            distributor.createContextAlbum(album.getKey());
+        }).hasMessage("schema \"invalid:0.0.1\" for context album TestContextAlbum:0.0.1 does not exist");
 
         album.flush();
 
         ModelService.clear();
+    }
+
+    @Test
+    void testParametersToString() {
+        assertThat(ParameterService.get(ContextParameterConstants.MAIN_GROUP_NAME).toString())
+                .isInstanceOf(String.class);
+        assertThat(ParameterService.get(ContextParameterConstants.SCHEMA_GROUP_NAME).toString())
+                .isInstanceOf(String.class);
+    }
+
+    @Test
+    void testParameterSetter() {
+        var parameters = new PersistorParameters();
+        parameters.setFlushPeriod(0);
+        parameters.setPluginClass("TestPlugin.class");
+        assertEquals(300000, parameters.getFlushPeriod());
+
+        var distributorParameters = new DistributorParameters();
+        distributorParameters.setName("test");
+        distributorParameters.setPluginClass("TestPlugin.class");
+        assertEquals("test", distributorParameters.getName());
+
+        var contextParameters = new ContextParameters();
+        contextParameters.setDistributorParameters(distributorParameters);
+        assertEquals("test", contextParameters.getDistributorParameters().getName());
     }
 }

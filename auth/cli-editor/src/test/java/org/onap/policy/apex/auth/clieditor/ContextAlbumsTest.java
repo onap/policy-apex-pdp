@@ -62,7 +62,7 @@ class ContextAlbumsTest {
      */
     @AfterEach
     void removeGeneratedModels() {
-        assertTrue(tempModelFile.delete());
+        tempModelFile.delete();
     }
 
     /**

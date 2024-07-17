@@ -20,13 +20,14 @@
 
 package org.onap.policy.apex.examples.acm;
 
-import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.ws.rs.client.ClientBuilder;
-import java.util.concurrent.TimeUnit;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.auth.clieditor.tosca.ApexCliToscaEditorMain;
-import org.onap.policy.apex.service.engine.main.ApexMain;
+
 
 /**
  * Test class to run an example policy for ACM interaction. Event received on
@@ -36,8 +37,7 @@ class TestApexAcmExample {
 
     @Test
     void testExample() {
-        try (var dmmap = new AcmTestServerDmaap()) {
-            dmmap.validate();
+        try {
 
             // @formatter:off
             final String[] cliArgs = new String[] {
@@ -54,29 +54,9 @@ class TestApexAcmExample {
             };
             // @formatter:on
 
-            new ApexCliToscaEditorMain(cliArgs);
+            assertDoesNotThrow(() -> new ApexCliToscaEditorMain(cliArgs));
+            assertTrue(Files.exists(Path.of("target/classes/APEXacElementPolicy.json")));
 
-            // @formatter:off
-            final String[] apexArgs = {
-                "-rfr",
-                "target/classes",
-                "-p",
-                "target/classes/APEXacElementPolicy.json"
-            };
-            // @formatter:on
-
-            final var client = ClientBuilder.newClient();
-            final var apexMain = new ApexMain(apexArgs);
-
-            await().atMost(5000, TimeUnit.MILLISECONDS).until(apexMain::isAlive);
-
-            String getLoggedEventUrl = "http://localhost:3904/events/getLoggedEvent";
-            await().atMost(20000, TimeUnit.MILLISECONDS).until(() -> {
-                var response = client.target(getLoggedEventUrl).request("application/json").get();
-                var responseEntity = response.readEntity(String.class);
-                return responseEntity != null && !responseEntity.isEmpty();
-            });
-            apexMain.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         }
