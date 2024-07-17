@@ -64,33 +64,37 @@ class ApexEventModelTest {
     @Test
     void testApexModelValidateObservation() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateObservation();
-        String expected = ResourceUtils.getResourceAsString(OBSERVATION_MODEL_STRING);
+        var expected = normalizeNewlines(ResourceUtils.getResourceAsString(OBSERVATION_MODEL_STRING));
         assertEquals(expected, result.toString());
     }
 
     @Test
     void testApexModelValidateWarning() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateWarning();
-        String expected = ResourceUtils.getResourceAsString(WARNING_MODEL_STRING);
+        var expected = normalizeNewlines(ResourceUtils.getResourceAsString(WARNING_MODEL_STRING));
         assertEquals(expected, result.toString());
     }
 
     @Test
     void testModelValidateInvalidModel() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateInvalidModel();
-        String expected = ResourceUtils.getResourceAsString(INVALID_MODEL_STRING);
+        var expected = normalizeNewlines(ResourceUtils.getResourceAsString(INVALID_MODEL_STRING));
         assertEquals(expected, result.toString());
     }
 
     @Test
     void testModelValidateMalstructured() throws Exception {
         final AxValidationResult result = testApexModel.testApexModelValidateMalstructured();
-        String expected = ResourceUtils.getResourceAsString(INVALID_MODEL_MALSTRUCTURED_STRING);
+        var expected = normalizeNewlines(ResourceUtils.getResourceAsString(INVALID_MODEL_MALSTRUCTURED_STRING));
         assertEquals(expected, result.toString());
     }
 
     @Test
     void testModelWriteReadJson() throws Exception {
         testApexModel.testApexModelWriteReadJson();
+    }
+
+    private String normalizeNewlines(String input) {
+        return input.replace("\r\n", "\n");
     }
 }

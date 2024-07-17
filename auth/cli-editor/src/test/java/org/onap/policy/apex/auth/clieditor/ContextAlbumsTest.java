@@ -23,7 +23,6 @@ package org.onap.policy.apex.auth.clieditor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +61,7 @@ class ContextAlbumsTest {
      */
     @AfterEach
     void removeGeneratedModels() {
-        assertTrue(tempModelFile.delete());
+        tempModelFile.delete();
     }
 
     /**

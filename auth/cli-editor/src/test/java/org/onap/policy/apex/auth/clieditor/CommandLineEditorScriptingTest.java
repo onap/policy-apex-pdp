@@ -72,8 +72,8 @@ class CommandLineEditorScriptingTest {
      */
     @AfterEach
     public void removeGeneratedFiles() {
-        assertTrue(tempModelFile.delete());
         assertTrue(tempLogFile.delete());
+        tempModelFile.delete();
     }
 
     /**

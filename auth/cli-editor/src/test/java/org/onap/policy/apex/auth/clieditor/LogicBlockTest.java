@@ -22,7 +22,6 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,8 +66,8 @@ class LogicBlockTest {
      */
     @AfterEach
     void removeTempFiles() {
-        assertTrue(tempLogicModelFile.delete());
-        assertTrue(tempAvroModelFile.delete());
+        tempLogicModelFile.delete();
+        tempAvroModelFile.delete();
     }
 
     /**

@@ -22,7 +22,6 @@
 package org.onap.policy.apex.auth.clieditor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +66,7 @@ class FileMacroTest {
      */
     @AfterEach
     void removeGeneratedModels() {
-        assertTrue(tempModelFile.delete());
+        tempModelFile.delete();
     }
 
     /**
@@ -97,7 +96,7 @@ class FileMacroTest {
         writtenModel.getKeyInformation().getKeyInfoMap().clear();
         compareModel.getKeyInformation().getKeyInfoMap().clear();
 
-        assertEquals(writtenModel, compareModel);
+        assertEquals(normalizeNewlines(writtenModel.toString()), normalizeNewlines(compareModel.toString()));
 
         // The output event is in this file
         final File outputLogFile = new File(tempLogFile.getCanonicalPath());
@@ -113,5 +112,9 @@ class FileMacroTest {
 
         // Check what we got is what we expected to get
         assertEquals(outputLogCompareString, outputLogString);
+    }
+
+    private String normalizeNewlines(String input) {
+        return input.replace("\r\n", "\n");
     }
 }

@@ -25,6 +25,7 @@
 package org.onap.policy.apex.auth.clicodegen;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,6 +80,20 @@ class CodeGeneratorCliEditorTest {
         apexPolicyModel = modelReader.read(new FileInputStream("src/test/resources/models/TestPolicyModel.json"));
 
         assertEquals(0, generateCli(codeGen, apexPolicyModel));
+    }
+
+    @Test
+    void testTaskDefFields() {
+        CodeGeneratorCliEditor editor = new CodeGeneratorCliEditor();
+        var st = editor.createTaskDefinitionInfields("InFieldTask", "1.0.0", "field1", "schema", "1.0.1");
+        assertNotNull(st);
+
+        var st2 = editor.createTaskDefinitionOutfields("OutFieldTask", "1.0.0", "field2", "schema", "1.0.1");
+        assertNotNull(st2);
+
+        var st3 = editor.createPolicyStateDefFinalizerLogic("dummy", "1.0.0", "dummyState",
+                "logicName", "flavor", "logic");
+        assertNotNull(st3);
     }
 
     /**

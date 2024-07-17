@@ -24,10 +24,14 @@ package org.onap.policy.apex.auth.clieditor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Properties;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -135,5 +139,39 @@ class CommandLineCommandTest {
         assertEquals(commandLineCommand, otherCommand);
         otherCommand.getKeywordlist().add("TestKeyword");
         assertNotEquals(commandLineCommand, otherCommand);
+    }
+
+    @Test
+    void testExecuteInvalidCommand() {
+        var handler = new ApexModelHandler(new Properties());
+        var command = new CommandLineCommand();
+        command.setApiMethod("java.invalid"); // invalid class
+        assertThrows(CommandLineException.class, () -> handler.executeCommand(command, null, null));
+
+        command.setApiMethod("org.onap.policy.apex.model.modelapi.ApexModel.invalid"); //invalid method
+        assertThrows(CommandLineException.class, () -> handler.executeCommand(command, null, null));
+
+        command.setApiMethod("org.onap.policy.apex.model.modelapi.ApexModel.saveToFile");
+        SortedMap<String, CommandLineArgumentValue> map = new TreeMap<>();
+        map.put("key", new CommandLineArgumentValue(null));
+        assertThrows(CommandLineException.class, () -> handler.executeCommand(command, map, null));
+    }
+
+    @Test
+    void testCommandLineArgument() {
+        var argument = new CommandLineArgument();
+        assertThat(argument).isEqualByComparingTo(argument);
+        var otherArgument = new CommandLineArgument("otherArgument");
+        assertThat(argument).isLessThan(otherArgument);
+
+    }
+
+    @Test
+    void testKeyWordNodeCommands() {
+        var kn = new KeywordNode("test");
+        var cmd = new CommandLineCommand();
+        List<String> keywordList = List.of("key1", "key2");
+        kn.processKeywords(keywordList, cmd);
+        assertNotNull(kn.getCommands());
     }
 }

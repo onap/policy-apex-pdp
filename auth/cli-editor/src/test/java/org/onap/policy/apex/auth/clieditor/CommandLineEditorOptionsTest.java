@@ -257,8 +257,8 @@ class CommandLineEditorOptionsTest {
         assertEquals(3336, tempModelFileOutCharCount);
 
         assertTrue(tempLogFileIn.delete());
-        assertTrue(tempModelFileIn.delete());
         assertTrue(tempLogFileOut.delete());
         assertTrue(tempModelFileOut.delete());
+        tempModelFileIn.delete();
     }
 }

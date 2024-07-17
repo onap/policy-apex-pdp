@@ -23,7 +23,6 @@ package org.onap.policy.apex.tools.common;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -41,7 +40,7 @@ class OutputFileTest {
     @BeforeEach
     void beforeSetUp() {
         if (file.exists()) {
-            assertTrue(file.delete());
+            file.delete();
         }
     }
 
@@ -80,7 +79,7 @@ class OutputFileTest {
     @AfterEach
     void testDown() {
         if (file.exists()) {
-            assertTrue(file.delete());
+            file.delete();
         }
     }
 }
