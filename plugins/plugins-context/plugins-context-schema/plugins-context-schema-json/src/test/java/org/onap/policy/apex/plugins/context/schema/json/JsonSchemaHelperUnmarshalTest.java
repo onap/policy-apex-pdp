@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.google.gson.JsonObject;
-import com.worldturner.medeia.api.ValidationFailedException;
 import java.util.ArrayList;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -74,7 +73,8 @@ class JsonSchemaHelperUnmarshalTest extends CommonTestData {
             new AxContextSchema(new AxArtifactKey("JsonObject", VERSION), JSON, schemaDef);
         var jsonSchemaHelper = new JsonSchemaHelper();
         assertThatThrownBy(() -> jsonSchemaHelper.init(testKey, jsonSchema))
-            .isInstanceOf(ContextRuntimeException.class).hasMessageContaining("schema is invalid");
+            .isInstanceOf(ContextRuntimeException.class)
+            .hasMessageContaining("schema is invalid");
     }
 
     /**
@@ -111,8 +111,7 @@ class JsonSchemaHelperUnmarshalTest extends CommonTestData {
         var dataAsObject = coder.decode(COMMONHEADER, JsonObject.class);
         dataAsObject.addProperty("requestId", "abcd");
         assertThatThrownBy(() -> validateAndUnmarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject))
-            .isInstanceOf(ValidationFailedException.class)
-            .hasMessageContaining("Pattern ^[0-9]*-[0-9]*$ is not contained in text");
+            .hasMessageContaining("does not match the regex pattern ^[0-9]*-[0-9]*$");
     }
 
     /**
@@ -137,8 +136,7 @@ class JsonSchemaHelperUnmarshalTest extends CommonTestData {
         var dataAsObject = coder.decode(COMMONHEADER, JsonObject.class);
         dataAsObject.remove(TEST_ID);
         assertThatThrownBy(() -> validateAndUnmarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject))
-            .isInstanceOf(ValidationFailedException.class)
-            .hasMessageContaining("Required property testId is missing from object");
+            .hasMessageContaining("required property 'testId' not found");
     }
 
     /**

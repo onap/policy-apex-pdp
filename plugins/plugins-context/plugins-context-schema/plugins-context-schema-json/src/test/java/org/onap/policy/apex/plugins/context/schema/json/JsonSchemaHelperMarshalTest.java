@@ -26,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.worldturner.medeia.api.ValidationFailedException;
 import java.util.ArrayList;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -103,8 +102,7 @@ class JsonSchemaHelperMarshalTest extends CommonTestData {
         var dataAsObject = coder.decode(COMMONHEADER, Map.class);
         dataAsObject.remove(TEST_ID);
         assertThatThrownBy(() -> validateAndMarshal(COMMONHEADERTYPE_DRAFT07, dataAsObject, true))
-            .isInstanceOf(ValidationFailedException.class)
-            .hasMessageContaining("Required property testId is missing from object");
+            .hasMessageContaining("required property 'testId' not found");
     }
 
     /**

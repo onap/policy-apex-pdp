@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020,2023 Nordix Foundation.
+ *  Copyright (C) 2020, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,11 +33,11 @@ import org.onap.policy.simulators.CdsSimulator;
  */
 public class GrpcTestServerSim {
     private static final String HOST = "localhost";
-    private HttpServletServer restServer;
-    private CdsSimulator grpcServer;
+    private final HttpServletServer restServer;
+    private final CdsSimulator grpcServer;
 
     /**
-     * Instantiates a new REST simulator for DMaaP requests.
+     * Instantiates a new REST simulator for requests.
      *
      * @throws InterruptedException interrupted exception
      * @throws IOException io exception

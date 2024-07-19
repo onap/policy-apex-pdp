@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020-2023 Nordix Foundation.
+ *  Copyright (C) 2020-2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 
 package org.onap.policy.apex.examples.grpc;
 
+import static org.awaitility.Awaitility.await;
+
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -28,6 +30,7 @@ import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
@@ -52,8 +55,12 @@ public class GrpcTestRestSimEndpoint {
     public Response dcaeClOutput(@QueryParam("timeout") final int timeout) throws IOException {
         String createSubscriptionRequest =
             Files.readString(Paths.get("src/main/resources/examples/events/APEXgRPC/CreateSubscriptionEvent.json"));
-        LOGGER.info("Create subscription request received: \n {}", createSubscriptionRequest);
+        LOGGER.info("Create subscription request received (on a timeout of {}): \n {} ",
+            timeout, createSubscriptionRequest);
 
+        await().pollDelay(4, TimeUnit.SECONDS)
+            .atMost(5, TimeUnit.SECONDS)
+            .until(() -> true);
         return Response.status(200).entity(createSubscriptionRequest).build();
     }
 

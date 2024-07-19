@@ -23,7 +23,6 @@ package org.onap.policy.apex.model.policymodel.handling;
 
 import static org.onap.policy.apex.model.basicmodel.concepts.AxConcept.WHITESPACE_REGEX;
 
-import org.jetbrains.annotations.NotNull;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogic;
 import org.onap.policy.apex.model.policymodel.concepts.AxLogicReader;
@@ -124,7 +123,7 @@ public class PolicyLogicReader implements AxLogicReader {
         return logicString.replaceAll(WHITESPACE_REGEX, "");
     }
 
-    private @NotNull String getFullLogicFilePath(AxLogic axLogic) {
+    private String getFullLogicFilePath(AxLogic axLogic) {
         String fullLogicFilePath = logicPackage.replace(".", "/");
 
         // Now, the logic should be in a subdirectory for the logic executor type

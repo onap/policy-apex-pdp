@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Bell Canada. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +23,18 @@ package org.onap.policy.apex.plugins.context.schema.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.worldturner.medeia.api.SchemaSource;
-import com.worldturner.medeia.api.StringInputSource;
-import com.worldturner.medeia.api.StringSchemaSource;
-import com.worldturner.medeia.api.gson.MedeiaGsonApi;
-import com.worldturner.medeia.schema.validation.SchemaValidator;
+import com.networknt.schema.InputFormat;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersionDetector;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
 import org.onap.policy.apex.context.ContextRuntimeException;
 import org.onap.policy.apex.context.impl.schema.AbstractSchemaHelper;
+import org.onap.policy.apex.model.basicmodel.concepts.ApexRuntimeException;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
 import org.onap.policy.apex.model.contextmodel.concepts.AxContextSchema;
 
@@ -44,16 +45,14 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
 
     private static final Gson gson = new Gson();
 
-    private MedeiaGsonApi api = new MedeiaGsonApi();
-    private SchemaValidator validator;
+    private JsonSchema jsonSchema;
 
     @Override
     public void init(final AxKey userKey, final AxContextSchema schema) {
         super.init(userKey, schema);
 
         try {
-            SchemaSource source = new StringSchemaSource(schema.getSchema());
-            validator = api.loadSchema(source);
+            this.jsonSchema = getJsonSchema(schema.getSchema());
         } catch (final Exception e) {
             final String resultSting = userKey.getId() + ": json context schema \"" + schema.getId()
                 + "\" schema is invalid, schema: " + schema.getSchema();
@@ -86,8 +85,8 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
             return object;
         }
         var objectString = (String) object;
-        JsonReader reader = api.createJsonReader(validator, new StringInputSource(objectString));
-        return gson.fromJson(reader, Object.class);
+        validate(objectString);
+        return gson.fromJson(new StringReader(objectString), Object.class);
     }
 
     @Override
@@ -103,7 +102,8 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
     }
 
     private JsonElement validateAndDecode(Object schemaObject, StringWriter stringWriter) {
-        JsonWriter jsonWriter = api.createJsonWriter(validator, stringWriter);
+        validate(schemaObject);
+        JsonWriter jsonWriter = new JsonWriter(stringWriter);
         jsonWriter.setIndent("  "); // to enable pretty print
         JsonElement jsonObj = gson.toJsonTree(schemaObject);
         gson.toJson(jsonObj, jsonWriter);
@@ -118,5 +118,28 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
      */
     private boolean passThroughObject(final Object object) {
         return (object instanceof JsonElement || object instanceof Map || object instanceof List);
+    }
+
+    private JsonSchema getJsonSchema(String jsonSchema) {
+        var schemaMap = new Gson().fromJson(jsonSchema, Map.class);
+        if (schemaMap != null && schemaMap.containsKey("$schema")) {
+            var flag = SpecVersionDetector.detectOptionalVersion(schemaMap.get("$schema").toString()).orElse(null);
+            return JsonSchemaFactory.getInstance(flag).getSchema(jsonSchema);
+        } else {
+            throw new ApexRuntimeException("Schema is invalid");
+        }
+    }
+
+    private void validate(String json) {
+        var validations = this.jsonSchema.validate(json, InputFormat.JSON);
+        if (!validations.isEmpty()) {
+            StringBuilder errors = new StringBuilder();
+            validations.forEach(m -> errors.append(m.toString()).append("\n"));
+            throw new ApexRuntimeException(errors.toString());
+        }
+    }
+
+    private void validate(Object object) {
+        validate(gson.toJson(object));
     }
 }

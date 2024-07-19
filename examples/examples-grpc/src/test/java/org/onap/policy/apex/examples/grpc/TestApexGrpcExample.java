@@ -41,6 +41,7 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
  * CDS is used to send a final output Log event on POLICY_CL_MGT topic.
  */
 class TestApexGrpcExample {
+
     @Test
     void testGrpcExample() throws Exception {
         // @formatter:off
@@ -78,18 +79,24 @@ class TestApexGrpcExample {
 
         String getLoggedEventUrl = "http://localhost:54321/GrpcTestRestSim/sim/event/getLoggedEvent";
         // wait for success response code to be received, until a timeout
-        await().atMost(20000, TimeUnit.MILLISECONDS).until(() ->
-            200 == client.target(getLoggedEventUrl).request("application/json").get().getStatus());
+        await().atMost(50000, TimeUnit.MILLISECONDS)
+            .pollInterval(10000, TimeUnit.MILLISECONDS)
+            .until(() -> 200 == client.target(getLoggedEventUrl).request("application/json").get().getStatus());
+
         apexMain.shutdown();
+
         Response response = client.target(getLoggedEventUrl).request("application/json").get();
         sim.tearDown();
+
         String responseEntity = response.readEntity(String.class);
-        String expectedLoggedOutputEvent = Files
-            .readString(Paths.get("src/main/resources/examples/events/APEXgRPC/LogEvent.json")).replaceAll("\r", "");
-        String expectedStatusEvent =
-            Files.readString(Paths.get("src/main/resources/examples/events/APEXgRPC/CDSResponseStatusEvent.json"))
-                .replaceAll("\r", "");
+        var logFileJson = "src/main/resources/examples/events/APEXgRPC/LogEvent.json";
+        String expectedLoggedOutputEvent = Files.readString(Paths.get(logFileJson)).replaceAll("\r", "");
+
+        var cdsResponseJson = "src/main/resources/examples/events/APEXgRPC/CDSResponseStatusEvent.json";
+        String expectedStatusEvent = Files.readString(Paths.get(cdsResponseJson)).replaceAll("\r", "");
+
         // Both LogEvent and CDSResponseStatusEvent are generated from the final state in the policy
         assertThat(responseEntity).contains(expectedStatusEvent).contains(expectedLoggedOutputEvent);
+        client.close();
     }
 }

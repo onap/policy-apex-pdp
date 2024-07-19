@@ -34,7 +34,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -125,7 +124,7 @@ class EngineWorkerTest {
 
     }
 
-    private static @NotNull ExecutorParameters getExecutorParameters(String lang) {
+    private static ExecutorParameters getExecutorParameters(String lang) {
         ExecutorParameters jsExecutorParameters = new ExecutorParameters();
         jsExecutorParameters.setName(lang);
         jsExecutorParameters

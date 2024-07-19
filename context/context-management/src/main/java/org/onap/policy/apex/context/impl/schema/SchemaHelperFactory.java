@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,7 +84,7 @@ public class SchemaHelperFactory {
         }
 
         // Get the class for the schema helper using reflection
-        Object schemaHelperObject = null;
+        Object schemaHelperObject;
         final String pluginClass = schemaHelperParameters.getSchemaHelperPluginClass();
         try {
             schemaHelperObject = Class.forName(pluginClass).getDeclaredConstructor().newInstance();
@@ -96,7 +96,7 @@ public class SchemaHelperFactory {
         }
 
         // Check the class is a schema helper
-        if (!(schemaHelperObject instanceof SchemaHelper)) {
+        if (!(schemaHelperObject instanceof SchemaHelper schemaHelper)) {
             final var resultString = "Specified Apex context schema helper plugin class \"" + pluginClass
                     + "\" does not implement the SchemaHelper interface";
             LOGGER.warn(resultString);
@@ -104,7 +104,6 @@ public class SchemaHelperFactory {
         }
 
         // The context schema helper to return
-        final var schemaHelper = (SchemaHelper) schemaHelperObject;
 
         // Lock and load the schema helper
         schemaHelper.init(owningEntityKey.getKey(), schema);

@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -118,7 +117,7 @@ class EngineServiceImplTest {
         ParameterService.register(engineParameters);
     }
 
-    private static @NotNull ExecutorParameters getExecutorParameters(String lang) {
+    private static ExecutorParameters getExecutorParameters(String lang) {
         ExecutorParameters jsExecutorParameters = new ExecutorParameters();
         jsExecutorParameters.setName(lang);
         jsExecutorParameters
