@@ -1,0 +1,68 @@
+name: policy-apex-performance-test
+
+on:
+  workflow_dispatch:
+    # For Branch-Protection check. Only the default branch is supported. See
+    # https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection
+    inputs:
+      GERRIT_BRANCH:
+        description: 'Branch that change is against'
+        required: true
+        type: string
+      GERRIT_CHANGE_ID:
+        description: 'The ID for the change'
+        required: true
+        type: string
+      GERRIT_CHANGE_NUMBER:
+        description: 'The Gerrit number'
+        required: true
+        type: string
+      GERRIT_CHANGE_URL:
+        description: 'URL to the change'
+        required: true
+        type: string
+      GERRIT_EVENT_TYPE:
+        description: 'Gerrit event type'
+        required: true
+        type: string
+      GERRIT_PATCHSET_NUMBER:
+        description: 'The patch number for the change'
+        required: true
+        type: string
+      GERRIT_PATCHSET_REVISION:
+        description: 'The revision sha'
+        required: true
+        type: string
+      GERRIT_PROJECT:
+        description: 'Project in Gerrit'
+        required: true
+        type: string
+      GERRIT_REFSPEC:
+        description: 'Gerrit refspec of change'
+        required: true
+        type: string
+  branch_protection_rule:
+  # To guarantee Maintained check is occasionally updated. See
+  # https://github.com/ossf/scorecard/blob/main/docs/checks.md#maintained
+
+  # Run every Monday at 16:30 UTC
+  schedule:
+    - cron: '30 16 * * 1'
+
+jobs:
+  run-s3p-tests:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run S3P script
+        working-directory: ${{ github.workspace }}/testsuites
+        run: sudo bash ./run-s3p-test.sh run performance
+
+      - name: Archive result jtl
+        uses: actions/upload-artifact@v4
+        with:
+          name: policy-apex-s3p-results
+          path: ${{ github.workspace }}/testsuites/automate-performance/s3pTestResults.jtl
+
