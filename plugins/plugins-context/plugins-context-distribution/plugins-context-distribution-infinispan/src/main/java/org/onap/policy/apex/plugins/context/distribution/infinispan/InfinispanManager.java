@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +60,7 @@ public class InfinispanManager {
         } catch (final IOException ioException) {
             final String errorMessage = "failed to start infinispan cache manager, "
                             + "no infinispan configuration found on local file system or in classpath, "
-                            + "try setting Infinspan \"configFile\" parameter";
+                            + "try setting Infinispan \"configFile\" parameter";
             LOGGER.error(errorMessage);
             throw new ContextException(errorMessage, ioException);
         } catch (final Exception e) {

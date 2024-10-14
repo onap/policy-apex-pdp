@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.apex.testsuites.integration.common.concepts;
+package org.onap.policy.apex.context.test.concepts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -30,19 +30,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
-import org.onap.policy.apex.context.test.concepts.TestContextBooleanItem;
-import org.onap.policy.apex.context.test.concepts.TestContextByteItem;
-import org.onap.policy.apex.context.test.concepts.TestContextDateItem;
-import org.onap.policy.apex.context.test.concepts.TestContextDateLocaleItem;
-import org.onap.policy.apex.context.test.concepts.TestContextDateTzItem;
-import org.onap.policy.apex.context.test.concepts.TestContextDoubleItem;
-import org.onap.policy.apex.context.test.concepts.TestContextFloatItem;
-import org.onap.policy.apex.context.test.concepts.TestContextIntItem;
-import org.onap.policy.apex.context.test.concepts.TestContextLongItem;
-import org.onap.policy.apex.context.test.concepts.TestContextLongObjectItem;
-import org.onap.policy.apex.context.test.concepts.TestContextStringItem;
-import org.onap.policy.apex.context.test.concepts.TestContextTreeMapItem;
-import org.onap.policy.apex.context.test.concepts.TestContextTreeSetItem;
 
 class ConceptsTest {
 
