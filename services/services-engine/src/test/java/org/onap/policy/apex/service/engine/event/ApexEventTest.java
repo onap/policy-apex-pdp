@@ -22,6 +22,7 @@
 package org.onap.policy.apex.service.engine.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 import java.util.Properties;
@@ -169,5 +170,11 @@ class ApexEventTest {
         assertThat(actual1).isNull();
         assertThat(actual2).isNull();
         assertThat(actual3).isNull();
+    }
+
+    @Test
+    void testConstructor() throws ApexEventException {
+        ApexEvent apexEventNew = new ApexEvent("name", "version", "namespace", "source", "target");
+        assertEquals("name", apexEventNew.getName());
     }
 }
