@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.SyncInvoker;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 

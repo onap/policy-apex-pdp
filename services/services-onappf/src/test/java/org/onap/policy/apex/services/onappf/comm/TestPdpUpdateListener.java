@@ -212,4 +212,21 @@ class TestPdpUpdateListener {
             "Apex engine started. But, only the following polices are running - apex_policy_name:1.0  . "
                 + "Other policies failed execution. Please see the logs for more details."));
     }
+
+    @Test
+    void testPdpUpdateMessageListener_pdpUpdateMessageIntervalZero() throws CoderException {
+        final PdpStatus pdpStatus = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT);
+        final ToscaPolicy toscaPolicy =
+            TestListenerUtils.createToscaPolicy("apex policy name", "1.0", "src/test/resources/dummyProperties.json");
+        final List<ToscaPolicy> toscaPolicies = new ArrayList<ToscaPolicy>();
+        toscaPolicies.add(toscaPolicy);
+        final PdpUpdate pdpUpdateMsg = TestListenerUtils.createPdpUpdateMsg(pdpStatus, toscaPolicies,
+            new LinkedList<>());
+        pdpUpdateMsg.setPdpHeartbeatIntervalMs((long) -1);
+        pdpUpdateMessageListener.onTopicEvent(INFRA, TOPIC, null, pdpUpdateMsg);
+        assertEquals(pdpStatus.getPdpGroup(), pdpUpdateMsg.getPdpGroup());
+        assertEquals(pdpStatus.getPdpSubgroup(), pdpUpdateMsg.getPdpSubgroup());
+        assertEquals(pdpStatus.getPolicies(),
+            new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPoliciesToBeDeployed()));
+    }
 }
