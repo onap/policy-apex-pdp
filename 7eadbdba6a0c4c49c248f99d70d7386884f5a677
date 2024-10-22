@@ -39,6 +39,30 @@
       },
       "revId": "7eadbdba6a0c4c49c248f99d70d7386884f5a677",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66deca57_683bbedf",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/ConceptsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2024-10-22T20:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35ea2ab1_5ccca7a6",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "7eadbdba6a0c4c49c248f99d70d7386884f5a677",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
