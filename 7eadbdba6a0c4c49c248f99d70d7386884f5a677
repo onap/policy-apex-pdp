@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "337ef314_2eb8dcc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-10-22T08:53:30Z",
+      "side": 1,
+      "message": "need to rebase review",
+      "revId": "7eadbdba6a0c4c49c248f99d70d7386884f5a677",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ea2ab1_5ccca7a6",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/ConceptsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2024-10-22T08:53:30Z",
+      "side": 1,
+      "message": "I think this renaming created issues: https://sonarcloud.io/project/issues?issueStatuses\u003dOPEN%2CCONFIRMED\u0026sinceLeakPeriod\u003dtrue\u0026branch\u003d139234-1\u0026id\u003donap_policy-apex-pdp",
+      "range": {
+        "startLine": 21,
+        "startChar": 29,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "7eadbdba6a0c4c49c248f99d70d7386884f5a677",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
