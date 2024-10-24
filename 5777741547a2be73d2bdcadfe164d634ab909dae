@@ -41,6 +41,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b0fe637_fc54aac9",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextByteItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85ac2ad8_9e116858",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5aa2f6aa_15a29537",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-10-23T15:16:16Z",
       "side": 1,
       "message": "You can statically import the assertEquals method like this:\n\n\"import static org.junit.jupiter.api.Assertions.assertEquals;\"\n\nThis line can be changed then to just use the assertEquals method. \n\nAssertions.assertEquals(1, (int) tcbi.getIncrementedByteValue()); --\u003e assertEquals(1, (int) tcbi.getIncrementedByteValue());",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 73
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9074267_3ca2edd1",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextByteItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aa2f6aa_15a29537",
       "range": {
         "startLine": 32,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a09ea666_e3454041",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextDateItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52ffcd07_6386f975",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "215a96dc_ed35cac5",
@@ -100,6 +172,30 @@
       "writtenOn": "2024-10-23T15:16:16Z",
       "side": 1,
       "message": "Same comment as previous file",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c59c553_27705b66",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextDateItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "215a96dc_ed35cac5",
       "range": {
         "startLine": 33,
         "startChar": 8,
@@ -133,6 +229,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e626fca4_ab360284",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextDateItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fc09468_d20dbba3",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 114
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc3bcd6a_04789576",
@@ -146,6 +266,30 @@
       "writtenOn": "2024-10-23T15:16:16Z",
       "side": 1,
       "message": "Same comment as previous file",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c970d50e_c8d7a0a9",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextDateItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc3bcd6a_04789576",
       "range": {
         "startLine": 36,
         "startChar": 8,
@@ -179,6 +323,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89397a6d_18a3f7f1",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextDateLocaleItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b65d407_b8722c1f",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44279d99_e7c2bed1",
@@ -192,6 +360,30 @@
       "writtenOn": "2024-10-23T15:16:16Z",
       "side": 1,
       "message": "Same comment as previous file",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 112
+      },
+      "revId": "5777741547a2be73d2bdcadfe164d634ab909dae",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b0580b_fccf8370",
+        "filename": "testsuites/integration/integration-common/src/test/java/org/onap/policy/apex/context/test/concepts/TestContextDateLocaleItemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6722
+      },
+      "writtenOn": "2024-10-24T07:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44279d99_e7c2bed1",
       "range": {
         "startLine": 36,
         "startChar": 8,
