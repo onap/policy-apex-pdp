@@ -30,6 +30,10 @@
     <name>${project.artifactId}</name>
     <description>[${project.parent.artifactId}] Simple Websocket client (console and echo)</description>
 
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>jakarta.websocket</groupId>
