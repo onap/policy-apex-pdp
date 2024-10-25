@@ -84,6 +84,7 @@ class Apex2JmsTextEventConverterTest {
         final String source = RandomStringUtils.randomAlphabetic(5);
         final String target = RandomStringUtils.randomAlphabetic(6);
         final String nameSpace = "a.name.space";
+        final String toscaPolicyState = "";
 
         // Prepare Json String to be translated into ApexEvent
         final TextBlock object =
@@ -100,7 +101,8 @@ class Apex2JmsTextEventConverterTest {
         // execute test
         final List<ApexEvent> apexEvents = converter.toApexEvent(eventName, object);
 
-        final ApexEvent expectedEvent = new ApexEvent(eventName, eventVersion, nameSpace, source, target);
+        final ApexEvent expectedEvent =
+            new ApexEvent(eventName, eventVersion, nameSpace, source, target, toscaPolicyState);
 
         // Reset executionId
         expectedEvent.setExecutionId(0);
@@ -125,13 +127,14 @@ class Apex2JmsTextEventConverterTest {
         final String source = RandomStringUtils.randomAlphabetic(6);
         final String target = RandomStringUtils.randomAlphabetic(7);
 
-        final String expected = "{\n" +
-            "  \"name\": \"" + name + "\",\n" +
-            "  \"version\": \"" + version + "\",\n" +
-            "  \"nameSpace\": \"" + nameSpace + "\",\n" +
-            "  \"source\": \"" + source + "\",\n" +
-            "  \"target\": \"" + target + "\"\n" +
-            "}";
+        final String expected = "{\n"
+            + "  \"name\": \"" + name + "\",\n"
+            + "  \"version\": \"" + version + "\",\n"
+            + "  \"nameSpace\": \"" + nameSpace + "\",\n"
+            + "  \"source\": \"" + source + "\",\n"
+            + "  \"target\": \"" + target + "\",\n"
+            + "  \"toscaPolicyState\": null\n"
+            + "}";
 
         // Prepare Model service
         final AxArtifactKey eventKey = new AxArtifactKey(name + ":" + version);

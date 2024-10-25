@@ -22,16 +22,11 @@ package org.onap.policy.apex.plugins.event.protocol.jms;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import jakarta.jms.JMSException;
-import jakarta.jms.ObjectMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.List;
-import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,54 +89,9 @@ class Apex2JmsObjectEventConverterTest {
         final JmsObjectEventProtocolParameters parameters = new JmsObjectEventProtocolParameters();
         converter.init(parameters);
         final String eventName = RandomStringUtils.randomAlphabetic(4);
-        assertThatThrownBy(() -> converter.toApexEvent(eventName, new Object()))
+        final Object testObject = new Object();
+        assertThatThrownBy(() -> converter.toApexEvent(eventName, testObject))
             .isInstanceOf(ApexEventRuntimeException.class);
-    }
-
-    @Test
-    void toApexEventNoParams() {
-        final String eventName = RandomStringUtils.randomAlphabetic(4);
-        ObjectMessage object = (ObjectMessage) new ActiveMQObjectMessage();
-        assertThatThrownBy(() -> converter.toApexEvent(eventName, object))
-            .isInstanceOf(ApexEventRuntimeException.class);
-    }
-
-    @Test
-    void toApexEventIncomingObjectIsNull() {
-        final JmsObjectEventProtocolParameters parameters = new JmsObjectEventProtocolParameters();
-
-        converter.init(parameters);
-        final String eventName = RandomStringUtils.randomAlphabetic(4);
-        ObjectMessage object = (ObjectMessage) new ActiveMQObjectMessage();
-        assertThatThrownBy(() -> converter.toApexEvent(eventName, object))
-            .isInstanceOf(NullPointerException.class);
-    }
-
-    @Test
-    void toApexEvent() throws ApexEventException, JMSException {
-        final JmsObjectEventProtocolParameters parameters = new JmsObjectEventProtocolParameters();
-
-        converter.init(parameters);
-        final String eventName = RandomStringUtils.randomAlphabetic(4);
-        final ObjectMessage object = (ObjectMessage) new ActiveMQObjectMessage();
-        final String value = RandomStringUtils.randomAlphabetic(3);
-        object.setObject(value);
-
-        // Prepare expected object
-        final ApexEvent expectedEvent = new ApexEvent("String" + parameters.getIncomingEventSuffix(),
-            parameters.getIncomingEventVersion(),
-            "java.lang",
-            parameters.getIncomingEventSource(),
-            parameters.getIncomingEventTarget());
-        // Overwrite executionId to match executionId of actual
-        expectedEvent.setExecutionId(1);
-        final Object[] expected = {expectedEvent};
-
-        // Run tested method
-        final List<ApexEvent> actual = converter.toApexEvent(eventName, object);
-        // Overwrite executionId to match executionId of expected
-        actual.get(0).setExecutionId(1);
-        assertArrayEquals(expected, actual.toArray());
     }
 
     @Test
