@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021, 2023 Nordix Foundation.
+ *  Copyright (C) 2019-2021, 2023-2024 Nordix Foundation.
  *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -33,11 +33,11 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterRunTimeExceptio
 import org.onap.policy.apex.services.onappf.handler.PdpMessageHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.rest.HealthCheckRestControllerV1;
-import org.onap.policy.common.endpoints.event.comm.TopicEndpointManager;
-import org.onap.policy.common.endpoints.event.comm.TopicSink;
-import org.onap.policy.common.endpoints.event.comm.TopicSource;
 import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.endpoints.listeners.MessageTypeDispatcher;
+import org.onap.policy.common.message.bus.event.TopicEndpointManager;
+import org.onap.policy.common.message.bus.event.TopicSink;
+import org.onap.policy.common.message.bus.event.TopicSource;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.common.utils.services.ServiceManager;

@@ -44,7 +44,7 @@ import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
 import org.onap.policy.apex.services.onappf.handler.ApexEngineHandler;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterGroup;
 import org.onap.policy.apex.services.onappf.parameters.ApexStarterParameterHandler;
-import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
+import org.onap.policy.common.message.bus.event.Topic.CommInfrastructure;
 import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.services.Registry;

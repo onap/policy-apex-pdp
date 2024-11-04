@@ -29,9 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 import org.junit.jupiter.api.Test;
-import org.onap.policy.common.endpoints.parameters.RestServerParameters;
-import org.onap.policy.common.endpoints.parameters.TopicParameterGroup;
 import org.onap.policy.common.parameters.ValidationResult;
+import org.onap.policy.common.parameters.rest.RestServerParameters;
+import org.onap.policy.common.parameters.topic.TopicParameterGroup;
 
 /**
  * Class to perform unit test of {@link ApexStarterParameterGroup}.

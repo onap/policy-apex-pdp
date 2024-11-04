@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +22,12 @@
 package org.onap.policy.apex.services.onappf.parameters;
 
 import lombok.Getter;
-import org.onap.policy.common.endpoints.parameters.RestServerParameters;
-import org.onap.policy.common.endpoints.parameters.TopicParameterGroup;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.common.parameters.annotations.Valid;
+import org.onap.policy.common.parameters.rest.RestServerParameters;
+import org.onap.policy.common.parameters.topic.TopicParameterGroup;
 
 /**
  * Class to hold all parameters needed for apex starter component.

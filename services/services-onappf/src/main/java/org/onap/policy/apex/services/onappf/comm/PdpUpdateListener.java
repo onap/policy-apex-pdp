@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@
 package org.onap.policy.apex.services.onappf.comm;
 
 import org.onap.policy.apex.services.onappf.handler.PdpUpdateMessageHandler;
-import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
 import org.onap.policy.common.endpoints.listeners.ScoListener;
+import org.onap.policy.common.message.bus.event.Topic.CommInfrastructure;
 import org.onap.policy.common.utils.coder.StandardCoderObject;
 import org.onap.policy.models.pdp.concepts.PdpUpdate;
 import org.slf4j.Logger;

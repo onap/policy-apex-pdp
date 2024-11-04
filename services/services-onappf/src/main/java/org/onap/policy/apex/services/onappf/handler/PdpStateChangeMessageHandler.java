@@ -25,7 +25,6 @@ package org.onap.policy.apex.services.onappf.handler;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;

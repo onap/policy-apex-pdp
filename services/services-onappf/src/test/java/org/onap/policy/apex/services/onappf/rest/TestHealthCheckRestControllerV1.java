@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.SyncInvoker;
 import org.junit.jupiter.api.Test;
-import org.onap.policy.common.endpoints.report.HealthCheckReport;
+import org.onap.policy.common.utils.report.HealthCheckReport;
 
 /**
  * Class to perform unit test of {@link HealthCheckRestControllerV1}.

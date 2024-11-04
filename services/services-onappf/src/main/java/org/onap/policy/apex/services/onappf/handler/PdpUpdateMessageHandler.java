@@ -32,7 +32,7 @@ import org.onap.policy.apex.service.engine.main.ApexPolicyStatisticsManager;
 import org.onap.policy.apex.services.onappf.ApexStarterConstants;
 import org.onap.policy.apex.services.onappf.comm.PdpStatusPublisher;
 import org.onap.policy.apex.services.onappf.exception.ApexStarterException;
-import org.onap.policy.common.endpoints.event.comm.TopicSink;
+import org.onap.policy.common.message.bus.event.TopicSink;
 import org.onap.policy.common.utils.services.Registry;
 import org.onap.policy.models.pdp.concepts.PdpResponseDetails;
 import org.onap.policy.models.pdp.concepts.PdpStatus;
@@ -64,15 +64,15 @@ public class PdpUpdateMessageHandler {
         final var pdpStatusContext = Registry.get(ApexStarterConstants.REG_PDP_STATUS_OBJECT, PdpStatus.class);
         PdpResponseDetails pdpResponseDetails = null;
         if (pdpUpdateMsg.appliesTo(pdpStatusContext.getName(), pdpStatusContext.getPdpGroup(),
-                pdpStatusContext.getPdpSubgroup())) {
+            pdpStatusContext.getPdpSubgroup())) {
             if (checkIfAlreadyHandled(pdpUpdateMsg, pdpStatusContext)) {
                 pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.SUCCESS, "Pdp already updated");
+                    PdpResponseStatus.SUCCESS, "Pdp already updated");
             } else {
                 pdpResponseDetails = handlePdpUpdate(pdpUpdateMsg, pdpMessageHandler, pdpStatusContext);
             }
             final var pdpStatusPublisherTemp =
-                    Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
+                Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
             final var pdpStatus = pdpMessageHandler.createPdpStatusFromContext();
             pdpStatus.setResponse(pdpResponseDetails);
             pdpStatus.setDescription("Pdp status response message for PdpUpdate");
@@ -83,39 +83,39 @@ public class PdpUpdateMessageHandler {
     /**
      * Method to do pdp update.
      *
-     * @param pdpUpdateMsg the pdp update message
+     * @param pdpUpdateMsg      the pdp update message
      * @param pdpMessageHandler the message handler
-     * @param pdpStatusContext the pdp status in memory
+     * @param pdpStatusContext  the pdp status in memory
      * @return pdpResponseDetails the pdp response
      */
     private PdpResponseDetails handlePdpUpdate(final PdpUpdate pdpUpdateMsg, final PdpMessageHandler pdpMessageHandler,
-        final PdpStatus pdpStatusContext) {
+                                               final PdpStatus pdpStatusContext) {
         PdpResponseDetails pdpResponseDetails = null;
         final var pdpStatusPublisher =
-                        Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
+            Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
         if (null != pdpUpdateMsg.getPdpHeartbeatIntervalMs() && pdpUpdateMsg.getPdpHeartbeatIntervalMs() > 0
-                && pdpStatusPublisher.getInterval() != pdpUpdateMsg.getPdpHeartbeatIntervalMs()) {
+            && pdpStatusPublisher.getInterval() != pdpUpdateMsg.getPdpHeartbeatIntervalMs()) {
             updateInterval(pdpUpdateMsg.getPdpHeartbeatIntervalMs());
         }
         pdpStatusContext.setPdpGroup(pdpUpdateMsg.getPdpGroup());
         pdpStatusContext.setPdpSubgroup(pdpUpdateMsg.getPdpSubgroup());
         @SuppressWarnings("unchecked")
         List<ToscaPolicy> policies = Registry.getOrDefault(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
-                List.class, new ArrayList<>());
+            List.class, new ArrayList<>());
         policies.addAll(pdpUpdateMsg.getPoliciesToBeDeployed());
         policies.removeIf(policy -> pdpUpdateMsg.getPoliciesToBeUndeployed().contains(policy.getIdentifier()));
         Set<ToscaConceptIdentifier> policiesInDeployment = policies.stream().map(ToscaPolicy::getIdentifier)
-                .collect(Collectors.toSet());
+            .collect(Collectors.toSet());
         policiesInDeployment.removeAll(pdpUpdateMsg.getPoliciesToBeUndeployed());
         pdpStatusContext.setPolicies(new ArrayList<>(policiesInDeployment));
         Registry.registerOrReplace(ApexStarterConstants.REG_APEX_TOSCA_POLICY_LIST,
-                policies);
+            policies);
         if (pdpStatusContext.getState().equals(PdpState.ACTIVE)) {
             pdpResponseDetails = startOrStopApexEngineBasedOnPolicies(pdpUpdateMsg, pdpMessageHandler);
 
             var apexEngineHandler =
                 Registry.getOrDefault(ApexStarterConstants.REG_APEX_ENGINE_HANDLER, ApexEngineHandler.class, null);
-            // in hearbeat while in active state, only the policies which are running should be there.
+            // in heartbeat while in active state, only the policies which are running should be there.
             // if some policy fails, that shouldn't go in the heartbeat.
             // If no policies are running, then the policy list in the heartbeat can be empty
             if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
@@ -129,7 +129,7 @@ public class PdpUpdateMessageHandler {
         }
         if (null == pdpResponseDetails) {
             pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
-                    PdpResponseStatus.SUCCESS, "Pdp update successful.");
+                PdpResponseStatus.SUCCESS, "Pdp update successful.");
         }
         return pdpResponseDetails;
     }
@@ -137,14 +137,14 @@ public class PdpUpdateMessageHandler {
     /**
      * Method to start or stop apex engine based on the list of policies received from pap. When current state is
      * active, if PAP sends PdpUpdate with empty policies list, stop apex engine, or, if there is a change in policies,
-     * stop the current running policies and the deploy the new ones.
+     * stop the current running policies and then deploy the new ones.
      *
-     * @param pdpUpdateMsg the pdp update message from pap
+     * @param pdpUpdateMsg      the pdp update message from pap
      * @param pdpMessageHandler pdp message handler
      * @return pdpResponseDetails the pdp response
      */
     private PdpResponseDetails startOrStopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
-            final PdpMessageHandler pdpMessageHandler) {
+                                                                    final PdpMessageHandler pdpMessageHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         ApexEngineHandler apexEngineHandler = null;
         try {
@@ -163,7 +163,8 @@ public class PdpUpdateMessageHandler {
     }
 
     private PdpResponseDetails stopApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
-        final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
+                                                             final PdpMessageHandler pdpMessageHandler,
+                                                             ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         if (null != apexEngineHandler && apexEngineHandler.isApexEngineRunning()) {
             List<ToscaConceptIdentifier> runningPolicies = apexEngineHandler.getRunningPolicies();
@@ -175,7 +176,7 @@ public class PdpUpdateMessageHandler {
             } catch (final ApexStarterException e) {
                 LOGGER.error("Pdp update failed as the policies couldn't be undeployed.", e);
                 pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
-                        PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
+                    PdpResponseStatus.FAIL, "Pdp update failed as the policies couldn't be undeployed.");
             }
             updateDeploymentCounts(runningPolicies, pdpUpdateMsg);
         }
@@ -183,7 +184,8 @@ public class PdpUpdateMessageHandler {
     }
 
     private PdpResponseDetails startApexEngineBasedOnPolicies(final PdpUpdate pdpUpdateMsg,
-        final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
+                                                              final PdpMessageHandler pdpMessageHandler,
+                                                              ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails = null;
         List<ToscaConceptIdentifier> runningPolicies = new ArrayList<>();
         try {
@@ -206,14 +208,15 @@ public class PdpUpdateMessageHandler {
         } catch (final ApexStarterException e) {
             LOGGER.error("Apex engine service running failed. ", e);
             pdpResponseDetails = pdpMessageHandler.createPdpResponseDetails(pdpUpdateMsg.getRequestId(),
-                    PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
+                PdpResponseStatus.FAIL, "Apex engine service running failed. " + e.getMessage());
         }
         updateDeploymentCounts(runningPolicies, pdpUpdateMsg);
         return pdpResponseDetails;
     }
 
     private PdpResponseDetails populateResponseForEngineInitiation(final PdpUpdate pdpUpdateMsg,
-        final PdpMessageHandler pdpMessageHandler, ApexEngineHandler apexEngineHandler) {
+                                                                   final PdpMessageHandler pdpMessageHandler,
+                                                                   ApexEngineHandler apexEngineHandler) {
         PdpResponseDetails pdpResponseDetails;
         Set<ToscaConceptIdentifier> runningPolicies = new HashSet<>(apexEngineHandler.getRunningPolicies());
         List<ToscaConceptIdentifier> policiesToBeDeployed =
@@ -252,7 +255,7 @@ public class PdpUpdateMessageHandler {
     /**
      * Method checks if the Pdp update message is already handled by checking the values in the context.
      *
-     * @param pdpUpdateMsg pdp update message received from pap
+     * @param pdpUpdateMsg     pdp update message received from pap
      * @param pdpStatusContext values saved in context memory
      * @return boolean flag which tells if the information is same or not
      */
@@ -263,7 +266,7 @@ public class PdpUpdateMessageHandler {
             && pdpStatusContext.getPdpSubgroup().equals(pdpUpdateMsg.getPdpSubgroup())
             && null != pdpStatusContext.getPolicies()
             && pdpStatusContext.getPolicies()
-                .containsAll(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPoliciesToBeDeployed()))
+            .containsAll(new PdpMessageHandler().getToscaPolicyIdentifiers(pdpUpdateMsg.getPoliciesToBeDeployed()))
             && !containsAny(new HashSet<>(pdpStatusContext.getPolicies()), pdpUpdateMsg.getPoliciesToBeUndeployed());
     }
 
@@ -274,32 +277,33 @@ public class PdpUpdateMessageHandler {
      */
     public void updateInterval(final long interval) {
         final var pdpStatusPublisher =
-                        Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
+            Registry.get(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER, PdpStatusPublisher.class);
         pdpStatusPublisher.terminate();
         final List<TopicSink> topicSinks = Registry.get(ApexStarterConstants.REG_APEX_PDP_TOPIC_SINKS);
         Registry.registerOrReplace(ApexStarterConstants.REG_PDP_STATUS_PUBLISHER,
-                new PdpStatusPublisher(topicSinks, interval));
+            new PdpStatusPublisher(topicSinks, interval));
     }
 
     /**
      * Checks if one list contains any element of another.
      *
-     * @param listToCheckWith list to check contents of
+     * @param listToCheckWith    list to check contents of
      * @param listToCheckAgainst list to check against other list for similarities
      * @return boolean flag which tells if lists share same elements or not
      */
     private boolean containsAny(Set<ToscaConceptIdentifier> listToCheckWith,
-            List<ToscaConceptIdentifier> listToCheckAgainst) {
+                                List<ToscaConceptIdentifier> listToCheckAgainst) {
         return listToCheckAgainst.stream().anyMatch(listToCheckWith::contains);
     }
 
     /**
      * Update count values for deployment actions (deploy and undeploy) when applicable.
+     *
      * @param runningPolicies the policies running in apex engine
-     * @param pdpUpdateMsg the pdp update message from pap
+     * @param pdpUpdateMsg    the pdp update message from pap
      */
     private void updateDeploymentCounts(final List<ToscaConceptIdentifier> runningPolicies,
-        final PdpUpdate pdpUpdateMsg) {
+                                        final PdpUpdate pdpUpdateMsg) {
         final var statisticsManager = ApexPolicyStatisticsManager.getInstanceFromRegistry();
         if (statisticsManager != null && runningPolicies != null) {
             if (pdpUpdateMsg.getPoliciesToBeDeployed() != null && !pdpUpdateMsg.getPoliciesToBeDeployed().isEmpty()) {
@@ -310,7 +314,7 @@ public class PdpUpdateMessageHandler {
                 policiesSuccessfullyDeployed.retainAll(runningPolicies);
                 policiesSuccessfullyDeployed.forEach(policy -> statisticsManager.updatePolicyDeployCounter(true));
 
-                var policiesFailedToDeploy =  new ArrayList<>(policiesToDeploy);
+                var policiesFailedToDeploy = new ArrayList<>(policiesToDeploy);
                 policiesFailedToDeploy.removeIf(runningPolicies::contains);
                 policiesFailedToDeploy.forEach(policy -> statisticsManager.updatePolicyDeployCounter(false));
             }
@@ -321,7 +325,7 @@ public class PdpUpdateMessageHandler {
                 policiesFailedToUndeploy.retainAll(runningPolicies);
                 policiesFailedToUndeploy.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(false));
 
-                var policiesSuccessfullyUndeployed =  new ArrayList<>(policiesToUndeploy);
+                var policiesSuccessfullyUndeployed = new ArrayList<>(policiesToUndeploy);
                 policiesSuccessfullyUndeployed.removeIf(runningPolicies::contains);
                 policiesSuccessfullyUndeployed.forEach(policy -> statisticsManager.updatePolicyUndeployCounter(true));
             }

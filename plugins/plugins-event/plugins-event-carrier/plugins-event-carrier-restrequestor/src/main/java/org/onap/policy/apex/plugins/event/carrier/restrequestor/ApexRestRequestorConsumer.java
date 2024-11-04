@@ -51,9 +51,9 @@ import org.onap.policy.apex.service.engine.event.ApexPluginsEventConsumer;
 import org.onap.policy.apex.service.parameters.carriertechnology.RestPluginCarrierTechnologyParameters.HttpMethod;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerParameters;
 import org.onap.policy.apex.service.parameters.eventhandler.EventHandlerPeeredMode;
-import org.onap.policy.common.endpoints.event.comm.Topic.CommInfrastructure;
-import org.onap.policy.common.endpoints.utils.NetLoggerUtil;
-import org.onap.policy.common.endpoints.utils.NetLoggerUtil.EventType;
+import org.onap.policy.common.message.bus.event.Topic.CommInfrastructure;
+import org.onap.policy.common.message.bus.utils.NetLoggerUtil;
+import org.onap.policy.common.message.bus.utils.NetLoggerUtil.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
