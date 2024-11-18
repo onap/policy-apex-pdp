@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.services</groupId>
         <artifactId>services</artifactId>
-        <version>4.0.1-SNAPSHOT</version>
+        <version>4.0.1</version>
     </parent>
 
     <artifactId>services-onappf</artifactId>
