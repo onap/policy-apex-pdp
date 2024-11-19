@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.examples</groupId>
         <artifactId>examples</artifactId>
-        <version>4.0.2-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>examples-decisionmaker</artifactId>

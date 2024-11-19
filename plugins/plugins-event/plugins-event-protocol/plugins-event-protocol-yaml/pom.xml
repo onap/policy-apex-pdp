@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-protocol</groupId>
         <artifactId>plugins-event-protocol</artifactId>
-        <version>4.0.2-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-event-protocol-yaml</artifactId>
