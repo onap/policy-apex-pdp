@@ -16,7 +16,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 
-name: policy-apex-performance-test
+name: policy-apex-stability-test
 
 on:
   workflow_dispatch:
@@ -76,7 +76,7 @@ jobs:
 
       - name: Run S3P script
         working-directory: ${{ github.workspace }}/testsuites
-        run: sudo bash ./run-s3p-test.sh run performance
+        run: sudo bash ./run-s3p-test.sh run stability
 
       - name: Archive result jtl
         uses: actions/upload-artifact@v4
@@ -89,4 +89,3 @@ jobs:
         with:
           name: policy-apex-s3p-results
           path: ${{ github.workspace }}/testsuites/automate-s3p-test/jmeter.log
-

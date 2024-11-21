@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023-2024 Nordix Foundation. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ export APEX_STAB_TEST_FILE=$TESTDIR/apex-pdp-stability/src/main/resources/apexPd
 if [ $1 == "run" ]
 then
 
-  mkdir automate-performance;cd automate-performance;
+  mkdir automate-s3p-test;cd automate-s3p-test;
   git clone "https://gerrit.onap.org/r/policy/docker"
   cd docker/csit
 
@@ -46,4 +46,3 @@ then
 else
   echo "Invalid arguments provided. Usage: $0 [option..] {run | uninstall}"
 fi
-
