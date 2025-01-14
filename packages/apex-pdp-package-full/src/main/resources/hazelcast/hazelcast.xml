@@ -2,6 +2,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2016-2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2025 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,12 +20,9 @@
   ============LICENSE_END=========================================================
 -->
 <hazelcast xmlns="http://www.hazelcast.com/schema/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <group>
-        <name>HazelcastGroup3.0EVAL</name>
-        <password>password3.0EVAL</password>
-    </group>
+    <cluster-name>HazelcastGroup3.0EVAL</cluster-name>
     <network>
-        <port auto-increment="true">5706</port>
+        <port>5706</port>
         <join>
             <multicast enabled="false">
                 <multicast-group>224.2.2.10</multicast-group>
@@ -35,8 +33,7 @@
                 <!-- members>192.168.219.141</members-->
             </tcp-ip>
         </join>
-        <interfaces enabled="false">
-            <!-- This value will allow hazelcast to run locally from the IDE -->
+        <interfaces>
             <interface>127.0.0.*</interface>
         </interfaces>
     </network>
@@ -51,171 +48,55 @@
     <executor-service>
         <pool-size>16</pool-size>
     </executor-service>
-    <queue name="default">
-        <!-- Maximum size of the queue. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
-        <max-size>100000</max-size>
-        <!-- Maximum number of seconds for each item to stay in the queue. Items 
-            that are not consumed in <time-to-live-seconds> will automatically get evicted 
-            from the queue. Any integer between 0 and Integer.MAX_VALUE. 0 means infinite. 
-            Default is 0. -->
-    </queue>
     <map name="default">
-        <!-- Number of backups. If 1 is set as the backup-count for example, then 
-            all entries of the map will be copied to another JVM for fail-safety. Valid 
-            numbers are 0 (no backup), 1, 2, 3. -->
         <backup-count>1</backup-count>
-        <!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
-            (Least Frequiently Used). NONE is the default. -->
-        <eviction-policy>NONE</eviction-policy>
-        <!-- Maximum size of the map. When max size is reached, map is evicted 
-            based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
-        <max-size>0</max-size>
-        <!-- When max. size is reached, specified percentage of the map will be 
-            evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
-            the entries will get evicted. -->
-        <eviction-percentage>25</eviction-percentage>
+        <eviction eviction-policy="NONE"/>
     </map>
 
     <map name="CommonCache">
-
-
-        <!-- Number of async-backups. If 1 is set as the backup-count for example, 
-            then all entries of the map will be copied to another JVM for fail-safety. 
-            Valid numbers are 0 (no backup), 1, 2, 3. -->
         <async-backup-count>1</async-backup-count>
-
-        <!-- Can we read the local backup entries? Default value is false for strong 
-            consistency. Being able to read backup data will give you greater performance. -->
         <read-backup-data>true</read-backup-data>
-        <!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
-            (Least Frequiently Used). NONE is the default. -->
-        <eviction-policy>LRU</eviction-policy>
-        <!-- Maximum size of the map. When max size is reached, map is evicted 
-            based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
-        <max-size>3000000</max-size>
-        <!-- When max. size is reached, specified percentage of the map will be 
-            evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
-            the entries will get evicted. -->
-        <eviction-percentage>5</eviction-percentage>
-
-        <!-- Maximum number of seconds for each entry to stay in the map. Entries 
-            that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
-            will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means infinite. Default is 0. -->
+        <eviction eviction-policy="LRU" size="3000000"/>
         <time-to-live-seconds>7200</time-to-live-seconds>
-
-
     </map>
 
     <map name="CommonDataCache">
-
-
-        <!-- Number of async-backups. If 1 is set as the backup-count for example, 
-            then all entries of the map will be copied to another JVM for fail-safety. 
-            Valid numbers are 0 (no backup), 1, 2, 3. -->
         <async-backup-count>1</async-backup-count>
-
-        <!-- Can we read the local backup entries? Default value is false for strong 
-            consistency. Being able to read backup data will give you greater performance. -->
         <read-backup-data>true</read-backup-data>
-        <!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
-            (Least Frequiently Used). NONE is the default. -->
-        <eviction-policy>LRU</eviction-policy>
-        <!-- Maximum size of the map. When max size is reached, map is evicted 
-            based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
-        <max-size>3000000</max-size>
-        <!-- When max. size is reached, specified percentage of the map will be 
-            evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
-            the entries will get evicted. -->
-        <eviction-percentage>5</eviction-percentage>
-
-        <!-- Maximum number of seconds for each entry to stay in the map. Entries 
-            that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
-            will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means infinite. Default is 0. -->
+        <eviction eviction-policy="LRU" size="3000000"/>
         <time-to-live-seconds>7200</time-to-live-seconds>
-
     </map>
 
 
     <queue name="raw-distributer-queue">
-        <!-- Maximum size of the queue. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
         <max-size>100000</max-size>
     </queue>
+
     <map name="queue-map">
-
-        <!-- Number of backups. If 1 is set as the backup-count for example, then 
-            all entries of the map will be copied to another JVM for fail-safety. Valid 
-            numbers are 0 (no backup), 1, 2, 3. -->
         <backup-count>0</backup-count>
-
     </map>
 
     <map name="TOPIC-TASK-MAP">
-
         <async-backup-count>3</async-backup-count>
-
         <read-backup-data>true</read-backup-data>
-        <!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
-            (Least Frequiently Used). NONE is the default. -->
-        <eviction-policy>NONE</eviction-policy>
-        <!-- Maximum size of the map. When max size is reached, map is evicted 
-            based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
-        <max-size>1000</max-size>
-        <!-- When max. size is reached, specified percentage of the map will be 
-            evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
-            the entries will get evicted. -->
-        <eviction-percentage>0</eviction-percentage>
-
-
-
-        <!-- Maximum number of seconds for each entry to stay in the map. Entries 
-            that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
-            will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means infinite. Default is 0. -->
+        <eviction eviction-policy="NONE" size="1000"/>
         <time-to-live-seconds>0</time-to-live-seconds>
     </map>
+
     <map name="TOPIC-REGISTRY">
-
         <async-backup-count>3</async-backup-count>
-
         <read-backup-data>true</read-backup-data>
-        <!-- Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU 
-            (Least Frequiently Used). NONE is the default. -->
-        <eviction-policy>NONE</eviction-policy>
-        <!-- Maximum size of the map. When max size is reached, map is evicted 
-            based on the policy defined. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
-        <max-size>1000</max-size>
-        <!-- When max. size is reached, specified percentage of the map will be 
-            evicted. Any integer between 0 and 100. If 25 is set for example, 25% of 
-            the entries will get evicted. -->
-        <eviction-percentage>0</eviction-percentage>
-
-        <!-- Maximum number of seconds for each entry to stay in the map. Entries 
-            that are older than <time-to-live-seconds> and not updated for <time-to-live-seconds> 
-            will get automatically evicted from the map. Any integer between 0 and Integer.MAX_VALUE. 
-            0 means infinite. Default is 0. -->
+        <eviction eviction-policy="NONE" size="1000"/>
         <time-to-live-seconds>0</time-to-live-seconds>
     </map>
+
     <queue name="Pooled-Topic-Request-Queue">
-        <!-- Maximum size of the queue.Any integer between 0 and Integer.MAX_VALUE. 
-            0 means Integer.MAX_VALUE. Default is 0. -->
         <max-size>100000</max-size>
     </queue>
-    <map name="Pooled-Topic-Request-Queue-Backup-map">
 
-        <!-- Number of backups. If 1 is set as the backup-count for example, then 
-            all entries of the map will be copied to another JVM for fail-safety. Valid 
-            numbers are 0 (no backup), 1, 2, 3. -->
+    <map name="Pooled-Topic-Request-Queue-Backup-map">
         <backup-count>1</backup-count>
-        <eviction-policy>NONE</eviction-policy>
+        <eviction eviction-policy="NONE"/>
         <time-to-live-seconds>0</time-to-live-seconds>
     </map>
 

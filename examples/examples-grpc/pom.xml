@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ============LICENSE_START=======================================================
-   Copyright (C) 2020 Nordix Foundation.
+   Copyright (C) 2020, 2025 Nordix Foundation.
    Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
    Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
   ================================================================================
@@ -151,6 +151,7 @@
                                 <argument>
                                     --tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json
                                 </argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -184,6 +185,7 @@
                                 <argument>
                                     --output-node-template-file=${project.build.directory}/classes/${toscapolicy.name}.nodeTemplate.json
                                 </argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>

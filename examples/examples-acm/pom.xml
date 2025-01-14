@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ============LICENSE_START=======================================================
-   Copyright (C) 2022 Nordix Foundation.
+   Copyright (C) 2022, 2025 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -110,6 +110,7 @@
                                 <argument>
                                     --tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json
                                 </argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>

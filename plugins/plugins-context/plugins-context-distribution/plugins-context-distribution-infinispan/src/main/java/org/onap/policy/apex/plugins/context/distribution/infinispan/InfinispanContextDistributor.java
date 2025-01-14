@@ -1,7 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2016-2018 Ericsson. All rights reserved.
+ * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ * Modifications Copyright (C) 2025 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,7 +87,7 @@ public class InfinispanContextDistributor extends AbstractDistributor {
      */
     @Override
     public Map<String, Object> getContextAlbumMap(final AxArtifactKey contextAlbumKey) {
-        LOGGER.info("InfinispanContextDistributor: create album: " + contextAlbumKey.getId());
+        LOGGER.info("InfinispanContextDistributor: create album: {}", contextAlbumKey.getId());
 
         // Get the Cache from Infinispan
         return infinispanManager.getCacheManager().getCache(contextAlbumKey.getId().replace(':', '_'));

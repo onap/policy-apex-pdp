@@ -1,6 +1,6 @@
 <!--
   ============LICENSE_START=======================================================
-   Copyright (C) 2023 Nordix Foundation.
+   Copyright (C) 2023, 2025 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -93,6 +93,7 @@
                                 <argument>--log-file=${project.build.directory}/${policymodel.decisionmaker.name}_policygeneration.log</argument>
                                 <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/DecisionMaker/ApexConfigRESTServerNoModel.json</argument>
                                 <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplate.json</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -111,6 +112,7 @@
                                 <argument>--log-file=${project.build.directory}/${policymodel.decisionmakertwo.name}_policygeneration.log</argument>
                                 <argument>--apex-config-file=${project.basedir}/src/main/resources/examples/config/DecisionMaker/ApexConfigRESTServerNoModel_Decision.json</argument>
                                 <argument>--tosca-template-file=${project.basedir}/src/main/resources/tosca/ToscaTemplateTwo.json</argument>
+                                <argument>--working-dir=${project.basedir}</argument>
                             </arguments>
                         </configuration>
                     </execution>

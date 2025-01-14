@@ -2,6 +2,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2016-2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2025 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,15 +20,16 @@
   ============LICENSE_END=========================================================
 -->
 
-<infinispan xmlns="urn:infinispan:config:8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:infinispan:config:8.0 http://infinispan.org/schemas/infinispan-config-8.0.xsd">
+<infinispan xmlns="urn:infinispan:config:14.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="urn:infinispan:config:14.0 https://infinispan.org/schemas/infinispan-config-14.0.xsd">
+
     <jgroups>
         <stack-file name="external-file" path="infinispan/default-jgroups-tcp.xml" />
     </jgroups>
 
     <cache-container name="ApexCacheContainer" default-cache="TestContext_0.0.1">
         <transport cluster="apexCluster" stack="external-file" />
-        <jmx />
+        <jmx enabled="true" />
         <replicated-cache name="LargeContextMap_0.0.1" mode="SYNC" statistics="true">
             <state-transfer enabled="true" />
         </replicated-cache>
@@ -39,3 +41,4 @@
         </replicated-cache>
     </cache-container>
 </infinispan>
+
