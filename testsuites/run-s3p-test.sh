@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2023-2024 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023-2025 Nordix Foundation. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,27 +22,43 @@ if [ -z "${WORKSPACE}" ]; then
     export WORKSPACE=$(git rev-parse --show-toplevel)
 fi
 
+export PROJECT="apex-pdp"
 export TESTDIR=${WORKSPACE}/testsuites
 export APEX_PERF_TEST_FILE=$TESTDIR/performance/performance-benchmark-test/src/main/resources/apexPdpPerformanceTestPlan.jmx
 export APEX_STAB_TEST_FILE=$TESTDIR/apex-pdp-stability/src/main/resources/apexPdpStabilityTestPlan.jmx
 
-if [ $1 == "run" ]
-then
+function run_tests() {
+    local test_file=$1
 
-  mkdir automate-s3p-test;cd automate-s3p-test;
-  git clone "https://gerrit.onap.org/r/policy/docker"
-  cd docker/csit
+    mkdir -p automate-s3p-test
+    cd automate-s3p-test || exit 1
+    git clone "https://gerrit.onap.org/r/policy/docker"
+    cd docker/csit || exit 1
 
-  if [ $2 == "performance" ]
-  then
-    bash start-s3p-tests.sh run $APEX_PERF_TEST_FILE apex-pdp;
-  elif [ $2 == "stability" ]
-  then
-    bash start-s3p-tests.sh run $APEX_STAB_TEST_FILE apex-pdp;
-  else
-    echo "echo Invalid arguments provided. Usage: $0 [option..] {performance | stability}"
-  fi
+    bash run-s3p-tests.sh test "$test_file" $PROJECT
+}
 
-else
-  echo "Invalid arguments provided. Usage: $0 [option..] {run | uninstall}"
-fi
+function clean() {
+    cd $TESTDIR/automate-s3p-test/docker/csit
+    bash run-s3p-tests.sh clean
+}
+
+echo "================================="
+echo "Triggering S3P test for: $PROJECT"
+echo "================================="
+
+case $1 in
+    performance)
+        run_tests "$APEX_PERF_TEST_FILE"
+        ;;
+    stability)
+        run_tests "$APEX_STAB_TEST_FILE"
+        ;;
+    clean)
+        clean
+        ;;
+    *)
+        echo "Invalid arguments provided. Usage: $0 {performance | stability | clean}"
+        exit 1
+        ;;
+
