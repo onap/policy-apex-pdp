@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-distribution</groupId>
         <artifactId>plugins-context-distribution</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.1.0</version>
     </parent>
 
     <artifactId>plugins-context-distribution-hazelcast</artifactId>
