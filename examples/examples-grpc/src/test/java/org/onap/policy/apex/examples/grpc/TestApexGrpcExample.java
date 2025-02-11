@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020-2024 Nordix Foundation.
+ *  Copyright (C) 2020-2025 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ import org.onap.policy.apex.service.engine.main.ApexMain;
 
 /**
  * Test class to run an example policy for APEX-CDS interaction over gRPC. Event received on
- * unauthenticated.DCAE_CL_OUTPUT DMaaP topic (dummy REST Endpoint here) triggers the policy Based on the event, a
+ * unauthenticated.DCAE_CL_OUTPUT topic (dummy REST Endpoint here) triggers the policy Based on the event, a
  * create/delete subscription gRPC request is triggered to the CDS (a dummy gRPC server here). Response received from
  * CDS is used to send a final output Log event on POLICY_CL_MGT topic.
  */
