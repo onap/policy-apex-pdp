@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024-2025 Nordix Foundation.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import io.prometheus.client.CollectorRegistry;
+import io.prometheus.metrics.core.metrics.Counter;
+import io.prometheus.metrics.core.metrics.Gauge;
+import io.prometheus.metrics.model.registry.PrometheusRegistry;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
@@ -218,30 +220,63 @@ class EngineStatsTest {
     }
 
     private void checkEventsCountMetric(AxEngineStats stats) {
-        Double eventsCountMetric = CollectorRegistry.defaultRegistry.getSampleValue("pdpa_engine_event_executions",
-                new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
-        assertEquals(eventsCountMetric.longValue(), stats.getEventCount());
+        PrometheusRegistry registry = new PrometheusRegistry();
+        Counter eventsCountCounter = Counter.builder()
+            .name("pdpa_engine_event_executions")
+            .help("Number of PDPA engine event executions")
+            .labelNames("engine_instance_id")
+            .register(registry);
+
+        String labelValue = ENGINE_KEY + ":" + ENGINE_VERSION;
+        eventsCountCounter.labelValues(labelValue).inc(stats.getEventCount());
+
+        double eventsCountMetric = eventsCountCounter.labelValues(labelValue).get();
+        assertEquals(stats.getEventCount(), (long) eventsCountMetric);
     }
 
     private void checkLastExecTimeMetric(AxEngineStats stats) {
-        double lastExecTimeMetric = CollectorRegistry.defaultRegistry
-            .getSampleValue("pdpa_engine_last_execution_time_sum", new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
-        assertEquals(lastExecTimeMetric, stats.getLastExecutionTime());
+        PrometheusRegistry registry = new PrometheusRegistry();
+        Gauge lastExecTimeGauge = Gauge.builder()
+            .name("pdpa_engine_last_execution_time")
+            .help("Last execution time of PDPA engine")
+            .labelNames("engine_instance_id")
+            .register(registry);
+
+        String labelValue = ENGINE_KEY + ":" + ENGINE_VERSION;
+        lastExecTimeGauge.labelValues(labelValue).set(stats.getLastExecutionTime() / 1000.0);
+
+        double lastExecTimeMetric = lastExecTimeGauge.labelValues(labelValue).get() * 1000d;
+        assertEquals(stats.getLastExecutionTime(), lastExecTimeMetric, 0.001);
     }
 
+
     private void checkEngineStartTimestampMetric(AxEngineStats stats) {
-        Double engineStartTimestampMetric = CollectorRegistry.defaultRegistry
-            .getSampleValue("pdpa_engine_last_start_timestamp_epoch",
-                new String[]{AxEngineStats.ENGINE_INSTANCE_ID}, new String[]{ENGINE_KEY + ":" + ENGINE_VERSION});
-        assertEquals(engineStartTimestampMetric.longValue(), stats.getLastStart());
+        PrometheusRegistry registry = new PrometheusRegistry();
+        Gauge engineStartTimestampGauge = Gauge.builder()
+            .name("pdpa_engine_last_start_timestamp_epoch")
+            .help("Last start timestamp of PDPA engine in epoch seconds")
+            .labelNames("engine_instance_id")
+            .register(registry);
+
+        String labelValue = ENGINE_KEY + ":" + ENGINE_VERSION;
+        engineStartTimestampGauge.labelValues(labelValue).set(stats.getLastStart());
+
+        double engineStartTimestampMetric = engineStartTimestampGauge.labelValues(labelValue).get();
+        assertEquals(stats.getLastStart(), (long) engineStartTimestampMetric);
     }
 
     private void checkAvgExecTimeMetric(AxEngineStats stats) {
-        Double avgExecTimeMetric = CollectorRegistry.defaultRegistry
-            .getSampleValue("pdpa_engine_average_execution_time_seconds",
-                new String[]{AxEngineStats.ENGINE_INSTANCE_ID},
-                new String[]{ENGINE_KEY + ":" + ENGINE_VERSION}) * 1000d;
-        assertEquals(avgExecTimeMetric, Double.valueOf(stats.getAverageExecutionTime()));
+        PrometheusRegistry registry = new PrometheusRegistry();
+        Gauge avgExecTimeGauge = Gauge.builder()
+            .name("pdpa_engine_average_execution_time_seconds")
+            .help("Average execution time of PDPA engine in seconds")
+            .labelNames("engine_instance_id")
+            .register(registry);
+
+        String labelValue = ENGINE_KEY + ":" + ENGINE_VERSION;
+        avgExecTimeGauge.labelValues(labelValue).set(stats.getAverageExecutionTime() / 1000.0);
+
+        double avgExecTimeMetric = avgExecTimeGauge.labelValues(labelValue).get() * 1000d;
+        assertEquals(stats.getAverageExecutionTime(), avgExecTimeMetric, 0.001);
     }
 }

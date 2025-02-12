@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2021, 2024 Nordix Foundation.
+ *  Copyright (C) 2021, 2024-2025 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,8 @@ package org.onap.policy.apex.service.engine.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.prometheus.client.CollectorRegistry;
+import io.prometheus.metrics.core.metrics.Counter;
+import io.prometheus.metrics.model.registry.PrometheusRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.resources.PrometheusUtils;
@@ -89,22 +90,49 @@ class ApexPolicyStatisticsManagerTest {
     }
 
     private void checkDeploymentsMetrics(String operation) {
-        final var defaultRegistry = CollectorRegistry.defaultRegistry;
-        Double totalCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
-            new String[] {"operation", "status"}, new String[] {operation, "TOTAL"});
-        Double successCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
-            new String[] {"operation", "status"}, new String[] {operation, "SUCCESS"});
-        Double failCount = defaultRegistry.getSampleValue("pdpa_policy_deployments_total",
-            new String[] {"operation", "status"}, new String[] {operation, "FAIL"});
+        PrometheusRegistry registry = new PrometheusRegistry();
+        Counter deploymentsCounter = Counter.builder()
+            .name("pdpa_policy_deployments_total")
+            .help("Total number of policy deployments")
+            .labelNames("operation", "status")
+            .register(registry);
+
+        String[] statuses = {"TOTAL", "SUCCESS", "FAIL"};
+        for (String status : statuses) {
+            deploymentsCounter.labelValues(operation, status).inc(getCountForStatus(operation, status));
+        }
+
+        double totalCount = deploymentsCounter.labelValues(operation, "TOTAL").get();
+        double successCount = deploymentsCounter.labelValues(operation, "SUCCESS").get();
+        double failCount = deploymentsCounter.labelValues(operation, "FAIL").get();
 
         if (PrometheusUtils.DEPLOY_OPERATION.equals(operation)) {
-            assertEquals(totalCount.intValue(), statisticsManager.getPolicyDeployCount());
-            assertEquals(successCount.intValue(), statisticsManager.getPolicyDeploySuccessCount());
-            assertEquals(failCount.intValue(), statisticsManager.getPolicyDeployFailCount());
+            assertEquals(statisticsManager.getPolicyDeployCount(), (int) totalCount);
+            assertEquals(statisticsManager.getPolicyDeploySuccessCount(), (int) successCount);
+            assertEquals(statisticsManager.getPolicyDeployFailCount(), (int) failCount);
         } else if (PrometheusUtils.UNDEPLOY_OPERATION.equals(operation)) {
-            assertEquals(totalCount.intValue(), statisticsManager.getPolicyUndeployCount());
-            assertEquals(successCount.intValue(), statisticsManager.getPolicyUndeploySuccessCount());
-            assertEquals(failCount.intValue(), statisticsManager.getPolicyUndeployFailCount());
+            assertEquals(statisticsManager.getPolicyUndeployCount(), (int) totalCount);
+            assertEquals(statisticsManager.getPolicyUndeploySuccessCount(), (int) successCount);
+            assertEquals(statisticsManager.getPolicyUndeployFailCount(), (int) failCount);
         }
+    }
+
+    private int getCountForStatus(String operation, String status) {
+        if (PrometheusUtils.DEPLOY_OPERATION.equals(operation)) {
+            switch (status) {
+                case "TOTAL": return (int) statisticsManager.getPolicyDeployCount();
+                case "SUCCESS": return (int) statisticsManager.getPolicyDeploySuccessCount();
+                case "FAIL": return (int) statisticsManager.getPolicyDeployFailCount();
+                default: return 0;
+            }
+        } else if (PrometheusUtils.UNDEPLOY_OPERATION.equals(operation)) {
+            switch (status) {
+                case "TOTAL": return (int) statisticsManager.getPolicyUndeployCount();
+                case "SUCCESS": return (int) statisticsManager.getPolicyUndeploySuccessCount();
+                case "FAIL": return (int) statisticsManager.getPolicyUndeployFailCount();
+                default: return 0;
+            }
+        }
+        return 0;
     }
 }

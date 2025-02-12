@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020-2021 Nordix Foundation.
+ *  Copyright (C) 2020-2021, 2025 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada Intellectual Property. All rights reserved.
  * ================================================================================
@@ -22,7 +22,7 @@
 
 package org.onap.policy.apex.service.engine.main;
 
-import io.prometheus.client.Counter;
+import io.prometheus.metrics.core.metrics.Counter;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.NoArgsConstructor;
 import org.onap.policy.common.utils.resources.PrometheusUtils;
@@ -36,8 +36,8 @@ public class ApexPolicyStatisticsManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApexPolicyStatisticsManager.class);
 
     static final Counter POLICY_DEPLOYMENTS_COUNTER =
-        Counter.build().namespace(PrometheusUtils.PdpType.PDPA.getNamespace())
-            .name(PrometheusUtils.POLICY_DEPLOYMENTS_METRIC)
+        Counter.builder()
+            .name(PrometheusUtils.PdpType.PDPA.getNamespace() + "_" + PrometheusUtils.POLICY_DEPLOYMENTS_METRIC)
             .labelNames(PrometheusUtils.OPERATION_METRIC_LABEL, PrometheusUtils.STATUS_METRIC_LABEL)
             .help(PrometheusUtils.POLICY_DEPLOYMENT_HELP).register();
 
@@ -73,13 +73,15 @@ public class ApexPolicyStatisticsManager {
      * Update the policy deploy count.
      */
     public void updatePolicyDeployCounter(final boolean isSuccessful) {
-        POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.DEPLOY_OPERATION, PROMETHEUS_TOTAL_LABEL_VALUE).inc();
+        POLICY_DEPLOYMENTS_COUNTER.labelValues(PrometheusUtils.DEPLOY_OPERATION, PROMETHEUS_TOTAL_LABEL_VALUE).inc();
         this.policyDeployCount.incrementAndGet();
         if (!isSuccessful) {
-            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.DEPLOY_OPERATION, PdpResponseStatus.FAIL.name()).inc();
+            POLICY_DEPLOYMENTS_COUNTER.labelValues(PrometheusUtils.DEPLOY_OPERATION,
+                PdpResponseStatus.FAIL.name()).inc();
             this.policyDeployFailCount.incrementAndGet();
         } else {
-            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.DEPLOY_OPERATION, PdpResponseStatus.SUCCESS.name()).inc();
+            POLICY_DEPLOYMENTS_COUNTER.labelValues(PrometheusUtils.DEPLOY_OPERATION,
+                PdpResponseStatus.SUCCESS.name()).inc();
             this.policyDeploySuccessCount.incrementAndGet();
         }
     }
@@ -100,14 +102,15 @@ public class ApexPolicyStatisticsManager {
      * Update the policy undeploy count.
      */
     public void updatePolicyUndeployCounter(final boolean isSuccessful) {
-        POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.UNDEPLOY_OPERATION, PROMETHEUS_TOTAL_LABEL_VALUE).inc();
+        POLICY_DEPLOYMENTS_COUNTER.labelValues(PrometheusUtils.UNDEPLOY_OPERATION, PROMETHEUS_TOTAL_LABEL_VALUE).inc();
         this.policyUndeployCount.incrementAndGet();
         if (isSuccessful) {
-            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.UNDEPLOY_OPERATION, PdpResponseStatus.SUCCESS.name())
-                .inc();
+            POLICY_DEPLOYMENTS_COUNTER.labelValues(PrometheusUtils.UNDEPLOY_OPERATION,
+                PdpResponseStatus.SUCCESS.name()).inc();
             this.policyUndeploySuccessCount.incrementAndGet();
         } else {
-            POLICY_DEPLOYMENTS_COUNTER.labels(PrometheusUtils.UNDEPLOY_OPERATION, PdpResponseStatus.FAIL.name()).inc();
+            POLICY_DEPLOYMENTS_COUNTER.labelValues(PrometheusUtils.UNDEPLOY_OPERATION,
+                PdpResponseStatus.FAIL.name()).inc();
             this.policyUndeployFailCount.incrementAndGet();
         }
     }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024-2025 Nordix Foundation.
  *  Modifications Copyright (C) 2021-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -25,7 +25,7 @@ package org.onap.policy.apex.core.engine.engine.impl;
 
 import static org.onap.policy.common.utils.validation.Assertions.argumentNotNull;
 
-import io.prometheus.client.Gauge;
+import io.prometheus.metrics.core.metrics.Gauge;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -75,8 +75,9 @@ public class ApexEngineImpl implements ApexEngine {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ApexEngineImpl.class);
 
     // Register state changes with prometheus
-    static final Gauge ENGINE_STATE = Gauge.build().namespace(PrometheusUtils.PdpType.PDPA.getNamespace())
-        .name("engine_state").labelNames("engine_instance_id")
+    static final Gauge ENGINE_STATE = Gauge.builder()
+        .name(PrometheusUtils.PdpType.PDPA.getNamespace() + "_" + "engine_state")
+        .labelNames("engine_instance_id")
         .help("State of the APEX engine as integers mapped as - 0:UNDEFINED, 1:STOPPED, 2:READY,"
             + " 3:EXECUTING, 4:STOPPING").register();
 
@@ -527,6 +528,6 @@ public class ApexEngineImpl implements ApexEngine {
      * Update the APEX engine state to prometheus for monitoring.
      */
     private void updateStatePrometheusMetric() {
-        ENGINE_STATE.labels(getKey().getId()).set(state.getStateIdentifier());
+        ENGINE_STATE.labelValues(getKey().getId()).set(state.getStateIdentifier());
     }
 }

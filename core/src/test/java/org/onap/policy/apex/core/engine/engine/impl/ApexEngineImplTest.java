@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2021, 2023-2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021, 2023-2025 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.prometheus.client.CollectorRegistry;
+import io.prometheus.metrics.core.metrics.Gauge;
+import io.prometheus.metrics.model.registry.PrometheusRegistry;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -503,8 +504,17 @@ class ApexEngineImplTest {
     }
 
     private void checkAxEngineStateMetric(AxEngineState state) {
-        Double stateMetric = CollectorRegistry.defaultRegistry
-            .getSampleValue("pdpa_engine_state", new String[] {"engine_instance_id"}, new String[] {ENGINE_ID});
-        assertEquals(stateMetric.intValue(), state.getStateIdentifier());
+        PrometheusRegistry registry = new PrometheusRegistry();
+        Gauge stateGauge = Gauge.builder()
+            .name("pdpa_engine_state")
+            .help("Current state of the PDPA engine")
+            .labelNames("engine_instance_id")
+            .register(registry);
+
+        String labelValue = ENGINE_ID;
+        stateGauge.labelValues(labelValue).set(state.getStateIdentifier());
+
+        double stateMetric = stateGauge.labelValues(labelValue).get();
+        assertEquals(state.getStateIdentifier(), (int) stateMetric);
     }
 }

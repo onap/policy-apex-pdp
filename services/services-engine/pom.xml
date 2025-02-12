@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Copyright (C) 2019-2020, 2022-2024 Nordix Foundation.
+   Copyright (C) 2019-2020, 2022-2025 Nordix Foundation.
    Modifications Copyright (C) 2021 Bell Canada Intellectual Property. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,12 +44,7 @@
         </dependency>
         <dependency>
             <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient_servlet_jakarta</artifactId>
-            <scope>runtime</scope>
+            <artifactId>prometheus-metrics-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022, 2025 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -24,7 +24,7 @@
 package org.onap.policy.apex.service.engine.main;
 
 import com.google.common.base.Strings;
-import io.prometheus.client.Counter;
+import io.prometheus.metrics.core.metrics.Counter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -77,8 +77,9 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
     // prometheus registration for policy execution metrics
     static final Counter POLICY_EXECUTED_COUNTER =
-        Counter.build().namespace(PrometheusUtils.PdpType.PDPA.getNamespace())
-            .name(PrometheusUtils.POLICY_EXECUTION_METRIC).labelNames(PrometheusUtils.STATUS_METRIC_LABEL)
+        Counter.builder()
+            .name(PrometheusUtils.PdpType.PDPA.getNamespace() + "_" + PrometheusUtils.POLICY_EXECUTION_METRIC)
+            .labelNames(PrometheusUtils.STATUS_METRIC_LABEL)
             .help(PrometheusUtils.POLICY_EXECUTION_HELP).register();
 
     // The name of the unmarshaler
@@ -254,11 +255,11 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
 
         // Increment total, successful and failed policy executed counter.
         if (AxToscaPolicyProcessingStatus.ENTRY.name().equals(toscaPolicyState)) {
-            POLICY_EXECUTED_COUNTER.labels(PROMETHEUS_TOTAL_LABEL_VALUE).inc();
+            POLICY_EXECUTED_COUNTER.labelValues(PROMETHEUS_TOTAL_LABEL_VALUE).inc();
         } else if (AxToscaPolicyProcessingStatus.EXIT_SUCCESS.name().equals(toscaPolicyState)) {
-            POLICY_EXECUTED_COUNTER.labels(PdpResponseStatus.SUCCESS.name()).inc();
+            POLICY_EXECUTED_COUNTER.labelValues(PdpResponseStatus.SUCCESS.name()).inc();
         } else if (AxToscaPolicyProcessingStatus.EXIT_FAILURE.name().equals(toscaPolicyState)) {
-            POLICY_EXECUTED_COUNTER.labels(PdpResponseStatus.FAIL.name()).inc();
+            POLICY_EXECUTED_COUNTER.labelValues(PdpResponseStatus.FAIL.name()).inc();
         }
     }
 
