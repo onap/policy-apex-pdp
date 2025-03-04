@@ -53,9 +53,9 @@
         <version.antlr.st4>4.3.4</version.antlr.st4>
         <version.antlr-runtime>4.13.1</version.antlr-runtime>
         <version.artemis>2.30.0</version.artemis>
-        <version.avro>1.11.3</version.avro>
+        <version.avro>1.11.4</version.avro>
         <version.caffeine>3.1.8</version.caffeine>
-        <version.curator>5.5.0</version.curator>
+        <version.curator>5.7.1</version.curator>
         <version.hazelcast>5.3.8</version.hazelcast>
         <version.infinispan>14.0.33.Final</version.infinispan>
         <version.jgroups>5.2.18.Final</version.jgroups>
@@ -66,11 +66,12 @@
         <version.jruby-joni>2.2.1</version.jruby-joni>
         <version.jruby-extras-bytelist>1.0.15</version.jruby-extras-bytelist>
         <version.jython-standalone>2.7.3</version.jython-standalone>
-        <version.kafka-avro-serializer>7.5.1</version.kafka-avro-serializer>
+        <version.kafka-avro-serializer>7.8.0</version.kafka-avro-serializer>
         <version.kafka-junit5>3.2.5</version.kafka-junit5>
         <version.rhino>1.7.14</version.rhino>
         <version.websocket.jakarta>2.1.1</version.websocket.jakarta>
-        <version.zookeeper>3.9.2</version.zookeeper>
+        <version.zookeeper>3.9.3</version.zookeeper>
+        <version.netty>4.1.119.Final</version.netty>
     </properties>
 
     <distributionManagement>
