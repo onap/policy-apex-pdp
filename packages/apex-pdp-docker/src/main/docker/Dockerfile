@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2020-2022 Nordix Foundation.
+#  Copyright (C) 2020-2022, 2025 Nordix Foundation.
 #  Modification Copyright (C) 2020-2021 AT&T Foundation.
 #  Modifications Copyright (C) 2021 Bell Canada.
 # ================================================================================
@@ -25,7 +25,7 @@ RUN mkdir /packages /extracted
 COPY /maven/apex-pdp-package-full.tar.gz /packages/
 RUN tar xvzf /packages/apex-pdp-package-full.tar.gz --directory /extracted/
 
-FROM onap/policy-jdk-alpine:4.1.1-SNAPSHOT
+FROM onap/policy-jdk-alpine:4.1.1
 
 LABEL maintainer="Policy Team"
 LABEL org.opencontainers.image.title="Policy APEX PDP"
