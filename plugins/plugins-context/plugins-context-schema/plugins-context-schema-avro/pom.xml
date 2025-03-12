@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
         <artifactId>plugins-context-schema</artifactId>
-        <version>4.1.1-SNAPSHOT</version>
+        <version>4.1.1</version>
     </parent>
 
     <artifactId>plugins-context-schema-avro</artifactId>
