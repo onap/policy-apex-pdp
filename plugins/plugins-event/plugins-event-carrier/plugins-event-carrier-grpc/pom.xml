@@ -3,6 +3,7 @@
   ============LICENSE_START=======================================================
    Copyright (C) 2020 Nordix Foundation.
    Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+   Modifications Copyright (C) 2025 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,7 +28,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
         <artifactId>plugins-event-carrier</artifactId>
-        <version>4.1.1-SNAPSHOT</version>
+        <version>4.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-event-carrier-grpc</artifactId>
