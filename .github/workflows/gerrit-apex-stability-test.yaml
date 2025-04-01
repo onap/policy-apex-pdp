@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-#  Copyright (C) 2024 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ jobs:
 
       - name: Run S3P script
         working-directory: ${{ github.workspace }}/testsuites
-        run: sudo bash ./run-s3p-test.sh run stability
+        run: sudo bash ./run-s3p-test.sh stability
 
       - name: Archive result jtl
         uses: actions/upload-artifact@v4
