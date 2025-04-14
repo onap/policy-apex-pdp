@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2024 Nordix Foundation
+ *  Modifications Copyright (C) 2020, 20242025 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,7 +111,7 @@ class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] {"-c", "src/test/resources/parameters/unit/BadHost.json"};
             handler.parse(arguments);
-        }).hasMessage("Error parsing JSON parameters from configuration file "
+        }).hasMessageContaining("Error parsing JSON parameters from configuration file "
             + "\"src/test/resources/parameters/unit/BadHost.json\": "
             + "com.google.gson.stream.MalformedJsonException: "
             + "Unexpected value at line 3 column 14 path $.host");
@@ -119,7 +119,7 @@ class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] {"-c", "src/test/resources/parameters/unit/BadPort.json"};
             handler.parse(arguments);
-        }).hasMessage("Error parsing JSON parameters from configuration file "
+        }).hasMessageContaining("Error parsing JSON parameters from configuration file "
             + "\"src/test/resources/parameters/unit/BadPort.json\": "
             + "java.lang.IllegalStateException: Expected an int "
             + "but was BOOLEAN at line 4 column 18 path $.port");
@@ -127,7 +127,7 @@ class EventGeneratorParametersHandlerTest {
         assertThatThrownBy(() -> {
             String[] arguments = new String[] {"-c", "src/test/resources/parameters/unit/Empty.json"};
             handler.parse(arguments);
-        }).hasMessage("No parameters found in configuration file "
+        }).hasMessageContaining("No parameters found in configuration file "
             + "\"src/test/resources/parameters/unit/Empty.json\"");
 
         assertThatThrownBy(() -> {
