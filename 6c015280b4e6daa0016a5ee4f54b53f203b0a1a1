@@ -22,6 +22,30 @@
       },
       "revId": "6c015280b4e6daa0016a5ee4f54b53f203b0a1a1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9105189_e9d39bb2",
+        "filename": "plugins/plugins-executor/plugins-executor-jython/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2025-04-23T12:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3569386c_ff2f8541",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "6c015280b4e6daa0016a5ee4f54b53f203b0a1a1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
