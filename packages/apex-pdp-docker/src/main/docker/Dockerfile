@@ -25,7 +25,7 @@ RUN mkdir /packages /extracted
 COPY /maven/apex-pdp-package-full.tar.gz /packages/
 RUN tar xvzf /packages/apex-pdp-package-full.tar.gz --directory /extracted/
 
-FROM onap/policy-jdk-alpine:4.1.3-SNAPSHOT
+FROM onap/policy-jdk-alpine:4.2.0-SNAPSHOT
 
 LABEL maintainer="Policy Team"
 LABEL org.opencontainers.image.title="Policy APEX PDP"

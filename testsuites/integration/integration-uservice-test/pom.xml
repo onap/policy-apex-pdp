@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.testsuites.integration</groupId>
         <artifactId>apex-integration</artifactId>
-        <version>4.1.3-SNAPSHOT</version>
+        <version>4.2.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>integration-uservice-test</artifactId>
