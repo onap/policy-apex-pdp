@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '4.2.0'
+project: 'policy-apex-pdp'
+log_dir: 'policy-apex-pdp-maven-docker-stage-master/1431'
+ref: 397007c5aaae1090ca8dc5ec79c2fa983d8602ba
+containers:
+    - name: 'policy-apex-pdp'
+      version: '4.2.0-20250529T1518'
