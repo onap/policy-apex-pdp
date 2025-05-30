@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-context</groupId>
         <artifactId>plugins-context</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
+        <version>4.2.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.onap.policy.apex-pdp.plugins.plugins-context.plugins-context-schema</groupId>
