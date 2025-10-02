@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
         <artifactId>plugins-event-carrier</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.2.1</version>
     </parent>
 
     <artifactId>plugins-event-carrier-restrequestor</artifactId>
