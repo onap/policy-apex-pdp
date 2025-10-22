@@ -35,6 +35,7 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
+            <version>${version.kafka}</version>
         </dependency>
         <dependency>
             <groupId>io.confluent</groupId>
