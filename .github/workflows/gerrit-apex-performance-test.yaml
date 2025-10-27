@@ -79,13 +79,13 @@ jobs:
         run: sudo bash ./run-s3p-test.sh performance
 
       - name: Archive result jtl
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: policy-apex-s3p-results
           path: ${{ github.workspace }}/testsuites/automate-s3p-test/s3pTestResults.jtl
 
       - name: Archive JMeter logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: policy-apex-jmeter-logs
           path: ${{ github.workspace }}/testsuites/automate-s3p-test/jmeter.log
