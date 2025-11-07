@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Code-Review+2: Adheli Tavares <adheli.tavares@est.tech>
+Verified+1: ONAP Bypass GHA <releng+onap.bypass.gha@linuxfoundation.org>
+Code-Review+1: Adam Kenihan <adam.kenihan@est.tech>
+Code-Review+1: Ramesh Murugan Iyer <ramesh.murugan.iyer@est.tech>
+Submitted-by: Adheli Tavares <adheli.tavares@est.tech>
+Submitted-at: Fri, 07 Nov 2025 10:00:48 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/142387
+Project: policy/apex-pdp
+Branch: refs/heads/master
