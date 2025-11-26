@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
         <artifactId>plugins-executor</artifactId>
-        <version>4.2.2-SNAPSHOT</version>
+        <version>4.2.2</version>
     </parent>
 
     <artifactId>plugins-executor-java</artifactId>
