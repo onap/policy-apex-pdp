@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.apex-pdp.plugins.plugins-event.plugins-event-carrier</groupId>
         <artifactId>plugins-event-carrier</artifactId>
-        <version>4.2.2-SNAPSHOT</version>
+        <version>4.2.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>plugins-event-carrier-restserver</artifactId>
