@@ -33,7 +33,7 @@
 
     <groupId>org.onap.policy.apex-pdp</groupId>
     <artifactId>apex-pdp</artifactId>
-    <version>4.2.3-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>policy-apex-pdp</name>
