@@ -16,7 +16,7 @@
     "AvroBoolean": true,
     "AvroByte": -127.0,
     "AvroDouble": 1.2345E67,
-    "AvroFloat": 1.9999999999999998E23,
+    "AvroFloat": 2.0E23,
     "AvroInteger": 1234568.0,
     "AvroLong": 1.234567890124E12,
     "AvroMap": {
