@@ -1,0 +1,10 @@
+Verified+1: ONAP Bypass GHA <releng+onap.bypass.gha@linuxfoundation.org>
+Code-Review+2: Wayne Dunican <wayne.dunican@est.tech>
+Code-Review+1: Daniel Hanrahan <daniel.hanrahan@est.tech>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Wayne Dunican <wayne.dunican@est.tech>
+Submitted-at: Tue, 09 Dec 2025 09:00:37 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/policy/apex-pdp/+/142700
+Project: policy/apex-pdp
+Branch: refs/heads/master
