@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>6.0.1</version>
+        <version>6.0.0-SNAPSHOT</version>
         <relativePath />
     </parent>
 
@@ -45,8 +45,8 @@
         </sonar.javascript.lcov.reportPaths>
 
         <!-- Policy framework dependencies -->
-        <version.policy.common>4.0.0</version.policy.common>
-        <version.policy.models>5.0.0</version.policy.models>
+        <version.policy.common>4.0.0-SNAPSHOT</version.policy.common>
+        <version.policy.models>5.0.0-SNAPSHOT</version.policy.models>
 
         <!-- Apex-specific dependencies -->
         <version.activemq>5.18.3</version.activemq>
