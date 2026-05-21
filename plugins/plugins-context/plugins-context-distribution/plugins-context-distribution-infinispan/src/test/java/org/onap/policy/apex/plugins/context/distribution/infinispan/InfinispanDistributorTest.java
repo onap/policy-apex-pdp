@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2024 Nordix Foundation. All rights reserved.
+ *  Copyright (C) 2024-2026 OpenInfra Foundation Europe. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 package org.onap.policy.apex.plugins.context.distribution.infinispan;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.AfterAll;
@@ -64,13 +63,11 @@ class InfinispanDistributorTest {
     }
 
     @Test
-    void testInvalidParameters() throws ContextException {
+    void testInitAndShutdown() throws ContextException {
         var infiniSpanDistributor = new InfinispanContextDistributor();
-        var key = new AxArtifactKey("test", "1.1.1");
-        assertThatThrownBy(() -> infiniSpanDistributor.init(key)).isInstanceOf(NoClassDefFoundError.class)
-                .hasMessageContaining("TransactionManager");
-        assertThatThrownBy(() -> infiniSpanDistributor.getContextAlbumMap(key))
-                .hasMessageContaining("infinispanManager\" is null");
+        var key = new AxArtifactKey("TestContext", "0.0.1");
+        assertDoesNotThrow(() -> infiniSpanDistributor.init(key));
+        assertDoesNotThrow(() -> infiniSpanDistributor.getContextAlbumMap(key));
         assertDoesNotThrow(infiniSpanDistributor::shutdown);
     }
 

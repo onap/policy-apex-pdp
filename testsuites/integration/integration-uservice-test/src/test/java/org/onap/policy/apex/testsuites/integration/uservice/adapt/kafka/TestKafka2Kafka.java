@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +43,7 @@ import org.onap.policy.common.utils.resources.TextFileUtils;
  */
 @ExtendWith(SharedKafkaTestResource.class)
 class TestKafka2Kafka {
-    private static final long MAX_TEST_LENGTH = 300000;
+    private static final long MAX_TEST_LENGTH = 30000;
 
     private static final int EVENT_COUNT = 25;
     private static final int EVENT_INTERVAL = 20;

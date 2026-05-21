@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
+   Modifications Copyright (C) 2023-2026 OpenInfra Foundation Europe. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>ST4</artifactId>
-            <version>${version.antlr.st4}</version>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.model</groupId>

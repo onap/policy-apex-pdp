@@ -84,7 +84,7 @@ imsiStatus.setENodeBId(inFields["ENODEB_ID"]);
 getContextAlbum("IMSIStatusAlbum").put(imsiStatus.getImsi(), imsiStatus);
 logger.debug(imsiStatus.getENodeBId() + ": enodeb added to imsi ip added " + outFields["IMSI_IP"]);
 
-ENodeBStatus eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBId());
+eNodeBStatus = getContextAlbum("ENodeBStatusAlbum").get(imsiStatus.getENodeBId());
 if (eNodeBStatus == null) {
     eNodeBStatus = new ENodeBStatus(imsiStatus.getENodeBId());
     getContextAlbum("ENodeBStatusAlbum").put(eNodeBStatus.getENodeB(), eNodeBStatus);

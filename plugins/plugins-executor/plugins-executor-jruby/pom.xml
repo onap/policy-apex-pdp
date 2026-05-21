@@ -1,7 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
-   Modifications Copyright (C) 2019,2023,2025 OpenInfra Foundation Europe. All rights reserved.
+   Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,49 +35,6 @@
         <dependency>
             <groupId>org.jruby</groupId>
             <artifactId>jruby-core</artifactId>
-            <version>${version.jruby-core}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jruby.extras</groupId>
-                    <artifactId>bytelist</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jruby</groupId>
-                    <artifactId>dirgra</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.jnr</groupId>
-                    <artifactId>jffi</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.jnr</groupId>
-                    <artifactId>jnr-posix</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jruby.joni</groupId>
-                    <artifactId>joni</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jruby.joni</groupId>
-            <artifactId>joni</artifactId>
-            <version>${version.jruby-joni}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jruby.extras</groupId>
-            <artifactId>bytelist</artifactId>
-            <version>${version.jruby-extras-bytelist}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jnr</groupId>
-            <artifactId>jffi</artifactId>
-            <version>${version.jnr.jffi}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jnr</groupId>
-            <artifactId>jnr-posix</artifactId>
-            <version>${version.jnr.jnr-posix}</version>
         </dependency>
     </dependencies>
 </project>
