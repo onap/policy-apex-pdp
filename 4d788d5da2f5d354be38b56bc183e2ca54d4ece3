@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cec3b151_11acbc73",
+        "filename": "plugins/plugins-context/plugins-context-distribution/plugins-context-distribution-infinispan/src/main/resources/infinispan/default-jgroups-tcp.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6742
+      },
+      "writtenOn": "2026-05-28T14:57:49Z",
+      "side": 0,
+      "message": "Yes, basically the xml schema changed during the uplift of jgroups. Additionally, see the changes to InfinispanDistributorTest, where the test used to expect NoClassDefFound errors, the test now proves it works with this updated config.",
+      "parentUuid": "193976c3_a10375a2",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "4d788d5da2f5d354be38b56bc183e2ca54d4ece3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b4e341b_1ea68f5e",
         "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/pom.xml",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2026-05-28T10:40:01Z",
       "side": 0,
       "message": "we dont require to have exclusions?",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "4d788d5da2f5d354be38b56bc183e2ca54d4ece3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fb56348_44dda9e0",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6742
+      },
+      "writtenOn": "2026-05-28T14:57:49Z",
+      "side": 0,
+      "message": "No. From what I saw, most exclusions were to prevent CVEs from old dependencies. After uplifting all the main dependencies and removing exclusions, I ran trivy scan to verify no new CVEs",
+      "parentUuid": "0b4e341b_1ea68f5e",
       "range": {
         "startLine": 39,
         "startChar": 17,
