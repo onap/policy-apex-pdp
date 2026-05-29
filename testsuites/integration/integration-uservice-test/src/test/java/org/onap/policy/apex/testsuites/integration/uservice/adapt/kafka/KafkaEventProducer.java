@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,12 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
-import com.salesforce.kafka.test.junit5.SharedKafkaTestResource;
 import java.time.Duration;
+import java.util.Properties;
 import lombok.Getter;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
@@ -39,11 +41,10 @@ import org.slf4j.LoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class KafkaEventProducer implements Runnable {
-    // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaEventProducer.class);
 
     private final String topic;
-    private final SharedKafkaTestResource sharedKafkaTestResource;
+    private final String bootstrapServers;
     private final int eventCount;
     private final boolean xmlEvents;
     private final long eventInterval;
@@ -57,16 +58,16 @@ public class KafkaEventProducer implements Runnable {
     /**
      * Instantiates a new kafka event producer.
      *
-     * @param topic                   the topic
-     * @param sharedKafkaTestResource the kafka server address
-     * @param eventCount              the event count
-     * @param xmlEvents               the xml events
-     * @param eventInterval           the event interval
+     * @param topic            the topic
+     * @param bootstrapServers the kafka bootstrap servers
+     * @param eventCount       the event count
+     * @param xmlEvents        the xml events
+     * @param eventInterval    the event interval
      */
-    public KafkaEventProducer(final String topic, final SharedKafkaTestResource sharedKafkaTestResource,
+    public KafkaEventProducer(final String topic, final String bootstrapServers,
                               final int eventCount, final boolean xmlEvents, final long eventInterval) {
         this.topic = topic;
-        this.sharedKafkaTestResource = sharedKafkaTestResource;
+        this.bootstrapServers = bootstrapServers;
         this.eventCount = eventCount;
         this.xmlEvents = xmlEvents;
         this.eventInterval = eventInterval;
@@ -80,8 +81,12 @@ public class KafkaEventProducer implements Runnable {
      */
     @Override
     public void run() {
-        final Producer<String, String> producer = sharedKafkaTestResource.getKafkaTestUtils()
-            .getKafkaProducer(StringSerializer.class, StringSerializer.class);
+        final Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+        final Producer<String, String> producer = new KafkaProducer<>(props);
 
         while (producerThread.isAlive() && !stopFlag) {
             ThreadUtilities.sleep(50);

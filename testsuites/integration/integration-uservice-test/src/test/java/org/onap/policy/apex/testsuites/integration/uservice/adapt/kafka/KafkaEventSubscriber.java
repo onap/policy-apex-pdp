@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,11 @@
 
 package org.onap.policy.apex.testsuites.integration.uservice.adapt.kafka;
 
-import com.salesforce.kafka.test.junit5.SharedKafkaTestResource;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import lombok.Getter;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class KafkaEventSubscriber implements Runnable {
-    // Get a reference to the logger
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaEventSubscriber.class);
 
     private static final Duration POLL_DURATION = Duration.ofMillis(100);
@@ -57,18 +56,20 @@ public class KafkaEventSubscriber implements Runnable {
     /**
      * Instantiates a new kafka event subscriber.
      *
-     * @param topic                   the topic
-     * @param sharedKafkaTestResource the kafka server address
+     * @param topic            the topic
+     * @param bootstrapServers the kafka bootstrap servers
      */
-    public KafkaEventSubscriber(final String topic,
-                                final SharedKafkaTestResource sharedKafkaTestResource) {
+    public KafkaEventSubscriber(final String topic, final String bootstrapServers) {
         this.topic = topic;
 
-        final Properties consumerProperties = new Properties();
-        consumerProperties.put("group.id", "test");
+        final Properties props = new Properties();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        consumer = sharedKafkaTestResource.getKafkaTestUtils().getKafkaConsumer(StringDeserializer.class,
-            StringDeserializer.class, consumerProperties);
+        consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Collections.singletonList(topic));
 
         subscriberThread = new Thread(this);
@@ -80,7 +81,7 @@ public class KafkaEventSubscriber implements Runnable {
      */
     @Override
     public void run() {
-        LOGGER.debug("{}: receiving events from Kafka server  on topic {}", KafkaEventSubscriber.class.getName(),
+        LOGGER.debug("{}: receiving events from Kafka server on topic {}", KafkaEventSubscriber.class.getName(),
             topic);
 
         while (subscriberThread.isAlive() && !subscriberThread.isInterrupted()) {
@@ -92,7 +93,6 @@ public class KafkaEventSubscriber implements Runnable {
                         rec.offset(), rec.key(), rec.value());
                 }
             } catch (final Exception e) {
-                // Thread interrupted
                 break;
             }
         }

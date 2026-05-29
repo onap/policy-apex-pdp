@@ -53,10 +53,9 @@
         <version.antlr-runtime>4.13.2</version.antlr-runtime>
         <version.avro>1.11.5</version.avro>
         <version.curator>5.9.0</version.curator>
-        <version.jruby-core>9.4.14.0</version.jruby-core>
+        <version.jruby-core>10.1.0.0</version.jruby-core>
         <version.jython-standalone>2.7.4</version.jython-standalone>
         <version.kafka-avro-serializer>8.2.1</version.kafka-avro-serializer>
-        <version.kafka-junit5>3.2.5</version.kafka-junit5>
         <version.mvel2>2.5.2.Final</version.mvel2>
         <version.rhino>1.9.1</version.rhino>
     </properties>
@@ -221,12 +220,6 @@
                 <groupId>org.python</groupId>
                 <artifactId>jython-standalone</artifactId>
                 <version>${version.jython-standalone}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.salesforce.kafka.test</groupId>
-                <artifactId>kafka-junit5</artifactId>
-                <version>${version.kafka-junit5}</version>
-                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

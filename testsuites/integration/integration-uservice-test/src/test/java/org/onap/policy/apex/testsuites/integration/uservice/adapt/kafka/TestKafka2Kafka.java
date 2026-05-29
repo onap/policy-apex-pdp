@@ -26,27 +26,29 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.salesforce.kafka.test.junit5.SharedKafkaTestResource;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.onap.policy.apex.service.engine.main.ApexMain;
 import org.onap.policy.common.utils.resources.TextFileUtils;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.kafka.KafkaContainer;
 
 /**
  * The Class TestKafka2Kafka tests Kafka event sending and reception.
  */
-@ExtendWith(SharedKafkaTestResource.class)
+@Testcontainers
 class TestKafka2Kafka {
     private static final long MAX_TEST_LENGTH = 30000;
 
     private static final int EVENT_COUNT = 25;
     private static final int EVENT_INTERVAL = 20;
+
+    @Container
+    static final KafkaContainer kafka = new KafkaContainer("apache/kafka:3.8.0");
 
     /**
      * Clear relative file root environment variable.
@@ -55,14 +57,6 @@ class TestKafka2Kafka {
     void clearRelativeFileRoot() {
         System.clearProperty("APEX_RELATIVE_FILE_ROOT");
     }
-
-    @RegisterExtension
-    @Order(1)
-    static final SharedKafkaTestResource sharedKafkaTestResource = new SharedKafkaTestResource()
-        // Start a cluster with 1 broker.
-        .withBrokers(1)
-        // Disable topic auto-creation.
-        .withBrokerProperty("auto.create.topics.enable", "false");
 
     /**
      * Test json kafka events.
@@ -84,12 +78,9 @@ class TestKafka2Kafka {
      * @throws Exception on errors
      */
     private void testKafkaEvents(String[] args) throws Exception {
+        final String bootstrapServers = kafka.getBootstrapServers();
 
-        sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-out-" + "json", 1, (short) 1);
-        sharedKafkaTestResource.getKafkaTestUtils().createTopic("apex-in-" + "json", 1, (short) 1);
-
-        final KafkaEventSubscriber subscriber =
-            new KafkaEventSubscriber("apex-out-" + "json", sharedKafkaTestResource);
+        final KafkaEventSubscriber subscriber = new KafkaEventSubscriber("apex-out-json", bootstrapServers);
 
         await().atMost(30, TimeUnit.SECONDS).until(subscriber::isAlive);
 
@@ -100,7 +91,7 @@ class TestKafka2Kafka {
 
         await().atMost(12, TimeUnit.SECONDS).until(() -> initWaitEndTIme < System.currentTimeMillis());
 
-        final KafkaEventProducer producer = new KafkaEventProducer("apex-in-" + "json", sharedKafkaTestResource,
+        final KafkaEventProducer producer = new KafkaEventProducer("apex-in-json", bootstrapServers,
             EVENT_COUNT, false, EVENT_INTERVAL);
 
         await().atMost(30, TimeUnit.SECONDS).until(producer::isAlive);
@@ -131,7 +122,7 @@ class TestKafka2Kafka {
             File tempConfigFile = File.createTempFile("Kafka_", ".json");
             tempConfigFile.deleteOnExit();
             String configAsString = TextFileUtils.getTextFileAsString(configurationFileName)
-                .replaceAll("localhost:39902", sharedKafkaTestResource.getKafkaConnectString());
+                .replaceAll("localhost:39902", kafka.getBootstrapServers());
             TextFileUtils.putStringAsFile(configAsString, tempConfigFile.getCanonicalFile());
 
             return tempConfigFile.getCanonicalPath();
