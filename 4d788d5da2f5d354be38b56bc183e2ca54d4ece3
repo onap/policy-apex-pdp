@@ -48,6 +48,30 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61608b8c_c05108b1",
+        "filename": "plugins/plugins-context/plugins-context-distribution/plugins-context-distribution-infinispan/src/main/resources/infinispan/default-jgroups-tcp.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2026-05-29T15:10:11Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "cec3b151_11acbc73",
+      "range": {
+        "startLine": 29,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 33
+      },
+      "revId": "4d788d5da2f5d354be38b56bc183e2ca54d4ece3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b4e341b_1ea68f5e",
@@ -85,6 +109,30 @@
       "side": 0,
       "message": "No. From what I saw, most exclusions were to prevent CVEs from old dependencies. After uplifting all the main dependencies and removing exclusions, I ran trivy scan to verify no new CVEs",
       "parentUuid": "0b4e341b_1ea68f5e",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "4d788d5da2f5d354be38b56bc183e2ca54d4ece3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23018b95_fcb946fe",
+        "filename": "plugins/plugins-context/plugins-context-schema/plugins-context-schema-avro/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2026-05-29T15:10:11Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "6fb56348_44dda9e0",
       "range": {
         "startLine": 39,
         "startChar": 17,
