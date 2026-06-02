@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
 
 package org.onap.policy.apex.core.engine.context;
 
-import com.google.common.collect.Maps;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -59,7 +59,7 @@ public class ApexInternalContext implements AxConceptGetter<ContextAlbum> {
 
     // The context albums being used in this engine
     private final NavigableMap<AxArtifactKey, ContextAlbum> contextAlbums =
-            Maps.synchronizedNavigableMap(new TreeMap<AxArtifactKey, ContextAlbum>());
+            Collections.synchronizedNavigableMap(new TreeMap<>());
 
     // The internal context uses a context distributor to handle distribution of context across multiple instances
     private Distributor contextDistributor = null;

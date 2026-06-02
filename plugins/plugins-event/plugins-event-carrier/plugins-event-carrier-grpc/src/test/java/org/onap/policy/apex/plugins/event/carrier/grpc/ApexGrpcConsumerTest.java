@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2020, 2024 Nordix Foundation.
+ *  Copyright (C) 2020-2026 OpenInfra Foundation Europe. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.assertj.core.api.Assertions;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.apex.service.engine.event.ApexEventException;
@@ -95,7 +94,7 @@ class ApexGrpcConsumerTest {
         return consumerParameters;
     }
 
-    private static @NotNull GrpcCarrierTechnologyParameters getGrpcCarrierTechnologyParameters() {
+    private static GrpcCarrierTechnologyParameters getGrpcCarrierTechnologyParameters() {
         GrpcCarrierTechnologyParameters params = new GrpcCarrierTechnologyParameters();
         params.setLabel("GRPC");
         params.setEventProducerPluginClass(ApexGrpcProducer.class.getName());

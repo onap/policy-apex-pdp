@@ -3,7 +3,7 @@
  * Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
- * Modifications Copyright (C) 2024 Nordix Foundation.
+ * Modifications Copyright (C) 2024-2026 OpenInfra Foundation Europe. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@
 
 package org.onap.policy.apex.service.engine.event;
 
-import com.google.common.base.Strings;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -36,6 +35,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxReferenceKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxToscaPolicyProcessingStatus;
 import org.slf4j.Logger;
@@ -211,7 +211,7 @@ public class ApexEvent extends HashMap<String, Object> implements Serializable {
      */
     private String validateField(final String fieldName, final String fieldValue, final String fieldRegexp)
             throws ApexEventException {
-        if (fieldName.equals(TOSCA_POLICY_STATE_HEADER_FIELD) && !Strings.isNullOrEmpty(fieldValue)) {
+        if (fieldName.equals(TOSCA_POLICY_STATE_HEADER_FIELD) && StringUtils.isNotEmpty(fieldValue)) {
             if (EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, fieldValue)) {
                 return fieldValue;
             } else {

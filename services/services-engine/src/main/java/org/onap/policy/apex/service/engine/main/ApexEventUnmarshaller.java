@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2022, 2025 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2020-2022 Bell Canada. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
@@ -23,7 +23,6 @@
 
 package org.onap.policy.apex.service.engine.main;
 
-import com.google.common.base.Strings;
 import io.prometheus.metrics.core.metrics.Counter;
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.NonNull;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.core.infrastructure.threading.ApplicationThreadFactory;
 import org.onap.policy.apex.core.infrastructure.threading.ThreadUtilities;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -248,7 +248,7 @@ public class ApexEventUnmarshaller implements ApexEventReceiver, Runnable {
      */
     private void updatePolicyExecutedMetrics(String toscaPolicyState) {
         // Skip events that are not flagged as TOSCA processing entry or exit points.
-        if (Strings.isNullOrEmpty(toscaPolicyState)
+        if (StringUtils.isEmpty(toscaPolicyState)
                 || !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
             return;
         }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2022, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2022 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,6 @@
 
 package org.onap.policy.apex.model.eventmodel.concepts;
 
-import com.google.common.base.Strings;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serial;
 import java.util.Arrays;
@@ -36,6 +35,7 @@ import java.util.TreeSet;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.onap.policy.apex.model.basicmodel.concepts.AxArtifactKey;
 import org.onap.policy.apex.model.basicmodel.concepts.AxConcept;
 import org.onap.policy.apex.model.basicmodel.concepts.AxKey;
@@ -319,7 +319,7 @@ public class AxEvent extends AxConcept {
             }
         }
 
-        if (!Strings.isNullOrEmpty(toscaPolicyState)
+        if (StringUtils.isNotEmpty(toscaPolicyState)
             && !EnumUtils.isValidEnum(AxToscaPolicyProcessingStatus.class, toscaPolicyState)) {
             result.addValidationMessage(new AxValidationMessage(key, this.getClass(), ValidationResult.INVALID,
                 "toscaPolicyState on event is not a valid enum. Valid values are: "
