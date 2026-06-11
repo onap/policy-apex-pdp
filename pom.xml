@@ -58,6 +58,7 @@
         <version.kafka-avro-serializer>8.2.1</version.kafka-avro-serializer>
         <version.mvel2>2.5.2.Final</version.mvel2>
         <version.rhino>1.9.1</version.rhino>
+        <version.zookeeper>3.9.5</version.zookeeper>
     </properties>
 
     <distributionManagement>
@@ -195,6 +196,12 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-recipes</artifactId>
                 <version>${version.curator}</version>
+            </dependency>
+            <!-- override zookeeper from curator for CVE fixes -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${version.zookeeper}</version>
             </dependency>
             <dependency>
                 <groupId>io.confluent</groupId>
