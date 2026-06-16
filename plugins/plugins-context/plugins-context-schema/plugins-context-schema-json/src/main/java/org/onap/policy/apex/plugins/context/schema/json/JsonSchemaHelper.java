@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Bell Canada. All rights reserved.
- * Modifications Copyright (C) 2024 Nordix Foundation.
+ * Modifications Copyright (C) 2024-2026 OpenInfra Foundation Europe. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.stream.JsonWriter;
 import com.networknt.schema.InputFormat;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.JsonSchemaFactory;
-import com.networknt.schema.SpecVersionDetector;
+import com.networknt.schema.Schema;
+import com.networknt.schema.SchemaRegistry;
+import com.networknt.schema.SpecificationVersion;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
@@ -45,7 +45,7 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
 
     private static final Gson gson = new Gson();
 
-    private JsonSchema jsonSchema;
+    private Schema jsonSchema;
 
     @Override
     public void init(final AxKey userKey, final AxContextSchema schema) {
@@ -120,22 +120,24 @@ public class JsonSchemaHelper extends AbstractSchemaHelper {
         return (object instanceof JsonElement || object instanceof Map || object instanceof List);
     }
 
-    private JsonSchema getJsonSchema(String jsonSchema) {
+    private Schema getJsonSchema(String jsonSchema) {
         var schemaMap = new Gson().fromJson(jsonSchema, Map.class);
         if (schemaMap != null && schemaMap.containsKey("$schema")) {
-            var flag = SpecVersionDetector.detectOptionalVersion(schemaMap.get("$schema").toString()).orElse(null);
-            return JsonSchemaFactory.getInstance(flag).getSchema(jsonSchema);
+            var schemaUri = schemaMap.get("$schema").toString();
+            var specVersion = SpecificationVersion.fromDialectId(schemaUri)
+                .orElseThrow(() -> new ApexRuntimeException("Unknown schema version: " + schemaUri));
+            return SchemaRegistry.withDefaultDialect(specVersion).getSchema(jsonSchema, InputFormat.JSON);
         } else {
             throw new ApexRuntimeException("Schema is invalid");
         }
     }
 
     private void validate(String json) {
-        var validations = this.jsonSchema.validate(json, InputFormat.JSON);
-        if (!validations.isEmpty()) {
-            StringBuilder errors = new StringBuilder();
-            validations.forEach(m -> errors.append(m.toString()).append("\n"));
-            throw new ApexRuntimeException(errors.toString());
+        var errors = this.jsonSchema.validate(json, InputFormat.JSON);
+        if (!errors.isEmpty()) {
+            StringBuilder errorMsg = new StringBuilder();
+            errors.forEach(m -> errorMsg.append(m.toString()).append("\n"));
+            throw new ApexRuntimeException(errorMsg.toString());
         }
     }
 

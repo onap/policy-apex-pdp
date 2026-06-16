@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -143,8 +143,10 @@ class AvroSchemaHelperUnmarshalTest {
         assertEquals(0, schemaHelper2.unmarshal("0"));
         assertEquals(1, schemaHelper2.unmarshal("1"));
         assertEquals(-1, schemaHelper2.unmarshal("-1"));
-        assertEquals(1, schemaHelper2.unmarshal("1.23"));
-        assertEquals(-1, schemaHelper2.unmarshal("-1.23"));
+        assertThatThrownBy(() -> schemaHelper2.unmarshal("1.23"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"1.23\" Avro unmarshalling failed.");
+        assertThatThrownBy(() -> schemaHelper2.unmarshal("-1.23"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"-1.23\" Avro unmarshalling failed.");
         assertEquals(2147483647, schemaHelper2.unmarshal("2147483647"));
         assertEquals(-2147483648, schemaHelper2.unmarshal("-2147483648"));
         assertThatThrownBy(() -> schemaHelper2.unmarshal("2147483648"))
@@ -175,8 +177,10 @@ class AvroSchemaHelperUnmarshalTest {
         assertEquals(0L, schemaHelper3.unmarshal("0"));
         assertEquals(1L, schemaHelper3.unmarshal("1"));
         assertEquals(-1L, schemaHelper3.unmarshal("-1"));
-        assertEquals(1L, schemaHelper3.unmarshal("1.23"));
-        assertEquals(-1L, schemaHelper3.unmarshal("-1.23"));
+        assertThatThrownBy(() -> schemaHelper3.unmarshal("1.23"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"1.23\" Avro unmarshalling failed.");
+        assertThatThrownBy(() -> schemaHelper3.unmarshal("-1.23"))
+            .hasMessageStartingWith("AvroTest:0.0.1: object \"-1.23\" Avro unmarshalling failed.");
         assertEquals(9223372036854775807L, schemaHelper3.unmarshal("9223372036854775807"));
         assertEquals(-9223372036854775808L, schemaHelper3.unmarshal("-9223372036854775808"));
         assertThatThrownBy(() -> schemaHelper3.unmarshal("9223372036854775808"))

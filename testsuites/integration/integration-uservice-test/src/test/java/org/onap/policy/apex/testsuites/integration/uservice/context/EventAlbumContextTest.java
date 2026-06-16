@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -108,7 +109,7 @@ class EventAlbumContextTest {
             if (outputEventFile.exists() && outputEventFile.length() > 0) {
                 // The output event is in this file
                 receivedApexOutputString =
-                    TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath()).replaceAll("\\s+", "");
+                    TextFileUtils.getTextFileAsString(outputEventFile.getCanonicalPath());
                 break;
             }
 
@@ -125,9 +126,9 @@ class EventAlbumContextTest {
 
         // We compare the output to what we expect to get
         final String expectedFileContent = TextFileUtils.getTextFileAsString(compareFile);
-        final String outputEventCompareString = expectedFileContent.replaceAll("\\s+", "");
 
-        assertEquals(outputEventCompareString, receivedApexOutputString);
+        var mapper = new ObjectMapper();
+        assertEquals(mapper.readTree(expectedFileContent), mapper.readTree(receivedApexOutputString));
     }
 
 }

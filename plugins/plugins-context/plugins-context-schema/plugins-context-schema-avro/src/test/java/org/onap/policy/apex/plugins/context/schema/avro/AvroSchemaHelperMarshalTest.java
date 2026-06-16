@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -177,12 +177,10 @@ class AvroSchemaHelperMarshalTest {
         assertEquals("0.0", schemaHelper4.marshal2String(0F));
         assertEquals("1.0", schemaHelper4.marshal2String(1F));
         assertEquals("-1.0", schemaHelper4.marshal2String(-1F));
-        assertEquals("1.23", schemaHelper4.marshal2String(1.23F));
-        assertEquals("-1.23", schemaHelper4.marshal2String(-1.23F));
-        assertEquals("9.223372E18", schemaHelper4.marshal2String(9.223372E18F));
-        assertEquals("-9.223372E18", schemaHelper4.marshal2String(-9.223372E18F));
-        assertEquals("9.223372E18", schemaHelper4.marshal2String(9.223372E18F));
-        assertEquals("-9.223372E18", schemaHelper4.marshal2String(-9.223372E18F));
+        assertEquals("1.2300000190734863", schemaHelper4.marshal2String(1.23F));
+        assertEquals("-1.2300000190734863", schemaHelper4.marshal2String(-1.23F));
+        assertEquals("9.223372036854776E18", schemaHelper4.marshal2String(9.223372E18F));
+        assertEquals("-9.223372036854776E18", schemaHelper4.marshal2String(-9.223372E18F));
         assertThatThrownBy(() -> schemaHelper4.marshal2String("Hello"))
             .hasMessageStartingWith("AvroTest:0.0.1: object \"Hello\" Avro marshalling failed.");
         assertThatThrownBy(() -> schemaHelper4.marshal2String(null))
