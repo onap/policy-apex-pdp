@@ -47,18 +47,6 @@
         <!-- Policy framework dependencies -->
         <version.policy.common>4.0.1-SNAPSHOT</version.policy.common>
         <version.policy.models>5.0.1-SNAPSHOT</version.policy.models>
-
-        <!-- Apex-specific dependencies -->
-        <version.antlr.st4>4.3.4</version.antlr.st4>
-        <version.antlr-runtime>4.13.2</version.antlr-runtime>
-        <version.avro>1.11.5</version.avro>
-        <version.curator>5.9.0</version.curator>
-        <version.jruby-core>10.1.0.0</version.jruby-core>
-        <version.jython-standalone>2.7.4</version.jython-standalone>
-        <version.kafka-avro-serializer>8.2.1</version.kafka-avro-serializer>
-        <version.mvel2>2.5.2.Final</version.mvel2>
-        <version.rhino>1.9.1</version.rhino>
-        <version.zookeeper>3.9.5</version.zookeeper>
     </properties>
 
     <distributionManagement>
@@ -171,62 +159,6 @@
                 <groupId>org.onap.policy.common</groupId>
                 <artifactId>policy-endpoints</artifactId>
                 <version>${version.policy.common}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>ST4</artifactId>
-                <version>${version.antlr.st4}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-runtime</artifactId>
-                <version>${version.antlr-runtime}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro</artifactId>
-                <version>${version.avro}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-framework</artifactId>
-                <version>${version.curator}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-recipes</artifactId>
-                <version>${version.curator}</version>
-            </dependency>
-            <!-- override zookeeper from curator for CVE fixes -->
-            <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>${version.zookeeper}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.confluent</groupId>
-                <artifactId>kafka-avro-serializer</artifactId>
-                <version>${version.kafka-avro-serializer}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mozilla</groupId>
-                <artifactId>rhino</artifactId>
-                <version>${version.rhino}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mvel</groupId>
-                <artifactId>mvel2</artifactId>
-                <version>${version.mvel2}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jruby</groupId>
-                <artifactId>jruby-core</artifactId>
-                <version>${version.jruby-core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.python</groupId>
-                <artifactId>jython-standalone</artifactId>
-                <version>${version.jython-standalone}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
