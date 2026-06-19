@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e78a4d6c_a1dfa04a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6742
+      },
+      "writtenOn": "2026-06-19T18:21:00Z",
+      "side": 1,
+      "message": "Needs https://gerrit.onap.org/r/c/policy/apex-pdp/+/145228 to be merged first!",
+      "revId": "9b6fb2a4e29bc067daa85408f4f0a70a4da0b5ac",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
