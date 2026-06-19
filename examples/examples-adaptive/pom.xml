@@ -55,7 +55,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
+            <artifactId>commons-statistics-distribution</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2020-2026 OpenInfra Foundation Europe. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,8 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.math3.distribution.TDistribution;
-import org.apache.commons.math3.util.FastMath;
+import org.apache.commons.statistics.distribution.TDistribution;
 import org.onap.policy.apex.core.engine.executor.context.TaskSelectionExecutionContext;
 import org.onap.policy.apex.examples.adaptive.concepts.AnomalyDetection;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
@@ -156,7 +155,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         final double forecastedValue = lastForecast == null ? value : expMovingAverage(value, lastForecast);
 
         // --------- calculate the anomalyScore
-        final double anomalyScore = lastForecast == null ? 0.0 : FastMath.abs(lastForecast - value);
+        final double anomalyScore = lastForecast == null ? 0.0 : Math.abs(lastForecast - value);
 
         anomalyDetection.getFrequencyForecasted().set(frequency, forecastedValue);
 
@@ -277,16 +276,16 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
      */
     private static double getPValue(final Double[] lvalues, final double val, final double mean) {
         // calculate z value
-        final double z = FastMath.abs(val - mean) / getStdDev(lvalues, mean);
+        final double z = Math.abs(val - mean) / getStdDev(lvalues, mean);
         // calculate T
         final double n = lvalues.length;
         final double s = (z * z * n * (2.0 - n)) / (z * z * n - (n - 1.0) * (n - 1.0));
-        final double t = FastMath.sqrt(s);
+        final double t = Math.sqrt(s);
         // default p value = 0
         var pvalue = 0.0;
         if (!Double.isNaN(t)) {
             // t distribution with n-2 degrees of freedom
-            final var tDist = new TDistribution(n - 2);
+            final var tDist = TDistribution.of(n - 2);
             pvalue = n * (1.0 - tDist.cumulativeProbability(t));
             // set max pvalue = 1
             pvalue = pvalue > 1.0 ? 1.0 : pvalue;
@@ -351,7 +350,7 @@ public class AnomalyDetectionPolicyDecideTaskSelectionLogic {
         for (final double d : lvalues) {
             temp += (mean - d) * (mean - d);
         }
-        return FastMath.sqrt(temp / lvalues.length);
+        return Math.sqrt(temp / lvalues.length);
     }
 
     /**
