@@ -102,12 +102,6 @@
             <artifactId>plugins-executor-jruby</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Jython support disabled due to security concerns -->
-        <!-- dependency>
-            <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
-            <artifactId>plugins-executor-jython</artifactId>
-            <version>${project.version}</version>
-        </dependency-->
         <dependency>
             <groupId>org.onap.policy.apex-pdp.plugins.plugins-executor</groupId>
             <artifactId>plugins-executor-mvel</artifactId>

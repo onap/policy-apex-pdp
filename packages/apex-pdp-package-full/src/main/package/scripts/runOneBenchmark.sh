@@ -34,13 +34,13 @@ fi
 
 if [ $# -ne 2 ]; then
     echo "usage: $0 executor-type thread-count"
-    echo "  executor-type [Javascript|Jython|JRuby|Mvel|Java]"
+    echo "  executor-type [Javascript|JRuby|Mvel|Java]"
     echo "  thread-count [01|02|04|08|16|32|64]"
     exit 1
 fi
 
-if [ "$1" != "Javascript" ] && [ "$1" != "Jython" ] && [ "$1" != "JRuby" ] && [ "$1" != "Mvel" ] && [ "$1" != "Java" ]; then
-   echo "executor-type must be a member of the set [Javascript|Jython|JRuby|Mvel|Java]"
+if [ "$1" != "Javascript" ] && [ "$1" != "JRuby" ] && [ "$1" != "Mvel" ] && [ "$1" != "Java" ]; then
+   echo "executor-type must be a member of the set [Javascript|JRuby|Mvel|Java]"
    exit 1
 fi
 

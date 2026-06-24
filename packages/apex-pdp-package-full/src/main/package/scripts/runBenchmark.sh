@@ -40,14 +40,6 @@ $APEX_HOME/bin/runOneBenchmark.sh Javascript 16
 $APEX_HOME/bin/runOneBenchmark.sh Javascript 32
 $APEX_HOME/bin/runOneBenchmark.sh Javascript 64
 
-$APEX_HOME/bin/runOneBenchmark.sh Jython 01
-$APEX_HOME/bin/runOneBenchmark.sh Jython 02
-$APEX_HOME/bin/runOneBenchmark.sh Jython 04
-$APEX_HOME/bin/runOneBenchmark.sh Jython 08
-$APEX_HOME/bin/runOneBenchmark.sh Jython 16
-$APEX_HOME/bin/runOneBenchmark.sh Jython 32
-$APEX_HOME/bin/runOneBenchmark.sh Jython 64
-
 $APEX_HOME/bin/runOneBenchmark.sh Mvel 01
 $APEX_HOME/bin/runOneBenchmark.sh Mvel 02
 $APEX_HOME/bin/runOneBenchmark.sh Mvel 04
