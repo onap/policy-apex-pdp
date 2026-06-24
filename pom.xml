@@ -49,12 +49,6 @@
         <version.policy.models>5.0.1-SNAPSHOT</version.policy.models>
     </properties>
 
-    <distributionManagement>
-        <site>
-            <id>ecomp-site</id>
-            <url>dav:${onap.nexus.url}${sitePath}</url>
-        </site>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
