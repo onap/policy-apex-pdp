@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b34dce3_71fca8ae",
+        "filename": "packages/apex-pdp-docker/pom.xml.versionsBackup",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2026-07-13T11:05:33Z",
+      "side": 1,
+      "message": "needs deletion",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "80e577102d5f9fd17da8a78a3dc35760b64a35d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
