@@ -4,12 +4,6 @@
 
 # Sonatype Lifecycle (Nexus IQ) CLM lane for policy/apex-pdp.
 #
-# This file used to carry the whole lane inline: checkout, 1Password
-# secret retrieval, ~150 lines of hand-written settings.xml, the Maven
-# build and the scan. All of that now lives in the reusable workflow, so
-# a fix reaches this repository by bumping a pin rather than by editing
-# a copy.
-#
 # Runs weekly, on merges to master, and on demand. gerrit_to_platform
 # also dispatches it for a patchset when the filename convention matches.
 name: '🔐 Security Scans (CLM)'
@@ -138,18 +132,11 @@ jobs:
     uses: lfreleng-actions/security-workflows/.github/workflows/sonatype-lifecycle.yaml@5882f138dd24fcd6cb4ebc8bb3a68cee45a437a6  # v0.3.0
     with:
       # Build before scanning: Nexus IQ identifies far more components
-      # from the packaged output than from source alone. Tests are
-      # skipped because they do not affect the dependency set; jib.skip
-      # carries over from the lane this replaces and is inert here.
+      # from the packaged output than from source alone. Neither the
+      # tests nor the container image affect the dependency set, so both
+      # are skipped.
       build_type: 'maven'
       mvn_params: '-DskipTests -Djib.skip=true --fail-at-end'
-      # java_version and iq_cli_version are both left unset. No pom.xml
-      # here declares a Java level, so the reusable's detection finds
-      # nothing and applies its fallback of 21, moving this build off
-      # the 11 the inline lane pinned. That is the intended direction.
-      # The Nexus IQ CLI runs on its own JDK 17 either way, so the build
-      # JDK cannot break the scanner.
-      #
       # Surface a broken pre-scan build instead of scanning whatever
       # happens to have compiled. The reusable defaults this to true, on
       # the reasoning that a partial dependency tree still yields a
@@ -161,8 +148,7 @@ jobs:
       # in the allow-list, and the build shares this job with the scan.
       build_permit_egress_traffic: true
       # application_id is left unset: the lane derives <owner>-<name>,
-      # giving onap-policy-apex-pdp, which is exactly what the inline lane
-      # computed with format('{0}-{1}', owner, name).
+      # giving onap-policy-apex-pdp.
       #
       # Gerrit-aware checkout. Blank for schedule/push and for a manual
       # GERRIT_DISABLED run, so the lane does a normal checkout.
@@ -177,8 +163,7 @@ jobs:
       # The organisation's authoritative Maven settings, which define the
       # onap-public mirror. It carries no credentials and needs none: the
       # ONAP public group serves anonymously, and this lane only resolves
-      # dependencies, never deploys. That replaces the 1Password
-      # retrieval and inline settings.xml this file used to carry.
+      # dependencies, never deploys.
       maven_global_settings: ${{ vars.MVN_GLOBAL_SETTINGS }}
 
   # Report the overall conclusion back to Gerrit as a Verified vote.
