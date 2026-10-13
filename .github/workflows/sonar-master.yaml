@@ -28,10 +28,10 @@ name: 'SonarCloud Master Analysis'
 # yamllint disable-line rule:truthy
 on:
   schedule:
-    # Weekly, matching the Jenkins job's 'H H * * 6'. The time is derived
-    # from the project name for the same reason Jenkins hashes it: a
-    # fixed value would start every migrated repo's scan at once.
-    - cron: "30 2 * * 6"
+    # Matches the cadence of the Jenkins job this replaces. The time is
+    # derived from the project name for the same reason Jenkins hashes
+    # it: a fixed value would start every migrated repo's scan at once.
+    - cron: "30 2 * * *"
   # Stands in for the Jenkins job's on-demand 'run-sonar' trigger,
   # exercised from the Actions UI rather than from a Gerrit comment.
   workflow_dispatch:
