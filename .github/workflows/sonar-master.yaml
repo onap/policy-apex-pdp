@@ -51,7 +51,7 @@ jobs:
     permissions:
       contents: read
     # yamllint disable-line rule:line-length
-    uses: lfreleng-actions/security-workflows/.github/workflows/sonarqube-cloud.yaml@6c2ced2c9310a4f2606ad29a464e9f2d8fd397b8  # v0.9.3
+    uses: lfreleng-actions/security-workflows/.github/workflows/sonarqube-cloud.yaml@ef6c0d9930feedb274067703b50eeebe5ab859b3  # v0.9.5
     with:
       # Same SonarCloud project the Jenkins job reports to, so the
       # migration does not fork the analysis history.
